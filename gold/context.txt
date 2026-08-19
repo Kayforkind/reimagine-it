@@ -1,0 +1,3 @@
+A stranger sees a vibe list die, then the same context as one proving command.
+This repo is an Agent Skill: open a creative mind and ship a leap — not a poster.
+Canonical install: npx skills add kazimrmerchant/awe-me

@@ -1,0 +1,8 @@
+{
+  "awe": "shipped",
+  "mode": "awe-me",
+  "about": "A stranger sees a vibe list die, then the same context as one proving command.",
+  "hero": "gold/awe.py --ship",
+  "stretch": "npx skills add kazimrmerchant/skill-slice --skill awe-me",
+  "verified": "this command exits 0; gold/awe.py --fail exits 1"
+}

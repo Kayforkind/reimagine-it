@@ -16,6 +16,15 @@ npx skills add kazimrmerchant/awe-me -g
 
 Then say **awe me**, **inspire me**, `/awe-me`, or `/inspire-me`.
 
+**First run** (fail, then the same context ships):
+
+```text
+python gold/awe.py          # exit 1 — vibe list
+python gold/awe.py --ship   # exit 0 — gold/shipped.json
+```
+
+Or open `gold/index.html`. That is the door, not a lecture.
+
 ## What it does
 
 1. Sniffs the repo and thread (does not stall for a brief).
@@ -67,11 +76,8 @@ Optional Cursor slashes: copy `commands/awe-me.md` and `commands/inspire-me.md` 
 ## Layout
 
 ```
-skills/awe-me/
-  SKILL.md              # contract + procedure
-  examples.md
-  references/notes.md   # operators, four notes, kill list
-  references/forms.md   # form router
+skills/awe-me/          # the skill (copy this folder)
+gold/                   # reverse-demo: fail list, then --ship
 commands/               # optional Cursor slash files
 ```
 

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title></title>
+<style>
+  :root {
+    --bg: #0c0e12;
+    --fail: #c45c5c;
+    --fail-dim: #6a3a3a;
+    --ship: #7ee0c0;
+    --ink: #e8edf2;
+    --muted: #8b97a4;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; min-height: 100%; background: var(--bg); color: var(--ink);
+    font: 18px/1.45 ui-sans-serif, system-ui, Segoe UI, sans-serif;
+  }
+  main {
+    min-height: 100vh; display: grid; place-items: center; padding: 12vh 1.5rem 18vh;
+  }
+  .stage { width: min(36rem, 100%); }
+  ul {
+    list-style: none; margin: 0; padding: 0;
+  }
+  li {
+    color: var(--fail-dim); letter-spacing: 0.01em; margin: 0.35rem 0;
+    transform-origin: left center;
+  }
+  li:nth-child(3) { color: var(--fail); }
+  .cmd {
+    font: 1.05rem/1.4 ui-monospace, Consolas, monospace;
+    color: var(--ship); opacity: 0; min-height: 1.4em;
+  }
+  h1 {
+    font-size: 0.95rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted); margin: 2.5rem 0 0;
+    opacity: 0;
+  }
+  .end { color: var(--muted); font-size: 0.9rem; margin: 0.6rem 0 0; opacity: 0; }
+  body.is-ship li { animation: fold 0.7s ease forwards; }
+  body.is-ship li:nth-child(1) { animation-delay: 0.05s; }
+  body.is-ship li:nth-child(2) { animation-delay: 0.12s; }
+  body.is-ship li:nth-child(3) { animation-delay: 0.19s; }
+  body.is-ship li:nth-child(4) { animation-delay: 0.26s; }
+  body.is-ship li:nth-child(5) { animation-delay: 0.33s; }
+  body.is-ship .cmd { animation: in 0.5s ease 0.95s forwards; }
+  body.is-ship h1 { animation: in 0.6s ease 1.35s forwards; }
+  body.is-ship .end { animation: in 0.6s ease 1.7s forwards; }
+  @keyframes fold {
+    to { opacity: 0; transform: translateY(-0.4rem) scaleY(0.2); height: 0; margin: 0; }
+  }
+  @keyframes in { to { opacity: 1; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="stage">
+    <ul id="fail">
+      <li>make it more cinematic</li>
+      <li>wow-factor infographic</li>
+      <li>maybe a Three.js thing</li>
+      <li>inspiring onboarding vibes</li>
+      <li>surprise them somehow</li>
+    </ul>
+    <p class="cmd">python gold/awe.py --ship</p>
+    <h1>AWE: shipped</h1>
+    <p class="end">Same context. One artifact. Title last.</p>
+  </div>
+</main>
+<script>
+  window.setTimeout(function () {
+    document.body.classList.add("is-ship");
+  }, 1600);
+  window.setTimeout(function () {
+    document.title = "AWE: shipped";
+  }, 3000);
+</script>
+</body>
+</html>
