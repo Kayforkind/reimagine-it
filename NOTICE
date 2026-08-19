@@ -1,0 +1,21 @@
+# NOTICE
+
+This skill is original instructions for coding agents (MIT).
+
+It **cites methods**. It does not copy copyrighted card decks, trademarked workshop names as product names, or other people’s skill bodies.
+
+| Idea | Credit | How we use it |
+|------|--------|----------------|
+| Ostranenie / make-strange | Viktor Shklovsky, “Art as Device” (1917) | Device note: recover sensation; see vs recognize |
+| Adjacent possible | Stuart Kauffman; Steven Johnson, *Where Good Ideas Come From* | Leap = unused combination of parts already in context |
+| SCAMPER | Bob Eberle, after Alex Osborn | One letter as a mutation; never dump all seven |
+| Awe = vastness + accommodation | Dacher Keltner & Jonathan Haidt (2003); Keltner’s later “eight wonders” | Awe note; visual design is one wonder, not the product |
+| Peak–end | Kahneman, Fredrickson, et al. | Do not end on the hit |
+| Plussing | Disney studio craft (~1950s, oral/studio tradition) | Criticism must contain a new move; `--full` |
+| Notes / Braintrust shape | Ed Catmull, *Creativity, Inc.* (wrong / missing / unclear / nonsense; no mandate) | Private notes; agent still decides |
+| Effect vs method | Stage-magic pedagogy (e.g. Fitzkee, Ortiz) as craft | Write the stranger’s experience first |
+| Optional interview shape | One-question-at-a-time with a recommended answer | Only if the user chose `interview` — complementary to feasibility “grill” skills, not a fork of their files |
+
+**Do not** use Duarte “STAR moment” as a product or catalog name (trademarked). We say “STAR-shaped memory” in the note bank only as a description of what they will still recall.
+
+**Do not** paste Oblique Strategies cards (Eno/Schmidt). If stuck, draw one **Device** row from this repo’s own bank.

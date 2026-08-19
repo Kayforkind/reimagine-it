@@ -1,0 +1,5 @@
+local.md
+.DS_Store
+Thumbs.db
+*.log
+.cursor/
