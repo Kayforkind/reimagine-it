@@ -126,7 +126,7 @@ Pick **one** SCAMPER letter as the mutation (Substitute, Combine, Adapt, Modify,
 
 ### 1. Four notes (private)
 
-From [references/notes.md](references/notes.md): one Device, one **Leap** (formerly Awe — vastness + accommodation, moral beauty, big ideas, small self), one Craft, one Effect. Mutations name a cut, plate, magnet, withheld title, first-run beat, API shape, or demo — not "cinematic."
+From [references/notes.md](references/notes.md): one Device, one **Leap** (vastness + accommodation, moral beauty, big ideas, small self), one Craft, one Effect. Mutations name a cut, plate, magnet, withheld title, first-run beat, API shape, or demo — not "cinematic."
 
 Do not dump the bank in chat.
 

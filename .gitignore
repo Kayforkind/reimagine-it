@@ -19,4 +19,5 @@ test/pipeline/fresh-shot.png
 test/pipeline/compare.html
 test/pipeline/after-*-t*.png
 test/pipeline/github-live.png
+gold/gallery.html
 

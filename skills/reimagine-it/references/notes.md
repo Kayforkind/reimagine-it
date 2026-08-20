@@ -34,7 +34,7 @@ If stuck after sniff: draw **one** Device row as a constraint card. Do not paste
 
 ### Leap (vastness + accommodation, rebuilt model)
 
-Was "Awe." The leap note is what makes the reimagined thing feel larger than the ordinary frame **and** require the mind to rebuild — Keltner & Haidt's vastness + accommodation, plus the epiphany move that changes the model, not the paint. Pretty ≠ leap. Surprise ≠ leap. Pick **one** wonder; do not stack stock.
+The leap note is what makes the reimagined thing feel larger than the ordinary frame **and** require the mind to rebuild — Keltner & Haidt's vastness + accommodation, plus the epiphany move that changes the model, not the paint. Pretty ≠ leap. Surprise ≠ leap. Pick **one** wonder; do not stack stock.
 
 | Lens | Ask | Move |
 |------|-----|------|

@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ledger.dev &mdash; /reimagine-it webpage landing neon</title>
+<style>
+  :root{
+    --void:#05070c;
+    --panel:#0a0f1a;
+    --ink:#ecf1ff;
+    --dim:#7c8aa8;
+    --neon:#7cf3ff;             /* the one accent doing all the work */
+    --neon-shadow:rgba(124,243,255,.55);
+    --neon-shadow-soft:rgba(124,243,255,.22);
+    --sans:ui-sans-serif,system-ui,"Segoe UI Variable Display","Segoe UI",Inter,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Consolas,"JetBrains Mono",monospace;
+    --serif:"Iowan Old Style",Palatino,Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--void);color:var(--ink);font-family:var(--sans);min-height:100vh}
+  body{line-height:1.55;-webkit-font-smoothing:antialiased;
+    /* vignette: single radial gradient (allowed) */
+    background:
+      radial-gradient(1200px 700px at 50% 20%, rgba(124,243,255,.10), transparent 55%),
+      radial-gradient(1600px 900px at 50% 100%, rgba(0,0,0,.7), transparent 60%),
+      var(--void);
+  }
+
+  /* one-viewport landing */
+  .wrap{max-width:1200px;margin:0 auto;padding:36px 32px;min-height:100vh;display:grid;grid-template-rows:auto 1fr auto auto;gap:24px}
+
+  /* nav row */
+  nav{display:flex;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:11.5px;letter-spacing:.24em;color:var(--dim);text-transform:uppercase}
+  nav .brand{color:var(--ink);display:flex;align-items:center;gap:10px}
+  nav .brand b{color:var(--neon);font-weight:400;
+    filter:drop-shadow(0 0 8px var(--neon-shadow)) drop-shadow(0 0 20px var(--neon-shadow-soft));
+    animation:pulse 2.6s ease-in-out infinite}
+  @keyframes pulse{50%{filter:drop-shadow(0 0 12px var(--neon-shadow)) drop-shadow(0 0 28px var(--neon-shadow))}}
+  nav ul{display:flex;gap:22px;list-style:none}
+  nav a{color:var(--dim);text-decoration:none;transition:color .3s, filter .3s}
+  nav a:hover{color:var(--neon);filter:drop-shadow(0 0 6px var(--neon-shadow))}
+
+  /* HERO: dark ground, one glowing kinetic word */
+  .hero{display:grid;grid-template-columns:1.4fr 1fr;gap:56px;align-items:center;padding:32px 0}
+  .hero .k{font-family:var(--mono);font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--dim);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+  .hero .k b{color:var(--neon);font-weight:400;filter:drop-shadow(0 0 6px var(--neon-shadow))}
+  .hero h1{font-size:clamp(60px,7.5vw,110px);line-height:.9;letter-spacing:-.035em;font-weight:600;margin:0}
+  .hero h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--neon);
+    filter:drop-shadow(0 0 14px var(--neon-shadow)) drop-shadow(0 0 30px var(--neon-shadow-soft));
+    padding:0 .04em;letter-spacing:-.01em;
+    animation:letter 4s ease-in-out infinite}
+  @keyframes letter{50%{letter-spacing:.005em;filter:drop-shadow(0 0 20px var(--neon-shadow)) drop-shadow(0 0 40px var(--neon-shadow))}}
+  .hero p{color:var(--dim);font-size:18px;line-height:1.55;margin-top:22px;max-width:44ch}
+  .hero .cta{margin-top:34px;display:flex;gap:18px;align-items:center}
+  .hero .cta a.prim{padding:14px 22px;border:1px solid var(--neon);color:var(--neon);text-decoration:none;font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;border-radius:100px;
+    filter:drop-shadow(0 0 12px var(--neon-shadow-soft));transition:filter .3s, background .3s}
+  .hero .cta a.prim:hover{background:rgba(124,243,255,.08);filter:drop-shadow(0 0 22px var(--neon-shadow))}
+  .hero .cta a.sec{padding:14px 6px;color:var(--dim);text-decoration:none;font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;transition:color .3s}
+  .hero .cta a.sec:hover{color:var(--ink)}
+  .cursor{display:inline-block;width:12px;height:1em;background:var(--neon);
+    transform:translateY(3px);margin-left:6px;
+    filter:drop-shadow(0 0 8px var(--neon-shadow));animation:blink 1.05s steps(2,end) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  /* hero art: SVG that draws itself (make-strange move) */
+  .art{position:relative;aspect-ratio:1/1;max-width:420px;justify-self:end}
+  .art svg{width:100%;height:100%;display:block;
+    filter:drop-shadow(0 0 12px var(--neon-shadow-soft))}
+  .art .p1,.art .p2,.art .p3{fill:none;stroke:var(--neon);stroke-width:1.4;stroke-linecap:round;
+    stroke-dasharray:1200;stroke-dashoffset:1200;
+    filter:drop-shadow(0 0 4px var(--neon-shadow));
+    animation:draw 4.4s cubic-bezier(.2,.7,.2,1) forwards}
+  .art .p2{animation-delay:.5s;stroke:var(--neon);opacity:.72}
+  .art .p3{animation-delay:1s;stroke:var(--neon);opacity:.46}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .art .core{fill:var(--neon);opacity:.9;
+    filter:drop-shadow(0 0 10px var(--neon-shadow)) drop-shadow(0 0 24px var(--neon-shadow));
+    animation:corepulse 2.6s ease-in-out infinite}
+  @keyframes corepulse{50%{opacity:.6;filter:drop-shadow(0 0 16px var(--neon-shadow)) drop-shadow(0 0 34px var(--neon-shadow))}}
+
+  /* proof strip: quiet row, one accent */
+  .proof{padding:22px 0;border-top:1px solid rgba(124,243,255,.14);display:grid;grid-template-columns:repeat(4,1fr);gap:32px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+  .proof .p b{display:block;font-size:22px;color:var(--neon);letter-spacing:.02em;margin-bottom:6px;text-transform:none;font-weight:400;
+    filter:drop-shadow(0 0 6px var(--neon-shadow-soft))}
+
+  /* footer meta */
+  footer{padding-top:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.20em;text-transform:uppercase;color:var(--dim);display:flex;gap:24px;flex-wrap:wrap}
+  footer span b{color:var(--neon);font-weight:400}
+
+  @media (max-width:800px){
+    .hero{grid-template-columns:1fr;gap:32px}
+    .art{max-width:280px;justify-self:start}
+    .proof{grid-template-columns:1fr 1fr;gap:20px}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <nav aria-label="Site navigation">
+    <div class="brand"><b>&#9679;</b>ledger.dev</div>
+    <ul>
+      <li><a href="#work">work</a></li>
+      <li><a href="#writing">writing</a></li>
+      <li><a href="#note">note</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <div class="k"><b>&#9679;</b>OPEN &middot; ACCEPTING WORK</div>
+      <h1>Ship the <em>artifact</em>, not the pitch.</h1>
+      <p>ledger.dev is a one-person build shop that reimagines legacy systems as command-line demos, then ships the code. No slide decks.</p>
+      <div class="cta">
+        <a class="prim" href="#work">See the ledger &rarr;</a>
+        <a class="sec" href="mailto:hello@ledger.example">hello@ledger.example<span class="cursor" aria-hidden="true"></span></a>
+      </div>
+    </div>
+
+    <div class="art" aria-hidden="true">
+      <svg viewBox="0 0 400 400" role="img" aria-label="One glowing orbital drawing itself">
+        <circle class="core" cx="200" cy="200" r="10"/>
+        <path class="p1" d="M 200 40
+                             C 320 40, 380 100, 380 220
+                             C 380 320, 300 380, 200 380
+                             C 100 380, 20 320, 20 220
+                             C 20 100, 80 40, 200 40 Z"/>
+        <path class="p2" d="M 200 90
+                             C 300 90, 340 130, 340 220
+                             C 340 300, 280 340, 200 340
+                             C 120 340, 60 300, 60 220
+                             C 60 130, 100 90, 200 90 Z"/>
+        <path class="p3" d="M 200 140
+                             C 260 140, 300 170, 300 220
+                             C 300 275, 260 300, 200 300
+                             C 140 300, 100 275, 100 220
+                             C 100 170, 140 140, 200 140 Z"/>
+        <g stroke="var(--neon)" stroke-width="1" opacity=".4" stroke-dasharray="2 6">
+          <circle cx="200" cy="200" r="180" fill="none"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <section class="proof" aria-label="Proof strip">
+    <div class="p"><b>18</b>projects shipped</div>
+    <div class="p"><b>0</b>slide decks</div>
+    <div class="p"><b>2011</b>working since</div>
+    <div class="p"><b>1</b>person operation</div>
+  </section>
+
+  <footer>
+    <span><b>DOMAIN</b>landing</span>
+    <span><b>MODIFIER</b>neon</span>
+    <span><b>ACCENT</b>#7cf3ff (single)</span>
+    <span><b>PULSE</b>2.6s</span>
+    <span><b>SHIPS AS</b>one .html</span>
+  </footer>
+
+</div>
+
+</body>
+</html>

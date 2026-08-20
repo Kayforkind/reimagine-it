@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>jordan-rivers.dev/status &mdash; /reimagine-it webpage dashboard bento</title>
+<style>
+  :root{
+    --bg:#06080b; --panel:#10151d; --panel-2:#182131;
+    --grid:#1e2937; --stroke:#232d3d; --stroke-lift:#3a4a63;
+    --ink:#dbe4f0; --dim:#6a7688; --muted:#8f9db1;
+    --accent:#7ee0c0; --warm:#f0b060; --hot:#e07c6a; --violet:#a48dff;
+    --sans:ui-sans-serif,system-ui,"Segoe UI",Inter,sans-serif;
+    --mono:ui-monospace,"SF Mono",Consolas,Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--ink);font-family:var(--sans);min-height:100vh}
+  body{line-height:1.5;-webkit-font-smoothing:antialiased;padding:20px;
+    background-image:
+      linear-gradient(rgba(30,41,55,.35) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(30,41,55,.35) 1px,transparent 1px);
+    background-size:32px 32px;background-position:-1px -1px}
+
+  /* BENTO GRID: named cells, hero tile 2x2, unequal but shared rhythm */
+  .bento{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    grid-template-rows:auto auto auto auto;
+    grid-template-areas:
+      "brand brand hours state"
+      "hero  hero  chart chart"
+      "hero  hero  latency logs"
+      "stack stack incidents incidents";
+    gap:14px;
+    max-width:1520px;
+    margin:0 auto;
+    perspective:1600px;
+  }
+  .tile{
+    background:var(--panel);
+    border:1px solid var(--stroke);
+    border-radius:14px;
+    padding:18px 20px;
+    position:relative;
+    overflow:hidden;
+    transition:transform .3s cubic-bezier(.2,.7,.2,1), border-color .3s, box-shadow .3s;
+    animation:fadeUp .5s cubic-bezier(.2,.7,.2,1) both;
+  }
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}}
+  .tile:hover{transform:translateY(-3px);border-color:var(--stroke-lift);box-shadow:0 12px 24px -12px rgba(126,224,192,.18)}
+
+  /* stagger by grid position */
+  .tile[data-i="1"]{animation-delay:40ms}
+  .tile[data-i="2"]{animation-delay:80ms}
+  .tile[data-i="3"]{animation-delay:120ms}
+  .tile[data-i="4"]{animation-delay:160ms}
+  .tile[data-i="5"]{animation-delay:200ms}
+  .tile[data-i="6"]{animation-delay:240ms}
+  .tile[data-i="7"]{animation-delay:280ms}
+  .tile[data-i="8"]{animation-delay:320ms}
+
+  .tile .kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--dim);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .tile .kicker b{color:var(--accent);font-weight:400}
+  .tile .title{font-size:15px;letter-spacing:-.01em;font-weight:600;color:var(--ink);margin-bottom:4px}
+  .tile .meta{margin-top:auto;font-family:var(--mono);font-size:10.5px;color:var(--dim);letter-spacing:.14em;text-transform:uppercase;padding-top:12px;border-top:1px dashed var(--grid);margin-top:14px;display:flex;justify-content:space-between}
+  .tile .meta b{color:var(--accent);font-weight:400}
+
+  /* -------- named cells -------- */
+  .brand{grid-area:brand;background:transparent;border:none;padding:8px 4px}
+  .brand .who{font-family:var(--mono);font-size:13px;color:var(--ink);letter-spacing:.04em;display:flex;align-items:center;gap:10px}
+  .brand .who .live{width:8px;height:8px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 0 4px rgba(126,224,192,.18);animation:livepulse 2s ease-in-out infinite}
+  @keyframes livepulse{50%{box-shadow:0 0 0 8px rgba(126,224,192,.08)}}
+  .brand .who span{color:var(--dim)}
+  .brand .sub{font-size:11px;color:var(--dim);letter-spacing:.16em;text-transform:uppercase;font-family:var(--mono);margin-top:6px}
+
+  .hours{grid-area:hours;padding:14px 18px;display:flex;flex-direction:column;justify-content:center}
+  .hours .val{font-family:var(--mono);font-size:22px;color:var(--accent);letter-spacing:.02em}
+  .hours .lab{font-family:var(--mono);font-size:10.5px;color:var(--dim);letter-spacing:.22em;text-transform:uppercase;margin-top:4px}
+
+  .state{grid-area:state;padding:14px 18px;display:flex;flex-direction:column;justify-content:center;align-items:flex-end}
+  .state .badge{font-family:var(--mono);font-size:11px;padding:6px 12px;border-radius:100px;letter-spacing:.18em;text-transform:uppercase;background:rgba(126,224,192,.14);color:var(--accent);border:1px solid rgba(126,224,192,.4)}
+  .state .ts{font-family:var(--mono);font-size:10.5px;color:var(--dim);letter-spacing:.14em;margin-top:8px}
+
+  /* HERO tile: 2x2, elevated */
+  .hero{grid-area:hero;min-height:340px;
+    transform:translateZ(24px);
+    box-shadow:0 30px 40px -20px rgba(0,0,0,.6), 0 0 0 1px var(--stroke-lift), 0 0 40px rgba(126,224,192,.06);
+    background:linear-gradient(180deg,#12181f,#0b0f14)}
+  .hero .kicker b{color:var(--warm)}
+  .hero .title{font-size:22px;margin-bottom:2px}
+  .hero .desc{color:var(--muted);font-size:13.5px;margin-top:4px;max-width:52ch}
+  .hero .plate{margin-top:16px;background:#0a0e13;border:1px solid var(--grid);border-radius:10px;padding:14px}
+  .hero .plate svg{width:100%;height:170px;display:block}
+  .hero .row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+  .hero .row .cell{background:rgba(255,255,255,.02);border:1px solid var(--grid);border-radius:8px;padding:10px}
+  .hero .row .cell b{color:var(--accent);font-family:var(--mono);font-weight:400;font-size:17px;letter-spacing:.02em}
+  .hero .row .cell span{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--dim);text-transform:uppercase;display:block;margin-top:4px}
+
+  .chart{grid-area:chart}
+  .chart .plate{margin-top:8px}
+  .chart svg{width:100%;height:120px;display:block}
+
+  .latency{grid-area:latency}
+  .latency .big{font-family:var(--mono);font-size:32px;color:var(--accent);letter-spacing:.02em;margin-top:6px}
+  .latency .bar{margin-top:10px;height:6px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden}
+  .latency .bar i{display:block;height:100%;width:calc(1% * var(--pct,72));background:linear-gradient(90deg,var(--accent),var(--warm));transform-origin:left;animation:rise 1.3s cubic-bezier(.2,.7,.2,1) forwards;transform:scaleX(0)}
+  @keyframes rise{to{transform:scaleX(1)}}
+
+  .logs{grid-area:logs;font-family:var(--mono);font-size:11.5px}
+  .logs .row{color:var(--muted);padding:3px 0;display:flex;gap:10px}
+  .logs .row .t{color:var(--dim);width:52px;flex:none}
+  .logs .row .s{color:var(--accent);width:12px;flex:none}
+  .logs .row .s.w{color:var(--warm)}
+  .logs .row .s.e{color:var(--hot)}
+  .logs .m{color:var(--muted)}
+  .logs .cur{color:var(--accent);animation:blink 1.05s steps(2,end) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  .stack{grid-area:stack}
+  .stack .row{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:10px}
+  .stack .row .p{background:rgba(255,255,255,.03);border:1px solid var(--grid);border-radius:6px;padding:8px 10px;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em}
+  .stack .row .p b{color:var(--accent);font-weight:400;display:block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:2px}
+
+  .incidents{grid-area:incidents;background:linear-gradient(180deg,#171b23,#10141b)}
+  .incidents ol{list-style:none;margin-top:10px;padding:0}
+  .incidents li{padding:10px 0;border-top:1px dashed var(--grid);display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:baseline;font-size:13px;color:var(--muted)}
+  .incidents li:first-child{border-top:none}
+  .incidents li .d{font-family:var(--mono);color:var(--dim);font-size:11px;letter-spacing:.14em;width:64px}
+  .incidents li .t{color:var(--ink)}
+  .incidents li .r{font-family:var(--mono);color:var(--accent);font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+  .incidents li .r.w{color:var(--warm)}
+
+  .foot{grid-column:1/-1;padding:14px 4px 0;font-family:var(--mono);font-size:10.5px;color:var(--dim);letter-spacing:.18em;text-transform:uppercase;display:flex;gap:22px;flex-wrap:wrap}
+  .foot span b{color:var(--accent);font-weight:400}
+</style>
+</head>
+<body>
+
+<div class="bento">
+
+  <header class="tile brand" data-i="1">
+    <div class="who"><i class="live" aria-hidden="true"></i>jordan-rivers.dev<span>&nbsp;/&nbsp;status</span></div>
+    <div class="sub">Bento &middot; Dashboard &middot; Real values &middot; Single .html</div>
+  </header>
+
+  <div class="tile hours" data-i="2">
+    <div class="lab">OPEN</div>
+    <div class="val">wed&thinsp;&ndash;&thinsp;sat 11&thinsp;&ndash;&thinsp;5</div>
+    <div class="lab" style="margin-top:6px">Closed 1st wk Aug</div>
+  </div>
+
+  <div class="tile state" data-i="3">
+    <div class="badge">Nominal</div>
+    <div class="ts">42s ago</div>
+  </div>
+
+  <!-- HERO TILE 2x2, elevated -->
+  <section class="tile hero" data-i="4">
+    <div class="kicker"><b>PIECE 03</b>NOW SHIPPING</div>
+    <h2 class="title">jordan-rivers.dev / status</h2>
+    <p class="desc">One page, eight tiles. Every tile is one idea with one datum and one meta line. The hero tile is the only one carrying the make-strange move; the others stay quiet.</p>
+
+    <div class="plate" aria-label="Traffic last 12 weeks">
+      <svg viewBox="0 0 640 170" role="img" aria-labelledby="chart-title">
+        <title id="chart-title">Traffic last 12 weeks</title>
+        <defs>
+          <linearGradient id="fill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#7ee0c0" stop-opacity=".45"/>
+            <stop offset="1" stop-color="#7ee0c0" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <g stroke="#1e2937">
+          <line x1="0" y1="30" x2="640" y2="30"/>
+          <line x1="0" y1="70" x2="640" y2="70"/>
+          <line x1="0" y1="110" x2="640" y2="110"/>
+          <line x1="0" y1="150" x2="640" y2="150"/>
+        </g>
+        <path d="M 0 130 L 55 118 L 110 102 L 165 92 L 220 76 L 275 84 L 330 62 L 385 54 L 440 68 L 495 38 L 550 42 L 605 22 L 640 26 L 640 170 L 0 170 Z"
+              fill="url(#fill)"/>
+        <path d="M 0 130 L 55 118 L 110 102 L 165 92 L 220 76 L 275 84 L 330 62 L 385 54 L 440 68 L 495 38 L 550 42 L 605 22 L 640 26"
+              fill="none" stroke="#7ee0c0" stroke-width="2"/>
+        <g fill="#f0b060">
+          <circle cx="605" cy="22" r="4"><animate attributeName="r" values="4;6;4" dur="2.2s" repeatCount="indefinite"/></circle>
+        </g>
+        <text x="8" y="18" font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#6a7688" letter-spacing="1.6">TRAFFIC 12W</text>
+        <text x="632" y="18" font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#f0b060" text-anchor="end" letter-spacing="1.6">+38%</text>
+      </svg>
+    </div>
+
+    <div class="row">
+      <div class="cell"><b>12,844</b><span>uniques 30d</span></div>
+      <div class="cell"><b>4.2m</b><span>time on hero</span></div>
+      <div class="cell"><b>0</b><span>errors 24h</span></div>
+      <div class="cell"><b>1×</b><span>daily deploy</span></div>
+    </div>
+  </section>
+
+  <div class="tile chart" data-i="5">
+    <div class="kicker"><b>01</b>P50 / P95</div>
+    <div class="title">Response time, last hour</div>
+    <div class="plate">
+      <svg viewBox="0 0 380 100" role="img" aria-label="Latency p50 and p95">
+        <g stroke="#1e2937"><line x1="0" y1="30" x2="380" y2="30"/><line x1="0" y1="60" x2="380" y2="60"/><line x1="0" y1="90" x2="380" y2="90"/></g>
+        <path d="M 0 78 L 40 72 L 80 76 L 120 68 L 160 70 L 200 66 L 240 60 L 280 62 L 320 58 L 380 62" fill="none" stroke="#7ee0c0" stroke-width="1.8"/>
+        <path d="M 0 40 L 40 38 L 80 46 L 120 34 L 160 42 L 200 30 L 240 34 L 280 28 L 320 32 L 380 26" fill="none" stroke="#f0b060" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <text x="6" y="14" font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#7ee0c0" letter-spacing="1.6">P50 68ms</text>
+        <text x="370" y="14" font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#f0b060" text-anchor="end" letter-spacing="1.6">P95 118ms</text>
+      </svg>
+    </div>
+    <div class="meta"><span>WINDOW <b>60m</b></span><span>rolling</span></div>
+  </div>
+
+  <div class="tile latency" data-i="6">
+    <div class="kicker"><b>02</b>ERROR BUDGET</div>
+    <div class="title">This quarter</div>
+    <div class="big">72<span style="font-size:16px;color:var(--dim)"> / 100</span></div>
+    <div class="bar" style="--pct:72" aria-label="72% of budget remaining"><i></i></div>
+    <div class="meta"><span>SPENT <b>28%</b></span><span>on track</span></div>
+  </div>
+
+  <div class="tile logs" data-i="7">
+    <div class="kicker"><b>03</b>LIVE LOG</div>
+    <div class="row"><span class="t">21:07</span><span class="s">✓</span><span class="m">deploy web@1.14.7 — 42s</span></div>
+    <div class="row"><span class="t">21:04</span><span class="s">✓</span><span class="m">pg backup — 118 MB</span></div>
+    <div class="row"><span class="t">20:58</span><span class="s w">!</span><span class="m">rate limit near /api/search</span></div>
+    <div class="row"><span class="t">20:44</span><span class="s">✓</span><span class="m">nightly cron — 3.1s</span></div>
+    <div class="row"><span class="t">20:31</span><span class="s">✓</span><span class="m">cache purge — 0.2s</span></div>
+    <div class="row"><span class="t">20:12</span><span class="s">✓</span><span class="m">migration 0231 — 1.4s</span></div>
+    <div class="row"><span class="t">now</span><span class="s cur">▮</span><span class="m">waiting…</span></div>
+  </div>
+
+  <div class="tile stack" data-i="8">
+    <div class="kicker"><b>04</b>STACK</div>
+    <div class="title">Six moving parts &mdash; documented</div>
+    <div class="row">
+      <div class="p"><b>web</b>next 14</div>
+      <div class="p"><b>api</b>fastify</div>
+      <div class="p"><b>db</b>postgres</div>
+      <div class="p"><b>cache</b>redis</div>
+      <div class="p"><b>queue</b>bullmq</div>
+      <div class="p"><b>edge</b>cloudflare</div>
+    </div>
+  </div>
+
+  <div class="tile incidents" data-i="9">
+    <div class="kicker"><b>05</b>INCIDENTS</div>
+    <div class="title">Last 3 &mdash; with resolution</div>
+    <ol>
+      <li><span class="d">Aug&nbsp;18</span><span class="t">Elevated 5xx on /api/search &mdash; upstream provider limits.</span><span class="r">14 min</span></li>
+      <li><span class="d">Aug&nbsp;05</span><span class="t">Slow queries after schema migration; backfill re-run overnight.</span><span class="r w">3 h</span></li>
+      <li><span class="d">Jul&nbsp;27</span><span class="t">Edge cache purge propagation delay in EU; cleared with manual push.</span><span class="r">7 min</span></li>
+    </ol>
+  </div>
+
+  <div class="foot">
+    <span><b>GRID</b>bento 4x4</span>
+    <span><b>TILES</b>9</span>
+    <span><b>HERO</b>traffic 12w (2x2, elevated)</span>
+    <span><b>MODIFIER</b>bento</span>
+    <span><b>DOMAIN</b>dashboard</span>
+    <span><b>SHIPS AS</b>one .html</span>
+  </div>
+
+</div>
+
+</body>
+</html>

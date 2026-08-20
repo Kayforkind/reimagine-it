@@ -63,7 +63,7 @@ STRIP_PNG = ROOT / "strip.png"
 
 
 def find_browser() -> str:
-    env = os.environ.get("REIMAGINE_BROWSER") or os.environ.get("AWE_BROWSER")
+    env = os.environ.get("REIMAGINE_BROWSER")
     if env and Path(env).is_file():
         return env
     candidates = [
