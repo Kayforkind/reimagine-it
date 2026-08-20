@@ -1,10 +1,13 @@
 """Per-pack before/after compare renderer.
 
-Same naive input page (`gold/webpage/before.html`) on the left; each pack's
-`after.html` on the right; a per-pack caption below. Texas / Lone-Star frame.
+Same naive input page (`gold/webpage/before.html` — a plain Texas
+notebook) on the left; each pack's `after.html` on the right; a per-pack
+caption below. Frame chrome is content-aware: the Lone-Star palette and
+star motif in the compare header are what /reimagine-it derived from the
+source page, not a fixed theme.
 
-For every pack listed below we write `<pack-dir>/compare.png`. The README embeds
-these directly. Rerun any time:
+For every pack listed below we write `<pack-dir>/compare.png`. The
+README embeds these directly. Rerun any time:
 
     python gold/compare.py
 """
@@ -40,7 +43,7 @@ PACKS: list[Pack] = [
         label="/reimagine-it webpage",
         after_html=ROOT / "gold/webpage/after.html",
         compare_png=ROOT / "gold/webpage/compare.png",
-        caption="Grid + baseline + palette cap + one motif. Same three projects. Same email. Real design.",
+        caption="Grid + baseline + palette derived from content (navy / cream / red / gold). KPI tiles from Places + Signals. Star lockup because the source mentions the Lone Star.",
         after_h=900,
         before_h=900,
     ),
@@ -49,7 +52,7 @@ PACKS: list[Pack] = [
         label="/reimagine-it webpage artistic",
         after_html=ROOT / "gold/domains/artistic/after.html",
         compare_png=ROOT / "gold/domains/artistic/compare.png",
-        caption="Editorial cream + italic serif. Kinetic ampersand sways \u00b13\u00b0. Drifting SVG arcs. 3D card fan at real \u00b116\u00b0.",
+        caption="Editorial cream + italic serif. Kinetic ampersand sways \u00b13\u00b0. Drifting SVG arcs. 3D card fan of Alamo / Big Bend / Austin at real \u00b116\u00b0.",
         after_h=900,
     ),
     Pack(
@@ -57,7 +60,7 @@ PACKS: list[Pack] = [
         label="/reimagine-it webpage dashboard",
         after_html=ROOT / "gold/domains/dashboard/after.html",
         compare_png=ROOT / "gold/domains/dashboard/compare.png",
-        caption="Operator grid. KPI tiles. Live SVG chart with rising bars. Status pills. Blinking-caret terminal.",
+        caption="Operator grid. KPI tiles read from content: 3 places, 3 signals, 190 years, 800K acres. Status pills. Blinking-caret terminal.",
         after_h=900,
     ),
     Pack(
@@ -65,7 +68,7 @@ PACKS: list[Pack] = [
         label="/reimagine-it webpage photography",
         after_html=ROOT / "gold/domains/photography/after.html",
         compare_png=ROOT / "gold/domains/photography/compare.png",
-        caption="Didot-scale italic-then-caps nameplate. Numbered plate strip. SVG photographs. Dropcap paragraphs.",
+        caption="Didot-scale italic-then-caps nameplate. Numbered plate strip (Austin / Big Bend / Alamo). SVG photographs. Dropcap paragraphs.",
         after_h=900,
     ),
     Pack(
@@ -73,7 +76,7 @@ PACKS: list[Pack] = [
         label="/reimagine-it webpage cinematic",
         after_html=ROOT / "gold/domains/cinematic/after.html",
         compare_png=ROOT / "gold/domains/cinematic/compare.png",
-        caption="Inline WebGL2 shader hero. Texas-sunset raymarch (navy \u2192 gold \u2192 red). Single file, no CDN.",
+        caption="Inline WebGL2 shader hero \u2014 Texas-sunset raymarch (navy \u2192 gold \u2192 red) chosen because the source is about Texas. Single file, no CDN.",
         after_h=900,
     ),
     Pack(
@@ -81,7 +84,7 @@ PACKS: list[Pack] = [
         label="/reimagine-it webpage cinematic glassmorphism",
         after_html=ROOT / "gold/modifiers/cinematic-glassmorphism/after.html",
         compare_png=ROOT / "gold/modifiers/cinematic-glassmorphism/compare.png",
-        caption="Cinematic shader keeps running. Two glass tiers (14 px + 24 px blur) reveal the substrate; never cover a solid color.",
+        caption="Same sunset shader still running. Two glass tiers (14 px + 24 px blur) reveal it; the front tier reads \"Piece 03 \u2014 Austin, live music\" through the frost.",
         after_h=900,
     ),
     Pack(
@@ -89,7 +92,7 @@ PACKS: list[Pack] = [
         label="/reimagine-it webpage dashboard bento",
         after_html=ROOT / "gold/modifiers/dashboard-bento/after.html",
         compare_png=ROOT / "gold/modifiers/dashboard-bento/compare.png",
-        caption="Named-cell CSS Grid. Nine tiles, shared chrome. Hero tile 2\u00d72 visibly elevated (translateZ 24 px + 40 px shadow).",
+        caption="Named-cell CSS Grid. Nine tiles \u2014 places / signals / hours / chart / logs \u2014 one idea each. Hero tile 2\u00d72 visibly elevated (translateZ 24 px).",
         after_h=1100,
         before_h=1100,
     ),
@@ -98,7 +101,7 @@ PACKS: list[Pack] = [
         label="/reimagine-it webpage landing neon",
         after_html=ROOT / "gold/modifiers/landing-neon/after.html",
         compare_png=ROOT / "gold/modifiers/landing-neon/compare.png",
-        caption="Dark void ground. One high-chroma sun-gold accent (#e8a63f) does every emotional job \u2014 glow, pulse, kinetic type.",
+        caption="Dark void ground. One sun-gold star does every job \u2014 orbit, kinetic \"note\", glow, cursor. Palette picked because the source names the Lone Star.",
         after_h=900,
     ),
 ]
@@ -208,8 +211,8 @@ COMPARE_TEMPLATE = """<!doctype html>
 <div class="head">
   <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 L14.6 9.2 L22 9.5 L16.2 14.1 L18.3 21.4 L12 17.2 L5.7 21.4 L7.8 14.1 L2 9.5 L9.4 9.2 Z"/></svg>
   <span class="k">{label}</span>
-  <h1>Same content. One command. USA / Texas redesign.</h1>
-  <span class="meta">Lone-Star palette &middot; star motif &middot; sunset shader</span>
+  <h1>Same content. One command. Content-aware redesign.</h1>
+  <span class="meta">palette + motif + motion derived from the source page</span>
 </div>
 
 <div class="grid">
