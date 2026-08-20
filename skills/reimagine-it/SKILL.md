@@ -13,7 +13,7 @@ description: >-
 license: MIT
 metadata:
   author: kazimrmerchant
-  version: "2.0"
+  version: "2.1"
 ---
 
 # /reimagine-it
@@ -88,10 +88,11 @@ REIMAGINED Progress:
 - [ ] 2. Hero form routed (unless user forced one)
 - [ ] 2.4. Variation sample picked (avoid previous draw; pin if --seed / --variant)
 - [ ] 2.5. Modifiers / font override / --ref loaded if present
+- [ ] 2.6. Output format(s) resolved (same-format twin default when input == viable output)
 - [ ] 3. Hero artifact written (or N variants if --variants)
 - [ ] 4. Stretch named (and built if cheap)
 - [ ] 4.5. --full plus-pass if requested
-- [ ] 5. Verify with evidence
+- [ ] 5. Verify with evidence (functional + visual scan for blanks / placeholders / clipped text)
 - [ ] 6. Report REIMAGINED: shipped | partial | blocked
 ```
 
@@ -180,6 +181,24 @@ Gold demonstration: `gold/webpage/after.html` (Draw A: navy dashboard) and `gold
 - **Font override** (`--font "..."`) replaces the display or body family. Build a full CSS stack with sensible fallbacks (a serif family gets `serif` at the end, a mono family gets `monospace`). Never fetch a webfont; if the user wants one, they must pass `--allow-fetch` and understand it breaks the offline promise.
 - **Lock**: on `/reimagine-it lock <path> [as <name>]`, read `<path>` (HTML/CSS/JSON/PDF metadata/etc.) and extract palette + type stack + motifs + motion + 3D signatures + section structure. Write [references/locks/<name>.md](references/locks/) as a full pack. Later `/reimagine-it <target> --ref <name>` loads that pack as if it were a domain, so the same design DNA can be applied to a different target (or a different medium — a `webpage` lock can inform a `slides` pack).
 
+### 2.6 Output format(s) — same-format twin by default
+
+If the user pointed at a file whose **native format is itself a viable output medium** (`.pdf`, `.docx`, `.pptx`, `.mobi`, `.epub`, `.md`, `.html`), you **must** decide the output format(s) before writing:
+
+1. **If the user forced a form token** (`pdf` / `slides` / `document` / `webpage` / `mobi` / `epub` / …), honor it. Ship in that form. Do not ship extras unless asked.
+2. **If they did not force a form**, default to **two artifacts**:
+   - a **same-format twin** in the source's native format (source is `.mobi` → ship a new `.mobi`; source is `.pdf` → ship a new `.pdf`; source is `.pptx` → ship a new `.pptx`), *and*
+   - a **companion HTML** for on-screen reading + review.
+   Both live in `<yyyy-mm-dd>-<slug>-reimagined/` next to the source.
+3. **If the same-format twin regenerator is not available** on the current machine (e.g. `mobi` / `kindlegen` toolchain missing, no `docx`-writer, LibreOffice not installed), do **not** silently drop it. Ship the HTML, then in the report explicitly:
+   - name the missing tool,
+   - name the exact next command that would produce the same-format twin,
+   - offer to install/run it.
+4. **Never assume HTML is enough** when the input was a distributable ebook / document / deck. The user picked that format for a reason.
+5. `--ask-format` flips this into a one-shot question with three options and a default (Enter accepts default). Example: `Ship as: (1) HTML + same-format twin [default]  (2) HTML only  (3) same-format twin only`. Wait for the answer, then build. No follow-up questions.
+
+Log the decision on the report `Formats:` line so the user sees what was shipped and what was skipped.
+
 ### 3. Build
 
 Include a 5-line `README.md` next to one-shot folders: what it is, how to run/open, which note drove it. In-place code changes: the proof (test or demo command) is the README.
@@ -201,14 +220,34 @@ After the hero exists: re-read it. Apply **one** plus (criticism that contains a
 
 If the user asked for N variants, produce N distinct outputs from the same brief. Each variant must land a **different make-strange move** (not the same page with a new color). Write to `<hero>/var-1/`, `<hero>/var-2/`, … and ship a `strip.png` composite so the user can pick.
 
-### 5. Verify
+### 5. Verify (functional + visual)
+
+Two passes. Skipping either is a `partial` at best, not a `shipped`.
+
+**5.a Functional pass** — the artifact does the thing:
 
 - Path exists. Report it as a markdown link.
 - Code/CLI: the command or test actually ran; paste the exit or the proving line.
-- Visual: file is well-formed (`viewBox` on SVG; HTML opens; no required CDN if offline was implied; PDF opens in a viewer; docx/pptx opens in the target app).
+- Visual file well-formedness: `viewBox` on SVG; HTML opens; no required CDN if offline was implied; PDF opens in a viewer; docx/pptx opens in the target app; ebook (mobi/epub) opens in Kindle Previewer / Calibre.
 - Motion / 3D: two stills 500 ms apart show visible pixel change; at least one element has ≥ 12° rotation + ≥ 24 px shadow blur, or inline WebGL2.
 - Prose: the piece is a file they can keep, not only chat.
 - Protocol: a spec they can implement **or** a spike that runs — not only a metaphor.
+
+**5.b Visual verification pass** — actually look at the render.
+
+Render the hero into an image (headless Chrome for HTML → PNG at ≥ 1400 px wide; PDF → first-page PNG; docx → export to PDF then PNG; pptx → first-slide PNG; mobi/epub → open in Previewer and screenshot the first two pages). **Read the image tool result** (or open it in the IDE viewer) and manually scan for every one of these failure modes before reporting `shipped`:
+
+- **Blank plates / placeholder labels.** No visible element may literally read `blank`, `placeholder`, `TBD`, `TODO`, `lorem`, `…`, `[…]`, `xxx`, `sample text`, `Title goes here`, `caption`, or an alt-text stand-in. If a slot has no real content from the source, **delete the slot** — do not paint a card with the word "blank" on it.
+- **Clipped / overlapping text.** No label is cut off by another element (e.g. `POST OFFICE` rendered as `POST O CE` because a foreground shape overlaps the text). Fix z-index / padding / `overflow` or move the overlapping element.
+- **Broken image / broken svg.** No `alt` text is showing where a picture should be. No `<svg>` renders empty.
+- **Runaway columns / squashed hero.** Nothing extends past the viewport. Hero is not vertically flattened.
+- **Off-palette accent.** Every colored element is on the content-derived palette. No stray CSS-default blue link, no browser-default `<button>` chrome.
+- **Wrong content.** All copy on the render actually appears in the source (or is a caption/index the skill added). No fabricated place names, dates, statistics, or people.
+- **Motion proof.** If the pack claims motion, capture two frames (500 ms + N s) and compare hashes; identical hashes = motion did not run.
+
+Log this pass on the report `Visual verify:` line with what you scanned for and what you fixed (e.g. `scanned; no blank plates, no clipped text, palette on-source, motion advanced (hash A != hash B)`).
+
+If any failure mode is present and cannot be fixed in one pass, ship `partial` and name the specific bug — never dress a placeholder up as done.
 
 ### 6. Report
 
@@ -221,9 +260,11 @@ Domain / modifier / --ref: <if any>
 Font stack: <if --font was passed>
 Draw: <ground> · <hero-move> · <plate-style> · <motion> · <type-accent> · <3D-signature>
 Seed: <n if pinned, else "fresh">
+Formats: <shipped list, e.g. "html + mobi twin" | "html only (kindlegen missing — next: <cmd>)">
 Stretch: <what they didn't know was possible>
 Notes: <only if --notes>
-Verified: <what you actually ran, opened, or checked>
+Functional verify: <what you actually ran, opened, or checked>
+Visual verify: <scan result: no blank plates? no clipped text? palette on-source? motion advanced?>
 ```
 
 Lead the user-facing reply with the artifact and the stretch, not the protocol.
@@ -232,6 +273,10 @@ Lead the user-facing reply with the artifact and the stretch, not the protocol.
 
 - Ship a bullet list instead of an artifact
 - **Return the same draw twice** for the same source without an explicit `--seed`/`--variant` pin
+- **Report `shipped` without the visual verification pass** (5.b) — no exceptions
+- **Paint a plate that literally reads `blank`, `placeholder`, `TBD`, `TODO`, `lorem`, `sample`, `caption`, `…`, `[…]`, `Title goes here`, or any alt-text stand-in.** Empty slot → delete the slot. Real content only.
+- **Ship a render with clipped or overlapped text** (e.g. a foreground shape covering half a label). Fix z-index / padding / `overflow` before reporting `shipped`.
+- **Silently drop the same-format output** when the source's native format is a viable output (e.g. `.mobi` in, HTML-only out with no mention). Ship the twin, or name the missing tool and the exact next command in the report.
 - Treat `/reimagine-it` as graphics-only
 - Interview without the `interview` category
 - Ask "what style do you want?"
@@ -239,6 +284,7 @@ Lead the user-facing reply with the artifact and the stretch, not the protocol.
 - Call paid image/video APIs without asking
 - Clone Dribbble / Collect UI as the idea
 - Fake calligraphy or fake stats
+- Fabricate content the source does not contain (invented place names, made-up statistics, phantom people)
 - Scaffold a greenfield app into an unrelated repo without being asked
 - Fetch a webfont without `--allow-fetch`
 - Save a lock outside `references/locks/` (or the host's configured locks path)

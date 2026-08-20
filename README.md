@@ -1,6 +1,6 @@
 # reimagine-it
 
-[![license MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE) [![agentskills.io spec](https://img.shields.io/badge/agentskills.io-spec-e8a63f.svg)](https://agentskills.io/specification) [![version 2.0](https://img.shields.io/badge/version-2.0-b22234.svg)](skills/reimagine-it/SKILL.md) [![sponsor](https://img.shields.io/badge/sponsor-%E2%98%85-b22234.svg)](https://github.com/sponsors/kazimrmerchant)
+[![license MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE) [![agentskills.io spec](https://img.shields.io/badge/agentskills.io-spec-e8a63f.svg)](https://agentskills.io/specification) [![version 2.1](https://img.shields.io/badge/version-2.1-b22234.svg)](skills/reimagine-it/SKILL.md) [![sponsor](https://img.shields.io/badge/sponsor-%E2%98%85-b22234.svg)](https://github.com/sponsors/kazimrmerchant)
 
 > **One agent skill. Any file. A content-aware leap.**
 >
@@ -97,13 +97,24 @@ Then say `/reimagine-it` in your host.
 
 | Lever | Syntax | Effect |
 |-------|--------|--------|
-| **Form** | `webpage` \| `pdf` \| `slides` \| `document` \| `code` \| `cli` \| `protocol` \| ... | Force the medium. |
+| **Form** | `webpage` \| `pdf` \| `slides` \| `document` \| `mobi` \| `epub` \| `code` \| `cli` \| `protocol` \| ... | Force the medium. |
 | **Domain** | `webpage artistic` \| `dashboard` \| `photography` \| `cinematic` \| `landing` \| `portfolio` | Force the aesthetic. See [`references/domains/`](skills/reimagine-it/references/domains/). |
 | **Modifier** | `webpage cinematic glassmorphism` \| `bento` \| `neon` \| `brutalism` \| `neumorphism` \| `handdrawn` | Layer a UI/UX style on any domain. See [`references/modifiers/`](skills/reimagine-it/references/modifiers/). |
 | **Font** | `--font "Playfair Display, Iowan Old Style, Georgia, serif"` | Pin display / body family. Full stack. No webfont fetch unless `--allow-fetch`. |
 | **Lock** | `lock <path> as <name>` then `--ref <name>` | Capture design DNA (palette, type, motifs, motion, 3D) and reuse it &mdash; even across media. |
 
 Compose freely: `/reimagine-it webpage artistic glassmorphism --font "Playfair Display, serif" --ref house-cinema`.
+
+---
+
+## Two hard guarantees added in v2.1
+
+Two things that were sometimes missing before are now part of the shipped bar. If either fails, the command reports `partial`, not `shipped`.
+
+- **Same-format twin by default.** If you point at a distributable file (`.pdf`, `.docx`, `.pptx`, `.mobi`, `.azw3`, `.epub`, `.md`), the default output is **two artifacts**: a companion HTML reading room *and* a same-format twin in the source's native format. The HTML alone is not enough &mdash; you picked that format because you want to hand it around in that format. If the same-format toolchain is missing on the current machine (e.g. no Calibre for `.mobi`), the report names the missing tool and the exact next command that would produce the twin; it does not silently drop the twin.
+- **Visual verification pass on every render.** Before reporting `shipped`, the skill renders the hero into an image and manually scans it for: blank plates, placeholder labels (`blank` / `TBD` / `lorem` / `Title goes here` / ?), clipped or overlapping text (e.g. `POST OFFICE` rendered as `POST O CE` because a foreground shape covers the label), broken SVGs, off-palette accents, fabricated content, and dead motion (identical frame hashes). Any failure fails the render and forces a fix or a `partial` report &mdash; **empty slots are deleted, never painted with a placeholder**.
+
+Both rules are enforced by [`skills/reimagine-it/SKILL.md`](skills/reimagine-it/SKILL.md) &sect; 2.6 and &sect; 5.b and by [`references/forms/universal.md`](skills/reimagine-it/references/forms/universal.md).
 
 ---
 
