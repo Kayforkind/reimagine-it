@@ -1,6 +1,6 @@
 # reimagine-it
 
-[![license MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE) [![agentskills.io spec](https://img.shields.io/badge/agentskills.io-spec-e8a63f.svg)](https://agentskills.io/specification) [![version 2.1](https://img.shields.io/badge/version-2.1-b22234.svg)](skills/reimagine-it/SKILL.md) [![sponsor](https://img.shields.io/badge/sponsor-%E2%98%85-b22234.svg)](https://github.com/sponsors/kazimrmerchant)
+[![license MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE) [![agentskills.io spec](https://img.shields.io/badge/agentskills.io-spec-e8a63f.svg)](https://agentskills.io/specification) [![version 2.2](https://img.shields.io/badge/version-2.2-b22234.svg)](skills/reimagine-it/SKILL.md) [![craft floor: WebGL2 / scroll-driven / reduced-motion / :focus-visible](https://img.shields.io/badge/craft%20floor-webgl2%20%C2%B7%20scroll--timeline%20%C2%B7%20reduced--motion%20%C2%B7%20:focus--visible-1a2138.svg)](skills/reimagine-it/references/craft-floor.md) [![sponsor](https://img.shields.io/badge/sponsor-%E2%98%85-b22234.svg)](https://github.com/sponsors/kazimrmerchant)
 
 > **One agent skill. Any file. A content-aware leap.**
 >
@@ -58,27 +58,30 @@ Change the source and the whole design changes. `/reimagine-it` on a coffee roas
 
 ---
 
-## Same command, run twice &mdash; the creative engine is open
+## Same command, run three times &mdash; the creative engine is wide open
 
-Run `/reimagine-it webpage` on the same source twice and you get **two visibly different draws** &mdash; not the same page reprinted. The engine samples a fresh combination each run along six axes: **ground / palette weighting**, **hero move**, **plate style**, **motion budget**, **type accent**, **3D signature**. The content narrows the sub-space (a Texas notebook can't legitimately return a marine-caustics shader), but *inside* that sub-space the engine draws fresh every time.
+Run `/reimagine-it webpage` on the same source three times and you get **three visibly different reader registers** &mdash; not the same page reprinted. In v2.2 the engine samples along **seven axes**: **reader register**, **ground / palette weighting**, **hero move**, **plate style**, **motion budget**, **type accent**, **3D signature**. The content narrows the sub-space (a Texas notebook can't legitimately return a marine-caustics shader), but *inside* that sub-space the engine draws fresh every time.
 
-![twins triptych: same Texas notebook source, two runs of /reimagine-it webpage, two visibly different draws -- draw A is a navy dashboard with a KPI skyline chart; draw B is a parchment field-guide with a hand-drawn Texas map and numbered letterpress plates](gold/webpage/twins.png?v=texas-4)
+![quartet: same Texas notebook source, three runs of /reimagine-it webpage -- draw A is a navy dashboard with a KPI skyline chart; draw B is a parchment field-guide with a hand-drawn Texas map and numbered letterpress plates; draw C is a cinematic reader with a full-bleed WebGL2 west-Texas sunset shader and a kinetic serif TEXAS wordmark over a mountain silhouette](gold/webpage/quartet.png?v=texas-v22)
 
-- **Draw A** &mdash; navy ground &middot; KPI skyline chart of the three places &middot; dashboard tiles &middot; counter-rise motion &middot; sans + mono &middot; lifted-card 3D. See [`gold/webpage/after.html`](gold/webpage/after.html).
-- **Draw B** &mdash; parchment ground &middot; hand-drawn Texas map with pin markers + compass rose &middot; numbered letterpress plates with red drop caps &middot; bluebonnet-drift + compass-needle wobble &middot; italic serif &middot; inset-shadow deboss. See [`gold/webpage/after-2.html`](gold/webpage/after-2.html).
+- **Draw A** &mdash; `dashboard-live` register &middot; navy ground &middot; KPI skyline chart of the three places &middot; dashboard tiles &middot; counter-rise motion &middot; sans + mono &middot; lifted-card 3D. See [`gold/webpage/after.html`](gold/webpage/after.html).
+- **Draw B** &mdash; `field-guide-quiet` register &middot; parchment ground &middot; hand-drawn Texas map with pin markers + compass rose &middot; numbered letterpress plates with red drop caps &middot; bluebonnet-drift &middot; italic serif &middot; inset-shadow deboss. See [`gold/webpage/after-2.html`](gold/webpage/after-2.html).
+- **Draw C** &mdash; `cinematic-shader` register &middot; **full-bleed WebGL2 west-Texas sunset** (dusk navy &rarr; horizon orange &rarr; ember, twinkling star field, ridge silhouette) &middot; bento plates over the deep ground &middot; scroll-driven plate rise + kinetic wordmark bloom + click-to-spin Lone Star &middot; serif display + mono trim &middot; matcap plate highlights. Ships the full **v2.2 craft floor**: reduced-motion decompose, `:focus-visible` gold ring, compositor-only motion, no `transition: all`. See [`gold/webpage/after-3.html`](gold/webpage/after-3.html).
 
-Both are correct outputs of the exact same command on the exact same source. They share the content-derived palette family (navy / cream / red / gold) and the lone-star motif &mdash; both derived from the source &mdash; but they pick different *anchors* for that palette and different creative moves.
+All three are correct outputs of the exact same command on the exact same source. They share the content-derived palette family (navy / cream / red / gold) and the lone-star motif &mdash; both derived from the source &mdash; but they pick different *reader registers*, palette anchors, hero moves, and motion budgets.
 
-**Reproducibility when you need it.** `--seed <n>` pins the sample so a specific draw is byte-equivalent across runs. `--variant a` / `--variant b` are named seeds &mdash; `a` reproduces Draw A, `b` reproduces Draw B, and the pack ships extra letters as they land. Everything else runs fresh by default.
+**Reproducibility when you need it.** `--seed <n>` pins the sample so a specific draw is byte-equivalent across runs. `--variant a` / `--variant b` / `--variant c` are named seeds &mdash; `a` reproduces Draw A, `b` reproduces Draw B, `c` reproduces Draw C. The pack ships extra letters as they land. Everything else runs fresh by default.
 
 ```
-/reimagine-it webpage                  # fresh sample every time
-/reimagine-it webpage --variant a      # reproduce Draw A (navy dashboard)
-/reimagine-it webpage --variant b      # reproduce Draw B (parchment field-guide)
-/reimagine-it webpage --seed 42        # pin an arbitrary sample
+/reimagine-it webpage                              # fresh sample every time
+/reimagine-it webpage --variant a                  # Draw A (dashboard-live)
+/reimagine-it webpage --variant b                  # Draw B (field-guide-quiet)
+/reimagine-it webpage --variant c                  # Draw C (cinematic-shader)
+/reimagine-it webpage --variant editorial-drift    # any named reader register
+/reimagine-it webpage --seed 42                    # pin an arbitrary sample
 ```
 
-Regenerate the triptych locally: `python gold/compare.py` (writes `gold/webpage/twins.png` alongside every per-pack compare).
+Regenerate the quartet locally: `python gold/compare.py` (writes `gold/webpage/quartet.png` and `twins.png` alongside every per-pack compare).
 
 ---
 
@@ -107,20 +110,21 @@ Compose freely: `/reimagine-it webpage artistic glassmorphism --font "Playfair D
 
 ---
 
-## Two hard guarantees added in v2.1
+## Three hard guarantees (v2.2)
 
-Two things that were sometimes missing before are now part of the shipped bar. If either fails, the command reports `partial`, not `shipped`.
+Three things that were sometimes missing before are now part of the shipped bar. If any fails, the command reports `partial`, not `shipped`.
 
 - **Same-format twin by default.** If you point at a distributable file (`.pdf`, `.docx`, `.pptx`, `.mobi`, `.azw3`, `.epub`, `.md`), the default output is **two artifacts**: a companion HTML reading room *and* a same-format twin in the source's native format. The HTML alone is not enough &mdash; you picked that format because you want to hand it around in that format. If the same-format toolchain is missing on the current machine (e.g. no Calibre for `.mobi`), the report names the missing tool and the exact next command that would produce the twin; it does not silently drop the twin.
-- **Visual verification pass on every render.** Before reporting `shipped`, the skill renders the hero into an image and manually scans it for: blank plates, placeholder labels (`blank` / `TBD` / `lorem` / `Title goes here` / ?), clipped or overlapping text (e.g. `POST OFFICE` rendered as `POST O CE` because a foreground shape covers the label), broken SVGs, off-palette accents, fabricated content, and dead motion (identical frame hashes). Any failure fails the render and forces a fix or a `partial` report &mdash; **empty slots are deleted, never painted with a placeholder**.
+- **Visual verification pass on every render.** Before reporting `shipped`, the skill renders the hero into an image and manually scans it for: blank plates, placeholder labels (`blank` / `TBD` / `lorem` / `Title goes here`), clipped or overlapping text (e.g. `POST OFFICE` rendered as `POST O CE` because a foreground shape covers the label), broken SVGs, off-palette accents, fabricated content, dead motion (identical frame hashes), and &mdash; new in v2.2 &mdash; **every plate maps to a source anchor** (no unmapped plates painted). Any failure fails the render and forces a fix or a `partial` report &mdash; **empty slots are deleted, never painted with a placeholder**.
+- **Craft floor on every webpage output (new in v2.2).** Every rendered page must clear the craft floor before shipping: `:focus-visible` ring with contrast &ge; 3:1, `::selection` on-palette, motion timing 100&ndash;300 ms `ease-out` for micro-interactions, animations only on `transform` and `opacity` (compositor-only), `prefers-reduced-motion` respected by *decomposing* (turn off scroll-triggered motion, cap kinetic type at the lit state, disable WebGL loops &mdash; not by suppressing focus rings), no `transition: all`, no `outline: 0` without an explicit replacement, scroll-driven animations offloaded via `animation-timeline: view()` when supported, and Core Web Vitals sane (no CLS from motion, INP under 200 ms). See [`references/craft-floor.md`](skills/reimagine-it/references/craft-floor.md).
 
-Both rules are enforced by [`skills/reimagine-it/SKILL.md`](skills/reimagine-it/SKILL.md) &sect; 2.6 and &sect; 5.b and by [`references/forms/universal.md`](skills/reimagine-it/references/forms/universal.md).
+All three are enforced by [`skills/reimagine-it/SKILL.md`](skills/reimagine-it/SKILL.md) &sect; 2.6 / &sect; 5.b / &sect; 5.c and by [`references/forms/universal.md`](skills/reimagine-it/references/forms/universal.md). The research that raised the bar (150+ sources: award-winning studios, editorial newsrooms, motion masters, WebGL creative devs, type foundries, scrollytelling, print-to-web bridges, sonic branding, modern web-platform features) lives at [`references/research/web-craft-2025.md`](skills/reimagine-it/references/research/web-craft-2025.md).
 
 ---
 
-## Eight case studies &mdash; one source, one command each
+## Nine case studies &mdash; one source, one command each
 
-Every case below reimagines the **exact same naive HTML** ([`gold/webpage/before.html`](gold/webpage/before.html) &mdash; a plain Texas notebook, 40 lines, no CSS, one email) with **one different token**. To match how a designer reads a case study, each case is laid out top-to-bottom:
+Every case below reimagines the **exact same naive HTML** ([`gold/webpage/before.html`](gold/webpage/before.html) &mdash; a plain Texas notebook, 40 lines, no CSS, one email) with **one different token**. Cases 1&ndash;8 are eight different domains and modifiers on the default `webpage` pack. **Case 09** is the v2.2 raised bar &mdash; a third *reader register* of the default pack (`--variant c`, `cinematic-shader`) &mdash; showing that even the default `webpage` command now has room for the full craft-floor cinematic reader when the content asks for it. To match how a designer reads a case study, each case is laid out top-to-bottom:
 
 1. the **before** shot sits on its own line,
 2. the **four notes the command picked** (palette &middot; motif &middot; motion &middot; 3D) sit between the two shots as real descriptive text,
@@ -332,6 +336,43 @@ Open the live file &rarr; [`gold/modifiers/landing-neon/after.html`](gold/modifi
 
 ---
 
+### Case 09 &middot; `webpage --variant c` (v2.2 raised bar, `cinematic-shader` register)
+
+`/reimagine-it webpage --variant c`
+
+*The notebook as a cinematic reading room &mdash; the sky in the source becomes the sky in the browser.*
+
+**Before.** Same raw Texas notebook.
+
+![Before: raw HTML of A Texas notebook -- Times New Roman, single column, no color, no motif](gold/webpage/before.png)
+
+**The five notes the command picked** (Draw C runs an extra note &mdash; the *reader register* &mdash; from v2.2 forward).
+
+- **Reader register** &mdash; `cinematic-shader`. Chosen because the source describes **west Texas at low sun** ("Big Bend, the darkest night skies in North America", "Rio Grande sunset", "Lone Star" in the flag). A dashboard register would have been correct too; this run drew the cinematic card.
+- **Palette** &mdash; **dusk navy &rarr; horizon orange &rarr; ember &rarr; earth rust &rarr; cream ink &rarr; sun-gold accent**. Every color is a west-Texas-sunset color pulled straight from the source's own imagery.
+- **Motif** &mdash; a full-bleed **WebGL2 fragment shader** paints the sky: vertical dusk-to-ember bands, a slow horizon glow that drifts, a warm sun disc off-center, a hash-noise star field above the dusk line, and a low three-peak ridge silhouette. The shader ships inline in the same `.html` file (no CDN, no vendor). A CSS gradient fallback in the same content-derived palette runs when WebGL is unavailable. Above the sky sits a **stroke-then-fill kinetic serif TEXAS wordmark** with a soft orange glow, an italic serif subhead with amber highlights on the source's own three anchor words (*state*, *flag*, *people*), and six content-derived plates (Alamo, Big Bend, Austin, Lone Star, Bluebonnet, Longhorn) with hand-drawn SVG motifs.
+- **Motion** &mdash; the sunset **evolves visibly** (horizon glow drift, twinkling stars, sun-disc micro-drift); the TEXAS wordmark **fill-in** and **glow-in** on load (compositor-only: `opacity` + `transform`); the six plates **rise into view** on scroll via `animation-timeline: view()`; clicking the Lone Star **spins it 360&deg;** as a hidden Cartier-style reward.
+- **3D** &mdash; the plates lift on hover (`translateY(-4px)`) with a soft-shadow plate treatment, and the plate motifs sit forward on their own `translateZ(20px)` layer inside a `perspective: 800px` parent.
+
+**Craft floor** (v2.2, all shipped in this file).
+
+- `:focus-visible` &mdash; every link, button, and interactive SVG shows a **2 px sun-gold outline with 3 px offset**, contrast &ge; 3:1 against the ground.
+- `::selection` &mdash; on-palette gold-on-earth so highlighted text matches the design.
+- `prefers-reduced-motion: reduce` &mdash; **decomposes** correctly: the WebGL loop stops, kinetic type pins to the lit end-state (still legible), scroll-driven plate rise is disabled, `:focus-visible` still animates in but its transition is instant. Focus indicators are **never** hidden.
+- **Compositor-only motion** &mdash; every animation touches only `transform` and `opacity`. No `width`, `height`, `top`, `left`, `filter` in transitions. No `transition: all`.
+- **Scroll-driven** &mdash; the plate reveal uses `animation-timeline: view()` where supported so scroll motion runs off the main thread.
+- **Type space reserved** &mdash; the kinetic wordmark reserves its final space before it animates, so no layout shift (CLS = 0).
+
+**After.**
+
+![After Draw C: cinematic Texas reader with a full-bleed WebGL2 west-Texas sunset -- dusk-navy sky with a twinkling star field, warm orange horizon, sun disc off-center, low mountain silhouette, cream TEXAS wordmark with an orange glow over the horizon, italic serif subhead, and six content-derived plates below for Alamo Big Bend Austin Lone-Star Bluebonnet and Longhorn](gold/webpage/after-3-full.png?v=texas-v22)
+
+**No CDN, no `import` from `https://`, no vendor folder, no external font fetch.** The WebGL2 shader source, the SVG motifs, and every micro-interaction ship in the same `.html` file. One artifact.
+
+Open the live file &rarr; [`gold/webpage/after-3.html`](gold/webpage/after-3.html)
+
+---
+
 ## Motion is real (three frames per pack)
 
 Screenshots freeze animation, so every claim about motion proves itself in a strip. Three frames per pack, spaced ~1.6 s apart in virtual time &mdash; if the pixels change, the motion budget landed:
@@ -389,8 +430,9 @@ Every visual is a real file in this repo, generated locally by a script you can 
 | Regenerates | Command |
 |-------------|---------|
 | Per-pack full-page `after.png` shots used by every case study above | `python gold/shots.py` |
+| Draw C full-page shot (v2.2, WebGL2, real Chrome) &rarr; `gold/webpage/after-3-full.png` | `python gold/_shot_full.py gold/webpage/after-3.html gold/webpage/after-3-full.png` |
 | Master gallery (`gold/gallery.png`) + per-pack tile heroes | `python gold/gallery.py` |
-| Twins triptych (`gold/webpage/twins.png`) + per-pack wide before/after compares | `python gold/compare.py` |
+| Quartet (`gold/webpage/quartet.png`) + twins triptych (`twins.png`) + per-pack wide before/after compares | `python gold/compare.py` |
 | Default before + after screenshots (`gold/webpage/*.png`) | `python gold/webpage/run.py` |
 | Motion strip (`gold/domains/motion-strip.png`) | `python gold/domains/motion-run.py` |
 | Skill smoke fixture (`gold/reimagine.py`) | `python gold/reimagine.py --ship` |

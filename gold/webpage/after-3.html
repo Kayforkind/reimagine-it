@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Texas notebook — after /reimagine-it · Draw C (cinematic-shader)</title>
+<style>
+  :root {
+    /* Palette derived from the source: west Texas sunset over the Rio Grande.
+       Zenith dusk navy, horizon orange, ground rust, cream ink, gold accent. */
+    --dusk:      #0d1024;
+    --sky:       #241834;
+    --horizon:   #f68c39;
+    --ember:     #d4432a;
+    --earth:     #1a0a10;
+    --cream:     #f7ecd6;
+    --sage:      #9db08f;
+    --star:      #fff7d6;
+    --gold:      #e8a63f;
+
+    --ink:       var(--cream);
+    --dim:       #b7a488;
+    --stroke:    rgba(247, 236, 214, 0.14);
+    --stroke-2:  rgba(247, 236, 214, 0.28);
+
+    --sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --serif: "Iowan Old Style", "Palatino Linotype", "Palatino", Georgia, serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Consolas, Menlo, monospace;
+
+    --unit: 8px;
+    --radius: 4px;
+    --shadow-plate: 0 1px 0 rgba(255,255,255,0.03) inset, 0 10px 30px rgba(0,0,0,0.35);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--earth);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    line-height: 1.55;
+    scroll-behavior: smooth;
+    scroll-padding-top: 64px;
+  }
+
+  ::selection {
+    background: var(--gold);
+    color: var(--earth);
+  }
+
+  a { color: var(--horizon); text-decoration: none; border-bottom: 1px solid rgba(246, 140, 57, 0.35); transition: color 150ms ease-out, border-color 150ms ease-out; }
+  a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+  a:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  button, .btn {
+    font: inherit;
+    border: 1px solid var(--stroke-2);
+    background: transparent;
+    color: var(--ink);
+    padding: 10px 16px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: transform 120ms ease-out, background-color 120ms ease-out, border-color 120ms ease-out;
+    user-select: none;
+  }
+  button:hover, .btn:hover { transform: translateY(-1px); background: rgba(247,236,214,0.05); border-color: var(--gold); }
+  button:active, .btn:active { transform: translateY(0); }
+  button:focus-visible, .btn:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+
+  /* ---------- Hero: inline WebGL2 shader with CSS fallback ---------- */
+
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    isolation: isolate;
+    /* Solid dusk floor so the hero never flashes white if #sky or the canvas
+       hasn't painted yet (crucial for static capture, print, and slow first paint). */
+    background:
+      radial-gradient(120% 60% at 50% 32%, rgba(246,140,57,0.55) 0%, rgba(246,140,57,0) 60%),
+      linear-gradient(to bottom,
+        var(--dusk)    0%,
+        var(--sky)    28%,
+        var(--horizon) 34%,
+        var(--ember)  42%,
+        var(--earth)  100%
+      );
+    background-color: var(--dusk);
+  }
+
+  #sky {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    /* Same gradient as .hero — kept as an explicit painting layer for the CSS-only path. */
+    background:
+      radial-gradient(120% 60% at 50% 32%, rgba(246,140,57,0.55) 0%, rgba(246,140,57,0) 60%),
+      linear-gradient(to bottom,
+        var(--dusk)    0%,
+        var(--sky)    28%,
+        var(--horizon) 34%,
+        var(--ember)  42%,
+        var(--earth)  100%
+      );
+  }
+  #sky-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;   /* decorative — never hijacks events */
+    z-index: 0;
+  }
+  .hero::after {
+    /* subtle darkening near the bottom so type reads on the horizon glow */
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(to bottom, transparent 60%, rgba(10,4,7,0.35) 100%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 32px clamp(24px, 5vw, 64px) 40px;
+    gap: 24px;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .brow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--dim);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .brow .dot {
+    display: inline-block;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--horizon);
+    box-shadow: 0 0 8px var(--horizon);
+    margin-right: 8px;
+    vertical-align: middle;
+    animation: brow-pulse 3.2s ease-in-out infinite;
+  }
+  @keyframes brow-pulse {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50%      { opacity: 1;    transform: scale(1.35); }
+  }
+  .brow nav { display: flex; gap: 20px; }
+  .brow nav a {
+    color: var(--dim);
+    border-bottom: none;
+    transition: color 120ms ease-out;
+  }
+  .brow nav a:hover { color: var(--ink); }
+
+  .hero-title {
+    align-self: end;
+    display: grid;
+    gap: 24px;
+    max-width: 900px;
+  }
+  .kicker {
+    font-family: var(--mono);
+    color: var(--horizon);
+    font-size: 13px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  /* Kinetic type — a scroll-driven weight/scale morph faked with layered stroke SVG.
+     No variable font needed; no font-fetch required. Compositor-only (transform + opacity). */
+  .headline-svg {
+    width: 100%;
+    height: auto;
+    max-width: 900px;
+    display: block;
+    color: var(--ink);
+  }
+  .headline-svg .stroke {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.85;
+  }
+  /* Fill + glow ship fully lit — first paint shows the cream headline over the horizon glow.
+     A gentle CSS animation (compositor-only: opacity + transform) plays on load for movement. */
+  .headline-svg .fill {
+    fill: var(--ink);
+    transform-origin: center;
+    animation: fill-in 900ms ease-out both;
+  }
+  .headline-svg .glow {
+    fill: var(--horizon);
+    filter: blur(10px);
+    transform-origin: center;
+    animation: glow-in 1400ms ease-out both;
+  }
+  @keyframes fill-in {
+    from { opacity: 0.2; transform: scale(0.97); }
+    to   { opacity: 1;   transform: scale(1); }
+  }
+  @keyframes glow-in {
+    from { opacity: 0;    transform: scale(1.03); }
+    to   { opacity: 0.55; transform: scale(1); }
+  }
+
+  .subhead {
+    font-family: var(--serif);
+    font-size: clamp(18px, 2.2vw, 22px);
+    line-height: 1.55;
+    color: var(--ink);
+    max-width: 620px;
+    font-style: italic;
+    letter-spacing: 0.005em;
+  }
+  .subhead em { color: var(--gold); font-style: normal; letter-spacing: 0.02em; }
+
+  .hero-cta {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  /* ---------- Section: six anchor plates, each keyed to a source noun ---------- */
+
+  .sheet {
+    background: var(--earth);
+    padding: clamp(64px, 10vh, 120px) clamp(24px, 5vw, 64px);
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .sheet + .sheet { padding-top: 0; }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: baseline;
+    gap: 24px;
+    margin-bottom: 40px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--stroke);
+  }
+  .section-head h2 {
+    font-family: var(--serif);
+    font-size: clamp(28px, 3.8vw, 44px);
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+  .section-head .caption {
+    color: var(--dim);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-align: right;
+  }
+
+  .plates {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(16px, 2vw, 24px);
+  }
+  .plate {
+    position: relative;
+    background: linear-gradient(180deg, #1c0e12 0%, #14090d 100%);
+    border: 1px solid var(--stroke);
+    border-radius: var(--radius);
+    padding: 24px 24px 28px;
+    box-shadow: var(--shadow-plate);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 16px;
+    min-height: 320px;
+    isolation: isolate;
+    transition: transform 220ms ease-out, border-color 220ms ease-out;
+    perspective: 800px;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+  .plate:hover {
+    transform: translateY(-4px);
+    border-color: var(--gold);
+  }
+  .plate:focus-within {
+    border-color: var(--gold);
+  }
+
+  .plate .plate-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--dim);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .plate .plate-top .year {
+    color: var(--horizon);
+    font-weight: 500;
+    letter-spacing: 0.18em;
+  }
+  .plate h3 {
+    font-family: var(--serif);
+    font-size: 24px;
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+  }
+  .plate p {
+    color: var(--dim);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  .plate .plate-motif {
+    position: relative;
+    height: 88px;
+    display: grid;
+    place-items: center;
+    color: var(--horizon);
+    transform: translateZ(20px);
+  }
+  .plate .plate-motif svg {
+    width: 88px;
+    height: 88px;
+    display: block;
+    overflow: visible;
+  }
+
+  /* Each plate has a subtle content-keyed motif */
+  .plate--alamo   .plate-motif { color: var(--gold); }
+  .plate--bigbend .plate-motif { color: var(--sage); }
+  .plate--austin  .plate-motif { color: var(--horizon); }
+  .plate--flag    .plate-motif { color: var(--star); }
+  .plate--bluebonnet .plate-motif { color: #9aa6d6; }
+  .plate--longhorn .plate-motif { color: var(--cream); }
+
+  /* Hidden gesture — Cartier-style reward. Clicking the Lone Star spins it a full turn.
+     Non-destructive; discovers itself on hover with a subtle tilt. */
+  .lone-star {
+    cursor: pointer;
+    transition: transform 200ms ease-out;
+    transform-origin: 50% 50%;
+  }
+  .lone-star:hover { transform: rotate(6deg) scale(1.04); }
+  .lone-star.spin  { animation: star-spin 1000ms cubic-bezier(0.22, 1.2, 0.4, 1) 1; }
+  @keyframes star-spin {
+    from { transform: rotate(0deg)   scale(1); }
+    to   { transform: rotate(360deg) scale(1); }
+  }
+
+  /* ---------- Footer ---------- */
+  footer.foot {
+    padding: 48px clamp(24px, 5vw, 64px) 64px;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-top: 1px solid var(--stroke);
+    color: var(--dim);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+  }
+  footer.foot .name { color: var(--ink); }
+
+  /* ---------- Motion: scroll-driven where supported; graceful otherwise ----------
+     Plates ship VISIBLE (opacity 1). The scroll-timeline animation only adds a
+     subtle rise from a partially-lifted state so the section reveals as you enter it.
+     This also means print / non-scroll / static-capture always shows content. */
+  @supports (animation-timeline: view()) {
+    .plate {
+      animation: plate-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+    @keyframes plate-in {
+      from { opacity: 0.55; transform: translateY(18px); }
+      to   { opacity: 1;    transform: translateY(0); }
+    }
+  }
+
+  /* ---------- Reduced motion: decompose. Keep essential feedback, drop transitions. ---------- */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+    /* Focus indicators stay visible, they just don't animate. */
+    :focus-visible { transition: none; }
+    /* Kinetic type: pin to the lit end-state so it is legible without motion. */
+    .headline-svg .fill { opacity: 1; transform: none; }
+    .headline-svg .glow { opacity: 0.4; transform: none; }
+    /* Turn off the WebGL loop — CSS fallback carries the hero. */
+    #sky-canvas { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <!-- CSS gradient fallback under the shader — same content-derived palette. -->
+  <div id="sky" aria-hidden="true"></div>
+  <!-- WebGL2 shader is layered on top when available; disabled under prefers-reduced-motion. -->
+  <canvas id="sky-canvas" aria-hidden="true"></canvas>
+
+  <div class="hero-inner">
+    <div class="brow">
+      <div><span class="dot" aria-hidden="true"></span> A Texas notebook · running online</div>
+      <nav aria-label="page">
+        <a href="#places">Places</a>
+        <a href="#signals">Signals</a>
+        <a href="#now">Now</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+
+    <div class="hero-title" id="heroTitle">
+      <div class="kicker">Notes · 2026 · West Texas sunset</div>
+      <!-- Kinetic SVG headline: stroke-in on load, filled on scroll. No font fetch. -->
+      <svg class="headline-svg" viewBox="0 0 900 260" role="img" aria-labelledby="headline-title">
+        <title id="headline-title">A Texas notebook</title>
+        <!-- Two layers of the same wordmark — glow, fill, and outline stroke.
+             All state changes are compositor (opacity + transform), never layout. -->
+        <g class="glow"  aria-hidden="true">
+          <text x="450" y="152" text-anchor="middle" font-family="Iowan Old Style, Palatino, Georgia, serif" font-size="140" font-weight="700" letter-spacing="0.02em">TEXAS</text>
+        </g>
+        <g class="stroke" aria-hidden="true">
+          <text x="450" y="152" text-anchor="middle" font-family="Iowan Old Style, Palatino, Georgia, serif" font-size="140" font-weight="700" letter-spacing="0.02em">TEXAS</text>
+        </g>
+        <g class="fill" aria-hidden="true">
+          <text x="450" y="152" text-anchor="middle" font-family="Iowan Old Style, Palatino, Georgia, serif" font-size="140" font-weight="700" letter-spacing="0.02em">TEXAS</text>
+        </g>
+        <text x="450" y="212" text-anchor="middle" font-family="ui-monospace, SF Mono, Consolas, monospace" font-size="16" fill="currentColor" opacity="0.7" letter-spacing="0.32em">a notebook, kept plain</text>
+      </svg>
+
+      <p class="subhead">
+        A few notes on Texas &mdash; the <em>state</em>, the <em>flag</em>, and the <em>people</em>. Names, dates,
+        and one long low sun on the Rio Grande.
+      </p>
+
+      <div class="hero-cta">
+        <a class="btn" href="#places">Read the places</a>
+        <a class="btn" href="#signals">See the signals</a>
+      </div>
+    </div>
+
+    <div class="brow" aria-hidden="true">
+      <div>Draw C &mdash; cinematic-shader · shader-glow · WebGL2 sunset · scroll-driven weight morph</div>
+      <div>Scroll ↓</div>
+    </div>
+  </div>
+</section>
+
+<section class="sheet" id="places" aria-labelledby="places-h">
+  <div class="section-head">
+    <h2 id="places-h">Places</h2>
+    <div class="caption">three anchors · from the source</div>
+  </div>
+
+  <div class="plates">
+
+    <article class="plate plate--alamo" tabindex="0" aria-labelledby="plate-alamo-h">
+      <header class="plate-top"><span>01 · Mission</span><span class="year">1836</span></header>
+      <div class="plate-motif" aria-hidden="true">
+        <!-- Simple stone-mission silhouette — one long facade + campanario. -->
+        <svg viewBox="0 0 88 88">
+          <g fill="currentColor">
+            <rect x="14" y="46" width="60" height="28" rx="1"/>
+            <path d="M14 46 L14 30 L28 30 L28 22 L38 22 L38 30 L50 30 L50 22 L60 22 L60 30 L74 30 L74 46 Z"/>
+            <rect x="40" y="12" width="8" height="10" fill="currentColor"/>
+          </g>
+          <line x1="18" y1="60" x2="70" y2="60" stroke="rgba(0,0,0,0.35)" stroke-width="0.8"/>
+        </svg>
+      </div>
+      <div>
+        <h3 id="plate-alamo-h">Alamo, San Antonio</h3>
+        <p>A small stone mission at the center of the Texas Republic. Nineteen days, one long siege, one story that carried a state.</p>
+      </div>
+    </article>
+
+    <article class="plate plate--bigbend" tabindex="0" aria-labelledby="plate-bigbend-h">
+      <header class="plate-top"><span>02 · Park</span><span class="year">1944</span></header>
+      <div class="plate-motif" aria-hidden="true">
+        <!-- A three-peak Chisos-style ridge with the Rio Grande curling under. -->
+        <svg viewBox="0 0 88 88">
+          <path d="M4 62 L20 34 L34 50 L48 22 L64 46 L84 30 L84 74 L4 74 Z" fill="currentColor"/>
+          <path d="M6 68 Q22 78 44 66 T84 70" fill="none" stroke="currentColor" stroke-opacity="0.4" stroke-width="1.4"/>
+          <circle cx="70" cy="18" r="4" fill="currentColor" opacity="0.5"/>
+        </svg>
+      </div>
+      <div>
+        <h3 id="plate-bigbend-h">Big Bend, west Texas</h3>
+        <p>Eight hundred thousand acres along the Rio Grande. Cottonwood, prickly pear, and one of the darkest night skies in North America.</p>
+      </div>
+    </article>
+
+    <article class="plate plate--austin" tabindex="0" aria-labelledby="plate-austin-h">
+      <header class="plate-top"><span>03 · Capital</span><span class="year">1839</span></header>
+      <div class="plate-motif" aria-hidden="true">
+        <!-- A skyline slice with the river cutting through and a live-oak silhouette. -->
+        <svg viewBox="0 0 88 88">
+          <g fill="currentColor">
+            <rect x="10" y="34" width="8" height="34"/>
+            <rect x="22" y="26" width="10" height="42"/>
+            <rect x="36" y="18" width="8" height="50"/>
+            <rect x="48" y="24" width="12" height="44"/>
+            <rect x="64" y="30" width="8" height="38"/>
+            <rect x="76" y="36" width="6" height="32"/>
+          </g>
+          <path d="M6 74 Q30 82 60 72 T86 76" fill="none" stroke="currentColor" stroke-opacity="0.35" stroke-width="1.4"/>
+          <circle cx="40" cy="14" r="2" fill="currentColor" opacity="0.8"/>
+        </svg>
+      </div>
+      <div>
+        <h3 id="plate-austin-h">Austin, on the Colorado</h3>
+        <p>Live music, live oaks, live legislature. Named after Stephen F. Austin, the empresario who first brought settlers under Mexican rule.</p>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section class="sheet" id="signals" aria-labelledby="signals-h">
+  <div class="section-head">
+    <h2 id="signals-h">Signals</h2>
+    <div class="caption">three anchors · from the source</div>
+  </div>
+
+  <div class="plates">
+
+    <article class="plate plate--flag" tabindex="0" aria-labelledby="plate-flag-h">
+      <header class="plate-top"><span>04 · Flag</span><span class="year">1839</span></header>
+      <div class="plate-motif" aria-hidden="true">
+        <!-- Lone Star with the flag-color bands behind it. Interactive: click spins. -->
+        <svg viewBox="0 0 88 88" id="loneStar">
+          <rect x="4" y="18" width="30" height="52" fill="#1c3a6e" opacity="0.9"/>
+          <rect x="34" y="18" width="50" height="26" fill="#f7ecd6" opacity="0.9"/>
+          <rect x="34" y="44" width="50" height="26" fill="#c3352b" opacity="0.85"/>
+          <path class="lone-star" d="M19 30 L22.5 40.5 L33 40.5 L24.5 46.9 L27.8 57.5 L19 51.1 L10.2 57.5 L13.5 46.9 L5 40.5 L15.5 40.5 Z" fill="#fff7d6" tabindex="0" role="button" aria-label="Lone Star — click to spin"/>
+        </svg>
+      </div>
+      <div>
+        <h3 id="plate-flag-h">Lone Star flag</h3>
+        <p>Blue for loyalty, white for purity, red for bravery. One five-point star. The only US state flag that once flew over a sovereign republic.</p>
+      </div>
+    </article>
+
+    <article class="plate plate--bluebonnet" tabindex="0" aria-labelledby="plate-bluebonnet-h">
+      <header class="plate-top"><span>05 · Flower</span><span class="year">1901</span></header>
+      <div class="plate-motif" aria-hidden="true">
+        <!-- A stylized bluebonnet spike — clusters of small florets around a stem. -->
+        <svg viewBox="0 0 88 88">
+          <g>
+            <line x1="44" y1="76" x2="44" y2="30" stroke="#2d3f2a" stroke-width="1.6"/>
+            <g fill="currentColor">
+              <circle cx="44" cy="34" r="6"/>
+              <circle cx="38" cy="40" r="5"/>
+              <circle cx="50" cy="40" r="5"/>
+              <circle cx="35" cy="47" r="4.5"/>
+              <circle cx="53" cy="47" r="4.5"/>
+              <circle cx="44" cy="46" r="4"/>
+              <circle cx="40" cy="54" r="4"/>
+              <circle cx="48" cy="54" r="4"/>
+              <circle cx="44" cy="60" r="3.5"/>
+            </g>
+            <path d="M32 70 Q38 62 44 68 Q50 62 56 70" fill="none" stroke="#2d3f2a" stroke-width="1.2"/>
+            <path d="M28 74 Q36 66 44 74 Q52 66 60 74" fill="none" stroke="#2d3f2a" stroke-width="1.2"/>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <h3 id="plate-bluebonnet-h">Bluebonnet</h3>
+        <p>State flower. Only blooms in spring, only along the highway shoulders and the pastures where the ranchers let it.</p>
+      </div>
+    </article>
+
+    <article class="plate plate--longhorn" tabindex="0" aria-labelledby="plate-longhorn-h">
+      <header class="plate-top"><span>06 · Livestock</span><span class="year">1995</span></header>
+      <div class="plate-motif" aria-hidden="true">
+        <!-- A longhorn skull with wide sweeping horns. Cream on rust. -->
+        <svg viewBox="0 0 88 88">
+          <g fill="currentColor">
+            <path d="M44 42 Q54 30 62 42 Q52 46 44 44 Q36 46 26 42 Q34 30 44 42 Z"/>
+            <path d="M4 40 Q22 50 40 44" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <path d="M84 40 Q66 50 48 44" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <ellipse cx="44" cy="56" rx="10" ry="12"/>
+            <path d="M44 66 L40 74 L48 74 Z"/>
+          </g>
+          <circle cx="40" cy="54" r="1.5" fill="var(--earth)"/>
+          <circle cx="48" cy="54" r="1.5" fill="var(--earth)"/>
+        </svg>
+      </div>
+      <div>
+        <h3 id="plate-longhorn-h">Longhorn</h3>
+        <p>State large mammal. Named for the horns, which can reach seven feet from tip to tip. A living remnant of the Spanish criollo cattle.</p>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section class="sheet" id="now" aria-labelledby="now-h">
+  <div class="section-head">
+    <h2 id="now-h">Now</h2>
+    <div class="caption">one line · from the source</div>
+  </div>
+
+  <p style="font-family: var(--serif); font-size: clamp(20px, 2.4vw, 26px); line-height: 1.5; max-width: 720px; color: var(--ink); font-style: italic;">
+    Rereading J. Frank Dobie. Watching the mockingbird nest under the eave.
+  </p>
+</section>
+
+<footer class="foot" id="contact">
+  <div><span class="name">A Texas notebook</span> · notes@texasnote.example</div>
+  <div>/reimagine-it · Draw C</div>
+</footer>
+
+<!-- Fragment shader source: a slow west-Texas sunset over a low mountain ridge.
+     Content-derived palette (dusk navy → horizon orange → ember → earth rust).
+     No external assets, no CDNs. Runs off the compositor via WebGL. -->
+<script type="x-shader/x-fragment" id="fs">
+#version 300 es
+precision highp float;
+uniform vec2  iResolution;
+uniform float iTime;
+out vec4 fragColor;
+
+float hash(vec2 p) {
+  return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+}
+
+void main() {
+  vec2 uv = gl_FragCoord.xy / iResolution.xy;
+
+  // Same anchor palette the CSS uses so the shader agrees with the fallback.
+  vec3 earth   = vec3(0.101, 0.039, 0.062);
+  vec3 ember   = vec3(0.831, 0.263, 0.164);
+  vec3 horizon = vec3(0.965, 0.549, 0.223);
+  vec3 sky     = vec3(0.141, 0.094, 0.204);
+  vec3 dusk    = vec3(0.051, 0.063, 0.141);
+  vec3 star    = vec3(1.000, 0.969, 0.839);
+
+  float y = uv.y;
+
+  // Vertical bands: ground rust → ember → horizon glow → dusk sky → deep dusk.
+  vec3 col;
+  if (y < 0.22) {
+    col = mix(earth, ember, smoothstep(0.0, 0.22, y));
+  } else if (y < 0.34) {
+    col = mix(ember, horizon, smoothstep(0.22, 0.34, y));
+  } else if (y < 0.55) {
+    col = mix(horizon, sky, smoothstep(0.34, 0.55, y));
+  } else {
+    col = mix(sky, dusk, smoothstep(0.55, 1.0, y));
+  }
+
+  // Warm horizon glow — a soft band centered on y=0.32 that drifts slowly.
+  float glowY = 0.32 + 0.008 * sin(iTime * 0.15);
+  float glow = exp(-pow((y - glowY) * 6.0, 2.0)) * 0.45;
+  col += vec3(1.0, 0.62, 0.28) * glow;
+
+  // A subtle warm sun disc, off-center, just above the horizon.
+  vec2 sunPos = vec2(0.62 + 0.006 * sin(iTime * 0.1), 0.34);
+  float sd = distance(uv, sunPos);
+  col += vec3(1.0, 0.78, 0.38) * smoothstep(0.12, 0.0, sd) * 0.5;
+
+  // Twinkling stars above dusk.
+  if (y > 0.58) {
+    vec2 sp = uv * 320.0;
+    vec2 sc = floor(sp);
+    float sh = hash(sc);
+    if (sh > 0.9965) {
+      float t = 0.5 + 0.5 * sin(iTime * 1.5 + sh * 400.0);
+      col += star * t * 0.8;
+    }
+  }
+
+  // A low ridge silhouette — mountain-ish bumps at y ~ 0.28.
+  float ridge = 0.28
+              + 0.020 * sin(uv.x * 12.0 + 1.2)
+              + 0.012 * sin(uv.x * 30.0 + 2.7)
+              + 0.008 * sin(uv.x * 61.0 + 4.1);
+  if (y < ridge) {
+    col = mix(col, earth * 1.4, smoothstep(ridge, ridge - 0.03, y));
+  }
+
+  // Horizontal vignette so the type reads on the sides.
+  float side = 1.0 - pow(abs(uv.x - 0.5) * 1.6, 3.0);
+  col *= mix(0.86, 1.06, side);
+
+  // Light film grain (deterministic; no per-frame flicker without iTime).
+  col += (hash(gl_FragCoord.xy) - 0.5) * 0.015;
+
+  fragColor = vec4(col, 1.0);
+}
+</script>
+
+<script>
+  // ------- Shader hero -------
+  (function initShader() {
+    const canvas = document.getElementById('sky-canvas');
+    if (!canvas) return;
+    const gl = canvas.getContext('webgl2', { antialias: false, alpha: true, premultipliedAlpha: true, powerPreference: 'low-power' });
+    if (!gl) {
+      // graceful fallback: hide canvas so the CSS gradient in #sky carries the hero.
+      canvas.style.display = 'none';
+      return;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      canvas.style.display = 'none';       // CSS fallback under reduced motion.
+      return;
+    }
+
+    const vsSrc = `#version 300 es
+in vec2 pos;
+void main() { gl_Position = vec4(pos, 0.0, 1.0); }`;
+    const fsSrc = document.getElementById('fs').textContent.trim();
+
+    function compile(type, src) {
+      const s = gl.createShader(type);
+      gl.shaderSource(s, src);
+      gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+        console.warn('shader compile failed:', gl.getShaderInfoLog(s));
+        return null;
+      }
+      return s;
+    }
+    const vs = compile(gl.VERTEX_SHADER, vsSrc);
+    const fs = compile(gl.FRAGMENT_SHADER, fsSrc);
+    if (!vs || !fs) { canvas.style.display = 'none'; return; }
+
+    const prog = gl.createProgram();
+    gl.attachShader(prog, vs);
+    gl.attachShader(prog, fs);
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+      console.warn('program link failed:', gl.getProgramInfoLog(prog));
+      canvas.style.display = 'none';
+      return;
+    }
+    gl.useProgram(prog);
+
+    const posLoc = gl.getAttribLocation(prog, 'pos');
+    const uRes = gl.getUniformLocation(prog, 'iResolution');
+    const uTime = gl.getUniformLocation(prog, 'iTime');
+
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+      -1, -1,  1, -1, -1,  1,
+      -1,  1,  1, -1,  1,  1
+    ]), gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(posLoc);
+    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w = Math.max(1, Math.floor(canvas.clientWidth * dpr));
+      const h = Math.max(1, Math.floor(canvas.clientHeight * dpr));
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w;
+        canvas.height = h;
+        gl.viewport(0, 0, w, h);
+      }
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    const start = performance.now();
+    let rafId = 0;
+    function frame(now) {
+      resize();
+      gl.uniform2f(uRes, canvas.width, canvas.height);
+      gl.uniform1f(uTime, (now - start) / 1000);
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+      rafId = requestAnimationFrame(frame);
+    }
+    rafId = requestAnimationFrame(frame);
+
+    // Pause when tab is hidden — courteous with battery.
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) cancelAnimationFrame(rafId);
+      else rafId = requestAnimationFrame(frame);
+    });
+  })();
+
+  // ------- Hidden gesture: click the Lone Star to spin (Cartier-style reward) -------
+  (function loneStar() {
+    const svgHost = document.getElementById('loneStar');
+    if (!svgHost) return;
+    const star = svgHost.querySelector('.lone-star');
+    if (!star) return;
+    function spin(e) {
+      if (e && e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ') return;
+      if (e) e.preventDefault();
+      star.classList.remove('spin');
+      // reflow so the animation restarts on repeat clicks
+      void star.getBoundingClientRect();
+      star.classList.add('spin');
+    }
+    star.addEventListener('click', spin);
+    star.addEventListener('keydown', spin);
+  })();
+</script>
+
+</body>
+</html>
