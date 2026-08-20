@@ -1,9 +1,9 @@
 # Tested results
 
-Captured `2026-08-20T01:14:50Z` with `python.exe 3.13.3`.
+Captured `2026-08-20T02:54:25Z` with `python.exe 3.13.3`.
 Re-run: `python gold/five/run.py`
 
-### 1. CLI stdin — `/awe-me`
+### 1. CLI stdin — `/reimagine-it`
 
 ```text
 $ python before.py
@@ -29,7 +29,7 @@ exit: 1 (expect 1) PASS
 empty stdin
 ```
 
-### 2. First-run door — `/inspire-me`
+### 2. First-run door — `/reimagine-it`
 
 ```text
 $ python before.py
@@ -55,7 +55,7 @@ exit: 0 (expect 0) PASS
 OK
 ```
 
-### 3. Ledger skyline — `/awe-me infographic`
+### 3. Ledger skyline — `/reimagine-it infographic`
 
 ```text
 $ python before.py
@@ -80,7 +80,7 @@ exit: 0 (expect 0) PASS
 all three titles present
 ```
 
-### 4. Layer law — `/awe-me architecture`
+### 4. Layer law — `/reimagine-it architecture`
 
 ```text
 $ python check.py
@@ -96,10 +96,10 @@ exit: 0 (expect 0) PASS
 OK: layer law held
 ```
 
-### 5. This repo gold — `/awe-me`
+### 5. This repo gold — `/reimagine-it`
 
 ```text
-$ python awe.py --fail
+$ python reimagine.py --fail
 cwd: gold
 exit: 1 (expect 1) PASS
 - make it more cinematic
@@ -107,19 +107,19 @@ exit: 1 (expect 1) PASS
 - maybe a Three.js thing
 - inspiring onboarding vibes
 - surprise them somehow
-AWE: blocked — a list of vibes is not an artifact
+REIMAGINED: blocked — a list of vibes is not an artifact
 ```
 
 ```text
-$ python awe.py --ship
+$ python reimagine.py --ship
 cwd: gold
 exit: 0 (expect 0) PASS
 {
-  "awe": "shipped",
-  "mode": "awe-me",
+  "reimagined": "shipped",
+  "mode": "reimagine-it",
   "about": "A stranger sees a vibe list die, then the same context as one proving command.",
-  "hero": "gold/awe.py --ship",
-  "stretch": "npx skills add kazimrmerchant/skill-slice --skill awe-me",
-  "verified": "this command exits 0; gold/awe.py --fail exits 1"
+  "hero": "gold/reimagine.py --ship",
+  "stretch": "npx skills add kazimrmerchant/skill-slice --skill reimagine-it",
+  "verified": "this command exits 0; gold/reimagine.py --fail exits 1"
 }
 ```

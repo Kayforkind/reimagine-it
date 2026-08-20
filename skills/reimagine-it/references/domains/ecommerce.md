@@ -1,4 +1,4 @@
-# /awe-me webpage ecommerce
+# /reimagine-it webpage ecommerce
 
 Load only when the user token is `ecommerce`. Extends the shared spine ([../webpage-craft.md](../webpage-craft.md)).
 
@@ -53,7 +53,7 @@ A quiet product store: one product per plate, big SVG hero art (never a stock ph
 
 ## Where to write
 
-`<workspace>/awe/<yyyy-mm-dd>-store/index.html` for a one-shot. In place if the user is redesigning an existing product page.
+`<workspace>/reimagined/<yyyy-mm-dd>-store/index.html` for a one-shot. In place if the user is redesigning an existing product page.
 
 ## Report addition
 

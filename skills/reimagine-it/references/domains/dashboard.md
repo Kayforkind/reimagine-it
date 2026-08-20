@@ -1,4 +1,4 @@
-# /awe-me webpage dashboard
+# /reimagine-it webpage dashboard
 
 Load only when the user token is `dashboard`. Extends the shared spine ([../webpage-craft.md](../webpage-craft.md)).
 
@@ -54,7 +54,7 @@ An operator dashboard: dark background with a faint grid, monospace-forward, a t
 
 ## Where to write
 
-`<workspace>/awe/<yyyy-mm-dd>-dashboard/index.html` for a one-shot. In place if there is already a `/status` page or an existing dashboard the user is redesigning.
+`<workspace>/reimagined/<yyyy-mm-dd>-dashboard/index.html` for a one-shot. In place if there is already a `/status` page or an existing dashboard the user is redesigning.
 
 ## Verify
 

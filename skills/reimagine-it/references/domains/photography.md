@@ -1,4 +1,4 @@
-# /awe-me webpage photography
+# /reimagine-it webpage photography
 
 Load only when the user token is `photography`. Extends the shared spine ([../webpage-craft.md](../webpage-craft.md)).
 
@@ -53,7 +53,7 @@ A quiet magazine folio: cream paper, black hairline rules, a Didot-scale italic-
 
 ## Where to write
 
-`<workspace>/awe/<yyyy-mm-dd>-folio/index.html` when the leap is a folio site or a print-styled index page. In place if the user already has a personal page and wants a folio treatment.
+`<workspace>/reimagined/<yyyy-mm-dd>-folio/index.html` when the leap is a folio site or a print-styled index page. In place if the user already has a personal page and wants a folio treatment.
 
 ## Verify
 

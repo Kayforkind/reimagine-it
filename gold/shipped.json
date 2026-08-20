@@ -1,8 +1,8 @@
 {
-  "awe": "shipped",
-  "mode": "awe-me",
+  "reimagined": "shipped",
+  "mode": "reimagine-it",
   "about": "A stranger sees a vibe list die, then the same context as one proving command.",
-  "hero": "gold/awe.py --ship",
-  "stretch": "npx skills add kazimrmerchant/skill-slice --skill awe-me",
-  "verified": "this command exits 0; gold/awe.py --fail exits 1"
+  "hero": "gold/reimagine.py --ship",
+  "stretch": "npx skills add kazimrmerchant/skill-slice --skill reimagine-it",
+  "verified": "this command exits 0; gold/reimagine.py --fail exits 1"
 }

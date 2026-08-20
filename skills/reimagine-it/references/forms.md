@@ -27,8 +27,8 @@ Load from SKILL.md. Default: **you** pick the form from context. The user may fo
 
 | Leap type | Location |
 |-----------|----------|
-| Capability, CLI, test, protocol spike in *this* repo | **In place.** Do not hide it under `awe/`. |
-| One-shot seeing-tool (HTML/SVG/explainer) | `<workspace>/awe/<yyyy-mm-dd>-<slug>/` or `inspire/` |
+| Capability, CLI, test, protocol spike in *this* repo | **In place.** Do not hide it under `reimagined/`. |
+| One-shot seeing-tool (HTML/SVG/explainer) | `<workspace>/reimagined/<yyyy-mm-dd>-<slug>/`  |
 | Cursor canvas | The host’s canvases directory, only if that skill is installed |
 | `--plan-only` | Chat only. No files. |
 

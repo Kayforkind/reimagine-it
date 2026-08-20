@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 260" role="img"
-     aria-label="How /awe-me decides: context, adjacent possible, four notes, form, artifact.">
-  <title>How /awe-me decides</title>
+     aria-label="How /reimagine-it decides: context, adjacent possible, four notes, form, artifact.">
+  <title>How /reimagine-it decides</title>
   <desc>Left to right: context sniff, adjacent possible plus one SCAMPER letter, four private notes, hero form router, shipped artifact plus stretch.</desc>
 
   <rect width="960" height="260" fill="#0c0e12"/>
@@ -26,7 +26,7 @@
     <g>
       <rect x="394" y="80" width="160" height="100" rx="10" fill="#171c24" stroke="#2a3340"/>
       <text x="474" y="112" text-anchor="middle" fill="#7ee0c0" font-size="11" letter-spacing="2">FOUR NOTES</text>
-      <text x="474" y="138" text-anchor="middle">device, awe</text>
+      <text x="474" y="138" text-anchor="middle">device, leap</text>
       <text x="474" y="156" text-anchor="middle">craft, effect</text>
       <text x="474" y="174" text-anchor="middle" fill="#8b97a4" font-size="11">(private, no mood words)</text>
     </g>
@@ -56,12 +56,12 @@
   </g>
 
   <g font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">
-    <text x="24" y="46" fill="#8b97a4" font-size="11" letter-spacing="2.4">HOW /awe-me DECIDES</text>
+    <text x="24" y="46" fill="#8b97a4" font-size="11" letter-spacing="2.4">HOW /reimagine-it DECIDES</text>
     <text x="24" y="228" fill="#e8edf4" font-size="12">
       No brainstorm list. No "wow factor." One artifact this workspace can actually hold.
     </text>
     <text x="24" y="248" fill="#8b97a4" font-size="11">
-      /inspire-me is the same chair with an elevation and Tuesday-handle default.
+      /reimagine-it is the same chair with an elevation and Tuesday-handle default.
     </text>
   </g>
 </svg>

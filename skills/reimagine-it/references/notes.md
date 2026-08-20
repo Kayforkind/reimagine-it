@@ -32,9 +32,9 @@ If stuck after sniff: draw **one** Device row as a constraint card. Do not paste
 | Plus the trajectory | Serving the idea, or the ego? | Criticism must contain a new move. |
 | Riddle the object | Describe it with words never used for it? | Two rings, two stings, a nail in the middle. |
 
-### Awe (vastness + accommodation)
+### Leap (vastness + accommodation, rebuilt model)
 
-Pretty ≠ awe. Surprise ≠ awe. Both **vastness** and **need for accommodation** (Keltner & Haidt). Pick **one** wonder; do not stack stock.
+Was "Awe." The leap note is what makes the reimagined thing feel larger than the ordinary frame **and** require the mind to rebuild — Keltner & Haidt's vastness + accommodation, plus the epiphany move that changes the model, not the paint. Pretty ≠ leap. Surprise ≠ leap. Pick **one** wonder; do not stack stock.
 
 | Lens | Ask | Move |
 |------|-----|------|
@@ -42,14 +42,13 @@ Pretty ≠ awe. Surprise ≠ awe. Both **vastness** and **need for accommodation
 | Small self | Would they draw themselves smaller after? | Scale that dignifies. No victory pose. |
 | Moral beauty | Competence or kindness under load? | Cost visible. Hands working. |
 | Eight wonders, pick one | Moral beauty, nature, music, visual design, spirit, big ideas, collective, life/death? | One, fully. Visual design is not the default. |
-| STAR-shaped memory | What will they still describe in two weeks? | Tied to the big idea. Murder diluting darlings. (Do not brand this “STAR moment.”) |
+| STAR-shaped memory | What will they still describe in two weeks? | Tied to the big idea. Kill diluting darlings. (Do not brand this "STAR moment.") |
 | Reflective Tuesday | What door remains tomorrow? | A command, gesture, first plate — a handle. |
 | Quiet after thunder | What is the last feeling? | Peak–end: do not end on the hit. |
 | Microscopic vastness | Can vastness be small? | Handshake, type, bead, one invariant as cathedral. |
 | Epiphany | Which assumption has to die? | The leap is a rebuilt model, not a louder demo. |
 
-`/awe-me` prefers: vastness, small self, epiphany, microscopic vastness.  
-`/inspire-me` prefers: moral beauty, Tuesday door, quiet after thunder.
+`/reimagine-it` biases toward the epiphany lens: the assumption that dies is what makes the reimagined thing feel like it was always allowed.
 
 ### Craft (the magnet in *this* form)
 
@@ -84,8 +83,8 @@ Was “visceral / image.” It is the first-encounter magnet in whatever form yo
 | Pattern | Why it dies |
 |---------|-------------|
 | Wow factor | Not a strategy. Treadmill. Boardroom beauty parade. |
-| Graphics-only awe | User said awe me. The context may need a protocol, not a poster. |
-| Surprise sold as awe | Vastness missing. |
+| Graphics-only leap | User said reimagine it. The context may need a protocol, not a poster. |
+| Surprise sold as a leap | Vastness missing; the mind did not have to rebuild. |
 | Shock treadmill | Yesterday’s gimmick is today’s habit. |
 | Attractions with no purpose | Spectacle that does not serve the idea. |
 | Delight-as-goal on a tool UI | They came to finish a task. |

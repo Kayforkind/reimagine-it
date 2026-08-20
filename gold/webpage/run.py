@@ -25,7 +25,7 @@ COMPARE_PNG = ROOT / "compare.png"
 
 
 def find_browser() -> str:
-    env = os.environ.get("AWE_BROWSER")
+    env = os.environ.get("REIMAGINE_BROWSER") or os.environ.get("AWE_BROWSER")
     if env and Path(env).is_file():
         return env
     candidates = [
@@ -41,7 +41,7 @@ def find_browser() -> str:
     if which:
         return which
     raise SystemExit(
-        "No Edge or Chrome found. Set AWE_BROWSER=<full path to msedge.exe or chrome.exe>."
+        "No Edge or Chrome found. Set REIMAGINE_BROWSER=<full path to msedge.exe or chrome.exe>."
     )
 
 
@@ -98,7 +98,7 @@ def write_compare_html() -> None:
 </style></head><body>
 
 <div class="head">
-  <span class="kicker">/awe-me webpage</span>
+  <span class="kicker">/reimagine-it webpage</span>
   <h1>The same content, redesigned by one command.</h1>
   <span class="meta">gold/webpage &middot; tested</span>
 </div>
@@ -109,7 +109,7 @@ def write_compare_html() -> None:
     <img src="before.png" alt="plain user page">
   </div>
   <div class="arrow">
-    <div>/awe-me</div>
+    <div>/reimagine-it</div>
     <div class="a">&rarr;</div>
     <div>webpage</div>
   </div>

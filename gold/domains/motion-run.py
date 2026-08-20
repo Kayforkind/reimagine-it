@@ -123,7 +123,7 @@ def combined_html(rows: list[tuple[str, list[Path]]]) -> str:
     border-top:1px solid #1a1f2b;background:#0a0f19}}
   img{{display:block;width:100%;height:auto}}
 </style></head><body><div class="wrap">
-<h1>/awe-me webpage &mdash; four packs, motion is real</h1>
+<h1>/reimagine-it webpage &mdash; four packs, motion is real</h1>
 <div class="lead">Three frames per pack, spaced 500 ms apart. If the pixels change frame-to-frame, the motion budget landed.</div>
 {body_rows}
 </div></body></html>

@@ -1,5 +1,5 @@
 {
-  "started": "2026-08-20T01:14:50Z",
+  "started": "2026-08-20T02:54:25Z",
   "python": "3.13.3",
   "failed": 0,
   "runs": [
@@ -113,20 +113,20 @@
       "pass": true
     },
     {
-      "cmd": "awe.py --fail",
+      "cmd": "reimagine.py --fail",
       "cwd": "gold",
       "exit": 1,
       "stdout": "- make it more cinematic\n- wow-factor infographic\n- maybe a Three.js thing\n- inspiring onboarding vibes\n- surprise them somehow\n",
-      "stderr": "AWE: blocked \u2014 a list of vibes is not an artifact\n",
+      "stderr": "REIMAGINED: blocked \u2014 a list of vibes is not an artifact\n",
       "stdin": false,
       "expect": 1,
       "pass": true
     },
     {
-      "cmd": "awe.py --ship",
+      "cmd": "reimagine.py --ship",
       "cwd": "gold",
       "exit": 0,
-      "stdout": "{\n  \"awe\": \"shipped\",\n  \"mode\": \"awe-me\",\n  \"about\": \"A stranger sees a vibe list die, then the same context as one proving command.\",\n  \"hero\": \"gold/awe.py --ship\",\n  \"stretch\": \"npx skills add kazimrmerchant/skill-slice --skill awe-me\",\n  \"verified\": \"this command exits 0; gold/awe.py --fail exits 1\"\n}\n",
+      "stdout": "{\n  \"reimagined\": \"shipped\",\n  \"mode\": \"reimagine-it\",\n  \"about\": \"A stranger sees a vibe list die, then the same context as one proving command.\",\n  \"hero\": \"gold/reimagine.py --ship\",\n  \"stretch\": \"npx skills add kazimrmerchant/skill-slice --skill reimagine-it\",\n  \"verified\": \"this command exits 0; gold/reimagine.py --fail exits 1\"\n}\n",
       "stderr": "",
       "stdin": false,
       "expect": 0,

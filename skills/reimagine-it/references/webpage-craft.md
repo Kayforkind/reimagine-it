@@ -2,11 +2,15 @@
 
 Load when the form router picks `html` / `infographic` / `webpage`, or when the user forced any of those, **or** when the context is a page (existing `index.html`, personal site, docs page, landing page, dashboard). Not needed for pure SVG weenies or Three.js scenes.
 
-The point of this file: `/awe-me webpage` must produce a **10× redesign, not a repaint**. If the "after" only changes fonts and colors, the leap failed. The list below is what a real design leap looks like.
+The point of this file: `/reimagine-it webpage` must produce a **10× redesign, not a repaint**. If the "after" only changes fonts and colors, the leap failed. The list below is what a real design leap looks like.
 
-## Second word: domain token
+## Tokens layered on this spine
 
-If the user gave a second word (`/awe-me webpage <domain>` or `/awe-me <domain>`), route to the matching pack in [domains/](domains/) **in addition to** this spine. Domain packs extend this file — they never replace it.
+Everything below composes on top of this spine. Grid + baseline + palette cap + one motif still apply.
+
+### Second word: domain token
+
+If the user gave a second word (`/reimagine-it webpage <domain>`), route to the matching pack in [domains/](domains/) **in addition to** this spine.
 
 | Token | Pack |
 |-------|------|
@@ -18,7 +22,32 @@ If the user gave a second word (`/awe-me webpage <domain>` or `/awe-me <domain>`
 | `landing` | [domains/landing.md](domains/landing.md) — one-viewport magnet + one CTA + one proof strip |
 | `portfolio` | [domains/portfolio.md](domains/portfolio.md) — study per project, not a card grid |
 
-No token? Use this spine alone; the aesthetic is a sober designed page.
+### Third word (or `--style <name>`): modifier
+
+Optional. Layered on top of the domain (or on the spine alone).
+
+| Token | Pack |
+|-------|------|
+| `glassmorphism` | [modifiers/glassmorphism.md](modifiers/glassmorphism.md) — waives the glassmorphism cut-list entry; adds real-depth + two-tier + light-source-consistent border rules |
+| `bento` | [modifiers/bento.md](modifiers/bento.md) — named-cell grid; hero tile 2× wider; one idea per tile |
+| `neon` | [modifiers/neon.md](modifiers/neon.md) — one high-chroma accent, glow via double drop-shadow, kinetic type on the accent word |
+| `brutalism` `neumorphism` `handdrawn` | [modifiers/](modifiers/) — spec-only for v2 |
+
+### Font override — `--font "family, fallback, generic"`
+
+If the user passed `--font`, replace the display or body family (whichever the pack calls "the display" or "the body"). Build a **complete fallback stack**: a serif family gets `serif` as the last fallback; a sans gets `sans-serif`; a mono gets `monospace`. Never fetch a webfont at runtime unless the user *also* passed `--allow-fetch` (they explicitly accept breaking the offline single-file promise).
+
+If the requested family is not on the reader's box, the fallback must still land the aesthetic (a `Playfair Display` fallback of `Georgia, serif` still reads editorial; a `JetBrains Mono` fallback of `Consolas, monospace` still reads code).
+
+Example: `--font "Playfair Display, Iowan Old Style, Georgia, serif"` becomes the display stack for the artistic pack, replacing the pack's default serif choice.
+
+### Lock reuse — `--ref <name>`
+
+If the user passed `--ref <name>`, load [locks/<name>.md](locks/) *instead of* choosing a domain pack. Locks are extracted design-DNA packs — palette + type stack + motifs + motion + 3D signatures. Follow them exactly; do not "improve" the locked design without being asked.
+
+### No tokens
+
+Use this spine alone; the aesthetic is a sober designed page.
 
 ## Every output must land SVG + animation + 3D — **and they must read in a still**
 
@@ -33,9 +62,9 @@ Non-negotiable across every domain token and the default. Not floors — real fe
 3. **3D that reads in a still.** Not "perspective is set." At least one element with a computed rotation ≥ 12° **and** a drop shadow blur ≥ 24px, or `translateZ` ≥ 30px with a real box-shadow. A stranger looking at the PNG must be able to say "that card is in front of that one" without playback.
 4. **WebGL2 is available and encouraged for the `cinematic` / `3d` token.** Inline `<canvas>` + inline shaders in `<script type="x-shader/x-fragment">`. No CDN. No `import` from `https://`. A vendored `vendor/three.module.min.js` sibling is allowed for full three.js scenes and must be flagged in the report — the folder must still open portable.
 
-If a redesign lands zero of these, it did not earn `/awe-me webpage`. If it lands them syntactically but a still doesn't prove them, tighten motion budget / bigger tilt / add a shadow.
+If a redesign lands zero of these, it did not earn `/reimagine-it webpage`. If it lands them syntactically but a still doesn't prove them, tighten motion budget / bigger tilt / add a shadow.
 
-Live gold: [gold/webpage/before.html](../../../gold/webpage/before.html) vs [gold/webpage/after.html](../../../gold/webpage/after.html) is the sober default. [gold/domains/](../../../gold/domains/) holds the token variants. `gold/domains/strip.png` is the one-image proof that four tokens produce four aesthetics from the same three-project brief.
+Live gold: [gold/webpage/before.html](../../../gold/webpage/before.html) vs [gold/webpage/after.html](../../../gold/webpage/after.html) is the sober default. [gold/domains/](../../../gold/domains/) holds the domain variants. [gold/modifiers/](../../../gold/modifiers/) holds domain-plus-modifier combos. `gold/domains/strip.png` and `gold/domains/motion-strip.png` are the proofs that domain tokens produce range **and** motion.
 
 ## Non-negotiables (a redesign that misses these is a repaint)
 
@@ -72,9 +101,9 @@ Anything on this list means you painted, you did not redesign:
 - Bootstrap default components with no adjustments
 - A footer with a fake newsletter form
 
-## Ship checklist for `/awe-me webpage`
+## Ship checklist for `/reimagine-it webpage`
 
-Before you say `AWE: shipped`, every one of these must be true.
+Before you say `REIMAGINED: shipped`, every one of these must be true.
 
 - [ ] Single `.html`, inline CSS, opens offline, no CDN, no web font
 - [ ] Baseline grid respected (8px), spacing scale respected
@@ -92,11 +121,15 @@ Before you say `AWE: shipped`, every one of these must be true.
 
 ## Report addition when the hero is a webpage
 
-In the standard AWE report, add one line:
+In the standard REIMAGINED report, add these lines (skip lines that don't apply):
 
 ```
 Motif: <the one thing that repeats>
 Make-strange: <which move you picked>
+Domain: <artistic | dashboard | photography | cinematic | ecommerce | landing | portfolio | (none)>
+Modifier: <glassmorphism | bento | neon | ... | (none)>
+Font stack: <complete CSS stack, if --font was passed>
+Lock: <name of --ref used, if any>
 ```
 
 That line is why a stranger reading the diff can name what changed without loading the page.

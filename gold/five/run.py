@@ -316,8 +316,8 @@ def run_05() -> list[dict[str, object]]:
     if had:
         shutil.copyfile(shipped, backup)
     try:
-        fail = capture(["awe.py", "--fail"], gold)
-        ship = capture(["awe.py", "--ship"], gold)
+        fail = capture(["reimagine.py", "--fail"], gold)
+        ship = capture(["reimagine.py", "--ship"], gold)
         return [expect(fail, 1), expect(ship, 0)]
     finally:
         if backup.is_file():
@@ -348,11 +348,11 @@ def fmt_block(row: dict[str, object]) -> str:
 
 def main() -> int:
     suites = [
-        ("1. CLI stdin — `/awe-me`", run_01),
-        ("2. First-run door — `/inspire-me`", run_02),
-        ("3. Ledger skyline — `/awe-me infographic`", run_03),
-        ("4. Layer law — `/awe-me architecture`", run_04),
-        ("5. This repo gold — `/awe-me`", run_05),
+        ("1. CLI stdin — `/reimagine-it`", run_01),
+        ("2. First-run door — `/reimagine-it`", run_02),
+        ("3. Ledger skyline — `/reimagine-it infographic`", run_03),
+        ("4. Layer law — `/reimagine-it architecture`", run_04),
+        ("5. This repo gold — `/reimagine-it`", run_05),
     ]
     started = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     python_ver = sys.version.split()[0]
@@ -365,9 +365,9 @@ def main() -> int:
         "",
     ]
     vizzers = {
-        "1. CLI stdin — `/awe-me`": viz_01,
-        "2. First-run door — `/inspire-me`": viz_02,
-        "4. Layer law — `/awe-me architecture`": viz_04,
+        "1. CLI stdin — `/reimagine-it`": viz_01,
+        "2. First-run door — `/reimagine-it`": viz_02,
+        "4. Layer law — `/reimagine-it architecture`": viz_04,
     }
     failed = 0
     suite_results: list[dict[str, object]] = []
@@ -410,7 +410,7 @@ def main() -> int:
         '<rect width="100%" height="100%" fill="#0c0e12"/>',
         (
             '<text x="32" y="40" fill="#8b97a4" font-size="11" letter-spacing="2.4" '
-            'font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">AWE: '
+            'font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">REIMAGINED: '
             f'{suite_status.upper()}</text>'
         ),
         (

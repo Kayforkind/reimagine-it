@@ -1,4 +1,4 @@
-# /awe-me webpage — before / after
+# /reimagine-it webpage — before / after
 
 Two files with the same three projects, the same one-line bio, and the same email.
 
@@ -18,8 +18,8 @@ Writes:
 - `compare.html` — the side-by-side page
 - `compare.png` — the headline image embedded in the main README
 
-Requires Google Chrome or Microsoft Edge on disk. Override with `AWE_BROWSER=<full path to msedge.exe or chrome.exe>` if the script cannot find one.
+Requires Google Chrome or Microsoft Edge on disk. Override with `REIMAGINE_BROWSER=<full path to msedge.exe or chrome.exe>` if the script cannot find one.
 
 ## Why this is here
 
-`/awe-me webpage` should ship a **10× redesign, not a repaint.** The design rules that make that reliable live in [`skills/awe-me/references/webpage-craft.md`](../../skills/awe-me/references/webpage-craft.md). This folder is the live gold that file points at.
+`/reimagine-it webpage` should ship a **10× redesign, not a repaint.** The design rules that make that reliable live in [`skills/reimagine-it/references/webpage-craft.md`](../../skills/reimagine-it/references/webpage-craft.md). This folder is the live gold that file points at.

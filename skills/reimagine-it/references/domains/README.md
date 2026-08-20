@@ -5,7 +5,7 @@ Progressive disclosure. Load the pack that matches the user token; skip the rest
 ## Syntax
 
 ```
-/awe-me <form> <domain>
+/reimagine-it <form> <domain>
 ```
 
 `<form>` is one of the form-router families (usually `webpage` here). `<domain>` is one of the tokens below. If the user gave no domain, use the shared spine ([../webpage-craft.md](../webpage-craft.md)) and skip this folder.

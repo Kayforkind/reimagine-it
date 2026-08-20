@@ -1,4 +1,4 @@
-"""Reverse demo of /awe-me: a brainstorm fails; the same context ships."""
+"""Reverse demo of /reimagine-it: a brainstorm fails; the same context ships."""
 
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ FAIL_LIST = """- make it more cinematic
 
 
 def fail() -> int:
-    sys.stderr.write("AWE: blocked — a list of vibes is not an artifact\n")
+    sys.stderr.write("REIMAGINED: blocked — a list of vibes is not an artifact\n")
     sys.stdout.write(FAIL_LIST)
     return 1
 
@@ -27,12 +27,12 @@ def fail() -> int:
 def ship() -> int:
     lock = CTX.read_text(encoding="utf-8").strip().splitlines()[0]
     report = {
-        "awe": "shipped",
-        "mode": "awe-me",
+        "reimagined": "shipped",
+        "mode": "reimagine-it",
         "about": lock,
-        "hero": "gold/awe.py --ship",
-        "stretch": "npx skills add kazimrmerchant/skill-slice --skill awe-me",
-        "verified": "this command exits 0; gold/awe.py --fail exits 1",
+        "hero": "gold/reimagine.py --ship",
+        "stretch": "npx skills add kazimrmerchant/skill-slice --skill reimagine-it",
+        "verified": "this command exits 0; gold/reimagine.py --fail exits 1",
     }
     SHIPPED.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     sys.stdout.write(json.dumps(report, indent=2) + "\n")
@@ -45,7 +45,7 @@ def main(argv: list[str]) -> int:
         return fail()
     if args == ["--ship"]:
         return ship()
-    sys.stderr.write("usage: python gold/awe.py [--fail | --ship]\n")
+    sys.stderr.write("usage: python gold/reimagine.py [--fail | --ship]\n")
     return 2
 
 

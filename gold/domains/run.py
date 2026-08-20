@@ -1,4 +1,4 @@
-"""Screenshot every /awe-me webpage variant and composite a single strip.png.
+"""Screenshot every /reimagine-it webpage variant and composite a single strip.png.
 
 Windows-first (uses headless msedge or Chrome). Run:
 
@@ -22,7 +22,7 @@ REPO = ROOT.parent.parent
 VARIANTS: list[dict[str, object]] = [
     {
         "token": "webpage",
-        "label": "/awe-me webpage",
+        "label": "/reimagine-it webpage",
         "sub": "sober designed page (default)",
         "html": REPO / "gold" / "webpage" / "after.html",
         "png": REPO / "gold" / "webpage" / "after.png",
@@ -31,7 +31,7 @@ VARIANTS: list[dict[str, object]] = [
     },
     {
         "token": "artistic",
-        "label": "/awe-me artistic",
+        "label": "/reimagine-it artistic",
         "sub": "cream + serif + drifting arcs + 3D tilt",
         "html": ROOT / "artistic" / "after.html",
         "png": ROOT / "artistic" / "after.png",
@@ -40,7 +40,7 @@ VARIANTS: list[dict[str, object]] = [
     },
     {
         "token": "dashboard",
-        "label": "/awe-me dashboard",
+        "label": "/reimagine-it dashboard",
         "sub": "KPI tiles + live chart + status table",
         "html": ROOT / "dashboard" / "after.html",
         "png": ROOT / "dashboard" / "after.png",
@@ -49,7 +49,7 @@ VARIANTS: list[dict[str, object]] = [
     },
     {
         "token": "photography",
-        "label": "/awe-me photography",
+        "label": "/reimagine-it photography",
         "sub": "editorial folio + SVG plates + dropcaps",
         "html": ROOT / "photography" / "after.html",
         "png": ROOT / "photography" / "after.png",
@@ -63,7 +63,7 @@ STRIP_PNG = ROOT / "strip.png"
 
 
 def find_browser() -> str:
-    env = os.environ.get("AWE_BROWSER")
+    env = os.environ.get("REIMAGINE_BROWSER") or os.environ.get("AWE_BROWSER")
     if env and Path(env).is_file():
         return env
     candidates = [
@@ -79,7 +79,7 @@ def find_browser() -> str:
     if which:
         return which
     raise SystemExit(
-        "No Edge or Chrome found. Set AWE_BROWSER=<full path to msedge.exe or chrome.exe>."
+        "No Edge or Chrome found. Set REIMAGINE_BROWSER=<full path to msedge.exe or chrome.exe>."
     )
 
 
@@ -153,7 +153,7 @@ def write_strip_html() -> None:
 </style></head><body>
 
 <div class="head">
-  <span class="kicker">/awe-me &lt;form&gt; &lt;domain&gt;</span>
+  <span class="kicker">/reimagine-it &lt;form&gt; &lt;domain&gt;</span>
   <h1>One command, one three-project brief, four completely different designs.</h1>
   <span class="meta">gold/domains &middot; python gold/domains/run.py</span>
 </div>
@@ -164,7 +164,7 @@ def write_strip_html() -> None:
 
 <div class="foot">
   <span>same words. same three projects. same one email.</span>
-  <span>designed by <b>/awe-me</b></span>
+  <span>designed by <b>/reimagine-it</b></span>
 </div>
 
 </body></html>

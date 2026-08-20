@@ -52,7 +52,7 @@ def main() -> int:
 <main>
 {''.join(bars)}
 </main>
-<h1>AWE: shipped</h1>
+<h1>REIMAGINED: shipped</h1>
 </body>
 </html>
 """
@@ -71,7 +71,7 @@ def main() -> int:
         '<rect width="100%" height="100%" fill="#0c0e12"/>',
         (
             '<text x="40" y="34" fill="#8b97a4" font-size="11" letter-spacing="2.4" '
-            'font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">AWE: shipped</text>'
+            'font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">REIMAGINED: shipped</text>'
         ),
     ]
     for i, item in enumerate(items):

@@ -1,6 +1,6 @@
 """Composite gold/domains/artistic (hand-authored) vs test/pipeline (fresh subagent).
 
-Both are `/awe-me webpage artistic` runs on different briefs.
+Both are `/reimagine-it webpage artistic` runs on different briefs.
 If they share design DNA (cream + italic serif + drifting SVG + 3D cards + aubergine),
 the pack works.
 """
@@ -76,7 +76,7 @@ def main() -> None:
   .note{margin-top:16px;color:#8b8579;line-height:1.5;max-width:1100px}
   .note b{color:#e8e6e0;font-weight:400}
 </style></head><body><div class="wrap">
-<h1>/awe-me webpage artistic - two independent runs</h1>
+<h1>/reimagine-it webpage artistic - two independent runs</h1>
 <div class="sub">Same command. Different briefs. Same design DNA.</div>
 <div class="grid">
   <div class="col"><div class="lab"><b>GOLD</b>hand-authored - Jordan Rivers</div>

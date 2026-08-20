@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" role="img"
      aria-label="Before: a vibe list. After: a shipped artifact.">
-  <title>awe-me - before a vibe list, after a shipped artifact</title>
-  <desc>Left panel shows five dim brainstorm bullets that exit 1. Right panel shows a JSON artifact that exits 0. Title last: AWE shipped.</desc>
+  <title>reimagine-it - before a vibe list, after a shipped artifact</title>
+  <desc>Left panel shows five dim brainstorm bullets that exit 1. Right panel shows a JSON artifact that exits 0. Title last: REIMAGINED: shipped.</desc>
 
   <rect width="960" height="380" fill="#0c0e12"/>
 
@@ -14,7 +14,7 @@
       <text x="0" y="78" fill="#c45c5c">- maybe a Three.js thing</text>
       <text x="0" y="102" fill="#6a3a3a">- inspiring onboarding vibes</text>
       <text x="0" y="126" fill="#6a3a3a">- surprise them somehow</text>
-      <text x="0" y="170" fill="#c45c5c" font-size="12">AWE blocked: a list of vibes is not an artifact</text>
+      <text x="0" y="170" fill="#c45c5c" font-size="12">REIMAGINED: blocked: a list of vibes is not an artifact</text>
     </g>
 
     <g transform="translate(470 46)">
@@ -22,11 +22,11 @@
       <rect x="-8" y="16" width="450" height="200" rx="8" fill="#12352c" stroke="#1e5c4d"/>
       <g fill="#d7fff3" font-size="12">
         <text x="6" y="40">{</text>
-        <text x="18" y="60"><tspan fill="#7ee0c0">"awe"</tspan>: "shipped",</text>
-        <text x="18" y="80"><tspan fill="#7ee0c0">"mode"</tspan>: "awe-me",</text>
+        <text x="18" y="60"><tspan fill="#7ee0c0">"reimagined"</tspan>: "shipped",</text>
+        <text x="18" y="80"><tspan fill="#7ee0c0">"mode"</tspan>: "reimagine-it",</text>
         <text x="18" y="100"><tspan fill="#7ee0c0">"about"</tspan>: "a vibe list dies,</text>
         <text x="66" y="118">the same context ships",</text>
-        <text x="18" y="138"><tspan fill="#7ee0c0">"hero"</tspan>: "gold/awe.py --ship",</text>
+        <text x="18" y="138"><tspan fill="#7ee0c0">"hero"</tspan>: "gold/reimagine.py --ship",</text>
         <text x="18" y="158"><tspan fill="#7ee0c0">"stretch"</tspan>: "one leap you did</text>
         <text x="66" y="176">not know was in bounds",</text>
         <text x="18" y="196"><tspan fill="#7ee0c0">"verified"</tspan>: "exit 0"</text>
@@ -42,10 +42,10 @@
   </g>
 
   <g font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">
-    <text x="40" y="340" fill="#e8edf4" font-size="20">awe-me</text>
+    <text x="40" y="340" fill="#e8edf4" font-size="20">reimagine-it</text>
     <text x="40" y="360" fill="#8b97a4" font-size="12">
       open a creative mind on the current context. ship a leap you did not know to ask for.
     </text>
-    <text x="920" y="352" fill="#7ee0c0" font-size="11" text-anchor="end" letter-spacing="2.4">AWE SHIPPED</text>
+    <text x="920" y="352" fill="#7ee0c0" font-size="11" text-anchor="end" letter-spacing="2.4">REIMAGINED: SHIPPED</text>
   </g>
 </svg>

@@ -1,4 +1,4 @@
-# /awe-me webpage cinematic (aliases: `3d`, `webgl`)
+# /reimagine-it webpage cinematic (aliases: `3d`, `webgl`)
 
 Load only when the user token is `cinematic`, `3d`, or `webgl`. Extends the shared spine ([../webpage-craft.md](../webpage-craft.md)).
 
@@ -50,7 +50,7 @@ A quiet cinema screen for a small brief: an inline WebGL2 shader is the masthead
 
 ## Where to write
 
-`<workspace>/awe/<yyyy-mm-dd>-cinematic/index.html` for a one-shot. In place if the user's site is being redesigned and they explicitly asked for a WebGL hero.
+`<workspace>/reimagined/<yyyy-mm-dd>-cinematic/index.html` for a one-shot. In place if the user's site is being redesigned and they explicitly asked for a WebGL hero.
 
 ## Verify
 

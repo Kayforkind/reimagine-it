@@ -1,4 +1,4 @@
-# /awe-me webpage artistic
+# /reimagine-it webpage artistic
 
 Load only when the user token is `artistic`. Extends the shared spine ([../webpage-craft.md](../webpage-craft.md)).
 
@@ -53,7 +53,7 @@ A warm-paper editorial: italic serif display type at magazine scale, a disciplin
 
 ## Where to write
 
-`<workspace>/awe/<yyyy-mm-dd>-artistic/index.html` when the leap is a one-shot seeing-tool. In place if the user already has a personal page and asked for a redesign.
+`<workspace>/reimagined/<yyyy-mm-dd>-artistic/index.html` when the leap is a one-shot seeing-tool. In place if the user already has a personal page and asked for a redesign.
 
 ## Verify
 

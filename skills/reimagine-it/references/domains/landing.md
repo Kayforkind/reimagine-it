@@ -1,4 +1,4 @@
-# /awe-me webpage landing
+# /reimagine-it webpage landing
 
 Load only when the user token is `landing`. Extends the shared spine ([../webpage-craft.md](../webpage-craft.md)).
 
@@ -45,7 +45,7 @@ One promise, one CTA, one proof strip, one single-viewport magnet. No mega-menu 
 
 ## Where to write
 
-`<workspace>/awe/<yyyy-mm-dd>-landing/index.html` for a one-shot. In place if the user has an existing landing page.
+`<workspace>/reimagined/<yyyy-mm-dd>-landing/index.html` for a one-shot. In place if the user has an existing landing page.
 
 ## Report addition
 

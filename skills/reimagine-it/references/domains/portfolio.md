@@ -1,4 +1,4 @@
-# /awe-me webpage portfolio
+# /reimagine-it webpage portfolio
 
 Load only when the user token is `portfolio`. Extends the shared spine ([../webpage-craft.md](../webpage-craft.md)).
 
@@ -45,7 +45,7 @@ Follow the shared spine palette rule. Slight bias toward one warm accent that ca
 
 ## Where to write
 
-`<workspace>/awe/<yyyy-mm-dd>-portfolio/index.html` for a one-shot; in place for an existing portfolio.
+`<workspace>/reimagined/<yyyy-mm-dd>-portfolio/index.html` for a one-shot; in place for an existing portfolio.
 
 ## Report addition
 
