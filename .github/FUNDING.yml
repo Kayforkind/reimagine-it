@@ -1,5 +1,8 @@
-# These are supported funding model platforms
-# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository
+# Sponsor button configuration for this repository.
+# Docs: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository
+#
+# Author has an active GitHub Sponsors listing with $5 / $10 / $25 monthly tiers:
+#   https://github.com/sponsors/kazimrmerchant
 
 github: kazimrmerchant
 # patreon:
