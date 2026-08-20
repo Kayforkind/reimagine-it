@@ -3,6 +3,8 @@
 Folder: `D:\Projects\reimagine-it\gold\x-ads\`
 Destination URL: `https://github.com/kazimrmerchant/reimagine-it`
 
+**Live organic post (2026-08-20):** https://x.com/kayforkind/status/2090532712473878981
+
 All images are JPEG, under 150 KB, from the tested gold renders (no mockups).
 
 Regenerate:

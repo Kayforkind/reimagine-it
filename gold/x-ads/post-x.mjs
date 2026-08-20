@@ -5,7 +5,8 @@
  * Run:
  *   node gold/x-ads/post-x.mjs
  */
-import { chromium } from "playwright-core";
+import pkg from "file:///C:/Users/kazim/.cursor/browser-hub/node_modules/playwright-core/index.js";
+const { chromium } = pkg;
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
