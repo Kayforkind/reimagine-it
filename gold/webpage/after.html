@@ -32,6 +32,28 @@
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; text-underline-offset: 4px; }
 
+  /* --- v2.2 craft floor (see references/craft-floor.md) --------------------
+     Focus ring: 2 px on-palette gold at 3 px offset, contrast >= 3:1 on any bg.
+     Selection: on-palette gold-on-earth so highlights match the design.
+     Reduced motion: decompose (turn OFF motion, keep focus rings visible). */
+  ::selection { background: var(--accent); color: var(--bg); }
+  a:focus-visible,
+  button:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+    :focus-visible { transition: none; }
+  }
+
   .rail {
     display: flex;
     gap: 16px;

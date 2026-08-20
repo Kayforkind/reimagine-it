@@ -29,6 +29,28 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{background:#e8dcb8}
+
+  /* --- v2.2 craft floor (see references/craft-floor.md) --------------------
+     Focus ring: 2 px on-palette red at 3 px offset, contrast >= 3:1 on parchment.
+     Selection: on-palette red-on-cream so highlights match the field-guide.
+     Reduced motion: decompose (turn OFF drift/wobble, keep focus rings visible). */
+  ::selection { background: var(--red); color: var(--paper); }
+  a:focus-visible,
+  button:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+    :focus-visible { transition: none; }
+  }
   body{
     background:var(--paper);
     color:var(--ink);
