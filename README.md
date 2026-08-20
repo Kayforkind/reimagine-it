@@ -6,7 +6,7 @@
 >
 > `/reimagine-it` reads what your source *is about* and derives the palette, motifs, motion, and 3D from the content itself. Feed it a Texas notebook and the design comes out in navy / cream / red / gold with a lone-star lockup and a sunset shader. Feed it a marine-biology paper and it would come out in teal / bone / kelp / phytoplankton pink with a caustics shader and current lines. **Same command, different source, different visual DNA.**
 >
-> The gallery below is the same naive HTML page ([`gold/webpage/before.html`](gold/webpage/before.html) ? a plain Texas notebook: three places, three signals, one flag) redesigned eight different ways by the same command with one different token each. Every shot renders locally from a real `.html` file in this repo. No CDN, no paid API, no third-party service.
+> The gallery below is the same naive HTML page ([`gold/webpage/before.html`](gold/webpage/before.html) &mdash; a plain Texas notebook: three places, three signals, one flag) redesigned eight different ways by the same command with one different token each. Every shot renders locally from a real `.html` file in this repo. No CDN, no paid API, no third-party service.
 
 ![one raw Texas notebook, eight content-aware redesigns: default, artistic, dashboard, photography, cinematic, cinematic+glassmorphism, dashboard+bento, landing+neon](gold/gallery.png?v=texas-4)
 
@@ -33,7 +33,7 @@
 
 ## The source page (before)
 
-Every "after" in the gallery starts from this exact naive HTML ? one heading, two lists, an email, a note. **The design language you see on the right side of every comparison was chosen because the content mentions Texas, the Lone Star flag, Alamo, Rio Grande, and Bluebonnet.**
+Every "after" in the gallery starts from this exact naive HTML &mdash; one heading, two lists, an email, a note. **The design language you see on the right side of every comparison was chosen because the content mentions Texas, the Lone Star flag, Alamo, Rio Grande, and Bluebonnet.**
 
 ```html
 <h1>A Texas notebook</h1>
@@ -107,65 +107,217 @@ Compose freely: `/reimagine-it webpage artistic glassmorphism --font "Playfair D
 
 ---
 
-## Before &rarr; after, one command at a time
+## Eight case studies &mdash; one source, one command each
 
-Every section below has the **same naive Texas-notebook HTML on the left** &mdash; [`gold/webpage/before.html`](gold/webpage/before.html). **The `/reimagine-it` output is on the right.** The only thing that changed between rows is the token you pass. Regenerate the whole set: `python gold/compare.py`.
+Every case below reimagines the **exact same naive HTML** ([`gold/webpage/before.html`](gold/webpage/before.html) &mdash; a plain Texas notebook, 40 lines, no CSS, one email) with **one different token**. To match how a designer reads a case study, each case is laid out top-to-bottom:
 
-### Default spine &mdash; `/reimagine-it webpage`
+1. the **before** shot sits on its own line,
+2. the **four notes the command picked** (palette &middot; motif &middot; motion &middot; 3D) sit between the two shots as real descriptive text,
+3. the **after** shot sits on its own line.
 
-**Before:** the raw HTML in the browser default. Times New Roman, no hierarchy, no motion, no motif.
-**After:** the same content, redesigned &mdash; 12-column grid, palette derived from the content (navy for the flag, cream for parchment, red and gold for the star), KPI-style tiles for Places / Signals / Contact, a lone-star lockup in the masthead because the source names the flag. Nothing added that isn't already in the source page. See [`gold/webpage/after.html`](gold/webpage/after.html).
+Every image renders locally from a real `.html` file in this repo. Regenerate the whole set: `python gold/shots.py`.
 
-![default spine before/after: raw Texas notebook on the left, redesigned page on the right](gold/webpage/compare.png?v=texas-4)
+---
 
-### `artistic` &mdash; `/reimagine-it webpage artistic`
+### Case 01 &middot; Default spine
 
-**Before:** same raw Texas notebook.
-**After:** editorial cream + italic serif at hero scale. `Texas & the Lone Star REPUBLIC` set in a swaying ampersand that pitches &plusmn;3&deg; on a slow cycle. Drifting SVG arcs behind the type read as sunset rays over the prairie. Cards for Alamo / Big Bend / Austin fan out at real &plusmn;16&deg; with a 40 px drop-shadow &mdash; the 3D reads in a still. See [`gold/domains/artistic/after.html`](gold/domains/artistic/after.html).
+`/reimagine-it webpage`
 
-![artistic pack before/after: raw HTML on the left, italic-serif editorial redesign of the Texas notebook on the right](gold/domains/artistic/compare.png?v=texas-4)
+*A small notebook OS for a small notebook on Texas.*
 
-### `dashboard` &mdash; `/reimagine-it webpage dashboard`
+**Before.** The raw HTML in the browser default &mdash; one heading, two lists, an email, a note. Times New Roman on paper white. No hierarchy, no motion, no motif.
 
-**Before:** same raw Texas notebook.
-**After:** operator grid on navy. Sun-gold KPI tiles across the top read counted from the source (`3 places`, `3 signals`, `190 years`, `800K acres`). Live SVG traffic chart with a rising-bar animation. Status pills for `alamo` / `big bend` / `austin`. Blinking-caret terminal card sends `notes@texasnote.example`. Same three items, same content &mdash; read as a real ops surface. See [`gold/domains/dashboard/after.html`](gold/domains/dashboard/after.html).
+![Before: raw HTML of A Texas notebook -- Times New Roman, single column, no color, no motif, ~40 lines of untouched markup](gold/webpage/before.png)
 
-![dashboard pack before/after: raw HTML on the left, ops-surface dashboard for the Texas notebook on the right](gold/domains/dashboard/compare.png?v=texas-4)
+**The four notes the command picked.**
 
-### `photography` &mdash; `/reimagine-it webpage photography`
+- **Palette** &mdash; deep-night navy ground, cream text, sun-gold accent, star-red reserved for the drop caret and one hover state. Chosen because the source names the **Lone Star flag** (navy / white / red) and **Big Bend** (gold sunset).
+- **Motif** &mdash; a small red star before the H1; three sun-gold KPI tiles pulling real numbers from the source (`3 places`, `1836 &rarr; 1944`); three place cards with a mini-bar chart, a sparkline, and a rug-plot; a terminal card carrying the source's email.
+- **Motion** &mdash; counters rise on load, the caret blinks in the terminal card, nothing else moves.
+- **3D** &mdash; cards lift ~8 px with a soft cast shadow. No rotation, no parallax.
 
-**Before:** same raw Texas notebook.
-**After:** a magazine folio. Didot-scale italic-then-caps nameplate reads `Texas / NOTES`. Numbered plate strip: `Plate I &middot; 1839 &middot; Austin`, `Plate II &middot; 1944 &middot; Big Bend`, `Plate III &middot; 1836 &middot; Alamo`. Three real SVG "photographs" (drawn on the page, not stock). Dropcap paragraphs. Deliberately quiet motion &mdash; a folio doesn't twitch. See [`gold/domains/photography/after.html`](gold/domains/photography/after.html).
+**After.**
 
-![photography pack before/after: raw HTML on the left, Didot magazine folio of the Texas notebook on the right](gold/domains/photography/compare.png?v=texas-4)
+![After Draw A: navy dashboard for the Texas notebook -- a red lone-star lockup, oversized ivory display type, three sun-gold KPI tiles for the three places, three place cards with charts, a terminal card, and a status table for Now](gold/webpage/after.png)
 
-### `cinematic` &mdash; `/reimagine-it webpage cinematic`
+Open the live file &rarr; [`gold/webpage/after.html`](gold/webpage/after.html)
 
-**Before:** same raw Texas notebook.
-**After:** an inline `<canvas>` + inline fragment shader (`<script type="x-shader/x-fragment">`) drawing a **Texas-sunset raymarched interference field** (navy &rarr; sun gold &rarr; star red). Chosen because the source page names the Lone Star and the Colorado River &mdash; a marine-biology source would render a caustics-and-current shader instead. No CDN, no `import` from `https://`, no vendor folder. Masthead sits on top with `mix-blend-mode: difference` so type reads over any color the field draws. Cards for Austin / Big Bend / Alamo fan in real 3D. See [`gold/domains/cinematic/after.html`](gold/domains/cinematic/after.html).
+---
 
-![cinematic pack before/after: raw HTML on the left, WebGL2 Texas-sunset shader hero on the right](gold/domains/cinematic/compare.png?v=texas-4)
+### Case 02 &middot; `artistic`
 
-### `cinematic` + `glassmorphism` &mdash; `/reimagine-it webpage cinematic glassmorphism`
+`/reimagine-it webpage artistic`
 
-**Before:** same raw Texas notebook.
-**After:** the same sunset shader keeps running. Glassmorphism layers a **front tier** (14 px blur) over the masthead and a **deep tier** (24 px blur) over a data tile. Light-source-consistent borders (bright top-left inset, dark bottom-right inset), colored `box-shadow`s. Blur **reveals** the running sunset; it never covers a solid color. See [`gold/modifiers/cinematic-glassmorphism/after.html`](gold/modifiers/cinematic-glassmorphism/after.html).
+*The notebook as an editorial cover.*
 
-![cinematic + glassmorphism before/after: raw HTML on the left, two glass tiers over a running Texas sunset on the right](gold/modifiers/cinematic-glassmorphism/compare.png?v=texas-4)
+**Before.** Same raw Texas notebook.
 
-### `dashboard` + `bento` &mdash; `/reimagine-it webpage dashboard bento`
+![Before: raw HTML of A Texas notebook -- Times New Roman, single column, no color, no motif](gold/webpage/before.png)
 
-**Before:** same raw Texas notebook.
-**After:** a named-cell CSS Grid with `grid-template-areas: "brand brand hours state" "hero hero chart chart" "hero hero latency logs" "stack stack incidents incidents"`. Nine tiles, unequal but shared chrome, each holding one bit of the source (places / signals / hours / chart / logs). Hero tile visibly elevated (`translateZ(24px)` + 40 px shadow). See [`gold/modifiers/dashboard-bento/after.html`](gold/modifiers/dashboard-bento/after.html).
+**The four notes the command picked.**
 
-![dashboard + bento before/after: raw HTML on the left, nine-tile bento of the Texas notebook with elevated 2x2 hero on the right](gold/modifiers/dashboard-bento/compare.png?v=texas-4)
+- **Palette** &mdash; cream ground with navy display type; the ampersand and one word (`REPUBLIC`) set in star-red; sun-gold reserved for the concentric orbital arcs behind the type.
+- **Motif** &mdash; `Texas & the Lone Star REPUBLIC` set at hero scale in italic serif; three drifting SVG orbits read as sunset rays over the prairie; a mini pin marks Austin on the orbit.
+- **Motion** &mdash; the italic ampersand sways &plusmn;3&deg; on a 4-second cycle (with `transform-origin` locked so it pivots from its baseline); the orbital arcs drift slowly.
+- **3D** &mdash; the three place-cards fan out at real &plusmn;16&deg; with a 40 px drop-shadow. The 3D reads in a still.
 
-### `landing` + `neon` &mdash; `/reimagine-it webpage landing neon`
+**After.**
 
-**Before:** same raw Texas notebook.
-**After:** a dark void ground with a single radial-gradient vignette. **One** high-chroma accent (`#e8a63f` &mdash; sun gold) doing every emotional job: the italic *note* word (kinetic &mdash; pulses letter-spacing on a 4 s cycle), the orbital SVG with a lone star at the center that draws itself on load, the CTA border, the blinking cursor. Glow via double `drop-shadow`. Gold picked because the source names the Lone Star. See [`gold/modifiers/landing-neon/after.html`](gold/modifiers/landing-neon/after.html).
+![After: italic-serif editorial cover of the Texas notebook -- Texas & the Lone Star REPUBLIC in navy and star-red across a warm parchment ground, three drifting orbital arcs behind the type, three place-cards fanning out at plus-minus 16 degrees below](gold/domains/artistic/after.png)
 
-![landing + neon before/after: raw HTML on the left, one glowing sun-gold star in a dark void on the right](gold/modifiers/landing-neon/compare.png?v=texas-4)
+Open the live file &rarr; [`gold/domains/artistic/after.html`](gold/domains/artistic/after.html)
+
+---
+
+### Case 03 &middot; `dashboard`
+
+`/reimagine-it webpage dashboard`
+
+*The notebook as an ops surface.*
+
+**Before.** Same raw Texas notebook.
+
+![Before: raw HTML of A Texas notebook -- Times New Roman, single column, no color, no motif](gold/webpage/before.png)
+
+**The four notes the command picked.**
+
+- **Palette** &mdash; navy ground with a subtle gold-hatched paper texture; sun-gold and emerald traffic pills for the two places doing work; star-red reserved for the alert dot and the drop caret.
+- **Motif** &mdash; top ribbon of four sun-gold KPI tiles pulled from the source (`3 projects`, `11k lines`, `p214 reading`, `3/9 book chapter`); a two-color shipping-volume chart with a projection line; three status rows for `alamo` / `big bend` / `austin`; a `Now, this week` table; a terminal card sending the source's email.
+- **Motion** &mdash; the chart bars rise into place between frames (proven in the motion strip lower on this page); counters count up; the caret blinks in the terminal card.
+- **3D** &mdash; cards lift ~10 px; KPI tiles sit on their own soft-shadowed row; no rotation, no parallax.
+
+**After.**
+
+![After: ops-surface dashboard for the Texas notebook -- top ribbon of four sun-gold KPI tiles for projects and lines and reading and book chapter, a two-color shipping-volume chart for Alamo and Big Bend and Austin, three status rows for the places, a Now-this-week table on the right, and a terminal card sending the source email](gold/domains/dashboard/after.png)
+
+Open the live file &rarr; [`gold/domains/dashboard/after.html`](gold/domains/dashboard/after.html)
+
+---
+
+### Case 04 &middot; `photography`
+
+`/reimagine-it webpage photography`
+
+*The notebook as a numbered folio.*
+
+**Before.** Same raw Texas notebook.
+
+![Before: raw HTML of A Texas notebook -- Times New Roman, single column, no color, no motif](gold/webpage/before.png)
+
+**The four notes the command picked.**
+
+- **Palette** &mdash; cream ground with warm dust and near-black type; sun-gold caption tags; star-red drop-caps and the small folio star at top-left.
+- **Motif** &mdash; Didot-scale italic-then-caps nameplate reading `Texas / NOTES`; a four-plate index bar (`Plate I &middot; Austin`, `Plate II &middot; Big Bend`, `Plate III &middot; Alamo`, `Colophon`); three real SVG "photographs" drawn on the page (Austin sunset with a moon disc, Big Bend night sky, Alamo mission silhouette); dropcap paragraphs; per-plate caption strips (`Medium &middot; Weight &middot; State`).
+- **Motion** &mdash; deliberately quiet. A folio doesn't twitch.
+- **3D** &mdash; none. The whole thing sits flat like a printed spread.
+
+**After.**
+
+![After: Didot magazine folio of the Texas notebook -- Texas slash NOTES nameplate in italic and caps, an index bar for four plates, three real SVG photographs of Austin at sunset and Big Bend at night and the Alamo mission, dropcap paragraphs, and caption strips](gold/domains/photography/after.png)
+
+Open the live file &rarr; [`gold/domains/photography/after.html`](gold/domains/photography/after.html)
+
+---
+
+### Case 05 &middot; `cinematic`
+
+`/reimagine-it webpage cinematic`
+
+*The notebook as a shader-lit oversized headline.*
+
+**Before.** Same raw Texas notebook.
+
+![Before: raw HTML of A Texas notebook -- Times New Roman, single column, no color, no motif](gold/webpage/before.png)
+
+**The four notes the command picked.**
+
+- **Palette** &mdash; deep-night navy ground; the shader runs **navy &rarr; sun-gold &rarr; star-red** in a raymarched interference field, chosen because the source names the **Lone Star** and **Big Bend's sunset**. A marine-biology source would render a teal-and-current shader instead.
+- **Motif** &mdash; an inline `<canvas>` + inline fragment shader (`<script type="x-shader/x-fragment">`) carrying an oversized `Texas & the Lone Star` set in ivory with a red ampersand; three place-cards for Austin / Big Bend / Alamo; four sun-gold KPI stats (`3 missions`, `190 years`, `800K acres`, `1 star`).
+- **Motion** &mdash; the shader field evolves visibly frame to frame (proven in the motion strip below); the KPI counters rise on load.
+- **3D** &mdash; the three place-cards sit forward with a mild `translateZ(20px)` and a paired soft/dark shadow. The shader plate has a 24 px inset shadow.
+
+**After.**
+
+![After: WebGL2 Texas-sunset shader hero for the Texas notebook -- oversized ivory Texas and the Lone Star with a red ampersand set over a running raymarch field, three place cards for Austin Big Bend Alamo below, and four sun-gold KPI stats along the bottom](gold/domains/cinematic/after.png)
+
+**No CDN, no `import` from `https://`, no vendor folder.** The shader ships in the same `.html` file as everything else.
+
+Open the live file &rarr; [`gold/domains/cinematic/after.html`](gold/domains/cinematic/after.html)
+
+---
+
+### Case 06 &middot; `cinematic` + `glassmorphism`
+
+`/reimagine-it webpage cinematic glassmorphism`
+
+*Two glass tiers over the running sunset &mdash; glass reveals, glass never covers.*
+
+**Before.** Same raw Texas notebook.
+
+![Before: raw HTML of A Texas notebook -- Times New Roman, single column, no color, no motif](gold/webpage/before.png)
+
+**The four notes the command picked.**
+
+- **Palette** &mdash; the same navy / gold / red sunset shader keeps running behind the glass; the glass itself picks up its color from what it's blurring, so the front tier reads red-warm and the deep tier reads gold-warm on the same page.
+- **Motif** &mdash; a **front tier** (14 px blur) over the masthead carrying `Texas & the Lone Star`; a **deep tier** (24 px blur) over a `Piece 03 &mdash; Austin, live music` data tile; three small `SUBSTRATE / GLASS RULES / MOTION BUDGET` reader cards below carrying the rules of the pack itself.
+- **Motion** &mdash; the substrate runs, the glass itself never tilts or blurs on hover &mdash; glass is a surface, not an object. Two beats per section, not five.
+- **3D** &mdash; light-source-consistent borders (bright top-left inset, dark bottom-right inset) with colored `box-shadow`s. Blur **reveals** the running sunset; it never covers a solid color.
+
+**After.**
+
+![After: two glass tiers over a running Texas sunset shader -- front tier over the masthead and a deep tier over an Austin data tile, with three reader cards below explaining substrate glass-rules motion-budget](gold/modifiers/cinematic-glassmorphism/after.png)
+
+Open the live file &rarr; [`gold/modifiers/cinematic-glassmorphism/after.html`](gold/modifiers/cinematic-glassmorphism/after.html)
+
+---
+
+### Case 07 &middot; `dashboard` + `bento`
+
+`/reimagine-it webpage dashboard bento`
+
+*Nine tiles, unequal sizes, one elevated hero.*
+
+**Before.** Same raw Texas notebook.
+
+![Before: raw HTML of A Texas notebook -- Times New Roman, single column, no color, no motif](gold/webpage/before.png)
+
+**The four notes the command picked.**
+
+- **Palette** &mdash; navy ground with sun-gold accents; emerald and star-red used sparingly for status; the hero tile lifts brighter than its neighbors so the elevation reads before the content does.
+- **Motif** &mdash; a named-cell CSS Grid with `grid-template-areas: "brand brand hours state" / "hero hero chart chart" / "hero hero latency logs" / "stack stack incidents incidents"`. Nine tiles, unequal but with shared chrome, each holding one bit of the source (places / signals / season / chart / field log / notes).
+- **Motion** &mdash; the hero visitors chart ticks in; the field-log rows fade in one per second; the `waiting for bluebonnet season` row pulses.
+- **3D** &mdash; the hero tile is visibly elevated (`translateZ(24px)` + a 40 px shadow). Every other tile sits flat but casts a small shadow so the elevation reads.
+
+**After.**
+
+![After: nine-tile bento of the Texas notebook -- top-left hero tile visibly elevated over a sun-gold visitors chart, right column showing dawn-dusk daylight and star-count-since-1839 and a scrolling field log, bottom row with parts and field notes](gold/modifiers/dashboard-bento/after.png)
+
+Open the live file &rarr; [`gold/modifiers/dashboard-bento/after.html`](gold/modifiers/dashboard-bento/after.html)
+
+---
+
+### Case 08 &middot; `landing` + `neon`
+
+`/reimagine-it webpage landing neon`
+
+*Void ground, one accent, one word doing every emotional job.*
+
+**Before.** Same raw Texas notebook.
+
+![Before: raw HTML of A Texas notebook -- Times New Roman, single column, no color, no motif](gold/webpage/before.png)
+
+**The four notes the command picked.**
+
+- **Palette** &mdash; near-black void ground with a single radial-gradient vignette; **one** high-chroma accent (`#e8a63f` &mdash; sun gold) doing every emotional job: the italic word, the orbital, the CTA border, the blinking cursor. Gold picked because the source names the **Lone Star**.
+- **Motif** &mdash; an oversized ivory headline `Ship the note, not the pitch.` with the italic `note` set in glowing gold; an orbital SVG with a single gold star at its center; one CTA (`SEE THE NOTEBOOK &rarr;`); a status pill (`OPEN &middot; ACCEPTING WORK`); four bottom stats (`3 places on file`, `1 flag in the wind`, `1836 republic since`, `1 lone star`).
+- **Motion** &mdash; the `note` word pulses letter-spacing on a 4-second cycle; the orbital draws itself on load; a small square cursor blinks after the email.
+- **3D** &mdash; none. All the depth comes from the glow (double `drop-shadow`) and the vignette. Neon reads flat on purpose.
+
+**After.**
+
+![After: one glowing sun-gold star in a dark void -- oversized ivory headline Ship the note not the pitch with a glowing gold italic note word, an orbital SVG with a lone star at the center, one CTA see the notebook, and four bottom stats pulled from the source](gold/modifiers/landing-neon/after.png)
+
+Open the live file &rarr; [`gold/modifiers/landing-neon/after.html`](gold/modifiers/landing-neon/after.html)
 
 ---
 
@@ -225,8 +377,9 @@ Every visual is a real file in this repo, generated locally by a script you can 
 
 | Regenerates | Command |
 |-------------|---------|
-| Master gallery (`gold/gallery.png`) + per-pack heroes | `python gold/gallery.py` |
-| Per-pack before/after compares + twins triptych (`gold/webpage/twins.png`) | `python gold/compare.py` |
+| Per-pack full-page `after.png` shots used by every case study above | `python gold/shots.py` |
+| Master gallery (`gold/gallery.png`) + per-pack tile heroes | `python gold/gallery.py` |
+| Twins triptych (`gold/webpage/twins.png`) + per-pack wide before/after compares | `python gold/compare.py` |
 | Default before + after screenshots (`gold/webpage/*.png`) | `python gold/webpage/run.py` |
 | Motion strip (`gold/domains/motion-strip.png`) | `python gold/domains/motion-run.py` |
 | Skill smoke fixture (`gold/reimagine.py`) | `python gold/reimagine.py --ship` |
