@@ -15,7 +15,7 @@ metadata:
 
 # /awe-me · /inspire-me
 
-**Banks:** [references/notes.md](references/notes.md) · [references/forms.md](references/forms.md) · [examples.md](examples.md)
+**Banks:** [references/notes.md](references/notes.md) · [references/forms.md](references/forms.md) · [references/webpage-craft.md](references/webpage-craft.md) (load only when the form is html/webpage/infographic) · [examples.md](examples.md)
 
 Awe is **not** a graphics mode. “Awe me” means: open a creative mind, then **instantiate** a leap this context can actually hold. Visuals are one form among many.
 
@@ -118,6 +118,8 @@ Do not dump the bank in chat.
 ### 2. Form router
 
 Follow [references/forms.md](references/forms.md) unless a category forced the family.
+
+If the routed form is a **webpage / html / infographic**, also load [references/webpage-craft.md](references/webpage-craft.md) before writing the file. That file is the non-negotiable checklist that separates a redesign from a repaint. Live gold is `gold/webpage/`.
 
 **Form follows the leap:**
 

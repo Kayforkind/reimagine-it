@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jordan Rivers — after /awe-me</title>
+<style>
+  :root {
+    --bg: #0c0e12;
+    --panel: #171c24;
+    --panel-2: #12352c;
+    --stroke: #2a3340;
+    --accent: #7ee0c0;
+    --accent-ink: #04251c;
+    --ink: #e8edf4;
+    --dim: #8b97a4;
+    --warm: #e8b47e;
+    --unit: 8px;
+    --sans: ui-sans-serif, system-ui, "Segoe UI", Inter, sans-serif;
+    --mono: ui-monospace, "SF Mono", Consolas, Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--ink); font-family: var(--sans); }
+  body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    padding: 48px 32px 96px;
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+  .rail {
+    display: flex;
+    gap: 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+  .rail .cur { color: var(--accent); }
+  .rail .sep { color: var(--stroke); }
+
+  header.masthead { margin-top: 32px; }
+  .masthead h1 {
+    font-size: clamp(56px, 8vw, 96px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+  }
+  .masthead .sub {
+    margin-top: 16px;
+    color: var(--dim);
+    max-width: 62ch;
+    font-size: 18px;
+  }
+  .masthead .sub em { color: var(--ink); font-style: normal; border-bottom: 1px dotted var(--stroke); }
+
+  .dotrule {
+    display: flex;
+    gap: 8px;
+    margin: 40px 0;
+    align-items: center;
+  }
+  .dotrule::before, .dotrule::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--stroke), transparent);
+  }
+  .dotrule .d {
+    width: 4px; height: 4px; border-radius: 50%; background: var(--stroke);
+  }
+
+  section { margin-top: 48px; }
+  section > .head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  section > .head .num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    color: var(--accent);
+  }
+  section > .head h2 {
+    font-size: 24px;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+  }
+  section > .head .meta {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .skyline {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    align-items: end;
+    padding: 24px;
+    background: var(--panel);
+    border: 1px solid var(--stroke);
+    border-radius: 12px;
+  }
+  .skyline .bar {
+    position: relative;
+    background: var(--accent);
+    border-radius: 6px 6px 0 0;
+    color: var(--accent-ink);
+    padding: 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .skyline .bar .year {
+    position: absolute;
+    top: -22px;
+    left: 0;
+    font-family: var(--mono);
+    color: var(--dim);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+  }
+  .skyline .bar .name { font-weight: 700; letter-spacing: 0.02em; }
+  .skyline .bar .val {
+    color: var(--accent-ink);
+    opacity: 0.75;
+    font-size: 10px;
+    margin-top: 4px;
+  }
+
+  .grid3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--stroke);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card .year {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    color: var(--dim);
+  }
+  .card h3 {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+  .card h3 .dot {
+    display: inline-block;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    margin-right: 6px;
+    vertical-align: middle;
+    transform: translateY(-2px);
+  }
+  .card p {
+    color: var(--dim);
+    font-size: 14px;
+    line-height: 1.55;
+    max-width: 40ch;
+  }
+  .card .foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: var(--dim);
+    padding-top: 12px;
+    border-top: 1px dashed var(--stroke);
+  }
+  .card .tag {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .card .miniviz { height: 40px; }
+
+  .contact {
+    background: var(--panel);
+    border: 1px solid var(--stroke);
+    border-radius: 12px;
+    padding: 24px;
+    font-family: var(--mono);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--ink);
+  }
+  .contact .prompt { color: var(--accent); }
+  .contact .caret {
+    width: 8px; height: 16px;
+    background: var(--accent);
+    display: inline-block;
+    animation: blink 1.1s steps(1) infinite;
+    vertical-align: middle;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .now {
+    background: var(--panel);
+    border: 1px solid var(--stroke);
+    border-radius: 12px;
+    padding: 0;
+    font-family: var(--mono);
+    font-size: 13px;
+    overflow: hidden;
+  }
+  .now .row {
+    display: grid;
+    grid-template-columns: 100px 1fr 96px;
+    gap: 16px;
+    padding: 12px 20px;
+    border-top: 1px solid var(--stroke);
+    align-items: center;
+  }
+  .now .row:first-of-type { border-top: none; }
+  .now .row .k { color: var(--dim); letter-spacing: 0.12em; text-transform: uppercase; font-size: 11px; }
+  .now .row .v { color: var(--ink); }
+  .now .row .s { justify-self: end; color: var(--accent); font-size: 11px; letter-spacing: 0.16em; }
+  .now .row .s.dim { color: var(--dim); }
+  .now .row .s.warm { color: var(--warm); }
+
+  footer.foot {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--stroke);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<nav class="rail" aria-label="page index">
+  <span class="cur">00 &middot; masthead</span>
+  <span class="sep">/</span>
+  <span>01 &middot; work</span>
+  <span class="sep">/</span>
+  <span>02 &middot; now</span>
+  <span class="sep">/</span>
+  <span>03 &middot; contact</span>
+</nav>
+
+<header class="masthead">
+  <h1>Jordan Rivers</h1>
+  <p class="sub">
+    Ships small <em>tools</em>, writes small <em>essays</em>, keeps small <em>notebooks</em>.
+    Working in the seam between the CLI and paper.
+  </p>
+</header>
+
+<div class="dotrule" aria-hidden="true">
+  <span class="d"></span><span class="d"></span><span class="d"></span>
+</div>
+
+<section id="work">
+  <div class="head">
+    <span class="num">01</span>
+    <h2>Work, by height and year</h2>
+    <span class="meta">3 projects &middot; 2022 &rarr; 2024</span>
+  </div>
+
+  <div class="skyline" role="img" aria-label="three projects as a skyline">
+    <div class="bar" style="height: 160px;">
+      <span class="year">2022</span>
+      <span class="name">quiet-week</span>
+      <span class="val">paper journal &middot; 1 file</span>
+    </div>
+    <div class="bar" style="height: 200px;">
+      <span class="year">2023</span>
+      <span class="name">lantern</span>
+      <span class="val">offline reader &middot; 8k lines</span>
+    </div>
+    <div class="bar" style="height: 240px;">
+      <span class="year">2024</span>
+      <span class="name">rift</span>
+      <span class="val">markdown LSP &middot; 1 binary</span>
+    </div>
+  </div>
+
+  <div class="grid3" style="margin-top: 40px;">
+
+    <article class="card">
+      <span class="year">2024</span>
+      <h3><span class="dot"></span>rift</h3>
+      <p>A tiny language server for Markdown outlines. Watches your files, keeps a symbol tree, ships in one binary.</p>
+      <svg class="miniviz" viewBox="0 0 200 40" aria-hidden="true">
+        <rect x="0" y="18" width="200" height="4" fill="#2a3340"/>
+        <rect x="0" y="12" width="30" height="16" fill="#7ee0c0"/>
+        <rect x="42" y="8" width="30" height="24" fill="#7ee0c0"/>
+        <rect x="84" y="4" width="30" height="32" fill="#7ee0c0"/>
+        <rect x="126" y="0" width="30" height="40" fill="#7ee0c0"/>
+        <rect x="168" y="14" width="30" height="12" fill="#7ee0c0"/>
+      </svg>
+      <div class="foot">
+        <span>go &middot; 3k loc</span>
+        <span class="tag">SHIPPING</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <span class="year">2023</span>
+      <h3><span class="dot"></span>lantern</h3>
+      <p>An offline reader for archived long-form journalism. Reads epub, mobi, saved articles. Full-text search.</p>
+      <svg class="miniviz" viewBox="0 0 200 40" aria-hidden="true">
+        <path d="M 4 34 Q 100 -14 196 34" stroke="#7ee0c0" stroke-width="2" fill="none"/>
+        <circle cx="4" cy="34" r="3" fill="#7ee0c0"/>
+        <circle cx="52" cy="16" r="3" fill="#7ee0c0"/>
+        <circle cx="100" cy="8" r="3" fill="#7ee0c0"/>
+        <circle cx="148" cy="16" r="3" fill="#7ee0c0"/>
+        <circle cx="196" cy="34" r="3" fill="#7ee0c0"/>
+      </svg>
+      <div class="foot">
+        <span>rust &middot; 8k loc</span>
+        <span class="tag">MAINTAINED</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <span class="year">2022</span>
+      <h3><span class="dot"></span>quiet-week</h3>
+      <p>A month-per-page paper journal template you print at home. Twelve prompts, one grid, zero notifications.</p>
+      <svg class="miniviz" viewBox="0 0 200 40" aria-hidden="true">
+        <g fill="#7ee0c0">
+          <rect x="0"   y="0"  width="8" height="8"/><rect x="16"  y="0"  width="8" height="8"/><rect x="32"  y="0"  width="8" height="8"/><rect x="48"  y="0"  width="8" height="8"/><rect x="64"  y="0"  width="8" height="8"/><rect x="80"  y="0"  width="8" height="8"/><rect x="96"  y="0"  width="8" height="8"/>
+          <rect x="0"   y="16" width="8" height="8"/><rect x="16"  y="16" width="8" height="8"/><rect x="32"  y="16" width="8" height="8"/><rect x="48"  y="16" width="8" height="8"/><rect x="64"  y="16" width="8" height="8"/><rect x="80"  y="16" width="8" height="8"/><rect x="96"  y="16" width="8" height="8"/>
+          <rect x="0"   y="32" width="8" height="8"/><rect x="16"  y="32" width="8" height="8"/><rect x="32"  y="32" width="8" height="8"/><rect x="48"  y="32" width="8" height="8"/><rect x="64"  y="32" width="8" height="8"/><rect x="80"  y="32" width="8" height="8"/><rect x="96"  y="32" width="8" height="8"/>
+        </g>
+      </svg>
+      <div class="foot">
+        <span>pdf &middot; 1 page</span>
+        <span class="tag">DONE</span>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<div class="dotrule" aria-hidden="true">
+  <span class="d"></span><span class="d"></span><span class="d"></span>
+</div>
+
+<section id="now">
+  <div class="head">
+    <span class="num">02</span>
+    <h2>Now, as of this week</h2>
+    <span class="meta">status &middot; live</span>
+  </div>
+  <div class="now">
+    <div class="row"><span class="k">writing</span><span class="v">a small book on the CLI, chapter 3 of 9</span><span class="s">shipping</span></div>
+    <div class="row"><span class="k">rewriting</span><span class="v">quiet-week for A5, print run in september</span><span class="s warm">testing</span></div>
+    <div class="row"><span class="k">reading</span><span class="v">Ursula K. Le Guin, <em>The Dispossessed</em></span><span class="s dim">page 214</span></div>
+    <div class="row"><span class="k">building</span><span class="v">a small keyboard, tenkeyless, ortho</span><span class="s dim">wiring</span></div>
+  </div>
+</section>
+
+<div class="dotrule" aria-hidden="true">
+  <span class="d"></span><span class="d"></span><span class="d"></span>
+</div>
+
+<section id="contact">
+  <div class="head">
+    <span class="num">03</span>
+    <h2>Say hello</h2>
+    <span class="meta">preferred protocol &middot; email</span>
+  </div>
+  <div class="contact">
+    <span class="prompt">$</span>
+    <span>echo "hi" | mail jordan@example.dev</span>
+    <span class="caret" aria-hidden="true"></span>
+  </div>
+</section>
+
+<footer class="foot">
+  <span>&copy; 2026 jordan rivers</span>
+  <span>designed by /awe-me</span>
+</footer>
+
+</body>
+</html>
