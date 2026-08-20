@@ -1,10 +1,14 @@
 # reimagine-it
 
-[![license MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE) [![agentskills.io spec](https://img.shields.io/badge/agentskills.io-spec-e8a63f.svg)](https://agentskills.io/specification) [![version 2.0](https://img.shields.io/badge/version-2.0-b22234.svg)](skills/reimagine-it/SKILL.md)
+[![license MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE) [![agentskills.io spec](https://img.shields.io/badge/agentskills.io-spec-e8a63f.svg)](https://agentskills.io/specification) [![version 2.0](https://img.shields.io/badge/version-2.0-b22234.svg)](skills/reimagine-it/SKILL.md) [![sponsor](https://img.shields.io/badge/sponsor-%E2%98%85-b22234.svg)](https://github.com/sponsors/kazimrmerchant)
 
-> Same brief, radically different output. One agent skill that takes any file — a webpage, PDF, deck, doc, CLI, protocol, prose — and ships a leap the user didn't know to ask for. Every shot below is rendered locally from a real `.html` file in this repo. No CDN, no paid API, no third-party service.
+> Same brief, radically different output. One agent skill that takes any file — a webpage, PDF, deck, doc, CLI, protocol, prose — and ships a leap the user didn't know to ask for.
+>
+> The gallery below is built entirely from the same naive HTML page, redesigned eight different ways by the same command with one different token each. Every shot renders locally from a real `.html` file in this repo. No CDN, no paid API, no third-party service.
+>
+> Theme: the sample brand across every gold example below is a fictional hand bindery — **Alamo Ledger Co.**, San Antonio, **Texas, USA**. Palette anchors on Lone-Star night navy, parchment cream, star red, and sun gold so eight radically different aesthetics still read as one design system.
 
-![one brief, eight outputs on a Texas / Lone-Star palette: default, artistic, dashboard, photography, cinematic, cinematic+glassmorphism, dashboard+bento, landing+neon](gold/gallery.png)
+![one brief, eight outputs on a Texas / USA Lone-Star palette: default, artistic, dashboard, photography, cinematic, cinematic+glassmorphism, dashboard+bento, landing+neon](gold/gallery.png)
 
 ```
 /reimagine-it webpage                                        <- default (top-left)
@@ -44,63 +48,65 @@ Compose freely: `/reimagine-it webpage artistic glassmorphism --font "Playfair D
 
 ---
 
-## Domains — same brief, different aesthetic
+## Before → after, one command at a time
 
-Every hero below is a real `.html` file in `gold/`. Open one, double-click it, screenshot it — the pixels in this README came out of exactly that.
+Every section below has the **same naive HTML on the left** (`gold/webpage/before.html` — a plain personal page: a name, three projects, one email) and the **/reimagine-it output on the right**. The only thing that changed between rows is the token you pass. Regenerate the whole set: `python gold/compare.py`.
 
-### Default spine (no domain)
+### Default spine — `/reimagine-it webpage`
 
-![before: plain html — after: designed page](gold/webpage/compare.png)
+**Before:** a flat contact card in the browser default. Times New Roman, no hierarchy, no motion, no motif.
+**After:** a designed page — 12-column grid, palette cap, KPI-style project tiles, one make-strange move at the bottom, honest chrome. Nothing added that isn't in the source content. See [`gold/webpage/after.html`](gold/webpage/after.html).
 
-Grid + baseline + palette cap + one motif + one make-strange move. Source: [`gold/webpage/before.html`](gold/webpage/before.html) → [`gold/webpage/after.html`](gold/webpage/after.html).
+![default spine before/after: same name, same three projects, same email — real design](gold/webpage/compare.png)
 
-### `artistic` — cream, italic serif, drifting arcs, real 3D card fan
+### `artistic` — `/reimagine-it webpage artistic`
 
-![artistic pack full hero](gold/domains/artistic/hero.png)
+**Before:** same naive page.
+**After:** editorial cream + italic serif at hero scale. The ampersand sways ±3° on a slow cycle. Drifting SVG arcs behind the type. Cards fan out at real ±16° with a 40 px drop-shadow — the 3D reads in a still. See [`gold/domains/artistic/after.html`](gold/domains/artistic/after.html).
 
-Kinetic italic ampersand sways ±3°. Hero-scale drifting SVG arcs behind the type. Cards fan at real ±16° with a 40 px drop-shadow — depth reads in a still, not just on hover. [`gold/domains/artistic/after.html`](gold/domains/artistic/after.html).
+![artistic pack before/after: plain HTML on the left, italic-serif Alamo Ledger &amp; the small presses of San Antonio on the right](gold/domains/artistic/compare.png)
 
-### `dashboard` — operator grid, KPI tiles, live SVG chart, terminal
+### `dashboard` — `/reimagine-it webpage dashboard`
 
-![dashboard pack full hero](gold/domains/dashboard/hero.png)
+**Before:** same naive page.
+**After:** operator grid, KPI tiles across the top, a live SVG traffic chart with a rising-bar animation and a pulsing accent dot, status pills, and a blinking-caret terminal card. Reads as a real ops surface. See [`gold/domains/dashboard/after.html`](gold/domains/dashboard/after.html).
 
-Faint 32 px operator grid on the body. KPI tiles across the top. Live SVG traffic chart with a rising-bar animation and a pulsing accent dot. Status pills. Blinking-caret terminal card. [`gold/domains/dashboard/after.html`](gold/domains/dashboard/after.html).
+![dashboard pack before/after: plain HTML on the left, alamoledger.us/status ops surface on the right](gold/domains/dashboard/compare.png)
 
-### `photography` — magazine folio, SVG plates, dropcaps
+### `photography` — `/reimagine-it webpage photography`
 
-![photography pack full hero](gold/domains/photography/hero.png)
+**Before:** same naive page.
+**After:** a magazine folio. Didot-scale italic-then-caps nameplate. Numbered plate strip. Three real SVG "photographs" (drawn on the page, not stock). Dropcap paragraphs. Deliberately quiet motion — a folio doesn't twitch. See [`gold/domains/photography/after.html`](gold/domains/photography/after.html).
 
-Didot-scale italic-then-caps nameplate. Numbered plate strip. Three real SVG "photographs" (not stock). Dropcap paragraphs. Deliberately quiet motion — a folio doesn't twitch. [`gold/domains/photography/after.html`](gold/domains/photography/after.html).
+![photography pack before/after: plain HTML on the left, Didot Alamo Ledger folio on the right](gold/domains/photography/compare.png)
 
-### `cinematic` — inline WebGL2 shader hero, single file, no CDN
+### `cinematic` — `/reimagine-it webpage cinematic`
 
-![cinematic pack full hero — Texas sunset raymarch](gold/domains/cinematic/hero.png)
+**Before:** same naive page.
+**After:** an inline `<canvas>` + inline fragment shader (`<script type="x-shader/x-fragment">`) drawing a Texas-sunset raymarched interference field (navy → sun gold → star red). No CDN, no `import` from `https://`, no vendor folder. Masthead sits on top with `mix-blend-mode: difference` so type reads over any color the field draws. Cards below fan in real 3D. See [`gold/domains/cinematic/after.html`](gold/domains/cinematic/after.html).
 
-Inline `<canvas>` + inline fragment shader in a `<script type="x-shader/x-fragment">` block. No CDN, no `import` from `https://`, no vendor folder. Masthead sits *on top* of the shader with `mix-blend-mode: difference` so type reads over any color the field draws. Cards below the hero fan in real 3D (`perspective:1400px`, outer cards `rotateY(±9deg) translateZ(-8px)`, middle `translateZ(30px)` + 60 px shadow). [`gold/domains/cinematic/after.html`](gold/domains/cinematic/after.html). Aliases: `3d`, `webgl`.
+![cinematic pack before/after: plain HTML on the left, WebGL2 Texas-sunset shader hero on the right](gold/domains/cinematic/compare.png)
 
----
+### `cinematic` + `glassmorphism` — `/reimagine-it webpage cinematic glassmorphism`
 
-## Modifiers — layer a UI/UX style on any domain
+**Before:** same naive page.
+**After:** the cinematic shader keeps running. Glassmorphism layers a **front tier** (14 px blur) over the masthead and a **deep tier** (24 px blur) over a data tile. Light-source-consistent borders (bright top-left inset, dark bottom-right inset), colored `box-shadow`s. Blur **reveals** the substrate; it never covers a solid color. See [`gold/modifiers/cinematic-glassmorphism/after.html`](gold/modifiers/cinematic-glassmorphism/after.html).
 
-Modifiers **compose** on top of any domain pack. They waive matching cut-list entries and add their own non-negotiables (real substrate, two blur tiers, light-source-consistent borders, glow budgets).
+![cinematic + glassmorphism before/after: plain HTML on the left, two glass tiers over a running shader on the right](gold/modifiers/cinematic-glassmorphism/compare.png)
 
-### `cinematic` + `glassmorphism` — two blur tiers over a running shader
+### `dashboard` + `bento` — `/reimagine-it webpage dashboard bento`
 
-![cinematic + glassmorphism: WebGL2 shader visible through two glass tiers](gold/modifiers/cinematic-glassmorphism/hero.png)
+**Before:** same naive page.
+**After:** a named-cell CSS Grid with `grid-template-areas: "brand brand hours state" "hero hero chart chart" "hero hero latency logs" "stack stack incidents incidents"`. Nine tiles, unequal but shared chrome. Hero tile visibly elevated (`translateZ(24px)` + 40 px shadow). One idea per tile. See [`gold/modifiers/dashboard-bento/after.html`](gold/modifiers/dashboard-bento/after.html).
 
-The shader keeps running. Glassmorphism layers a **front tier** (14 px blur) over the masthead and a **deep tier** (24 px blur, top-right) over a data tile. Both panels have light-source-consistent borders (bright top-left inset, dark bottom-right inset) and colored `box-shadow`s. Blur **reveals** the substrate; it never covers a solid color. [`gold/modifiers/cinematic-glassmorphism/after.html`](gold/modifiers/cinematic-glassmorphism/after.html).
+![dashboard + bento before/after: plain HTML on the left, nine-tile bento with elevated 2x2 hero on the right](gold/modifiers/dashboard-bento/compare.png)
 
-### `dashboard` + `bento` — named-cell grid, hero tile 2x2 elevated
+### `landing` + `neon` — `/reimagine-it webpage landing neon`
 
-![dashboard + bento: nine tiles, hero tile 2x2 elevated](gold/modifiers/dashboard-bento/hero.png)
+**Before:** same naive page.
+**After:** a dark void ground with a single radial-gradient vignette. **One** high-chroma accent (`#e8a63f` — sun gold) doing every emotional job: the italic *ledger* word (kinetic — pulses letter-spacing on a 4 s cycle), the orbital SVG that draws itself on load, the CTA border, the blinking cursor. Glow via double `drop-shadow`. See [`gold/modifiers/landing-neon/after.html`](gold/modifiers/landing-neon/after.html).
 
-CSS Grid with `grid-template-areas`: `"brand brand hours state" "hero hero chart chart" "hero hero latency logs" "stack stack incidents incidents"`. Nine tiles, unequal but shared chrome (same radius, border, padding). Hero tile visibly elevated (`translateZ(24px)` + 40 px shadow). One idea per tile. [`gold/modifiers/dashboard-bento/after.html`](gold/modifiers/dashboard-bento/after.html).
-
-### `landing` + `neon` — one glowing accent doing all the work
-
-![landing + neon: one glowing sun-gold accent, kinetic italic type, vignette ground](gold/modifiers/landing-neon/hero.png)
-
-Dark void with a single radial-gradient vignette. **One** high-chroma accent (`#e8a63f`) doing every emotional job: the italic *ledger* word (kinetic — pulses letter-spacing on a 4 s cycle), the orbital SVG that draws itself on load, the CTA border, the blinking cursor. Glow via double `drop-shadow`. Everything else stays quiet so the accent reads as light in a room. [`gold/modifiers/landing-neon/after.html`](gold/modifiers/landing-neon/after.html).
+![landing + neon before/after: plain HTML on the left, one glowing sun-gold accent in a dark void on the right](gold/modifiers/landing-neon/compare.png)
 
 ---
 
@@ -154,4 +160,33 @@ Locks include a **cross-medium translation table** so a webpage lock informs a s
 
 ---
 
-Reshoot everything locally: `python gold/gallery.py`. MIT licensed — see [LICENSE](LICENSE).
+## Everything on this page is tested
+
+Every visual is a real file in this repo, generated locally by a script you can rerun:
+
+| Regenerates | Command |
+|-------------|---------|
+| Master gallery (`gold/gallery.png`) + per-pack heroes | `python gold/gallery.py` |
+| Per-pack before/after compares (`<pack>/compare.png`) | `python gold/compare.py` |
+| Default before + after screenshots (`gold/webpage/*.png`) | `python gold/webpage/run.py` |
+| Motion strip (`gold/domains/motion-strip.png`) | `python gold/domains/motion-run.py` |
+| Skill smoke fixture (`gold/reimagine.py`) | `python gold/reimagine.py --ship` |
+| Texas theme sweep across every gold `.html` (idempotent) | `python gold/theme_texas.py` |
+
+If a regenerator fails on your machine, that's a bug — please open an issue. Nothing on this page is rendered by a third-party service or fetched from a CDN.
+
+---
+
+## If this helps you
+
+If `/reimagine-it` gives you an output you'd have paid a designer for, three ways to help me keep shipping the next domains, form packs, and locks:
+
+- **Star the repo.** It's the single fastest signal that this project should keep growing. Use the star button at the top of the page.
+- **[Sponsor on GitHub &rarr;](https://github.com/sponsors/kazimrmerchant)** Any tier keeps the studio's lights on. Sponsors get priority on custom domain packs and roadmap input.
+- **Contribute a domain or a lock.** Open a PR under [`skills/reimagine-it/references/domains/`](skills/reimagine-it/references/domains/) or [`references/locks/`](skills/reimagine-it/references/locks/). Real content beats a spec.
+
+Say hi on [GitHub](https://github.com/kazimrmerchant).
+
+---
+
+MIT licensed — see [LICENSE](LICENSE). Skill spec: [agentskills.io](https://agentskills.io/specification).

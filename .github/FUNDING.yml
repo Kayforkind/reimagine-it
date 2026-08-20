@@ -1,0 +1,5 @@
+# GitHub sponsor button configuration.
+# If the account has GitHub Sponsors enabled, GitHub renders a "Sponsor" button
+# at the top of the repository automatically. If not, the button is hidden and
+# no error is shown; harmless either way.
+github: [kazimrmerchant]
