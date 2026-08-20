@@ -293,6 +293,171 @@ def _relative(from_dir: Path, target: Path) -> str:
     return rel
 
 
+# ---------------------------------------------------------------------------
+# Twins triptych: same source, same command, two runs of /reimagine-it
+# ---------------------------------------------------------------------------
+
+TWINS_TEMPLATE = """<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><style>
+  :root {{
+    --void:#0a1626;
+    --panel:#0f2038;
+    --line:#233555;
+    --ink:#f4ecd8;
+    --dim:#8a9bb4;
+    --star:#b22234;
+    --sun:#e8a63f;
+    --paper:#f5f0ec;
+    --paper-line:#d9cfc7;
+    --paper-ink:#6a3a3a;
+    --parchment:#f4ecd8;
+    --parchment-line:#c2b48c;
+  }}
+  html, body {{ margin:0; padding:0; background:var(--void); color:var(--ink);
+    font-family: ui-sans-serif, system-ui, "Segoe UI", Inter, sans-serif; }}
+  body {{ padding:28px 32px 32px; }}
+  .head {{ display:flex; align-items:baseline; gap:16px; margin-bottom:22px; }}
+  .head .k {{ font-family: ui-monospace, Consolas, Menlo, monospace;
+    font-size:11px; letter-spacing:.24em; color:var(--sun); text-transform:uppercase; }}
+  .head h1 {{ margin:0; font-size:22px; font-weight:700; letter-spacing:-.01em; }}
+  .head .meta {{ margin-left:auto; font-family: ui-monospace, Consolas, Menlo, monospace;
+    font-size:11px; letter-spacing:.18em; color:var(--dim); text-transform:uppercase; }}
+  .head .star {{ display:inline-block; width:14px; height:14px; fill:var(--star);
+    vertical-align:middle; margin-right:8px;
+    filter: drop-shadow(0 0 4px rgba(178,34,52,.35)); }}
+  .grid {{ display:grid; grid-template-columns: 0.7fr 46px 1fr 46px 1fr; gap:12px; align-items:start; }}
+  .col {{ background:var(--panel); border:1px solid var(--line); border-radius:12px; overflow:hidden; }}
+  .col.before {{ background:var(--paper); border-color:var(--paper-line); }}
+  .col.draw-b {{ background:var(--parchment); border-color:var(--parchment-line); }}
+  .col .lab {{ padding:12px 14px; font-family: ui-monospace, Consolas, Menlo, monospace;
+    font-size:10.5px; letter-spacing:.22em; text-transform:uppercase;
+    display:flex; justify-content:space-between; gap:10px; }}
+  .col.before .lab {{ color:var(--paper-ink); background:#efe8e0; border-bottom:1px solid var(--paper-line); }}
+  .col.draw-a .lab {{ color:var(--sun); background:var(--void); border-bottom:1px solid var(--line); }}
+  .col.draw-b .lab {{ color:#b22234; background:#efe4c9; border-bottom:1px solid var(--parchment-line); }}
+  .col img {{ display:block; width:100%; height:auto; }}
+  .arrow {{ align-self:center; text-align:center; color:var(--sun);
+    font-family: ui-monospace, Consolas, Menlo, monospace;
+    font-size:10.5px; letter-spacing:.22em; }}
+  .arrow .a {{ font-size:26px; line-height:1; margin:6px 0; color:var(--star);
+    filter: drop-shadow(0 0 6px rgba(232,166,63,.35)); }}
+  .arrow .b {{ font-size:10px; color:var(--dim); margin-top:4px; }}
+  .caps {{ margin-top:18px; display:grid; grid-template-columns:1fr 1fr; gap:14px; }}
+  .cap {{ padding:14px 16px; border:1px solid var(--line);
+    border-radius:10px; background:rgba(15,32,56,.55); }}
+  .cap.draw-a {{ border-color:rgba(232,166,63,.4); }}
+  .cap.draw-b {{ border-color:rgba(178,34,52,.4); background:rgba(178,34,52,.08); }}
+  .cap h3 {{ margin:0 0 6px; font-size:13px; font-family: ui-monospace, Consolas, Menlo, monospace;
+    letter-spacing:.2em; text-transform:uppercase; }}
+  .cap.draw-a h3 {{ color:var(--sun); }}
+  .cap.draw-b h3 {{ color:#ff8b95; }}
+  .cap p {{ margin:0; font-size:13px; line-height:1.5; color:var(--ink); }}
+  .cap b {{ color:var(--sun); font-weight:600; }}
+  .cap.draw-b b {{ color:#ff8b95; }}
+  .footline {{ margin-top:14px; font-family: ui-monospace, Consolas, Menlo, monospace;
+    font-size:10.5px; letter-spacing:.22em; color:var(--dim); text-transform:uppercase;
+    text-align:center; }}
+  .footline em {{ color:var(--sun); font-style:normal; }}
+</style></head><body>
+
+<div class="head">
+  <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 L14.6 9.2 L22 9.5 L16.2 14.1 L18.3 21.4 L12 17.2 L5.7 21.4 L7.8 14.1 L2 9.5 L9.4 9.2 Z"/></svg>
+  <span class="k">/reimagine-it webpage &middot; run twice</span>
+  <h1>Same source. Same command. Two draws.</h1>
+  <span class="meta">variation: palette weighting &middot; hero move &middot; plate style &middot; motion &middot; type accent &middot; 3D signature</span>
+</div>
+
+<div class="grid">
+  <div class="col before">
+    <div class="lab"><span>Source</span><span>plain html</span></div>
+    <img src="{before_img}" alt="plain naive html page (source)">
+  </div>
+  <div class="arrow">
+    <div>run 1</div>
+    <div class="a">&rarr;</div>
+    <div class="b">draw A</div>
+  </div>
+  <div class="col draw-a">
+    <div class="lab"><span>After &middot; Draw A</span><span>navy dashboard</span></div>
+    <img src="{after_a_img}" alt="draw A: navy dashboard interpretation">
+  </div>
+  <div class="arrow">
+    <div>run 2</div>
+    <div class="a">&rarr;</div>
+    <div class="b">draw B</div>
+  </div>
+  <div class="col draw-b">
+    <div class="lab"><span>After &middot; Draw B</span><span>parchment field-guide</span></div>
+    <img src="{after_b_img}" alt="draw B: parchment field-guide interpretation">
+  </div>
+</div>
+
+<div class="caps">
+  <div class="cap draw-a">
+    <h3>&#9733; Draw A &middot; navy dashboard</h3>
+    <p><b>Ground:</b> navy (deep sky). <b>Hero move:</b> KPI skyline chart of the three places. <b>Plates:</b> dashboard tiles. <b>Motion:</b> counter rise + KPI pulse. <b>Type:</b> sans + mono. <b>3D:</b> lifted cards with translateZ + drop shadow. Palette anchor pulled from the Lone-Star night.</p>
+  </div>
+  <div class="cap draw-b">
+    <h3>&#9733; Draw B &middot; parchment field-guide</h3>
+    <p><b>Ground:</b> parchment cream. <b>Hero move:</b> hand-drawn Texas map with pin markers + compass rose. <b>Plates:</b> numbered letterpress cards with red drop caps. <b>Motion:</b> bluebonnet drift + compass-needle wobble. <b>Type:</b> italic serif throughout. <b>3D:</b> inset-shadow deboss + card lift. Same palette family, cream-anchored.</p>
+  </div>
+</div>
+
+<div class="footline">
+  same <em>before.html</em> &middot; same command &middot; <em>/reimagine-it</em> sampled a fresh combination the second run &middot; use <em>--seed &lt;n&gt;</em> to lock a draw
+</div>
+
+</body></html>
+"""
+
+
+def render_twins(browser: str) -> tuple[bool, int]:
+    """Render the webpage twins triptych: before | draw A | draw B."""
+    webpage_dir = ROOT / "gold" / "webpage"
+    after_a_html = webpage_dir / "after.html"
+    after_b_html = webpage_dir / "after-2.html"
+    twins_png = webpage_dir / "twins.png"
+
+    if not after_a_html.exists() or not after_b_html.exists():
+        print(f"missing after files under {webpage_dir}", file=sys.stderr)
+        return False, 0
+
+    after_a_png = webpage_dir / "_twins_after_a.png"
+    after_b_png = webpage_dir / "_twins_after_b.png"
+
+    # Match column heights so both drafts land at comparable scale.
+    ok_a = shoot(browser, file_url(after_a_html), after_a_png, w=1400, h=1600, ms=2800)
+    ok_b = shoot(browser, file_url(after_b_html), after_b_png, w=1400, h=1600, ms=2800)
+    if not (ok_a and ok_b):
+        return False, 0
+
+    tmp_html = webpage_dir / "_twins.html"
+    tmp_html.write_text(
+        TWINS_TEMPLATE.format(
+            before_img=BEFORE_PNG.name,
+            after_a_img=after_a_png.name,
+            after_b_img=after_b_png.name,
+        ),
+        encoding="utf-8",
+    )
+
+    # Three columns: 0.7fr + arrow + 1fr + arrow + 1fr. Frame height tuned
+    # so the two after shots (rendered at 1400x1600 => aspect 0.875) fit at
+    # column width ~700 without trailing black padding.
+    frame_w = 2100
+    frame_h = 1140
+    ok = shoot(browser, file_url(tmp_html), twins_png, w=frame_w, h=frame_h, ms=2000)
+
+    for p in (after_a_png, after_b_png, tmp_html):
+        try:
+            p.unlink(missing_ok=True)
+        except OSError:
+            pass
+
+    size = twins_png.stat().st_size if twins_png.exists() else 0
+    return ok, size
+
+
 def main() -> int:
     if not BEFORE_HTML.exists():
         print(f"missing before: {BEFORE_HTML}", file=sys.stderr)
@@ -322,10 +487,17 @@ def main() -> int:
         if not ok:
             failed.append(pack.slug)
 
+    # Twins triptych: same source, same command, two runs of /reimagine-it webpage.
+    ok, size = render_twins(browser)
+    status = "OK  " if ok else "FAIL"
+    print(f"  {status}  {'twins (before | draw A | draw B)':32s} -> gold/webpage/twins.png  ({size:,} bytes)")
+    if not ok:
+        failed.append("twins")
+
     if failed:
         print(f"\n{len(failed)} pack(s) failed: {', '.join(failed)}", file=sys.stderr)
         return 1
-    print(f"\nAll {len(PACKS)} compares rendered.")
+    print(f"\nAll {len(PACKS)} compares + twins triptych rendered.")
     return 0
 
 

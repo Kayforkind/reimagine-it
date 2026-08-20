@@ -45,6 +45,8 @@ Optional tokens. **Combine freely.** You pick tokens; the agent picks questions,
 | `--plan-only` | No files. | Lock + notes + form + stretch. |
 | `--full` | Extra plus-pass after the hero. | One mutation that serves the idea, then ship. |
 | `--variants N` | Ask for N distinct outputs from the same brief instead of one. | Pick N distinct make-strange moves; write to `.../var-1/`, `.../var-2/`, ... |
+| `--seed <n>` | Pin the creative variation sample so two runs produce **the same** draw. Default is fresh every run. | Use the seed to deterministically pick one option per variation axis. |
+| `--variant a\|b\|c\|...` | Shorthand for a named seed (`a` = first canonical draw, `b` = second, …). | Reproduce a specific shipped draw; useful for locks (`--variant b --lock`). |
 | `<brief>` | Extra intent. | Still sniff context; brief does not replace it. |
 
 Combine freely. Example calls:
@@ -84,6 +86,7 @@ REIMAGINED Progress:
 - [ ] 0.75. Adjacent possible named (private)
 - [ ] 1. Four notes chosen (private)
 - [ ] 2. Hero form routed (unless user forced one)
+- [ ] 2.4. Variation sample picked (avoid previous draw; pin if --seed / --variant)
 - [ ] 2.5. Modifiers / font override / --ref loaded if present
 - [ ] 3. Hero artifact written (or N variants if --variants)
 - [ ] 4. Stretch named (and built if cheap)
@@ -148,6 +151,29 @@ Follow [references/forms.md](references/forms.md) unless a category forced the f
 - Seeing-tool (infographic, weenie, canvas, explainer HTML, one-shot deck/PDF) → `<workspace>/reimagined/<yyyy-mm-dd>-<slug>/`.
 - Never hide a product feature inside `reimagined/` as a souvenir.
 
+### 2.4 Creative variation (never repeat)
+
+`/reimagine-it` must not return the same output twice for the same source unless the caller pinned a seed with `--seed <n>` (or picked a named `--variant`). Every fresh run samples a new combination along the axes below so the same brief produces a real range of draws instead of one canned "official" answer:
+
+| Axis | Options (agent picks; content narrows the set) |
+|------|-------|
+| **Ground / palette weighting** | The content-derived palette usually contains ~4 hues (e.g. Texas notebook → navy · cream · red · gold). Each draw picks a *different anchor hue for the ground*: `deep-night` (navy ground, warm accent), `parchment` (cream ground, red accent), `void` (near-black ground, single-hue accent), `raw-paper` (off-white ground, ink accent), `field-blue` (mid-blue ground, cream accent). |
+| **Hero move** | `kpi-skyline`, `illustrated-map`, `kinetic-type-headline`, `inline-shader` (WebGL2), `oversized-numeral`, `letterpress-plate`, `photograph-strip`, `weenie-object`. |
+| **Plate style** | For a 3-item section: `dashboard-tile`, `editorial-dropcap`, `letterpress-card` (numbered, with stamp), `line-art-token`, `photograph-plate`, `bento-cell`, `index-card-stack`. |
+| **Motion budget** | `dashboard-live` (counters + pulses), `editorial-drift` (petals / dust / paper), `kinetic-type-sway` (headline sways), `shader-loop` (fullbleed shader), `still-with-one-loop` (one animated element), `no-motion`. |
+| **Type accent** | `sans+mono`, `serif+italic`, `small-caps`, `mixed-italic`, `display-cut` (oversized cuts), `blackletter+grotesk`. |
+| **3D signature** | `card-fan` (rotateY ±14°), `letterpress-deboss` (inset shadow), `floating-hero` (translateZ 40px), `depth-strata` (three z-layers), `parallax-scroll`, `no-3D-just-shadow`. |
+
+Rules:
+
+1. **Never repeat the previous draw's exact combination.** Track it in memory or the local ledger for the session.
+2. **Content narrows the set** — do not pick `card-fan` for a printed field guide, do not pick `letterpress-deboss` for a WebGL cinematic. The content decides which sub-space is coherent; variation happens inside it.
+3. **`--seed <n>` pins the sample deterministically.** Given the same source + same seed, the output must be byte-equivalent so users can reproduce a specific draw for locks or PRs.
+4. **`--variant a` / `--variant b` / …** are named seeds. `a` is the first canonical draw, `b` the second, etc. Ship them under `after.html`, `after-2.html`, `after-3.html` when a gold pack demonstrates the variance.
+5. **Show the sample** in the report `Draw:` line so the user knows which combination was picked (e.g. `Draw: parchment · illustrated-map · letterpress-card · editorial-drift · serif+italic · letterpress-deboss`).
+
+Gold demonstration: `gold/webpage/after.html` (Draw A: navy dashboard) and `gold/webpage/after-2.html` (Draw B: parchment field-guide) are the same source, same command, two different sampled combinations. `gold/webpage/twins.png` proves the range at a glance.
+
 ### 2.5 Modifiers · font · lock (extend the pack)
 
 - **Modifiers** are additive and composable. `glassmorphism` waives the spine's "blur / glassmorphism as the design" cut-list entry and adds its own non-negotiables (real depth behind the glass, layered panels, reduced motion budget). `bento` restructures the section grid into named tiles. Modifiers stack (`artistic glassmorphism` is a real combination); packs must not fight the spine on grid / palette cap / one motif.
@@ -193,6 +219,8 @@ About: <one sentence>
 Hero: <path + how to run/open>
 Domain / modifier / --ref: <if any>
 Font stack: <if --font was passed>
+Draw: <ground> · <hero-move> · <plate-style> · <motion> · <type-accent> · <3D-signature>
+Seed: <n if pinned, else "fresh">
 Stretch: <what they didn't know was possible>
 Notes: <only if --notes>
 Verified: <what you actually ran, opened, or checked>
@@ -203,6 +231,7 @@ Lead the user-facing reply with the artifact and the stretch, not the protocol.
 ## Must not
 
 - Ship a bullet list instead of an artifact
+- **Return the same draw twice** for the same source without an explicit `--seed`/`--variant` pin
 - Treat `/reimagine-it` as graphics-only
 - Interview without the `interview` category
 - Ask "what style do you want?"
