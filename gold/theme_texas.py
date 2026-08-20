@@ -84,77 +84,13 @@ PALETTE = {
     "#7a6182": "#8a7565",  # dim purple -> warm dust
 }
 
-# --- Brand strings. Applied globally, order matters (longest first). ---
-BRAND = [
-    # cinematic / cinematic-glass H1: "Jordan <em>&amp;</em> the small presses"
-    ("Jordan <em>&amp;</em> the small presses",
-     "Alamo Ledger <em>&amp;</em> the small presses"),
-    ("Jordan Rivers <em>&amp;</em> the small machines",
-     "Alamo Ledger Co. <em>&amp;</em> the small presses"),
-    ("Jordan Rivers &amp; the small machines",
-     "Alamo Ledger Co. &amp; the small presses"),
-    ("Jordan Rivers &mdash; small machines, out loud",
-     "Alamo Ledger Co. &mdash; small presses, San Antonio"),
-    # artistic H1: "Jordan <span class='amp'>&amp;</span> the small<br>\n    machines <span class='last'>Rivers</span>"
-    ('Jordan <span class="amp">&amp;</span> the small<br>\n    machines <span class="last">Rivers</span>',
-     'Alamo Ledger <span class="amp">&amp;</span> the small<br>\n    presses <span class="last">of&nbsp;San Antonio</span>'),
-    ('Jordan <span class="amp">&amp;</span> the small<br>',
-     'Alamo Ledger <span class="amp">&amp;</span> the small<br>'),
-    ('machines <span class="last">Rivers</span>',
-     'presses <span class="last">of&nbsp;San Antonio</span>'),
-    # photography H1: "Jordan<br><span class='last'>Rivers</span>"
-    ('Jordan<br><span class="last">Rivers</span>',
-     'Alamo<br><span class="last">Ledger</span>'),
-    # legacy long-form
-    ("Jordan &amp; the small machines", "Alamo &amp; the small presses"),
-    ("small machines, out loud", "small presses, San Antonio"),
-    ("the small machines", "the small presses"),
-    ("small machines", "small presses"),
-    # domain
-    ("jordan-rivers.dev/status", "alamoledger.us/status"),
-    ("jordan-rivers.dev / status", "alamoledger.us / status"),
-    ("jordan-rivers.dev", "alamoledger.us"),
-    ("@jordan-rivers", "@alamoledger"),
-    # canonical brand
-    ("Jordan Rivers", "Alamo Ledger Co."),
-    ("jordan rivers", "alamo ledger co."),
-    ("Jordan RIVERS", "Alamo LEDGER"),
-    # emails / handles
-    ("jordan@rivers.example", "hello@alamoledger.example"),
-    ("jordan@rivers", "hello@alamoledger"),
-    ("jordan@example.dev", "hello@alamoledger.example"),
-    ("mail jordan@example.dev", "mail hello@alamoledger.example"),
-    ("mailto:jordan@example.dev", "mailto:hello@alamoledger.example"),
-    # landing-neon domain + copy
-    ("ledger.dev", "alamoledger.us"),
-    ("Ship the <em>artifact</em>, not the pitch.", "Ship the <em>ledger</em>, not the pitch."),
-    ("alamoledger.us is a one-person build shop that reimagines legacy systems as command-line demos, then ships the code. No slide decks.",
-     "alamoledger.us is a hand bindery in San Antonio: ledgers, ranch journals, and deed boxes since 2011. No online orders."),
-    ("hello@ledger.example", "hello@alamoledger.example"),
-    ("mailto:hello@ledger.example", "mailto:hello@alamoledger.example"),
-    # cinematic kicker + captions
-    ("Piece 03 &mdash; small machines, out loud",
-     "Piece 03 &mdash; small presses, San Antonio"),
-    ("Piece 03 — small machines, out loud", "Piece 03 — small presses, San Antonio"),
-    ("Small machines &middot; Bristol &middot; since 2019",
-     "Small presses &middot; San Antonio &middot; since 2011"),
-    ("Small machines · Bristol · since 2019",
-     "Small presses · San Antonio · since 2011"),
-    # dashboard / bento content
-    ("Three small machines. One paper journal. One book in flight.",
-     "Three small presses. One ranch journal. One deed box in flight."),
-    ("Three small machines.", "Three small presses."),
-    ("operator &middot; alamo ledger co.", "operator &middot; alamo ledger co."),
-    # photography byline
-    ("Words &amp; pictures by alamo ledger co. &middot; set in Didot &amp; Iowan",
-     "Words &amp; pictures for Alamo Ledger Co. &middot; set in Didot &amp; Iowan"),
-    # remaining lowercase citation lines
-    ("&copy; 2026 alamo ledger co. &middot; folio no. 34",
-     "&copy; 2026 alamo ledger co. &middot; folio no. 34"),
-    ("&copy; 2026 alamo ledger co. &middot; /status",
-     "&copy; 2026 alamo ledger co. &middot; /status"),
-    ("&copy; 2026 alamo ledger co.", "&copy; 2026 alamo ledger co."),
-]
+# Brand rewriting was removed on purpose. This script now only paints the
+# palette, retunes the shader, and inserts the lone-star lockup. The persona
+# in every gold page stays "Jordan Rivers" (matching gold/webpage/before.html)
+# so the compare pages read as "same content, redesigned in USA/Texas visual
+# system" rather than "different company". If a future maintainer wants a
+# different sample persona, edit before.html + the after.html files directly.
+BRAND: list[tuple[str, str]] = []
 
 # --- One lone-star SVG lockup, inserted into each masthead area. ---
 STAR_SVG = (

@@ -208,8 +208,8 @@ COMPARE_TEMPLATE = """<!doctype html>
 <div class="head">
   <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 L14.6 9.2 L22 9.5 L16.2 14.1 L18.3 21.4 L12 17.2 L5.7 21.4 L7.8 14.1 L2 9.5 L9.4 9.2 Z"/></svg>
   <span class="k">{label}</span>
-  <h1>Same content. One command. New design.</h1>
-  <span class="meta">Alamo Ledger Co. &middot; San Antonio, Texas, USA</span>
+  <h1>Same content. One command. USA / Texas redesign.</h1>
+  <span class="meta">Lone-Star palette &middot; star motif &middot; sunset shader</span>
 </div>
 
 <div class="grid">
