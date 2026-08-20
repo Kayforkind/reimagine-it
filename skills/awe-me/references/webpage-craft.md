@@ -4,7 +4,32 @@ Load when the form router picks `html` / `infographic` / `webpage`, or when the 
 
 The point of this file: `/awe-me webpage` must produce a **10× redesign, not a repaint**. If the "after" only changes fonts and colors, the leap failed. The list below is what a real design leap looks like.
 
-Live gold: [gold/webpage/before.html](../../../gold/webpage/before.html) vs [gold/webpage/after.html](../../../gold/webpage/after.html). Same words, same three projects, same email; one is default HTML, the other is the same content held by a designed page. That is the bar.
+## Second word: domain token
+
+If the user gave a second word (`/awe-me webpage <domain>` or `/awe-me <domain>`), route to the matching pack in [domains/](domains/) **in addition to** this spine. Domain packs extend this file — they never replace it.
+
+| Token | Pack |
+|-------|------|
+| `artistic` | [domains/artistic.md](domains/artistic.md) — cream + italic serif + drifting arcs + 3D tilt |
+| `dashboard` | [domains/dashboard.md](domains/dashboard.md) — KPI tiles + live SVG chart + status pills + terminal |
+| `photography` | [domains/photography.md](domains/photography.md) — magazine folio + SVG plates + dropcaps |
+| `ecommerce` | [domains/ecommerce.md](domains/ecommerce.md) — product plates + price ladder + one CTA |
+| `landing` | [domains/landing.md](domains/landing.md) — one-viewport magnet + one CTA + one proof strip |
+| `portfolio` | [domains/portfolio.md](domains/portfolio.md) — study per project, not a card grid |
+
+No token? Use this spine alone; the aesthetic is a sober designed page.
+
+## Every output must land SVG + animation + 3D affordance
+
+Non-negotiable across every domain token and the default:
+
+1. **One inline SVG doing real work** — a chart, a plate, a mini-viz, a background motif. Not a placeholder icon.
+2. **One motion move** — a `@keyframes` animation, a hover transition, a blinking caret, a bar rise, a drifting group. Not scroll-hijacking parallax.
+3. **One 3D affordance** — CSS `perspective` + `rotateX/rotateY` on a card or hero, **or** an inline Three.js scene via pinned import map for hero cases. `perspective` counts. Full Three.js is optional and only when the domain calls for it.
+
+If a redesign lands zero of these, it did not earn `/awe-me webpage`.
+
+Live gold: [gold/webpage/before.html](../../../gold/webpage/before.html) vs [gold/webpage/after.html](../../../gold/webpage/after.html) is the sober default. [gold/domains/](../../../gold/domains/) holds the token variants. `gold/domains/strip.png` is the one-image proof that four tokens produce four aesthetics from the same three-project brief.
 
 ## Non-negotiables (a redesign that misses these is a repaint)
 

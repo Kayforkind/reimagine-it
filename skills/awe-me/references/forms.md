@@ -12,7 +12,7 @@ Load from SKILL.md. Default: **you** pick the form from context. The user may fo
 | Empty product, README-only, first-run pain | **demo** — gold fail-demo then the same path green | Door weenie / first-run copy in the real README |
 | Architecture, monorepo, “inside the machine” | **architecture** — a new grammar *and* a slice that uses it | 3js room, or delete a layer (Eliminate) |
 | Numbers, ledger, scorecard, comparison, research | **infographic** (HTML) or a **working model** | Same data as SVG skyline or a query they can rerun |
-| Existing personal page / landing page / dashboard / plain `index.html` — user wants a redesign | **webpage** — same words, same content, held by a designed page. Load [webpage-craft.md](webpage-craft.md). | `python <folder>/run.py` to screenshot before/after into `compare.png` |
+| Existing personal page / landing page / dashboard / plain `index.html` — user wants a redesign | **webpage** — same words, same content, held by a designed page. Load [webpage-craft.md](webpage-craft.md). If they added a second word (`artistic` / `dashboard` / `photography` / `ecommerce` / `landing` / `portfolio`), also load the matching pack in [domains/](domains/). | `python <folder>/run.py` to screenshot before/after into `compare.png` |
 | Writing, naming, error messages, manifesto | **prose** — one keepable file that *is* the idea | The same idea as a CLI error or a weenie |
 | Product/UX, empty state, dead-end settings | **product** — one interaction they invent workarounds for | Tiny HUD/overlay; do not restyle the whole app |
 | Tests failing, flaky race, “can’t prove it” | **experiment** — property, golden, or fail-demo that makes the bug undeniable | Same proof as an animated SVG of the race |

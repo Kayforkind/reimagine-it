@@ -1,0 +1,76 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+  html, body { margin: 0; padding: 0; background: #06080b; color: #dbe4f0;
+    font-family: ui-sans-serif, system-ui, "Segoe UI", sans-serif; }
+  body { padding: 32px 40px 40px; }
+  .head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; }
+  .head .kicker { font-family: ui-monospace, Consolas, Menlo, monospace;
+    font-size: 11px; letter-spacing: 0.28em; color: #7ee0c0; }
+  .head h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; margin: 0; }
+  .head .meta { margin-left: auto; font-family: ui-monospace, Consolas, Menlo, monospace;
+    font-size: 11px; letter-spacing: 0.16em; color: #6a7688; text-transform: uppercase; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .cell { background: #10151d; border: 1px solid #232d3d; border-radius: 12px;
+    overflow: hidden; display: flex; flex-direction: column; }
+  .cell .lab { padding: 12px 18px; border-bottom: 1px solid #232d3d;
+    display: flex; justify-content: space-between; align-items: baseline; }
+  .cell .lab .tok { font-family: ui-monospace, Consolas, Menlo, monospace;
+    font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #7ee0c0; font-weight: 700; }
+  .cell .lab .sub { font-family: ui-monospace, Consolas, Menlo, monospace;
+    font-size: 10px; letter-spacing: 0.14em; color: #8f9db1; text-transform: uppercase; text-align: right; max-width: 60%; }
+  .cell .shot { background: #06080b; height: 480px; overflow: hidden; display: flex; align-items: flex-start; justify-content: center; }
+  .cell .shot img { display: block; width: 100%; height: auto; }
+  .foot { margin-top: 20px; display: flex; justify-content: space-between;
+    font-family: ui-monospace, Consolas, Menlo, monospace; font-size: 11px;
+    color: #6a7688; letter-spacing: 0.16em; text-transform: uppercase; }
+  .foot b { color: #7ee0c0; font-weight: 700; }
+</style></head><body>
+
+<div class="head">
+  <span class="kicker">/awe-me &lt;form&gt; &lt;domain&gt;</span>
+  <h1>One command, one three-project brief, four completely different designs.</h1>
+  <span class="meta">gold/domains &middot; python gold/domains/run.py</span>
+</div>
+
+<div class="grid">
+
+            <article class="cell cell-webpage">
+              <header class="lab">
+                <span class="tok">/awe-me webpage</span>
+                <span class="sub">sober designed page (default)</span>
+              </header>
+              <div class="shot"><img src="../webpage/after.png" alt="/awe-me webpage"></div>
+            </article>
+            
+            <article class="cell cell-artistic">
+              <header class="lab">
+                <span class="tok">/awe-me artistic</span>
+                <span class="sub">cream + serif + drifting arcs + 3D tilt</span>
+              </header>
+              <div class="shot"><img src="artistic/after.png" alt="/awe-me artistic"></div>
+            </article>
+            
+            <article class="cell cell-dashboard">
+              <header class="lab">
+                <span class="tok">/awe-me dashboard</span>
+                <span class="sub">KPI tiles + live chart + status table</span>
+              </header>
+              <div class="shot"><img src="dashboard/after.png" alt="/awe-me dashboard"></div>
+            </article>
+            
+            <article class="cell cell-photography">
+              <header class="lab">
+                <span class="tok">/awe-me photography</span>
+                <span class="sub">editorial folio + SVG plates + dropcaps</span>
+              </header>
+              <div class="shot"><img src="photography/after.png" alt="/awe-me photography"></div>
+            </article>
+            
+</div>
+
+<div class="foot">
+  <span>same words. same three projects. same one email.</span>
+  <span>designed by <b>/awe-me</b></span>
+</div>
+
+</body></html>

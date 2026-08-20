@@ -15,7 +15,7 @@ metadata:
 
 # /awe-me · /inspire-me
 
-**Banks:** [references/notes.md](references/notes.md) · [references/forms.md](references/forms.md) · [references/webpage-craft.md](references/webpage-craft.md) (load only when the form is html/webpage/infographic) · [examples.md](examples.md)
+**Banks:** [references/notes.md](references/notes.md) · [references/forms.md](references/forms.md) · [references/webpage-craft.md](references/webpage-craft.md) (only for the webpage form) · [references/domains/](references/domains/) (only when the user gave a domain token: `artistic` / `dashboard` / `photography` / `ecommerce` / `landing` / `portfolio`) · [examples.md](examples.md)
 
 Awe is **not** a graphics mode. “Awe me” means: open a creative mind, then **instantiate** a leap this context can actually hold. Visuals are one form among many.
 
@@ -32,7 +32,8 @@ Optional tokens. Combine freely. You pick the token; the agent picks questions, 
 | *(none)* | Default. No interview. | Infer, lock, form, build. |
 | `interview` | Talk before build. | Which questions, recommended answers, when to stop. |
 | `code` `cli` `protocol` `demo` `prose` `product` `architecture` `experiment` | Force that **form family**. | How the notes land in it. |
-| `svg` `3js` `infographic` `canvas` `html` | Force a **visual** form. | Craft inside that medium. |
+| `svg` `3js` `infographic` `canvas` `html` `webpage` | Force a **visual** form. | Craft inside that medium. |
+| Second word after `webpage`: `artistic` `dashboard` `photography` `ecommerce` `landing` `portfolio` | Force a **domain aesthetic**. | Load the matching pack in [references/domains/](references/domains/) and extend the [webpage-craft](references/webpage-craft.md) spine. |
 | `--notes` | Show the four notes. | Which four. |
 | `--plan-only` | No files. | Lock + notes + form + stretch. |
 | `--full` | Extra plus-pass after the hero. | One mutation that serves the idea, then ship. |
@@ -120,6 +121,10 @@ Do not dump the bank in chat.
 Follow [references/forms.md](references/forms.md) unless a category forced the family.
 
 If the routed form is a **webpage / html / infographic**, also load [references/webpage-craft.md](references/webpage-craft.md) before writing the file. That file is the non-negotiable checklist that separates a redesign from a repaint. Live gold is `gold/webpage/`.
+
+If the user added a **second word** (`artistic` / `dashboard` / `photography` / `ecommerce` / `landing` / `portfolio`), also load the matching pack in [references/domains/](references/domains/). Domain packs **extend** the spine — they never replace grid + baseline + palette cap + one motif. Live gold: `gold/domains/` (four aesthetics from the same three-project brief; `strip.png` proves the range).
+
+Every webpage output — with or without a domain token — must land **inline SVG doing real work, one motion move, and one 3D affordance** (CSS `perspective` counts; Three.js optional for hero cases). If none of those landed, the redesign did not earn the form.
 
 **Form follows the leap:**
 

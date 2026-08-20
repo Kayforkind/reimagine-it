@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jordan Rivers &mdash; /awe-me photography</title>
+<style>
+  :root {
+    --paper: #f4efe6;
+    --paper-2: #ebe4d5;
+    --ink: #14140f;
+    --ink-2: #2b2b23;
+    --dim: #6b6a5c;
+    --gold: #b58a3a;
+    --rust: #a54d34;
+    --sky: #6f8fa3;
+    --serif: "Iowan Old Style", "Palatino", "Georgia", "Times New Roman", serif;
+    --serif-2: "Didot", "Bodoni Moda", "Palatino", "Georgia", serif;
+    --sans: ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+    --mono: ui-monospace, "SF Mono", Consolas, Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--paper); color: var(--ink); font-family: var(--serif); }
+  body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    padding: 0;
+    margin: 0;
+  }
+  a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--ink); }
+
+  .rail {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 20px 40px; border-bottom: 1px solid var(--ink);
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.32em; color: var(--ink); text-transform: uppercase;
+  }
+  .rail .r { display: flex; gap: 24px; }
+  .rail .r span { color: var(--dim); }
+  .rail .r .cur { color: var(--ink); font-weight: 700; }
+
+  .masthead {
+    display: grid; grid-template-columns: 3fr 2fr; gap: 40px;
+    padding: 56px 40px 40px; border-bottom: 1px solid var(--ink);
+    align-items: end;
+  }
+  .masthead h1 {
+    font-family: var(--serif-2); font-weight: 400;
+    font-size: clamp(96px, 15vw, 220px);
+    line-height: 0.82;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    font-style: italic;
+  }
+  .masthead h1 .last {
+    display: block;
+    font-family: var(--serif-2);
+    font-weight: 700;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: 0.5em;
+    line-height: 0.9;
+    margin-top: -0.05em;
+    color: var(--ink);
+  }
+  .masthead .kicker {
+    display: flex; flex-direction: column; gap: 16px;
+    font-family: var(--serif); color: var(--ink-2);
+  }
+  .masthead .kicker .stamp {
+    display: inline-block; align-self: flex-start;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+    padding: 6px 12px; border: 1px solid var(--ink); border-radius: 0;
+  }
+  .masthead .kicker .lead {
+    font-size: 22px; line-height: 1.4; font-style: italic; max-width: 30ch;
+  }
+  .masthead .kicker .lead b { font-style: normal; font-weight: 700; }
+  .masthead .kicker .byline {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em; color: var(--dim); text-transform: uppercase;
+  }
+
+  .strip {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid var(--ink);
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+  }
+  .strip div {
+    padding: 12px 20px; border-right: 1px solid var(--ink);
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .strip div:last-child { border-right: none; }
+  .strip div .k { color: var(--dim); font-size: 9px; }
+  .strip div .v { color: var(--ink); font-weight: 700; font-size: 13px; letter-spacing: 0.14em; }
+
+  .plate {
+    padding: 64px 40px 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    align-items: start;
+  }
+  .plate.rev { grid-template-columns: 1fr 1fr; }
+  .plate.rev .frame { order: 2; }
+  .plate.rev .caption { order: 1; }
+
+  .frame {
+    position: relative; overflow: hidden;
+    border: 1px solid var(--ink);
+    aspect-ratio: 4 / 5;
+    background: var(--ink);
+  }
+  .frame svg { display: block; width: 100%; height: 100%; }
+  .frame .no {
+    position: absolute; top: 12px; left: 12px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--paper); background: rgba(20, 20, 15, 0.6);
+    padding: 4px 8px;
+  }
+  .frame .cap {
+    position: absolute; bottom: 12px; right: 12px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--paper); background: rgba(20, 20, 15, 0.6);
+    padding: 4px 8px;
+  }
+  .frame:hover svg { transform: scale(1.02); }
+  .frame svg { transition: transform 0.9s ease; }
+
+  .caption {
+    padding-top: 8px;
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .caption .num {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--gold); font-weight: 700;
+  }
+  .caption h2 {
+    font-family: var(--serif-2); font-style: italic; font-weight: 400;
+    font-size: clamp(56px, 6vw, 96px);
+    line-height: 0.9; letter-spacing: -0.03em;
+  }
+  .caption .drop {
+    font-family: var(--serif); font-size: 17px; line-height: 1.6;
+    color: var(--ink-2); max-width: 42ch;
+  }
+  .caption .drop::first-letter {
+    font-family: var(--serif-2); font-weight: 700; font-size: 3em; float: left;
+    line-height: 0.9; padding-right: 6px; padding-top: 4px; color: var(--rust);
+  }
+  .caption .meta {
+    display: flex; gap: 24px; padding-top: 12px; border-top: 1px solid var(--ink);
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--dim);
+  }
+  .caption .meta span b { color: var(--ink); font-weight: 700; }
+
+  .interlude {
+    padding: 64px 40px 24px;
+    text-align: center;
+  }
+  .interlude p {
+    font-family: var(--serif-2); font-style: italic; font-weight: 400;
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.3;
+    max-width: 30ch; margin: 0 auto;
+    color: var(--ink);
+  }
+  .interlude .sig {
+    margin-top: 16px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--dim);
+  }
+
+  .colophon {
+    border-top: 1px solid var(--ink);
+    padding: 32px 40px;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink);
+  }
+  .colophon h3 { font-family: var(--serif-2); font-style: italic; font-size: 22px; font-weight: 400; letter-spacing: -0.01em; text-transform: none; color: var(--ink); }
+  .colophon .col { display: flex; flex-direction: column; gap: 10px; }
+  .colophon .col .k { color: var(--dim); font-size: 9px; }
+  .colophon .col .v { color: var(--ink); font-family: var(--serif); font-size: 15px; letter-spacing: 0; text-transform: none; }
+
+  .foot {
+    border-top: 1px solid var(--ink);
+    padding: 16px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--dim);
+  }
+  .foot b { color: var(--ink); font-weight: 700; }
+
+  .grain {
+    animation: hover 6s ease-in-out infinite;
+    transform-origin: center;
+  }
+  @keyframes hover { 50% { transform: translateY(-6px); } }
+</style>
+</head>
+<body>
+
+<div class="rail">
+  <div class="r"><span class="cur">Vol. 26</span><span>issue 34</span><span>week of aug 19</span></div>
+  <div class="r"><span>&lt; folio &middot; jordan-rivers.dev &gt;</span></div>
+</div>
+
+<header class="masthead">
+  <h1>Jordan<br><span class="last">Rivers</span></h1>
+  <div class="kicker">
+    <span class="stamp">Folio &middot; three plates &middot; 2022&mdash;2024</span>
+    <p class="lead">
+      Three <b>small machines</b> from three quiet years.
+      One is <b>paper</b>. One is <b>text</b>. One is <b>code</b>.
+      All three are the same size.
+    </p>
+    <span class="byline">Words &amp; pictures by jordan rivers &middot; set in Didot &amp; Iowan</span>
+  </div>
+</header>
+
+<div class="strip">
+  <div><span class="k">Plate I</span><span class="v">Quiet Week</span></div>
+  <div><span class="k">Plate II</span><span class="v">Lantern</span></div>
+  <div><span class="k">Plate III</span><span class="v">Rift</span></div>
+  <div><span class="k">Colophon</span><span class="v">Say hello</span></div>
+</div>
+
+<section class="plate">
+  <div class="frame">
+    <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#dcd4c1"/>
+          <stop offset="1" stop-color="#b58a3a"/>
+        </linearGradient>
+      </defs>
+      <rect width="400" height="500" fill="url(#sky1)"/>
+      <g class="grain">
+        <ellipse cx="200" cy="140" rx="70" ry="70" fill="#f4efe6" opacity="0.85"/>
+        <ellipse cx="200" cy="140" rx="48" ry="48" fill="#a54d34" opacity="0.65"/>
+      </g>
+      <path d="M 0 340 L 60 320 L 140 350 L 220 310 L 300 330 L 400 300 L 400 500 L 0 500 Z" fill="#2b2b23"/>
+      <path d="M 0 380 L 80 360 L 180 380 L 260 350 L 340 370 L 400 350 L 400 500 L 0 500 Z" fill="#14140f"/>
+      <g stroke="#f4efe6" stroke-width="0.6" opacity="0.4">
+        <line x1="20" y1="440" x2="380" y2="440"/>
+        <line x1="20" y1="460" x2="380" y2="460"/>
+        <line x1="20" y1="480" x2="380" y2="480"/>
+      </g>
+    </svg>
+    <span class="no">Plate I &middot; 2022</span>
+    <span class="cap">printable &middot; 1 page</span>
+  </div>
+  <div class="caption">
+    <span class="num">Plate I &middot; 2022</span>
+    <h2>Quiet Week</h2>
+    <p class="drop">A month-per-page paper journal template you print at home. Twelve prompts, one grid, zero notifications &mdash; made for the kind of Sunday where you cannot find your phone charger and decide that is the right answer.</p>
+    <div class="meta"><span>Medium: <b>PDF</b></span><span>Weight: <b>1 page</b></span><span>State: <b>Done</b></span></div>
+  </div>
+</section>
+
+<section class="plate rev">
+  <div class="frame">
+    <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <radialGradient id="glow1" cx="50%" cy="45%" r="55%">
+          <stop offset="0" stop-color="#f4efe6"/>
+          <stop offset="0.65" stop-color="#a54d34"/>
+          <stop offset="1" stop-color="#14140f"/>
+        </radialGradient>
+      </defs>
+      <rect width="400" height="500" fill="#14140f"/>
+      <rect x="0" y="0" width="400" height="500" fill="url(#glow1)" opacity="0.9"/>
+      <g stroke="#f4efe6" stroke-width="1" fill="none" opacity="0.55">
+        <path d="M 0 100 L 400 100"/>
+        <path d="M 0 200 L 400 200"/>
+        <path d="M 0 300 L 400 300"/>
+        <path d="M 0 400 L 400 400"/>
+        <path d="M 100 0 L 100 500"/>
+        <path d="M 200 0 L 200 500"/>
+        <path d="M 300 0 L 300 500"/>
+      </g>
+      <g class="grain" style="transform-origin: 200px 250px;">
+        <circle cx="200" cy="230" r="80" fill="#f4efe6" opacity="0.4"/>
+        <circle cx="200" cy="230" r="42" fill="#f4efe6" opacity="0.7"/>
+      </g>
+      <rect x="60" y="380" width="280" height="70" fill="#14140f" opacity="0.75"/>
+      <g fill="#f4efe6" font-family="ui-monospace, Consolas, Menlo, monospace" font-size="10" opacity="0.85">
+        <text x="76" y="408">// lantern &middot; offline reader</text>
+        <text x="76" y="424">// full text search</text>
+        <text x="76" y="440">// epub &middot; mobi &middot; saved</text>
+      </g>
+    </svg>
+    <span class="no">Plate II &middot; 2023</span>
+    <span class="cap">rust &middot; 8k</span>
+  </div>
+  <div class="caption">
+    <span class="num">Plate II &middot; 2023</span>
+    <h2>Lantern</h2>
+    <p class="drop">An offline reader for archived long-form journalism. Reads epub, mobi, saved articles. Full-text search runs on your machine. The magazine you would have kept, held in one window with no headline traps and no comment feeds and no autoplay.</p>
+    <div class="meta"><span>Medium: <b>Rust</b></span><span>Weight: <b>8k loc</b></span><span>State: <b>Maintained</b></span></div>
+  </div>
+</section>
+
+<section class="plate">
+  <div class="frame">
+    <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <rect width="400" height="500" fill="#6f8fa3"/>
+      <g fill="none" stroke="#14140f" stroke-width="1.2">
+        <path d="M 40 60 Q 200 20 360 60"/>
+        <path d="M 40 100 Q 200 60 360 100"/>
+        <path d="M 40 140 Q 200 100 360 140"/>
+      </g>
+      <rect x="60" y="200" width="280" height="240" fill="#14140f"/>
+      <g fill="#b58a3a">
+        <rect x="80"  y="220" width="30" height="30"/><rect x="130" y="220" width="30" height="30"/><rect x="180" y="220" width="30" height="30"/><rect x="230" y="220" width="30" height="30"/><rect x="280" y="220" width="30" height="30"/>
+        <rect x="80"  y="270" width="30" height="30"/><rect x="130" y="270" width="30" height="30"/><rect x="180" y="270" width="30" height="30"/><rect x="230" y="270" width="30" height="30"/><rect x="280" y="270" width="30" height="30"/>
+        <rect x="80"  y="320" width="30" height="30"/><rect x="130" y="320" width="30" height="30"/><rect x="180" y="320" width="30" height="30"/><rect x="230" y="320" width="30" height="30"/><rect x="280" y="320" width="30" height="30"/>
+        <rect x="80"  y="370" width="30" height="30"/><rect x="130" y="370" width="30" height="30"/><rect x="180" y="370" width="30" height="30"/><rect x="230" y="370" width="30" height="30"/><rect x="280" y="370" width="30" height="30"/>
+      </g>
+      <circle cx="200" cy="310" r="42" fill="#a54d34" opacity="0.85"/>
+      <text x="200" y="470" text-anchor="middle" fill="#14140f" font-family="ui-monospace, Consolas, Menlo, monospace" font-size="11" letter-spacing="0.24em">MARKDOWN LSP</text>
+    </svg>
+    <span class="no">Plate III &middot; 2024</span>
+    <span class="cap">go &middot; 3k</span>
+  </div>
+  <div class="caption">
+    <span class="num">Plate III &middot; 2024</span>
+    <h2>Rift</h2>
+    <p class="drop">A tiny language server for Markdown outlines. Watches your files, keeps a symbol tree, ships in one binary. Meant to disappear into your editor and only speak when it can save you a keystroke, and never louder than a status bar item.</p>
+    <div class="meta"><span>Medium: <b>Go</b></span><span>Weight: <b>3k loc</b></span><span>State: <b>Shipping</b></span></div>
+  </div>
+</section>
+
+<section class="interlude">
+  <p>&ldquo;Three small machines from three quiet years. All three are the same size.&rdquo;</p>
+  <div class="sig">&mdash; Colophon</div>
+</section>
+
+<section class="colophon">
+  <div class="col">
+    <span class="k">Address</span>
+    <a class="v" href="mailto:jordan@example.dev">jordan@example.dev</a>
+  </div>
+  <div class="col">
+    <span class="k">This week</span>
+    <span class="v">Chapter 3 of a small book on the CLI. Rewriting <em>quiet-week</em> for A5. Reading Le Guin, page 214.</span>
+  </div>
+  <div class="col">
+    <span class="k">Elsewhere</span>
+    <span class="v">github &middot; @jordan-rivers<br>rss &middot; /essays.xml</span>
+  </div>
+</section>
+
+<div class="foot">
+  <span>&copy; 2026 jordan rivers &middot; folio no. 34</span>
+  <span>designed by <b>/awe-me photography</b></span>
+</div>
+
+</body>
+</html>
