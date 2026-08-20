@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ledger.dev &mdash; /reimagine-it webpage landing neon</title>
+<title>alamoledger.us &mdash; /reimagine-it webpage landing neon</title>
 <style>
   :root{
-    --void:#05070c;
-    --panel:#0a0f1a;
-    --ink:#ecf1ff;
-    --dim:#7c8aa8;
-    --neon:#7cf3ff;             /* the one accent doing all the work */
-    --neon-shadow:rgba(124,243,255,.55);
-    --neon-shadow-soft:rgba(124,243,255,.22);
+    --void:#0a1626;
+    --panel:#0f2038;
+    --ink:#f4ecd8;
+    --dim:#8a9bb4;
+    --neon:#e8a63f;             /* the one accent doing all the work */
+    --neon-shadow:rgba(232,166,63,.55);
+    --neon-shadow-soft:rgba(232,166,63,.22);
     --sans:ui-sans-serif,system-ui,"Segoe UI Variable Display","Segoe UI",Inter,sans-serif;
     --mono:ui-monospace,SFMono-Regular,Consolas,"JetBrains Mono",monospace;
     --serif:"Iowan Old Style",Palatino,Georgia,serif;
@@ -22,7 +22,7 @@
   body{line-height:1.55;-webkit-font-smoothing:antialiased;
     /* vignette: single radial gradient (allowed) */
     background:
-      radial-gradient(1200px 700px at 50% 20%, rgba(124,243,255,.10), transparent 55%),
+      radial-gradient(1200px 700px at 50% 20%, rgba(232,166,63,.10), transparent 55%),
       radial-gradient(1600px 900px at 50% 100%, rgba(0,0,0,.7), transparent 60%),
       var(--void);
   }
@@ -55,7 +55,7 @@
   .hero .cta{margin-top:34px;display:flex;gap:18px;align-items:center}
   .hero .cta a.prim{padding:14px 22px;border:1px solid var(--neon);color:var(--neon);text-decoration:none;font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;border-radius:100px;
     filter:drop-shadow(0 0 12px var(--neon-shadow-soft));transition:filter .3s, background .3s}
-  .hero .cta a.prim:hover{background:rgba(124,243,255,.08);filter:drop-shadow(0 0 22px var(--neon-shadow))}
+  .hero .cta a.prim:hover{background:rgba(232,166,63,.08);filter:drop-shadow(0 0 22px var(--neon-shadow))}
   .hero .cta a.sec{padding:14px 6px;color:var(--dim);text-decoration:none;font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;transition:color .3s}
   .hero .cta a.sec:hover{color:var(--ink)}
   .cursor{display:inline-block;width:12px;height:1em;background:var(--neon);
@@ -80,7 +80,7 @@
   @keyframes corepulse{50%{opacity:.6;filter:drop-shadow(0 0 16px var(--neon-shadow)) drop-shadow(0 0 34px var(--neon-shadow))}}
 
   /* proof strip: quiet row, one accent */
-  .proof{padding:22px 0;border-top:1px solid rgba(124,243,255,.14);display:grid;grid-template-columns:repeat(4,1fr);gap:32px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+  .proof{padding:22px 0;border-top:1px solid rgba(232,166,63,.14);display:grid;grid-template-columns:repeat(4,1fr);gap:32px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
   .proof .p b{display:block;font-size:22px;color:var(--neon);letter-spacing:.02em;margin-bottom:6px;text-transform:none;font-weight:400;
     filter:drop-shadow(0 0 6px var(--neon-shadow-soft))}
 
@@ -100,7 +100,7 @@
 <div class="wrap">
 
   <nav aria-label="Site navigation">
-    <div class="brand"><b>&#9679;</b>ledger.dev</div>
+    <div class="brand"><b>&#9679;</b><svg class="lone-star" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" style="display:inline-block;vertical-align:middle;margin:0 8px 2px 0;fill:#b22234;filter:drop-shadow(0 0 4px rgba(178,34,52,.35))"><path d="M12 2 L14.6 9.2 L22 9.5 L16.2 14.1 L18.3 21.4 L12 17.2 L5.7 21.4 L7.8 14.1 L2 9.5 L9.4 9.2 Z"/></svg>alamoledger.us</div>
     <ul>
       <li><a href="#work">work</a></li>
       <li><a href="#writing">writing</a></li>
@@ -111,11 +111,11 @@
   <section class="hero">
     <div>
       <div class="k"><b>&#9679;</b>OPEN &middot; ACCEPTING WORK</div>
-      <h1>Ship the <em>artifact</em>, not the pitch.</h1>
-      <p>ledger.dev is a one-person build shop that reimagines legacy systems as command-line demos, then ships the code. No slide decks.</p>
+      <h1>Ship the <em>ledger</em>, not the pitch.</h1>
+      <p>alamoledger.us is a hand bindery in San Antonio: ledgers, ranch journals, and deed boxes since 2011. No online orders.</p>
       <div class="cta">
         <a class="prim" href="#work">See the ledger &rarr;</a>
-        <a class="sec" href="mailto:hello@ledger.example">hello@ledger.example<span class="cursor" aria-hidden="true"></span></a>
+        <a class="sec" href="mailto:hello@alamoledger.example">hello@alamoledger.example<span class="cursor" aria-hidden="true"></span></a>
       </div>
     </div>
 
@@ -154,7 +154,7 @@
   <footer>
     <span><b>DOMAIN</b>landing</span>
     <span><b>MODIFIER</b>neon</span>
-    <span><b>ACCENT</b>#7cf3ff (single)</span>
+    <span><b>ACCENT</b>#e8a63f (single)</span>
     <span><b>PULSE</b>2.6s</span>
     <span><b>SHIPS AS</b>one .html</span>
   </footer>

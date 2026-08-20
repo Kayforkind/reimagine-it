@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>jordan-rivers.dev/status &mdash; /reimagine-it webpage dashboard bento</title>
+<title>alamoledger.us/status &mdash; /reimagine-it webpage dashboard bento</title>
 <style>
   :root{
-    --bg:#06080b; --panel:#10151d; --panel-2:#182131;
-    --grid:#1e2937; --stroke:#232d3d; --stroke-lift:#3a4a63;
-    --ink:#dbe4f0; --dim:#6a7688; --muted:#8f9db1;
-    --accent:#7ee0c0; --warm:#f0b060; --hot:#e07c6a; --violet:#a48dff;
+    --bg:#0a1626; --panel:#0f2038; --panel-2:#122540;
+    --grid:#233555; --stroke:#233555; --stroke-lift:#4a638a;
+    --ink:#f4ecd8; --dim:#8a9bb4; --muted:#8a9bb4;
+    --accent:#e8a63f; --warm:#e8a63f; --hot:#b22234; --violet:#6b8f4e;
     --sans:ui-sans-serif,system-ui,"Segoe UI",Inter,sans-serif;
     --mono:ui-monospace,"SF Mono",Consolas,Menlo,monospace;
   }
@@ -47,7 +47,7 @@
     animation:fadeUp .5s cubic-bezier(.2,.7,.2,1) both;
   }
   @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}}
-  .tile:hover{transform:translateY(-3px);border-color:var(--stroke-lift);box-shadow:0 12px 24px -12px rgba(126,224,192,.18)}
+  .tile:hover{transform:translateY(-3px);border-color:var(--stroke-lift);box-shadow:0 12px 24px -12px rgba(232,166,63,.18)}
 
   /* stagger by grid position */
   .tile[data-i="1"]{animation-delay:40ms}
@@ -69,8 +69,8 @@
   .brand{grid-area:brand;background:transparent;border:none;padding:8px 4px}
   .brand .who{font-family:var(--mono);font-size:13px;color:var(--ink);letter-spacing:.04em;display:flex;align-items:center;gap:10px}
   .brand .who .live{width:8px;height:8px;border-radius:50%;background:var(--accent);
-    box-shadow:0 0 0 4px rgba(126,224,192,.18);animation:livepulse 2s ease-in-out infinite}
-  @keyframes livepulse{50%{box-shadow:0 0 0 8px rgba(126,224,192,.08)}}
+    box-shadow:0 0 0 4px rgba(232,166,63,.18);animation:livepulse 2s ease-in-out infinite}
+  @keyframes livepulse{50%{box-shadow:0 0 0 8px rgba(232,166,63,.08)}}
   .brand .who span{color:var(--dim)}
   .brand .sub{font-size:11px;color:var(--dim);letter-spacing:.16em;text-transform:uppercase;font-family:var(--mono);margin-top:6px}
 
@@ -79,18 +79,18 @@
   .hours .lab{font-family:var(--mono);font-size:10.5px;color:var(--dim);letter-spacing:.22em;text-transform:uppercase;margin-top:4px}
 
   .state{grid-area:state;padding:14px 18px;display:flex;flex-direction:column;justify-content:center;align-items:flex-end}
-  .state .badge{font-family:var(--mono);font-size:11px;padding:6px 12px;border-radius:100px;letter-spacing:.18em;text-transform:uppercase;background:rgba(126,224,192,.14);color:var(--accent);border:1px solid rgba(126,224,192,.4)}
+  .state .badge{font-family:var(--mono);font-size:11px;padding:6px 12px;border-radius:100px;letter-spacing:.18em;text-transform:uppercase;background:rgba(232,166,63,.14);color:var(--accent);border:1px solid rgba(232,166,63,.4)}
   .state .ts{font-family:var(--mono);font-size:10.5px;color:var(--dim);letter-spacing:.14em;margin-top:8px}
 
   /* HERO tile: 2x2, elevated */
   .hero{grid-area:hero;min-height:340px;
     transform:translateZ(24px);
-    box-shadow:0 30px 40px -20px rgba(0,0,0,.6), 0 0 0 1px var(--stroke-lift), 0 0 40px rgba(126,224,192,.06);
-    background:linear-gradient(180deg,#12181f,#0b0f14)}
+    box-shadow:0 30px 40px -20px rgba(0,0,0,.6), 0 0 0 1px var(--stroke-lift), 0 0 40px rgba(232,166,63,.06);
+    background:linear-gradient(180deg,#122540,#0a1626)}
   .hero .kicker b{color:var(--warm)}
   .hero .title{font-size:22px;margin-bottom:2px}
   .hero .desc{color:var(--muted);font-size:13.5px;margin-top:4px;max-width:52ch}
-  .hero .plate{margin-top:16px;background:#0a0e13;border:1px solid var(--grid);border-radius:10px;padding:14px}
+  .hero .plate{margin-top:16px;background:#0a1626;border:1px solid var(--grid);border-radius:10px;padding:14px}
   .hero .plate svg{width:100%;height:170px;display:block}
   .hero .row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
   .hero .row .cell{background:rgba(255,255,255,.02);border:1px solid var(--grid);border-radius:8px;padding:10px}
@@ -122,7 +122,7 @@
   .stack .row .p{background:rgba(255,255,255,.03);border:1px solid var(--grid);border-radius:6px;padding:8px 10px;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em}
   .stack .row .p b{color:var(--accent);font-weight:400;display:block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:2px}
 
-  .incidents{grid-area:incidents;background:linear-gradient(180deg,#171b23,#10141b)}
+  .incidents{grid-area:incidents;background:linear-gradient(180deg,#122540,#0a1626)}
   .incidents ol{list-style:none;margin-top:10px;padding:0}
   .incidents li{padding:10px 0;border-top:1px dashed var(--grid);display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:baseline;font-size:13px;color:var(--muted)}
   .incidents li:first-child{border-top:none}
@@ -140,7 +140,7 @@
 <div class="bento">
 
   <header class="tile brand" data-i="1">
-    <div class="who"><i class="live" aria-hidden="true"></i>jordan-rivers.dev<span>&nbsp;/&nbsp;status</span></div>
+    <div class="who"><svg class="lone-star" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" style="display:inline-block;vertical-align:middle;margin:0 8px 2px 0;fill:#b22234;filter:drop-shadow(0 0 4px rgba(178,34,52,.35))"><path d="M12 2 L14.6 9.2 L22 9.5 L16.2 14.1 L18.3 21.4 L12 17.2 L5.7 21.4 L7.8 14.1 L2 9.5 L9.4 9.2 Z"/></svg><i class="live" aria-hidden="true"></i>alamoledger.us<span>&nbsp;/&nbsp;status</span></div>
     <div class="sub">Bento &middot; Dashboard &middot; Real values &middot; Single .html</div>
   </header>
 
@@ -158,7 +158,7 @@
   <!-- HERO TILE 2x2, elevated -->
   <section class="tile hero" data-i="4">
     <div class="kicker"><b>PIECE 03</b>NOW SHIPPING</div>
-    <h2 class="title">jordan-rivers.dev / status</h2>
+    <h2 class="title">alamoledger.us / status</h2>
     <p class="desc">One page, eight tiles. Every tile is one idea with one datum and one meta line. The hero tile is the only one carrying the make-strange move; the others stay quiet.</p>
 
     <div class="plate" aria-label="Traffic last 12 weeks">
@@ -166,11 +166,11 @@
         <title id="chart-title">Traffic last 12 weeks</title>
         <defs>
           <linearGradient id="fill" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#7ee0c0" stop-opacity=".45"/>
-            <stop offset="1" stop-color="#7ee0c0" stop-opacity="0"/>
+            <stop offset="0" stop-color="#e8a63f" stop-opacity=".45"/>
+            <stop offset="1" stop-color="#e8a63f" stop-opacity="0"/>
           </linearGradient>
         </defs>
-        <g stroke="#1e2937">
+        <g stroke="#233555">
           <line x1="0" y1="30" x2="640" y2="30"/>
           <line x1="0" y1="70" x2="640" y2="70"/>
           <line x1="0" y1="110" x2="640" y2="110"/>
@@ -179,12 +179,12 @@
         <path d="M 0 130 L 55 118 L 110 102 L 165 92 L 220 76 L 275 84 L 330 62 L 385 54 L 440 68 L 495 38 L 550 42 L 605 22 L 640 26 L 640 170 L 0 170 Z"
               fill="url(#fill)"/>
         <path d="M 0 130 L 55 118 L 110 102 L 165 92 L 220 76 L 275 84 L 330 62 L 385 54 L 440 68 L 495 38 L 550 42 L 605 22 L 640 26"
-              fill="none" stroke="#7ee0c0" stroke-width="2"/>
-        <g fill="#f0b060">
+              fill="none" stroke="#e8a63f" stroke-width="2"/>
+        <g fill="#e8a63f">
           <circle cx="605" cy="22" r="4"><animate attributeName="r" values="4;6;4" dur="2.2s" repeatCount="indefinite"/></circle>
         </g>
-        <text x="8" y="18" font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#6a7688" letter-spacing="1.6">TRAFFIC 12W</text>
-        <text x="632" y="18" font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#f0b060" text-anchor="end" letter-spacing="1.6">+38%</text>
+        <text x="8" y="18" font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#8a9bb4" letter-spacing="1.6">TRAFFIC 12W</text>
+        <text x="632" y="18" font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#e8a63f" text-anchor="end" letter-spacing="1.6">+38%</text>
       </svg>
     </div>
 
@@ -201,11 +201,11 @@
     <div class="title">Response time, last hour</div>
     <div class="plate">
       <svg viewBox="0 0 380 100" role="img" aria-label="Latency p50 and p95">
-        <g stroke="#1e2937"><line x1="0" y1="30" x2="380" y2="30"/><line x1="0" y1="60" x2="380" y2="60"/><line x1="0" y1="90" x2="380" y2="90"/></g>
-        <path d="M 0 78 L 40 72 L 80 76 L 120 68 L 160 70 L 200 66 L 240 60 L 280 62 L 320 58 L 380 62" fill="none" stroke="#7ee0c0" stroke-width="1.8"/>
-        <path d="M 0 40 L 40 38 L 80 46 L 120 34 L 160 42 L 200 30 L 240 34 L 280 28 L 320 32 L 380 26" fill="none" stroke="#f0b060" stroke-width="1.5" stroke-dasharray="4 4"/>
-        <text x="6" y="14" font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#7ee0c0" letter-spacing="1.6">P50 68ms</text>
-        <text x="370" y="14" font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#f0b060" text-anchor="end" letter-spacing="1.6">P95 118ms</text>
+        <g stroke="#233555"><line x1="0" y1="30" x2="380" y2="30"/><line x1="0" y1="60" x2="380" y2="60"/><line x1="0" y1="90" x2="380" y2="90"/></g>
+        <path d="M 0 78 L 40 72 L 80 76 L 120 68 L 160 70 L 200 66 L 240 60 L 280 62 L 320 58 L 380 62" fill="none" stroke="#e8a63f" stroke-width="1.8"/>
+        <path d="M 0 40 L 40 38 L 80 46 L 120 34 L 160 42 L 200 30 L 240 34 L 280 28 L 320 32 L 380 26" fill="none" stroke="#e8a63f" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <text x="6" y="14" font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#e8a63f" letter-spacing="1.6">P50 68ms</text>
+        <text x="370" y="14" font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#e8a63f" text-anchor="end" letter-spacing="1.6">P95 118ms</text>
       </svg>
     </div>
     <div class="meta"><span>WINDOW <b>60m</b></span><span>rolling</span></div>

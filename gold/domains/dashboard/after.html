@@ -3,21 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>jordan-rivers.dev/status &mdash; /reimagine-it dashboard</title>
+<title>alamoledger.us/status &mdash; /reimagine-it dashboard</title>
 <style>
   :root {
-    --bg: #06080b;
-    --panel: #10151d;
-    --panel-2: #182131;
-    --grid: #1e2937;
-    --stroke: #232d3d;
-    --ink: #dbe4f0;
-    --dim: #6a7688;
-    --muted: #8f9db1;
-    --accent: #7ee0c0;
-    --warm: #f0b060;
-    --hot: #e07c6a;
-    --violet: #a48dff;
+    --bg: #0a1626;
+    --panel: #0f2038;
+    --panel-2: #122540;
+    --grid: #233555;
+    --stroke: #233555;
+    --ink: #f4ecd8;
+    --dim: #8a9bb4;
+    --muted: #8a9bb4;
+    --accent: #e8a63f;
+    --warm: #e8a63f;
+    --hot: #b22234;
+    --violet: #6b8f4e;
     --sans: ui-sans-serif, system-ui, "Segoe UI", Inter, sans-serif;
     --mono: ui-monospace, "SF Mono", Consolas, Menlo, monospace;
   }
@@ -30,8 +30,8 @@
     max-width: 1440px;
     margin: 0 auto;
     background-image:
-      linear-gradient(rgba(30, 41, 55, 0.35) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(30, 41, 55, 0.35) 1px, transparent 1px);
+      linear-gradient(rgba(35,53,85,0.4) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(35,53,85,0.4) 1px, transparent 1px);
     background-size: 32px 32px;
     background-position: -1px -1px;
   }
@@ -48,10 +48,10 @@
   .topbar .brand .live {
     display: inline-block; margin-right: 8px;
     width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
-    box-shadow: 0 0 0 4px rgba(126, 224, 192, 0.18);
+    box-shadow: 0 0 0 4px rgba(232,166,63,0.18);
     animation: livepulse 2s ease-in-out infinite;
   }
-  @keyframes livepulse { 50% { box-shadow: 0 0 0 8px rgba(126, 224, 192, 0.08); } }
+  @keyframes livepulse { 50% { box-shadow: 0 0 0 8px rgba(232,166,63,0.08); } }
   .topbar .search {
     background: var(--panel); border: 1px solid var(--stroke); border-radius: 8px;
     padding: 8px 14px; font-family: var(--mono); font-size: 12px; color: var(--dim);
@@ -195,7 +195,7 @@
     font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700;
     padding: 3px 8px; border-radius: 999px;
   }
-  .now .item .s.ok  { background: rgba(126, 224, 192, 0.12); color: var(--accent); border: 1px solid rgba(126, 224, 192, 0.3); }
+  .now .item .s.ok  { background: rgba(232,166,63,0.12); color: var(--accent); border: 1px solid rgba(232,166,63,0.3); }
   .now .item .s.wip { background: rgba(240, 176, 96, 0.10); color: var(--warm);   border: 1px solid rgba(240, 176, 96, 0.3); }
   .now .item .s.rd  { background: rgba(164, 141, 255, 0.10); color: var(--violet); border: 1px solid rgba(164, 141, 255, 0.3); }
   .now .item .s.mk  { background: rgba(224, 124, 106, 0.10); color: var(--hot);    border: 1px solid rgba(224, 124, 106, 0.3); }
@@ -221,7 +221,7 @@
 <body>
 
 <div class="topbar">
-  <div class="brand"><span class="live"></span>jordan-rivers.dev<span class="path">/status</span></div>
+  <div class="brand"><span class="live"></span>alamoledger.us<span class="path">/status</span></div>
   <div class="search">&gt; ask &mdash; ship / read / build &middot; <span class="key">ctrl-K</span></div>
   <div class="env">ENV <b>PROD</b> &middot; V0.14.3</div>
   <div class="avatar">JR</div>
@@ -229,8 +229,8 @@
 
 <section class="hero">
   <div class="headline">
-    <span class="who">operator &middot; jordan rivers &middot; est 2022</span>
-    <h1>Three small machines. One paper journal. One book in flight.</h1>
+    <span class="who">operator &middot; alamo ledger co. &middot; est 2022</span>
+    <h1><svg class="lone-star" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" style="display:inline-block;vertical-align:middle;margin:0 8px 2px 0;fill:#b22234;filter:drop-shadow(0 0 4px rgba(178,34,52,.35))"><path d="M12 2 L14.6 9.2 L22 9.5 L16.2 14.1 L18.3 21.4 L12 17.2 L5.7 21.4 L7.8 14.1 L2 9.5 L9.4 9.2 Z"/></svg>Three small presses. One paper journal. One book in flight.</h1>
     <p>Ships small tools, writes small essays, keeps small notebooks. Working in the seam between the terminal and paper.</p>
   </div>
   <div class="stamp">
@@ -271,33 +271,33 @@
       <svg viewBox="0 0 720 260" preserveAspectRatio="none">
         <defs>
           <linearGradient id="fadeA" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#7ee0c0" stop-opacity="0.35"/>
-            <stop offset="1" stop-color="#7ee0c0" stop-opacity="0"/>
+            <stop offset="0" stop-color="#e8a63f" stop-opacity="0.35"/>
+            <stop offset="1" stop-color="#e8a63f" stop-opacity="0"/>
           </linearGradient>
         </defs>
-        <g stroke="#1e2937" stroke-width="1">
+        <g stroke="#233555" stroke-width="1">
           <line x1="40" y1="40"  x2="720" y2="40"/>
           <line x1="40" y1="100" x2="720" y2="100"/>
           <line x1="40" y1="160" x2="720" y2="160"/>
           <line x1="40" y1="220" x2="720" y2="220"/>
         </g>
-        <g font-family="ui-monospace, Consolas, Menlo, monospace" font-size="10" fill="#6a7688">
+        <g font-family="ui-monospace, Consolas, Menlo, monospace" font-size="10" fill="#8a9bb4">
           <text x="0"  y="44">12k</text>
           <text x="0"  y="104">8k</text>
           <text x="0"  y="164">4k</text>
           <text x="0"  y="224">0</text>
         </g>
         <g class="bars">
-          <rect class="b1" x="80"  y="180" width="34" height="40"  fill="#f0b060" rx="2"/>
-          <rect class="b2" x="130" y="180" width="34" height="40"  fill="#f0b060" rx="2"/>
-          <rect class="b3" x="180" y="140" width="34" height="80"  fill="#a48dff" rx="2"/>
-          <rect class="b4" x="230" y="70"  width="34" height="150" fill="#a48dff" rx="2"/>
-          <rect class="b1" x="280" y="120" width="34" height="100" fill="#7ee0c0" rx="2"/>
-          <rect class="b2" x="330" y="60"  width="34" height="160" fill="#7ee0c0" rx="2"/>
+          <rect class="b1" x="80"  y="180" width="34" height="40"  fill="#e8a63f" rx="2"/>
+          <rect class="b2" x="130" y="180" width="34" height="40"  fill="#e8a63f" rx="2"/>
+          <rect class="b3" x="180" y="140" width="34" height="80"  fill="#6b8f4e" rx="2"/>
+          <rect class="b4" x="230" y="70"  width="34" height="150" fill="#6b8f4e" rx="2"/>
+          <rect class="b1" x="280" y="120" width="34" height="100" fill="#e8a63f" rx="2"/>
+          <rect class="b2" x="330" y="60"  width="34" height="160" fill="#e8a63f" rx="2"/>
         </g>
-        <path d="M 380 210 L 430 190 L 480 170 L 530 140 L 580 110 L 630 90 L 680 60" stroke="#7ee0c0" stroke-width="2" fill="none"/>
+        <path d="M 380 210 L 430 190 L 480 170 L 530 140 L 580 110 L 630 90 L 680 60" stroke="#e8a63f" stroke-width="2" fill="none"/>
         <path d="M 380 210 L 430 190 L 480 170 L 530 140 L 580 110 L 630 90 L 680 60 L 680 220 L 380 220 Z" fill="url(#fadeA)"/>
-        <g fill="#7ee0c0">
+        <g fill="#e8a63f">
           <circle cx="380" cy="210" r="3"/>
           <circle cx="430" cy="190" r="3"/>
           <circle cx="480" cy="170" r="3"/>
@@ -306,7 +306,7 @@
           <circle cx="630" cy="90"  r="3"/>
           <circle cx="680" cy="60"  r="4"/>
         </g>
-        <g font-family="ui-monospace, Consolas, Menlo, monospace" font-size="10" fill="#6a7688">
+        <g font-family="ui-monospace, Consolas, Menlo, monospace" font-size="10" fill="#8a9bb4">
           <text x="80"  y="248">2022</text>
           <text x="230" y="248">2023</text>
           <text x="380" y="248">2024</text>
@@ -349,14 +349,14 @@
     </div>
     <div class="terminal">
       <div class="line"><span class="p">$</span><span>whoami</span></div>
-      <div class="line"><span class="p">&gt;</span><span class="out">jordan rivers &middot; est 2022 &middot; utc-8</span></div>
-      <div class="line"><span class="p">$</span><span>echo &quot;hi&quot; | mail jordan@example.dev<span class="caret"></span></span></div>
+      <div class="line"><span class="p">&gt;</span><span class="out">alamo ledger co. &middot; est 2022 &middot; utc-8</span></div>
+      <div class="line"><span class="p">$</span><span>echo &quot;hi&quot; | mail hello@alamoledger.example<span class="caret"></span></span></div>
     </div>
   </div>
 </section>
 
 <div class="footbar">
-  <span>&copy; 2026 jordan rivers &middot; /status</span>
+  <span>&copy; 2026 alamo ledger co. &middot; /status</span>
   <span>designed by <b>/reimagine-it dashboard</b></span>
 </div>
 
