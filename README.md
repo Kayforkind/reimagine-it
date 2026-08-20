@@ -30,23 +30,51 @@ Both files live in [`gold/webpage/`](gold/webpage/) so you can double-click them
 
 ## Say a second word, get a completely different aesthetic
 
-`/awe-me webpage <domain>` picks up a matching pack in [`skills/awe-me/references/domains/`](skills/awe-me/references/domains/). The pack **extends** the spine (grid, baseline, palette cap, one motif, one make-strange move) with an opinionated aesthetic. Same three-project brief, four visibly different outputs:
+`/awe-me webpage <domain>` picks up a matching pack in [`skills/awe-me/references/domains/`](skills/awe-me/references/domains/). The pack **extends** the spine (grid, baseline, palette cap, one motif, one make-strange move) with an opinionated aesthetic. Same brief, radically different outputs:
 
 ![four aesthetics from one brief](gold/domains/strip.png)
 
 | Token | What you get | Live gold |
 |-------|--------------|-----------|
 | *(none)* | Sober designed page, disciplined dark palette | [`gold/webpage/after.html`](gold/webpage/after.html) |
-| `artistic` | Cream paper, italic serif at magazine scale, drifting SVG arcs, CSS 3D card tilt | [`gold/domains/artistic/after.html`](gold/domains/artistic/after.html) |
+| `artistic` | Cream paper, italic serif at magazine scale, kinetic ampersand, drifting SVG arcs, real ±16° 3D card fan with 40px drop-shadow | [`gold/domains/artistic/after.html`](gold/domains/artistic/after.html) |
 | `dashboard` | Faint operator grid, KPI tiles, live SVG chart with a rise animation, status pills, terminal card with a blinking caret | [`gold/domains/dashboard/after.html`](gold/domains/dashboard/after.html) |
 | `photography` | Editorial folio, Didot-scale italic-then-caps nameplate, numbered plate strip, three real SVG "photographs", dropcap paragraphs | [`gold/domains/photography/after.html`](gold/domains/photography/after.html) |
+| **`cinematic`** *(`3d`, `webgl`)* | **Cinema screen: inline WebGL2 shader hero, 3D card depth with real drop-shadow, one motion beat always running** | [`gold/domains/cinematic/after.html`](gold/domains/cinematic/after.html) |
 | `ecommerce` | Product plate per row, SVG hero art per plate, price ladder, one CTA per plate | pack: [`ecommerce.md`](skills/awe-me/references/domains/ecommerce.md) |
 | `landing` | One-viewport magnet, one promise, one CTA, one proof strip, no navigation graveyard | pack: [`landing.md`](skills/awe-me/references/domains/landing.md) |
 | `portfolio` | One full study per project, no card grid, inline SVG per study | pack: [`portfolio.md`](skills/awe-me/references/domains/portfolio.md) |
 
 Re-shoot the strip: `python gold/domains/run.py`.
 
-**Every webpage output — token or no token — must land inline SVG doing real work, one motion move, and one 3D affordance** (CSS `perspective` counts; Three.js optional for hero cases). The rule lives in [`webpage-craft.md`](skills/awe-me/references/webpage-craft.md) so the skill enforces it, not just this repo.
+### `/awe-me webpage cinematic` — real WebGL2, no CDN, single file
+
+![cinematic hero: inline WebGL2 raymarch field with italic ampersand and blend-mode masthead](gold/domains/cinematic/hero.png)
+
+Inline `<canvas>` + inline fragment shader in a `<script type="x-shader/x-fragment">` block. No CDN, no `import` from `https://`, no vendor folder. Opens as one `.html` you can double-click. The masthead sits *on top* of the shader with `mix-blend-mode: difference` so the type reads over any color the field draws. Cards below the hero fan in real 3D (`perspective:1400px`, outer cards `rotateY(±9deg) translateZ(-8px)`, middle card `translateZ(30px)` with a 60px drop-shadow) — depth reads in a still, not just on hover.
+
+### Motion is real (three frames, 500 ms apart)
+
+Screenshots freeze animation, so every claim about motion has to prove itself in a strip. Three frames per pack, spaced ~1.6 s apart in virtual time — if the pixels change frame to frame, the motion budget landed:
+
+![motion strip: four packs, three frames each, 500ms apart](gold/domains/motion-strip.png)
+
+- **cinematic** — the WebGL2 raymarch field evolves visibly frame to frame; that's the shader tint + interference bands actually running.
+- **artistic** — the italic ampersand sways ~±3°; you can see it lean between frames.
+- **dashboard** — chart bars rise into place between the first and later frames.
+- **photography** — deliberately still; a magazine folio doesn't twitch.
+
+Re-shoot the motion strip: `python gold/domains/motion-run.py`.
+
+### Every webpage output must land three things — and prove them in a still
+
+Non-negotiable, enforced by the [spine](skills/awe-me/references/webpage-craft.md):
+
+1. **Hero-scale inline SVG doing real work** — ≥400 px on the longest side, encoding real content (values, geometry, path). Placeholder icons do not count.
+2. **Three moving elements at any moment** — one persistent (drift, sway, breathe), one active on state (hover, focus), one narrative (bar rising, path drawing, sweep line). Two stills 500 ms apart must show visible change.
+3. **3D that reads in a still** — rotation ≥ 12° **and** shadow blur ≥ 24 px, or `translateZ` ≥ 30 px with a real box-shadow, or inline WebGL2 for `cinematic`.
+
+If a screenshot can't prove all three, the redesign didn't earn `/awe-me webpage`.
 
 ## Tested (5)
 
@@ -266,11 +294,15 @@ gold/                   # reverse-demo: fail list, then --ship
 gold/hero.svg           # the metaphor (before/after) - the image at the top
 gold/webpage/           # plain page vs redesigned page; python gold/webpage/run.py
 gold/webpage/compare.png # the side-by-side embedded near the top
-gold/domains/           # four aesthetics from one brief; python gold/domains/run.py
-gold/domains/strip.png  # 2x2 strip: /awe-me webpage vs artistic vs dashboard vs photography
+gold/domains/           # per-pack aesthetics from one brief; python gold/domains/run.py
+gold/domains/strip.png  # still strip: sober / artistic / dashboard / photography
+gold/domains/motion-strip.png # motion strip: 4 packs x 3 frames spaced 500ms apart
+gold/domains/motion-run.py    # python gold/domains/motion-run.py to reshoot motion
 gold/domains/artistic/after.html
 gold/domains/dashboard/after.html
 gold/domains/photography/after.html
+gold/domains/cinematic/after.html # inline WebGL2 shader hero, no CDN
+gold/domains/cinematic/hero.png   # 1400x900 preview of the WebGL cinematic pack
 gold/five/              # five tested fixtures; python gold/five/run.py
 gold/five/RUN.svg       # suite badge, regenerated by run.py
 gold/five/01-cli/pipe.svg      # regenerated by run.py from fixture 1

@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jordan Rivers &mdash; small machines, out loud</title>
+<style>
+  :root{
+    --void:#05070c;
+    --panel:#0f1420;
+    --panel-2:#131a2a;
+    --ink:#ecf1ff;
+    --dim:#7c8aa8;
+    --rule:#1e2436;
+    --beam:#7cf3ff;
+    --ember:#ff7a5c;
+    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI Variable Display","Segoe UI",Inter,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Consolas,"JetBrains Mono",monospace;
+    --serif:"Iowan Old Style",Palatino,Georgia,serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--void);color:var(--ink);font-family:var(--sans);
+    font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:var(--beam);text-decoration:none}
+  a:hover{color:var(--ember)}
+
+  /* --- section index rail (make-strange move) --- */
+  .rail{position:sticky;top:0;z-index:40;display:flex;gap:22px;padding:14px 32px;
+    background:rgba(5,7,12,.72);backdrop-filter:blur(6px);border-bottom:1px solid var(--rule);
+    font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim)}
+  .rail span b{color:var(--ember);font-weight:400;margin-right:6px}
+  .rail span:last-child{margin-left:auto;color:var(--dim)}
+
+  .wrap{max-width:1320px;margin:0 auto;padding:32px 32px 96px}
+
+  /* --- hero shader stage --- */
+  .stage{position:relative;margin-top:24px;border-radius:20px;overflow:hidden;
+    border:1px solid var(--rule);
+    background:linear-gradient(180deg,#0a0f19,#05070c);
+    box-shadow:0 40px 100px -20px rgba(124,243,255,.16), 0 20px 60px -30px #000;
+    perspective:1400px}
+  .stage canvas{display:block;width:100%;height:520px}
+  .stage .frame{position:absolute;inset:0;pointer-events:none;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.05), inset 0 0 120px rgba(0,0,0,.6)}
+  .stage .badge{position:absolute;top:18px;left:22px;font-family:var(--mono);
+    font-size:11px;letter-spacing:.24em;color:var(--dim);text-transform:uppercase}
+  .stage .badge b{color:var(--beam);font-weight:400}
+  .stage .readout{position:absolute;top:18px;right:22px;font-family:var(--mono);
+    font-size:11px;letter-spacing:.16em;color:var(--dim)}
+
+  .masthead{position:absolute;left:36px;bottom:28px;right:36px;color:var(--ink);
+    mix-blend-mode:difference;pointer-events:none;font-family:var(--sans)}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--ink);opacity:.9;margin-bottom:14px}
+  .title{font-size:clamp(64px,10vw,148px);line-height:.86;letter-spacing:-.04em;font-weight:600;margin:0}
+  .title em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--ember);padding:0 .05em}
+  .subtitle{margin-top:14px;font-family:var(--mono);font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);opacity:.9}
+  .cursor{display:inline-block;width:10px;height:1.05em;background:var(--ember);
+    transform:translateY(3px);margin-left:6px;animation:blink 1.05s steps(2,end) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  /* --- section header pattern --- */
+  .sec{padding:96px 0 24px;position:relative}
+  .sec h2{font-family:var(--sans);font-weight:600;font-size:34px;letter-spacing:-.02em;margin:0;color:var(--ink)}
+  .sec h2 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--beam);padding:0 .05em}
+  .sec .num{font-family:var(--mono);font-size:11px;letter-spacing:.28em;color:var(--dim);text-transform:uppercase;margin-bottom:12px;display:flex;gap:14px;align-items:baseline}
+  .sec .num b{color:var(--ember);font-weight:400}
+  .sec .num i{font-style:normal;color:var(--dim);margin-left:auto}
+  .sec .rule{height:1px;background:linear-gradient(90deg,var(--rule),transparent);margin:22px 0 34px}
+
+  /* --- cards with real z-depth --- */
+  .row{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;transform-style:preserve-3d}
+  .card{position:relative;background:var(--panel);border:1px solid var(--rule);
+    border-radius:14px;padding:22px;overflow:hidden;transform-style:preserve-3d;
+    transition:transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s}
+  .card--l{transform:perspective(1400px) rotateY(9deg) rotateX(-3deg) translateZ(-8px);
+    box-shadow:-40px 34px 60px -28px #000, 0 0 0 1px var(--rule)}
+  .card--m{transform:perspective(1400px) translateY(-14px) translateZ(30px);
+    box-shadow:0 60px 90px -30px rgba(124,243,255,.14), 0 40px 70px -30px #000, 0 0 0 1px var(--rule)}
+  .card--r{transform:perspective(1400px) rotateY(-9deg) rotateX(-3deg) translateZ(-8px);
+    box-shadow:40px 34px 60px -28px #000, 0 0 0 1px var(--rule)}
+  .card:hover{transform:perspective(1400px) translateY(-8px) translateZ(50px);
+    box-shadow:0 80px 120px -30px rgba(124,243,255,.22), 0 0 0 1px var(--beam)}
+  .card .pill{display:inline-flex;align-items:center;gap:8px;padding:5px 10px;border-radius:999px;
+    font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;
+    background:#1a2236;color:var(--beam);border:1px solid var(--rule)}
+  .card .pill b{color:var(--ember);font-weight:400}
+  .card h3{font-family:var(--sans);font-size:22px;letter-spacing:-.01em;margin:16px 0 6px;color:var(--ink)}
+  .card p{margin:0;color:#c6cee0;font-size:14.5px;line-height:1.55}
+  .card .plate{margin-top:14px;background:var(--panel-2);border:1px solid var(--rule);border-radius:10px;padding:14px;position:relative;overflow:hidden}
+  .card .plate svg{display:block;width:100%;height:130px}
+  .card .foot{margin-top:14px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--dim);text-transform:uppercase}
+
+  /* --- stats row with running bars --- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+  .stat{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:16px;position:relative;overflow:hidden}
+  .stat .k{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--dim);text-transform:uppercase}
+  .stat .v{font-family:var(--sans);font-size:34px;letter-spacing:-.02em;color:var(--ink);margin-top:6px}
+  .stat .bar{height:4px;background:#182036;border-radius:2px;margin-top:14px;overflow:hidden;position:relative}
+  .stat .bar span{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--beam),var(--ember));
+    border-radius:2px;transform-origin:left center;animation:rise 1.6s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes rise{from{transform:scaleX(0)}to{transform:scaleX(var(--w,.6))}}
+
+  /* --- ambient chart in the middle section --- */
+  .chart{background:var(--panel);border:1px solid var(--rule);border-radius:14px;padding:22px;margin-top:22px;position:relative;overflow:hidden}
+  .chart svg{display:block;width:100%;height:220px}
+  .chart .caption{margin-top:10px;font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--dim);text-transform:uppercase}
+  .chart .sweep{position:absolute;top:0;bottom:0;width:2px;background:linear-gradient(180deg,transparent,var(--beam),transparent);
+    filter:blur(1px);opacity:.6;animation:sweep 4.5s linear infinite}
+  @keyframes sweep{from{left:-2%}to{left:102%}}
+
+  /* --- terminal / contact card --- */
+  .terminal{background:var(--panel);border:1px solid var(--rule);border-radius:14px;overflow:hidden;
+    box-shadow:0 40px 80px -30px rgba(0,0,0,.7)}
+  .terminal .bar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#0a1020;border-bottom:1px solid var(--rule);
+    font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--dim);text-transform:uppercase}
+  .terminal .bar .dots{display:inline-flex;gap:6px;margin-right:8px}
+  .terminal .bar .dots i{width:10px;height:10px;border-radius:50%;background:#20263a;display:inline-block}
+  .terminal .bar .dots i:nth-child(1){background:#ff7a5c}
+  .terminal .bar .dots i:nth-child(2){background:#e8c25a}
+  .terminal .bar .dots i:nth-child(3){background:#7cf3a4}
+  .terminal .body{padding:22px 22px 28px;font-family:var(--mono);font-size:14px;line-height:1.6;color:#d0d7ea}
+  .terminal .body .prompt{color:var(--beam)}
+  .terminal .body .k{color:var(--dim)}
+  .terminal .body .em{color:var(--ember)}
+  .terminal .body .type{border-right:2px solid var(--ember);animation:blink 1.05s steps(2,end) infinite;padding-right:2px}
+
+  /* --- footer --- */
+  footer{padding:64px 0 0;color:var(--dim);font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;display:flex;gap:22px;flex-wrap:wrap}
+  footer span:last-child{margin-left:auto}
+
+  @media (max-width:900px){
+    .row{grid-template-columns:1fr}
+    .card--l,.card--m,.card--r{transform:none;box-shadow:0 20px 40px -20px #000, 0 0 0 1px var(--rule)}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .stage canvas{height:360px}
+    .title{font-size:56px}
+  }
+</style>
+</head>
+<body>
+
+<nav class="rail" aria-label="Section index">
+  <span><b>00</b>MASTHEAD</span>
+  <span><b>01</b>PIECES</span>
+  <span><b>02</b>SIGNAL</span>
+  <span><b>03</b>NOW</span>
+  <span><b>04</b>CONTACT</span>
+  <span>SMALL MACHINES / OUT LOUD</span>
+</nav>
+
+<main class="wrap">
+
+  <section class="stage" id="hero" aria-label="Cinema hero">
+    <canvas id="shader" aria-hidden="true"></canvas>
+    <div class="frame"></div>
+    <div class="badge"><b>SHADER</b>&nbsp; WEBGL2 &middot; RAYMARCH FIELD</div>
+    <div class="readout" id="readout">t=0.00s &middot; 60fps</div>
+    <div class="masthead">
+      <div class="kicker">Small machines &middot; Bristol &middot; since 2019</div>
+      <h1 class="title">Jordan <em>&amp;</em> the small machines<span class="cursor" aria-hidden="true"></span></h1>
+      <div class="subtitle">Three pieces from the year &middot; one running signal &middot; a table for right now</div>
+    </div>
+  </section>
+
+  <section class="sec" id="pieces">
+    <div class="num"><b>01</b><span>PIECES</span><i>THREE &middot; ONE PER SEASON</i></div>
+    <h2>Three pieces from the year</h2>
+    <div class="rule"></div>
+
+    <div class="row">
+      <article class="card card--l">
+        <span class="pill"><b>Q1</b> QUIET WEEK</span>
+        <h3>Quiet week</h3>
+        <p>A seven-day ledger that says the word "no" out loud, once a day, until it stops surprising anyone.</p>
+        <div class="plate">
+          <svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#7cf3ff" stop-opacity=".35"/><stop offset="1" stop-color="#7cf3ff" stop-opacity="0"/>
+            </linearGradient></defs>
+            <g fill="none" stroke="#1e2436">
+              <line x1="0" y1="26" x2="300" y2="26"/><line x1="0" y1="52" x2="300" y2="52"/>
+              <line x1="0" y1="78" x2="300" y2="78"/><line x1="0" y1="104" x2="300" y2="104"/>
+            </g>
+            <path d="M0 100 L40 88 L80 92 L120 70 L160 74 L200 50 L240 58 L280 38 L300 44"
+                  fill="none" stroke="#7cf3ff" stroke-width="2"/>
+            <path d="M0 100 L40 88 L80 92 L120 70 L160 74 L200 50 L240 58 L280 38 L300 44 L300 130 L0 130 Z"
+                  fill="url(#g1)"/>
+            <g fill="#ff7a5c"><circle cx="120" cy="70" r="3"/><circle cx="200" cy="50" r="3"/><circle cx="280" cy="38" r="3"/></g>
+          </svg>
+        </div>
+        <div class="foot"><span>2025 &middot; ESSAY</span><span>7 DAYS</span></div>
+      </article>
+
+      <article class="card card--m">
+        <span class="pill"><b>Q2</b> LANTERN</span>
+        <h3>Lantern</h3>
+        <p>A single-file demo that boots without a build step, prints "hello" three ways, and closes politely.</p>
+        <div class="plate">
+          <svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="6" y="6" width="288" height="118" rx="10" fill="#0a1020" stroke="#1e2436"/>
+            <g font-family="ui-monospace,Consolas,monospace" font-size="11" fill="#7cf3ff">
+              <text x="18" y="30">$ node lantern.js</text>
+              <text x="18" y="52" fill="#ecf1ff">hello, stranger.</text>
+              <text x="18" y="70" fill="#ecf1ff">hello, machine.</text>
+              <text x="18" y="88" fill="#ecf1ff">hello, small.</text>
+              <text x="18" y="110" fill="#ff7a5c">$ <tspan fill="#ecf1ff">bye</tspan></text>
+            </g>
+            <rect x="52" y="102" width="8" height="12" fill="#ff7a5c">
+              <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+            </rect>
+          </svg>
+        </div>
+        <div class="foot"><span>2025 &middot; DEMO</span><span>ONE FILE</span></div>
+      </article>
+
+      <article class="card card--r">
+        <span class="pill"><b>Q3</b> RIFT</span>
+        <h3>Rift</h3>
+        <p>An eight-note scale played by hand at midnight, recorded on a phone, mixed for a small room.</p>
+        <div class="plate">
+          <svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <g stroke="#1e2436">
+              <line x1="0" y1="65" x2="300" y2="65"/>
+            </g>
+            <g fill="#7cf3ff">
+              <rect x="12"  y="52" width="18" height="26">
+                <animate attributeName="height" values="26;12;26" dur="2.4s" repeatCount="indefinite"/>
+                <animate attributeName="y"      values="52;59;52" dur="2.4s" repeatCount="indefinite"/>
+              </rect>
+              <rect x="42"  y="40" width="18" height="50">
+                <animate attributeName="height" values="50;22;50" dur="2.8s" repeatCount="indefinite"/>
+                <animate attributeName="y"      values="40;54;40" dur="2.8s" repeatCount="indefinite"/>
+              </rect>
+              <rect x="72"  y="26" width="18" height="78">
+                <animate attributeName="height" values="78;40;78" dur="3.2s" repeatCount="indefinite"/>
+                <animate attributeName="y"      values="26;45;26" dur="3.2s" repeatCount="indefinite"/>
+              </rect>
+              <rect x="102" y="40" width="18" height="50">
+                <animate attributeName="height" values="50;20;50" dur="2.6s" repeatCount="indefinite"/>
+                <animate attributeName="y"      values="40;55;40" dur="2.6s" repeatCount="indefinite"/>
+              </rect>
+              <rect x="132" y="56" width="18" height="18"/>
+              <rect x="162" y="46" width="18" height="38"/>
+              <rect x="192" y="34" width="18" height="62"/>
+              <rect x="222" y="46" width="18" height="38"/>
+              <rect x="252" y="58" width="18" height="14"/>
+            </g>
+            <text x="6" y="122" font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#7c8aa8">8-NOTE FIELD &middot; ONE MIC</text>
+          </svg>
+        </div>
+        <div class="foot"><span>2025 &middot; RECORDING</span><span>8 NOTES</span></div>
+      </article>
+    </div>
+
+    <div class="stats" aria-label="Studio numbers">
+      <div class="stat"><div class="k">SHIPPED</div><div class="v">14</div><div class="bar" style="--w:.86"><span></span></div></div>
+      <div class="stat"><div class="k">DAYS DEEP</div><div class="v">2,431</div><div class="bar" style="--w:.74"><span></span></div></div>
+      <div class="stat"><div class="k">READERS</div><div class="v">918</div><div class="bar" style="--w:.44"><span></span></div></div>
+      <div class="stat"><div class="k">OUTPUT / WEEK</div><div class="v">1.8</div><div class="bar" style="--w:.62"><span></span></div></div>
+    </div>
+  </section>
+
+  <section class="sec" id="signal">
+    <div class="num"><b>02</b><span>SIGNAL</span><i>TWELVE WEEKS &middot; ONE SIGNAL</i></div>
+    <h2>Working signal, <em>twelve weeks</em></h2>
+    <div class="rule"></div>
+
+    <div class="chart">
+      <div class="sweep"></div>
+      <svg viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="fill" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#7cf3ff" stop-opacity=".45"/>
+            <stop offset="1" stop-color="#7cf3ff" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <g stroke="#1e2436" fill="none">
+          <line x1="0" y1="180" x2="900" y2="180"/>
+          <line x1="0" y1="130" x2="900" y2="130" stroke-dasharray="2 6"/>
+          <line x1="0" y1="80"  x2="900" y2="80"  stroke-dasharray="2 6"/>
+          <line x1="0" y1="30"  x2="900" y2="30"  stroke-dasharray="2 6"/>
+        </g>
+        <path d="M0 160 L75 148 L150 132 L225 138 L300 110 L375 118 L450 90 L525 96 L600 62 L675 74 L750 48 L825 56 L900 30"
+              fill="none" stroke="#7cf3ff" stroke-width="2.5"/>
+        <path d="M0 160 L75 148 L150 132 L225 138 L300 110 L375 118 L450 90 L525 96 L600 62 L675 74 L750 48 L825 56 L900 30 L900 200 L0 200 Z"
+              fill="url(#fill)"/>
+        <g fill="#ff7a5c">
+          <circle cx="600" cy="62" r="4"/><circle cx="750" cy="48" r="4"/><circle cx="900" cy="30" r="4"/>
+        </g>
+        <g font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#7c8aa8">
+          <text x="4" y="204">W01</text><text x="220" y="204">W04</text><text x="440" y="204">W07</text>
+          <text x="660" y="204">W10</text><text x="875" y="204">W12</text>
+          <text x="8" y="34">HIGH</text><text x="8" y="84">MID</text><text x="8" y="134">LOW</text>
+        </g>
+      </svg>
+      <div class="caption">Signal per week (readers + replies + shipped drafts). Twelve-week window.</div>
+    </div>
+  </section>
+
+  <section class="sec" id="now">
+    <div class="num"><b>03</b><span>NOW</span><i>WEEK OF 18 AUG 2026</i></div>
+    <h2>Right now &mdash; <em>Bristol</em></h2>
+    <div class="rule"></div>
+
+    <div class="row">
+      <article class="card card--l">
+        <span class="pill"><b>Q4</b> WRITING</span>
+        <h3>Essay: quiet week, part two</h3>
+        <p>Second week of the ledger. Draft two of four. Section on "the polite no" is holding.</p>
+        <div class="foot"><span>DRAFT 2 / 4</span><span>~2,400w</span></div>
+      </article>
+      <article class="card card--m">
+        <span class="pill"><b>Q4</b> BUILDING</span>
+        <h3>Lantern v2</h3>
+        <p>Adds one flag: <code>--room</code>. Still one file. Still no build step. Ships next Tuesday.</p>
+        <div class="foot"><span>v2 &middot; NEXT TUE</span><span>ONE FILE</span></div>
+      </article>
+      <article class="card card--r">
+        <span class="pill"><b>Q4</b> LISTENING</span>
+        <h3>Rift, remixed once</h3>
+        <p>Same 8-note field. New mic. Wednesday session with one guest, no rehearsal.</p>
+        <div class="foot"><span>WED &middot; ONE MIC</span><span>ONE GUEST</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sec" id="contact">
+    <div class="num"><b>04</b><span>CONTACT</span><i>ONE PILL, ONE COMMAND</i></div>
+    <h2>Say hello</h2>
+    <div class="rule"></div>
+
+    <div class="terminal">
+      <div class="bar"><span class="dots"><i></i><i></i><i></i></span>jordan@rivers &mdash; hello</div>
+      <div class="body">
+        <div><span class="prompt">$</span> mail jordan@rivers.example</div>
+        <div><span class="k">subject:</span> <span class="em">small machines, out loud</span></div>
+        <div><span class="k">body:</span> <span class="type">say what you're building</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>&copy; 2026 Jordan Rivers</span>
+    <span>MADE IN BRISTOL</span>
+    <span>NO CDN &middot; ONE FILE &middot; WEBGL2</span>
+  </footer>
+</main>
+
+<script id="frag" type="x-shader/x-fragment">#version 300 es
+precision highp float;
+out vec4 outColor;
+uniform vec2 u_res;
+uniform float u_time;
+
+// hash + noise (Inigo Quilez style, compact)
+float hash(vec2 p){ return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453123); }
+float noise(vec2 p){
+  vec2 i=floor(p), f=fract(p);
+  float a=hash(i), b=hash(i+vec2(1,0));
+  float c=hash(i+vec2(0,1)), d=hash(i+vec2(1,1));
+  vec2 u=f*f*(3.0-2.0*f);
+  return mix(a,b,u.x)+(c-a)*u.y*(1.0-u.x)+(d-b)*u.x*u.y;
+}
+float fbm(vec2 p){
+  float v=0.0, a=0.5;
+  for(int i=0;i<5;i++){ v+=a*noise(p); p*=2.02; a*=0.5; }
+  return v;
+}
+void main(){
+  vec2 uv = (gl_FragCoord.xy - 0.5*u_res.xy) / u_res.y;
+  float t  = u_time * 0.18;
+
+  // domain warp
+  vec2 q = vec2(fbm(uv*1.6 + t), fbm(uv*1.6 - t + 3.7));
+  vec2 r = vec2(fbm(uv*2.2 + q*1.8 + t*0.7),
+                fbm(uv*2.2 + q*1.8 - t*0.7 + 5.2));
+  float f = fbm(uv*2.4 + r*1.6 + t*0.4);
+
+  // interference bands
+  float bands = 0.5 + 0.5 * sin(12.0 * (uv.x + uv.y*0.3) + f*8.0 + u_time*0.6);
+
+  vec3 void_ = vec3(0.02, 0.03, 0.05);
+  vec3 beam  = vec3(0.49, 0.95, 1.00);
+  vec3 ember = vec3(1.00, 0.48, 0.36);
+
+  vec3 col = mix(void_, beam*0.9, smoothstep(0.15, 0.85, f));
+  col = mix(col, ember*0.85, smoothstep(0.72, 0.95, f) * (0.4 + 0.6*bands));
+
+  // horizon lift
+  col += 0.06 * smoothstep(0.0, 0.55, 0.55 - length(uv - vec2(0.0, -0.15)));
+
+  // vignette
+  float vig = smoothstep(1.15, 0.35, length(uv*vec2(u_res.x/u_res.y, 1.0)));
+  col *= mix(0.65, 1.0, vig);
+
+  outColor = vec4(pow(col, vec3(0.92)), 1.0);
+}
+</script>
+<script>
+(function(){
+  var canvas = document.getElementById('shader');
+  var readout = document.getElementById('readout');
+  var gl = canvas.getContext('webgl2', { antialias:false, alpha:false });
+  if(!gl){
+    canvas.style.background = 'radial-gradient(1200px 500px at 50% 60%, #10344a, #05070c)';
+    return;
+  }
+
+  function resize(){
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = canvas.clientWidth || canvas.parentNode.clientWidth;
+    var h = canvas.clientHeight || 520;
+    canvas.width  = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    gl.viewport(0,0,canvas.width,canvas.height);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  var vs = '#version 300 es\nin vec2 p; void main(){ gl_Position = vec4(p,0.0,1.0); }';
+  var fs = document.getElementById('frag').textContent;
+
+  function compile(type, src){
+    var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+    if(!gl.getShaderParameter(s, gl.COMPILE_STATUS)){
+      console.error(gl.getShaderInfoLog(s)); return null;
+    }
+    return s;
+  }
+  var prog = gl.createProgram();
+  gl.attachShader(prog, compile(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog); gl.useProgram(prog);
+
+  var buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+  var loc = gl.getAttribLocation(prog, 'p');
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+  var uRes  = gl.getUniformLocation(prog, 'u_res');
+  var uTime = gl.getUniformLocation(prog, 'u_time');
+
+  var t0 = performance.now();
+  var last = t0, frames = 0, fps = 60;
+
+  function frame(now){
+    var t = (now - t0) / 1000.0;
+    gl.uniform2f(uRes, canvas.width, canvas.height);
+    gl.uniform1f(uTime, t);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+    frames++;
+    if(now - last > 500){
+      fps = Math.round(frames * 1000 / (now - last));
+      frames = 0; last = now;
+      if(readout){ readout.textContent = 't=' + t.toFixed(2) + 's \u00b7 ' + fps + 'fps'; }
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body>
+</html>

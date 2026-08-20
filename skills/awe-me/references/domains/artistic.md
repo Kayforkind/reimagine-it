@@ -37,8 +37,11 @@ A warm-paper editorial: italic serif display type at magazine scale, a disciplin
 ## Non-negotiables specific to artistic
 
 - **Serif display type must be italic in the masthead.** No exceptions. This is the tone of the whole page.
-- **At least one SVG group with a keyframes animation** in the ambient layer.
-- **Perspective + rotateY on cards.** The middle card lifts (`translateY(-10px)`); the outer cards tilt symmetric.
+- **Kinetic ampersand.** The italic `&` sways or rotates a few degrees on a slow ease-in-out so the masthead is alive even in stills.
+- **At least one hero-scale animated SVG element** in the ambient layer (drifting concentric arcs, or a self-tracing scribble via `stroke-dasharray` + `stroke-dashoffset`). Not a decorative pixel.
+- **A real mid-page chart or plate that animates** — dots pulse, sweep line runs, path draws. This is the "signal chart" beat.
+- **Real 3D on the card fan.** Perspective ≥ 1400px on the container, outer cards `rotateY(±14deg)` with `translateZ(-12px)`, middle card `translateZ(+30px) translateY(-16px)`, drop shadow blur ≥ 40px. **Rule of thumb: a static PNG must read as depth without the animation.**
+- **Real 3D on the stage plates too.** Outer figures `rotateY(±16deg)`; middle plate popped forward. Same shadow rule.
 - **No emoji.** No pattern-photography from an image bank. No paid image API.
 
 ## Cut list (in addition to the shared cut list)

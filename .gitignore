@@ -8,3 +8,13 @@ gold/*.bak
 gold/five/**/*-render.png
 gold/*-render.png
 docs/*-render.png
+gold/domains/*-t*.png
+gold/domains/*-motion.html
+gold/domains/*-motion.png
+gold/domains/motion-strip.html
+gold/domains/cinematic/preview.png
+gold/domains/artistic/preview.png
+test/pipeline/gold-shot.png
+test/pipeline/fresh-shot.png
+test/pipeline/compare.html
+

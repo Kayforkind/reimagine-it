@@ -3,311 +3,210 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Jordan Rivers — /awe-me artistic</title>
+<title>Jordan Rivers &mdash; /awe-me artistic</title>
 <style>
-  :root {
-    --paper: #fdf5e9;
-    --ink: #2d1a3d;
-    --dim: #7a6182;
-    --coral: #ff6f5c;
-    --ochre: #e8a94a;
-    --blush: #f2b8b0;
-    --violet: #7a3fb2;
-    --panel: #fff2d8;
-    --line: rgba(45, 26, 61, 0.14);
-    --serif: "Iowan Old Style", "Palatino", Georgia, "Times New Roman", serif;
-    --sans: ui-sans-serif, system-ui, "Segoe UI", Inter, sans-serif;
-    --mono: ui-monospace, "SF Mono", Consolas, Menlo, monospace;
+  :root{
+    --paper:#fdf5e9;
+    --paper-2:#fff2d8;
+    --ink:#2d1a3d;
+    --dim:#7a6182;
+    --coral:#ff6f5c;
+    --ochre:#e8a94a;
+    --blush:#f2b8b0;
+    --violet:#7a3fb2;
+    --line:rgba(45,26,61,.14);
+    --serif:"Iowan Old Style",Palatino,Georgia,"Times New Roman",serif;
+    --sans:ui-sans-serif,system-ui,"Segoe UI",Inter,sans-serif;
+    --mono:ui-monospace,"SF Mono",Consolas,Menlo,monospace;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { background: var(--paper); color: var(--ink); font-family: var(--serif); }
-  body {
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    padding: 48px 40px 96px;
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    overflow-x: hidden;
-  }
-  a { color: var(--violet); text-decoration: none; border-bottom: 1px solid var(--blush); }
-  a:hover { color: var(--coral); }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--paper);color:var(--ink);font-family:var(--serif)}
+  body{line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    padding:48px 40px 96px;max-width:1200px;margin:0 auto;position:relative;overflow-x:hidden}
+  a{color:var(--violet);text-decoration:none;border-bottom:1px solid var(--blush)}
+  a:hover{color:var(--coral)}
 
-  .ambient {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0.9;
-  }
-  .ambient svg { width: 100%; height: 100%; display: block; }
-  .drift-a { animation: driftA 32s linear infinite; transform-origin: center; }
-  .drift-b { animation: driftB 41s linear infinite; transform-origin: center; }
-  .drift-c { animation: driftC 55s linear infinite; transform-origin: center; }
-  @keyframes driftA { to { transform: rotate(360deg); } }
-  @keyframes driftB { to { transform: rotate(-360deg); } }
-  @keyframes driftC { to { transform: rotate(360deg) translateY(-6px); } }
-  .pulse { animation: pulse 6s ease-in-out infinite; transform-origin: center; }
-  @keyframes pulse { 50% { transform: scale(1.06); } }
+  /* --- ambient (drifting arcs + a big drawn-scribble hero motif) --- */
+  .ambient{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.95}
+  .ambient svg{width:100%;height:100%;display:block}
+  .drift-a{animation:driftA 22s linear infinite}
+  .drift-b{animation:driftB 28s linear infinite}
+  .drift-c{animation:driftC 34s ease-in-out infinite}
+  @keyframes driftA{to{transform:rotate(360deg)}}
+  @keyframes driftB{to{transform:rotate(-360deg)}}
+  @keyframes driftC{50%{transform:rotate(9deg) translateY(-8px)}to{transform:rotate(0)}}
+  .pulse{animation:pulse 4.6s ease-in-out infinite}
+  @keyframes pulse{50%{transform:scale(1.12)}}
 
-  main { position: relative; z-index: 1; }
-
-  .rail {
-    display: flex; gap: 22px;
-    font-family: var(--mono); font-size: 11px;
-    letter-spacing: 0.28em; text-transform: uppercase; color: var(--dim);
-  }
-  .rail .cur { color: var(--coral); font-weight: 700; }
-  .rail .sep { color: var(--blush); }
-
-  .masthead { margin-top: 24px; position: relative; }
-  .masthead h1 {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-style: italic;
-    font-size: clamp(88px, 12vw, 180px);
-    line-height: 0.9;
-    letter-spacing: -0.03em;
-    color: var(--ink);
-    position: relative;
-    z-index: 2;
-  }
-  .masthead h1 .amp {
-    color: var(--coral);
-    font-family: var(--serif);
-    font-style: italic;
-    font-weight: 700;
-  }
-  .masthead h1 .last {
-    display: block;
-    font-family: var(--sans);
-    font-style: normal;
-    font-weight: 900;
-    font-size: 0.55em;
-    letter-spacing: -0.02em;
-    text-transform: uppercase;
-    color: var(--violet);
-    margin-top: -0.05em;
-  }
-  .masthead .sub {
-    margin-top: 24px;
-    color: var(--ink);
-    font-family: var(--sans);
-    max-width: 60ch;
-    font-size: 18px;
-    line-height: 1.55;
-  }
-  .masthead .sub em { color: var(--coral); font-style: normal; font-weight: 700; }
-
-  .marble {
-    display: inline-block;
-    width: 12px; height: 12px; border-radius: 50%;
-    background: var(--ochre);
-    box-shadow:
-      -18px 0 var(--coral),
-      -36px 0 var(--violet),
-      -54px 0 var(--blush);
-    margin-left: 60px;
-    animation: bob 4.2s ease-in-out infinite;
-  }
-  @keyframes bob { 50% { transform: translateY(-6px); } }
-
-  .rule {
-    display: flex; align-items: center; gap: 12px;
-    margin: 56px 0 40px; font-family: var(--mono);
-    font-size: 11px; letter-spacing: 0.32em; color: var(--dim);
-    text-transform: uppercase;
-  }
-  .rule::before, .rule::after {
-    content: ""; flex: 1; height: 1px;
-    background: linear-gradient(to right, transparent, var(--line), transparent);
+  /* hero scribble that traces itself, then loops */
+  .trace{stroke-dasharray:2400;stroke-dashoffset:2400;
+    animation:trace 6.5s ease-out infinite alternate}
+  @keyframes trace{
+    0%  {stroke-dashoffset:2400}
+    60% {stroke-dashoffset:0}
+    100%{stroke-dashoffset:0}
   }
 
-  .section-head {
-    display: flex; align-items: baseline; gap: 20px; margin-bottom: 28px;
-    font-family: var(--sans);
-  }
-  .section-head .num {
-    font-family: var(--mono); font-size: 12px; letter-spacing: 0.24em; color: var(--coral);
-    font-weight: 700;
-  }
-  .section-head h2 {
-    font-family: var(--serif); font-style: italic; font-weight: 400;
-    font-size: 36px; letter-spacing: -0.01em;
-  }
-  .section-head .meta {
-    margin-left: auto; font-family: var(--mono); font-size: 11px;
-    color: var(--dim); letter-spacing: 0.16em; text-transform: uppercase;
-  }
+  main{position:relative;z-index:1}
 
-  .stage {
-    background: var(--panel);
-    border-radius: 20px;
-    padding: 32px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 30px 60px -30px rgba(45, 26, 61, 0.35);
-  }
-  .stage .noise {
-    position: absolute; inset: 0; opacity: 0.4; pointer-events: none;
-    background-image: radial-gradient(circle at 30% 20%, var(--blush) 0, transparent 45%),
-                      radial-gradient(circle at 80% 70%, var(--ochre) 0, transparent 40%);
-    filter: blur(24px);
-  }
-  .stage-grid {
-    position: relative; z-index: 1;
-    display: grid; grid-template-columns: 1fr 1fr 1fr;
-    gap: 24px; align-items: end;
-  }
-  .stage-grid figure {
-    display: flex; flex-direction: column; align-items: center; gap: 12px;
-    perspective: 900px;
-  }
-  .art {
-    width: 100%; aspect-ratio: 3 / 4;
-    border-radius: 12px; overflow: hidden;
-    transform-style: preserve-3d;
-    transform: rotateX(6deg) rotateY(-8deg);
-    box-shadow: 0 24px 40px -20px rgba(45, 26, 61, 0.4);
-    transition: transform 0.6s ease;
-  }
-  figure:nth-child(2) .art { transform: rotateX(4deg) rotateY(0deg); }
-  figure:nth-child(3) .art { transform: rotateX(6deg) rotateY(8deg); }
-  .art svg { display: block; width: 100%; height: 100%; }
-  figure figcaption {
-    font-family: var(--mono); font-size: 12px; letter-spacing: 0.22em;
-    text-transform: uppercase; color: var(--ink);
-    display: flex; gap: 12px; align-items: baseline;
-  }
-  figure figcaption b { color: var(--coral); font-weight: 700; }
+  .rail{display:flex;gap:22px;font-family:var(--mono);font-size:11px;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--dim)}
+  .rail .cur{color:var(--coral);font-weight:700}
+  .rail .sep{color:var(--blush)}
 
-  .cards {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
-    margin-top: 40px;
-    perspective: 1400px;
+  .masthead{margin-top:24px;position:relative}
+  .masthead h1{font-family:var(--serif);font-weight:400;font-style:italic;
+    font-size:clamp(88px,12vw,180px);line-height:.9;letter-spacing:-.03em;color:var(--ink);
+    position:relative;z-index:2}
+  .masthead h1 .amp{color:var(--coral);font-family:var(--serif);font-style:italic;font-weight:700;
+    display:inline-block;transform-origin:center bottom;animation:sway 5.2s ease-in-out infinite}
+  @keyframes sway{
+    0%,100%{transform:rotate(-3deg) translateY(0)}
+    50%    {transform:rotate(3deg) translateY(-4px)}
   }
-  .card {
-    background: var(--paper);
-    border-radius: 18px;
-    padding: 28px;
-    display: flex; flex-direction: column; gap: 16px;
-    position: relative;
-    transform-style: preserve-3d;
-    transform: rotateY(-4deg);
-    box-shadow:
-      0 30px 60px -30px rgba(45, 26, 61, 0.35),
-      inset 0 0 0 1px var(--line);
-    transition: transform 0.5s ease;
-  }
-  .cards .card:nth-child(2) { transform: rotateY(0deg) translateY(-10px); }
-  .cards .card:nth-child(3) { transform: rotateY(4deg); }
-  .card .badge {
-    position: absolute; top: -14px; left: 24px;
-    font-family: var(--mono); font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
-    background: var(--ink); color: var(--paper);
-    padding: 6px 12px; border-radius: 999px;
-  }
-  .card h3 {
-    font-family: var(--serif); font-style: italic; font-weight: 400;
-    font-size: 36px; letter-spacing: -0.01em; color: var(--ink);
-  }
-  .card h3 .glyph {
-    display: inline-block;
-    width: 12px; height: 12px; border-radius: 50%;
-    background: var(--coral);
-    margin-right: 8px;
-    vertical-align: middle;
-    transform: translateY(-4px);
-    box-shadow: 0 0 0 4px var(--blush);
-  }
-  .card p {
-    font-family: var(--sans); font-size: 15px; line-height: 1.55;
-    color: var(--ink); max-width: 40ch;
-  }
-  .card .stamps {
-    display: flex; justify-content: space-between; align-items: center;
-    font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em;
-    color: var(--dim); border-top: 1px dashed var(--line); padding-top: 14px;
-    text-transform: uppercase;
-  }
-  .card .stamps b { color: var(--violet); font-weight: 700; }
+  .masthead h1 .last{display:block;font-family:var(--sans);font-style:normal;font-weight:900;
+    font-size:.55em;letter-spacing:-.02em;text-transform:uppercase;color:var(--violet);margin-top:-.05em}
+  .masthead .sub{margin-top:24px;color:var(--ink);font-family:var(--sans);max-width:60ch;
+    font-size:18px;line-height:1.55}
+  .masthead .sub em{color:var(--coral);font-style:normal;font-weight:700}
 
-  .verse {
-    margin-top: 72px;
-    background: var(--ink); color: var(--paper);
-    border-radius: 20px;
-    padding: 48px;
-    position: relative; overflow: hidden;
-  }
-  .verse .frame {
-    position: absolute; inset: 12px; border: 1px dashed rgba(253, 245, 233, 0.24);
-    border-radius: 14px; pointer-events: none;
-  }
-  .verse p {
-    font-family: var(--serif); font-style: italic; font-weight: 400;
-    font-size: clamp(24px, 3vw, 40px); line-height: 1.35;
-    max-width: 22ch; color: var(--paper);
-  }
-  .verse p .coral { color: var(--coral); font-weight: 700; }
-  .verse .sign {
-    margin-top: 32px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.24em;
-    text-transform: uppercase; color: var(--blush);
-  }
+  .marble{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--ochre);
+    box-shadow:-20px 0 var(--coral),-40px 0 var(--violet),-60px 0 var(--blush);
+    margin-left:70px;animation:bob 3.2s ease-in-out infinite}
+  @keyframes bob{50%{transform:translateY(-10px) scale(1.15)}}
 
-  .contact {
-    margin-top: 56px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: 20px 32px;
-  }
-  .contact .call {
-    font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--ink);
-  }
-  .contact .cta {
-    display: inline-flex; align-items: center; gap: 10px;
-    background: var(--coral); color: var(--paper);
-    padding: 12px 22px; border-radius: 999px;
-    font-family: var(--sans); font-weight: 700; letter-spacing: 0.04em;
-    text-decoration: none; border: none;
-    box-shadow: 0 12px 24px -12px rgba(255, 111, 92, 0.7);
-  }
-  .contact .cta::after { content: "\2192"; font-weight: 400; }
+  .rule{display:flex;align-items:center;gap:12px;margin:56px 0 40px;font-family:var(--mono);
+    font-size:11px;letter-spacing:.32em;color:var(--dim);text-transform:uppercase}
+  .rule::before,.rule::after{content:"";flex:1;height:1px;
+    background:linear-gradient(to right,transparent,var(--line),transparent)}
 
-  footer.foot {
-    margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--line);
-    display: flex; justify-content: space-between; align-items: center;
-    font-family: var(--mono); font-size: 11px; color: var(--dim);
-    letter-spacing: 0.16em; text-transform: uppercase;
+  .section-head{display:flex;align-items:baseline;gap:20px;margin-bottom:28px;font-family:var(--sans)}
+  .section-head .num{font-family:var(--mono);font-size:12px;letter-spacing:.24em;color:var(--coral);font-weight:700}
+  .section-head h2{font-family:var(--serif);font-style:italic;font-weight:400;font-size:36px;letter-spacing:-.01em}
+  .section-head .meta{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--dim);
+    letter-spacing:.16em;text-transform:uppercase}
+
+  /* --- 3D stage with real depth --- */
+  .stage{background:var(--paper-2);border-radius:20px;padding:44px 32px;position:relative;overflow:hidden;
+    perspective:1600px;box-shadow:0 40px 80px -30px rgba(45,26,61,.35)}
+  .stage .noise{position:absolute;inset:0;opacity:.55;pointer-events:none;
+    background-image:radial-gradient(circle at 22% 18%,var(--blush) 0,transparent 45%),
+                     radial-gradient(circle at 82% 78%,var(--ochre) 0,transparent 42%);
+    filter:blur(28px)}
+  .stage-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr 1fr;
+    gap:32px;align-items:end;transform-style:preserve-3d}
+  .stage-grid figure{display:flex;flex-direction:column;align-items:center;gap:14px;transform-style:preserve-3d}
+  .art{width:100%;aspect-ratio:3/4;border-radius:14px;overflow:hidden;transform-style:preserve-3d;
+    box-shadow:0 40px 60px -22px rgba(45,26,61,.55), 0 0 0 1px var(--line);
+    transition:transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s}
+  figure:nth-child(1) .art{transform:rotateX(4deg) rotateY(-16deg) translateZ(-10px)}
+  figure:nth-child(2) .art{transform:rotateX(0deg)  rotateY(0deg)   translateZ(30px)}
+  figure:nth-child(3) .art{transform:rotateX(4deg) rotateY(16deg)  translateZ(-10px)}
+  figure:hover .art{transform:rotateX(0deg) rotateY(0deg) translateZ(60px);
+    box-shadow:0 70px 100px -25px rgba(45,26,61,.6)}
+  .art svg{display:block;width:100%;height:100%}
+  figure figcaption{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--ink);display:flex;gap:12px;align-items:baseline}
+  figure figcaption b{color:var(--coral);font-weight:700}
+
+  /* --- signal chart (mid-page motion) --- */
+  .chart{margin-top:64px;background:var(--paper-2);border-radius:18px;padding:26px;
+    box-shadow:0 30px 60px -30px rgba(45,26,61,.3);position:relative;overflow:hidden}
+  .chart svg{display:block;width:100%;height:220px}
+  .chart .sweep{position:absolute;top:12px;bottom:12px;width:2px;
+    background:linear-gradient(180deg,transparent,var(--coral),transparent);
+    filter:blur(.6px);opacity:.7;animation:sweep 5s linear infinite}
+  @keyframes sweep{from{left:-2%}to{left:102%}}
+  .chart .cap{margin-top:10px;font-family:var(--mono);font-size:11px;letter-spacing:.2em;
+    color:var(--dim);text-transform:uppercase}
+  .chart .cap b{color:var(--coral);font-weight:700}
+
+  /* --- cards with real 3D fan --- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:52px;
+    perspective:1600px;transform-style:preserve-3d}
+  .card{background:var(--paper);border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:16px;
+    position:relative;transform-style:preserve-3d;
+    box-shadow:0 40px 60px -25px rgba(45,26,61,.45), inset 0 0 0 1px var(--line);
+    transition:transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s}
+  .cards .card:nth-child(1){transform:rotateY(-14deg) translateZ(-12px)}
+  .cards .card:nth-child(2){transform:rotateY(0deg)   translateY(-16px) translateZ(30px);z-index:2}
+  .cards .card:nth-child(3){transform:rotateY(14deg)  translateZ(-12px)}
+  .card:hover{transform:rotateY(0deg) translateY(-8px) translateZ(60px);
+    box-shadow:0 80px 100px -30px rgba(45,26,61,.55)}
+  .card .badge{position:absolute;top:-14px;left:24px;font-family:var(--mono);font-size:11px;
+    letter-spacing:.24em;text-transform:uppercase;background:var(--ink);color:var(--paper);
+    padding:6px 12px;border-radius:999px}
+  .card h3{font-family:var(--serif);font-style:italic;font-weight:400;font-size:36px;letter-spacing:-.01em;color:var(--ink)}
+  .card h3 .glyph{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--coral);
+    margin-right:8px;vertical-align:middle;transform:translateY(-4px);box-shadow:0 0 0 4px var(--blush)}
+  .card p{font-family:var(--sans);font-size:15px;line-height:1.55;color:var(--ink);max-width:40ch}
+  .card .stamps{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);
+    font-size:11px;letter-spacing:.16em;color:var(--dim);border-top:1px dashed var(--line);
+    padding-top:14px;text-transform:uppercase}
+  .card .stamps b{color:var(--violet);font-weight:700}
+
+  .verse{margin-top:72px;background:var(--ink);color:var(--paper);border-radius:20px;padding:48px;
+    position:relative;overflow:hidden}
+  .verse .frame{position:absolute;inset:12px;border:1px dashed rgba(253,245,233,.24);border-radius:14px;pointer-events:none}
+  .verse p{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(24px,3vw,40px);
+    line-height:1.35;max-width:22ch;color:var(--paper)}
+  .verse p .coral{color:var(--coral);font-weight:700}
+  .verse .sign{margin-top:32px;font-family:var(--mono);font-size:11px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--blush)}
+
+  .contact{margin-top:56px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;
+    background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:20px 32px}
+  .contact .call{font-family:var(--serif);font-style:italic;font-size:22px;color:var(--ink)}
+  .contact .cta{display:inline-flex;align-items:center;gap:10px;background:var(--coral);color:var(--paper);
+    padding:12px 22px;border-radius:999px;font-family:var(--sans);font-weight:700;letter-spacing:.04em;
+    text-decoration:none;border:none;box-shadow:0 12px 24px -12px rgba(255,111,92,.7)}
+  .contact .cta::after{content:"\2192";font-weight:400}
+
+  footer.foot{margin-top:64px;padding-top:24px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);
+    font-size:11px;color:var(--dim);letter-spacing:.16em;text-transform:uppercase}
+  footer.foot b{color:var(--coral);font-weight:700}
+
+  @media (max-width:900px){
+    .stage-grid,.cards{grid-template-columns:1fr}
+    .cards .card:nth-child(1),.cards .card:nth-child(2),.cards .card:nth-child(3){
+      transform:none;box-shadow:0 30px 60px -30px rgba(45,26,61,.35)}
+    figure:nth-child(1) .art,figure:nth-child(2) .art,figure:nth-child(3) .art{transform:none}
   }
-  footer.foot b { color: var(--coral); font-weight: 700; }
 </style>
 </head>
 <body>
 
 <div class="ambient" aria-hidden="true">
-  <svg viewBox="0 0 1200 1400" preserveAspectRatio="none">
-    <g class="drift-a" style="transform-origin: 200px 220px;">
-      <circle cx="200" cy="220" r="240" fill="none" stroke="#f2b8b0" stroke-width="1.2"/>
-      <circle cx="200" cy="220" r="180" fill="none" stroke="#e8a94a" stroke-width="1"/>
-      <circle cx="200" cy="220" r="120" fill="none" stroke="#ff6f5c" stroke-width="1.2"/>
-      <circle cx="200" cy="220" r="60"  fill="none" stroke="#7a3fb2" stroke-width="1"/>
+  <svg viewBox="0 0 1200 1600" preserveAspectRatio="none">
+
+    <g class="drift-a" style="transform-origin:220px 240px">
+      <circle cx="220" cy="240" r="300" fill="none" stroke="#f2b8b0" stroke-width="1.4"/>
+      <circle cx="220" cy="240" r="230" fill="none" stroke="#e8a94a" stroke-width="1.1"/>
+      <circle cx="220" cy="240" r="160" fill="none" stroke="#ff6f5c" stroke-width="1.4"/>
+      <circle cx="220" cy="240" r="90"  fill="none" stroke="#7a3fb2" stroke-width="1"/>
+      <circle cx="220" cy="240" r="30"  fill="#7a3fb2" opacity=".5"/>
     </g>
-    <g class="drift-b" style="transform-origin: 1000px 900px;">
-      <ellipse cx="1000" cy="900" rx="320" ry="180" fill="none" stroke="#7a3fb2" stroke-width="1"/>
-      <ellipse cx="1000" cy="900" rx="240" ry="130" fill="none" stroke="#ff6f5c" stroke-width="1"/>
-      <ellipse cx="1000" cy="900" rx="160" ry="88"  fill="none" stroke="#e8a94a" stroke-width="1"/>
+
+    <g class="drift-b" style="transform-origin:980px 1120px">
+      <ellipse cx="980" cy="1120" rx="380" ry="220" fill="none" stroke="#7a3fb2" stroke-width="1"/>
+      <ellipse cx="980" cy="1120" rx="290" ry="160" fill="none" stroke="#ff6f5c" stroke-width="1"/>
+      <ellipse cx="980" cy="1120" rx="200" ry="110" fill="none" stroke="#e8a94a" stroke-width="1"/>
     </g>
-    <g class="drift-c" style="transform-origin: 800px 220px;" opacity="0.55">
-      <path d="M 640 220 Q 800 60 960 220 T 1280 220" stroke="#7a3fb2" stroke-width="1.2" fill="none"/>
-      <path d="M 640 260 Q 800 100 960 260 T 1280 260" stroke="#ff6f5c" stroke-width="1" fill="none"/>
-      <path d="M 640 300 Q 800 140 960 300 T 1280 300" stroke="#e8a94a" stroke-width="1" fill="none"/>
+
+    <g class="drift-c" style="transform-origin:920px 260px">
+      <path class="trace" d="M 620 260 Q 780 60 940 260 T 1260 260 T 1580 260"
+        stroke="#7a3fb2" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+      <path class="trace" d="M 620 310 Q 780 110 940 310 T 1260 310 T 1580 310"
+        stroke="#ff6f5c" stroke-width="1.2" fill="none" stroke-linecap="round" style="animation-delay:.4s"/>
+      <path class="trace" d="M 620 360 Q 780 160 940 360 T 1260 360 T 1580 360"
+        stroke="#e8a94a" stroke-width="1.2" fill="none" stroke-linecap="round" style="animation-delay:.8s"/>
     </g>
-    <g class="pulse" style="transform-origin: 300px 1100px;">
-      <circle cx="300" cy="1100" r="80" fill="#f2b8b0" opacity="0.4"/>
-      <circle cx="300" cy="1100" r="50" fill="#ff6f5c" opacity="0.35"/>
-      <circle cx="300" cy="1100" r="24" fill="#7a3fb2" opacity="0.5"/>
+
+    <g class="pulse" style="transform-origin:320px 1200px">
+      <circle cx="320" cy="1200" r="90" fill="#f2b8b0" opacity=".45"/>
+      <circle cx="320" cy="1200" r="58" fill="#ff6f5c" opacity=".38"/>
+      <circle cx="320" cy="1200" r="28" fill="#7a3fb2" opacity=".55"/>
     </g>
   </svg>
 </div>
@@ -318,6 +217,8 @@
   <span class="cur">MASTHEAD</span>
   <span class="sep">*</span>
   <span>SHIPYARD</span>
+  <span class="sep">*</span>
+  <span>SIGNAL</span>
   <span class="sep">*</span>
   <span>WEEK</span>
   <span class="sep">*</span>
@@ -342,7 +243,7 @@
   <div class="section-head">
     <span class="num">01</span>
     <h2>Three pieces from the year</h2>
-    <span class="meta">tap a card &middot; hover to tilt</span>
+    <span class="meta">stage tilts 16&deg; &middot; hover to level</span>
   </div>
 
   <div class="stage">
@@ -353,10 +254,12 @@
         <div class="art">
           <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <rect width="300" height="400" fill="#2d1a3d"/>
-            <circle cx="150" cy="140" r="90" fill="#ff6f5c"/>
+            <circle cx="150" cy="140" r="90" fill="#ff6f5c">
+              <animate attributeName="cy" values="140;132;140" dur="4s" repeatCount="indefinite"/>
+            </circle>
             <path d="M 20 260 Q 150 200 280 260 L 280 400 L 20 400 Z" fill="#e8a94a"/>
             <path d="M 20 310 Q 150 260 280 310 L 280 400 L 20 400 Z" fill="#f2b8b0"/>
-            <g stroke="#fdf5e9" stroke-width="1.2" fill="none" opacity="0.75">
+            <g stroke="#fdf5e9" stroke-width="1.2" fill="none" opacity=".75">
               <path d="M 30 340 L 270 340"/>
               <path d="M 30 360 L 270 360"/>
               <path d="M 30 380 L 270 380"/>
@@ -372,7 +275,10 @@
             <rect width="300" height="400" fill="#fdf5e9"/>
             <path d="M 40 380 L 40 60 L 260 60 L 260 380 Z" fill="none" stroke="#2d1a3d" stroke-width="6"/>
             <path d="M 60 100 L 240 100 M 60 140 L 240 140 M 60 180 L 240 180 M 60 220 L 240 220 M 60 260 L 240 260 M 60 300 L 240 300 M 60 340 L 240 340" stroke="#7a3fb2" stroke-width="1.2"/>
-            <path d="M 60 100 L 200 340" stroke="#ff6f5c" stroke-width="6" stroke-linecap="round"/>
+            <path d="M 60 100 L 200 340" stroke="#ff6f5c" stroke-width="6" stroke-linecap="round"
+              stroke-dasharray="380" stroke-dashoffset="380">
+              <animate attributeName="stroke-dashoffset" values="380;0;0;380" keyTimes="0;.6;.85;1" dur="5s" repeatCount="indefinite"/>
+            </path>
             <circle cx="60" cy="100" r="8" fill="#e8a94a"/>
             <circle cx="200" cy="340" r="10" fill="#ff6f5c"/>
           </svg>
@@ -391,18 +297,55 @@
             </g>
             <rect x="60" y="160" width="180" height="180" fill="#2d1a3d"/>
             <g fill="#ff6f5c">
-              <rect x="80"  y="180" width="20" height="20"/><rect x="120" y="180" width="20" height="20"/><rect x="160" y="180" width="20" height="20"/><rect x="200" y="180" width="20" height="20"/>
+              <rect x="80"  y="180" width="20" height="20"><animate attributeName="opacity" values="1;.35;1" dur="2.2s" repeatCount="indefinite"/></rect>
+              <rect x="120" y="180" width="20" height="20"><animate attributeName="opacity" values="1;.35;1" dur="2.6s" repeatCount="indefinite"/></rect>
+              <rect x="160" y="180" width="20" height="20"><animate attributeName="opacity" values="1;.35;1" dur="2.4s" repeatCount="indefinite"/></rect>
+              <rect x="200" y="180" width="20" height="20"><animate attributeName="opacity" values="1;.35;1" dur="2.8s" repeatCount="indefinite"/></rect>
               <rect x="80"  y="220" width="20" height="20"/><rect x="120" y="220" width="20" height="20"/><rect x="160" y="220" width="20" height="20"/><rect x="200" y="220" width="20" height="20"/>
               <rect x="80"  y="260" width="20" height="20"/><rect x="120" y="260" width="20" height="20"/><rect x="160" y="260" width="20" height="20"/><rect x="200" y="260" width="20" height="20"/>
               <rect x="80"  y="300" width="20" height="20"/><rect x="120" y="300" width="20" height="20"/><rect x="160" y="300" width="20" height="20"/><rect x="200" y="300" width="20" height="20"/>
             </g>
-            <circle cx="230" cy="360" r="16" fill="#7a3fb2"/>
+            <circle cx="230" cy="360" r="16" fill="#7a3fb2">
+              <animate attributeName="r" values="16;22;16" dur="3.4s" repeatCount="indefinite"/>
+            </circle>
           </svg>
         </div>
         <figcaption><b>rift</b> &middot; 2024</figcaption>
       </figure>
 
     </div>
+  </div>
+
+  <div class="chart" aria-label="signal chart">
+    <div class="sweep"></div>
+    <svg viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="g" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stop-color="#ff6f5c" stop-opacity=".35"/>
+          <stop offset="1" stop-color="#ff6f5c" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <g stroke="rgba(45,26,61,.14)" fill="none">
+        <line x1="0" y1="180" x2="900" y2="180"/>
+        <line x1="0" y1="130" x2="900" y2="130" stroke-dasharray="2 6"/>
+        <line x1="0" y1="80"  x2="900" y2="80"  stroke-dasharray="2 6"/>
+        <line x1="0" y1="30"  x2="900" y2="30"  stroke-dasharray="2 6"/>
+      </g>
+      <path d="M0 160 L75 148 L150 132 L225 138 L300 110 L375 118 L450 92 L525 100 L600 68 L675 76 L750 50 L825 58 L900 34"
+            fill="none" stroke="#7a3fb2" stroke-width="2.6"/>
+      <path d="M0 160 L75 148 L150 132 L225 138 L300 110 L375 118 L450 92 L525 100 L600 68 L675 76 L750 50 L825 58 L900 34 L900 200 L0 200 Z"
+            fill="url(#g)"/>
+      <g fill="#ff6f5c">
+        <circle cx="600" cy="68" r="4"><animate attributeName="r" values="4;7;4" dur="2s" repeatCount="indefinite"/></circle>
+        <circle cx="750" cy="50" r="4"><animate attributeName="r" values="4;7;4" dur="2.3s" repeatCount="indefinite"/></circle>
+        <circle cx="900" cy="34" r="4"><animate attributeName="r" values="4;7;4" dur="2.6s" repeatCount="indefinite"/></circle>
+      </g>
+      <g font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#7a6182">
+        <text x="4" y="204">W01</text><text x="220" y="204">W04</text><text x="440" y="204">W07</text>
+        <text x="660" y="204">W10</text><text x="875" y="204">W12</text>
+      </g>
+    </svg>
+    <div class="cap">Signal per week &middot; twelve-week window &middot; <b>rising</b> since W06.</div>
   </div>
 
   <div class="cards">

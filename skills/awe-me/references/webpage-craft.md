@@ -10,24 +10,30 @@ If the user gave a second word (`/awe-me webpage <domain>` or `/awe-me <domain>`
 
 | Token | Pack |
 |-------|------|
-| `artistic` | [domains/artistic.md](domains/artistic.md) — cream + italic serif + drifting arcs + 3D tilt |
+| `artistic` | [domains/artistic.md](domains/artistic.md) — cream + italic serif + drifting arcs + real ±16° 3D card fan |
 | `dashboard` | [domains/dashboard.md](domains/dashboard.md) — KPI tiles + live SVG chart + status pills + terminal |
 | `photography` | [domains/photography.md](domains/photography.md) — magazine folio + SVG plates + dropcaps |
+| `cinematic` (`3d`, `webgl`) | [domains/cinematic.md](domains/cinematic.md) — inline WebGL2 shader hero + real depth cards + running SVG beats |
 | `ecommerce` | [domains/ecommerce.md](domains/ecommerce.md) — product plates + price ladder + one CTA |
 | `landing` | [domains/landing.md](domains/landing.md) — one-viewport magnet + one CTA + one proof strip |
 | `portfolio` | [domains/portfolio.md](domains/portfolio.md) — study per project, not a card grid |
 
 No token? Use this spine alone; the aesthetic is a sober designed page.
 
-## Every output must land SVG + animation + 3D affordance
+## Every output must land SVG + animation + 3D — **and they must read in a still**
 
-Non-negotiable across every domain token and the default:
+Non-negotiable across every domain token and the default. Not floors — real features. If a screenshot cannot prove them, they do not count.
 
-1. **One inline SVG doing real work** — a chart, a plate, a mini-viz, a background motif. Not a placeholder icon.
-2. **One motion move** — a `@keyframes` animation, a hover transition, a blinking caret, a bar rise, a drifting group. Not scroll-hijacking parallax.
-3. **One 3D affordance** — CSS `perspective` + `rotateX/rotateY` on a card or hero, **or** an inline Three.js scene via pinned import map for hero cases. `perspective` counts. Full Three.js is optional and only when the domain calls for it.
+1. **Hero-scale inline SVG doing real work** — a chart, a plate, a mini-viz, a background motif. At least one SVG element on the page ≥ 400px on its longest side, encoding real content (values, positions, path). Placeholder icons do not count.
+2. **Motion that reads in a still.** At least three moving elements at any moment:
+   - one persistent (drift, sway, breathe — `@keyframes`, ~2–8s cycle)
+   - one active on a state (hover tilt, focus pulse — CSS transition)
+   - one narrative (bar rising in, path drawing itself via `stroke-dasharray`, sweep line traversing a chart)
+   Two stills spaced 500ms apart must show visible change frame-to-frame. Scroll-hijacking parallax is not a motion move.
+3. **3D that reads in a still.** Not "perspective is set." At least one element with a computed rotation ≥ 12° **and** a drop shadow blur ≥ 24px, or `translateZ` ≥ 30px with a real box-shadow. A stranger looking at the PNG must be able to say "that card is in front of that one" without playback.
+4. **WebGL2 is available and encouraged for the `cinematic` / `3d` token.** Inline `<canvas>` + inline shaders in `<script type="x-shader/x-fragment">`. No CDN. No `import` from `https://`. A vendored `vendor/three.module.min.js` sibling is allowed for full three.js scenes and must be flagged in the report — the folder must still open portable.
 
-If a redesign lands zero of these, it did not earn `/awe-me webpage`.
+If a redesign lands zero of these, it did not earn `/awe-me webpage`. If it lands them syntactically but a still doesn't prove them, tighten motion budget / bigger tilt / add a shadow.
 
 Live gold: [gold/webpage/before.html](../../../gold/webpage/before.html) vs [gold/webpage/after.html](../../../gold/webpage/after.html) is the sober default. [gold/domains/](../../../gold/domains/) holds the token variants. `gold/domains/strip.png` is the one-image proof that four tokens produce four aesthetics from the same three-project brief.
 
@@ -47,7 +53,7 @@ Live gold: [gold/webpage/before.html](../../../gold/webpage/before.html) vs [gol
    - Numbered section index rail at the top of the page ("00 · MASTHEAD / 01 · WORK …")
    - Rotated meta (year rotated 90° next to a card, monospace)
 9. **One artifact you can double-click.** A single `.html` with inline `<style>`, no build, no CDN required, no web font that fetches, no analytics. Opens offline.
-10. **Same words, better held.** Do not invent projects, quotes, testimonials, testimonials, badges, or emoji-glyph "features." The redesign moves the same content into a form that holds it.
+10. **Same words, better held.** Do not invent projects, quotes, testimonials, badges, or emoji-glyph "features." The redesign moves the same content into a form that holds it. Data may be **restructured** (a paragraph rendered as a table, a list rendered as chart labels) as long as every heading, label, and body word either exists verbatim in the source **or** is directly implied by it (e.g. "Wed–Sat, 11–5" implies "Sun: closed"). Prefer verbatim.
 
 ## Cut list (repaint tells)
 
@@ -78,8 +84,11 @@ Before you say `AWE: shipped`, every one of these must be true.
 - [ ] Every section has a number, kicker, title, meta
 - [ ] At least one inline SVG encodes real data from the page
 - [ ] One make-strange move landed (name which one in the report)
-- [ ] Same words as the before; nothing invented
+- [ ] Same words as the before; nothing invented (labels verbatim or directly implied)
+- [ ] Motion reads in a still (three moving elements; two frames 500ms apart show change)
+- [ ] 3D reads in a still (rotation ≥ 12° + shadow blur ≥ 24px on at least one element)
 - [ ] Optional but strong: `python <folder>/run.py` screenshots before + after and writes `compare.png`
+- [ ] Optional for `cinematic`: motion strip (three frames spaced 500ms apart, composited)
 
 ## Report addition when the hero is a webpage
 

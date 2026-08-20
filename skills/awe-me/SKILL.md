@@ -15,7 +15,7 @@ metadata:
 
 # /awe-me · /inspire-me
 
-**Banks:** [references/notes.md](references/notes.md) · [references/forms.md](references/forms.md) · [references/webpage-craft.md](references/webpage-craft.md) (only for the webpage form) · [references/domains/](references/domains/) (only when the user gave a domain token: `artistic` / `dashboard` / `photography` / `ecommerce` / `landing` / `portfolio`) · [examples.md](examples.md)
+**Banks:** [references/notes.md](references/notes.md) · [references/forms.md](references/forms.md) · [references/webpage-craft.md](references/webpage-craft.md) (only for the webpage form) · [references/domains/](references/domains/) (only when the user gave a domain token: `artistic` / `dashboard` / `photography` / `cinematic` (aka `3d`, `webgl`) / `ecommerce` / `landing` / `portfolio`) · [examples.md](examples.md)
 
 Awe is **not** a graphics mode. “Awe me” means: open a creative mind, then **instantiate** a leap this context can actually hold. Visuals are one form among many.
 
@@ -33,7 +33,7 @@ Optional tokens. Combine freely. You pick the token; the agent picks questions, 
 | `interview` | Talk before build. | Which questions, recommended answers, when to stop. |
 | `code` `cli` `protocol` `demo` `prose` `product` `architecture` `experiment` | Force that **form family**. | How the notes land in it. |
 | `svg` `3js` `infographic` `canvas` `html` `webpage` | Force a **visual** form. | Craft inside that medium. |
-| Second word after `webpage`: `artistic` `dashboard` `photography` `ecommerce` `landing` `portfolio` | Force a **domain aesthetic**. | Load the matching pack in [references/domains/](references/domains/) and extend the [webpage-craft](references/webpage-craft.md) spine. |
+| Second word after `webpage`: `artistic` `dashboard` `photography` `cinematic` (`3d`, `webgl`) `ecommerce` `landing` `portfolio` | Force a **domain aesthetic**. | Load the matching pack in [references/domains/](references/domains/) and extend the [webpage-craft](references/webpage-craft.md) spine. `cinematic` upgrades the 3D floor to inline WebGL2. |
 | `--notes` | Show the four notes. | Which four. |
 | `--plan-only` | No files. | Lock + notes + form + stretch. |
 | `--full` | Extra plus-pass after the hero. | One mutation that serves the idea, then ship. |
@@ -122,9 +122,9 @@ Follow [references/forms.md](references/forms.md) unless a category forced the f
 
 If the routed form is a **webpage / html / infographic**, also load [references/webpage-craft.md](references/webpage-craft.md) before writing the file. That file is the non-negotiable checklist that separates a redesign from a repaint. Live gold is `gold/webpage/`.
 
-If the user added a **second word** (`artistic` / `dashboard` / `photography` / `ecommerce` / `landing` / `portfolio`), also load the matching pack in [references/domains/](references/domains/). Domain packs **extend** the spine — they never replace grid + baseline + palette cap + one motif. Live gold: `gold/domains/` (four aesthetics from the same three-project brief; `strip.png` proves the range).
+If the user added a **second word** (`artistic` / `dashboard` / `photography` / `cinematic` (aka `3d`, `webgl`) / `ecommerce` / `landing` / `portfolio`), also load the matching pack in [references/domains/](references/domains/). Domain packs **extend** the spine — they never replace grid + baseline + palette cap + one motif. Live gold: `gold/domains/` — one aesthetic per pack, all from the same brief; `strip.png` proves the range, `motion-strip.png` proves motion is real.
 
-Every webpage output — with or without a domain token — must land **inline SVG doing real work, one motion move, and one 3D affordance** (CSS `perspective` counts; Three.js optional for hero cases). If none of those landed, the redesign did not earn the form.
+Every webpage output — with or without a domain token — must land **hero-scale inline SVG doing real work, three moving elements at any moment, and 3D that reads in a still** (rotation ≥ 12° + shadow blur ≥ 24px, or `translateZ` ≥ 30px + real shadow, or inline WebGL2). If a screenshot cannot prove all three, the redesign did not earn the form.
 
 **Form follows the leap:**
 
