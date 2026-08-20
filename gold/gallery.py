@@ -6,7 +6,7 @@ Usage:
 Writes:
   gold/domains/<name>/hero.png             (individual heroes: artistic, dashboard, photography, cinematic)
   gold/modifiers/<name>/hero.png           (individual heroes: cinematic-glassmorphism, dashboard-bento, landing-neon)
-  gold/gallery.png                         (master 2x4 grid: default + 4 domains + 3 modifier composites)
+  gold/gallery.png                         (master 3x3 grid: default + 4 domains + 3 modifiers + infographic)
 
 Requires Chrome or Edge on PATH. Set REIMAGINE_BROWSER=<path to browser.exe> to override.
 """
@@ -162,6 +162,13 @@ def main() -> int:
             "landing + neon &mdash; dark ground, one glowing accent, kinetic type",
             (1400, 900),
         ),
+        (
+            "infographic",
+            ROOT / "gold/domains/infographic/after.html",
+            ROOT / "gold/domains/infographic/hero.png",
+            "infographic &mdash; paper poster, Priestley timeline, ISOTYPE acres",
+            (1400, 1400),
+        ),
     ]
 
     for name, src, dst, _desc, (w, h) in targets:
@@ -175,7 +182,7 @@ def main() -> int:
 
     cells = [(name, dst, desc) for name, _src, dst, desc, _wh in targets if dst.exists()]
     if cells:
-        composite(cells, ROOT / "gold/gallery.png", cols=4, tile_w=700, tile_h=450)
+        composite(cells, ROOT / "gold/gallery.png", cols=3, tile_w=700, tile_h=450)
         gp = ROOT / "gold/gallery.png"
         print(f"gallery: {gp.relative_to(ROOT)} ({gp.stat().st_size:,} bytes)" if gp.exists() else "gallery: FAIL")
     return 0

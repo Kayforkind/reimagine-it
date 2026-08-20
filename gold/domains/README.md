@@ -1,10 +1,11 @@
-# /reimagine-it webpage &lt;domain&gt; — four aesthetics from one brief
+# /reimagine-it webpage &lt;domain&gt; — five aesthetics from one brief
 
-Same three-project brief. Four completely different designs, driven by one extra word.
+Same Texas notebook. Five completely different designs, driven by one extra word.
 
 - [`artistic/after.html`](artistic/after.html) — cream + italic serif + drifting SVG arcs + CSS 3D card tilt
 - [`dashboard/after.html`](dashboard/after.html) — dark ops screen, KPI tiles, live SVG chart with a rise animation, status pills, terminal card
 - [`photography/after.html`](photography/after.html) — editorial folio, Didot masthead, SVG "photographs" per project, dropcaps
+- [`infographic/after.html`](infographic/after.html) — paper poster: Priestley 1836–1995 timeline, ISOTYPE 800,000 acres, custom glyphs, data table
 - The default (no token) lives at [`../webpage/after.html`](../webpage/after.html) — sober designed page
 
 ## Re-shoot

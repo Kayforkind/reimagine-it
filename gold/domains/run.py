@@ -56,6 +56,15 @@ VARIANTS: list[dict[str, object]] = [
         "shot_w": 1400,
         "shot_h": 1600,
     },
+    {
+        "token": "infographic",
+        "label": "/reimagine-it infographic",
+        "sub": "paper poster + Priestley timeline + ISOTYPE acres",
+        "html": ROOT / "infographic" / "after.html",
+        "png": ROOT / "infographic" / "tile.png",
+        "shot_w": 1400,
+        "shot_h": 1400,
+    },
 ]
 
 STRIP_HTML = ROOT / "strip.html"
@@ -135,7 +144,7 @@ def write_strip_html() -> None:
   .head h1 {{ font-size: 22px; font-weight: 700; letter-spacing: -0.01em; margin: 0; }}
   .head .meta {{ margin-left: auto; font-family: ui-monospace, Consolas, Menlo, monospace;
     font-size: 11px; letter-spacing: 0.16em; color: #6a7688; text-transform: uppercase; }}
-  .grid {{ display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }}
+  .grid {{ display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }}
   .cell {{ background: #10151d; border: 1px solid #232d3d; border-radius: 12px;
     overflow: hidden; display: flex; flex-direction: column; }}
   .cell .lab {{ padding: 12px 18px; border-bottom: 1px solid #232d3d;
@@ -154,7 +163,7 @@ def write_strip_html() -> None:
 
 <div class="head">
   <span class="kicker">/reimagine-it &lt;form&gt; &lt;domain&gt;</span>
-  <h1>One command, one three-project brief, four completely different designs.</h1>
+  <h1>One command, one notebook, five completely different designs.</h1>
   <span class="meta">gold/domains &middot; python gold/domains/run.py</span>
 </div>
 
@@ -182,7 +191,7 @@ def main() -> int:
         shot(browser, file_url(Path(v["html"])), Path(v["png"]), int(v["shot_w"]), int(v["shot_h"]))
         print(f"shot {rel(Path(v['png']))}={Path(v['png']).stat().st_size}")
     write_strip_html()
-    shot(browser, file_url(STRIP_HTML), STRIP_PNG, 1720, 1120)
+    shot(browser, file_url(STRIP_HTML), STRIP_PNG, 2100, 1280)
     print(f"shot {rel(STRIP_PNG)}={STRIP_PNG.stat().st_size}")
     return 0
 

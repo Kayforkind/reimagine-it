@@ -20,7 +20,7 @@ Progressive disclosure. Load the pack that matches the user token; skip the rest
 | `cinematic` (`3d`, `webgl`) | [cinematic.md](cinematic.md) | Cinema screen: inline WebGL2 shader hero, 3D card depth with real drop-shadow, one motion beat always running |
 | `ecommerce` | [ecommerce.md](ecommerce.md) | Product plates, price ladder, one clear CTA per plate, review quotes as pulled type, hero shot with product art |
 | `landing` | [landing.md](landing.md) | Single-viewport magnet, one promise, one CTA, one proof strip, no navigation graveyard |
-| `portfolio` | [portfolio.md](portfolio.md) | Alias of default webpage-craft with a slightly bigger hero and full-page project studies |
+| `infographic` | [infographic.md](infographic.md) | Paper poster of an argument: common-scale timeline, ISOTYPE unit counts, custom source glyphs, lossless data table. Not a dashboard. |
 
 ## The base still runs
 
@@ -42,6 +42,7 @@ If a variant does not land all three so a stranger can prove it from one PNG, it
 - `gold/domains/dashboard/after.html`
 - `gold/domains/photography/after.html`
 - `gold/domains/cinematic/after.html`
+- `gold/domains/infographic/after.html`
 - `gold/domains/strip.png` — one-image proof that N tokens produce N aesthetics from the same brief
 - `gold/domains/motion-strip.png` — three frames per variant (0ms / 500ms / 1000ms) proving motion is real, not a screenshot
 

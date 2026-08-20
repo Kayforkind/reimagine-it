@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Texas notebook, counted &mdash; /reimagine-it infographic</title>
+<style>
+  :root {
+    --paper: #f4ecd8;
+    --paper-2: #efe4c8;
+    --ink: #1a2138;
+    --rule: #c2b48c;
+    --hot: #b22234;
+    --gold: #e8a63f;
+    --navy-2: #2c3a5a;
+    --dim: #6a624e;
+    --serif: "Iowan Old Style", Palatino, Georgia, "Times New Roman", serif;
+    --sans: ui-sans-serif, system-ui, "Segoe UI", Inter, sans-serif;
+    --mono: ui-monospace, "SF Mono", Consolas, Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: #d9cba8;
+    color: var(--ink);
+    font-family: var(--serif);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: 48px;
+  }
+  body {
+    padding: 48px 28px 80px;
+    min-height: 100vh;
+    perspective: 1800px;
+  }
+  ::selection { background: var(--gold); color: var(--ink); }
+  a { color: var(--hot); text-decoration: none; border-bottom: 1px solid rgba(178,34,52,.35); transition: color 140ms ease-out, border-color 140ms ease-out; }
+  a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+  a:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--hot);
+    outline-offset: 3px;
+  }
+
+  .board {
+    max-width: 1080px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 40px 48px 56px;
+    transform: rotateX(12deg);
+    transform-origin: center top;
+    box-shadow:
+      0 48px 90px -18px rgba(26,33,56,.48),
+      0 12px 24px -8px rgba(26,33,56,.18),
+      0 0 0 1px var(--rule);
+    position: relative;
+    animation: board-settle 1.4s ease-out both;
+  }
+  @keyframes board-settle {
+    from { transform: rotateX(0deg) translateY(22px); opacity: 0.72; }
+    to { transform: rotateX(12deg) translateY(0); opacity: 1; }
+  }
+  .board::before {
+    content: "";
+    position: absolute; inset: 10px;
+    border: 1px solid rgba(194,180,140,.55);
+    pointer-events: none;
+  }
+
+  .rail {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .22em;
+    text-transform: uppercase; color: var(--dim);
+  }
+  .rail b { color: var(--hot); font-weight: 700; }
+  .rail-star {
+    display: inline-block; width: 18px; height: 18px; margin-right: 10px;
+    vertical-align: -3px;
+    background: var(--gold);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    transform-origin: center;
+    animation: star-pulse 3.2s ease-in-out infinite;
+  }
+  @keyframes star-pulse {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.28) rotate(18deg); }
+  }
+
+  .kicker {
+    margin-top: 28px;
+    font-family: var(--mono); font-size: 12px; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--hot);
+  }
+  h1 {
+    margin-top: 8px;
+    font-weight: 400; font-style: italic;
+    font-size: clamp(40px, 6vw, 64px);
+    line-height: 1.05; letter-spacing: -.02em;
+    max-width: 18ch;
+  }
+  .lede {
+    margin-top: 14px; max-width: 62ch; font-size: 18px; color: var(--navy-2);
+  }
+  .lede em { font-style: italic; color: var(--ink); }
+
+  .path {
+    display: flex; flex-wrap: wrap; gap: 8px 18px;
+    margin: 22px 0 8px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--dim);
+  }
+  .path span b { color: var(--hot); font-weight: 700; margin-right: 6px; }
+
+  figure { margin: 28px 0 0; }
+  figcaption {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .08em;
+    color: var(--dim); margin-top: 10px; line-height: 1.45;
+  }
+  figcaption strong { color: var(--ink); font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+
+  .hero-svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+  .star-mark { transform-box: fill-box; transform-origin: center; animation: star-pulse 3.2s ease-in-out infinite; }
+  .bloom { transform-box: fill-box; transform-origin: 50% 80%; animation: bloom-sway 4.6s ease-in-out infinite; }
+  @keyframes bloom-sway {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(6deg); }
+  }
+  .horn-tip { animation: horn-glow 2.8s ease-in-out infinite; }
+  @keyframes horn-glow { 50% { opacity: .45; } }
+
+  .isotype {
+    display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end;
+    margin-top: 12px; padding: 16px 0 4px;
+  }
+  .isotype .unit { width: 56px; height: 64px; }
+  .isotype .unit svg { width: 100%; height: 100%; display: block; }
+  .isotype-meta {
+    margin-left: 12px; align-self: center;
+    font-family: var(--mono); font-size: 12px; letter-spacing: .06em;
+    color: var(--navy-2); max-width: 28ch; line-height: 1.45;
+  }
+  .isotype-meta b { display: block; font-size: 22px; letter-spacing: 0; color: var(--ink); font-family: var(--sans); }
+
+  .grid-2 {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 36px;
+  }
+  .grid-3 {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 12px;
+  }
+  .card {
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    padding: 16px 16px 18px;
+    min-height: 100%;
+  }
+  .card .yr {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--hot);
+  }
+  .card h3 {
+    font-size: 20px; font-weight: 400; font-style: italic; margin: 4px 0 8px;
+  }
+  .card p { font-size: 14px; color: var(--navy-2); }
+  .card .glyph { height: 72px; margin-bottom: 8px; }
+  .card .glyph svg { width: 100%; height: 100%; display: block; }
+
+  .map-wrap { background: var(--paper-2); border: 1px solid var(--rule); padding: 16px; }
+  .map-wrap svg { width: 100%; height: auto; display: block; }
+
+  .takeaway {
+    margin-top: 32px; padding: 18px 22px;
+    border-left: 4px solid var(--hot);
+    font-style: italic; font-size: 20px; line-height: 1.35;
+    color: var(--ink);
+  }
+
+  .data {
+    width: 100%; border-collapse: collapse; margin-top: 12px;
+    font-family: var(--sans); font-size: 13px;
+  }
+  .data th, .data td {
+    text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .data th {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--dim); font-weight: 700;
+  }
+  .data td.yr { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .data caption {
+    caption-side: top; text-align: left; font-family: var(--mono);
+    font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--dim); margin-bottom: 8px;
+  }
+
+  .colophon {
+    margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--rule);
+    display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+    font-size: 14px; color: var(--navy-2);
+  }
+  .colophon .src {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--dim);
+  }
+
+  @media (max-width: 820px) {
+    .board { padding: 28px 20px 40px; transform: none; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    h1 { font-size: 36px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+    :focus-visible { transition: none; }
+    .star-mark, .bloom, .horn-tip, .rail-star { transform: none; opacity: 1; }
+    .board { animation: none; transform: rotateX(12deg); opacity: 1; }
+  }
+</style>
+</head>
+<body>
+<article class="board">
+  <div class="rail">
+    <span><span class="rail-star" aria-hidden="true"></span><b>01</b> /reimagine-it infographic</span>
+    <span>source · a texas notebook · six dated names · one magnitude</span>
+  </div>
+
+  <p class="kicker">What can we count without inventing a number?</p>
+  <h1>Six dated things. One magnitude.</h1>
+  <p class="lede">The notebook names three places and three signals, each with a year. Position on a shared 1836&ndash;1995 scale is the encoding. The only area it ever gives &mdash; Big Bend&rsquo;s eight hundred thousand acres &mdash; is drawn as <em>eight equal units</em>, not a bigger park.</p>
+
+  <nav class="path" aria-label="Reading path">
+    <span><b>01</b> question</span>
+    <span><b>02</b> common scale</span>
+    <span><b>03</b> unit count</span>
+    <span><b>04</b> places</span>
+    <span><b>05</b> signals</span>
+    <span><b>06</b> table</span>
+  </nav>
+
+  <figure>
+    <figcaption><strong>02 &middot; Priestley timeline</strong> &mdash; every date the source writes, on one year axis. Two names share 1839; they share one tick.</figcaption>
+    <svg class="hero-svg" viewBox="0 0 1200 300" role="img" aria-labelledby="tl-title tl-desc">
+      <title id="tl-title">Texas notebook events on a common year scale, 1836 to 1995</title>
+      <desc id="tl-desc">Alamo 1836; Austin and the Lone Star flag 1839; Bluebonnet 1901; Big Bend 1944; Longhorn 1995. Position encodes year. No area encoding.</desc>
+      <g fill="none" stroke="#c2b48c" stroke-width="1">
+        <!-- decade ticks: axis only, not events -->
+        <line x1="106" y1="164" x2="106" y2="176"/><!-- 1840 -->
+        <line x1="237" y1="164" x2="237" y2="176"/><!-- 1860 -->
+        <line x1="368" y1="164" x2="368" y2="176"/><!-- 1880 -->
+        <line x1="499" y1="164" x2="499" y2="176"/><!-- 1900 -->
+        <line x1="630" y1="164" x2="630" y2="176"/><!-- 1920 -->
+        <line x1="761" y1="164" x2="761" y2="176"/><!-- 1940 -->
+        <line x1="892" y1="164" x2="892" y2="176"/><!-- 1960 -->
+        <line x1="1022" y1="164" x2="1022" y2="176"/><!-- 1980 -->
+      </g>
+      <line x1="80" y1="168" x2="1120" y2="168" stroke="#1a2138" stroke-width="2.5"/>
+      <g font-family="ui-monospace, Consolas, monospace" font-size="11" fill="#6a624e" letter-spacing="0.08em">
+        <text x="80" y="196" text-anchor="middle">1836</text>
+        <text x="499" y="196" text-anchor="middle">1900</text>
+        <text x="761" y="196" text-anchor="middle">1940</text>
+        <text x="1120" y="196" text-anchor="middle">1995</text>
+      </g>
+
+      <!-- 1836 Alamo — glyph sits left of the stem so 1839 can share the crowded origin -->
+      <g transform="translate(80,0)">
+        <line x1="0" y1="168" x2="0" y2="108" stroke="#b22234" stroke-width="2"/>
+        <path d="M-52 108 L-52 78 L-34 62 L-16 78 L-16 108 Z" fill="#efe4c8" stroke="#1a2138" stroke-width="1.4"/>
+        <rect x="-40" y="88" width="12" height="16" fill="#1a2138"/>
+        <text x="-34" y="50" text-anchor="middle" font-family="Palatino, Georgia, serif" font-size="13" font-style="italic" fill="#1a2138">Alamo</text>
+        <text x="0" y="220" text-anchor="middle" font-family="ui-monospace, Consolas, monospace" font-size="10" fill="#b22234">19 DAYS</text>
+      </g>
+
+      <!-- 1839 Austin + Lone Star (same year, one tick) -->
+      <g transform="translate(100,0)">
+        <line x1="0" y1="168" x2="0" y2="118" stroke="#1a2138" stroke-width="2"/>
+        <polygon class="star-mark" points="0,72 4.2,84 17,84 6.8,92 10.6,104 0,96 -10.6,104 -6.8,92 -17,84 -4.2,84" fill="#e8a63f" stroke="#1a2138" stroke-width="0.8"/>
+        <text x="22" y="92" font-family="Palatino, Georgia, serif" font-size="13" font-style="italic" fill="#1a2138">Austin &middot; flag</text>
+        <text x="22" y="108" font-family="ui-monospace, Consolas, monospace" font-size="10" fill="#6a624e">ONE YEAR, TWO NAMES</text>
+      </g>
+
+      <!-- 1901 Bluebonnet -->
+      <g transform="translate(505,0)">
+        <line x1="0" y1="168" x2="0" y2="118" stroke="#1a2138" stroke-width="2"/>
+        <g class="bloom" fill="#2c3a5a">
+          <ellipse cx="0" cy="86" rx="5" ry="14"/>
+          <ellipse cx="-11" cy="90" rx="5" ry="12" transform="rotate(-32 0 90)"/>
+          <ellipse cx="11" cy="90" rx="5" ry="12" transform="rotate(32 0 90)"/>
+          <circle cx="0" cy="98" r="3.2" fill="#e8a63f"/>
+        </g>
+        <line x1="0" y1="100" x2="0" y2="118" stroke="#2c3a5a" stroke-width="1.4"/>
+        <text x="0" y="68" text-anchor="middle" font-family="Palatino, Georgia, serif" font-size="13" font-style="italic" fill="#1a2138">Bluebonnet</text>
+      </g>
+
+      <!-- 1944 Big Bend -->
+      <g transform="translate(787,0)">
+        <line x1="0" y1="168" x2="0" y2="118" stroke="#b22234" stroke-width="2"/>
+        <path d="M-28 118 L-18 92 L-8 104 L0 86 L10 100 L22 80 L28 118 Z" fill="#2c3a5a"/>
+        <path d="M-28 118 Q0 112 28 118" fill="none" stroke="#e8a63f" stroke-width="1.6"/>
+        <text x="0" y="64" text-anchor="middle" font-family="Palatino, Georgia, serif" font-size="13" font-style="italic" fill="#1a2138">Big Bend</text>
+        <text x="0" y="220" text-anchor="middle" font-family="ui-monospace, Consolas, monospace" font-size="10" fill="#b22234">800,000 ACRES</text>
+      </g>
+
+      <!-- 1995 Longhorn -->
+      <g transform="translate(1120,0)">
+        <line x1="0" y1="168" x2="0" y2="118" stroke="#1a2138" stroke-width="2"/>
+        <path d="M-36 96 Q-20 70 -4 96" fill="none" stroke="#1a2138" stroke-width="2.2"/>
+        <path d="M36 96 Q20 70 4 96" fill="none" stroke="#1a2138" stroke-width="2.2"/>
+        <circle class="horn-tip" cx="-36" cy="96" r="3" fill="#e8a63f"/>
+        <circle class="horn-tip" cx="36" cy="96" r="3" fill="#e8a63f"/>
+        <ellipse cx="0" cy="104" rx="8" ry="7" fill="#1a2138"/>
+        <text x="0" y="58" text-anchor="middle" font-family="Palatino, Georgia, serif" font-size="13" font-style="italic" fill="#1a2138">Longhorn</text>
+        <text x="0" y="220" text-anchor="end" font-family="ui-monospace, Consolas, monospace" font-size="10" fill="#6a624e">7 FT TIP TO TIP</text>
+      </g>
+    </svg>
+  </figure>
+
+  <figure>
+    <figcaption><strong>03 &middot; ISOTYPE</strong> &mdash; Neurath&rsquo;s rule: more copies of the same-size mark, never a bigger mark. Each unit = 100,000 acres. Eight units = the 800,000 acres the notebook names for Big Bend, 1944.</figcaption>
+    <div class="isotype" aria-hidden="true">
+      <!-- 8 identical acre units -->
+      <div class="unit"><svg viewBox="0 0 56 64" aria-hidden="true"><path d="M4 48 L12 28 L22 36 L28 20 L36 32 L48 18 L52 48 Z" fill="#2c3a5a"/><path d="M4 50 Q28 44 52 50" fill="none" stroke="#e8a63f" stroke-width="2"/><circle cx="18" cy="24" r="5" fill="#1a2138"/><rect x="16.5" y="24" width="3" height="10" fill="#1a2138"/></svg></div>
+      <div class="unit"><svg viewBox="0 0 56 64" aria-hidden="true"><path d="M4 48 L12 28 L22 36 L28 20 L36 32 L48 18 L52 48 Z" fill="#2c3a5a"/><path d="M4 50 Q28 44 52 50" fill="none" stroke="#e8a63f" stroke-width="2"/><circle cx="18" cy="24" r="5" fill="#1a2138"/><rect x="16.5" y="24" width="3" height="10" fill="#1a2138"/></svg></div>
+      <div class="unit"><svg viewBox="0 0 56 64" aria-hidden="true"><path d="M4 48 L12 28 L22 36 L28 20 L36 32 L48 18 L52 48 Z" fill="#2c3a5a"/><path d="M4 50 Q28 44 52 50" fill="none" stroke="#e8a63f" stroke-width="2"/><circle cx="18" cy="24" r="5" fill="#1a2138"/><rect x="16.5" y="24" width="3" height="10" fill="#1a2138"/></svg></div>
+      <div class="unit"><svg viewBox="0 0 56 64" aria-hidden="true"><path d="M4 48 L12 28 L22 36 L28 20 L36 32 L48 18 L52 48 Z" fill="#2c3a5a"/><path d="M4 50 Q28 44 52 50" fill="none" stroke="#e8a63f" stroke-width="2"/><circle cx="18" cy="24" r="5" fill="#1a2138"/><rect x="16.5" y="24" width="3" height="10" fill="#1a2138"/></svg></div>
+      <div class="unit"><svg viewBox="0 0 56 64" aria-hidden="true"><path d="M4 48 L12 28 L22 36 L28 20 L36 32 L48 18 L52 48 Z" fill="#2c3a5a"/><path d="M4 50 Q28 44 52 50" fill="none" stroke="#e8a63f" stroke-width="2"/><circle cx="18" cy="24" r="5" fill="#1a2138"/><rect x="16.5" y="24" width="3" height="10" fill="#1a2138"/></svg></div>
+      <div class="unit"><svg viewBox="0 0 56 64" aria-hidden="true"><path d="M4 48 L12 28 L22 36 L28 20 L36 32 L48 18 L52 48 Z" fill="#2c3a5a"/><path d="M4 50 Q28 44 52 50" fill="none" stroke="#e8a63f" stroke-width="2"/><circle cx="18" cy="24" r="5" fill="#1a2138"/><rect x="16.5" y="24" width="3" height="10" fill="#1a2138"/></svg></div>
+      <div class="unit"><svg viewBox="0 0 56 64" aria-hidden="true"><path d="M4 48 L12 28 L22 36 L28 20 L36 32 L48 18 L52 48 Z" fill="#2c3a5a"/><path d="M4 50 Q28 44 52 50" fill="none" stroke="#e8a63f" stroke-width="2"/><circle cx="18" cy="24" r="5" fill="#1a2138"/><rect x="16.5" y="24" width="3" height="10" fill="#1a2138"/></svg></div>
+      <div class="unit"><svg viewBox="0 0 56 64" aria-hidden="true"><path d="M4 48 L12 28 L22 36 L28 20 L36 32 L48 18 L52 48 Z" fill="#2c3a5a"/><path d="M4 50 Q28 44 52 50" fill="none" stroke="#e8a63f" stroke-width="2"/><circle cx="18" cy="24" r="5" fill="#1a2138"/><rect x="16.5" y="24" width="3" height="10" fill="#1a2138"/></svg></div>
+      <p class="isotype-meta"><b>8 &times; 100,000</b> cottonwood-and-ridge units. Rio Grande as the gold line. Same size, counted.</p>
+    </div>
+  </figure>
+
+  <div class="grid-2">
+    <div>
+      <p class="kicker" style="margin-top:0">04 &middot; Places &mdash; small multiples</p>
+      <div class="grid-3" style="grid-template-columns:1fr">
+        <article class="card">
+          <div class="glyph">
+            <svg viewBox="0 0 200 72" aria-hidden="true">
+              <path d="M70 64 L70 28 L100 8 L130 28 L130 64 Z" fill="#efe4c8" stroke="#1a2138" stroke-width="1.6"/>
+              <rect x="92" y="38" width="16" height="26" fill="#1a2138"/>
+              <rect x="78" y="34" width="10" height="10" fill="#2c3a5a"/>
+              <rect x="112" y="34" width="10" height="10" fill="#2c3a5a"/>
+            </svg>
+          </div>
+          <div class="yr">1836 &middot; San Antonio</div>
+          <h3>Alamo</h3>
+          <p>A small stone mission at the center of the Texas Republic. Nineteen days, one long siege, one story that carried a state.</p>
+        </article>
+        <article class="card">
+          <div class="glyph">
+            <svg viewBox="0 0 200 72" aria-hidden="true">
+              <path d="M20 64 L40 28 L58 44 L78 18 L102 40 L130 14 L180 64 Z" fill="#2c3a5a"/>
+              <path d="M20 64 Q100 52 180 64" fill="none" stroke="#e8a63f" stroke-width="2"/>
+              <circle cx="48" cy="16" r="1.6" fill="#e8a63f"/>
+              <circle cx="90" cy="10" r="1.2" fill="#e8a63f"/>
+              <circle cx="130" cy="20" r="1.4" fill="#e8a63f"/>
+            </svg>
+          </div>
+          <div class="yr">1944 &middot; west Texas</div>
+          <h3>Big Bend</h3>
+          <p>Eight hundred thousand acres along the Rio Grande. Cottonwood, prickly pear, and one of the darkest night skies in North America.</p>
+        </article>
+        <article class="card">
+          <div class="glyph">
+            <svg viewBox="0 0 200 72" aria-hidden="true">
+              <path d="M88 64 L88 28 L100 12 L112 28 L112 64 Z" fill="#efe4c8" stroke="#1a2138" stroke-width="1.5"/>
+              <circle cx="70" cy="40" r="14" fill="#1a2138"/>
+              <rect x="68" y="40" width="4" height="24" fill="#1a2138"/>
+              <circle cx="132" cy="44" r="11" fill="#1a2138"/>
+              <rect x="130" y="44" width="4" height="20" fill="#1a2138"/>
+            </svg>
+          </div>
+          <div class="yr">1839 &middot; on the Colorado</div>
+          <h3>Austin</h3>
+          <p>Live music, live oaks, live legislature. Named after Stephen F. Austin, the empresario who first brought settlers under Mexican rule.</p>
+        </article>
+      </div>
+    </div>
+
+    <div>
+      <p class="kicker" style="margin-top:0">Schematic pins &mdash; not a survey</p>
+      <div class="map-wrap">
+        <svg viewBox="0 0 280 240" role="img" aria-labelledby="map-title">
+          <title id="map-title">Three places the notebook names, pinned on a schematic Texas</title>
+          <!-- schematic Texas: panhandle + body + southern point -->
+          <path d="M78 28 L118 28 L118 72 L248 78 L242 150 L200 168 L168 210 L132 200 L88 168 L52 158 L40 118 L48 88 L78 80 Z"
+                fill="#efe4c8" stroke="#1a2138" stroke-width="1.8"/>
+          <!-- Big Bend west / Rio Grande -->
+          <circle cx="72" cy="150" r="6" fill="#b22234"/>
+          <text x="84" y="146" font-family="Palatino, Georgia, serif" font-size="12" font-style="italic" fill="#1a2138">Big Bend</text>
+          <text x="84" y="160" font-family="ui-monospace, Consolas, monospace" font-size="9" fill="#6a624e">WEST &middot; 1944</text>
+          <!-- Austin center -->
+          <circle cx="150" cy="128" r="6" fill="#1a2138"/>
+          <text x="162" y="124" font-family="Palatino, Georgia, serif" font-size="12" font-style="italic" fill="#1a2138">Austin</text>
+          <text x="162" y="138" font-family="ui-monospace, Consolas, monospace" font-size="9" fill="#6a624e">COLORADO &middot; 1839</text>
+          <!-- Alamo / San Antonio south -->
+          <circle cx="148" cy="168" r="6" fill="#e8a63f" stroke="#1a2138" stroke-width="1"/>
+          <text x="158" y="180" font-family="Palatino, Georgia, serif" font-size="12" font-style="italic" fill="#1a2138">Alamo</text>
+          <text x="158" y="194" font-family="ui-monospace, Consolas, monospace" font-size="9" fill="#6a624e">SAN ANTONIO &middot; 1836</text>
+        </svg>
+      </div>
+
+      <p class="kicker">05 &middot; Signals</p>
+      <div class="grid-3" style="grid-template-columns:1fr">
+        <article class="card">
+          <div class="yr">1839 &middot; one five-point star</div>
+          <h3>Lone Star flag</h3>
+          <p>Blue for loyalty, white for purity, red for bravery. The only US state flag that once flew over a sovereign republic.</p>
+        </article>
+        <article class="card">
+          <div class="yr">1901 &middot; blooms in spring</div>
+          <h3>Bluebonnet</h3>
+          <p>State flower. Only along the highway shoulders and the pastures where the ranchers let it.</p>
+        </article>
+        <article class="card">
+          <div class="yr">1995 &middot; seven feet tip to tip</div>
+          <h3>Longhorn</h3>
+          <p>State large mammal. A living remnant of the Spanish criollo cattle. Length, not area: the horns as a measure.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <p class="takeaway">Finding: six dated names sit on one year scale. The notebook invents no other statistic. The acres of Big Bend are the only magnitude, so they are counted as units, not drawn as a bigger Texas.</p>
+
+  <figure>
+    <table class="data">
+      <caption>06 &middot; The same numbers, as a table (lossless twin of the graphic)</caption>
+      <thead>
+        <tr>
+          <th scope="col">Year</th>
+          <th scope="col">Named in the source</th>
+          <th scope="col">Kind</th>
+          <th scope="col">Magnitude the source actually gives</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="yr">1836</td>
+          <td>Alamo, San Antonio</td>
+          <td>place</td>
+          <td>nineteen-day siege</td>
+        </tr>
+        <tr>
+          <td class="yr">1839</td>
+          <td>Austin, on the Colorado</td>
+          <td>place</td>
+          <td>&mdash;</td>
+        </tr>
+        <tr>
+          <td class="yr">1839</td>
+          <td>Lone Star flag</td>
+          <td>signal</td>
+          <td>one five-point star</td>
+        </tr>
+        <tr>
+          <td class="yr">1901</td>
+          <td>Bluebonnet</td>
+          <td>signal</td>
+          <td>blooms in spring</td>
+        </tr>
+        <tr>
+          <td class="yr">1944</td>
+          <td>Big Bend, west Texas</td>
+          <td>place</td>
+          <td>800,000 acres along the Rio Grande</td>
+        </tr>
+        <tr>
+          <td class="yr">1995</td>
+          <td>Longhorn</td>
+          <td>signal</td>
+          <td>horns can reach seven feet tip to tip</td>
+        </tr>
+      </tbody>
+    </table>
+  </figure>
+
+  <footer class="colophon">
+    <p>Now, in the source: rereading J. Frank Dobie. Watching the mockingbird nest under the eave.<br>
+    Mail: <a href="mailto:notes@texasnote.example">notes@texasnote.example</a></p>
+    <p class="src">encodings · cleveland &amp; mcgill position<br>counts · neurath isotype<br>layout · portrait-grid &middot; infoalign<br>no pies &middot; no fabricated kpis</p>
+  </footer>
+</article>
+</body>
+</html>

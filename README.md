@@ -1,14 +1,14 @@
 # reimagine-it
 
-[![license MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE) [![agentskills.io spec](https://img.shields.io/badge/agentskills.io-spec-e8a63f.svg)](https://agentskills.io/specification) [![version 2.2](https://img.shields.io/badge/version-2.2-b22234.svg)](skills/reimagine-it/SKILL.md) [![craft floor: WebGL2 / scroll-driven / reduced-motion / :focus-visible](https://img.shields.io/badge/craft%20floor-webgl2%20%C2%B7%20scroll--timeline%20%C2%B7%20reduced--motion%20%C2%B7%20:focus--visible-1a2138.svg)](skills/reimagine-it/references/craft-floor.md) [![sponsor](https://img.shields.io/badge/sponsor-%E2%98%85-b22234.svg)](https://github.com/sponsors/kazimrmerchant)
+[![license MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE) [![agentskills.io spec](https://img.shields.io/badge/agentskills.io-spec-e8a63f.svg)](https://agentskills.io/specification) [![version 2.3](https://img.shields.io/badge/version-2.3-b22234.svg)](skills/reimagine-it/SKILL.md) [![craft floor: WebGL2 / scroll-driven / reduced-motion / :focus-visible](https://img.shields.io/badge/craft%20floor-webgl2%20%C2%B7%20scroll--timeline%20%C2%B7%20reduced--motion%20%C2%B7%20:focus--visible-1a2138.svg)](skills/reimagine-it/references/craft-floor.md) [![sponsor](https://img.shields.io/badge/sponsor-%E2%98%85-b22234.svg)](https://github.com/sponsors/kazimrmerchant)
 
 > **One agent skill. Any file. A content-aware leap.**
 >
 > `/reimagine-it` reads what your source *is about* and derives the palette, motifs, motion, and 3D from the content itself. Feed it a Texas notebook and the design comes out in navy / cream / red / gold with a lone-star lockup and a sunset shader. Feed it a marine-biology paper and it would come out in teal / bone / kelp / phytoplankton pink with a caustics shader and current lines. **Same command, different source, different visual DNA.**
 >
-> The gallery below is the same naive HTML page ([`gold/webpage/before.html`](gold/webpage/before.html) &mdash; a plain Texas notebook: three places, three signals, one flag) redesigned eight different ways by the same command with one different token each. Every shot renders locally from a real `.html` file in this repo. No CDN, no paid API, no third-party service.
+> The gallery below is the same naive HTML page ([`gold/webpage/before.html`](gold/webpage/before.html) &mdash; a plain Texas notebook: three places, three signals, one flag) redesigned nine different ways by the same command with one different token each. Every shot renders locally from a real `.html` file in this repo. No CDN, no paid API, no third-party service.
 
-![one raw Texas notebook, eight content-aware redesigns: default, artistic, dashboard, photography, cinematic, cinematic+glassmorphism, dashboard+bento, landing+neon](gold/gallery.png?v=texas-4)
+![one raw Texas notebook, nine content-aware redesigns: default, artistic, dashboard, photography, cinematic, cinematic+glassmorphism, dashboard+bento, landing+neon, infographic](gold/gallery.png?v=texas-5)
 
 ```
 /reimagine-it webpage                                        <- default (top-left)
@@ -19,6 +19,7 @@
 /reimagine-it webpage cinematic glassmorphism                <- modifier stacks on domain
 /reimagine-it webpage dashboard bento
 /reimagine-it webpage landing   neon
+/reimagine-it infographic                                    <- paper poster, not a dashboard
 ```
 
 <p align="center">
@@ -101,7 +102,7 @@ Then say `/reimagine-it` in your host.
 | Lever | Syntax | Effect |
 |-------|--------|--------|
 | **Form** | `webpage` \| `pdf` \| `slides` \| `document` \| `mobi` \| `epub` \| `code` \| `cli` \| `protocol` \| ... | Force the medium. |
-| **Domain** | `webpage artistic` \| `dashboard` \| `photography` \| `cinematic` \| `landing` \| `portfolio` | Force the aesthetic. See [`references/domains/`](skills/reimagine-it/references/domains/). |
+| **Domain** | `webpage artistic` \| `dashboard` \| `photography` \| `cinematic` \| `landing` \| `portfolio` \| `infographic` | Force the aesthetic. `infographic` is a statistical poster (common-scale encodings + ISOTYPE + data table), not an ops dashboard. See [`references/domains/`](skills/reimagine-it/references/domains/). |
 | **Modifier** | `webpage cinematic glassmorphism` \| `bento` \| `neon` \| `brutalism` \| `neumorphism` \| `handdrawn` | Layer a UI/UX style on any domain. See [`references/modifiers/`](skills/reimagine-it/references/modifiers/). |
 | **Font** | `--font "Playfair Display, Iowan Old Style, Georgia, serif"` | Pin display / body family. Full stack. No webfont fetch unless `--allow-fetch`. |
 | **Lock** | `lock <path> as <name>` then `--ref <name>` | Capture design DNA (palette, type, motifs, motion, 3D) and reuse it &mdash; even across media. |
@@ -122,9 +123,9 @@ All three are enforced by [`skills/reimagine-it/SKILL.md`](skills/reimagine-it/S
 
 ---
 
-## Nine case studies &mdash; one source, one command each
+## Ten case studies &mdash; one source, one command each
 
-Every case below reimagines the **exact same naive HTML** ([`gold/webpage/before.html`](gold/webpage/before.html) &mdash; a plain Texas notebook, 40 lines, no CSS, one email) with **one different token**. Cases 1&ndash;8 are eight different domains and modifiers on the default `webpage` pack. **Case 09** is the v2.2 raised bar &mdash; a third *reader register* of the default pack (`--variant c`, `cinematic-shader`) &mdash; showing that even the default `webpage` command now has room for the full craft-floor cinematic reader when the content asks for it. To match how a designer reads a case study, each case is laid out top-to-bottom:
+Every case below reimagines the **exact same naive HTML** ([`gold/webpage/before.html`](gold/webpage/before.html) &mdash; a plain Texas notebook, 40 lines, no CSS, one email) with **one different token**. Cases 1&ndash;8 are eight different domains and modifiers on the default `webpage` pack. **Case 09** is the v2.2 raised bar &mdash; a third *reader register* of the default pack (`--variant c`, `cinematic-shader`). **Case 10** is the v2.3 infographic pack &mdash; the same notebook read as a statistical poster, not a dashboard. To match how a designer reads a case study, each case is laid out top-to-bottom:
 
 1. the **before** shot sits on its own line,
 2. the **four notes the command picked** (palette &middot; motif &middot; motion &middot; 3D) sit between the two shots as real descriptive text,
@@ -373,16 +374,50 @@ Open the live file &rarr; [`gold/webpage/after-3.html`](gold/webpage/after-3.htm
 
 ---
 
+### Case 10 &middot; `infographic` (v2.3, statistical poster)
+
+`/reimagine-it infographic`
+
+*The notebook as a paper poster of an argument &mdash; one question, answered in marks you can read in a still. Not a dashboard.*
+
+**Before.** Same raw Texas notebook.
+
+![Before: raw HTML of A Texas notebook -- Times New Roman, single column, no color, no motif](gold/webpage/before.png)
+
+**The four notes the command picked.**
+
+- **Palette** &mdash; parchment ground (`#f4ecd8`) with navy ink, star-red, and sun gold. Same Lone-Star family as every other Texas draw; weighted as *paper*, not night ops.
+- **Motif** &mdash; a **Priestley timeline 1836&ndash;1995** on a common year scale (Alamo, Austin + flag sharing 1839, Bluebonnet, Big Bend, Longhorn). An **ISOTYPE strip** of eight equal cottonwood-and-ridge units for Big Bend's 800,000 acres (Neurath: more copies, never a bigger icon). Custom glyphs for mission, ridge, capitol, star, bloom, horns. A schematic Texas with three pins. A **lossless data table** of the six named facts.
+- **Motion** &mdash; Lone Star pulse, bluebonnet sway, longhorn horn-tip opacity. Compositor-only (`transform` / `opacity`). The encodings are true at frame 0 so a PNG is enough.
+- **3D** &mdash; the poster board sits at `rotateX(12deg)` with a 90 px paper drop-shadow. Bars are not extruded (lie factor).
+
+**Craft floor** (v2.3, all shipped in this file).
+
+- `:focus-visible` &mdash; 2 px star-red outline, 3 px offset, on links.
+- `::selection` &mdash; gold on navy ink.
+- `prefers-reduced-motion: reduce` &mdash; decomposes: animations pin to the final state; focus rings stay.
+- **Compositor-only motion** &mdash; no `transition: all`. No layout properties animated.
+- **No fabricated numbers.** Every year and magnitude is in the source. 19-day siege is a label, not a bar on the century axis.
+
+**After.**
+
+![After: cream paper infographic poster of the Texas notebook -- kicker What can we count without inventing a number, italic title Six dated things One magnitude, Priestley timeline 1836 to 1995 with Alamo Austin-flag Bluebonnet Big Bend Longhorn, eight equal ISOTYPE acre units, three place cards, schematic Texas pins, and a data table of the six facts](gold/domains/infographic/after.png)
+
+Open the live file &rarr; [`gold/domains/infographic/after.html`](gold/domains/infographic/after.html)
+
+---
+
 ## Motion is real (three frames per pack)
 
 Screenshots freeze animation, so every claim about motion proves itself in a strip. Three frames per pack, spaced ~1.6 s apart in virtual time &mdash; if the pixels change, the motion budget landed:
 
-![motion strip: four packs, three frames each](gold/domains/motion-strip.png?v=texas-4)
+![motion strip: five packs, three frames each](gold/domains/motion-strip.png?v=texas-5)
 
 - **cinematic** &mdash; WebGL2 raymarch field evolves visibly frame to frame.
 - **artistic** &mdash; italic ampersand sways &plusmn;3&deg;.
 - **dashboard** &mdash; chart bars rise into place between frames.
 - **photography** &mdash; deliberately still.
+- **infographic** &mdash; Lone Star pulse + bluebonnet sway on the paper board.
 
 ---
 
@@ -430,6 +465,7 @@ Every visual is a real file in this repo, generated locally by a script you can 
 | Regenerates | Command |
 |-------------|---------|
 | Per-pack full-page `after.png` shots used by every case study above | `python gold/shots.py` |
+| Infographic poster (full page, real Chrome) &rarr; `gold/domains/infographic/after.png` | `python gold/_shot_full.py gold/domains/infographic/after.html gold/domains/infographic/after.png` |
 | Draw C full-page shot (v2.2, WebGL2, real Chrome) &rarr; `gold/webpage/after-3-full.png` | `python gold/_shot_full.py gold/webpage/after-3.html gold/webpage/after-3-full.png` |
 | Master gallery (`gold/gallery.png`) + per-pack tile heroes | `python gold/gallery.py` |
 | Quartet (`gold/webpage/quartet.png`) + twins triptych (`twins.png`) + per-pack wide before/after compares | `python gold/compare.py` |

@@ -80,6 +80,15 @@ PACKS: list[Pack] = [
         after_h=900,
     ),
     Pack(
+        slug="infographic",
+        label="/reimagine-it infographic",
+        after_html=ROOT / "gold/domains/infographic/after.html",
+        compare_png=ROOT / "gold/domains/infographic/compare.png",
+        caption="Paper poster, not a dashboard. Priestley 1836\u20131995 timeline on a common year scale. ISOTYPE 8\u00d7100k acres. Custom glyphs. Lossless data table of the six named facts.",
+        after_h=1400,
+        before_h=1400,
+    ),
+    Pack(
         slug="cinematic-glassmorphism",
         label="/reimagine-it webpage cinematic glassmorphism",
         after_html=ROOT / "gold/modifiers/cinematic-glassmorphism/after.html",

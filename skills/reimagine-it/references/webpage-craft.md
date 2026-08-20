@@ -21,6 +21,7 @@ If the user gave a second word (`/reimagine-it webpage <domain>`), route to the 
 | `ecommerce` | [domains/ecommerce.md](domains/ecommerce.md) — product plates + price ladder + one CTA |
 | `landing` | [domains/landing.md](domains/landing.md) — one-viewport magnet + one CTA + one proof strip |
 | `portfolio` | [domains/portfolio.md](domains/portfolio.md) — study per project, not a card grid |
+| `infographic` (also a visual-form token) | [domains/infographic.md](domains/infographic.md) — paper poster of an argument: common-scale timeline, ISOTYPE unit counts, custom glyphs, data table. Not a dashboard. |
 
 ### Third word (or `--style <name>`): modifier
 

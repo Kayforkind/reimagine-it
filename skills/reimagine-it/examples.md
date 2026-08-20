@@ -44,17 +44,21 @@ Public **tested results** (live exits, not stories): repo-root [README.md](../..
 
 ## C — Ledger / numbers (`/reimagine-it infographic`)
 
-**Context:** `ledger/CONTRIBUTIONS.jsonl`.
+**Context:** `ledger/CONTRIBUTIONS.jsonl` **or** any source that names dates, counts, and magnitudes (gold uses `gold/webpage/before.html`).
 
-**Lock:** A stranger sees the trail as a skyline in three seconds.
+**Lock:** A stranger can state the question and the finding from one still. Encodings are position/length or ISOTYPE *counts* — never area pies.
 
 **Notes:** riddle the object · microscopic vastness · weenie · title last.
 
-**Hero:** `reimagined/2026-08-18-ledger-skyline/index.html` — each line is a building; height = kind of work.
+**Hero (gold):** `gold/domains/infographic/after.html` — same Texas notebook as a portrait-grid paper poster. Priestley timeline 1836–1995 on a common year scale; eight equal acre-units for Big Bend’s 800,000 acres; custom glyphs (mission, ridge, capitol, star, bloom, horns); lossless data table of the six named facts.
+
+**Hero (ledger):** `reimagined/2026-08-18-ledger-skyline/index.html` — each line is a building; height = kind of work.
+
+**Pack:** [references/domains/infographic.md](references/domains/infographic.md) · research [references/research/infographic-craft.md](references/research/infographic-craft.md)
 
 **Stretch:** `/reimagine-it 3js` walk the skyline, **or** `/reimagine-it code` a query that reprints the skyline as a CLI.
 
-**Not:** a markdown table of the same JSONL.
+**Not:** a markdown table of the same JSONL. **Not:** a dashboard of KPI tiles. **Not:** enlarged pictograms meaning “more.”
 
 ---
 

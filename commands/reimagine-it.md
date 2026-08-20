@@ -18,7 +18,8 @@ Copy this file to `~/.cursor/commands/reimagine-it.md` if you want the slash in 
 | `/reimagine-it` | Sniff → adjacent possible → four notes → hero artifact + stretch. **No interview.** |
 | `/reimagine-it interview` | Optional talk. Agent decides questions (one at a time + recommended answer), then builds |
 | `/reimagine-it code` / `cli` / `protocol` / `demo` / `prose` / `product` / `architecture` / `experiment` | Force form family |
-| `/reimagine-it svg` / `3js` / `infographic` / `canvas` / `html` | Force visual |
+| `/reimagine-it svg` / `3js` / `infographic` / `canvas` / `html` | Force visual. `infographic` also loads the infographic domain pack (poster, not dashboard). |
+| `/reimagine-it webpage infographic` | Same pack, via the domain token. |
 | `/reimagine-it interview cli` | Combine |
 | `/reimagine-it --notes` | Include the four notes in the report |
 | `/reimagine-it --plan-only` | Lock + notes + form; do not write files |

@@ -79,6 +79,13 @@ PACKS: list[Shot] = [
         h=1600,
     ),
     Shot(
+        slug="infographic",
+        label="/reimagine-it infographic",
+        after_html=ROOT / "gold/domains/infographic/after.html",
+        after_png=ROOT / "gold/domains/infographic/after.png",
+        h=2900,
+    ),
+    Shot(
         slug="cinematic-glass",
         label="/reimagine-it webpage cinematic glassmorphism",
         after_html=ROOT / "gold/modifiers/cinematic-glassmorphism/after.html",
