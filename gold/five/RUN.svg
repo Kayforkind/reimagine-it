@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 342" role="img" aria-label="Suite results">
+<title>gold/five suite results</title>
+<rect width="100%" height="100%" fill="#0c0e12"/>
+<text x="32" y="40" fill="#8b97a4" font-size="11" letter-spacing="2.4" font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">AWE: SHIPPED</text>
+<text x="32" y="62" fill="#7ee0c0" font-size="18" font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">gold/five &#8212; 13 runs, 0 failed</text>
+<rect x="32" y="78" width="656" height="36" rx="8" fill="#171c24" stroke="#2a3340"/>
+<text x="52" y="102" fill="#e8edf4" font-size="13" font-family="ui-monospace, Consolas, Menlo, monospace">1. CLI stdin — /awe-me</text>
+<rect x="592" y="86" width="72" height="20" rx="6" fill="#12352c" stroke="#1e5c4d"/>
+<text x="628" y="102" fill="#7ee0c0" font-size="11" letter-spacing="2" text-anchor="middle" font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">PASS</text>
+<rect x="32" y="122" width="656" height="36" rx="8" fill="#171c24" stroke="#2a3340"/>
+<text x="52" y="146" fill="#e8edf4" font-size="13" font-family="ui-monospace, Consolas, Menlo, monospace">2. First-run door — /inspire-me</text>
+<rect x="592" y="130" width="72" height="20" rx="6" fill="#12352c" stroke="#1e5c4d"/>
+<text x="628" y="146" fill="#7ee0c0" font-size="11" letter-spacing="2" text-anchor="middle" font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">PASS</text>
+<rect x="32" y="166" width="656" height="36" rx="8" fill="#171c24" stroke="#2a3340"/>
+<text x="52" y="190" fill="#e8edf4" font-size="13" font-family="ui-monospace, Consolas, Menlo, monospace">3. Ledger skyline — /awe-me infographic</text>
+<rect x="592" y="174" width="72" height="20" rx="6" fill="#12352c" stroke="#1e5c4d"/>
+<text x="628" y="190" fill="#7ee0c0" font-size="11" letter-spacing="2" text-anchor="middle" font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">PASS</text>
+<rect x="32" y="210" width="656" height="36" rx="8" fill="#171c24" stroke="#2a3340"/>
+<text x="52" y="234" fill="#e8edf4" font-size="13" font-family="ui-monospace, Consolas, Menlo, monospace">4. Layer law — /awe-me architecture</text>
+<rect x="592" y="218" width="72" height="20" rx="6" fill="#12352c" stroke="#1e5c4d"/>
+<text x="628" y="234" fill="#7ee0c0" font-size="11" letter-spacing="2" text-anchor="middle" font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">PASS</text>
+<rect x="32" y="254" width="656" height="36" rx="8" fill="#171c24" stroke="#2a3340"/>
+<text x="52" y="278" fill="#e8edf4" font-size="13" font-family="ui-monospace, Consolas, Menlo, monospace">5. This repo gold — /awe-me</text>
+<rect x="592" y="262" width="72" height="20" rx="6" fill="#12352c" stroke="#1e5c4d"/>
+<text x="628" y="278" fill="#7ee0c0" font-size="11" letter-spacing="2" text-anchor="middle" font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">PASS</text>
+<text x="32" y="324" fill="#8b97a4" font-size="11" font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">Captured 2026-08-20T01:06:42Z &#183; python.exe 3.13.3 &#183; re-run: python gold/five/run.py</text>
+</svg>

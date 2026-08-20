@@ -3,3 +3,8 @@ local.md
 Thumbs.db
 *.log
 .cursor/
+gold/five/02-door/door.txt
+gold/*.bak
+gold/five/**/*-render.png
+gold/*-render.png
+docs/*-render.png

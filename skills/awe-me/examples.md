@@ -1,5 +1,7 @@
 # Examples
 
+Public **tested results** (live exits, not stories): repo-root [README.md](../../README.md#tested-5). Re-run: `python gold/five/run.py`.
+
 ## Live gold (this repo)
 
 `gold/awe.py` is example A made runnable on **this** skill: `--fail` exits 1 with a vibe list; `--ship` exits 0 and writes `gold/shipped.json`. Same two beats in `gold/index.html`.

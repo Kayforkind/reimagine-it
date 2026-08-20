@@ -8,3 +8,5 @@ python gold/awe.py --ship   # SHIP → gold/shipped.json
 ```
 
 Open `index.html` for the same two beats without Python. Note that drove it: reverse demo.
+
+Smoke test from repo root: `./gold/test_awe.ps1`.

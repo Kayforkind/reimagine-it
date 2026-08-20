@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 336 320" role="img" aria-label="Three PRs as a skyline">
+<title>Ledger skyline</title>
+<rect width="100%" height="100%" fill="#0c0e12"/>
+<text x="40" y="34" fill="#8b97a4" font-size="11" letter-spacing="2.4" font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">AWE: shipped</text>
+<rect x="40" y="120" width="72" height="140" fill="#7ee0c0"/>
+<text x="79" y="252" fill="#04251c" font-size="11" font-family="ui-monospace, Consolas, Menlo, monospace" transform="rotate(-90 79 252)">stdin-pipe</text>
+<rect x="132" y="180" width="72" height="80" fill="#7ee0c0"/>
+<text x="170" y="252" fill="#04251c" font-size="8" font-family="ui-monospace, Consolas, Menlo, monospace" transform="rotate(-90 170 252)">first-run-door</text>
+<rect x="224" y="150" width="72" height="110" fill="#7ee0c0"/>
+<text x="263" y="252" fill="#04251c" font-size="11" font-family="ui-monospace, Consolas, Menlo, monospace" transform="rotate(-90 263 252)">layer-law</text>
+</svg>

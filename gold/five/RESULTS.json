@@ -1,0 +1,136 @@
+{
+  "started": "2026-08-20T01:06:42Z",
+  "python": "3.13.3",
+  "failed": 0,
+  "runs": [
+    {
+      "cmd": "before.py",
+      "cwd": "gold/five/01-cli",
+      "exit": 2,
+      "stdout": "",
+      "stderr": "usage: before.py FILE\n",
+      "stdin": true,
+      "expect": 2,
+      "pass": true
+    },
+    {
+      "cmd": "after.py --stdin",
+      "cwd": "gold/five/01-cli",
+      "exit": 0,
+      "stdout": "{\"stdin\": true, \"bytes\": 18}\n",
+      "stderr": "",
+      "stdin": true,
+      "expect": 0,
+      "pass": true
+    },
+    {
+      "cmd": "after.py --stdin",
+      "cwd": "gold/five/01-cli",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "empty stdin\n",
+      "stdin": true,
+      "expect": 1,
+      "pass": true
+    },
+    {
+      "cmd": "before.py",
+      "cwd": "gold/five/02-door",
+      "exit": 1,
+      "stdout": "Welcome to Local MCP.\nPlease read the architecture notes, then the security notes, then ask Slack.\n",
+      "stderr": "first-run: no command to copy. exit 1\n",
+      "stdin": false,
+      "expect": 1,
+      "pass": true
+    },
+    {
+      "cmd": "after.py",
+      "cwd": "gold/five/02-door",
+      "exit": 1,
+      "stdout": "FAIL\n",
+      "stderr": "broken: copy door.example to door.txt then re-run\n",
+      "stdin": false,
+      "expect": 1,
+      "pass": true
+    },
+    {
+      "cmd": "after.py",
+      "cwd": "gold/five/02-door",
+      "exit": 0,
+      "stdout": "OK\n",
+      "stderr": "",
+      "stdin": false,
+      "expect": 0,
+      "pass": true
+    },
+    {
+      "cmd": "before.py",
+      "cwd": "gold/five/03-ledger",
+      "exit": 0,
+      "stdout": "{\"kind\":\"pr\",\"title\":\"stdin-pipe\"}\n{\"kind\":\"docs\",\"title\":\"first-run-door\"}\n{\"kind\":\"arch\",\"title\":\"layer-law\"}\n",
+      "stderr": "",
+      "stdin": false,
+      "expect": 0,
+      "pass": true
+    },
+    {
+      "cmd": "after.py",
+      "cwd": "gold/five/03-ledger",
+      "exit": 0,
+      "stdout": "wrote index.html rows=3\n",
+      "stderr": "",
+      "stdin": false,
+      "expect": 0,
+      "pass": true
+    },
+    {
+      "cmd": "assert titles in index.html",
+      "cwd": "gold/five/03-ledger",
+      "exit": 0,
+      "stdout": "all three titles present\n",
+      "stderr": "",
+      "expect": 0,
+      "pass": true
+    },
+    {
+      "cmd": "check.py",
+      "cwd": "gold/five/04-layers",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "FAIL: pkg_b/core.py imports pkg_a.internal\n",
+      "stdin": false,
+      "expect": 1,
+      "pass": true
+    },
+    {
+      "cmd": "check.py",
+      "cwd": "gold/five/04-layers",
+      "exit": 0,
+      "stdout": "OK: layer law held\n",
+      "stderr": "",
+      "stdin": false,
+      "expect": 0,
+      "pass": true
+    },
+    {
+      "cmd": "awe.py --fail",
+      "cwd": "gold",
+      "exit": 1,
+      "stdout": "- make it more cinematic\n- wow-factor infographic\n- maybe a Three.js thing\n- inspiring onboarding vibes\n- surprise them somehow\n",
+      "stderr": "AWE: blocked \u2014 a list of vibes is not an artifact\n",
+      "stdin": false,
+      "expect": 1,
+      "pass": true
+    },
+    {
+      "cmd": "awe.py --ship",
+      "cwd": "gold",
+      "exit": 0,
+      "stdout": "{\n  \"awe\": \"shipped\",\n  \"mode\": \"awe-me\",\n  \"about\": \"A stranger sees a vibe list die, then the same context as one proving command.\",\n  \"hero\": \"gold/awe.py --ship\",\n  \"stretch\": \"npx skills add kazimrmerchant/skill-slice --skill awe-me\",\n  \"verified\": \"this command exits 0; gold/awe.py --fail exits 1\"\n}\n",
+      "stderr": "",
+      "stdin": false,
+      "expect": 0,
+      "pass": true
+    }
+  ]
+}

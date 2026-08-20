@@ -23,3 +23,7 @@ Open a creative mind on **this** context. Ship an artifact (code, CLI, protocol,
 `/inspire-me` is the same chair (elevation + Tuesday handle).
 
 Interview only if the user passed `interview`.
+
+## Visuals in this repo
+
+Static SVG lives in `gold/hero.svg` (the metaphor) and `docs/flow.svg` (the decision path). `python gold/five/run.py` rewrites `gold/five/RUN.svg` and `gold/five/03-ledger/index.svg` from live fixture output. If you change a fixture, re-run the suite so the images stay honest.
