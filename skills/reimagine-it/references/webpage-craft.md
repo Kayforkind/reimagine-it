@@ -46,6 +46,10 @@ Example: `--font "Playfair Display, Iowan Old Style, Georgia, serif"` becomes th
 
 If the user passed `--ref <name>`, load [locks/<name>.md](locks/) *instead of* choosing a domain pack. Locks are extracted design-DNA packs — palette + type stack + motifs + motion + 3D signatures. Follow them exactly; do not "improve" the locked design without being asked.
 
+### Leftover words — open brief
+
+Anything after known form / domain / modifier / flag tokens is a **creative lens** (open vocabulary). Follow it. Do not require `domains/<word>.md`. Do not drop the words. Source facts still come from the source.
+
 ### No tokens
 
 Use this spine alone; the aesthetic is a sober designed page.
@@ -60,7 +64,7 @@ Non-negotiable across every domain token and the default. Not floors — real fe
    - one active on a state (hover tilt, focus pulse — CSS transition)
    - one narrative (bar rising in, path drawing itself via `stroke-dasharray`, sweep line traversing a chart)
    Two stills spaced 500ms apart must show visible change frame-to-frame. Scroll-hijacking parallax is not a motion move.
-3. **3D that reads in a still.** Not "perspective is set." At least one element with a computed rotation ≥ 12° **and** a drop shadow blur ≥ 24px, or `translateZ` ≥ 30px with a real box-shadow. A stranger looking at the PNG must be able to say "that card is in front of that one" without playback.
+3. **3D that reads in a still.** Not "perspective is set." At least one element with a computed rotation ≥ 12° **and** a drop shadow blur ≥ 24px, or `translateZ` ≥ 30px with a real box-shadow. A stranger looking at the PNG must be able to say "that card is in front of that one" without playback. **Exception — `infographic`:** the poster stays orthographic. Do not `rotateX` / `perspective` the board (that pinches the top and warps the common-scale timeline). Depth is a ≥28px paper drop-shadow only; see [domains/infographic.md](domains/infographic.md).
 4. **WebGL2 is available and encouraged for the `cinematic` / `3d` token.** Inline `<canvas>` + inline shaders in `<script type="x-shader/x-fragment">`. No CDN. No `import` from `https://`. A vendored `vendor/three.module.min.js` sibling is allowed for full three.js scenes and must be flagged in the report — the folder must still open portable.
 
 If a redesign lands zero of these, it did not earn `/reimagine-it webpage`. If it lands them syntactically but a still doesn't prove them, tighten motion budget / bigger tilt / add a shadow.

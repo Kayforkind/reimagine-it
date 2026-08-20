@@ -31,7 +31,6 @@
   body {
     padding: 48px 28px 80px;
     min-height: 100vh;
-    perspective: 1800px;
   }
   ::selection { background: var(--gold); color: var(--ink); }
   a { color: var(--hot); text-decoration: none; border-bottom: 1px solid rgba(178,34,52,.35); transition: color 140ms ease-out, border-color 140ms ease-out; }
@@ -46,18 +45,16 @@
     margin: 0 auto;
     background: var(--paper);
     padding: 40px 48px 56px;
-    transform: rotateX(12deg);
-    transform-origin: center top;
     box-shadow:
-      0 48px 90px -18px rgba(26,33,56,.48),
-      0 12px 24px -8px rgba(26,33,56,.18),
+      0 28px 56px -12px rgba(26,33,56,.32),
+      0 8px 18px -8px rgba(26,33,56,.14),
       0 0 0 1px var(--rule);
     position: relative;
     animation: board-settle 1.4s ease-out both;
   }
   @keyframes board-settle {
-    from { transform: rotateX(0deg) translateY(22px); opacity: 0.72; }
-    to { transform: rotateX(12deg) translateY(0); opacity: 1; }
+    from { transform: translateY(16px); opacity: 0.85; }
+    to { transform: translateY(0); opacity: 1; }
   }
   .board::before {
     content: "";
@@ -218,7 +215,7 @@
     }
     :focus-visible { transition: none; }
     .star-mark, .bloom, .horn-tip, .rail-star { transform: none; opacity: 1; }
-    .board { animation: none; transform: rotateX(12deg); opacity: 1; }
+    .board { animation: none; transform: none; opacity: 1; }
   }
 </style>
 </head>

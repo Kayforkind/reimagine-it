@@ -660,24 +660,47 @@ def render_quartet(browser: str) -> tuple[bool, int]:
 
 
 def main() -> int:
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Render gold before/after compare PNGs.")
+    parser.add_argument(
+        "--pack",
+        metavar="SLUG",
+        help="Render only this pack (e.g. infographic). Skips twins/quartet.",
+    )
+    args = parser.parse_args()
+
     if not BEFORE_HTML.exists():
         print(f"missing before: {BEFORE_HTML}", file=sys.stderr)
         return 2
 
+    packs = PACKS
+    if args.pack:
+        packs = [p for p in PACKS if p.slug == args.pack]
+        if not packs:
+            known = ", ".join(p.slug for p in PACKS)
+            print(f"unknown pack {args.pack!r}. known: {known}", file=sys.stderr)
+            return 2
+
     browser = find_browser()
     print(f"browser: {browser}")
 
-    # shoot the shared before once
-    ok = shoot(browser, file_url(BEFORE_HTML), BEFORE_PNG, w=1400, h=900, ms=1500)
-    status = "OK  " if ok else "FAIL"
-    size = BEFORE_PNG.stat().st_size if BEFORE_PNG.exists() else 0
-    print(f"  {status}  shared before -> {BEFORE_PNG.relative_to(ROOT)}  ({size:,} bytes)")
+    # shoot the shared before once (reuse when targeting a single pack)
+    if args.pack and BEFORE_PNG.exists():
+        ok = True
+        size = BEFORE_PNG.stat().st_size
+        print(f"  KEEP  shared before -> {BEFORE_PNG.relative_to(ROOT)}  ({size:,} bytes)")
+    else:
+        ok = shoot(browser, file_url(BEFORE_HTML), BEFORE_PNG, w=1400, h=900, ms=1500)
+        status = "OK  " if ok else "FAIL"
+        size = BEFORE_PNG.stat().st_size if BEFORE_PNG.exists() else 0
+        print(f"  {status}  shared before -> {BEFORE_PNG.relative_to(ROOT)}  ({size:,} bytes)")
 
     if not ok:
         return 1
 
     failed: list[str] = []
-    for pack in PACKS:
+    for pack in packs:
         if not pack.after_html.exists():
             print(f"  SKIP  {pack.slug:26s} (missing {pack.after_html.relative_to(ROOT)})")
             failed.append(pack.slug)
@@ -687,6 +710,13 @@ def main() -> int:
         print(f"  {status}  {pack.slug:26s} -> {pack.compare_png.relative_to(ROOT)}  ({size:,} bytes)")
         if not ok:
             failed.append(pack.slug)
+
+    if args.pack:
+        if failed:
+            print(f"\n{len(failed)} pack(s) failed: {', '.join(failed)}", file=sys.stderr)
+            return 1
+        print(f"\nRendered pack {args.pack!r}.")
+        return 0
 
     # Twins triptych: same source, same command, two runs of /reimagine-it webpage.
     ok, size = render_twins(browser)

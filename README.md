@@ -20,6 +20,7 @@
 /reimagine-it webpage dashboard bento
 /reimagine-it webpage landing   neon
 /reimagine-it infographic                                    <- paper poster, not a dashboard
+/reimagine-it infographic <any leftover words>               <- open brief; not a theme catalog
 ```
 
 <p align="center">
@@ -378,7 +379,7 @@ Open the live file &rarr; [`gold/webpage/after-3.html`](gold/webpage/after-3.htm
 
 `/reimagine-it infographic`
 
-*The notebook as a paper poster of an argument &mdash; one question, answered in marks you can read in a still. Not a dashboard.*
+*The notebook as a paper poster of an argument &mdash; one question, answered in marks you can read in a still. Not a dashboard. This gold is **one draw of this Texas source**. A different file (or leftover words after the token) must change palette, pattern, glyphs, and layout. Leftover words are an open brief, not a closed list of themes.*
 
 **Before.** Same raw Texas notebook.
 
@@ -389,7 +390,7 @@ Open the live file &rarr; [`gold/webpage/after-3.html`](gold/webpage/after-3.htm
 - **Palette** &mdash; parchment ground (`#f4ecd8`) with navy ink, star-red, and sun gold. Same Lone-Star family as every other Texas draw; weighted as *paper*, not night ops.
 - **Motif** &mdash; a **Priestley timeline 1836&ndash;1995** on a common year scale (Alamo, Austin + flag sharing 1839, Bluebonnet, Big Bend, Longhorn). An **ISOTYPE strip** of eight equal cottonwood-and-ridge units for Big Bend's 800,000 acres (Neurath: more copies, never a bigger icon). Custom glyphs for mission, ridge, capitol, star, bloom, horns. A schematic Texas with three pins. A **lossless data table** of the six named facts.
 - **Motion** &mdash; Lone Star pulse, bluebonnet sway, longhorn horn-tip opacity. Compositor-only (`transform` / `opacity`). The encodings are true at frame 0 so a PNG is enough.
-- **3D** &mdash; the poster board sits at `rotateX(12deg)` with a 90 px paper drop-shadow. Bars are not extruded (lie factor).
+- **3D** &mdash; the poster is **flat** (no `rotateX`). Depth is a paper drop-shadow only, so the timeline stays a true common scale. Bars are not extruded (lie factor).
 
 **Craft floor** (v2.3, all shipped in this file).
 

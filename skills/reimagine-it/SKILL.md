@@ -7,9 +7,9 @@ description: >-
   /reimagine-it, say "reimagine it", "reinvent this", "reimagine this page",
   want surprise, adjacent possible, make-strange, or are stuck recognizing
   instead of seeing. Composable modifiers (glassmorphism, bento, neon, ...),
-  font overrides, and a lock system that captures a shipped design as a
-  reusable reference. Not a brainstorm list. Not /better (quality pass). Not
-  a feasibility grill.
+  leftover words as an open creative brief, font overrides, and a lock
+  system that captures a shipped design as a reusable reference. Not a
+  brainstorm list. Not /better (quality pass). Not a feasibility grill.
 license: MIT
 metadata:
   author: kazimrmerchant
@@ -48,14 +48,15 @@ Optional tokens. **Combine freely.** You pick tokens; the agent picks questions,
 | `--variants N` | Ask for N distinct outputs from the same brief instead of one. | Pick N distinct make-strange moves; write to `.../var-1/`, `.../var-2/`, ... |
 | `--seed <n>` | Pin the creative variation sample so two runs produce **the same** draw. Default is fresh every run. | Use the seed to deterministically pick one option per variation axis. |
 | `--variant a\|b\|c\|...` | Shorthand for a named seed (`a` = first canonical draw, `b` = second, …). | Reproduce a specific shipped draw; useful for locks (`--variant b --lock`). |
-| `<brief>` | Extra intent. | Still sniff context; brief does not replace it. |
+| `<brief>` | Any leftover words after known tokens. Open vocabulary — not a theme catalog. | Treat as a creative lens on register, ground, motif, pattern, type, motion. Still sniff context; brief does not replace source facts. |
 
-Combine freely. Example calls:
+Combine freely. Known form / domain / modifier tokens load packs. **Every other word is kept** and followed. There is no list of allowed leftover words.
 
 ```
 /reimagine-it webpage cinematic
 /reimagine-it webpage infographic
 /reimagine-it infographic
+/reimagine-it infographic <any leftover words>
 /reimagine-it webpage artistic glassmorphism --font "Playfair Display, serif"
 /reimagine-it pdf document
 /reimagine-it lock gold/domains/cinematic/after.html as house-cinema
@@ -84,7 +85,7 @@ Every mode **must ship an artifact** (unless `--plan-only`). A list of vibes is 
 
 ```
 REIMAGINED Progress:
-- [ ] 0. Mode + categories parsed + context sniffed
+- [ ] 0. Mode + categories parsed (leftover words kept as brief) + context sniffed
 - [ ] 0.5. Interview only if that category was chosen
 - [ ] 0.75. Adjacent possible named (private)
 - [ ] 0.85. Anchor list — extract 3–5 concrete nouns/proper nouns/dates/verbs from the source; every plate must map back
@@ -100,6 +101,17 @@ REIMAGINED Progress:
 - [ ] 5. Verify with evidence (functional + visual + craft-floor scan)
 - [ ] 6. Report REIMAGINED: shipped | partial | blocked
 ```
+
+### 0. Token parse (open brief — do not drop words)
+
+This skill is a creative engine. The user may type anything after `/reimagine-it`. Do not require a matching pack. Do not autocorrect unknown words into a listed domain. Do not ask "what style do you want?"
+
+1. Split on whitespace. Consume flags and their arguments (`--seed`, `--style`, `--font`, `--ref`, `--variants`, `--sound`, `--notes`, `--plan-only`, `--full`, `--variant`, `--allow-fetch`, `--ask-format`, `--list-refs`). Handle `lock … as …` as its own command.
+2. Classify remaining words that **exactly** match a known form, domain (incl. `3d` / `webgl`), or modifier.
+3. **Join every leftover word, in order, as the brief.** Empty brief is allowed. Multi-word briefs are the point.
+4. A known modifier still loads its pack (`neon`, `handdrawn`, …). Leftover words around it stay in the brief.
+
+The brief is a **lens**, not new content and not a closed theme list. Apply it to ground, motif, pattern, type, and motion. Source facts stay source facts. Log it on the report `Brief:` line (or `none`).
 
 ### 0. Context sniff (do not skip)
 
@@ -153,11 +165,11 @@ Do not dump the bank in chat.
 
 Follow [references/forms.md](references/forms.md) unless a category forced the family.
 
-**Webpage / HTML / infographic** → load [references/webpage-craft.md](references/webpage-craft.md) before writing the file. If the user added a **domain** (second word), also load the matching pack in [references/domains/](references/domains/). Token `infographic` — as a visual form *or* as a domain — always loads [references/domains/infographic.md](references/domains/infographic.md) and [references/research/infographic-craft.md](references/research/infographic-craft.md). If they added a **modifier** (third word or `--style`), also load the matching pack in [references/modifiers/](references/modifiers/). If they passed `--ref <name>`, load [references/locks/<name>.md](references/locks/) instead of (or in addition to) a domain — treat locks as domain packs.
+**Webpage / HTML / infographic** → load [references/webpage-craft.md](references/webpage-craft.md) before writing the file. If the user added a **domain** (second word), also load the matching pack in [references/domains/](references/domains/). Token `infographic` — as a visual form *or* as a domain — always loads [references/domains/infographic.md](references/domains/infographic.md) and [references/research/infographic-craft.md](references/research/infographic-craft.md). If they added a **modifier** (third word or `--style`), also load the matching pack in [references/modifiers/](references/modifiers/). Leftover words are the brief (step 0) — follow them; do not require a pack file. If they passed `--ref <name>`, load [references/locks/<name>.md](references/locks/) instead of (or in addition to) a domain — treat locks as domain packs.
 
 **PDF / document / slides / universal** → load the matching form pack in [references/forms/](references/forms/). These packs specify the regeneration tool (ReportLab, Weasyprint, python-docx, python-pptx, LaTeX) and the "reimagine" bar for that medium.
 
-**Any webpage output** — with or without a domain / modifier / lock — must land **hero-scale inline SVG doing real work, three moving elements at any moment, and 3D that reads in a still** (rotation ≥ 12° + shadow blur ≥ 24px, or `translateZ` ≥ 30px + real shadow, or inline WebGL2). If a screenshot cannot prove all three, the redesign did not earn the form.
+**Any webpage output** — with or without a domain / modifier / lock — must land **hero-scale inline SVG doing real work, three moving elements at any moment, and 3D that reads in a still** (rotation ≥ 12° + shadow blur ≥ 24px, or `translateZ` ≥ 30px + real shadow, or inline WebGL2). If a screenshot cannot prove all three, the redesign did not earn the form. **Exception — `infographic`:** the poster stays orthographic (paper drop-shadow only; no `rotateX` on the board).
 
 **Non-webpage output** — the equivalent bar lives in the form pack (e.g. PDF: at least one full-bleed spread with a data-driven diagram; slides: at least one animated shape via reveal.js fragments or LibreOffice smart animations; document: at least one pull-quote block + one figure).
 
@@ -176,7 +188,7 @@ Follow [references/forms.md](references/forms.md) unless a category forced the f
 | **Reader register** | The lens the whole page speaks through — governs pacing, voice, and how the other axes combine. `dashboard-live` (Bloomberg / product-page cadence), `editorial-drift` (magazine feature, deliberate pauses), `field-guide-quiet` (Colossal / Feixen still confidence), `cinematic-shader` (Cartier / Lando Norris — full-bleed shader hero, sound-optional), `neubrutalist-blunt` (thick borders, hard shadow, saturated palette, no gradients), `poster-jazz-improv` (Troxler — single type size, non-l-to-r reading, high asymmetry), `data-humanist` (Lupi / Fragapane — the identity IS the data, custom visual alphabet from the source). |
 | **Ground / palette weighting** | The content-derived palette usually contains ~4 hues (e.g. Texas notebook → navy · cream · red · gold). Each draw picks a *different anchor hue for the ground*: `deep-night` (navy ground, warm accent), `parchment` (cream ground, red accent), `void` (near-black ground, single-hue accent), `raw-paper` (off-white ground, ink accent), `field-blue` (mid-blue ground, cream accent), `shader-glow` (fullbleed animated gradient/shader as ground, ink on top). |
 | **Hero move** | `kpi-skyline`, `illustrated-map`, `kinetic-type-headline`, `inline-shader-hero` (WebGL2 full-bleed with scroll-driven uniforms), `oversized-numeral`, `letterpress-plate`, `photograph-strip`, `weenie-object`, `variable-font-morph-hero` (scroll-driven `wght`/`wdth` axis pulse; letter-spacing buffer reserved), `sticky-evidence-pin` (BBC-Lost-Tablet pattern — artifact stays fixed while narrative scrolls), `oversized-quote-with-drop-cap`, `priestley-timeline` (dates on a common year scale), `isotype-unit-count` (N copies of a same-size pictogram), `portrait-grid-poster` (hero encoding + supporting grid). |
-| **Infographic layout** (when form or domain is `infographic`) | InfoAlign six: `grid` (small multiples, identical scales), `star` (center weenie + radiating facts), `portrait` (Priestley timeline), `landscape` (wide common-scale), `portrait-grid` (hero claim + supporting grid — gold default), `spiral` (only if the source metaphor is a spiral). |
+| **Infographic layout** (when form or domain is `infographic`) | InfoAlign six, picked from **this** source's data shape (not from gold): `grid` (small multiples, identical scales), `star` (center weenie + radiating facts), `portrait` (Priestley timeline), `landscape` (wide common-scale), `portrait-grid` (hero claim + supporting grid), `spiral` (only if the source metaphor is a spiral). Gold used portrait-grid for the Texas notebook; do not default to it. |
 | **Plate style** | For a 3-item section: `dashboard-tile`, `editorial-dropcap`, `letterpress-card` (numbered, with stamp), `line-art-token`, `photograph-plate`, `bento-cell`, `index-card-stack`, `custom-data-glyph` (Fragapane-style organic mark derived from a datapoint — leaves, braids, snakes, whatever the content demands), `poster-tile-one-size` (Troxler — every info at one type size, composition alone carries hierarchy). |
 | **Motion budget** | `dashboard-live` (counters + pulses), `editorial-drift` (petals / dust / paper), `kinetic-type-sway` (headline sways), `shader-loop` (fullbleed shader), `still-with-one-loop` (one animated element), `no-motion`, `scroll-driven-axis-morph` (variable font `wght`/`wdth` bound to `animation-timeline: scroll(root)`), `sticky-highlight-reveal` (BBC / Pudding — pinned evidence with contextual line lighting), `view-transition-morph` (`@view-transition { navigation: auto; }` for multi-page packs — zero-JS native crossfade). |
 | **Type accent** | `sans+mono`, `serif+italic`, `small-caps`, `mixed-italic`, `display-cut` (oversized cuts), `blackletter+grotesk`, `custom-display+workhorse-sans` (M/M Paris pattern — one bespoke display voice + one neutral sans body — Editorial New + Neue Montreal, or Söhne + Signifier, etc.), `variable-single-family` (one variable font family, three axes doing the hierarchy work — GT Standard / Recursive). |
@@ -185,7 +197,7 @@ Follow [references/forms.md](references/forms.md) unless a category forced the f
 Rules:
 
 1. **Never repeat the previous draw's exact combination.** Track it in memory or the local ledger for the session.
-2. **Content narrows the set** — do not pick `card-fan` for a printed field guide, do not pick `letterpress-deboss` for a WebGL cinematic. The content decides which sub-space is coherent; variation happens inside it.
+2. **Content narrows the set** — do not pick `card-fan` for a printed field guide, do not pick `letterpress-deboss` for a WebGL cinematic. The content decides which sub-space is coherent; variation happens inside it. The leftover brief may reweight that sub-space (ground, pattern, type, motion) without adding facts.
 3. **The reader register governs coherence.** Once you pick a register, the other axes must fit its grammar. A `cinematic-shader` register needs `inline-shader-hero` + `shader-loop` motion + `matcap-hero` or `alcove-scenes` 3D; a `poster-jazz-improv` register needs `poster-tile-one-size` plates + `no-3D-just-shadow` + high asymmetry. Do not glue incompatible axes.
 4. **`--seed <n>` pins the sample deterministically.** Given the same source + same seed, the output must be byte-equivalent so users can reproduce a specific draw for locks or PRs.
 5. **`--variant a` / `--variant b` / …** are named seeds. `a` is the first canonical draw, `b` the second, etc. Ship them under `after.html`, `after-2.html`, `after-3.html` when a gold pack demonstrates the variance.
@@ -193,7 +205,7 @@ Rules:
 
 Gold demonstration (`gold/webpage/`): Draw A `after.html` (dashboard-live · deep-night), Draw B `after-2.html` (editorial-drift · parchment), Draw C `after-3.html` (cinematic-shader · shader-glow — the raised bar from v2.2 research). `twins.png` proves the range at a glance.
 
-Gold infographic (`gold/domains/infographic/after.html`, v2.3): same Texas notebook as a **portrait-grid statistical poster** — Priestley 1836–1995 timeline, ISOTYPE 8×100k acres, custom source glyphs, lossless data table. Not a dashboard.
+Gold infographic (`gold/domains/infographic/after.html`, v2.3): **one** Texas-notebook draw — a flat portrait-grid statistical poster (no `rotateX`) with Priestley 1836–1995, ISOTYPE 8×100k acres, custom source glyphs, lossless data table. Live infographic runs must derive palette, pattern, glyphs, and layout from **this** source (plus leftover brief). Cloning that gold onto a different source is a fail. Not a dashboard.
 
 ### 2.5 Modifiers · font · lock (extend the pack)
 
@@ -292,6 +304,7 @@ Mode: reimagine-it
 About: <one sentence>
 Hero: <path + how to run/open>
 Domain / modifier / --ref: <if any>
+Brief: <leftover phrase, or none>
 Font stack: <if --font was passed>
 Anchors: <3–5 nouns/proper nouns/dates from the source that every plate mapped back to>
 Draw: <reader-register> · <ground> · <hero-move> · <plate-style> · <motion> · <type-accent> · <3D-signature>
@@ -311,6 +324,8 @@ Lead the user-facing reply with the artifact and the stretch, not the protocol.
 
 - Ship a bullet list instead of an artifact
 - **Return the same draw twice** for the same source without an explicit `--seed`/`--variant` pin
+- **Drop leftover user words** because they are not a named form, domain, or modifier
+- **Clone gold DNA** (Texas parchment/navy/star-red, Lone Star pulse, mission/ridge glyphs) onto a source that is not that notebook
 - **Report `shipped` without the visual verification pass** (5.b) — no exceptions
 - **Paint a plate that literally reads `blank`, `placeholder`, `TBD`, `TODO`, `lorem`, `sample`, `caption`, `…`, `[…]`, `Title goes here`, or any alt-text stand-in.** Empty slot → delete the slot. Real content only.
 - **Ship a render with clipped or overlapped text** (e.g. a foreground shape covering half a label). Fix z-index / padding / `overflow` before reporting `shipped`.

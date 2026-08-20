@@ -32,7 +32,7 @@ The shared spine (`../webpage-craft.md`) is the enforcement floor. Every domain 
 
 1. **Hero-scale inline SVG** doing real work — ≥ 400px on the longest side, real values / real geometry, not a placeholder icon.
 2. **Three moving elements at any moment** — persistent + state + narrative (see spine for the split).
-3. **3D that reads in a still** — rotation ≥ 12&deg; **and** shadow blur ≥ 24px on at least one element, or `translateZ` ≥ 30px with a real box-shadow. `cinematic` upgrades this to inline WebGL2.
+3. **3D that reads in a still** — rotation ≥ 12&deg; **and** shadow blur ≥ 24px on at least one element, or `translateZ` ≥ 30px with a real box-shadow. `cinematic` upgrades this to inline WebGL2. **`infographic` is exempt from tilt:** the poster stays orthographic (paper drop-shadow only) so the common-scale encoding does not warp.
 
 If a variant does not land all three so a stranger can prove it from one PNG, it did not earn the token.
 

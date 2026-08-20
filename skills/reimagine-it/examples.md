@@ -50,7 +50,7 @@ Public **tested results** (live exits, not stories): repo-root [README.md](../..
 
 **Notes:** riddle the object · microscopic vastness · weenie · title last.
 
-**Hero (gold):** `gold/domains/infographic/after.html` — same Texas notebook as a portrait-grid paper poster. Priestley timeline 1836–1995 on a common year scale; eight equal acre-units for Big Bend’s 800,000 acres; custom glyphs (mission, ridge, capitol, star, bloom, horns); lossless data table of the six named facts.
+**Hero (gold):** `gold/domains/infographic/after.html` — *one* Texas-notebook draw: portrait-grid paper poster, Priestley 1836–1995, eight equal acre-units, custom glyphs from *that* source's nouns, lossless table. A different source must produce different DNA (palette, pattern, glyphs, layout). Leftover words after `infographic` are an open brief — a lens, not a theme catalog.
 
 **Hero (ledger):** `reimagined/2026-08-18-ledger-skyline/index.html` — each line is a building; height = kind of work.
 
@@ -58,7 +58,7 @@ Public **tested results** (live exits, not stories): repo-root [README.md](../..
 
 **Stretch:** `/reimagine-it 3js` walk the skyline, **or** `/reimagine-it code` a query that reprints the skyline as a CLI.
 
-**Not:** a markdown table of the same JSONL. **Not:** a dashboard of KPI tiles. **Not:** enlarged pictograms meaning “more.”
+**Not:** a markdown table of the same JSONL. **Not:** a dashboard of KPI tiles. **Not:** enlarged pictograms meaning “more.” **Not:** cloning the Texas gold onto a different source. **Not:** ignoring leftover words because they are not a named domain.
 
 ---
 
