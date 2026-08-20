@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-label="CLI stdin">
+<title>CLI stdin</title>
+<rect width="100%" height="100%" fill="#0c0e12"/>
+<text x="20" y="34" fill="#8b97a4" font-size="11" letter-spacing="2.4" font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">CLI STDIN</text>
+<rect x="20" y="58" width="310" height="180" rx="10" fill="#3a1a1a" stroke="#7a2f2f"/>
+<text x="38" y="88" fill="#e08e7e" font-size="12" letter-spacing="2" font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">BEFORE  exit 2</text>
+<text x="38" y="116" fill="#e8edf4" font-size="13" font-family="ui-monospace, Consolas, Menlo, monospace">$ python before.py</text>
+<text x="38" y="138" fill="#e8edf4" font-size="13" font-family="ui-monospace, Consolas, Menlo, monospace">stdin: piped</text>
+<text x="38" y="160" fill="#e8edf4" font-size="13" font-family="ui-monospace, Consolas, Menlo, monospace">usage: before.py FILE</text>
+<rect x="390" y="58" width="310" height="180" rx="10" fill="#12352c" stroke="#1e5c4d"/>
+<text x="408" y="88" fill="#7ee0c0" font-size="12" letter-spacing="2" font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">AFTER  exit 0</text>
+<text x="408" y="116" fill="#e8edf4" font-size="13" font-family="ui-monospace, Consolas, Menlo, monospace">$ python after.py --stdin</text>
+<text x="408" y="138" fill="#e8edf4" font-size="13" font-family="ui-monospace, Consolas, Menlo, monospace">stdin: piped</text>
+<text x="408" y="160" fill="#e8edf4" font-size="13" font-family="ui-monospace, Consolas, Menlo, monospace">{"stdin": true, "bytes": 18}</text>
+<path d="M 346 148 L 374 148" stroke="#7ee0c0" stroke-width="2" fill="none"/>
+<path d="M 366 142 L 374 148 L 366 154" stroke="#7ee0c0" stroke-width="2" fill="none"/>
+<text x="360" y="136" fill="#7ee0c0" font-size="10" letter-spacing="2" text-anchor="middle" font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">SHIP</text>
+<text x="20" y="276" fill="#8b97a4" font-size="11" font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">empty stdin still fails (exit 1). tested run.</text>
+</svg>

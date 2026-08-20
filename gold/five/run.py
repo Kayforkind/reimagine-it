@@ -17,6 +17,20 @@ RESULTS = ROOT / "RESULTS.md"
 RESULTS_JSON = ROOT / "RESULTS.json"
 RESULTS_SVG = ROOT / "RUN.svg"
 
+DARK = "#0c0e12"
+DIM = "#8b97a4"
+TEXT = "#e8edf4"
+RED = "#e08e7e"
+RED_INK = "#3a1a1a"
+RED_STROKE = "#7a2f2f"
+GREEN = "#7ee0c0"
+GREEN_INK = "#04251c"
+GREEN_STROKE = "#1e5c4d"
+PANEL = "#171c24"
+PANEL_STROKE = "#2a3340"
+GREEN_PANEL = "#12352c"
+RED_PANEL = "#3a1a1a"
+
 
 def capture(
     args: list[str],
@@ -51,6 +65,184 @@ def expect(row: dict[str, object], code: int) -> dict[str, object]:
     row["expect"] = code
     row["pass"] = row["exit"] == code
     return row
+
+
+def two_panel_svg(
+    out: Path,
+    title: str,
+    left_title: str,
+    left_body: list[str],
+    left_color: str,
+    right_title: str,
+    right_body: list[str],
+    right_color: str,
+    footer: str,
+    width: int = 720,
+    height: int = 300,
+) -> None:
+    panel_w = (width - 60) // 2 - 20
+    left_x = 20
+    right_x = width - panel_w - 20
+    left_panel = GREEN_PANEL if left_color == GREEN else (RED_PANEL if left_color == RED else PANEL)
+    left_stroke = GREEN_STROKE if left_color == GREEN else (RED_STROKE if left_color == RED else PANEL_STROKE)
+    right_panel = GREEN_PANEL if right_color == GREEN else (RED_PANEL if right_color == RED else PANEL)
+    right_stroke = GREEN_STROKE if right_color == GREEN else (RED_STROKE if right_color == RED else PANEL_STROKE)
+    parts: list[str] = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" '
+        f'role="img" aria-label="{title}">',
+        f'<title>{title}</title>',
+        f'<rect width="100%" height="100%" fill="{DARK}"/>',
+        (
+            f'<text x="20" y="34" fill="{DIM}" font-size="11" letter-spacing="2.4" '
+            'font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">'
+            f'{title.upper()}</text>'
+        ),
+        (
+            f'<rect x="{left_x}" y="58" width="{panel_w}" height="{height - 120}" rx="10" '
+            f'fill="{left_panel}" stroke="{left_stroke}"/>'
+        ),
+        (
+            f'<text x="{left_x + 18}" y="88" fill="{left_color}" font-size="12" letter-spacing="2" '
+            'font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">'
+            f'{left_title}</text>'
+        ),
+    ]
+    y = 116
+    for line in left_body:
+        parts.append(
+            f'<text x="{left_x + 18}" y="{y}" fill="{TEXT}" font-size="13" '
+            'font-family="ui-monospace, Consolas, Menlo, monospace">'
+            f'{line}</text>'
+        )
+        y += 22
+    parts.extend(
+        [
+            (
+                f'<rect x="{right_x}" y="58" width="{panel_w}" height="{height - 120}" rx="10" '
+                f'fill="{right_panel}" stroke="{right_stroke}"/>'
+            ),
+            (
+                f'<text x="{right_x + 18}" y="88" fill="{right_color}" font-size="12" letter-spacing="2" '
+                'font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">'
+                f'{right_title}</text>'
+            ),
+        ]
+    )
+    y = 116
+    for line in right_body:
+        parts.append(
+            f'<text x="{right_x + 18}" y="{y}" fill="{TEXT}" font-size="13" '
+            'font-family="ui-monospace, Consolas, Menlo, monospace">'
+            f'{line}</text>'
+        )
+        y += 22
+
+    arrow_cx = width // 2
+    arrow_cy = 58 + (height - 120) // 2
+    parts.extend(
+        [
+            f'<path d="M {arrow_cx - 14} {arrow_cy} L {arrow_cx + 14} {arrow_cy}" '
+            f'stroke="{GREEN}" stroke-width="2" fill="none"/>',
+            f'<path d="M {arrow_cx + 6} {arrow_cy - 6} L {arrow_cx + 14} {arrow_cy} '
+            f'L {arrow_cx + 6} {arrow_cy + 6}" '
+            f'stroke="{GREEN}" stroke-width="2" fill="none"/>',
+            (
+                f'<text x="{arrow_cx}" y="{arrow_cy - 12}" fill="{GREEN}" font-size="10" '
+                'letter-spacing="2" text-anchor="middle" '
+                'font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">SHIP</text>'
+            ),
+            (
+                f'<text x="20" y="{height - 24}" fill="{DIM}" font-size="11" '
+                'font-family="ui-sans-serif, system-ui, Segoe UI, sans-serif">'
+                f'{footer}</text>'
+            ),
+            '</svg>\n',
+        ]
+    )
+    out.write_text("\n".join(parts), encoding="utf-8")
+
+
+def viz_01(rows: list[dict[str, object]]) -> None:
+    piped = rows[0]
+    ok = rows[1]
+    empty = rows[2]
+    bytes_str = ""
+    for line in (ok["stdout"] or "").splitlines():
+        if '"bytes"' in line:
+            bytes_str = line.strip()
+            break
+    out = ROOT / "01-cli" / "pipe.svg"
+    two_panel_svg(
+        out,
+        title="CLI stdin",
+        left_title=f"BEFORE  exit {piped['exit']}",
+        left_body=[
+            "$ python before.py",
+            "stdin: piped",
+            "usage: before.py FILE",
+        ],
+        left_color=RED,
+        right_title=f"AFTER  exit {ok['exit']}",
+        right_body=[
+            "$ python after.py --stdin",
+            "stdin: piped",
+            bytes_str or '{"stdin": true, "bytes": ?}',
+        ],
+        right_color=GREEN,
+        footer=f"empty stdin still fails (exit {empty['exit']}). tested run.",
+    )
+
+
+def viz_02(rows: list[dict[str, object]]) -> None:
+    broken = rows[1]
+    green = rows[2]
+    out = ROOT / "02-door" / "door.svg"
+    two_panel_svg(
+        out,
+        title="First-run door",
+        left_title=f"LOCKED  exit {broken['exit']}",
+        left_body=[
+            "$ python after.py",
+            "FAIL",
+            "copy door.example",
+            "  to door.txt",
+        ],
+        left_color=RED,
+        right_title=f"OPEN  exit {green['exit']}",
+        right_body=[
+            "$ cp door.example door.txt",
+            "$ python after.py",
+            "OK",
+        ],
+        right_color=GREEN,
+        footer="one command copies the door. no lecture. tested run.",
+    )
+
+
+def viz_04(rows: list[dict[str, object]]) -> None:
+    red = rows[0]
+    green = rows[1]
+    out = ROOT / "04-layers" / "layers.svg"
+    two_panel_svg(
+        out,
+        title="Layer law",
+        left_title=f"FAIL  exit {red['exit']}",
+        left_body=[
+            "pkg_b/core.py",
+            "  imports pkg_a.internal",
+            "layer law broken",
+        ],
+        left_color=RED,
+        right_title=f"HELD  exit {green['exit']}",
+        right_body=[
+            "pkg_b/core.py",
+            "  imports pkg_a.public",
+            "layer law held",
+        ],
+        right_color=GREEN,
+        footer="same file, one import moved from internal to public. tested run.",
+    )
 
 
 def run_01() -> list[dict[str, object]]:
@@ -172,6 +364,11 @@ def main() -> int:
         f"Re-run: `python gold/five/run.py`",
         "",
     ]
+    vizzers = {
+        "1. CLI stdin — `/awe-me`": viz_01,
+        "2. First-run door — `/inspire-me`": viz_02,
+        "4. Layer law — `/awe-me architecture`": viz_04,
+    }
     failed = 0
     suite_results: list[dict[str, object]] = []
     for title, fn in suites:
@@ -182,6 +379,8 @@ def main() -> int:
         suite_results.append(
             {"title": title, "runs": len(rows), "failed": suite_failed}
         )
+        if title in vizzers and suite_failed == 0:
+            vizzers[title](rows)
         parts.append(f"### {title}")
         parts.append("")
         for row in rows:
