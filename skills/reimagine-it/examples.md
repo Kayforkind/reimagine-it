@@ -6,7 +6,7 @@ Public **tested results** (live exits, not stories): repo-root [README.md](../..
 
 `gold/reimagine.py` is example A made runnable on **this** skill: `--fail` exits 1 with a vibe list; `--ship` exits 0 and writes `gold/shipped.json`. Same two beats in `gold/index.html`.
 
-Looping examples from the Texas notebook: [`gold/forms/examples.gif`](../../gold/forms/examples.gif) — before → `/reimagine-it infographic` → `svg` → `3js` → `simulation`.
+Looping examples from the Texas notebook: [`gold/forms/examples.gif`](../../gold/forms/examples.gif) — before → `/reimagine-it infographic` → `svg` → `3js` → four alive-micro loops → `simulation`. Live gallery: [`gold/forms/see.html`](../../gold/forms/see.html).
 
 ---
 
@@ -82,13 +82,13 @@ Looping examples from the Texas notebook: [`gold/forms/examples.gif`](../../gold
 
 **Context:** the naive Texas notebook at `gold/webpage/before.html`.
 
-**Lock:** One vector weenie. Type in the gutter — no label on the flag, map, or ISOTYPE row. Timeline ticks that would collide (1836/1839) stay unlabeled on the axis.
+**Lock:** One vector weenie that **lives**. Type in the gutter — no label on the flag, map, or ISOTYPE row. Timeline ticks that would collide (1836/1839) stay unlabeled on the axis. Alive-micro: star breathe, Rio Grande dash flow, Alamo pin ping, 1839 tick hush; hover a pin and its legend swatch answers (`:has()`).
 
 **Hero (gold):** [`gold/forms/svg/after.svg`](../../gold/forms/svg/after.svg) — Lone Star **flag geometry**, schematic Texas with three unlabeled pins, legend gutter, Priestley 1836–1995, eight equal acre units. Offline. No CDN.
 
-**Stretch:** `/reimagine-it 3js` the same three places as meshes.
+**Stretch:** `/reimagine-it 3js` the same three places as a living room.
 
-**Not:** Mermaid. **Not:** a screenshot of a webpage saved as `.svg`.
+**Not:** Mermaid. **Not:** a screenshot of a webpage saved as `.svg`. **Not:** every mark bouncing.
 
 ---
 
@@ -96,15 +96,15 @@ Looping examples from the Texas notebook: [`gold/forms/examples.gif`](../../gold
 
 **Context:** the same notebook. No existing Vite app.
 
-**Lock:** Alamo chapel facade, capitol with wings, Big Bend as displaced ground + river tube. HUD in a reserved strip. Field fills the frame. First frame not blank.
+**Lock:** Alamo chapel facade, capitol with wings, Big Bend as displaced ground + river tube. HUD in a reserved strip. Field fills the frame. First frame not blank. Alive-micro: star turn, gold motes on the Rio Grande, chapel-window sun-breath, slow wide-drift when looking at all three.
 
-**Hero (gold):** [`gold/forms/3js/after.html`](../../gold/forms/3js/after.html) — one HTML file, import map to **vendored** `three@0.185.1` (REVISION 185). Drag to orbit. HUD jumps to each place. Sunset + soft shadows.
+**Hero (gold):** [`gold/forms/3js/after.html`](../../gold/forms/3js/after.html) — one HTML file, import map to **vendored** `three@0.185.1` (REVISION 185). Drag to orbit. HUD jumps to each place. Sunset + soft shadows. Idle life on the meshes.
 
 **Do:** pin Three.js in-repo when there is no app to edit. **Do not:** `npm create vite`. **Do not:** CDN `three`.
 
 **Stretch:** `/reimagine-it simulation` run the years.
 
-**Not:** a default cube. **Not:** Dribbble lighting on unrelated geometry.
+**Not:** a default cube. **Not:** Dribbble lighting on unrelated geometry. **Not:** CSS labels on the canvas.
 
 ---
 

@@ -16,8 +16,8 @@ Load from SKILL.md. Default: **you** pick the form from context. The user may fo
 | Writing, naming, error messages, manifesto | **prose** — one keepable file that *is* the idea | The same idea as a CLI error or a weenie |
 | Product/UX, empty state, dead-end settings | **product** — one interaction they invent workarounds for | Tiny HUD/overlay; do not restyle the whole app |
 | Tests failing, flaky race, “can’t prove it” | **experiment** — property, golden, or fail-demo that makes the bug undeniable | Same proof as an animated SVG of the race |
-| One name, quote, metaphor, icon-scale idea | **svg** weenie | Animated HTML of the same silhouette |
-| Space, layers, systems already in a Three.js app **or** user forced `3js` on any source | **3js** — edit in place, or a one-shot HTML + pinned Three.js (no CDN) | HUD token pass — not a Dribbble clone |
+| One name, quote, metaphor, icon-scale idea, **or** they want a living mark (micro-motion, hover pairing) | **svg** weenie — alive-micro by default | `/reimagine-it 3js` the same anchors as a room |
+| Space, layers, systems already in a Three.js app, user forced `3js`, **or** they want an orbitable living field | **3js** — edit in place, or a one-shot HTML + pinned Three.js (no CDN). Alive-micro by default | `/reimagine-it simulation` if the source is a clock; else HUD token pass — not a Dribbble clone |
 | Time, flow, handshake, “make it run”, user forced `simulation` | **simulation** — a playable model of facts already in the source | Same model as SVG weenie or 3js room |
 | Analytical panel that should sit beside chat | **canvas** (only if Cursor canvas skill exists) | Same claims as a filterable table |
 | User forced `code` / `cli` / `protocol` / `demo` / `prose` / `product` / `architecture` / `experiment` / `svg` / `3js` / `infographic` / `canvas` / `html` / `simulation` | That family | The next row down |
@@ -59,4 +59,6 @@ These are optional host skills. Skip if not installed. Do not fail the chair bec
 | product | One empty-state or dead-end that now has a door | Screenshot or scripted path if UI |
 | architecture | One law they can violate on purpose | A slice that obeys it |
 | experiment | One falsifiable claim | Command + output |
-| svg/html/3js/canvas | Weenie in the first viewport; type not on the mark | File opens; first frame not blank; SVG/3js packs in [forms/](forms/) |
+| svg | Living weenie; type in the gutter; 2–4 fact-tied loops | File opens; two frames ~600 ms apart differ unless brief `still` |
+| 3js | Living room; HUD in a reserved strip; idle on 2–3 meshes | First frame not blank; two frames differ unless brief `still` |
+| html/canvas | Weenie in the first viewport | File opens |

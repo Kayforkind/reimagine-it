@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alive-micro — see the loops</title>
+<style>
+  :root {
+    --paper: #f4ecd8;
+    --ink: #1a2138;
+    --dim: #6a624e;
+    --hot: #b22234;
+    --gold: #e8a63f;
+    --void: #0a1626;
+    --serif: "Iowan Old Style", Palatino, Georgia, serif;
+    --sans: ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+    --mono: ui-monospace, Consolas, "SF Mono", monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--sans); line-height: 1.45;
+  }
+  a { color: var(--hot); }
+  a:hover { color: var(--ink); }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--hot); outline-offset: 3px;
+  }
+  ::selection { background: var(--gold); color: var(--ink); }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 28px 24px 64px; }
+  .kicker {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--hot); margin: 0 0 8px;
+  }
+  h1 {
+    font-family: var(--serif); font-weight: 400; font-size: clamp(28px, 4vw, 42px);
+    letter-spacing: -.02em; margin: 0 0 10px; max-width: 18ch;
+  }
+  .lede { max-width: 62ch; color: var(--dim); margin: 0 0 22px; }
+  .tools { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 28px; }
+  button {
+    font: 13px/1.2 var(--sans); padding: 8px 14px; border-radius: 999px;
+    border: 1px solid rgba(26,33,56,.28); background: transparent; color: var(--ink); cursor: pointer;
+  }
+  button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  button:hover { border-color: var(--ink); }
+  h2 {
+    font-family: var(--serif); font-weight: 400; font-size: 22px;
+    margin: 36px 0 6px;
+  }
+  .sub { color: var(--dim); font-size: 14px; margin: 0 0 14px; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 900px) { .pair { grid-template-columns: 1fr; } }
+  .card {
+    background: #efe6d0; border: 1px solid rgba(26,33,56,.16); overflow: hidden;
+  }
+  .card header {
+    display: flex; justify-content: space-between; gap: 12px; align-items: baseline;
+    padding: 10px 14px; font-size: 13px;
+  }
+  .card header b { font-family: var(--serif); font-weight: 400; font-size: 16px; }
+  .card header span { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--dim); }
+  .stage { height: 420px; background: var(--void); }
+  .stage--paper { background: var(--paper); }
+  object, iframe { display: block; width: 100%; height: 100%; border: 0; }
+  .loops { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (max-width: 700px) { .loops { grid-template-columns: 1fr; } }
+  .loop-art { height: 280px; padding: 8px 8px 0; }
+  .loop-art svg { width: 100%; height: 100%; display: block; }
+  .hint { padding: 8px 14px 12px; font-size: 13px; color: var(--dim); }
+  .links { font-size: 13px; margin-top: 28px; }
+  .links a { margin-right: 16px; }
+
+  .star { transform-origin: 80px 168px; animation: breathe 2.8s ease-in-out infinite; }
+  .river { fill: none; stroke: #e8a63f; stroke-width: 5; stroke-dasharray: 10 12; animation: flow 5s linear infinite; }
+  .pin { transform-box: fill-box; transform-origin: center; }
+  .pin-alamo { animation: ping 2.4s ease-in-out infinite; }
+  .tick-quiet { animation: hush 2.8s ease-in-out infinite; }
+  .swatch { transform-box: fill-box; transform-origin: center; transition: transform 160ms ease-out; }
+  @keyframes breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+  @keyframes flow { to { stroke-dashoffset: -88; } }
+  @keyframes ping { 0%,100% { transform: scale(1); } 50% { transform: scale(1.28); } }
+  @keyframes hush { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+  .pin:hover,
+  .loop-ping:has(.row-alamo:hover) .pin-alamo,
+  .loop-ping:has(.row-austin:hover) .pin-austin,
+  .loop-ping:has(.row-bend:hover) .pin-bend {
+    animation: none; transform: scale(1.36);
+  }
+  .loop-ping:has(.pin-alamo:hover) .row-alamo .swatch,
+  .loop-ping:has(.pin-austin:hover) .row-austin .swatch,
+  .loop-ping:has(.pin-bend:hover) .row-bend .swatch { transform: scale(1.3); }
+  body.is-still .star, body.is-still .river, body.is-still .pin-alamo, body.is-still .tick-quiet {
+    animation: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .star, .river, .pin-alamo, .tick-quiet { animation: none; }
+    .swatch { transition-duration: 0.001ms; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">gold / forms · alive-micro</p>
+  <h1>See the loops</h1>
+  <p class="lede">Same Texas notebook. Left is the SVG weenie — hover a pin or a legend row. Right is the Three.js room — watch the star, the gold motes on the river, the chapel window; drag; use the look-ats. Freeze to compare against still.</p>
+  <div class="tools">
+    <button type="button" id="btn-alive" aria-pressed="true">Alive</button>
+    <button type="button" id="btn-still" aria-pressed="false">Still</button>
+  </div>
+
+  <div class="pair">
+    <article class="card">
+      <header>
+        <b>/reimagine-it svg</b>
+        <span>hover pins · legend answers</span>
+      </header>
+      <div class="stage stage--paper">
+        <object id="svg-live" type="image/svg+xml" data="svg/after.svg" aria-label="Living SVG of the Texas notebook"></object>
+      </div>
+    </article>
+    <article class="card">
+      <header>
+        <b>/reimagine-it 3js</b>
+        <span>star · motes · chapel glow · wide-drift</span>
+      </header>
+      <div class="stage">
+        <iframe id="js-live" src="3js/after.html" title="Living Three.js field of the Texas notebook"></iframe>
+      </div>
+    </article>
+  </div>
+
+  <h2>Close-ups · one loop each</h2>
+  <p class="sub">Zoomed marks from the same source so the motion is obvious. Hover the pins in the third card.</p>
+  <div class="loops">
+    <article class="card" id="loop-breathe">
+      <header><b>Weenie breathe</b><span>transform scale 1 → 1.08</span></header>
+      <div class="loop-art">
+        <svg viewBox="0 0 480 340" role="img" aria-label="Lone Star flag, star breathing">
+          <rect width="480" height="340" fill="#f4ecd8"/>
+          <g transform="translate(80,10)">
+            <rect width="160" height="320" fill="#1a2138"/>
+            <rect x="160" width="240" height="160" fill="#f4ecd8"/>
+            <rect x="160" y="160" width="240" height="160" fill="#b22234"/>
+            <g class="star">
+              <path fill="#e8a63f" d="M80,118 L92,156 L132,156 L100,180 L112,218 L80,194 L48,218 L60,180 L28,156 L68,156 Z"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <p class="hint">The magnet pulses. Everything else on this card is still.</p>
+    </article>
+    <article class="card" id="loop-flow">
+      <div class="loop-art">
+        <svg viewBox="0 0 480 340" role="img" aria-label="Schematic Texas with flowing Rio Grande">
+          <rect width="480" height="340" fill="#f4ecd8"/>
+          <g transform="translate(36,8) scale(0.92)">
+            <path d="M78 40 H 198 V 124 H 438 L 486 196 L 474 258 L 428 304 L 368 352 L 286 408 L 210 428 L 142 408 L 96 368 L 70 312 L 58 248 L 66 176 L 78 124 Z"
+                  fill="#efe4c8" stroke="#1a2138" stroke-width="3"/>
+            <path class="river" d="M96 368 C 150 396, 220 420, 286 408"/>
+            <circle cx="252" cy="328" r="9" fill="#e8a63f" stroke="#1a2138" stroke-width="2"/>
+            <circle cx="292" cy="268" r="9" fill="#1a2138" stroke="#f4ecd8" stroke-width="2"/>
+            <circle cx="118" cy="352" r="9" fill="#b22234" stroke="#f4ecd8" stroke-width="2"/>
+          </g>
+        </svg>
+      </div>
+      <p class="hint">A verb in the source — water — becomes a moving dash. Not a bounce.</p>
+    </article>
+    <article class="card" id="loop-ping">
+      <div class="loop-art">
+        <svg class="loop-ping" viewBox="0 0 480 340" role="img" aria-label="Pins paired with legend rows">
+          <rect width="480" height="340" fill="#f4ecd8"/>
+          <g transform="translate(24,48)">
+            <circle class="pin pin-alamo" cx="40" cy="36" r="16" fill="#e8a63f" stroke="#1a2138" stroke-width="2"/>
+            <circle class="pin pin-austin" cx="40" cy="116" r="16" fill="#1a2138" stroke="#f4ecd8" stroke-width="2"/>
+            <circle class="pin pin-bend" cx="40" cy="196" r="16" fill="#b22234" stroke="#f4ecd8" stroke-width="2"/>
+          </g>
+          <g transform="translate(100,48)" font-family="Georgia, serif">
+            <g class="row-alamo">
+              <circle class="swatch" cx="10" cy="36" r="10" fill="#e8a63f"/>
+              <text x="32" y="42" font-size="22" fill="#1a2138">Alamo</text>
+              <text x="32" y="64" font-size="13" fill="#6a624e" font-family="ui-sans-serif, Segoe UI, sans-serif">1836 · 19-day siege</text>
+            </g>
+            <g class="row-austin">
+              <circle class="swatch" cx="10" cy="116" r="10" fill="#1a2138"/>
+              <text x="32" y="122" font-size="22" fill="#1a2138">Austin</text>
+              <text x="32" y="144" font-size="13" fill="#6a624e" font-family="ui-sans-serif, Segoe UI, sans-serif">1839 · on the Colorado</text>
+            </g>
+            <g class="row-bend">
+              <circle class="swatch" cx="10" cy="196" r="10" fill="#b22234"/>
+              <text x="32" y="202" font-size="22" fill="#1a2138">Big Bend</text>
+              <text x="32" y="224" font-size="13" fill="#6a624e" font-family="ui-sans-serif, Segoe UI, sans-serif">1944 · eight acre units</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <p class="hint">Alamo pings on its own. Hover either side — pin and swatch answer each other.</p>
+    </article>
+    <article class="card" id="loop-tick">
+      <div class="loop-art">
+        <svg viewBox="0 0 480 340" role="img" aria-label="Timeline with a quiet gold tick for 1839">
+          <rect width="480" height="340" fill="#f4ecd8"/>
+          <g transform="translate(36,150)" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="14" fill="#1a2138">
+            <line x1="0" y1="0" x2="408" y2="0" stroke="#1a2138" stroke-width="2"/>
+            <g>
+              <line y1="-12" y2="12" stroke="#1a2138" stroke-width="2"/>
+              <text y="-22">1836</text>
+              <text y="36" font-family="Georgia, serif" font-size="18">Alamo</text>
+            </g>
+            <g class="tick-quiet" transform="translate(28,0)">
+              <line y1="-14" y2="14" stroke="#e8a63f" stroke-width="4"/>
+            </g>
+            <g transform="translate(200,0)">
+              <line y1="-12" y2="12" stroke="#1a2138" stroke-width="2"/>
+              <text y="-22">1901</text>
+              <text y="36" font-family="Georgia, serif" font-size="18">Bluebonnet</text>
+            </g>
+            <g transform="translate(408,0)">
+              <line y1="-12" y2="12" stroke="#1a2138" stroke-width="2"/>
+              <text y="-22" text-anchor="end">1995</text>
+              <text y="36" text-anchor="end" font-family="Georgia, serif" font-size="18">Longhorn</text>
+            </g>
+          </g>
+          <text x="36" y="290" fill="#6a624e" font-size="13" font-family="Georgia, serif">1839 lives in the gutter, not as a second label on 1836.</text>
+        </svg>
+      </div>
+      <p class="hint">The gold tick breathes so you notice the clustered year without overlapping type.</p>
+    </article>
+  </div>
+
+  <p class="links">
+    <a href="svg/after.html">SVG full page</a>
+    <a href="3js/after.html">3js full page</a>
+    <a href="3js/after.html?still=1">3js still</a>
+    <a href="simulation/after.html">simulation</a>
+  </p>
+</div>
+<script>
+  const alive = document.getElementById("btn-alive");
+  const still = document.getElementById("btn-still");
+  const svg = document.getElementById("svg-live");
+  const js = document.getElementById("js-live");
+
+  function setStill(on) {
+    document.body.classList.toggle("is-still", on);
+    alive.setAttribute("aria-pressed", on ? "false" : "true");
+    still.setAttribute("aria-pressed", on ? "true" : "false");
+    svg.setAttribute("data", on ? "svg/after.svg?still=1" : "svg/after.svg");
+    js.src = on ? "3js/after.html?still=1" : "3js/after.html";
+  }
+  alive.addEventListener("click", () => setStill(false));
+  still.addEventListener("click", () => setStill(true));
+</script>
+</body>
+</html>

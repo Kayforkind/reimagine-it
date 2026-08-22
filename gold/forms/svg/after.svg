@@ -2,14 +2,35 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img"
      aria-labelledby="title desc">
   <title id="title">A Texas notebook, as one SVG</title>
-  <desc id="desc">Lone Star flag as the weenie, schematic Texas with three unlabeled pins, eight equal acre units, and a common-scale timeline 1836 to 1995. Labels live in the legend gutter. No invented numbers.</desc>
+  <desc id="desc">Lone Star flag as the weenie, schematic Texas with three unlabeled pins, eight equal acre units, and a common-scale timeline 1836 to 1995. Labels live in the legend gutter. The mark is alive: star breathe, river flow, Alamo pin ping, 1839 tick hush; hover pairs pin to legend. No invented numbers.</desc>
   <style>
+    .star { transform-origin: 80px 168px; animation: breathe 2.8s ease-in-out infinite; }
     .river { stroke-dasharray: 10 12; animation: flow 7s linear infinite; }
-    .star { transform-origin: 80px 168px; animation: pulse 2.8s ease-in-out infinite; }
-    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+    .pin { transform-box: fill-box; transform-origin: center; }
+    .pin-alamo { animation: ping 2.6s ease-in-out infinite; }
+    .tick-quiet { animation: hush 3.2s ease-in-out infinite; }
+    .swatch { transform-box: fill-box; transform-origin: center; transition: transform 160ms ease-out; }
+    @keyframes breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
     @keyframes flow { to { stroke-dashoffset: -88; } }
+    @keyframes ping { 0%,100% { transform: scale(1); } 50% { transform: scale(1.22); } }
+    @keyframes hush { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+    .pin:hover,
+    svg:has(.row-alamo:hover) .pin-alamo,
+    svg:has(.row-austin:hover) .pin-austin,
+    svg:has(.row-bend:hover) .pin-bend {
+      animation: none;
+      transform: scale(1.32);
+    }
+    svg:has(.pin-alamo:hover) .row-alamo .swatch,
+    svg:has(.pin-austin:hover) .row-austin .swatch,
+    svg:has(.pin-bend:hover) .row-bend .swatch { transform: scale(1.25); }
+    .star:hover { animation: none; transform: scale(1.08); }
     @media (prefers-reduced-motion: reduce) {
-      .river, .star { animation: none; }
+      .star, .river, .pin-alamo, .tick-quiet { animation: none; }
+      .swatch { transition-duration: 0.001ms; }
+    }
+    svg.is-still .star, svg.is-still .river, svg.is-still .pin-alamo, svg.is-still .tick-quiet {
+      animation: none;
     }
   </style>
 
@@ -49,26 +70,26 @@
     <path d="M78 40 H 198 V 124 H 438 L 486 196 L 474 258 L 428 304 L 368 352 L 286 408 L 210 428 L 142 408 L 96 368 L 70 312 L 58 248 L 66 176 L 78 124 Z"
           fill="#efe4c8" stroke="#1a2138" stroke-width="2.5"/>
     <path class="river" d="M96 368 C 150 396, 220 420, 286 408" fill="none" stroke="#e8a63f" stroke-width="4"/>
-    <circle cx="118" cy="352" r="11" fill="#b22234" stroke="#f4ecd8" stroke-width="2"/>
-    <circle cx="252" cy="328" r="11" fill="#e8a63f" stroke="#1a2138" stroke-width="2"/>
-    <circle cx="292" cy="268" r="11" fill="#1a2138" stroke="#f4ecd8" stroke-width="2"/>
+    <circle class="pin pin-bend" cx="118" cy="352" r="11" fill="#b22234" stroke="#f4ecd8" stroke-width="2"/>
+    <circle class="pin pin-alamo" cx="252" cy="328" r="11" fill="#e8a63f" stroke="#1a2138" stroke-width="2"/>
+    <circle class="pin pin-austin" cx="292" cy="268" r="11" fill="#1a2138" stroke="#f4ecd8" stroke-width="2"/>
   </g>
 
   <!-- Gutter legend: every name lives here -->
   <g transform="translate(1188,130)" font-family="Georgia, serif">
     <text y="0" fill="#6a624e" font-family="ui-monospace, Consolas, monospace" font-size="11" letter-spacing="2.6">PLACES</text>
-    <g transform="translate(0,28)">
-      <circle cx="8" cy="10" r="8" fill="#e8a63f"/>
+    <g class="row-alamo" transform="translate(0,28)">
+      <circle class="swatch" cx="8" cy="10" r="8" fill="#e8a63f"/>
       <text x="28" y="14" fill="#1a2138" font-size="18">Alamo</text>
       <text x="28" y="36" fill="#6a624e" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="13">1836 &#183; San Antonio &#183; 19-day siege</text>
     </g>
-    <g transform="translate(0,78)">
-      <circle cx="8" cy="10" r="8" fill="#1a2138"/>
+    <g class="row-austin" transform="translate(0,78)">
+      <circle class="swatch" cx="8" cy="10" r="8" fill="#1a2138"/>
       <text x="28" y="14" fill="#1a2138" font-size="18">Austin</text>
       <text x="28" y="36" fill="#6a624e" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="13">1839 &#183; on the Colorado</text>
     </g>
-    <g transform="translate(0,128)">
-      <circle cx="8" cy="10" r="8" fill="#b22234"/>
+    <g class="row-bend" transform="translate(0,128)">
+      <circle class="swatch" cx="8" cy="10" r="8" fill="#b22234"/>
       <text x="28" y="14" fill="#1a2138" font-size="18">Big Bend</text>
       <text x="28" y="36" fill="#6a624e" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="13">1944 &#183; 800,000 acres &#183; eight units</text>
     </g>
@@ -101,7 +122,7 @@
         <text y="-18">1836</text>
         <text y="32" font-family="Georgia, serif" font-size="16">Alamo</text>
       </g>
-      <g transform="translate(28,36)">
+      <g class="tick-quiet" transform="translate(28,36)">
         <line y1="-6" y2="6" stroke="#e8a63f" stroke-width="2"/>
       </g>
       <g transform="translate(602,36)">
@@ -124,4 +145,9 @@
 
   <text x="64" y="838" fill="#6a624e" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="13">Now: rereading J. Frank Dobie. Watching the mockingbird nest under the eave.</text>
   <text x="1536" y="838" text-anchor="end" fill="#1a2138" font-family="ui-monospace, Consolas, monospace" font-size="12">notes@texasnote.example</text>
+  <script type="text/ecmascript"><![CDATA[
+    if (/\bstill\b/.test(String(location.search))) {
+      document.documentElement.classList.add("is-still");
+    }
+  ]]></script>
 </svg>

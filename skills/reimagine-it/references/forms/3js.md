@@ -2,7 +2,18 @@
 
 Load when the user forces `3js`, or the router picks a Three.js scene. Gold: [`gold/forms/3js/after.html`](../../../gold/forms/3js/after.html).
 
-This is a **room you can orbit**, not a 30 KB primitive dump (default cube, four cones, HUD over the subject).
+This is a **room that lives**, not a 30 KB primitive dump (default cube, four cones, HUD over the subject). Pick this form when the source should be **orbitable and quietly alive** — micro-motion on the meshes themselves.
+
+## Why this form exists
+
+| They want | Form |
+|-----------|------|
+| A statistical poster (still argument) | `infographic` |
+| A mark that lives in a README / slide | `svg` |
+| A field they can walk with the pointer | **`3js`** |
+| Time actually passing | `simulation` |
+
+Default is **alive**. Brief `still` / `no-motion` / `print` pins the camera and freezes idle life. Drag + HUD look-ats stay (those are controls, not decoration).
 
 ## Layout law (fail if broken)
 
@@ -22,12 +33,32 @@ A shipped 3js file is `partial` if **any** of these are true:
 - Unlit `MeshBasicMaterial` for the hero meshes (lights exist; use `MeshStandardMaterial`)
 - Random palette (hot pink, CSS default) instead of source color
 
+## Alive-micro (default motion budget)
+
+Ship **2–4 idle lives** on the *meshes*, plus camera ease. Each life maps to an **anchor**. Do not spin the whole scene or bounce the camera.
+
+Pick from this menu:
+
+| Life | How | Maps to |
+|------|-----|---------|
+| **weenie-turn** | Slow `rotation.y` on the monument / hero mesh | the magnet |
+| **flow** | Points or tiny spheres advancing along a `Curve` that *is* the river / wire / handshake | a verb |
+| **sun-breath** | Emissive intensity on one window or gold cap (clone the material — do not pulse a shared `gold` used by the weenie) | light / sunset already in the source |
+| **wide-drift** | Very slow `spherical.theta` **only** while look-at is the wide shot and the pointer is up | the room |
+
+Camera `lerp` to HUD look-ats is interaction, not one of the four lives.
+
+**Hover.** Pointer over a named mesh may raise that mesh’s emissive a step and `aria-pressed` the matching HUD button. Do not paint a CSS label on the canvas.
+
+**Reduced motion.** `prefers-reduced-motion: reduce` pins the camera to `dest`, stops idle spin / motes / emissive pulse / wide-drift. Look-ats still jump (instant). `:focus-visible` on HUD controls stays.
+
+**Opt out.** Leftover brief `still` / `no-motion` / `print` → same freeze as reduced motion.
+
 ## Interaction
 
 - Drag orbit, wheel dolly, HUD look-ats to each named place
-- `prefers-reduced-motion: reduce` pins the camera and stops idle spin
-- `:focus-visible` on HUD controls; `::selection` if any HTML text remains
-- `document.documentElement.dataset.ready = "1"` after the first rendered frame
+- Wide-drift resumes only on the “all” look-at, never while dragging
+- `document.documentElement.dataset.ready = "1"` after the first rendered frame (first frame is the rest pose)
 
 ## Must not
 
@@ -35,7 +66,10 @@ A shipped 3js file is `partial` if **any** of these are true:
 - Dribbble lighting on unrelated geometry
 - Invented KPIs floating as CSS counters over the canvas
 - A second overlay manifesto (`Drag to orbit…` as a paragraph on the scene) — put hints in the reserved strip or `title`
+- Auto-spin the camera on a tight look-at
+- Pulse a material shared by every gold mesh
+- Particle rain unrelated to a source verb
 
 ## Proof
 
-File opens on `http` or `file` with the vendored import map. First frame not blank. Screenshot: silhouettes identifiable, no overlapping HUD. Report `partial` if it still looks like a tutorial cube.
+File opens on `http` or `file` with the vendored import map. First frame not blank. Screenshot: silhouettes identifiable, no overlapping HUD. Two frames ~600 ms apart differ unless the brief was `still`. Report `partial` if it still looks like a tutorial cube, or if the pack claims alive and the hashes match.

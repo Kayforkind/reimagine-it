@@ -26,7 +26,11 @@ Same naive HTML, nine webpage tokens, then three other forms:
 /reimagine-it svg | 3js | simulation
 ```
 
-![same Texas notebook looping: before, infographic, SVG, Three.js, simulation](gold/forms/examples.gif?v=forms-gif-2)
+![same Texas notebook looping: before, infographic, SVG, Three.js, four alive-micro loops, simulation](gold/forms/examples.gif?v=alive-2)
+
+Live loop gallery (hover the pins, Alive / Still): [`gold/forms/see.html`](gold/forms/see.html)
+
+![four alive-micro close-ups: weenie breathe, river flow, pin ping, quiet tick](gold/forms/loops-strip.png?v=alive-2)
 
 ![same Texas notebook as SVG, Three.js, and a playable year-clock simulation](gold/forms/strip.png?v=forms-1)
 
@@ -144,7 +148,7 @@ Then say `/reimagine-it` in the host. Also matches: "reimagine it", "redesign th
 
 | Lever | Syntax | Effect |
 |-------|--------|--------|
-| **Form** | `webpage` \| `svg` \| `3js` \| `simulation` \| `pdf` \| `slides` \| `document` \| `mobi` \| `epub` \| `code` \| `cli` \| `protocol` \| ... | Force the medium. |
+| **Form** | `webpage` \| `svg` \| `3js` \| `simulation` \| `pdf` \| `slides` \| `document` \| `mobi` \| `epub` \| `code` \| `cli` \| `protocol` \| ... | Force the medium. `svg` and `3js` are **alive by default** (2–4 fact-tied micro-loops). Leftover `still` / `no-motion` / `print` freezes them. |
 | **Domain** | `webpage artistic` \| `dashboard` \| `photography` \| `cinematic` \| `landing` \| `portfolio` \| `infographic` | Force the aesthetic. `infographic` is a statistical poster (common-scale encodings + ISOTYPE + data table), not an ops dashboard. See [`references/domains/`](skills/reimagine-it/references/domains/). |
 | **Modifier** | `webpage cinematic glassmorphism` \| `bento` \| `neon` \| `brutalism` \| `neumorphism` \| `handdrawn` | Layer a UI/UX style on any domain. See [`references/modifiers/`](skills/reimagine-it/references/modifiers/). |
 | **Font** | `--font "Playfair Display, Iowan Old Style, Georgia, serif"` | Pin display / body family. Full stack. No webfont fetch unless `--allow-fetch`. |
@@ -462,31 +466,31 @@ The webpage gallery is one family. The same `gold/webpage/before.html` also ship
 
 `/reimagine-it svg`
 
-*The notebook as one mark you can drop in a README.*
+*The notebook as one mark you can drop in a README — alive by default (micro-motion, not a paper poster).*
 
 - **Palette** &mdash; parchment, navy, star-red, sun gold (from the flag and the land in the source).
 - **Motif** &mdash; Lone Star **flag** (canton + bars + star), schematic Texas with unlabeled pins, legend gutter, Priestley 1836&ndash;1995 (1839 is a gold tick), eight equal acre units.
-- **Motion** &mdash; star pulse, Rio Grande dash flow. `prefers-reduced-motion` kills them.
-- **Not** &mdash; Mermaid. Not labels sitting on the map. Not a PNG renamed `.svg`.
+- **Motion** &mdash; alive-micro: star breathe, Rio Grande dash flow, Alamo pin ping, 1839 tick hush. Hover a pin and its legend swatch answers. Brief `still` freezes loops. `prefers-reduced-motion` keeps hover, kills loops.
+- **Not** &mdash; Mermaid. Not labels sitting on the map. Not a PNG renamed `.svg`. Not every mark bouncing.
 
-![After: SVG weenie of the Texas notebook -- Lone Star flag, schematic Texas pins, legend gutter, common-scale timeline](gold/forms/svg/after.png?v=craft-1)
+![After: SVG weenie of the Texas notebook -- Lone Star flag, schematic Texas pins, legend gutter, common-scale timeline](gold/forms/svg/after.png?v=alive-1)
 
-Open the live file &rarr; [`gold/forms/svg/after.svg`](gold/forms/svg/after.svg)
+Open the live file &rarr; [`gold/forms/svg/after.svg`](gold/forms/svg/after.svg) · loop close-ups &rarr; [`gold/forms/see.html`](gold/forms/see.html)
 
 ### Case 12 &middot; `3js`
 
 `/reimagine-it 3js`
 
-*The three places as meshes under a west-Texas sunset. Offline Three.js r185, vendored, no CDN.*
+*The three places as a room you can orbit under a west-Texas sunset. Offline Three.js r185, vendored, no CDN. Alive by default.*
 
 - **Palette** &mdash; dusk navy sky, earth ground, cream mission, gold star and river.
 - **Motif** &mdash; Alamo chapel facade, capitol wings + dome, Big Bend ridge with a gold Rio Grande tube, upright star monument.
-- **Motion** &mdash; orbit drag, HUD look-ats in the **footer strip** (not over the 3D), slow star spin. Reduced motion pins the camera.
+- **Motion** &mdash; alive-micro: star turn, gold motes on the river, chapel-window sun-breath, slow wide-drift on “All three”. Orbit drag and HUD look-ats in the **footer strip**. Brief `still` pins the camera. Reduced motion stops idle life.
 - **Not** &mdash; a default cube. Not four cones. Not type stacked on the canvas.
 
-![After: Three.js field of the Texas notebook -- dusk ground, mission, capitol, ridge, gold star](gold/forms/3js/after.png?v=craft-1)
+![After: Three.js field of the Texas notebook -- dusk ground, mission, capitol, ridge, gold star](gold/forms/3js/after.png?v=alive-1)
 
-Open the live file &rarr; [`gold/forms/3js/after.html`](gold/forms/3js/after.html)
+Open the live file &rarr; [`gold/forms/3js/after.html`](gold/forms/3js/after.html) · same gallery &rarr; [`gold/forms/see.html`](gold/forms/see.html)
 
 ### Case 13 &middot; `simulation`
 
@@ -564,7 +568,7 @@ Every visual is a real file in this repo, generated locally by a script you can 
 |-------------|---------|
 | Per-pack full-page `after.png` shots used by every case study above | `python gold/shots.py` |
 | Infographic poster (full page, real Chrome) &rarr; `gold/domains/infographic/after.png` | `python gold/_shot_full.py gold/domains/infographic/after.html gold/domains/infographic/after.png` |
-| Form gold: SVG + Three.js + simulation (real Chrome) | `python gold/forms/shot.py` |
+| Form gold: SVG + Three.js + simulation + loop close-ups (real Chrome) | `python gold/forms/shot.py` |
 | Form examples GIF (`gold/forms/examples.gif`) | `python gold/forms/make_gif.py` |
 | Draw C full-page shot (v2.2, WebGL2, real Chrome) &rarr; `gold/webpage/after-3-full.png` | `python gold/_shot_full.py gold/webpage/after-3.html gold/webpage/after-3-full.png` |
 | Master gallery (`gold/gallery.png`) + per-pack tile heroes | `python gold/gallery.py` |

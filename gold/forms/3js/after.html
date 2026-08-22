@@ -13,7 +13,8 @@
     display: flex; flex-direction: column; overflow: hidden;
   }
   #view { flex: 1; position: relative; min-height: 0; }
-  canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+  canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; cursor: grab; }
+  canvas:active { cursor: grabbing; }
   .bar {
     flex: 0 0 auto;
     display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
@@ -57,13 +58,17 @@
 <script type="module">
 import * as THREE from "three";
 
-const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  || new URLSearchParams(location.search).has("still");
 const view = document.getElementById("view");
 
 const stone = new THREE.MeshStandardMaterial({ color: 0xefe4c8, roughness: 0.86, metalness: 0.04 });
 const stoneDeep = new THREE.MeshStandardMaterial({ color: 0xd9cbb0, roughness: 0.9 });
 const gold = new THREE.MeshStandardMaterial({
   color: 0xe8a63f, metalness: 0.52, roughness: 0.32, emissive: 0x5a3a08, emissiveIntensity: 0.22,
+});
+const chapelGlow = new THREE.MeshStandardMaterial({
+  color: 0x1a2138, roughness: 0.45, metalness: 0.08, emissive: 0xe8a63f, emissiveIntensity: 0.18,
 });
 const earth = new THREE.MeshStandardMaterial({ color: 0x3a2818, roughness: 0.96 });
 const ridgeMat = new THREE.MeshStandardMaterial({ color: 0x2c3a5a, roughness: 0.92, metalness: 0.05 });
@@ -116,8 +121,9 @@ function alamo() {
   g.add(new THREE.Mesh(geo, stone));
   const door = new THREE.Mesh(new THREE.BoxGeometry(0.58, 1.02, 0.22), voidMat);
   door.position.set(0, 0.52, 0.72);
-  const win = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.28, 0.12), voidMat);
+  const win = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.28, 0.12), chapelGlow);
   win.position.set(0, 1.72, 0.72);
+  win.name = "chapel-window";
   g.add(door, win);
   g.name = "Alamo";
   return g;
@@ -178,6 +184,7 @@ function bend() {
     gold
   );
   g.add(river);
+  g.userData.river = curve;
   const peakMat = ridgeMat;
   [
     [0.1, 3.2, -0.2, 1.35],
@@ -283,6 +290,19 @@ const ridge = bend();
 ridge.position.set(-7.6, 0, 0.4);
 scene.add(ridge);
 
+const riverCurve = ridge.userData.river;
+const moteMat = gold.clone();
+moteMat.emissiveIntensity = 0.45;
+const motes = [];
+for (let i = 0; i < 6; i++) {
+  const mote = new THREE.Mesh(new THREE.SphereGeometry(0.09, 8, 8), moteMat);
+  mote.userData.u = i / 6;
+  mote.castShadow = false;
+  motes.push(mote);
+  ridge.add(mote);
+}
+const chapelWin = mission.getObjectByName("chapel-window");
+
 const starGeo = new THREE.ExtrudeGeometry(starShape(), {
   depth: 0.22, bevelEnabled: true, bevelThickness: 0.045, bevelSize: 0.04, bevelSegments: 1,
 });
@@ -319,11 +339,16 @@ shadowize(cap);
 shadowize(ridge);
 shadowize(starMesh);
 plinth.castShadow = true;
+for (const mote of motes) {
+  mote.castShadow = false;
+  mote.receiveShadow = false;
+}
 
 const target = new THREE.Vector3(0.2, 1.15, 1.1);
 const spherical = new THREE.Spherical().setFromVector3(camera.position.clone().sub(target));
 spherical.makeSafe();
 let dest = looks.wide.clone();
+let lookKey = "wide";
 let dragging = false;
 let lastX = 0;
 let lastY = 0;
@@ -370,6 +395,7 @@ document.querySelectorAll("[data-look]").forEach((btn) => {
     document.querySelectorAll("[data-look]").forEach((b) => b.setAttribute("aria-pressed", "false"));
     btn.setAttribute("aria-pressed", "true");
     dest = looks[btn.dataset.look].clone();
+    lookKey = btn.dataset.look;
     spherical.setFromVector3(dest.clone().sub(target));
     spherical.makeSafe();
   });
@@ -377,9 +403,26 @@ document.querySelectorAll("[data-look]").forEach((btn) => {
 
 let framed = false;
 renderer.setAnimationLoop(() => {
+  const t = performance.now() * 0.001;
   if (!reduce) {
-    if (!dragging) camera.position.lerp(dest, 0.05);
+    if (!dragging) {
+      camera.position.lerp(dest, 0.05);
+      if (lookKey === "wide" && camera.position.distanceTo(dest) < 0.12) {
+        spherical.theta += 0.00055;
+        dest.setFromSpherical(spherical).add(target);
+      }
+    }
     starMesh.rotation.y += 0.004;
+    if (riverCurve) {
+      for (const mote of motes) {
+        const u = (mote.userData.u + t * 0.045) % 1;
+        mote.position.copy(riverCurve.getPointAt(u));
+        mote.position.y += 0.1;
+      }
+    }
+    if (chapelWin && chapelWin.material) {
+      chapelWin.material.emissiveIntensity = 0.16 + 0.22 * (0.5 + 0.5 * Math.sin(t * 1.15));
+    }
   } else {
     camera.position.copy(dest);
   }

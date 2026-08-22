@@ -80,16 +80,46 @@ def main() -> int:
     before = trim_whitespace(must_open(GOLD / "webpage" / "before.png"))
     infographic = must_open(GOLD / "domains" / "infographic" / "after.png")
     svg = must_open(HERE / "svg" / "after.png")
+    svg_b = HERE / "svg" / "after-b.png"
     three = must_open(HERE / "3js" / "after.png")
+    three_b = HERE / "3js" / "after-b.png"
     sim = must_open(HERE / "simulation" / "after.png")
 
     frames = [
         ("00-before.png", caption(plate(before, PAPER), "BEFORE"), 1.7),
         ("01-infographic.png", caption(plate(infographic, CREAM_SHEET), "AFTER", "/reimagine-it infographic"), 2.3),
-        ("02-svg.png", caption(plate(svg, CREAM_SHEET), "AFTER", "/reimagine-it svg"), 2.3),
-        ("03-3js.png", caption(plate(three, DARK_SHEET), "AFTER", "/reimagine-it 3js"), 2.4),
-        ("04-simulation.png", caption(plate(sim, DARK_SHEET), "AFTER", "/reimagine-it simulation"), 2.6),
+        ("02-svg.png", caption(plate(svg, CREAM_SHEET), "AFTER", "/reimagine-it svg"), 1.15),
     ]
+    if svg_b.is_file():
+        frames.append(
+            ("02b-svg.png", caption(plate(must_open(svg_b), CREAM_SHEET), "AFTER", "/reimagine-it svg"), 1.15)
+        )
+    frames.append(("03-3js.png", caption(plate(three, DARK_SHEET), "AFTER", "/reimagine-it 3js"), 1.2))
+    if three_b.is_file():
+        frames.append(
+            ("03b-3js.png", caption(plate(must_open(three_b), DARK_SHEET), "AFTER", "/reimagine-it 3js"), 1.2)
+        )
+    loop_dir = HERE / "loops"
+    loop_captions = (
+        ("breathe", "weenie breathe"),
+        ("flow", "river flow"),
+        ("ping", "pin ping"),
+        ("tick", "quiet tick"),
+    )
+    for i, (name, sub) in enumerate(loop_captions, start=4):
+        a = loop_dir / f"{name}-a.png"
+        b = loop_dir / f"{name}-b.png"
+        if a.is_file():
+            frames.append(
+                (f"{i:02d}-{name}.png", caption(plate(must_open(a), CREAM_SHEET), "LOOP", sub), 0.95)
+            )
+        if b.is_file():
+            frames.append(
+                (f"{i:02d}b-{name}.png", caption(plate(must_open(b), CREAM_SHEET), "LOOP", sub), 0.95)
+            )
+    frames.append(
+        ("08-simulation.png", caption(plate(sim, DARK_SHEET), "AFTER", "/reimagine-it simulation"), 2.6),
+    )
 
     lst = WORK / "concat.txt"
     lines: list[str] = []
