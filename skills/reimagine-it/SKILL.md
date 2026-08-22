@@ -28,7 +28,7 @@ metadata:
 
 # /reimagine-it
 
-**Banks:** [references/notes.md](references/notes.md) · [references/forms.md](references/forms.md) · [references/webpage-craft.md](references/webpage-craft.md) *(only for the webpage form)* · **[references/craft-floor.md](references/craft-floor.md)** *(the interaction contract every webpage output must clear; read every run)* · [references/forms/](references/forms/) *(non-webpage form packs: pdf, document, slides, universal)* · [references/domains/](references/domains/) *(only when the user gave a domain token: `artistic` / `dashboard` / `photography` / `cinematic` (aka `3d`, `webgl`) / `ecommerce` / `landing` / `portfolio` / `infographic`)* · [references/modifiers/](references/modifiers/) *(only when the user gave a modifier: `glassmorphism` / `bento` / `neon` / `brutalism` / `neumorphism` / `handdrawn`)* · [references/locks/](references/locks/) *(loaded on `--ref <name>`)* · **[references/research/web-craft-2025.md](references/research/web-craft-2025.md)** *(deep source pack — Awwwards SOTY stack scan, Rauno/Emil craft floor, Lupi/Fragapane data humanism, Feixen/Weingart/Troxler print grammar, Apple AIDA cinematic, view-transitions, scroll-driven animations, kinetic type, sound, neubrutalism — read once, cite in reports)* · **[references/research/infographic-craft.md](references/research/infographic-craft.md)** *(15-source infographic pack — Cleveland–McGill, Tufte, Bertin, ISOTYPE, Minard/Snow, Cairo, Lupi, FT Visual Vocabulary, USWDS, WCAG charts, InfoAlign layouts — load when the form or domain is `infographic`)* · [examples.md](examples.md)
+**Banks:** [references/notes.md](references/notes.md) · [references/forms.md](references/forms.md) · [references/webpage-craft.md](references/webpage-craft.md) *(only for the webpage form)* · **[references/craft-floor.md](references/craft-floor.md)** *(the interaction contract every webpage output must clear; read every run)* · **[references/review.md](references/review.md)** *(§5.d named-object accuracy + clone scan; load on every verify)* · [references/forms/](references/forms/) *(non-webpage form packs: pdf, document, slides, universal)* · [references/domains/](references/domains/) *(only when the user gave a domain token: `artistic` / `dashboard` / `photography` / `cinematic` (aka `3d`, `webgl`) / `ecommerce` / `landing` / `portfolio` / `infographic`)* · [references/modifiers/](references/modifiers/) *(only when the user gave a modifier: `glassmorphism` / `bento` / `neon` / `brutalism` / `neumorphism` / `handdrawn`)* · [references/locks/](references/locks/) *(loaded on `--ref <name>`)* · **[references/research/web-craft-2025.md](references/research/web-craft-2025.md)** *(deep source pack — Awwwards SOTY stack scan, Rauno/Emil craft floor, Lupi/Fragapane data humanism, Feixen/Weingart/Troxler print grammar, Apple AIDA cinematic, view-transitions, scroll-driven animations, kinetic type, sound, neubrutalism — read once, cite in reports)* · **[references/research/infographic-craft.md](references/research/infographic-craft.md)** *(15-source infographic pack — Cleveland–McGill, Tufte, Bertin, ISOTYPE, Minard/Snow, Cairo, Lupi, FT Visual Vocabulary, USWDS, WCAG charts, InfoAlign layouts — load when the form or domain is `infographic`)* · [examples.md](examples.md)
 
 `/reimagine-it` is not a graphics mode. It opens a creative mind on **whatever the user points at** and ships a leap that specific thing can hold: a page, a document, a deck, a CLI, a protocol, an experiment, a piece of prose. Visuals are one form among many.
 
@@ -313,7 +313,9 @@ Render the hero into an image (headless Chrome for HTML → PNG at ≥ 1400 px w
 
 If any of these fail, patch the CSS in one pass; if the fix crosses into "add a whole subsystem," downgrade to `partial` and name the specific miss.
 
-Log both passes on the report:
+**5.d Named-object + clone pass** — load [references/review.md](references/review.md). If the source names a public object (the Lone Star flag, a cone, a press), the weenie **is that object** — not a gold-star / cream-stripe remix. A second source must not wear Texas gold DNA or layout chrome. Gold fixtures: `python scripts/review_gold.py`.
+
+Log the verify passes on the report:
 - `Visual verify:` with what you scanned for and what you fixed
 - `Craft floor:` with the results of the grep (e.g. `::selection ✓, :focus-visible ✓, prefers-reduced-motion ✓, compositor-only ✓, no transition:all ✓, sound off ✓`).
 
@@ -338,7 +340,7 @@ Sound: <off | ambient | feedback | full — with tier + mute-control + no-autopl
 Stretch: <what they didn't know was possible>
 Notes: <only if --notes>
 Functional verify: <what you actually ran, opened, or checked>
-Visual verify: <scan result: no blank plates? no clipped text? every plate maps to an anchor? palette on-source? motion advanced? composition is this source's object, not gold's layout chrome?>
+Visual verify: <scan result: no blank plates? no clipped text? every plate maps to an anchor? palette on-source? named weenie is the real object (flag cloth is white star / white over red, not gold-on-parchment)? motion advanced? composition is this source's object, not gold's layout chrome?>
 Craft floor: <::selection ✓, :focus-visible ✓, prefers-reduced-motion ✓, compositor-only motion ✓, no transition:all ✓, sound off unless --sound ✓>
 ```
 

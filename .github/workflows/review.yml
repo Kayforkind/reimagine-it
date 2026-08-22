@@ -1,0 +1,19 @@
+name: review-gold
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Plugin manifests agree
+        run: python scripts/verify_plugin_package.py
+      - name: Gold review
+        run: python scripts/review_gold.py

@@ -1,12 +1,10 @@
 """Looping GIF of every current gold example from one naive HTML.
 
 Sources are gold screenshots already in the repo.
-Writes gold/forms/examples.gif and copies to gold/x-ads/best.gif
-(+ before-after.gif for attach tools).
+Writes gold/forms/examples.gif. Does not touch gold/x-ads/.
 """
 from __future__ import annotations
 
-import shutil
 import subprocess
 from pathlib import Path
 
@@ -16,8 +14,6 @@ HERE = Path(__file__).resolve().parent
 GOLD = HERE.parent
 WORK = HERE / "gif-frames"
 OUT = HERE / "examples.gif"
-X_OUT = GOLD / "x-ads" / "best.gif"
-X_ATTACH = GOLD / "x-ads" / "before-after.gif"
 
 NAVY = (10, 22, 38)
 GOLD_INK = (232, 166, 63)
@@ -180,12 +176,8 @@ def main() -> int:
         ],
         check=True,
     )
-    X_OUT.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(OUT, X_OUT)
-    shutil.copy2(OUT, X_ATTACH)
     kb = OUT.stat().st_size // 1024
     print(f"{OUT.name}  {kb}KB  {len(frames)} frames")
-    print(f"copied {X_OUT.relative_to(GOLD)} and {X_ATTACH.name}")
     if kb > 5000:
         print("warning: GIF over 5MB; X may compress it hard", flush=True)
         return 1

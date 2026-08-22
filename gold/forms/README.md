@@ -4,7 +4,7 @@ Source: [`../webpage/before.html`](../webpage/before.html) (the naive Texas note
 
 | Token | Artifact | What it proves |
 |-------|----------|----------------|
-| `/reimagine-it svg` | [`svg/after.svg`](svg/after.svg) | Living weenie: Lone Star, schematic Texas, Priestley 1836–1995, eight acre units. Star breathe, river flow, pin ping, hover pairing. |
+| `/reimagine-it svg` | [`svg/after.svg`](svg/after.svg) | Living weenie: the actual Lone Star flag (white star, white over red), schematic Texas, Priestley 1836–1995, eight acre units. Star breathe, river flow, pin ping, hover pairing. |
 | `/reimagine-it 3js` | [`3js/after.html`](3js/after.html) | Living room of the three places. Star turn, Rio Grande motes, chapel glow, wide-drift. Offline Three.js r185 in `3js/vendor/`. No CDN. |
 | `/reimagine-it simulation` | [`simulation/after.html`](simulation/after.html) | Playable clock. Default paused on 1836. Day-scale siege. SVG geography. Type in the gutter. |
 

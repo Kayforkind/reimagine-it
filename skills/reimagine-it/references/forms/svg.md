@@ -50,6 +50,7 @@ Default is **alive**.
 
 - Palette from **this** source only.
 - Prefer the source's actual weenie geometry (a flag if the source is a flag; a press if a press) over clipart.
+- **Named public objects keep their real colors.** The Lone Star flag is a white star on blue, white over red — not a gold star on parchment. Accent gold belongs on ticks, pins, and rivers, not on the cloth. See [review.md](../review.md).
 - Fills do the talking. Do not outline every shape in the same stroke.
 
 ## Alive-micro (default motion budget)

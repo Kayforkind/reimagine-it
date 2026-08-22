@@ -84,7 +84,7 @@ Looping examples from the Texas notebook: [`gold/forms/examples.gif`](../../gold
 
 **Lock:** One vector weenie that **lives**. Type in the gutter — no label on the flag, map, or ISOTYPE row. Timeline ticks that would collide (1836/1839) stay unlabeled on the axis. Alive-micro: star breathe, Rio Grande dash flow, Alamo pin ping, 1839 tick hush; hover a pin and its legend swatch answers (`:has()`).
 
-**Hero (gold):** [`gold/forms/svg/after.svg`](../../gold/forms/svg/after.svg) — Lone Star **flag geometry**, schematic Texas with three unlabeled pins, legend gutter, Priestley 1836–1995, eight equal acre units. Offline. No CDN.
+**Hero (gold):** [`gold/forms/svg/after.svg`](../../gold/forms/svg/after.svg) — actual Lone Star **flag** (white star, white over red), schematic Texas with three unlabeled pins, legend gutter, Priestley 1836–1995, eight equal acre units. Offline. No CDN.
 
 **Stretch:** `/reimagine-it 3js` the same three places as a living room.
 

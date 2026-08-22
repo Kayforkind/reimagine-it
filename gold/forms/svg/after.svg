@@ -41,13 +41,13 @@
   <text x="64" y="88" fill="#1a2138" font-family="Iowan Old Style, Palatino, Georgia, serif" font-size="36">A Texas notebook</text>
   <text x="1188" y="82" fill="#6a624e" font-family="Georgia, serif" font-size="15" font-style="italic">the state, the flag, and the people</text>
 
-  <!-- Weenie: real Lone Star flag geometry, no type on the cloth -->
-  <g transform="translate(64,118)" aria-hidden="true">
-    <rect width="160" height="320" fill="#1a2138"/>
-    <rect x="160" width="320" height="160" fill="#f4ecd8"/>
-    <rect x="160" y="160" width="320" height="160" fill="#b22234"/>
+  <!-- Weenie: the actual Lone Star flag (white star, white over red). Gold is for ticks/pins, not the cloth. -->
+  <g id="weenie-flag" transform="translate(64,118)" aria-hidden="true">
+    <rect width="160" height="320" fill="#002868"/>
+    <rect x="160" width="320" height="160" fill="#ffffff"/>
+    <rect x="160" y="160" width="320" height="160" fill="#BF0A30"/>
     <g class="star">
-      <path fill="#e8a63f" d="M80,118 L92,156 L132,156 L100,180 L112,218 L80,194 L48,218 L60,180 L28,156 L68,156 Z"/>
+      <path fill="#ffffff" d="M80,118 L92,156 L132,156 L100,180 L112,218 L80,194 L48,218 L60,180 L28,156 L68,156 Z"/>
     </g>
   </g>
 
@@ -96,7 +96,8 @@
 
     <text y="210" fill="#6a624e" font-family="ui-monospace, Consolas, monospace" font-size="11" letter-spacing="2.6">SIGNALS</text>
     <g transform="translate(0,238)">
-      <path fill="#e8a63f" d="M8 2 L9.6 6.6 L14.4 6.6 L10.6 9.4 L12 14 L8 11.2 L4 14 L5.4 9.4 L1.6 6.6 L6.4 6.6 Z"/>
+      <rect x="0" y="0" width="16" height="16" fill="#002868"/>
+      <path fill="#ffffff" d="M8 2 L9.6 6.6 L14.4 6.6 L10.6 9.4 L12 14 L8 11.2 L4 14 L5.4 9.4 L1.6 6.6 L6.4 6.6 Z"/>
       <text x="28" y="14" fill="#1a2138" font-size="18">Lone Star flag</text>
       <text x="28" y="36" fill="#6a624e" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="13">1839 &#183; loyalty &#183; purity &#183; bravery</text>
     </g>

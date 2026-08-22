@@ -12,31 +12,36 @@ npx skills add Kayforkind/reimagine-it
 
 Then: `/reimagine-it` · `/reimagine-it infographic` · `/reimagine-it svg` · `/reimagine-it 3js` · `/reimagine-it simulation`
 
-Live gold: [kayforkind.github.io/reimagine-it](https://kayforkind.github.io/reimagine-it/) · files in [`gold/`](gold/)
-
-Same naive HTML, nine webpage tokens, then three other forms:
-
-![one raw Texas notebook, nine content-aware redesigns: default, artistic, dashboard, photography, cinematic, cinematic+glassmorphism, dashboard+bento, landing+neon, infographic](gold/gallery.png?v=texas-5)
+Live gold: [kayforkind.github.io/reimagine-it](https://kayforkind.github.io/reimagine-it/) · index: [`gold/README.md`](gold/)
 
 ```
 /reimagine-it webpage
 /reimagine-it webpage artistic | dashboard | photography | cinematic | landing
 /reimagine-it infographic
-/reimagine-it infographic <any leftover words>    # open brief, not a theme catalog
 /reimagine-it svg | 3js | simulation
 ```
 
-![same Texas notebook looping: before, nine webpage tokens, SVG, Three.js, four alive-micro loops, latest simulation](gold/forms/examples.gif?v=all-1)
+### Source 1 — Texas notebook
 
-Live loop gallery (hover the pins, Alive / Still): [`gold/forms/see.html`](gold/forms/see.html)
+Palette and motifs come from *this* file (Lone Star flag, Alamo, Rio Grande). The SVG weenie is the **actual flag**: white star, white over red — not a gold-star logo.
 
-![four alive-micro close-ups: weenie breathe, river flow, pin ping, quiet tick](gold/forms/loops-strip.png?v=alive-2)
+![one raw Texas notebook, nine content-aware redesigns](gold/gallery.png?v=texas-5)
+
+![same Texas notebook looping: before, nine webpage tokens, SVG, Three.js, four alive-micro loops, latest simulation](gold/forms/examples.gif?v=flag-1)
+
+Alive-micro close-ups (weenie breathe is the Lone Star flag):
+
+![four alive-micro close-ups: weenie breathe, river flow, pin ping, quiet tick](gold/forms/loops-strip.png?v=flag-1)
+
+Live loops (GitHub file view is source only): open [`gold/forms/see.html`](gold/forms/see.html) locally via `python -m http.server` in `gold/forms/`.
 
 ![same Texas notebook as SVG, Three.js, and a playable year-clock simulation](gold/forms/strip.png?v=forms-1)
 
-A second source, same tokens. [`gold/jules/`](gold/jules/) is Jules Ice Cream (founded 1980): parlor DNA — full-bleed counter, cone, freezer — not a Texas notebook with scoops glued on.
+### Source 2 — Jules Ice Cream
 
-![same naive Jules HTML looping through webpage tokens, infographic, SVG, Three.js, and a flavor-board simulation](gold/jules/best.gif)
+Same tokens, parlor DNA. Not a Texas notebook with scoops glued on. [`gold/jules/`](gold/jules/)
+
+![same naive Jules HTML looping through webpage tokens, infographic, SVG, Three.js, and a flavor-board simulation](gold/jules/best.gif?v=1)
 
 ---
 
@@ -574,7 +579,9 @@ Every visual is a real file in this repo, generated locally by a script you can 
 | Per-pack full-page `after.png` shots used by every case study above | `python gold/shots.py` |
 | Infographic poster (full page, real Chrome) &rarr; `gold/domains/infographic/after.png` | `python gold/_shot_full.py gold/domains/infographic/after.html gold/domains/infographic/after.png` |
 | Form gold: SVG + Three.js + simulation + loop close-ups (real Chrome) | `python gold/forms/shot.py` |
-| Jules second-source gold (real Chrome) + X GIF | `python gold/jules/shot.py` then `python gold/jules/make_gif.py` |
+| Form examples GIF (`gold/forms/examples.gif`) | `python gold/forms/make_gif.py` |
+| Jules second-source gold (real Chrome) + GIF | `python gold/jules/shot.py` then `python gold/jules/make_gif.py` |
+| Gold review (flag cloth, Jules clone scan, after.png pairs) | `python scripts/review_gold.py` |
 | Draw C full-page shot (v2.2, WebGL2, real Chrome) &rarr; `gold/webpage/after-3-full.png` | `python gold/_shot_full.py gold/webpage/after-3.html gold/webpage/after-3-full.png` |
 | Master gallery (`gold/gallery.png`) + per-pack tile heroes | `python gold/gallery.py` |
 | Quartet (`gold/webpage/quartet.png`) + twins triptych (`twins.png`) + per-pack wide before/after compares | `python gold/compare.py` |
