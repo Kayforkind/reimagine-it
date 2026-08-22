@@ -31,6 +31,8 @@ droid plugin marketplace add https://github.com/Kayforkind/reimagine-it
 droid plugin install reimagine-it@reimagine-it --scope user
 ```
 
+Cursor wrapper: `.cursor-plugin/plugin.json` (same `skills/reimagine-it/` chair). Marketplace / cursor.directory submit from the GitHub repo URL. Daily install remains `npx skills add Kayforkind/reimagine-it`.
+
 Fallback: copy `skills/reimagine-it/` into the host skills root. Never into `~/.cursor/skills-cursor/`.
 
 ## Job

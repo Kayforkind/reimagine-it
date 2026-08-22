@@ -1,0 +1,17 @@
+{
+  "name": "reimagine-it",
+  "owner": {
+    "name": "Kayforkind"
+  },
+  "metadata": {
+    "description": "Cursor plugin marketplace for /reimagine-it. Agents ship a mood board; this reads the file and redesigns from it — webpage, infographic, SVG, Three.js, simulation.",
+    "version": "2.3.0"
+  },
+  "plugins": [
+    {
+      "name": "reimagine-it",
+      "source": "./",
+      "description": "Content-aware redesign from the file you have — webpage, infographic, SVG, Three.js, simulation. Not a mood board."
+    }
+  ]
+}

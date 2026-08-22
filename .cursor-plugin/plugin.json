@@ -1,0 +1,26 @@
+{
+  "name": "reimagine-it",
+  "displayName": "reimagine-it",
+  "version": "2.3.0",
+  "description": "Cursor plugin wrapping /reimagine-it. Agents ship a mood board; this reads the file and redesigns from it — webpage, infographic, SVG, Three.js, simulation. Offline. No Figma.",
+  "author": {
+    "name": "Kayforkind"
+  },
+  "homepage": "https://kayforkind.github.io/reimagine-it/",
+  "repository": "https://github.com/Kayforkind/reimagine-it",
+  "license": "MIT",
+  "keywords": [
+    "cursor",
+    "agent-skills",
+    "infographic",
+    "webpage",
+    "html",
+    "svg",
+    "threejs",
+    "simulation",
+    "redesign",
+    "content-aware"
+  ],
+  "logo": "gold/hero.svg",
+  "skills": "./skills/reimagine-it"
+}
