@@ -17,9 +17,10 @@ Load from SKILL.md. Default: **you** pick the form from context. The user may fo
 | Product/UX, empty state, dead-end settings | **product** — one interaction they invent workarounds for | Tiny HUD/overlay; do not restyle the whole app |
 | Tests failing, flaky race, “can’t prove it” | **experiment** — property, golden, or fail-demo that makes the bug undeniable | Same proof as an animated SVG of the race |
 | One name, quote, metaphor, icon-scale idea | **svg** weenie | Animated HTML of the same silhouette |
-| Space, layers, systems already in a Three.js app | **3js** — edit in place | HUD token pass — not a Dribbble clone |
+| Space, layers, systems already in a Three.js app **or** user forced `3js` on any source | **3js** — edit in place, or a one-shot HTML + pinned Three.js (no CDN) | HUD token pass — not a Dribbble clone |
+| Time, flow, handshake, “make it run”, user forced `simulation` | **simulation** — a playable model of facts already in the source | Same model as SVG weenie or 3js room |
 | Analytical panel that should sit beside chat | **canvas** (only if Cursor canvas skill exists) | Same claims as a filterable table |
-| User forced `code` / `cli` / `protocol` / `demo` / `prose` / `product` / `architecture` / `experiment` / `svg` / `3js` / `infographic` / `canvas` / `html` | That family | The next row down |
+| User forced `code` / `cli` / `protocol` / `demo` / `prose` / `product` / `architecture` / `experiment` / `svg` / `3js` / `infographic` / `canvas` / `html` / `simulation` | That family | The next row down |
 | User said `interview` | Not a form. Talk category. | After answers, route as if that row were the lock |
 | Empty context | Weenie **or** first-run demo from the folder name | “What this repo could show” as a working stub, not a slide |
 

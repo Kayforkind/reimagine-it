@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Texas notebook — Three.js</title>
+<style>
+  :root { --void:#0a1626; --ink:#f4ecd8; --hot:#b22234; --gold:#e8a63f; --dim:#8b8579; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--void); color: var(--ink);
+    font-family: ui-sans-serif, system-ui, Segoe UI, sans-serif; overflow: hidden; }
+  canvas { display: block; }
+  header {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 2;
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    padding: 18px 22px; pointer-events: none;
+  }
+  header, .hud { pointer-events: none; }
+  header * , .hud * { pointer-events: auto; }
+  .kicker { font-family: ui-monospace, Consolas, monospace; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
+  h1 { margin: 6px 0 0; font-family: "Iowan Old Style", Palatino, Georgia, serif; font-weight: 400; font-size: clamp(28px, 4vw, 44px); }
+  h1 em { font-style: italic; color: var(--gold); }
+  .sub { max-width: 42ch; color: var(--dim); font-size: 14px; margin-top: 8px; }
+  .hud {
+    position: absolute; left: 22px; bottom: 22px; z-index: 2;
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  button {
+    background: transparent; color: var(--ink); border: 1px solid rgba(244,236,216,.35);
+    padding: 8px 12px; border-radius: 999px; cursor: pointer; font: 13px/1.2 inherit;
+  }
+  button:hover, button[aria-pressed="true"] { background: var(--gold); color: var(--void); border-color: var(--gold); }
+  button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  ::selection { background: var(--gold); color: var(--void); }
+  .note {
+    position: absolute; right: 22px; bottom: 22px; z-index: 2;
+    font-size: 12px; color: var(--dim); max-width: 28ch; text-align: right;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    /* JS reads this via matchMedia and stops auto-orbit */
+  }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="kicker">/reimagine-it 3js · from gold/webpage/before.html</div>
+    <h1>Texas <em>&amp;</em> the field</h1>
+    <p class="sub">The notebook’s three places as meshes under a west-Texas sunset. Offline Three.js r185. No CDN.</p>
+  </div>
+</header>
+<nav class="hud" aria-label="Places in the source">
+  <button type="button" data-look="wide" aria-pressed="true">All three</button>
+  <button type="button" data-look="alamo">Alamo, 1836</button>
+  <button type="button" data-look="austin">Austin, 1839</button>
+  <button type="button" data-look="bend">Big Bend, 1944</button>
+</nav>
+<p class="note">Drag to orbit. Scroll to dolly. One five-point star. Eight-hundred-thousand acres is the ridge, not a fake KPI.</p>
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three.module.min.js"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from "three";
+
+const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function starShape(outer = 1.15, inner = 0.46, n = 5) {
+  const s = new THREE.Shape();
+  for (let i = 0; i < n * 2; i++) {
+    const r = i % 2 === 0 ? outer : inner;
+    const a = (i / (n * 2)) * Math.PI * 2 - Math.PI / 2;
+    const x = Math.cos(a) * r;
+    const y = Math.sin(a) * r;
+    if (i === 0) s.moveTo(x, y);
+    else s.lineTo(x, y);
+  }
+  s.closePath();
+  return s;
+}
+
+function mission() {
+  const g = new THREE.Group();
+  const wall = new THREE.Mesh(
+    new THREE.BoxGeometry(2.6, 1.35, 1.7),
+    new THREE.MeshStandardMaterial({ color: 0xefe4c8, roughness: 0.82 })
+  );
+  wall.position.y = 0.68;
+  const ped = new THREE.Mesh(
+    new THREE.ConeGeometry(1.55, 0.9, 4),
+    new THREE.MeshStandardMaterial({ color: 0xf4ecd8, roughness: 0.7 })
+  );
+  ped.position.y = 1.7;
+  ped.rotation.y = Math.PI / 4;
+  g.add(wall, ped);
+  g.name = "Alamo";
+  return g;
+}
+
+function capitol() {
+  const g = new THREE.Group();
+  const shaft = new THREE.Mesh(
+    new THREE.BoxGeometry(1.1, 2.8, 1.1),
+    new THREE.MeshStandardMaterial({ color: 0xe8dcc4, roughness: 0.6 })
+  );
+  shaft.position.y = 1.4;
+  const dome = new THREE.Mesh(
+    new THREE.SphereGeometry(0.62, 24, 16),
+    new THREE.MeshStandardMaterial({ color: 0xe8a63f, metalness: 0.35, roughness: 0.35 })
+  );
+  dome.position.y = 3.05;
+  g.add(shaft, dome);
+  g.name = "Austin";
+  return g;
+}
+
+function ridge() {
+  const g = new THREE.Group();
+  const mat = new THREE.MeshStandardMaterial({ color: 0x2c3a5a, roughness: 0.9 });
+  const peaks = [
+    [0, 1.8, 0, 2.4],
+    [-2.2, 1.1, 0.6, 1.8],
+    [2.4, 1.3, -0.4, 2.0],
+    [-1.1, 0.7, 1.8, 1.2],
+  ];
+  for (const [x, h, z, r] of peaks) {
+    const m = new THREE.Mesh(new THREE.ConeGeometry(r, h, 7), mat);
+    m.position.set(x, h / 2, z);
+    g.add(m);
+  }
+  const river = new THREE.Mesh(
+    new THREE.BoxGeometry(7.2, 0.08, 0.42),
+    new THREE.MeshStandardMaterial({ color: 0xe8a63f, metalness: 0.2, roughness: 0.4, emissive: 0x6a4a12, emissiveIntensity: 0.35 })
+  );
+  river.position.set(0.2, 0.06, 2.2);
+  river.rotation.y = 0.18;
+  g.add(river);
+  g.name = "Big Bend";
+  return g;
+}
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0a1626);
+scene.fog = new THREE.Fog(0x0a1626, 18, 48);
+
+const camera = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, 0.1, 120);
+const looks = {
+  wide: new THREE.Vector3(16, 11, 18),
+  alamo: new THREE.Vector3(7.5, 3.2, 9.5),
+  austin: new THREE.Vector3(2.2, 4.8, 9),
+  bend: new THREE.Vector3(-11, 6, 10),
+};
+camera.position.copy(looks.wide);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.shadowMap.enabled = true;
+document.body.prepend(renderer.domElement);
+
+const hemi = new THREE.HemisphereLight(0x4a6080, 0x6a3a18, 0.85);
+scene.add(hemi);
+const sun = new THREE.DirectionalLight(0xffc070, 1.65);
+sun.position.set(-12, 8, 4);
+sun.castShadow = true;
+scene.add(sun);
+
+const ground = new THREE.Mesh(
+  new THREE.CircleGeometry(22, 48),
+  new THREE.MeshStandardMaterial({ color: 0x24160f, roughness: 0.95 })
+);
+ground.rotation.x = -Math.PI / 2;
+ground.receiveShadow = true;
+scene.add(ground);
+
+const alamo = mission();
+alamo.position.set(5.2, 0, 3.4);
+scene.add(alamo);
+const austin = capitol();
+austin.position.set(1.4, 0, -1.2);
+scene.add(austin);
+const bend = ridge();
+bend.position.set(-7.4, 0, 1.6);
+scene.add(bend);
+
+const starMesh = new THREE.Mesh(
+  new THREE.ExtrudeGeometry(starShape(), { depth: 0.18, bevelEnabled: false }),
+  new THREE.MeshStandardMaterial({ color: 0xe8a63f, metalness: 0.55, roughness: 0.28, emissive: 0x5a3a08, emissiveIntensity: 0.25 })
+);
+starMesh.rotation.x = -Math.PI / 2;
+starMesh.position.set(0.2, 0.12, 6.8);
+scene.add(starMesh);
+
+const starCount = 420;
+const starPos = new Float32Array(starCount * 3);
+for (let i = 0; i < starCount; i++) {
+  starPos[i * 3] = (Math.random() - 0.5) * 40;
+  starPos[i * 3 + 1] = 6 + Math.random() * 16;
+  starPos[i * 3 + 2] = (Math.random() - 0.5) * 40;
+}
+const starGeo = new THREE.BufferGeometry();
+starGeo.setAttribute("position", new THREE.BufferAttribute(starPos, 3));
+scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xf4ecd8, size: 0.05 })));
+
+const target = new THREE.Vector3(0, 1.2, 1.4);
+const spherical = new THREE.Spherical().setFromVector3(camera.position.clone().sub(target));
+spherical.makeSafe();
+let dest = looks.wide.clone();
+let dragging = false;
+let lastX = 0;
+let lastY = 0;
+const canvas = renderer.domElement;
+
+canvas.addEventListener("pointerdown", (e) => {
+  dragging = true;
+  lastX = e.clientX;
+  lastY = e.clientY;
+  canvas.setPointerCapture(e.pointerId);
+});
+canvas.addEventListener("pointerup", (e) => {
+  dragging = false;
+  canvas.releasePointerCapture(e.pointerId);
+});
+canvas.addEventListener("pointermove", (e) => {
+  if (!dragging) return;
+  const dx = e.clientX - lastX;
+  const dy = e.clientY - lastY;
+  lastX = e.clientX;
+  lastY = e.clientY;
+  spherical.theta -= dx * 0.005;
+  spherical.phi = THREE.MathUtils.clamp(spherical.phi + dy * 0.005, 0.12, Math.PI * 0.48);
+  spherical.makeSafe();
+  dest.setFromSpherical(spherical).add(target);
+  camera.position.copy(dest);
+});
+canvas.addEventListener("wheel", (e) => {
+  e.preventDefault();
+  spherical.radius = THREE.MathUtils.clamp(spherical.radius + e.deltaY * 0.012, 6, 32);
+  dest.setFromSpherical(spherical).add(target);
+}, { passive: false });
+
+document.querySelectorAll("[data-look]").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll("[data-look]").forEach((b) => b.setAttribute("aria-pressed", "false"));
+    btn.setAttribute("aria-pressed", "true");
+    dest = looks[btn.dataset.look].clone();
+    spherical.setFromVector3(dest.clone().sub(target));
+    spherical.makeSafe();
+  });
+});
+
+let framed = false;
+renderer.setAnimationLoop(() => {
+  if (!reduce) {
+    if (!dragging) camera.position.lerp(dest, 0.045);
+    starMesh.rotation.z += 0.003;
+  } else {
+    camera.position.copy(dest);
+  }
+  camera.lookAt(target);
+  renderer.render(scene, camera);
+  if (!framed) {
+    framed = true;
+    document.documentElement.dataset.ready = "1";
+  }
+});
+
+addEventListener("resize", () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>

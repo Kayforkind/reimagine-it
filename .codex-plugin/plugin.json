@@ -16,6 +16,8 @@
     "cursor",
     "agent-skills",
     "infographic",
+    "threejs",
+    "simulation",
     "webpage",
     "redesign",
     "content-aware"
@@ -32,7 +34,8 @@
     "defaultPrompt": [
       "Redesign this page from its own content.",
       "Turn this HTML into an infographic poster. Do not invent numbers.",
-      "/reimagine-it webpage cinematic"
+      "Turn this HTML into a Three.js scene. Vendor Three.js. No CDN.",
+      "Turn this HTML into a playable simulation of the dates already in the file."
     ],
     "brandColor": "#e8a63f"
   }

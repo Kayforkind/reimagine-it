@@ -4,17 +4,17 @@
 
 **Your AI redesigns the file you actually have — from what it is about.**
 
-Ask for a redesign and most agents ship a mood board. `/reimagine-it` reads the nouns, dates, and colors in *your* source and ships a real artifact: webpage, infographic poster, PDF, or slides. One file. Offline. No Figma, no CDN.
+Ask for a redesign and most agents ship a mood board. `/reimagine-it` reads the nouns, dates, and colors in *your* source and ships a real artifact: webpage, infographic poster, SVG, Three.js scene, simulation, PDF, or slides. One file. Offline. No Figma, no CDN.
 
 ```bash
 npx skills add Kayforkind/reimagine-it
 ```
 
-Then: `/reimagine-it` · `/reimagine-it infographic` · `/reimagine-it webpage cinematic`
+Then: `/reimagine-it` · `/reimagine-it infographic` · `/reimagine-it svg` · `/reimagine-it 3js` · `/reimagine-it simulation`
 
 Live gold: [kayforkind.github.io/reimagine-it](https://kayforkind.github.io/reimagine-it/) · files in [`gold/`](gold/)
 
-Same naive HTML, nine tokens:
+Same naive HTML, nine webpage tokens, then three other forms:
 
 ![one raw Texas notebook, nine content-aware redesigns: default, artistic, dashboard, photography, cinematic, cinematic+glassmorphism, dashboard+bento, landing+neon, infographic](gold/gallery.png?v=texas-5)
 
@@ -23,7 +23,10 @@ Same naive HTML, nine tokens:
 /reimagine-it webpage artistic | dashboard | photography | cinematic | landing
 /reimagine-it infographic
 /reimagine-it infographic <any leftover words>    # open brief, not a theme catalog
+/reimagine-it svg | 3js | simulation
 ```
+
+![same Texas notebook as SVG, Three.js, and a playable year-clock simulation](gold/forms/strip.png?v=forms-1)
 
 ---
 
@@ -139,7 +142,7 @@ Then say `/reimagine-it` in the host. Also matches: "reimagine it", "redesign th
 
 | Lever | Syntax | Effect |
 |-------|--------|--------|
-| **Form** | `webpage` \| `pdf` \| `slides` \| `document` \| `mobi` \| `epub` \| `code` \| `cli` \| `protocol` \| ... | Force the medium. |
+| **Form** | `webpage` \| `svg` \| `3js` \| `simulation` \| `pdf` \| `slides` \| `document` \| `mobi` \| `epub` \| `code` \| `cli` \| `protocol` \| ... | Force the medium. |
 | **Domain** | `webpage artistic` \| `dashboard` \| `photography` \| `cinematic` \| `landing` \| `portfolio` \| `infographic` | Force the aesthetic. `infographic` is a statistical poster (common-scale encodings + ISOTYPE + data table), not an ops dashboard. See [`references/domains/`](skills/reimagine-it/references/domains/). |
 | **Modifier** | `webpage cinematic glassmorphism` \| `bento` \| `neon` \| `brutalism` \| `neumorphism` \| `handdrawn` | Layer a UI/UX style on any domain. See [`references/modifiers/`](skills/reimagine-it/references/modifiers/). |
 | **Font** | `--font "Playfair Display, Iowan Old Style, Georgia, serif"` | Pin display / body family. Full stack. No webfont fetch unless `--allow-fetch`. |
@@ -161,9 +164,9 @@ All three are enforced by [`skills/reimagine-it/SKILL.md`](skills/reimagine-it/S
 
 ---
 
-## Ten case studies &mdash; one source, one command each
+## Case studies &mdash; one source, one command each
 
-Every case below reimagines the **exact same naive HTML** ([`gold/webpage/before.html`](gold/webpage/before.html) &mdash; a plain Texas notebook, 40 lines, no CSS, one email) with **one different token**. Cases 1&ndash;8 are eight different domains and modifiers on the default `webpage` pack. **Case 09** is the v2.2 raised bar &mdash; a third *reader register* of the default pack (`--variant c`, `cinematic-shader`). **Case 10** is the v2.3 infographic pack &mdash; the same notebook read as a statistical poster, not a dashboard. To match how a designer reads a case study, each case is laid out top-to-bottom:
+Every case below reimagines the **exact same naive HTML** ([`gold/webpage/before.html`](gold/webpage/before.html) &mdash; a plain Texas notebook, 40 lines, no CSS, one email) with **one different token**. Cases 1&ndash;8 are eight different domains and modifiers on the default `webpage` pack. **Case 09** is the v2.2 raised bar &mdash; a third *reader register* of the default pack (`--variant c`, `cinematic-shader`). **Case 10** is the v2.3 infographic pack &mdash; the same notebook read as a statistical poster, not a dashboard. **Cases 11&ndash;13** keep that HTML and change the *form*: SVG, Three.js, simulation. To match how a designer reads a case study, each case is laid out top-to-bottom:
 
 1. the **before** shot sits on its own line,
 2. the **four notes the command picked** (palette &middot; motif &middot; motion &middot; 3D) sit between the two shots as real descriptive text,
@@ -445,6 +448,61 @@ Open the live file &rarr; [`gold/domains/infographic/after.html`](gold/domains/i
 
 ---
 
+## Same HTML. SVG, Three.js, a simulation.
+
+The webpage gallery is one family. The same `gold/webpage/before.html` also ships as a vector weenie, a 3D field, and a playable year-clock. That is the leap most agents skip: they restyle the page. `/reimagine-it` can change the *medium*.
+
+**Before.** Same raw Texas notebook.
+
+![Before: raw HTML of A Texas notebook -- Times New Roman, single column, no color, no motif](gold/webpage/before.png)
+
+### Case 11 &middot; `svg`
+
+`/reimagine-it svg`
+
+*The notebook as one mark you can drop in a README.*
+
+- **Palette** &mdash; parchment, navy, star-red, sun gold (from the flag and the land in the source).
+- **Motif** &mdash; Lone Star weenie, schematic Texas with three pins (Alamo 1836, Austin 1839, Big Bend 1944), Priestley timeline 1836&ndash;1995, eight equal acre units, bluebonnet glyph.
+- **Motion** &mdash; star pulse, bloom sway, Rio Grande dash flow. `prefers-reduced-motion` kills them.
+- **Not** &mdash; Mermaid. Not a PNG renamed `.svg`.
+
+![After: SVG weenie of the Texas notebook -- Lone Star, schematic Texas pins, common-scale timeline, eight equal acre units](gold/forms/svg/after.png)
+
+Open the live file &rarr; [`gold/forms/svg/after.svg`](gold/forms/svg/after.svg)
+
+### Case 12 &middot; `3js`
+
+`/reimagine-it 3js`
+
+*The three places as meshes under a west-Texas sunset. Offline Three.js r185, vendored, no CDN.*
+
+- **Palette** &mdash; dusk navy sky, earth ground, cream mission, gold star and river.
+- **Motif** &mdash; Alamo as a small stone mission, Austin as a shaft-and-dome capitol, Big Bend as a ridge with a gold Rio Grande, one five-point star on the field, night-sky points.
+- **Motion** &mdash; orbit drag, HUD jumps to each place, slow star spin. Reduced motion pins the camera.
+- **Not** &mdash; a default cube. Not a CDN import.
+
+![After: Three.js field of the Texas notebook -- dusk ground, mission, capitol, ridge, gold star](gold/forms/3js/after.png)
+
+Open the live file &rarr; [`gold/forms/3js/after.html`](gold/forms/3js/after.html)
+
+### Case 13 &middot; `simulation`
+
+`/reimagine-it simulation`
+
+*A playable model of the years already in the file. Not a dashboard.*
+
+- **Clock** &mdash; 1836 to 1995. Play, pause, scrub.
+- **Events** &mdash; Alamo, Austin, flag, bluebonnet, Big Bend, Longhorn light when their year arrives. Every year is in the source.
+- **Flow** &mdash; Rio Grande particles. After 1944, eight equal acre units. Bluebonnet only in spring months once 1901 has passed.
+- **Not** &mdash; invented battle stats. The 19-day siege is a label on 1836, not a bar on the century axis.
+
+![After: year-clock simulation of the Texas notebook -- schematic field, Rio Grande, event list, scrubber](gold/forms/simulation/after.png)
+
+Open the live file &rarr; [`gold/forms/simulation/after.html`](gold/forms/simulation/after.html)
+
+---
+
 ## Motion is real (three frames per pack)
 
 Screenshots freeze animation, so every claim about motion proves itself in a strip. Three frames per pack, spaced ~1.6 s apart in virtual time &mdash; if the pixels change, the motion budget landed:
@@ -504,6 +562,7 @@ Every visual is a real file in this repo, generated locally by a script you can 
 |-------------|---------|
 | Per-pack full-page `after.png` shots used by every case study above | `python gold/shots.py` |
 | Infographic poster (full page, real Chrome) &rarr; `gold/domains/infographic/after.png` | `python gold/_shot_full.py gold/domains/infographic/after.html gold/domains/infographic/after.png` |
+| Form gold: SVG + Three.js + simulation (real Chrome) | `python gold/forms/shot.py` |
 | Draw C full-page shot (v2.2, WebGL2, real Chrome) &rarr; `gold/webpage/after-3-full.png` | `python gold/_shot_full.py gold/webpage/after-3.html gold/webpage/after-3-full.png` |
 | Master gallery (`gold/gallery.png`) + per-pack tile heroes | `python gold/gallery.py` |
 | Quartet (`gold/webpage/quartet.png`) + twins triptych (`twins.png`) + per-pack wide before/after compares | `python gold/compare.py` |

@@ -76,7 +76,49 @@ Public **tested results** (live exits, not stories): repo-root [README.md](../..
 
 ---
 
-## E — Existing Three.js app (`/reimagine-it 3js`)
+## E — SVG from HTML (`/reimagine-it svg`)
+
+**Context:** the naive Texas notebook at `gold/webpage/before.html`.
+
+**Lock:** One vector weenie a client can drop in a README. Timeline on a common scale. Eight equal acre units. No clipart state.
+
+**Hero (gold):** [`gold/forms/svg/after.svg`](../../gold/forms/svg/after.svg) — Lone Star, schematic Texas with three pins, Priestley 1836–1995, ISOTYPE acres, bluebonnet glyph. Offline. No CDN.
+
+**Stretch:** `/reimagine-it 3js` the same three places as meshes.
+
+**Not:** Mermaid. **Not:** a screenshot of a webpage saved as `.svg`.
+
+---
+
+## F — Three.js from HTML (`/reimagine-it 3js`)
+
+**Context:** the same notebook. No existing Vite app.
+
+**Lock:** Alamo, Austin, and Big Bend as meshes under a west-Texas sunset. First frame not blank.
+
+**Hero (gold):** [`gold/forms/3js/after.html`](../../gold/forms/3js/after.html) — one HTML file, import map to **vendored** `three@0.185.1` (REVISION 185). Drag to orbit. HUD jumps to each place.
+
+**Do:** pin Three.js in-repo when there is no app to edit. **Do not:** `npm create vite`. **Do not:** CDN `three`.
+
+**Stretch:** `/reimagine-it simulation` run the years.
+
+**Not:** a default cube. **Not:** Dribbble lighting on unrelated geometry.
+
+---
+
+## G — Simulation from HTML (`/reimagine-it simulation`)
+
+**Context:** the same notebook, facts that already have years and one magnitude.
+
+**Lock:** A playable model. The clock is 1836–1995. Events light when their year arrives. The Rio Grande flows. Big Bend counts as eight equal units after 1944.
+
+**Hero (gold):** [`gold/forms/simulation/after.html`](../../gold/forms/simulation/after.html) — play / pause / scrub. The 19-day siege is a label on 1836, not a bar on the century axis.
+
+**Not:** a dashboard of fake live KPIs. **Not:** invented battle statistics.
+
+---
+
+## H — Existing Three.js app (`/reimagine-it 3js`)
 
 **Context:** Vite app already on Three.js.
 
@@ -88,14 +130,14 @@ Public **tested results** (live exits, not stories): repo-root [README.md](../..
 
 ---
 
-## F — `--plan-only`
+## I — `--plan-only`
 
 **Output:** lock sentence, adjacent possible, four notes, hero form, stretch command.  
 **No files.** User runs without `--plan-only` to build.
 
 ---
 
-## G — Interview (`/reimagine-it interview`)
+## J — Interview (`/reimagine-it interview`)
 
 **You choose:** talk. **Agent decides:** the questions.
 
@@ -107,7 +149,7 @@ User takes it or replaces it. Next question only after the reply. Cap 4. Then bu
 
 ---
 
-## H — Modifier (`/reimagine-it webpage cinematic glassmorphism`)
+## K — Modifier (`/reimagine-it webpage cinematic glassmorphism`)
 
 **Context:** the same three-project brief already used in `gold/domains/`.
 
@@ -123,7 +165,7 @@ User takes it or replaces it. Next question only after the reply. Cap 4. Then bu
 
 ---
 
-## I — Font override (`/reimagine-it webpage artistic --font "Playfair Display, Iowan Old Style, Georgia, serif"`)
+## L — Font override (`/reimagine-it webpage artistic --font "Playfair Display, Iowan Old Style, Georgia, serif"`)
 
 **Context:** the artistic pack. User has a specific serif they want.
 
@@ -137,7 +179,7 @@ User takes it or replaces it. Next question only after the reply. Cap 4. Then bu
 
 ---
 
-## J — Lock roundtrip
+## M — Lock roundtrip
 
 **Round 1:** `/reimagine-it webpage cinematic` → `reimagined/2026-08-20-cinema/index.html`.
 
@@ -154,7 +196,7 @@ The lock's cross-medium translation table tells the slides pack how the card fan
 
 ---
 
-## K — PDF from a docx (`/reimagine-it pdf`)
+## N — PDF from a docx (`/reimagine-it pdf`)
 
 **Context:** a client `.docx` with dense paragraphs, no cover, no diagrams.
 

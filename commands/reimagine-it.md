@@ -1,9 +1,9 @@
 ---
 description: >-
   Claude Code, Codex, Factory Droid, Cursor, Copilot, Gemini CLI. Redesign
-  any file from its own content — webpage, PDF, slides, infographic. Invent
+  any file from its own content — webpage, SVG, Three.js, simulation, PDF, slides, infographic. Invent
   a leap they did not know to ask for. Not a mood board. Not Mermaid slop.
-argument-hint: "[webpage|infographic|pdf|slides] [tokens] [open brief]"
+argument-hint: "[webpage|infographic|svg|3js|simulation|pdf|slides] [tokens] [open brief]"
 ---
 
 # /reimagine-it — invent a leap from context
@@ -19,7 +19,7 @@ Copy this file to `~/.cursor/commands/reimagine-it.md` if you want the slash in 
 | `/reimagine-it` | Sniff → adjacent possible → four notes → hero artifact + stretch. **No interview.** |
 | `/reimagine-it interview` | Optional talk. Agent decides questions (one at a time + recommended answer), then builds |
 | `/reimagine-it code` / `cli` / `protocol` / `demo` / `prose` / `product` / `architecture` / `experiment` | Force form family |
-| `/reimagine-it svg` / `3js` / `infographic` / `canvas` / `html` | Force visual. `infographic` also loads the infographic domain pack (poster, not dashboard). |
+| `/reimagine-it svg` / `3js` / `infographic` / `canvas` / `html` / `simulation` | Force visual. `infographic` also loads the infographic domain pack (poster, not dashboard). `simulation` is a playable model of source facts. |
 | `/reimagine-it webpage infographic` | Same pack, via the domain token. |
 | `/reimagine-it interview cli` | Combine |
 | `/reimagine-it --notes` | Include the four notes in the report |

@@ -1,8 +1,8 @@
 ---
 description: >-
-  Redesign any file from its own content — webpage, PDF, slides, infographic.
+  Redesign any file from its own content — webpage, SVG, Three.js, simulation, PDF, slides, infographic.
   Invent a leap they did not know to ask for. Not a mood board. Not Mermaid slop.
-argument-hint: "[webpage|infographic|pdf|slides] [tokens] [open brief]"
+argument-hint: "[webpage|infographic|svg|3js|simulation|pdf|slides] [tokens] [open brief]"
 ---
 
 # /reimagine-it

@@ -11,7 +11,7 @@ description: >-
   reinvent this, redesign this page, make an infographic, content-aware
   redesign, or wants a visual leap instead of a mood board or Mermaid slop.
   Tokens: artistic, cinematic, photography, neon, glassmorphism, bento,
-  infographic, plus leftover words as an open brief. Not /better.
+  infographic, svg, 3js, simulation, plus leftover words as an open brief. Not /better.
 license: MIT
 metadata:
   author: Kayforkind
@@ -45,7 +45,7 @@ Optional tokens. **Combine freely.** You pick tokens; the agent picks questions,
 | *(none)* | Default. No interview. | Infer, lock, form, build. |
 | `interview` | Talk before build. | Which questions, recommended answers, when to stop. |
 | **Form family** — `code` `cli` `protocol` `demo` `prose` `product` `architecture` `experiment` | Force that form family. | How the notes land in it. |
-| **Visual form** — `svg` `3js` `infographic` `canvas` `html` `webpage` | Force a visual form. | Craft inside that medium. Token `infographic` also loads [references/domains/infographic.md](references/domains/infographic.md) (poster of an argument, not a dashboard). |
+| **Visual form** — `svg` `3js` `infographic` `canvas` `html` `webpage` `simulation` | Force a visual form. | Craft inside that medium. Token `infographic` also loads [references/domains/infographic.md](references/domains/infographic.md) (poster of an argument, not a dashboard). Token `simulation` ships a playable model of facts already in the source (time, flow, handshake) — not a dashboard. |
 | **Non-webpage document forms** — `pdf` `document` (docx / markdown) `slides` (pptx / reveal.js) `universal` (any input file) | Force a document/media form. Loads [references/forms/<form>.md](references/forms/). | Which regeneration tool to reach for (ReportLab, Weasyprint, python-docx, python-pptx, LaTeX). |
 | **Domain aesthetic** — second word after `webpage`: `artistic` `dashboard` `photography` `cinematic` (`3d`, `webgl`) `ecommerce` `landing` `portfolio` `infographic` | Force a webpage aesthetic. | Load [references/domains/<domain>.md](references/domains/) and extend the [webpage-craft](references/webpage-craft.md) spine. `cinematic` upgrades the 3D floor to inline WebGL2. `infographic` is a statistical poster (common-scale encodings + ISOTYPE + data table) — not an ops dashboard. |
 | **Modifier** — third word or `--style <name>`: `glassmorphism` `bento` `neon` `brutalism` `neumorphism` `handdrawn` | Layer a UI/UX modifier on top of the domain. | Load [references/modifiers/<name>.md](references/modifiers/); modifiers waive matching cut-list entries and add their own non-negotiables. |
@@ -67,6 +67,9 @@ Combine freely. Known form / domain / modifier tokens load packs. **Every other 
 /reimagine-it webpage infographic
 /reimagine-it infographic
 /reimagine-it infographic <any leftover words>
+/reimagine-it svg
+/reimagine-it 3js
+/reimagine-it simulation
 /reimagine-it webpage artistic glassmorphism --font "Playfair Display, serif"
 /reimagine-it pdf document
 /reimagine-it lock gold/domains/cinematic/after.html as house-cinema
