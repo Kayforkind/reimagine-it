@@ -26,13 +26,20 @@ This source is not the Texas notebook. The page is the parlor you walk into, the
 Copy:
 
 ```
-Same HTML. Twelve full pages. Not a template.
+Same HTML. Completely different pages.
 
-Jules Ice Cream, founded 1980.
+Enhance your existing pages with /reimagine-it. Same naive Jules Ice Cream HTML — parlor, cone, freezer — then full-page afters. Not a Texas reskin.
 
-/reimagine-it webpage
-/reimagine-it infographic
-/reimagine-it svg | 3js | simulation
+infographic — star around the cone
+svg — living stacked scoops
+3js — camera on the marble counter
+simulation — the flavor board, playable
+
+Looking forward to your support. Happy to fix. Looking for feedback — the next version is coming soon.
+
+npx skills add Kayforkind/reimagine-it
 
 https://github.com/Kayforkind/reimagine-it
+
+Made with #Grok #Cursor #Grokbot
 ```

@@ -9,7 +9,7 @@ Two naive sources. Same tokens. Different DNA. GitHub.com file view is **source*
 
 Texas SVG weenie is the **Lone Star flag** (white star, white over red). A gold star on parchment is a logo, not that flag. Jules is a parlor / cone / freezer / flavor board.
 
-Review: `python scripts/review_gold.py`
+X copy: [`POST.md`](POST.md). Review: `python scripts/review_gold.py`
 
 ---
 
