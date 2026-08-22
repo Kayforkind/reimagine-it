@@ -1,4 +1,4 @@
-"""Texas gold GIF: naive before, then the tall infographic. No per-asset catalog."""
+"""Texas gold GIF: naive before, then every full-page after. No cropped loop cards."""
 from __future__ import annotations
 
 import subprocess
@@ -15,7 +15,23 @@ NAVY = (10, 22, 38)
 GOLD_INK = (232, 166, 63)
 CREAM = (244, 236, 216)
 W, H = 720, 900
-TOUR_STEPS = 12
+BAR = 40
+
+PAGES: list[tuple[str, Path, str, str, float]] = [
+    ("00-before", GOLD / "webpage" / "before.png", "BEFORE", "same HTML", 2.0),
+    ("01-webpage", GOLD / "webpage" / "after.png", "AFTER", "webpage", 1.6),
+    ("02-artistic", GOLD / "domains" / "artistic" / "after.png", "AFTER", "webpage artistic", 1.6),
+    ("03-dashboard", GOLD / "domains" / "dashboard" / "after.png", "AFTER", "webpage dashboard", 1.6),
+    ("04-photography", GOLD / "domains" / "photography" / "after.png", "AFTER", "webpage photography", 1.6),
+    ("05-cinematic", GOLD / "domains" / "cinematic" / "after.png", "AFTER", "webpage cinematic", 1.6),
+    ("06-glass", GOLD / "modifiers" / "cinematic-glassmorphism" / "after.png", "AFTER", "cinematic glassmorphism", 1.5),
+    ("07-bento", GOLD / "modifiers" / "dashboard-bento" / "after.png", "AFTER", "dashboard bento", 1.5),
+    ("08-neon", GOLD / "modifiers" / "landing-neon" / "after.png", "AFTER", "landing neon", 1.5),
+    ("09-infographic", GOLD / "domains" / "infographic" / "after.png", "AFTER", "infographic", 1.6),
+    ("10-svg", HERE / "svg" / "after.png", "AFTER", "svg", 1.5),
+    ("11-3js", HERE / "3js" / "after.png", "AFTER", "3js", 1.5),
+    ("12-simulation", HERE / "simulation" / "after.png", "AFTER", "simulation", 1.8),
+]
 
 
 def font(size: int, bold: bool = False) -> ImageFont.ImageFont:
@@ -38,33 +54,66 @@ def trim_whitespace(im: Image.Image, pad: int = 28) -> Image.Image:
     )
 
 
-def contain_frame(src: Image.Image, label: str) -> Image.Image:
+def label_bar(title: str, sub: str) -> Image.Image:
+    bar = Image.new("RGB", (W, BAR), NAVY)
+    draw = ImageDraw.Draw(bar)
+    draw.text((16, 10), title, fill=GOLD_INK, font=font(18, bold=True))
+    if sub:
+        tw = draw.textbbox((0, 0), title, font=font(18, bold=True))[2]
+        draw.text((16 + tw + 10, 12), sub, fill=CREAM, font=font(14))
+    return bar
+
+
+def contain_page(src: Image.Image, title: str, sub: str) -> Image.Image:
     canvas = Image.new("RGB", (W, H), NAVY)
-    fitted = ImageOps.contain(src.convert("RGB"), (W - 48, H - 72), Image.Resampling.LANCZOS)
+    canvas.paste(label_bar(title, sub), (0, 0))
+    fitted = ImageOps.contain(src.convert("RGB"), (W, H - BAR), Image.Resampling.LANCZOS)
     x = (W - fitted.width) // 2
-    y = 52 + (H - 72 - fitted.height) // 2
+    y = BAR + (H - BAR - fitted.height) // 2
     canvas.paste(fitted, (x, y))
-    draw = ImageDraw.Draw(canvas)
-    draw.text((28, 16), label, fill=GOLD_INK, font=font(20, bold=True))
-    draw.text((28 + 96, 20), "same HTML", fill=CREAM, font=font(15))
     return canvas
 
 
-def tour_tall(src: Image.Image, steps: int) -> list[Image.Image]:
+def tour_page(src: Image.Image, title: str, sub: str) -> list[tuple[Image.Image, float]]:
     im = src.convert("RGB")
     scale = W / im.width
     tall = im.resize((W, max(1, int(im.height * scale))), Image.Resampling.LANCZOS)
-    if tall.height <= H:
-        canvas = Image.new("RGB", (W, H), NAVY)
-        canvas.paste(tall, (0, (H - tall.height) // 2))
-        return [canvas]
-    max_y = tall.height - H
-    n = max(2, steps)
-    out: list[Image.Image] = []
-    for i in range(n):
-        y = round(max_y * i / (n - 1))
-        out.append(tall.crop((0, y, W, y + H)))
+    body_h = H - BAR
+    if tall.height <= body_h:
+        return [(contain_page(im, title, sub), 1.6)]
+    max_y = tall.height - body_h
+    steps = 8 if tall.height > 1200 else 5
+    out: list[tuple[Image.Image, float]] = []
+    for i in range(steps):
+        y = round(max_y * i / (steps - 1))
+        frame = Image.new("RGB", (W, H), NAVY)
+        frame.paste(label_bar(title, sub), (0, 0))
+        frame.paste(tall.crop((0, y, W, y + body_h)), (0, BAR))
+        hold = 1.4 if i == steps - 1 else (0.55 if i == 0 else 0.26)
+        out.append((frame, hold))
     return out
+
+
+def add_full_page(
+    frames: list[tuple[str, Image.Image, float]],
+    stem: str,
+    path: Path,
+    title: str,
+    sub: str,
+    dur: float,
+    *,
+    trim: bool = False,
+) -> None:
+    src = Image.open(path)
+    if trim:
+        src = trim_whitespace(src)
+    src = src.convert("RGB")
+    scaled_h = src.height * (W / src.width)
+    if scaled_h > H - BAR + 24:
+        for i, (im, hold) in enumerate(tour_page(src, title, sub)):
+            frames.append((f"{stem}-{i:02d}.png", im, hold))
+        return
+    frames.append((f"{stem}.png", contain_page(src, title, sub), dur))
 
 
 def write_gif(frames: list[tuple[str, Image.Image, float]]) -> None:
@@ -100,18 +149,14 @@ def write_gif(frames: list[tuple[str, Image.Image, float]]) -> None:
 
 
 def main() -> int:
-    before = trim_whitespace(Image.open(GOLD / "webpage" / "before.png"))
-    poster = Image.open(GOLD / "domains" / "infographic" / "after.png")
-    frames: list[tuple[str, Image.Image, float]] = [
-        ("00-before.png", contain_frame(before, "BEFORE"), 2.2),
-    ]
-    tour = tour_tall(poster, TOUR_STEPS)
-    for i, im in enumerate(tour):
-        hold = 1.8 if i == len(tour) - 1 else (0.7 if i == 0 else 0.28)
-        frames.append((f"01-info-{i:02d}.png", im, hold))
+    frames: list[tuple[str, Image.Image, float]] = []
+    for stem, path, title, sub, dur in PAGES:
+        if not path.is_file():
+            raise SystemExit(f"missing {path}")
+        add_full_page(frames, stem, path, title, sub, dur, trim=(title == "BEFORE"))
     write_gif(frames)
     kb = OUT.stat().st_size // 1024
-    print(f"{OUT.name}  {kb}KB  {len(frames)} frames (before + infographic tour)")
+    print(f"{OUT.name}  {kb}KB  {len(frames)} plates (full pages, no loop cards)")
     return 1 if kb > 5000 else 0
 
 

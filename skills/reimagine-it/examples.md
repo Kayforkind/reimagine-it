@@ -6,7 +6,7 @@ Public **tested results** (live exits, not stories): repo-root [README.md](../..
 
 `gold/reimagine.py` is example A made runnable on **this** skill: `--fail` exits 1 with a vibe list; `--ship` exits 0 and writes `gold/shipped.json`. Same two beats in `gold/index.html`.
 
-Looping examples from the Texas notebook: [`gold/forms/examples.gif`](../../gold/forms/examples.gif) — before, then the tall infographic (no per-asset catalog). Live gallery: [`gold/forms/see.html`](../../gold/forms/see.html).
+Looping examples from the Texas notebook: [`gold/forms/examples.gif`](../../gold/forms/examples.gif) — before, then every full-page after (webpage tokens, infographic, svg, 3js, simulation). No cropped loop cards. Live gallery: [`gold/forms/see.html`](../../gold/forms/see.html).
 
 ---
 

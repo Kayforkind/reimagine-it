@@ -2,22 +2,37 @@
 
 **Use this:** [`best.gif`](best.gif)
 
-Same naive HTML (`before.html`). BEFORE, then the tall infographic (scrolls the poster). No per-asset catalog.
+Same naive HTML (`before.html`). BEFORE, then every **full page** after from that file. No cropped loop cards / weenie close-ups.
 
-720×900, loops. Regenerator: `python gold/jules/make_gif.py` (shots already in `gold/jules/`).
+1. `/reimagine-it webpage`
+2. `/reimagine-it webpage artistic`
+3. `/reimagine-it webpage dashboard`
+4. `/reimagine-it webpage photography`
+5. `/reimagine-it webpage cinematic`
+6. `/reimagine-it webpage cinematic glassmorphism`
+7. `/reimagine-it webpage dashboard bento`
+8. `/reimagine-it webpage landing neon`
+9. `/reimagine-it infographic`
+10. `/reimagine-it svg`
+11. `/reimagine-it 3js`
+12. `/reimagine-it simulation`
 
-This source is not the Texas notebook. The infographic is a star around the cone. Palette is cream / chocolate / strawberry / pistachio / waffle-gold. Nested span is the 14-day 1991 heatwave. ISOTYPE is eight mint tubs.
+720×900, loops. Regenerator: `python gold/jules/make_gif.py`.
 
-**Alt text:** Same naive Jules Ice Cream HTML, then the tall parlor infographic scrolling from masthead to table. Loops.
+This source is not the Texas notebook. The page is the parlor you walk into, the infographic is a star around the cone, the SVG is stacked scoops, the 3js camera sits on the marble counter, the clock is the flavor board.
+
+**Alt text:** Same naive Jules Ice Cream HTML, then twelve full-page afters from that file. Loops.
 
 Copy:
 
 ```
-Same HTML. Then the poster.
+Same HTML. Twelve full pages. Not a template.
 
 Jules Ice Cream, founded 1980.
 
+/reimagine-it webpage
 /reimagine-it infographic
+/reimagine-it svg | 3js | simulation
 
 https://github.com/Kayforkind/reimagine-it
 ```
