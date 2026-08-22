@@ -1,0 +1,32 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "reimagine-it",
+  "description": "Claude Code plugin marketplace for /reimagine-it. Cursor, Codex, Copilot, and Gemini CLI install via npx skills. Redesign any file from its own content — webpage, PDF, slides, infographic. Offline HTML. No CDN. No Mermaid slop.",
+  "metadata": {
+    "description": "Claude Code / Cursor / Codex / Copilot / Gemini CLI Agent Skill. Redesign any file from its own content — webpage, PDF, slides, infographic. Offline HTML. No CDN. No Mermaid slop."
+  },
+  "owner": {
+    "name": "Kayforkind",
+    "url": "https://github.com/Kayforkind"
+  },
+  "plugins": [
+    {
+      "name": "reimagine-it",
+      "source": "./",
+      "description": "Claude Code plugin. Content-aware redesign: webpage, HTML, landing page, PDF, slides, infographic, SVG. Not a mood board. Not Mermaid slop.",
+      "category": "design",
+      "homepage": "https://github.com/Kayforkind/reimagine-it",
+      "keywords": [
+        "claude-code",
+        "cursor",
+        "codex",
+        "copilot",
+        "gemini-cli",
+        "agent-skills",
+        "infographic",
+        "webpage",
+        "redesign"
+      ]
+    }
+  ]
+}

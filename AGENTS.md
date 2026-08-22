@@ -14,7 +14,14 @@ You are loading **reimagine-it**, one Agent Skill. Progressive disclosure. Do no
 8. Load `examples.md` if the form is still unclear.
 
 ```bash
-npx skills add kazimrmerchant/reimagine-it
+npx skills add Kayforkind/reimagine-it
+```
+
+Claude Code:
+
+```text
+/plugin marketplace add Kayforkind/reimagine-it
+/plugin install reimagine-it@reimagine-it
 ```
 
 Fallback: copy `skills/reimagine-it/` into the host skills root. Never into `~/.cursor/skills-cursor/`.

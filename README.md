@@ -1,35 +1,29 @@
 # reimagine-it
 
-[![license MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE) [![agentskills.io spec](https://img.shields.io/badge/agentskills.io-spec-e8a63f.svg)](https://agentskills.io/specification) [![version 2.3](https://img.shields.io/badge/version-2.3-b22234.svg)](skills/reimagine-it/SKILL.md) [![craft floor: WebGL2 / scroll-driven / reduced-motion / :focus-visible](https://img.shields.io/badge/craft%20floor-webgl2%20%C2%B7%20scroll--timeline%20%C2%B7%20reduced--motion%20%C2%B7%20:focus--visible-1a2138.svg)](skills/reimagine-it/references/craft-floor.md) [![sponsor](https://img.shields.io/badge/sponsor-%E2%98%85-b22234.svg)](https://github.com/sponsors/kazimrmerchant)
+[![license MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE) [![Claude Code](https://img.shields.io/badge/Claude_Code-plugin-d97757.svg)](https://code.claude.com/docs/en/plugins) [![Cursor](https://img.shields.io/badge/Cursor-skill-1a2138.svg)](https://cursor.com) [![Codex](https://img.shields.io/badge/Codex-skill-6e6e6e.svg)](https://github.com/openai/codex) [![agentskills.io spec](https://img.shields.io/badge/agentskills.io-spec-e8a63f.svg)](https://agentskills.io/specification) [![version 2.3](https://img.shields.io/badge/version-2.3-b22234.svg)](skills/reimagine-it/SKILL.md) [![sponsor](https://img.shields.io/badge/sponsor-%E2%98%85-b22234.svg)](https://github.com/sponsors/Kayforkind)
 
-> **One agent skill. Any file. A content-aware leap.**
->
-> `/reimagine-it` reads what your source *is about* and derives the palette, motifs, motion, and 3D from the content itself. Feed it a Texas notebook and the design comes out in navy / cream / red / gold with a lone-star lockup and a sunset shader. Feed it a marine-biology paper and it would come out in teal / bone / kelp / phytoplankton pink with a caustics shader and current lines. **Same command, different source, different visual DNA.**
->
-> The gallery below is the same naive HTML page ([`gold/webpage/before.html`](gold/webpage/before.html) &mdash; a plain Texas notebook: three places, three signals, one flag) redesigned nine different ways by the same command with one different token each. Every shot renders locally from a real `.html` file in this repo. No CDN, no paid API, no third-party service.
+**Your AI redesigns the file you actually have — from what it is about.**
+
+Ask for a redesign and most agents ship a mood board. `/reimagine-it` reads the nouns, dates, and colors in *your* source and ships a real artifact: webpage, infographic poster, PDF, or slides. One file. Offline. No Figma, no CDN.
+
+```bash
+npx skills add Kayforkind/reimagine-it
+```
+
+Then: `/reimagine-it` · `/reimagine-it infographic` · `/reimagine-it webpage cinematic`
+
+Live gold: [kayforkind.github.io/reimagine-it](https://kayforkind.github.io/reimagine-it/) · files in [`gold/`](gold/)
+
+Same naive HTML, nine tokens:
 
 ![one raw Texas notebook, nine content-aware redesigns: default, artistic, dashboard, photography, cinematic, cinematic+glassmorphism, dashboard+bento, landing+neon, infographic](gold/gallery.png?v=texas-5)
 
 ```
-/reimagine-it webpage                                        <- default (top-left)
-/reimagine-it webpage artistic
-/reimagine-it webpage dashboard
-/reimagine-it webpage photography
-/reimagine-it webpage cinematic                              <- inline WebGL2 shader
-/reimagine-it webpage cinematic glassmorphism                <- modifier stacks on domain
-/reimagine-it webpage dashboard bento
-/reimagine-it webpage landing   neon
-/reimagine-it infographic                                    <- paper poster, not a dashboard
-/reimagine-it infographic <any leftover words>               <- open brief; not a theme catalog
+/reimagine-it webpage
+/reimagine-it webpage artistic | dashboard | photography | cinematic | landing
+/reimagine-it infographic
+/reimagine-it infographic <any leftover words>    # open brief, not a theme catalog
 ```
-
-<p align="center">
-  <a href="https://github.com/sponsors/kazimrmerchant"><img alt="Sponsor this project on GitHub" src="https://img.shields.io/badge/%E2%98%85%20Sponsor%20this%20project-on%20GitHub-b22234?style=for-the-badge&labelColor=1a2138&color=b22234"></a>
-  &nbsp;&nbsp;
-  <a href="https://github.com/kazimrmerchant/reimagine-it"><img alt="Star the repo" src="https://img.shields.io/badge/%E2%98%85%20Star%20the%20repo-on%20GitHub-1a2138?style=for-the-badge&labelColor=e8a63f&color=1a2138"></a>
-</p>
-
-<p align="center"><em>If <code>/reimagine-it</code> gives you an output you'd have paid a designer for, star the repo (top-right) and consider sponsoring &mdash; sponsors fund the next domains, form packs, and locks.</em></p>
 
 ---
 
@@ -89,12 +83,21 @@ Regenerate the quartet locally: `python gold/compare.py` (writes `gold/webpage/q
 
 ## Install
 
+**Cursor / Agent Skills**
+
 ```bash
-npx skills add kazimrmerchant/reimagine-it            # one project
-npx skills add kazimrmerchant/reimagine-it -g          # global (Cursor, Claude Code, ...)
+npx skills add Kayforkind/reimagine-it            # one project
+npx skills add Kayforkind/reimagine-it -g          # global (Cursor, Claude Code, Codex, Copilot, Gemini CLI)
 ```
 
-Then say `/reimagine-it` in your host.
+**Claude Code** (plugin marketplace)
+
+```text
+/plugin marketplace add Kayforkind/reimagine-it
+/plugin install reimagine-it@reimagine-it
+```
+
+Then say `/reimagine-it` in the host. Also matches: "reimagine it", "redesign this page", "make an infographic".
 
 ---
 
@@ -485,10 +488,10 @@ If a regenerator fails on your machine, that's a bug &mdash; please open an issu
 If `/reimagine-it` gives you an output you'd have paid a designer for, three ways to help me keep shipping the next domains, form packs, and locks:
 
 - **Star the repo.** It's the single fastest signal that this project should keep growing. Use the star button at the top of the page.
-- **[Sponsor on GitHub &rarr;](https://github.com/sponsors/kazimrmerchant)** Any tier keeps the studio's lights on. Sponsors get priority on custom domain packs and roadmap input.
+- **[Sponsor on GitHub &rarr;](https://github.com/sponsors/Kayforkind)** Any tier keeps the studio's lights on. Sponsors get priority on custom domain packs and roadmap input.
 - **Contribute a domain or a lock.** Open a PR under [`skills/reimagine-it/references/domains/`](skills/reimagine-it/references/domains/) or [`references/locks/`](skills/reimagine-it/references/locks/). Real content beats a spec.
 
-Say hi on [GitHub](https://github.com/kazimrmerchant).
+Say hi on [GitHub](https://github.com/Kayforkind).
 
 ---
 

@@ -1,19 +1,27 @@
 ---
 name: reimagine-it
 description: >-
-  Open a creative mind on the current thing — a webpage, a PDF, a document, a
-  deck, a CLI, a protocol, an architecture, a codebase, a piece of prose — and
-  ship a leap the user did not know to ask for. Use when they run
-  /reimagine-it, say "reimagine it", "reinvent this", "reimagine this page",
-  want surprise, adjacent possible, make-strange, or are stuck recognizing
-  instead of seeing. Composable modifiers (glassmorphism, bento, neon, ...),
-  leftover words as an open creative brief, font overrides, and a lock
-  system that captures a shipped design as a reusable reference. Not a
-  brainstorm list. Not /better (quality pass). Not a feasibility grill.
+  Claude Code plugin and Cursor / Codex / Copilot / Gemini CLI Agent Skill.
+  Install with npx skills add Kayforkind/reimagine-it or
+  /plugin marketplace add Kayforkind/reimagine-it.
+  Redesign any file from its own content: webpage, HTML, landing page,
+  README, PDF, document, slides, PowerPoint, infographic, SVG, dashboard,
+  CLI, or protocol. Use when the user says /reimagine-it, reimagine it,
+  reinvent this, redesign this page, make an infographic, content-aware
+  redesign, or wants a visual leap instead of a mood board or Mermaid slop.
+  Tokens: artistic, cinematic, photography, neon, glassmorphism, bento,
+  infographic, plus leftover words as an open brief. Not /better.
 license: MIT
 metadata:
-  author: kazimrmerchant
+  author: Kayforkind
   version: "2.3"
+  hosts:
+    - claude-code
+    - cursor
+    - codex
+    - copilot
+    - gemini-cli
+    - agent-skills
 ---
 
 # /reimagine-it

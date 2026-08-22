@@ -33,7 +33,7 @@ Real content beats a spec. The fastest way to improve `/reimagine-it` is to add 
 ## How to develop locally
 
 ```bash
-git clone https://github.com/kazimrmerchant/reimagine-it.git
+git clone https://github.com/Kayforkind/reimagine-it.git
 cd reimagine-it
 
 # Regenerate everything:

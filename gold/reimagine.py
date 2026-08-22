@@ -31,7 +31,7 @@ def ship() -> int:
         "mode": "reimagine-it",
         "about": lock,
         "hero": "gold/reimagine.py --ship",
-        "stretch": "npx skills add kazimrmerchant/skill-slice --skill reimagine-it",
+        "stretch": "npx skills add Kayforkind/skill-slice --skill reimagine-it",
         "verified": "this command exits 0; gold/reimagine.py --fail exits 1",
     }
     SHIPPED.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")

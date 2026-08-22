@@ -1,0 +1,38 @@
+{
+  "name": "reimagine-it",
+  "description": "Claude Code, Cursor, Codex, Copilot, and Gemini CLI skill. Redesign any file from its own content — webpage, HTML, landing page, PDF, slides, infographic, SVG, dashboard. Not a mood board. Not Mermaid slop.",
+  "version": "2.3.0",
+  "author": {
+    "name": "Kayforkind",
+    "url": "https://github.com/Kayforkind"
+  },
+  "homepage": "https://kayforkind.github.io/reimagine-it/",
+  "repository": "https://github.com/Kayforkind/reimagine-it",
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "claude",
+    "anthropic",
+    "cursor",
+    "codex",
+    "openai",
+    "copilot",
+    "gemini",
+    "gemini-cli",
+    "agent-skills",
+    "agent-skill",
+    "infographic",
+    "webpage",
+    "html",
+    "svg",
+    "pdf",
+    "slides",
+    "powerpoint",
+    "webgl",
+    "redesign",
+    "landing-page",
+    "dashboard",
+    "content-aware"
+  ],
+  "skills": "./skills/reimagine-it"
+}

@@ -15,16 +15,13 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const CDP = "http://127.0.0.1:9222";
 const OUT = "C:/Users/kazim/.cursor/browser-hub/out";
 const IMAGES = [
-  join(__dirname, "11-before-1080.jpg"),
-  join(__dirname, "15-infographic-1080.jpg"),
-  join(__dirname, "12-dashboard-1080.jpg"),
-  join(__dirname, "14-cinematic-1080.jpg"),
+  join(__dirname, "31-fusion-pair-1080.jpg"),
 ];
 const COPY = `Same HTML. One extra word: infographic.
 
 /reimagine-it now ships a statistical poster — common-scale timeline, ISOTYPE counts, lossless table. Not a dashboard.
 
-https://github.com/kazimrmerchant/reimagine-it`;
+https://github.com/Kayforkind/reimagine-it`;
 
 async function main() {
   mkdirSync(OUT, { recursive: true });
@@ -60,7 +57,6 @@ async function main() {
 
     const fileInput = page.locator('input[type="file"][accept*="image"]').first();
     await fileInput.setInputFiles(IMAGES);
-    // wait until 4 attachments render
     await page.locator('[data-testid="attachments"] img, [data-testid="tweetPhoto"]').first().waitFor({ timeout: 30000 });
     await page.waitForTimeout(2500);
     await shot("02-with-images");
