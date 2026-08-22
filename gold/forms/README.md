@@ -6,7 +6,7 @@ Source: [`../webpage/before.html`](../webpage/before.html) (the naive Texas note
 |-------|----------|----------------|
 | `/reimagine-it svg` | [`svg/after.svg`](svg/after.svg) | Living weenie: Lone Star, schematic Texas, Priestley 1836–1995, eight acre units. Star breathe, river flow, pin ping, hover pairing. |
 | `/reimagine-it 3js` | [`3js/after.html`](3js/after.html) | Living room of the three places. Star turn, Rio Grande motes, chapel glow, wide-drift. Offline Three.js r185 in `3js/vendor/`. No CDN. |
-| `/reimagine-it simulation` | [`simulation/after.html`](simulation/after.html) | A playable year clock. Events light from facts in the file. Rio Grande flows. |
+| `/reimagine-it simulation` | [`simulation/after.html`](simulation/after.html) | Playable clock. Default paused on 1836. Day-scale siege. SVG geography. Type in the gutter. |
 
 Live look: [`see.html`](see.html) — SVG + 3js side by side, four loop close-ups, **Alive / Still** toggle. Serve this folder:
 
@@ -22,7 +22,7 @@ Re-shoot (writes form stills + `after-b.png` pairs, `loops/*.png`, `strip.png`, 
 python gold/forms/shot.py
 ```
 
-Looping examples GIF (`examples.gif` — before → infographic → svg → 3js → four loops → simulation):
+Looping examples GIF (`examples.gif` — before → nine webpage tokens → svg → 3js → four loops → simulation):
 
 ```powershell
 python gold/forms/make_gif.py

@@ -1,8 +1,31 @@
 # /reimagine-it svg
 
-Load when the user forces `svg`, or the router picks a weenie. Gold: [`gold/forms/svg/after.svg`](../../../gold/forms/svg/after.svg).
+Load when the user forces `svg`, or the router picks a weenie. Gold: [`gold/forms/svg/after.svg`](../../../gold/forms/svg/after.svg) — **one draw of one Texas notebook**, not a skin.
 
 This is a **living mark**, not a captioned webpage saved as `.svg`, and not a paper poster (that is `infographic`). Pick this form when the source should **breathe** — micro-motion that beautifies the read.
+
+## This source, this run — not a template
+
+Fail the run if a client could mistake the drawing for the Texas gold when the source is not that notebook.
+
+| Layer | From this source | Never from |
+|-------|------------------|------------|
+| **Weenie** | The one silhouette *this* file is about (flag, beast, tool, handshake, press, cup) | Lone Star flag geometry |
+| **Field** | Places, dates, magnitudes named here | Schematic Texas, Rio Grande, Alamo / Austin / Big Bend pins |
+| **Palette** | Named colors, materials, inks, habitats in the text | Navy `#1a2138` / cream `#f4ecd8` / star-red / gold unless *this* source names those |
+| **Loops** | 2–4 loops mapped to *this* file's anchors | Star-breathe + river-dash + Alamo ping + 1839 tick |
+| **Type** | Legend names from this source | "Alamo · 1836 · 19-day siege" |
+
+A second run on the **same** source is still a new draw (weenie, ground, which loops) unless `--seed` / `--variant` pinned it.
+
+## Open brief (leftover words)
+
+Unknown words after known tokens are a **creative lens**. Follow them. Reweight ground, motif, pattern, type, which loops run. Do not invent facts. Leftover `still` / `no-motion` / `print` freezes loops (layout laws still hold). Hover pairing may stay.
+
+```
+/reimagine-it svg
+/reimagine-it svg <any words the user typed>
+```
 
 ## Why this form exists
 
@@ -13,21 +36,21 @@ This is a **living mark**, not a captioned webpage saved as `.svg`, and not a pa
 | A room they can orbit | `3js` |
 | Time actually passing | `simulation` |
 
-Default is **alive**. Brief `still` / `no-motion` / `print` freezes loops (layout laws still hold). Hover pairing may stay as instant feedback.
+Default is **alive**.
 
 ## Layout law (fail if broken)
 
-1. **Type lives in the gutter.** A dedicated legend / title band holds every label. Pins, stars, rivers, maps, and ISOTYPE units carry **no** sitting text.
-2. **No overlap.** No label crosses a path, another label, or a weenie. 1836 and 1839 on a century axis are too close for two strings — cluster them, or leave the near tick unlabeled and name it in the legend.
+1. **Type lives in the gutter.** A dedicated legend / title band holds every label. Pins, weenies, rivers, maps, and ISOTYPE units carry **no** sitting text.
+2. **No overlap.** No label crosses a path, another label, or a weenie. Two dates too close on a common axis: cluster them, or leave the near tick unlabeled and name it in the legend.
 3. **Air.** ≥ 16 px between a mark and the nearest type. ≥ 24 px between stacked labels. The weenie has ≥ 15% empty field around it.
-4. **One weenie.** The first glance is one silhouette (flag, beast, tool, handshake). Supporting marks are quieter.
+4. **One weenie.** The first glance is one silhouette from *this* source. Supporting marks are quieter.
 5. **Chrome off the art.** No `/reimagine-it svg · from path/to/file` painted on the drawing. Source goes in `<title>` / `<desc>`.
 
 ## Color
 
-- Palette from the source only (the Texas notebook → navy `#1a2138`, cream `#f4ecd8`, star-red `#b22234`, gold `#e8a63f`).
-- Prefer **flag geometry** (canton + bars + star) over a circle-with-a-star clipart.
-- Fills do the talking. Do not outline every shape in the same navy stroke.
+- Palette from **this** source only.
+- Prefer the source's actual weenie geometry (a flag if the source is a flag; a press if a press) over clipart.
+- Fills do the talking. Do not outline every shape in the same stroke.
 
 ## Alive-micro (default motion budget)
 
@@ -44,20 +67,11 @@ Pick from this menu — do not invent a fifth class:
 
 Entrance stagger (ISOTYPE fade-in) is allowed as a **one-shot** that ends at opacity 1. Do not loop the whole row.
 
-**Hover pairing (the beautify move).** Use `:has()` so the field and the gutter answer each other — hover a pin, its legend swatch scales; hover a legend row, its pin scales. `transition: transform 150–180ms ease-out` on the swatch. Do not slide labels onto the map.
+**Hover pairing.** Use `:has()` so the field and the gutter answer each other — hover a pin, its legend swatch scales; hover a legend row, its pin scales. `transition: transform 150–180ms ease-out` on the swatch. Do not slide labels onto the field. Class names come from **this** source's nouns, not gold's `row-alamo`.
 
-```css
-.pin { transform-box: fill-box; transform-origin: center; }
-svg:has(.row-alamo:hover) .pin-alamo,
-.pin-alamo:hover { animation: none; transform: scale(1.32); }
-svg:has(.pin-alamo:hover) .row-alamo .swatch { transform: scale(1.25); }
-```
+**Properties.** `transform`, `opacity`, `stroke-dashoffset` only. Never `x`, `y`, `width`, `height`, `font-size`, `fill`, or `color` as the animated property.
 
-**Properties.** `transform`, `opacity`, `stroke-dashoffset` only. Never `x`, `y`, `width`, `height`, `font-size`, `fill`, or `color` as the animated property (a fill change is a recolor loop — fail).
-
-**Reduced motion.** `@media (prefers-reduced-motion: reduce)` kills infinite loops. Keep hover/focus scale as **instant** feedback (duration 0.001ms or none). Do not blank the graphic.
-
-**Opt out.** Leftover brief `still` / `no-motion` / `print` → no infinite loops. Pairing hover may remain.
+**Reduced motion.** `@media (prefers-reduced-motion: reduce)` kills infinite loops. Keep hover/focus scale as **instant** feedback. Do not blank the graphic.
 
 ## Must not
 
@@ -69,8 +83,14 @@ svg:has(.pin-alamo:hover) .row-alamo .swatch { transform: scale(1.25); }
 - Bounce the `viewBox` or every mark at once
 - SMIL that ignores `prefers-reduced-motion`
 - More than four infinite loops
-- Motion that leaves the first frame empty (stagger stuck at opacity 0)
+- Motion that leaves the first frame empty
+- **Clone the Texas gold** (Lone Star flag, schematic Texas, navy-cream-red-gold, eight acre mountains) onto a source that is not that notebook
+- **Clone gold composition:** weenie-left / schematic-map-center / legend-gutter-right / Priestley-timeline-bottom. A shop is a cone or a menu, not a state map with scoops glued on.
+
+## Gold (example only)
+
+That notebook is a flag, three places, a river, and a century of dates. The gold therefore: flag weenie, unlabeled pins, 1839 as a quiet tick, eight acre units, those four loops. **Copy the method, not the scenery or the four-band layout.** Hover pairing in gold uses `.row-alamo` / `.pin-alamo` — rename to this source. A second gold (`gold/jules/forms/svg/`) is a stacked cone, not that map.
 
 ## Proof
 
-File opens. Weenie reads at ~200 px. Screenshot: no overlapping type. Two frames ~600 ms apart differ unless the brief was `still`. Report `partial` if a label sits on a mark, or if the pack claims alive and the hashes match.
+File opens. Weenie reads at ~200 px and is *this* source's object. Screenshot: no overlapping type. Two frames ~600 ms apart differ unless the brief was `still`. Report `partial` if a label sits on a mark, if the pack claims alive and the hashes match, or if the drawing is the Texas gold wearing a new title.

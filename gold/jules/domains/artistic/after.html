@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jules Ice Cream — artistic</title>
+<style>
+  :root {
+    --paper: #f7efe4;
+    --ink: #3a2418;
+    --berry: #c45c6a;
+    --gold: #e4b15a;
+    --pist: #6a9a6e;
+    --serif: Georgia, Palatino, "Times New Roman", serif;
+    --sans: ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+    --mono: ui-monospace, Consolas, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-padding-top: 24px; background: var(--paper); }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: var(--sans); line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    padding: 40px 48px 96px; max-width: 1280px; margin: 0 auto;
+    position: relative; overflow-x: hidden;
+  }
+  ::selection { background: var(--berry); color: var(--paper); }
+  a { color: var(--pist); }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--berry); outline-offset: 3px;
+  }
+  .ambient { position: absolute; inset: -8% -6%; z-index: 0; pointer-events: none; }
+  .ambient svg { width: 100%; height: 1100px; }
+  .drift { animation: spin 48s linear infinite; transform-origin: 40% 30%; }
+  .drip { stroke-dasharray: 12 16; animation: flow 5s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes flow { to { stroke-dashoffset: -56; } }
+  main { position: relative; z-index: 1; }
+  .masthead h1 {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(72px, 12vw, 148px); line-height: 0.88; letter-spacing: -0.03em;
+  }
+  .masthead h1 .amp {
+    color: var(--berry); display: inline-block;
+    animation: sway 3.6s ease-in-out infinite;
+  }
+  @keyframes sway {
+    0%, 100% { transform: rotate(-6deg); }
+    50% { transform: rotate(7deg); }
+  }
+  .masthead .last {
+    display: block; font-family: var(--sans); font-style: normal; font-weight: 800;
+    letter-spacing: 0.18em; font-size: 0.22em; color: var(--gold); margin-top: 8px;
+  }
+  .sub { max-width: 42ch; margin: 20px 0 48px; font-size: 17px; }
+  .sub em { color: var(--berry); font-style: italic; }
+  .stage {
+    perspective: 1600px; padding: 28px; background: rgba(58,36,24,.06);
+    margin-bottom: 56px;
+  }
+  .fan {
+    display: grid; grid-template-columns: 1fr 1.1fr 1fr; gap: 16px;
+    transform-style: preserve-3d;
+  }
+  .fan figure { margin: 0; }
+  .fan .art {
+    background: var(--paper); overflow: hidden;
+    box-shadow: 0 40px 56px rgba(58,36,24,.22);
+  }
+  .fan figure:nth-child(1) .art { transform: rotateY(-16deg) translateZ(-12px); }
+  .fan figure:nth-child(2) .art { transform: translateZ(36px) translateY(-16px); }
+  .fan figure:nth-child(3) .art { transform: rotateY(16deg) translateZ(-12px); }
+  .fan svg { display: block; width: 100%; height: auto; }
+  .fan figcaption {
+    margin-top: 10px; font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  .beat {
+    font-family: var(--serif); font-style: italic; font-size: 28px;
+    margin: 8px 0 40px; max-width: 28ch;
+  }
+  .now { font-size: 18px; margin-bottom: 24px; }
+  .pill {
+    display: inline-block; background: var(--ink); color: var(--cream, #f7efe4);
+    color: #f7efe4; padding: 10px 16px; font-family: var(--mono);
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    text-decoration: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .drift, .drip, .amp { animation: none; }
+    .fan .art { transform: none; }
+  }
+</style>
+</head>
+<body>
+<div class="ambient" aria-hidden="true">
+  <svg viewBox="0 0 1200 900">
+    <g class="drift" fill="none" stroke="#e4b15a" stroke-width="1.2" opacity=".45">
+      <path d="M80 80 l40 24 l-16 40 l-40-24 z M160 128 l40 24 l-16 40 l-40-24 z M240 80 l40 24 l-16 40 l-40-24 z"/>
+      <path d="M100 200 l40 24 l-16 40 l-40-24 z M180 248 l40 24 l-16 40 l-40-24 z"/>
+      <path d="M900 60 l48 28 l-18 46 l-48-28 z M980 120 l48 28 l-18 46 l-48-28 z"/>
+    </g>
+    <path class="drip" d="M220 40 C 260 180, 180 320, 240 520" fill="none" stroke="#c45c6a" stroke-width="3" opacity=".5"/>
+    <path class="drip" d="M1040 80 C 980 240, 1100 380, 1020 560" fill="none" stroke="#6a9a6e" stroke-width="3" opacity=".4"/>
+  </svg>
+</div>
+<main>
+  <header class="masthead">
+    <h1>Jules <span class="amp">&amp;</span> cream<span class="last">ICE CREAM</span></h1>
+    <p class="sub">A few notes on the shop — the parlor, the flavors, and the freezer. Founded <em>1980</em>. Port Meridian. Kept plain.</p>
+  </header>
+
+  <div class="stage">
+    <div class="fan">
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 300 400" aria-hidden="true">
+            <rect width="300" height="400" fill="#3a2418"/>
+            <rect x="24" y="36" width="252" height="140" fill="#8eb8c4"/>
+            <rect x="36" y="48" width="108" height="52" fill="#f7efe4"/>
+            <rect x="156" y="48" width="108" height="52" fill="#f7efe4"/>
+            <path d="M0 210 C 80 190 140 230 300 200 L 300 400 L 0 400 Z" fill="#efe4d4"/>
+            <path d="M90 228 L130 228 L110 330 Z" fill="#e4b15a"/>
+            <ellipse cx="110" cy="214" rx="28" ry="20" fill="#c45c6a"/>
+            <ellipse cx="210" cy="250" rx="26" ry="14" fill="#e4b15a"/>
+            <path d="M234 250 L270 236" stroke="#3a2418" stroke-width="4"/>
+          </svg>
+        </div>
+        <figcaption>Harbor Street · 1980 · marble · brass</figcaption>
+      </figure>
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 300 400" aria-hidden="true">
+            <rect width="300" height="400" fill="#1c100c"/>
+            <rect x="70" y="70" width="160" height="240" fill="#3a2418"/>
+            <rect x="86" y="90" width="128" height="200" fill="#8eb8c4"/>
+            <rect x="86" y="90" width="128" height="200" fill="#c5e4ea" opacity=".45"/>
+            <ellipse cx="150" cy="140" rx="40" ry="18" fill="#6a9a6e" opacity=".5"/>
+            <ellipse cx="150" cy="200" rx="36" ry="16" fill="#f3e6c4" opacity=".4"/>
+          </svg>
+        </div>
+        <figcaption>Cold room · 1980 · ice-blue light</figcaption>
+      </figure>
+      <figure>
+        <div class="art">
+          <svg viewBox="0 0 300 400" aria-hidden="true">
+            <rect width="300" height="400" fill="#8eb8c4"/>
+            <path d="M0 240 L300 200 L300 400 L0 400 Z" fill="#3a2418"/>
+            <rect x="70" y="160" width="160" height="12" fill="#e4b15a"/>
+            <path d="M118 168 L150 250 L182 168 Z" fill="#e4b15a"/>
+            <ellipse cx="150" cy="156" rx="30" ry="22" fill="#f3e6c4"/>
+          </svg>
+        </div>
+        <figcaption>Ferry Road · 2006 · walk-up only</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <p class="beat">Six flavors on the board. Burnt sugar is the current weenie. The 1980 freezer still hums.</p>
+  <p class="now">Vanilla bean 1980 · Strawberry buttermilk 1984 · Pistachio rose 1991 · Dark chocolate sea salt 1998 · Mint chip 2014 · Burnt sugar &amp; cream 2022. Jules is tasting the burnt sugar.</p>
+  <a class="pill" href="mailto:hello@julesicecream.example">hello@julesicecream.example</a>
+</main>
+</body>
+</html>

@@ -52,7 +52,7 @@ Anything after known form / domain / modifier / flag tokens is a **creative lens
 
 ### No tokens
 
-Use this spine alone; the aesthetic is a sober designed page.
+Use this spine alone; the aesthetic is a **designed site with presence**. First viewport is a magnet a client can name from the picture. Not a sober form, not a 640px object on an empty wall, not an infographic wearing a header.
 
 ## Every output must land SVG + animation + 3D — **and they must read in a still**
 
@@ -69,25 +69,27 @@ Non-negotiable across every domain token and the default. Not floors — real fe
 
 If a redesign lands zero of these, it did not earn `/reimagine-it webpage`. If it lands them syntactically but a still doesn't prove them, tighten motion budget / bigger tilt / add a shadow.
 
-Live gold: [gold/webpage/before.html](../../../gold/webpage/before.html) vs [gold/webpage/after.html](../../../gold/webpage/after.html) is the sober default. [gold/domains/](../../../gold/domains/) holds the domain variants. [gold/modifiers/](../../../gold/modifiers/) holds domain-plus-modifier combos. `gold/domains/strip.png` and `gold/domains/motion-strip.png` are the proofs that domain tokens produce range **and** motion.
+Live gold: [gold/webpage/after.html](../../../gold/webpage/after.html) is **one** Texas-notebook default (dark OS). A different source must not copy that OS **or** collapse into a stationery slip. Parlor-as-site proof: [gold/jules/webpage/after.html](../../../gold/jules/webpage/after.html).
 
 ## Non-negotiables (a redesign that misses these is a repaint)
 
 1. **Grid + baseline rhythm.** 8px baseline. Spacing on 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 96 only. Do not eyeball margins.
-2. **Type hierarchy of at least 4 levels.** Display (48–96px, tight tracking, tightened line-height), section (22–28px), body (14–18px), meta / kicker (10–12px monospace, wide tracking, upper). Two typefaces max — one sans, one mono.
-3. **Content measure ≤ 65ch.** Prose sits in a column, not the whole viewport.
-4. **A palette of ≤ 5 colors.** One background, one panel, one ink, one dim, one accent. Contrast checked, not vibed. A warm sixth only for a status color if the page has status.
-5. **A single geometric motif carried through the whole page.** A bar, a dot rule, a horizontal line-with-gaps, a rotated year, a numbered index — one thing repeats so the page reads as one object.
-6. **Section identity.** Number every section (`01`, `02`, …). Give each section a kicker line, a real title, and a right-aligned meta count. This does the work of a nav without a nav.
-7. **Real inline data, not decorative shapes.** If the page has three projects, ship a mini-viz for each project that encodes something real (age, size, status). Decorative circles get cut.
-8. **One make-strange move.** The page must do one thing a plain page does not know it is allowed to do. Options — pick one, not five:
-   - Cross-section motif that visualizes the whole page before you read it (skyline, timeline, dot cluster)
-   - Content type change (a "Now" section rendered as a status table, not paragraphs; a contact block rendered as a shell command)
-   - Reveal-the-geometry (make the underlying grid visible as a design element)
-   - Numbered section index rail at the top of the page ("00 · MASTHEAD / 01 · WORK …")
-   - Rotated meta (year rotated 90° next to a card, monospace)
-9. **One artifact you can double-click.** A single `.html` with inline `<style>`, no build, no CDN required, no web font that fetches, no analytics. Opens offline.
-10. **Same words, better held.** Do not invent projects, quotes, testimonials, badges, or emoji-glyph "features." The redesign moves the same content into a form that holds it. Data may be **restructured** (a paragraph rendered as a table, a list rendered as chart labels) as long as every heading, label, and body word either exists verbatim in the source **or** is directly implied by it (e.g. "Wed–Sat, 11–5" implies "Sun: closed"). Prefer verbatim.
+2. **Type hierarchy of at least 4 levels.** Display (72–160px, tight tracking, tightened line-height) — serif or sans **from this source**. Section (22–32px). Body (15–18px) is the other family. Meta / kicker (10–12px monospace, wide tracking, upper). Serif + sans + meta-mono is allowed. Do not ship display at 42px on a ticket slip.
+3. **Content measure ≤ 65ch.** Prose sits in a column, not the whole viewport. The **hero** may break the measure — type and weenie may fill the first viewport.
+4. **A palette of ≤ 5 colors derived from this source.** One background, one panel, one ink, one dim, one accent. Contrast checked, not vibed. A warm sixth only for a status color if the page has status.
+5. **A single geometric motif carried through the whole page.** One mark from **this** source repeats (a ticket punch, a scoop, a bar, a rotated year). Do not reuse gold’s skyline / numbered index because the last gold used them.
+6. **Section identity from the source’s object.** A shop is a parlor, a counter, a menu board you walk into. A notebook may read as numbered notes. Numbered `01 / 02` kickers and a `"00 · MASTHEAD"` rail are **one** option, not the default. Fail if a client could mistake the page for the Texas gold with the title swapped.
+7. **First viewport fills the frame.** In a 1400×900 still the magnet occupies ≥70% of the width. Hero SVG ≥ 400px on its longest side, on-stage, not a 160px clip-art icon beside a form. Display type is in that still. Empty wall around a narrow card is a fail.
+8. **Real inline data, not decorative shapes — and not an infographic.** If the page has three places or six flavors, they appear as **objects in the room** (scoops on a counter, windows in a wall). Bar charts, Priestley axes, and ISOTYPE strips as the hero belong to the `infographic` token.
+9. **One make-strange move that belongs to this source.** Pick **one**, from the object in the file — not from gold:
+   - The page *is* the room (a parlor, a counter, a freezer door, a flag field) — **full-bleed**, not a stationery slip floating on a colored wall
+   - Content type change (Now as a status table; contact as a ticket *module*)
+   - Cross-section of *this* data
+   - Reveal-the-geometry of *this* grid
+   Do **not** ship `"00 · MASTHEAD / 01 · PLACES"`, a KPI skyline, or **the whole page as a receipt/order-ticket** because a previous gold did. A ticket may sit *on* the counter.
+10. **3D that actually reads.** Rotation ≥ 12° on an element that occupies ≥ 20% of the first viewport, with shadow blur ≥ 24px. A 3° tilt on a card does not count.
+11. **One artifact you can double-click.** A single `.html` with inline `<style>`, no build, no CDN required, no web font that fetches, no analytics. Opens offline.
+12. **Same words, better held.** Do not invent projects, quotes, testimonials, badges, or emoji-glyph "features." The redesign moves the same content into a form that holds it. Data may be **restructured** (a paragraph rendered as a table, a list rendered as chart labels) as long as every heading, label, and body word either exists verbatim in the source **or** is directly implied by it (e.g. "Wed–Sat, 11–5" implies "Sun: closed"). Prefer verbatim.
 
 ## Cut list (repaint tells)
 
@@ -105,6 +107,8 @@ Anything on this list means you painted, you did not redesign:
 - A parallax hero that fights the read
 - Bootstrap default components with no adjustments
 - A footer with a fake newsletter form
+- The whole page as a receipt, punch-ticket, or order slip on an empty wall
+- An infographic (bars, timelines, ISOTYPE) as the default-webpage hero
 
 ## Ship checklist for `/reimagine-it webpage`
 
@@ -112,15 +116,16 @@ Before you say `REIMAGINED: shipped`, every one of these must be true.
 
 - [ ] Single `.html`, inline CSS, opens offline, no CDN, no web font
 - [ ] Baseline grid respected (8px), spacing scale respected
-- [ ] Four levels of type, two typefaces max
-- [ ] ≤ 5 colors, contrast readable
-- [ ] One motif repeats across ≥ 3 places on the page
-- [ ] Every section has a number, kicker, title, meta
-- [ ] At least one inline SVG encodes real data from the page
+- [ ] Four levels of type; display ≥ 72px in the first viewport; serif+sans+meta-mono allowed
+- [ ] ≤ 5 colors from this source, contrast readable
+- [ ] First viewport fills the frame (magnet ≥70% width; hero SVG ≥ 400px)
+- [ ] One motif from this source repeats across ≥ 3 places on the page
+- [ ] Section identity matches the object (parlor, counter, notes, …) — not a cloned `00 · MASTHEAD` rail and not a whole-page receipt
+- [ ] Places and flavors appear as objects in the room, not as an infographic hero
 - [ ] One make-strange move landed (name which one in the report)
 - [ ] Same words as the before; nothing invented (labels verbatim or directly implied)
 - [ ] Motion reads in a still (three moving elements; two frames 500ms apart show change)
-- [ ] 3D reads in a still (rotation ≥ 12° + shadow blur ≥ 24px on at least one element)
+- [ ] 3D reads in a still (rotation ≥ 12° on a first-viewport object + shadow blur ≥ 24px)
 - [ ] Optional but strong: `python <folder>/run.py` screenshots before + after and writes `compare.png`
 - [ ] Optional for `cinematic`: motion strip (three frames spaced 500ms apart, composited)
 

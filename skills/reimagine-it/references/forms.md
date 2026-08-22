@@ -18,7 +18,7 @@ Load from SKILL.md. Default: **you** pick the form from context. The user may fo
 | Tests failing, flaky race, “can’t prove it” | **experiment** — property, golden, or fail-demo that makes the bug undeniable | Same proof as an animated SVG of the race |
 | One name, quote, metaphor, icon-scale idea, **or** they want a living mark (micro-motion, hover pairing) | **svg** weenie — alive-micro by default | `/reimagine-it 3js` the same anchors as a room |
 | Space, layers, systems already in a Three.js app, user forced `3js`, **or** they want an orbitable living field | **3js** — edit in place, or a one-shot HTML + pinned Three.js (no CDN). Alive-micro by default | `/reimagine-it simulation` if the source is a clock; else HUD token pass — not a Dribbble clone |
-| Time, flow, handshake, “make it run”, user forced `simulation` | **simulation** — a playable model of facts already in the source | Same model as SVG weenie or 3js room |
+| Time, flow, handshake, “make it run”, user forced `simulation` | **simulation** — load [forms/simulation.md](forms/simulation.md). Playable model of **this** source's sequence. Type in the gutter. Marks on the field. Not a Texas year-clock template. | Same model as SVG weenie or 3js room |
 | Analytical panel that should sit beside chat | **canvas** (only if Cursor canvas skill exists) | Same claims as a filterable table |
 | User forced `code` / `cli` / `protocol` / `demo` / `prose` / `product` / `architecture` / `experiment` / `svg` / `3js` / `infographic` / `canvas` / `html` / `simulation` | That family | The next row down |
 | User said `interview` | Not a form. Talk category. | After answers, route as if that row were the lock |
@@ -62,3 +62,4 @@ These are optional host skills. Skip if not installed. Do not fail the chair bec
 | svg | Living weenie; type in the gutter; 2–4 fact-tied loops | File opens; two frames ~600 ms apart differ unless brief `still` |
 | 3js | Living room; HUD in a reserved strip; idle on 2–3 meshes | First frame not blank; two frames differ unless brief `still` |
 | html/canvas | Weenie in the first viewport | File opens |
+| simulation | Playable model of this source's sequence; type in the gutter; nested short spans inspectable | Default still is the first fact; Play two frames differ; no labels on the field; not a Texas clock clone |

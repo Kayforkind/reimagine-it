@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img"
+     aria-labelledby="title desc">
+  <title id="title">Jules Ice Cream, as one SVG</title>
+  <desc id="desc">One waffle cone with six unlabeled scoops as the weenie. Eight equal mint tubs at the foot. Three parlor windows, not a map. Labels live in the gutter. Alive: cone breathe, strawberry drip, Harbor window ping, 1991 pistachio hush. No invented numbers.</desc>
+  <style>
+    .cone { transform-origin: 430px 430px; animation: breathe 2.8s ease-in-out infinite; }
+    .drip { stroke-dasharray: 8 12; animation: flow 4s linear infinite; }
+    .win { transform-box: fill-box; transform-origin: center; }
+    .win-harbor { animation: ping 2.6s ease-in-out infinite; }
+    .scoop-pist { animation: hush 3.2s ease-in-out infinite; }
+    .swatch { transform-box: fill-box; transform-origin: center; transition: transform 160ms ease-out; }
+    @keyframes breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+    @keyframes flow { to { stroke-dashoffset: -40; } }
+    @keyframes ping { 0%,100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+    @keyframes hush { 0%,100% { opacity: 1; } 50% { opacity: .45; } }
+    .scoop:hover,
+    svg:has(.row-van:hover) .scoop-van,
+    svg:has(.row-straw:hover) .scoop-straw,
+    svg:has(.row-pist:hover) .scoop-pist,
+    svg:has(.row-choc:hover) .scoop-choc,
+    svg:has(.row-mint:hover) .scoop-mint,
+    svg:has(.row-burn:hover) .scoop-burn {
+      animation: none;
+      transform: scale(1.08);
+    }
+    svg:has(.scoop-van:hover) .row-van .swatch,
+    svg:has(.scoop-straw:hover) .row-straw .swatch,
+    svg:has(.scoop-pist:hover) .row-pist .swatch,
+    svg:has(.scoop-choc:hover) .row-choc .swatch,
+    svg:has(.scoop-mint:hover) .row-mint .swatch,
+    svg:has(.scoop-burn:hover) .row-burn .swatch { transform: scale(1.25); }
+    svg:has(.win-harbor:hover) .row-harbor .swatch,
+    svg:has(.row-harbor:hover) .win-harbor { transform: scale(1.18); }
+    @media (prefers-reduced-motion: reduce) {
+      .cone, .drip, .win-harbor, .scoop-pist { animation: none; }
+      .swatch { transition-duration: 0.001ms; }
+    }
+  </style>
+
+  <rect width="1600" height="900" fill="#f7efe4"/>
+
+  <!-- Weenie: stacked cone, no type on it -->
+  <g class="cone" aria-hidden="true">
+    <ellipse class="scoop scoop-burn" cx="430" cy="118" rx="92" ry="58" fill="#e4b15a" stroke="#3a2418" stroke-width="3"/>
+    <ellipse class="scoop scoop-mint" cx="398" cy="178" rx="88" ry="54" fill="#8eb8c4" stroke="#3a2418" stroke-width="3"/>
+    <ellipse class="scoop scoop-choc" cx="468" cy="228" rx="84" ry="52" fill="#5a3428" stroke="#3a2418" stroke-width="3"/>
+    <ellipse class="scoop scoop-pist" cx="404" cy="282" rx="90" ry="54" fill="#6a9a6e" stroke="#3a2418" stroke-width="3"/>
+    <ellipse class="scoop scoop-straw" cx="458" cy="336" rx="86" ry="52" fill="#c45c6a" stroke="#3a2418" stroke-width="3"/>
+    <ellipse class="scoop scoop-van" cx="430" cy="392" rx="96" ry="58" fill="#f3e6c4" stroke="#3a2418" stroke-width="3"/>
+    <path d="M300 430 L430 820 L560 430 Z" fill="#e4b15a" stroke="#3a2418" stroke-width="3"/>
+    <path d="M330 490 H530 M320 560 H540 M340 630 H520 M360 700 H500 M380 760 H480" fill="none" stroke="#3a2418" stroke-width="2" opacity=".5"/>
+    <path class="drip" d="M510 360 C 548 430, 536 510, 528 580" fill="none" stroke="#c45c6a" stroke-width="4"/>
+  </g>
+
+  <!-- Three windows, not a harbor map -->
+  <g transform="translate(720, 120)" aria-hidden="true">
+    <g class="win win-harbor">
+      <rect x="0" y="36" width="90" height="110" fill="#fff8f0" stroke="#3a2418" stroke-width="3"/>
+      <path d="M0 36 Q 45 0 90 36" fill="#8eb8c4" stroke="#3a2418" stroke-width="3"/>
+    </g>
+    <g class="win win-cold">
+      <rect x="110" y="36" width="90" height="110" fill="#fff8f0" stroke="#3a2418" stroke-width="3"/>
+      <path d="M110 36 Q 155 0 200 36" fill="#c5e4ea" stroke="#3a2418" stroke-width="3"/>
+    </g>
+    <g class="win win-ferry">
+      <rect x="220" y="36" width="90" height="110" fill="#fff8f0" stroke="#3a2418" stroke-width="3"/>
+      <path d="M220 36 Q 265 0 310 36" fill="#e4b15a" stroke="#3a2418" stroke-width="3"/>
+    </g>
+  </g>
+
+  <!-- ISOTYPE: eight unlabeled mint tubs -->
+  <g transform="translate(720, 330)" aria-hidden="true">
+    <g fill="#6a9a6e">
+      <g transform="translate(0,0)"><rect x="6" y="16" width="48" height="34" rx="4"/><ellipse cx="30" cy="16" rx="24" ry="10" fill="#c5e4ea"/></g>
+      <g transform="translate(64,0)"><rect x="6" y="16" width="48" height="34" rx="4"/><ellipse cx="30" cy="16" rx="24" ry="10" fill="#c5e4ea"/></g>
+      <g transform="translate(128,0)"><rect x="6" y="16" width="48" height="34" rx="4"/><ellipse cx="30" cy="16" rx="24" ry="10" fill="#c5e4ea"/></g>
+      <g transform="translate(192,0)"><rect x="6" y="16" width="48" height="34" rx="4"/><ellipse cx="30" cy="16" rx="24" ry="10" fill="#c5e4ea"/></g>
+      <g transform="translate(0,56)"><rect x="6" y="16" width="48" height="34" rx="4"/><ellipse cx="30" cy="16" rx="24" ry="10" fill="#c5e4ea"/></g>
+      <g transform="translate(64,56)"><rect x="6" y="16" width="48" height="34" rx="4"/><ellipse cx="30" cy="16" rx="24" ry="10" fill="#c5e4ea"/></g>
+      <g transform="translate(128,56)"><rect x="6" y="16" width="48" height="34" rx="4"/><ellipse cx="30" cy="16" rx="24" ry="10" fill="#c5e4ea"/></g>
+      <g transform="translate(192,56)"><rect x="6" y="16" width="48" height="34" rx="4"/><ellipse cx="30" cy="16" rx="24" ry="10" fill="#c5e4ea"/></g>
+    </g>
+  </g>
+
+  <!-- Gutter type -->
+  <g transform="translate(1120, 80)" font-family="Georgia, Palatino, serif" fill="#3a2418">
+    <text font-size="32">Jules Ice Cream</text>
+    <text y="36" fill="#8a6e5c" font-size="16" font-style="italic">the parlor, the flavors, the freezer</text>
+
+    <text y="90" fill="#8a6e5c" font-family="ui-monospace, Consolas, monospace" font-size="11" letter-spacing="2.4">FLAVORS</text>
+    <g font-size="18">
+      <g class="row-van"><rect class="swatch" y="108" width="14" height="14" fill="#f3e6c4" stroke="#3a2418"/><text x="28" y="121">Vanilla bean 1980</text></g>
+      <g class="row-straw"><rect class="swatch" y="136" width="14" height="14" fill="#c45c6a" stroke="#3a2418"/><text x="28" y="149">Strawberry buttermilk 1984</text></g>
+      <g class="row-pist"><rect class="swatch" y="164" width="14" height="14" fill="#6a9a6e" stroke="#3a2418"/><text x="28" y="177">Pistachio rose 1991</text></g>
+      <g class="row-choc"><rect class="swatch" y="192" width="14" height="14" fill="#5a3428" stroke="#3a2418"/><text x="28" y="205">Dark chocolate sea salt 1998</text></g>
+      <g class="row-mint"><rect class="swatch" y="220" width="14" height="14" fill="#8eb8c4" stroke="#3a2418"/><text x="28" y="233">Mint chip 2014</text></g>
+      <g class="row-burn"><rect class="swatch" y="248" width="14" height="14" fill="#e4b15a" stroke="#3a2418"/><text x="28" y="261">Burnt sugar and cream 2022</text></g>
+    </g>
+
+    <text y="320" fill="#8a6e5c" font-family="ui-monospace, Consolas, monospace" font-size="11" letter-spacing="2.4">WINDOWS</text>
+    <g class="row-harbor" font-size="18">
+      <rect class="swatch" y="338" width="14" height="14" fill="#8eb8c4" stroke="#3a2418"/>
+      <text x="28" y="351">Harbor Street parlor 1980</text>
+    </g>
+    <text y="379" font-size="18">Cold room 1980</text>
+    <text y="407" font-size="18">Ferry Road 2006</text>
+
+    <text y="460" fill="#8a6e5c" font-family="ui-monospace, Consolas, monospace" font-size="11" letter-spacing="2.4">COUNTS</text>
+    <text y="492" font-size="18">12 flats, 1984</text>
+    <text y="520" font-size="18">14-day July heatwave, 1991</text>
+    <text y="548" font-size="18">8 tubs a week in August, 2014</text>
+    <text y="600" font-size="16" font-style="italic" fill="#8a6e5c">The 1980 freezer still hums.</text>
+  </g>
+</svg>

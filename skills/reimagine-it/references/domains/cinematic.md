@@ -28,7 +28,7 @@ A quiet cinema screen for a small brief: an inline WebGL2 shader is the masthead
 - **Hero is a WebGL2 shader panel.** Inline `<canvas>`, ~840×520, full-bleed rounded rect on a `--void` background. Fragment shader raymarches or field-warps something abstract (interference bands, GPU particles, a slow flow field). The masthead type sits *on top* of the canvas with `mix-blend-mode: difference` or a scrim.
 - **A single motion beat runs forever.** The shader tints on a slow sine of `--beam`. The masthead cursor pulses. One SVG element in every subsequent section has a `@keyframes` (bar rising, dot pulsing, path drawing, sweep line).
 - **Sections have z-depth, not just tilt.** `.stage` uses `perspective: 1200px`. Cards use `rotateX(-4deg) rotateY(-8deg) translateZ(24px)` with a real 24–40px blur drop shadow so they read as **hovering** in stills, not painted flat.
-- **Numbered section rail** in mono `--dim`. Cheap make-strange move.
+- **Section identity from this source.** Cinema can have a sticky strip, but a shop is Harbor / Board / Now — not `00 · MASTHEAD / 01 · PLACES`. Numbered notebook rails are a Texas-gold leftover, not cinema's default.
 - One dense SVG "screen readout" per section: a real chart, a real diagram, or a real path — not a rounded rect placeholder.
 
 ## Non-negotiables specific to cinematic

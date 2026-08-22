@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jules Ice Cream — on the board</title>
+<style>
+  :root {
+    --void: #2a1812;
+    --paper: #f7efe4;
+    --ink: #3a2418;
+    --berry: #c45c6a;
+    --gold: #e4b15a;
+    --pist: #6a9a6e;
+    --ice: #8eb8c4;
+    --dim: #c4a090;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; min-height: 100%; background: var(--void); color: var(--paper);
+    font-family: ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  }
+  header { padding: 22px 28px 8px; }
+  h1 {
+    margin: 0; font-family: Georgia, Palatino, serif;
+    font-weight: 400; font-size: clamp(28px, 4.4vw, 48px);
+  }
+  h1 em { font-style: italic; color: var(--gold); }
+  .sub { max-width: 54ch; color: var(--dim); margin: 8px 0 0; }
+  .stage {
+    display: grid; grid-template-columns: 1.2fr .8fr; gap: 20px;
+    padding: 8px 28px 28px;
+  }
+  #view {
+    position: relative; min-height: 0;
+    border: 1px solid rgba(247,239,228,.12); background: #1c100c;
+  }
+  canvas { display: block; width: 100%; height: 520px; cursor: default; }
+  canvas.hot { cursor: pointer; }
+  aside { font-size: 14px; }
+  .year {
+    font-family: Georgia, Palatino, serif;
+    font-size: clamp(42px, 8vw, 88px); line-height: .9; color: var(--paper);
+  }
+  .year span {
+    display: block; font-size: 13px; letter-spacing: .18em; text-transform: uppercase;
+    font-family: ui-monospace, Consolas, monospace; color: var(--gold); margin-bottom: 8px;
+  }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 16px 0 8px; }
+  button, input[type="range"] { accent-color: var(--gold); }
+  button {
+    background: transparent; color: var(--paper); border: 1px solid rgba(247,239,228,.3);
+    padding: 8px 14px; border-radius: 999px; cursor: pointer; font: 13px inherit;
+  }
+  button:hover, button[aria-pressed="true"] { background: var(--gold); color: var(--void); }
+  button:focus-visible, a:focus-visible, input:focus-visible {
+    outline: 2px solid var(--gold); outline-offset: 3px;
+  }
+  input[type="range"] { flex: 1; min-width: 120px; }
+  ::selection { background: var(--gold); color: var(--void); }
+  .heat, .hint {
+    margin: 8px 0 0; font-family: ui-monospace, Consolas, monospace;
+    font-size: 12px; color: var(--gold); min-height: 1.2em;
+  }
+  .hint { color: var(--dim); }
+  ul { list-style: none; padding: 0; margin: 16px 0 0; }
+  li {
+    display: grid; grid-template-columns: 14px 1fr auto; gap: 10px; align-items: baseline;
+    padding: 8px 0; border-top: 1px solid rgba(247,239,228,.1); color: var(--dim);
+    cursor: pointer;
+  }
+  li.on { color: var(--paper); }
+  li.hot { color: var(--gold); }
+  li b { font-weight: 600; color: inherit; }
+  .swatch {
+    width: 10px; height: 10px; border-radius: 50%; margin-top: 5px;
+    background: #4a3428; box-shadow: inset 0 0 0 1px rgba(247,239,228,.25);
+  }
+  .swatch.cream { background: #f3e6c4; }
+  .swatch.berry { background: var(--berry); }
+  .swatch.pist { background: var(--pist); }
+  .swatch.choc { background: #5a3428; }
+  .swatch.ice { background: var(--ice); }
+  .swatch.gold { background: var(--gold); }
+  @media (max-width: 900px) {
+    .stage { grid-template-columns: 1fr; }
+    canvas { height: 380px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    button { transition: none; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>On the <em>board</em></h1>
+  <p class="sub">Scoops land in the year they were named. Fourteen days in 1991, only pistachio. Eight equal tubs after 2014. Nothing invented.</p>
+</header>
+<div class="stage">
+  <div id="view">
+    <canvas id="field" width="1400" height="780" aria-label="Flavor board. Marks only; names in the list."></canvas>
+  </div>
+  <aside>
+    <div class="year"><span>year in the shop</span><strong id="yearLabel">1980</strong></div>
+    <div class="controls">
+      <button type="button" id="play" aria-pressed="false">Play</button>
+      <button type="button" id="prev" aria-label="Previous event">Prev</button>
+      <button type="button" id="next" aria-label="Next event">Next</button>
+      <button type="button" id="reset">1980</button>
+      <input id="scrub" type="range" min="1980" max="2022" value="1980" step="1" aria-label="Scrub year">
+    </div>
+    <p class="heat" id="heat" hidden></p>
+    <p class="hint" id="tubs" hidden>Eight equal tubs — mint chip in August.</p>
+    <ul id="events"></ul>
+  </aside>
+</div>
+<script>
+const FLAVORS = [
+  { year: 1980, name: "Vanilla bean", note: "the first scoop", mark: "van", swatch: "cream", color: "#f3e6c4" },
+  { year: 1984, name: "Strawberry buttermilk", note: "twelve flats", mark: "straw", swatch: "berry", color: "#c45c6a" },
+  { year: 1991, name: "Pistachio rose", note: "14-day heatwave", mark: "pist", swatch: "pist", color: "#6a9a6e" },
+  { year: 1998, name: "Dark chocolate sea salt", note: "the harbor in a cup", mark: "choc", swatch: "choc", color: "#5a3428" },
+  { year: 2014, name: "Mint chip", note: "eight tubs a week", mark: "mint", swatch: "ice", color: "#8eb8c4" },
+  { year: 2022, name: "Burnt sugar & cream", note: "Jules is tasting", mark: "burn", swatch: "gold", color: "#e4b15a" },
+];
+const EVENTS = [
+  { year: 1980, name: "Harbor Street parlor", note: "first window", mark: "harbor", swatch: "berry" },
+  { year: 1980, name: "Vanilla bean", note: "the first scoop", mark: "van", swatch: "cream" },
+  { year: 1984, name: "Strawberry buttermilk", note: "twelve flats", mark: "straw", swatch: "berry" },
+  { year: 1991, name: "Pistachio rose", note: "14-day heatwave", mark: "pist", swatch: "pist" },
+  { year: 1998, name: "Dark chocolate sea salt", note: "the harbor", mark: "choc", swatch: "choc" },
+  { year: 2006, name: "Ferry Road cone counter", note: "walk-up", mark: "ferry", swatch: "gold" },
+  { year: 2014, name: "Mint chip", note: "eight tubs a week", mark: "mint", swatch: "ice" },
+  { year: 2022, name: "Burnt sugar & cream", note: "Jules is tasting", mark: "burn", swatch: "gold" },
+];
+const STOPS = [1980, 1984, 1991, 1998, 2006, 2014, 2022];
+const YEAR0 = 1980;
+const YEAR1 = 2022;
+
+const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  || /\bstill\b/.test(String(location.search));
+const canvas = document.getElementById("field");
+const ctx = canvas.getContext("2d");
+const yearLabel = document.getElementById("yearLabel");
+const scrub = document.getElementById("scrub");
+const playBtn = document.getElementById("play");
+const heatEl = document.getElementById("heat");
+const tubsEl = document.getElementById("tubs");
+const list = document.getElementById("events");
+
+EVENTS.forEach((e) => {
+  const li = document.getElementById("events").appendChild(document.createElement("li"));
+  li.dataset.mark = e.mark;
+  li.innerHTML = "<i class=\"swatch " + e.swatch + "\" aria-hidden=\"true\"></i><b>" +
+    e.year + " · " + e.name + "</b><span>" + e.note + "</span>";
+  li.addEventListener("click", () => jumpTo(e.year, e.mark));
+  li.addEventListener("mouseenter", () => { hot = e.mark; });
+  li.addEventListener("mouseleave", () => { if (hot === e.mark) hot = null; });
+});
+
+let year = reduce ? YEAR1 : YEAR0;
+let heatDay = reduce ? 14 : 0;
+let playing = false;
+let last = performance.now();
+let hot = null;
+let layout = { w: 1400, h: 780 };
+
+function lit(y) { return year >= y; }
+
+function setPlay(on) {
+  if (on && !reduce && year >= YEAR1) {
+    heatDay = 0;
+    hot = null;
+    setYear(YEAR0);
+  }
+  playing = on && !reduce;
+  playBtn.textContent = playing ? "Pause" : "Play";
+  playBtn.setAttribute("aria-pressed", playing ? "true" : "false");
+}
+
+function setYear(y, fromPlay) {
+  year = Math.max(YEAR0, Math.min(YEAR1, y));
+  if (!fromPlay) {
+    if (Math.floor(year) > 1991) heatDay = 14;
+    else if (Math.floor(year) < 1991) heatDay = 0;
+    else heatDay = 0;
+  }
+  yearLabel.textContent = String(Math.floor(year));
+  scrub.value = String(Math.floor(year));
+  EVENTS.forEach((e, i) => {
+    list.children[i].classList.toggle("on", year >= e.year);
+    list.children[i].classList.toggle("hot", hot === e.mark);
+  });
+  const inHeat = Math.floor(year) === 1991;
+  heatEl.hidden = !inHeat;
+  if (inHeat) heatEl.textContent = "Heatwave day " + Math.floor(heatDay) + " / 14";
+  tubsEl.hidden = year < 2014;
+}
+
+function jumpTo(y, mark) {
+  setPlay(false);
+  hot = mark || null;
+  setYear(y);
+}
+
+function step(dir) {
+  const y = Math.floor(year);
+  const next = dir > 0
+    ? STOPS.find((s) => s > y) ?? YEAR1
+    : [...STOPS].reverse().find((s) => s < y) ?? YEAR0;
+  jumpTo(next);
+}
+
+playBtn.addEventListener("click", () => setPlay(!playing));
+document.getElementById("reset").addEventListener("click", () => {
+  setPlay(false);
+  heatDay = 0;
+  hot = null;
+  setYear(YEAR0);
+});
+document.getElementById("prev").addEventListener("click", () => step(-1));
+document.getElementById("next").addEventListener("click", () => step(1));
+scrub.addEventListener("input", () => {
+  setPlay(false);
+  setYear(Number(scrub.value));
+});
+addEventListener("keydown", (e) => {
+  const tag = e.target && e.target.tagName;
+  if (tag === "INPUT") return;
+  if (e.code === "Space") {
+    if (tag === "BUTTON") return;
+    e.preventDefault();
+    setPlay(!playing);
+  }
+  if (e.code === "ArrowRight") { e.preventDefault(); step(1); }
+  if (e.code === "ArrowLeft") { e.preventDefault(); step(-1); }
+});
+
+function wells() {
+  const w = layout.w;
+  const h = layout.h;
+  const pad = 48;
+  const caseW = w - pad * 2;
+  const wellR = Math.min(42, caseW / 16);
+  const gap = (caseW - wellR * 2 * 6) / 7;
+  const y = h * 0.42;
+  return FLAVORS.map((f, i) => ({
+    ...f,
+    x: pad + gap * (i + 1) + wellR * (i * 2 + 1),
+    y,
+    r: wellR,
+  }));
+}
+
+function windows() {
+  const w = layout.w;
+  const y = 56;
+  const ww = 88;
+  const x0 = w / 2 - (ww * 3 + 24) / 2;
+  return [
+    { mark: "harbor", x: x0, y, on: lit(1980), fill: "#8eb8c4" },
+    { mark: "cold", x: x0 + ww + 12, y, on: lit(1980), fill: "#c5e4ea" },
+    { mark: "ferry", x: x0 + (ww + 12) * 2, y, on: lit(2006), fill: "#e4b15a" },
+  ];
+}
+
+function markAt(cssX, cssY) {
+  for (const well of wells()) {
+    if (year < well.year) continue;
+    if (Math.hypot(cssX - well.x, cssY - well.y) < well.r + 8) return well.mark;
+  }
+  for (const win of windows()) {
+    if (!win.on) continue;
+    if (cssX >= win.x && cssX <= win.x + 88 && cssY >= win.y && cssY <= win.y + 70) return win.mark;
+  }
+  return null;
+}
+
+canvas.addEventListener("pointermove", (e) => {
+  const r = canvas.getBoundingClientRect();
+  const id = markAt(e.clientX - r.left, e.clientY - r.top);
+  hot = id;
+  canvas.classList.toggle("hot", !!id);
+});
+canvas.addEventListener("pointerleave", () => { hot = null; canvas.classList.remove("hot"); });
+canvas.addEventListener("click", (e) => {
+  const r = canvas.getBoundingClientRect();
+  const id = markAt(e.clientX - r.left, e.clientY - r.top);
+  if (!id) return;
+  const ev = EVENTS.find((x) => x.mark === id);
+  if (ev) jumpTo(ev.year, id);
+});
+
+function tub(x, y) {
+  ctx.fillStyle = "#6a9a6e";
+  ctx.fillRect(x, y + 10, 28, 22);
+  ctx.fillStyle = "#c5e4ea";
+  ctx.beginPath();
+  ctx.ellipse(x + 14, y + 10, 14, 6, 0, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function resize() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const cssW = Math.max(1, canvas.clientWidth);
+  const cssH = Math.max(1, canvas.clientHeight);
+  canvas.width = Math.round(cssW * dpr);
+  canvas.height = Math.round(cssH * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  layout = { w: cssW, h: cssH };
+}
+
+function draw(ts) {
+  const w = layout.w;
+  const h = layout.h;
+  ctx.fillStyle = "#1c100c";
+  ctx.fillRect(0, 0, w, h);
+
+  ctx.fillStyle = "#efe4d4";
+  ctx.fillRect(36, 28, w - 72, h - 56);
+  ctx.strokeStyle = "#3a2418";
+  ctx.lineWidth = 3;
+  ctx.strokeRect(36, 28, w - 72, h - 56);
+
+  for (const win of windows()) {
+    ctx.fillStyle = win.on ? win.fill : "#d7c4b0";
+    ctx.beginPath();
+    ctx.moveTo(win.x, win.y + 28);
+    ctx.quadraticCurveTo(win.x + 44, win.y, win.x + 88, win.y + 28);
+    ctx.lineTo(win.x + 88, win.y + 70);
+    ctx.lineTo(win.x, win.y + 70);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = "#3a2418";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    if (hot === win.mark) {
+      ctx.strokeStyle = "#e4b15a";
+      ctx.lineWidth = 3;
+      ctx.strokeRect(win.x - 4, win.y - 4, 96, 78);
+    }
+  }
+
+  const inHeat = Math.floor(year) === 1991;
+  for (const well of wells()) {
+    ctx.beginPath();
+    ctx.arc(well.x, well.y, well.r + 6, 0, Math.PI * 2);
+    ctx.fillStyle = "#d7c4b0";
+    ctx.fill();
+    ctx.strokeStyle = "#3a2418";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    const on = lit(well.year);
+    const hush = inHeat && well.mark !== "pist";
+    if (on) {
+      ctx.globalAlpha = hush ? 0.16 : 1;
+      ctx.beginPath();
+      ctx.arc(well.x, well.y, well.r - 4, 0, Math.PI * 2);
+      ctx.fillStyle = well.color;
+      ctx.fill();
+      if (well.mark === "burn" && year >= 2022) {
+        ctx.strokeStyle = "#3a2418";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(well.x, well.y, well.r * 0.45, 0.2, Math.PI * 1.6);
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    }
+    if (hot === well.mark && on) {
+      ctx.strokeStyle = "#e4b15a";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(well.x, well.y, well.r + 10, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+  }
+
+  if (year >= 2014) {
+    const start = (w - 8 * 40) / 2;
+    for (let i = 0; i < 8; i++) tub(start + i * 40, h - 108);
+  }
+
+  EVENTS.forEach((e, i) => {
+    list.children[i].classList.toggle("hot", hot === e.mark);
+  });
+
+  if (playing && !reduce) {
+    const dt = Math.min(0.05, (ts - last) / 1000);
+    if (Math.floor(year) === 1991 && heatDay < 14) {
+      year = 1991;
+      heatDay = Math.min(14, heatDay + dt * 4);
+      setYear(1991, true);
+    } else {
+      const next = year + dt * 8;
+      if (Math.floor(year) < 1991 && next >= 1991 && heatDay < 14) {
+        setYear(1991, true);
+      } else if (next >= YEAR1) {
+        setYear(YEAR1, true);
+        setPlay(false);
+      } else if (Math.floor(year) === 1991 && heatDay >= 14 && year === 1991) {
+        setYear(1991.05, true);
+      } else {
+        setYear(next, true);
+      }
+    }
+  }
+  last = ts;
+  if (!draw.framed) {
+    draw.framed = true;
+    document.documentElement.dataset.ready = "1";
+  }
+  requestAnimationFrame(draw);
+}
+
+addEventListener("resize", resize);
+resize();
+setYear(year);
+setPlay(false);
+window.reimagineSim = {
+  setYear(y) { setPlay(false); setYear(y); },
+  pause() { setPlay(false); },
+};
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>

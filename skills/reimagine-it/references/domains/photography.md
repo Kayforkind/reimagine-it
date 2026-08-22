@@ -4,44 +4,41 @@ Load only when the user token is `photography`. Extends the shared spine ([../we
 
 ## Aesthetic in one sentence
 
-A quiet magazine folio: cream paper, black hairline rules, a Didot-scale italic-then-caps nameplate, four numbered plates (three works + a colophon), each plate is an SVG "photograph" you actually composed, dropcap paragraphs, and a print-run colophon at the foot.
+A folio of **photographs of this source**: still-lifes with light, material, and depth of field, composed in SVG, held by a quiet print grid. Not a cream magazine template with abstract frames labeled PLATE I.
 
-## Palette (five, do not exceed)
+Gold `gold/domains/photography/after.html` is **one** Texas-notebook folio (VOL. 26, Didot, rust dropcaps, tan mountain "photos"). Live runs derive light, materials, and what is *in front of the lens* from **this** source. Fail if a client could mistake the PNG for that gold with the title swapped.
 
-- `--paper` #f4efe6
-- `--paper-2` #ebe4d5
-- `--ink` #14140f (near-black, warm)
-- `--dim` #6b6a5c
-- `--gold` #b58a3a (plate numbers, byline stress)
-- `--rust` #a54d34 (dropcap letter, punctuation lift)
+## Palette (five, from this source's light)
+
+Print paper may be cream **or** a darkroom void — pick from the file's time of day. Inks and plate light come from named materials (marble, brass, ice-blue glass, waffle gold, strawberry). Do not default to rust `#a54d34` + brass `#b58a3a` unless those hues are in the source.
 
 ## Type
 
-- Nameplate: Didot-style serif (`"Didot", "Bodoni Moda", "Palatino", "Georgia", serif`), italic first line at 96–220px, then a heavy sans/serif caps line for the last name at ~50% of the display size.
-- Section titles: same Didot serif italic, 56–96px.
-- Body: warm serif (`"Iowan Old Style", Palatino, Georgia, serif`), 17px, line-height 1.6.
-- Meta strip labels: monospace, 10–11px, tracking `0.24em`, uppercase.
-- Byline: monospace, 10px, italic voice ("Words & pictures by …").
+- Nameplate: high-contrast serif, italic first line at 96–220px, then a heavy caps line for the source's second word (`ICE CREAM`, `NOTES`) at ~50% of the display size.
+- Section titles: italic serif, 56–96px.
+- Body: warm serif, 17px, line-height 1.6.
+- Meta: monospace, 10–11px, tracking `0.24em`, uppercase.
+- Dropcap: 3em, in a hue from **this** source (strawberry, star-red, brass — not gold's rust by default).
 
 ## Motif and layout
 
-- Top rail: `VOL. 26 · ISSUE 34 · WEEK OF AUG 19` on the left, `< FOLIO · JORDAN-RIVERS.DEV >` on the right.
-- Masthead: 3fr / 2fr grid. Left is the giant italic nameplate. Right is a stamp kicker + lead + byline.
-- Numbered strip: four-column strip below the masthead — `PLATE I QUIET WEEK`, `PLATE II LANTERN`, `PLATE III RIFT`, `COLOPHON SAY HELLO`.
-- Three plates alternate frame-caption / caption-frame using an `.rev` modifier.
-- Each plate frame is an SVG `4:5` composition — a real image, not a placeholder. See the artistic pack for guidance on plate composition rules.
-- Each caption starts with an all-caps monospace `PLATE I · 2022` number, then a giant italic serif title, then a dropcap paragraph, then a `Medium / Weight / State` meta row.
-- Interlude: centered pull-quote in italic serif with a monospace signature `— Colophon`.
-- Colophon: three-column footer with Address, This week, Elsewhere.
+- Top rail uses **facts from this file** (founded year, place, one noun). Do **not** invent `VOL. 26 · ISSUE 34 · WEEK OF AUG 19` or gold's `JORDAN-RIVERS.DEV`.
+- Masthead: 3fr / 2fr. Left is the nameplate. Right is a kicker + lead from the source.
+- Strip below names the real plates (`HARBOR STREET`, `COLD ROOM`, …) not `PLATE I QUIET WEEK`.
+- Each plate frame is a **4:5 still-life that reads as a photograph**: directional light, vignette or falloff, materials you can name (marble vein, metal highlight, glass glow, waffle grid). Soft gradients and occlusion — not a flat icon on a tan rectangle.
+- Three plates, three different lighting setups (day parlor / night freezer / walk-up sun, or whatever the source times).
+- Caption: title + dropcap paragraph from the source + a materials row **only** if those words are in the file (marble / brass / ice-blue).
+- Colophon: address-or-email, Now, elsewhere — from the source. No fake pull-quotes.
 
 ## Non-negotiables specific to photography
 
-- **Nameplate must be italic serif in the first line and caps in the second.** This is the folio tell.
-- **Every plate is a real SVG composition.** No solid rectangle placeholders. Landscape, radial glow, grid + orb — three different compositions.
-- **Dropcap on every plate paragraph** (`::first-letter` at 3em, rust color).
-- **A numbered strip.** No horizontal nav bar with hover underlines.
-- **A colophon at the foot** naming Address, This week, Elsewhere.
-- **No photography from a stock library.** No paid image API. The point is that the page composes its own images.
+- **Nameplate italic then caps.**
+- **Every plate looks like a photograph of this source.** A client says "that's the counter" / "that's the freezer" — not "that's an abstract sun over mountains."
+- **Dropcap on every plate paragraph.**
+- **A strip of real names**, not a hover-underline nav.
+- **A colophon** from the source.
+- **No stock library. No paid image API.**
+- **No gold clone.** No invented volume/issue. No Texas mountain/sun plate geometry on a shop.
 
 ## Cut list (in addition to the shared cut list)
 
@@ -50,22 +47,25 @@ A quiet magazine folio: cream paper, black hairline rules, a Didot-scale italic-
 - Alignment center for body copy.
 - Fake pull-quotes attributed to fake sources.
 - A dark mode toggle.
+- `VOL.` / `ISSUE` / `WEEK OF` chrome that is not in the source.
+- Matching `gold/domains/photography/after.png` layout and swapping nouns.
 
 ## Where to write
 
-`<workspace>/reimagined/<yyyy-mm-dd>-folio/index.html` when the leap is a folio site or a print-styled index page. In place if the user already has a personal page and wants a folio treatment.
+`<workspace>/reimagined/<yyyy-mm-dd>-folio/index.html` when the leap is a folio site. In place if the user already has a personal page and wants a folio treatment.
 
 ## Verify
 
-- SVG plates render as actual compositions (compare against `gold/domains/photography/after.png`).
+- Each SVG plate has a light direction and a named material from the source.
 - Nameplate is italic then caps.
-- Dropcap letter shows in the rust color.
-- The numbered strip is one row with four cells and a right border between them, no hover states.
+- Dropcap shows in a source hue.
+- Fail if the PNG is the Texas folio with ice-cream labels.
 
 ## Report addition
 
 ```
-Motif: numbered plate strip + SVG "photograph" per plate + dropcap paragraphs
-Make-strange: three code projects composed as three plates in a magazine folio
-Tone: paper-first, editorial, hairline black on cream
+DNA: <paper + light + three still-life nouns>
+Motif: still-life plates + dropcap + strip of real names
+Make-strange: the source photographed, not illustrated as clip-art
+Tone: print folio, light from this room
 ```

@@ -79,6 +79,21 @@ def shoot(
                 }""",
                 year,
             )
+            info = page.evaluate(
+                """() => ({
+                  year: document.getElementById("yearLabel") && document.getElementById("yearLabel").textContent,
+                  siegeHidden: !!(document.getElementById("siege") && document.getElementById("siege").hidden),
+                  siegeText: document.getElementById("siege") && document.getElementById("siege").textContent,
+                  acresHidden: !!(document.getElementById("acres") && document.getElementById("acres").hidden),
+                })"""
+            )
+            print(f"SIM {info}")
+            if info.get("year") != str(int(year)):
+                raise RuntimeError(f"simulation year label {info.get('year')!r} != {int(year)}")
+            if not info.get("siegeHidden"):
+                raise RuntimeError(f"siege caption visible at year {year}: {info.get('siegeText')!r}")
+            if info.get("acresHidden"):
+                raise RuntimeError("acre hint hidden at 1944.3")
         page.wait_for_timeout(1200 if pair else 2200)
     else:
         page.wait_for_timeout(400)

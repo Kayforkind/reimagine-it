@@ -17,7 +17,7 @@ Extract DNA before drawing:
 | **Palette** (≤5) | Named colors, materials, places, times of day, flags, inks, habitats in the text | The gold parchment / navy / star-red / sun-gold set, unless *this* source actually names those |
 | **Pattern** | One repeating ground: paper grain, ledger rows, tide-lines, stamp grid, contour ticks, stitch, whatever the nouns imply | A canned texture library |
 | **Glyphs** | SVG marks of *this* source's objects | Lucide, gold's mission/ridge/capitol/star/bloom/horns (unless those nouns are here) |
-| **Layout** | Data shape: dates → Priestley; 3–8 comparables → small multiples; one object many attributes → star; claim + support → portrait-grid | Always-portrait-grid because gold was |
+| **Layout** | This source's **object** plus data shape (shop → star; dates-as-the-story → Priestley; 3–8 comparables → grid) | Always-portrait-grid / always-Priestley because gold was |
 | **Motion** | One persistent loop that belongs here (a pulse, a sway, a current) | Gold's Lone Star pulse on a source that has no star |
 
 A second run on the **same** source must still be a new draw (fresh sample on the variation axes in SKILL.md §2.4) unless `--seed` / `--variant` pinned it. Same facts, different register / ground / layout / type / pattern.
@@ -65,12 +65,13 @@ Qualitative hues for **categories**. Sequential only if encoding ordered magnitu
 
 ## Motif and layout
 
-Pick **one** layout from the source (see research S13):
+Pick **one** layout from **this** source's object and data (see research S13). Gold Texas used portrait-grid because that notebook was dates-plus-a-flag. Do not default to it.
 
-- Dates in the source → **Portrait** Priestley timeline (position on a shared year axis).
-- 3–8 comparable items → **Grid** of small multiples, identical y-scale.
-- One object, many attributes → **Star** (center weenie + radiating facts).
+- A **shop, product, or person** (one weenie, many attributes) → **Star** (center weenie, facts radiate; length or position still honest).
+- Dates as the *story* and no stronger object → **Portrait** Priestley (shared year axis).
+- 3–8 comparable items, no weenie → **Grid** of small multiples, identical y-scale.
 - Hero claim + supporting facts → **PortraitGrid**.
+- Only if the source metaphor is a spiral → **Spiral**.
 
 Required anatomy:
 
@@ -114,7 +115,7 @@ The **poster is flat** (orthographic). Do not `rotateX` / `perspective` the boar
 - Truncated bar axes.
 - Stock Lucide/Font Awesome icons.
 - Requiring a tooltip to learn the number.
-- Shipping the Texas gold CSS on a non-Texas source.
+- Shipping the Texas gold CSS **or composition** on a non-Texas source (inset `.board` frame, `01 /reimagine-it infographic` kicker, Priestley-because-gold).
 - Dropping leftover user words because they are not a named domain.
 
 ## Where to write

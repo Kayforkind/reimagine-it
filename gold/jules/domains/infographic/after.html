@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jules Ice Cream — infographic</title>
+<style>
+  :root {
+    --paper: #f7efe4;
+    --ink: #3a2418;
+    --rule: #d7c4b0;
+    --berry: #c45c6a;
+    --pist: #6a9a6e;
+    --gold: #e4b15a;
+    --ice: #8eb8c4;
+    --choc: #5a3428;
+    --serif: Georgia, Palatino, serif;
+    --mono: ui-monospace, Consolas, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #efe4d4; color: var(--ink); font-family: var(--serif); }
+  body { padding: 28px; }
+  ::selection { background: var(--gold); color: var(--ink); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--berry); outline-offset: 3px; }
+  .sheet {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 36px 40px 28px;
+    box-shadow: 0 28px 48px rgba(58, 36, 24, 0.18);
+  }
+  .kicker {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    max-width: 62ch;
+  }
+  h1 {
+    font-weight: 400;
+    font-size: clamp(28px, 4vw, 42px);
+    line-height: 1.15;
+    margin: 10px 0 8px;
+  }
+  .lede { max-width: 62ch; color: #6a4e3e; margin-bottom: 8px; }
+  .star { width: 100%; height: auto; display: block; }
+  .cone-breathe { transform-origin: 430px 392px; animation: breathe 3s ease-in-out infinite; }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+  }
+  .tub { opacity: 0; animation: fade 600ms ease-out forwards; }
+  .tub:nth-child(1) { animation-delay: 80ms; }
+  .tub:nth-child(2) { animation-delay: 140ms; }
+  .tub:nth-child(3) { animation-delay: 200ms; }
+  .tub:nth-child(4) { animation-delay: 260ms; }
+  .tub:nth-child(5) { animation-delay: 320ms; }
+  .tub:nth-child(6) { animation-delay: 380ms; }
+  .tub:nth-child(7) { animation-delay: 440ms; }
+  .tub:nth-child(8) { animation-delay: 500ms; }
+  @keyframes fade { to { opacity: 1; } }
+  .take {
+    font-style: italic;
+    font-size: 18px;
+    margin: 18px 0 16px;
+    max-width: 58ch;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  caption {
+    text-align: left;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  th, td { text-align: left; padding: 8px 10px; border-top: 1px solid var(--rule); }
+  th { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+  td:nth-child(1), td:nth-child(3) { font-variant-numeric: tabular-nums; font-family: var(--mono); }
+  @media (prefers-reduced-motion: reduce) {
+    .cone-breathe { animation: none; }
+    .tub { opacity: 1; animation: none; }
+  }
+</style>
+</head>
+<body>
+<article class="sheet">
+  <p class="kicker">What did the 1980 freezer keep, year by year, until Jules tasted the burnt sugar?</p>
+  <h1>Six flavors on one cone. Ray length is years on the board since 1980.</h1>
+  <p class="lede">
+    Jules Ice Cream, Port Meridian. The cone is vanilla, 1980. Later flavors radiate.
+    Ferry Road (2006) is a window, not a ray. The only discrete count the source gives
+    for a week is eight mint tubs in August.
+  </p>
+
+  <svg class="star" viewBox="0 0 1100 780" role="img" aria-labelledby="star-title star-desc">
+    <title id="star-title">Star layout: waffle cone at center, six flavor rays. Length equals years since 1980.</title>
+    <desc id="star-desc">
+      Vanilla bean 1980 is the cone, stub 48. Strawberry buttermilk 1984 length 70.
+      Pistachio rose 1991 length 108.5, with fourteen day ticks. Dark chocolate sea salt 1998 length 147.
+      Mint chip 2014 length 235. Burnt sugar and cream 2022 length 279. Scale 5.5 pixels per year after a 48 pixel stub.
+      Eight equal mint tubs. Three parlor windows. No invented scoops sold.
+    </desc>
+
+    <!-- scale: 5.5 px per year, min stub 44. Center 430, 360 -->
+    <g fill="none" stroke="#3a2418" stroke-width="1" opacity=".2">
+      <circle cx="430" cy="360" r="90"/>
+      <circle cx="430" cy="360" r="180"/>
+      <circle cx="430" cy="360" r="270"/>
+    </g>
+
+    <g aria-hidden="true">
+      <line x1="430" y1="360" x2="430" y2="312" stroke="#f3e6c4" stroke-width="10" stroke-linecap="round"/>
+      <line x1="430" y1="360" x2="483.6" y2="315" stroke="#c45c6a" stroke-width="10" stroke-linecap="round"/>
+      <line x1="430" y1="360" x2="528.3" y2="405.9" stroke="#6a9a6e" stroke-width="10" stroke-linecap="round"/>
+      <line x1="430" y1="360" x2="283" y2="360" stroke="#5a3428" stroke-width="10" stroke-linecap="round"/>
+      <line x1="430" y1="360" x2="295.2" y2="552.5" stroke="#8eb8c4" stroke-width="10" stroke-linecap="round"/>
+      <line x1="430" y1="360" x2="250.7" y2="146.3" stroke="#e4b15a" stroke-width="10" stroke-linecap="round"/>
+    </g>
+    <g fill="#3a2418" font-family="ui-monospace, Consolas, monospace" font-size="12">
+      <text x="430" y="298" text-anchor="middle">1980</text>
+      <text x="510" y="304">1984</text>
+      <text x="545" y="422">1991</text>
+      <text x="210" y="364">1998</text>
+      <text x="210" y="575">2014</text>
+      <text x="200" y="138">2022</text>
+    </g>
+    <!-- 14 heatwave ticks on pistachio ray -->
+    <g aria-hidden="true" stroke="#3a2418" stroke-width="1.4">
+      <line x1="447.7" y1="368.3" x2="444.7" y2="374.6"/>
+      <line x1="453.1" y1="370.8" x2="450.2" y2="377.1"/>
+      <line x1="458.6" y1="373.3" x2="455.6" y2="379.7"/>
+      <line x1="464.0" y1="375.9" x2="461.1" y2="382.2"/>
+      <line x1="469.5" y1="378.4" x2="466.5" y2="384.8"/>
+      <line x1="474.9" y1="381.0" x2="472.0" y2="387.3"/>
+      <line x1="480.4" y1="383.5" x2="477.4" y2="389.9"/>
+      <line x1="485.8" y1="386.1" x2="482.8" y2="392.4"/>
+      <line x1="491.2" y1="388.6" x2="488.3" y2="394.9"/>
+      <line x1="496.7" y1="391.1" x2="493.7" y2="397.5"/>
+      <line x1="502.1" y1="393.7" x2="499.2" y2="400.0"/>
+      <line x1="507.6" y1="396.2" x2="504.6" y2="402.6"/>
+      <line x1="513.0" y1="398.8" x2="510.1" y2="405.1"/>
+      <line x1="518.5" y1="401.3" x2="515.5" y2="407.7"/>
+    </g>
+
+    <g class="cone-breathe" aria-hidden="true">
+      <path d="M400 392 L430 468 L460 392 Z" fill="#e4b15a" stroke="#3a2418" stroke-width="2"/>
+      <path d="M408 412 H452 M406 428 H454 M412 444 H448" stroke="#3a2418" stroke-width="1" opacity=".5"/>
+      <ellipse cx="430" cy="378" rx="36" ry="26" fill="#f3e6c4" stroke="#3a2418" stroke-width="2"/>
+      <ellipse cx="418" cy="368" rx="16" ry="12" fill="#c45c6a"/>
+      <ellipse cx="444" cy="366" rx="14" ry="11" fill="#6a9a6e"/>
+    </g>
+
+    <!-- three windows, not a map -->
+    <g aria-hidden="true" transform="translate(720, 80)">
+      <rect x="0" y="28" width="72" height="88" fill="#f7efe4" stroke="#3a2418" stroke-width="2"/>
+      <path d="M0 28 Q 36 0 72 28" fill="#8eb8c4" stroke="#3a2418" stroke-width="2"/>
+      <rect x="92" y="28" width="72" height="88" fill="#f7efe4" stroke="#3a2418" stroke-width="2"/>
+      <path d="M92 28 Q 128 0 164 28" fill="#c5e4ea" stroke="#3a2418" stroke-width="2"/>
+      <rect x="184" y="28" width="72" height="88" fill="#f7efe4" stroke="#3a2418" stroke-width="2"/>
+      <path d="M184 28 Q 220 0 256 28" fill="#e4b15a" stroke="#3a2418" stroke-width="2"/>
+    </g>
+    <g fill="#3a2418" font-family="Georgia, serif" font-size="13">
+      <text x="756" y="140" text-anchor="middle">Harbor</text>
+      <text x="848" y="140" text-anchor="middle">Cold room</text>
+      <text x="940" y="140" text-anchor="middle">Ferry Road</text>
+      <text x="848" y="162" text-anchor="middle" font-size="11" font-family="ui-monospace, Consolas, monospace">1980 · 1980 · 2006</text>
+    </g>
+
+    <!-- ISOTYPE 8 tubs -->
+    <g transform="translate(720, 220)" aria-hidden="true">
+      <g class="tub" transform="translate(0,0)"><rect x="8" y="18" width="40" height="32" rx="3" fill="#6a9a6e"/><ellipse cx="28" cy="18" rx="20" ry="9" fill="#c5e4ea"/></g>
+      <g class="tub" transform="translate(52,0)"><rect x="8" y="18" width="40" height="32" rx="3" fill="#6a9a6e"/><ellipse cx="28" cy="18" rx="20" ry="9" fill="#c5e4ea"/></g>
+      <g class="tub" transform="translate(104,0)"><rect x="8" y="18" width="40" height="32" rx="3" fill="#6a9a6e"/><ellipse cx="28" cy="18" rx="20" ry="9" fill="#c5e4ea"/></g>
+      <g class="tub" transform="translate(156,0)"><rect x="8" y="18" width="40" height="32" rx="3" fill="#6a9a6e"/><ellipse cx="28" cy="18" rx="20" ry="9" fill="#c5e4ea"/></g>
+      <g class="tub" transform="translate(0,58)"><rect x="8" y="18" width="40" height="32" rx="3" fill="#6a9a6e"/><ellipse cx="28" cy="18" rx="20" ry="9" fill="#c5e4ea"/></g>
+      <g class="tub" transform="translate(52,58)"><rect x="8" y="18" width="40" height="32" rx="3" fill="#6a9a6e"/><ellipse cx="28" cy="18" rx="20" ry="9" fill="#c5e4ea"/></g>
+      <g class="tub" transform="translate(104,58)"><rect x="8" y="18" width="40" height="32" rx="3" fill="#6a9a6e"/><ellipse cx="28" cy="18" rx="20" ry="9" fill="#c5e4ea"/></g>
+      <g class="tub" transform="translate(156,58)"><rect x="8" y="18" width="40" height="32" rx="3" fill="#6a9a6e"/><ellipse cx="28" cy="18" rx="20" ry="9" fill="#c5e4ea"/></g>
+    </g>
+    <text x="720" y="210" fill="#3a2418" font-family="ui-monospace, Consolas, monospace" font-size="11" letter-spacing="1.6">EIGHT TUBS A WEEK IN AUGUST</text>
+
+    <g transform="translate(720, 400)" font-family="Georgia, serif" fill="#3a2418" font-size="15">
+      <text y="0" font-weight="700">On the rays</text>
+      <text y="28">Vanilla bean — the cone</text>
+      <text y="50">Strawberry buttermilk — 12 flats</text>
+      <text y="72">Pistachio rose — 14 July days</text>
+      <text y="94">Dark chocolate sea salt</text>
+      <text y="116">Mint chip — eight tubs</text>
+      <text y="138">Burnt sugar and cream</text>
+    </g>
+  </svg>
+
+  <p class="take">
+    The freezer held fourteen July days on pistachio. August 2014 counted eight equal tubs.
+    Jules is tasting the burnt sugar now.
+  </p>
+
+  <figure>
+    <table>
+      <caption>Lossless table — every number already in the source</caption>
+      <thead>
+        <tr>
+          <th>Year</th>
+          <th>Named in the file</th>
+          <th>Honest number</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1980</td><td>Harbor Street parlor, cold room, vanilla bean</td><td>founded</td></tr>
+        <tr><td>1984</td><td>Strawberry buttermilk</td><td>12 flats</td></tr>
+        <tr><td>1991</td><td>Pistachio rose</td><td>14-day heatwave</td></tr>
+        <tr><td>1998</td><td>Dark chocolate sea salt</td><td>—</td></tr>
+        <tr><td>2006</td><td>Ferry Road cone counter</td><td>—</td></tr>
+        <tr><td>2014</td><td>Mint chip</td><td>8 tubs / week in August</td></tr>
+        <tr><td>2022</td><td>Burnt sugar &amp; cream</td><td>current weenie</td></tr>
+      </tbody>
+    </table>
+  </figure>
+</article>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jules Ice Cream — the counter</title>
+<style>
+  :root { --void:#2a1812; --ink:#f7efe4; --berry:#c45c6a; --gold:#e4b15a; --dim:#c4a090; }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; height: 100%; background: var(--void); color: var(--ink);
+    font-family: ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  #view { flex: 1; position: relative; min-height: 0; }
+  canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; cursor: grab; }
+  canvas:active { cursor: grabbing; }
+  .bar {
+    flex: 0 0 auto;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    padding: 10px 18px 12px;
+    background: var(--void);
+    border-top: 1px solid rgba(228,177,90,.4);
+  }
+  .bar h1 {
+    margin: 0; font-family: Georgia, Palatino, serif;
+    font-weight: 400; font-size: 18px; letter-spacing: .02em;
+  }
+  .bar h1 em { font-style: italic; color: var(--gold); }
+  .hud { display: flex; gap: 8px; flex-wrap: wrap; }
+  button {
+    background: transparent; color: var(--ink); border: 1px solid rgba(247,239,228,.35);
+    padding: 7px 12px; border-radius: 999px; cursor: pointer; font: 13px/1.2 inherit;
+  }
+  button:hover, button[aria-pressed="true"] { background: var(--gold); color: var(--void); border-color: var(--gold); }
+  button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  ::selection { background: var(--gold); color: var(--void); }
+</style>
+</head>
+<body>
+<div id="view" aria-label="Marble counter, waffle cone, brass scoop, ice-blue freezer"></div>
+<footer class="bar">
+  <h1>On the <em>counter</em></h1>
+  <nav class="hud" aria-label="Look at">
+    <button type="button" data-look="room">The parlor</button>
+    <button type="button" data-look="cone" aria-pressed="true">The cone</button>
+    <button type="button" data-look="scoop">The scoop</button>
+    <button type="button" data-look="freezer">The freezer</button>
+  </nav>
+</footer>
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three.module.min.js"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from "three";
+
+const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  || new URLSearchParams(location.search).has("still");
+const view = document.getElementById("view");
+
+const marble = new THREE.MeshStandardMaterial({ color: 0xefe4d4, roughness: 0.38, metalness: 0.08 });
+const chocolate = new THREE.MeshStandardMaterial({ color: 0x3a2418, roughness: 0.88 });
+const waffle = new THREE.MeshStandardMaterial({
+  color: 0xe4b15a, roughness: 0.55, metalness: 0.12, emissive: 0x5a3a08, emissiveIntensity: 0.1,
+});
+const cream = new THREE.MeshStandardMaterial({ color: 0xf3e6c4, roughness: 0.7 });
+const berry = new THREE.MeshStandardMaterial({ color: 0xc45c6a, roughness: 0.62 });
+const pist = new THREE.MeshStandardMaterial({ color: 0x6a9a6e, roughness: 0.64 });
+const sugar = new THREE.MeshStandardMaterial({ color: 0xe4b15a, roughness: 0.5 });
+const iceGlass = new THREE.MeshStandardMaterial({
+  color: 0x8eb8c4, roughness: 0.18, metalness: 0.12, emissive: 0x8eb8c4, emissiveIntensity: 0.28,
+  transparent: true, opacity: 0.72,
+});
+const brass = new THREE.MeshStandardMaterial({ color: 0xb08a3a, roughness: 0.32, metalness: 0.62 });
+const tile = new THREE.MeshStandardMaterial({ color: 0x2a1812, roughness: 0.92 });
+const ticket = new THREE.MeshStandardMaterial({ color: 0xf4d0c8, roughness: 0.7 });
+
+function shadowize(root) {
+  root.traverse((c) => {
+    if (c.isMesh) {
+      c.castShadow = true;
+      c.receiveShadow = true;
+    }
+  });
+}
+
+function cone() {
+  const g = new THREE.Group();
+  const c = new THREE.Mesh(new THREE.ConeGeometry(0.22, 0.72, 10), waffle);
+  c.position.y = 0.36;
+  const s0 = new THREE.Mesh(new THREE.SphereGeometry(0.24, 18, 14), cream);
+  s0.position.y = 0.78;
+  const s1 = new THREE.Mesh(new THREE.SphereGeometry(0.18, 14, 12), berry);
+  s1.position.set(0.1, 0.94, 0.04);
+  const s2 = new THREE.Mesh(new THREE.SphereGeometry(0.16, 14, 12), pist);
+  s2.position.set(-0.1, 0.92, 0.06);
+  const s3 = new THREE.Mesh(new THREE.SphereGeometry(0.14, 12, 10), sugar);
+  s3.position.set(0.02, 1.08, 0.02);
+  g.add(c, s0, s1, s2, s3);
+  g.name = "Cone";
+  return g;
+}
+
+function scoop() {
+  const g = new THREE.Group();
+  const bowl = new THREE.Mesh(new THREE.SphereGeometry(0.16, 16, 12, 0, Math.PI * 2, 0, Math.PI * 0.55), brass);
+  bowl.rotation.x = Math.PI;
+  const handle = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.035, 0.7, 8), brass);
+  handle.position.set(0.28, -0.12, 0);
+  handle.rotation.z = Math.PI / 2.4;
+  g.add(bowl, handle);
+  g.position.set(0.72, 1.08, 0.18);
+  g.rotation.z = -0.35;
+  g.name = "Scoop";
+  return g;
+}
+
+const looks = {
+  room: { cam: new THREE.Vector3(1.55, 1.55, 2.85), at: new THREE.Vector3(0.1, 1.15, -0.2) },
+  cone: { cam: new THREE.Vector3(0.62, 1.58, 1.72), at: new THREE.Vector3(0.02, 1.38, 0.08) },
+  scoop: { cam: new THREE.Vector3(1.35, 1.28, 1.45), at: new THREE.Vector3(0.7, 1.08, 0.15) },
+  freezer: { cam: new THREE.Vector3(0.15, 1.45, 2.2), at: new THREE.Vector3(0, 1.55, -1.55) },
+};
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x1c100c);
+scene.fog = new THREE.Fog(0x1c100c, 8, 16);
+const camera = new THREE.PerspectiveCamera(40, 1, 0.08, 40);
+camera.position.copy(looks.cone.cam);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+view.appendChild(renderer.domElement);
+
+scene.add(new THREE.HemisphereLight(0x8eb8c4, 0x3a2418, 0.7));
+const sun = new THREE.DirectionalLight(0xf3e6c4, 1.15);
+sun.position.set(2.4, 4.2, 3.2);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.camera.near = 0.5;
+sun.shadow.camera.far = 16;
+sun.shadow.camera.left = -5;
+sun.shadow.camera.right = 5;
+sun.shadow.camera.top = 5;
+sun.shadow.camera.bottom = -5;
+sun.shadow.bias = -0.0004;
+scene.add(sun);
+
+const floor = new THREE.Mesh(new THREE.BoxGeometry(8, 0.08, 6), tile);
+floor.position.y = -0.04;
+floor.receiveShadow = true;
+scene.add(floor);
+
+const back = new THREE.Mesh(new THREE.BoxGeometry(8, 3.2, 0.16), chocolate);
+back.position.set(0, 1.6, -1.85);
+scene.add(back);
+const left = new THREE.Mesh(new THREE.BoxGeometry(0.16, 3.2, 6), chocolate);
+left.position.set(-4, 1.6, 0.2);
+scene.add(left);
+
+const frame = new THREE.Mesh(new THREE.BoxGeometry(2.4, 2.2, 0.12), chocolate);
+frame.position.set(0, 1.55, -1.72);
+const glass = new THREE.Mesh(new THREE.BoxGeometry(1.9, 1.7, 0.06), iceGlass);
+glass.position.set(0, 1.55, -1.62);
+glass.name = "freezer-glass";
+scene.add(frame, glass);
+
+const base = new THREE.Mesh(new THREE.BoxGeometry(3.6, 0.85, 1.15), chocolate);
+base.position.set(0, 0.42, 0.15);
+const counter = new THREE.Mesh(new THREE.BoxGeometry(3.8, 0.12, 1.3), marble);
+counter.position.set(0, 0.9, 0.18);
+scene.add(base, counter);
+
+const dish = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.32, 0.05, 24), marble);
+dish.position.set(0, 0.99, 0.1);
+scene.add(dish);
+
+const weenie = cone();
+weenie.position.set(0, 0.99, 0.1);
+weenie.scale.setScalar(1.28);
+scene.add(weenie);
+
+const brassScoop = scoop();
+scene.add(brassScoop);
+
+const stub = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.01, 0.28), ticket);
+stub.position.set(-1.15, 0.97, 0.28);
+stub.rotation.y = 0.2;
+scene.add(stub);
+
+const dripMat = berry.clone();
+dripMat.emissive = new THREE.Color(0xc45c6a);
+dripMat.emissiveIntensity = 0.2;
+const drip = new THREE.Mesh(new THREE.SphereGeometry(0.03, 8, 8), dripMat);
+scene.add(drip);
+
+shadowize(weenie);
+shadowize(brassScoop);
+counter.castShadow = true;
+counter.receiveShadow = true;
+base.castShadow = true;
+dish.castShadow = true;
+stub.castShadow = true;
+drip.castShadow = false;
+
+const lookTarget = looks.cone.at.clone();
+const destCam = looks.cone.cam.clone();
+const destAt = looks.cone.at.clone();
+const spherical = new THREE.Spherical().setFromVector3(camera.position.clone().sub(lookTarget));
+spherical.makeSafe();
+let lookKey = "cone";
+let dragging = false;
+let lastX = 0;
+let lastY = 0;
+const canvas = renderer.domElement;
+
+function size() {
+  const w = view.clientWidth;
+  const h = view.clientHeight;
+  camera.aspect = w / Math.max(1, h);
+  camera.updateProjectionMatrix();
+  renderer.setSize(w, h, false);
+}
+
+canvas.addEventListener("pointerdown", (e) => {
+  dragging = true;
+  lastX = e.clientX;
+  lastY = e.clientY;
+  canvas.setPointerCapture(e.pointerId);
+});
+canvas.addEventListener("pointerup", (e) => {
+  dragging = false;
+  canvas.releasePointerCapture(e.pointerId);
+});
+canvas.addEventListener("pointermove", (e) => {
+  if (!dragging) return;
+  const dx = e.clientX - lastX;
+  const dy = e.clientY - lastY;
+  lastX = e.clientX;
+  lastY = e.clientY;
+  spherical.theta -= dx * 0.005;
+  spherical.phi = THREE.MathUtils.clamp(spherical.phi + dy * 0.005, 0.35, Math.PI * 0.48);
+  spherical.makeSafe();
+  destCam.setFromSpherical(spherical).add(lookTarget);
+  camera.position.copy(destCam);
+});
+canvas.addEventListener("wheel", (e) => {
+  e.preventDefault();
+  spherical.radius = THREE.MathUtils.clamp(spherical.radius + e.deltaY * 0.004, 1.4, 4.2);
+  destCam.setFromSpherical(spherical).add(lookTarget);
+}, { passive: false });
+
+document.querySelectorAll("[data-look]").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll("[data-look]").forEach((b) => b.setAttribute("aria-pressed", "false"));
+    btn.setAttribute("aria-pressed", "true");
+    lookKey = btn.dataset.look;
+    destCam.copy(looks[lookKey].cam);
+    destAt.copy(looks[lookKey].at);
+    lookTarget.copy(destAt);
+    spherical.setFromVector3(destCam.clone().sub(lookTarget));
+    spherical.makeSafe();
+  });
+});
+
+let framed = false;
+renderer.setAnimationLoop(() => {
+  const t = performance.now() * 0.001;
+  if (!reduce) {
+    if (!dragging) {
+      camera.position.lerp(destCam, 0.06);
+      lookTarget.lerp(destAt, 0.06);
+      if (lookKey === "room" && camera.position.distanceTo(destCam) < 0.08) {
+        spherical.theta += 0.0004;
+        destCam.setFromSpherical(spherical).add(lookTarget);
+      }
+    }
+    weenie.rotation.y += 0.008;
+    glass.material.emissiveIntensity = 0.22 + 0.16 * (0.5 + 0.5 * Math.sin(t * 1.1));
+    drip.position.set(0.16, 1.35 - ((t * 0.35) % 0.55), 0.22);
+  } else {
+    camera.position.copy(destCam);
+    lookTarget.copy(destAt);
+    drip.position.set(0.16, 1.1, 0.22);
+  }
+  camera.lookAt(lookTarget);
+  renderer.render(scene, camera);
+  if (!framed) {
+    framed = true;
+    document.documentElement.dataset.ready = "1";
+  }
+});
+
+addEventListener("resize", size);
+size();
+</script>
+</body>
+</html>

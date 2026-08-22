@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jules Ice Cream</title>
+<style>
+  :root{
+    --void:#05070c;
+    --panel:#0f1420;
+    --ink:#f3efe6;
+    --dim:#7c8aa8;
+    --beam:#8ee8f5;
+    --ember:#ff5c6a;
+    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Consolas,monospace;
+    --serif:"Iowan Old Style",Palatino,Georgia,serif;
+    --rule:color-mix(in srgb, var(--beam) 16%, var(--panel));
+  }
+  *{box-sizing:border-box}
+  html{scroll-padding-top:56px}
+  html,body{margin:0;padding:0;background:var(--void);color:var(--ink);font-family:var(--sans);
+    font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:var(--beam);text-decoration:none;transition:color 120ms ease-out, filter 120ms ease-out}
+  a:hover{color:var(--ember)}
+  a:focus-visible,button:focus-visible,.rail a:focus-visible{
+    outline:2px solid var(--beam);outline-offset:3px}
+  ::selection{background:var(--ember);color:var(--void)}
+
+  .rail{position:sticky;top:0;z-index:40;display:flex;gap:22px;flex-wrap:wrap;
+    padding:14px 32px;background:rgba(5,7,12,.78);border-bottom:1px solid var(--rule);
+    font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim)}
+  .rail a{color:var(--dim)}
+  .rail a:hover{color:var(--beam)}
+  .rail b{color:var(--ember);font-weight:400;margin-right:6px}
+  .rail .end{margin-left:auto;color:var(--dim);pointer-events:none}
+
+  .wrap{max-width:1320px;margin:0 auto;padding:32px 32px 96px}
+
+  .stage{position:relative;width:840px;max-width:100%;height:520px;margin:24px auto 0;
+    border-radius:20px;overflow:hidden;border:1px solid var(--rule);
+    background:var(--panel);perspective:1200px;
+    box-shadow:0 40px 80px -24px rgba(142,232,245,.18), 0 24px 48px rgba(5,7,12,.7)}
+  .stage canvas{display:block;width:100%;height:520px}
+  .stage .frame{position:absolute;inset:0;pointer-events:none;
+    box-shadow:inset 0 0 0 1px rgba(243,239,230,.06), inset 0 0 120px rgba(5,7,12,.55)}
+  .stage .badge,.stage .readout{position:absolute;top:18px;font-family:var(--mono);
+    font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);pointer-events:none}
+  .stage .badge{left:22px}
+  .stage .badge b{color:var(--beam);font-weight:400}
+  .stage .readout{right:22px}
+
+  .stage .scrim{position:absolute;left:0;right:0;bottom:0;height:58%;pointer-events:none;
+    background:linear-gradient(180deg,transparent,rgba(5,7,12,.82))}
+  .masthead{position:absolute;left:36px;bottom:28px;right:36px;color:var(--ink);pointer-events:none}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--ink);opacity:.9;margin-bottom:14px}
+  .title{font-size:clamp(64px,10vw,148px);line-height:.86;letter-spacing:-.04em;font-weight:600;margin:0}
+  .title em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--ember);padding:0 .05em}
+  .subtitle{margin-top:14px;font-family:var(--mono);font-size:13px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ink);opacity:.9;max-width:62ch}
+  .cursor{display:inline-block;width:10px;height:1.05em;background:var(--ember);
+    transform:translateY(3px);margin-left:6px;animation:blink 1.05s steps(2,end) infinite;vertical-align:baseline}
+  @keyframes blink{50%{opacity:0}}
+
+  .sec{padding:96px 0 24px;position:relative;content-visibility:auto;contain-intrinsic-size:800px}
+  .sec h2{font-family:var(--sans);font-weight:600;font-size:34px;letter-spacing:-.02em;margin:0;color:var(--ink);
+    max-width:22ch}
+  .sec h2 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--beam);padding:0 .05em}
+  .sec .num{font-family:var(--mono);font-size:11px;letter-spacing:.28em;color:var(--dim);
+    text-transform:uppercase;margin-bottom:12px;display:flex;gap:14px;align-items:baseline}
+  .sec .num b{color:var(--ember);font-weight:400}
+  .sec .num i{font-style:normal;color:var(--dim);margin-left:auto}
+  .sec .rule{height:1px;margin:22px 0 34px;
+    background:repeating-linear-gradient(90deg,var(--rule) 0 10px,transparent 10px 16px)}
+
+  .row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;perspective:1200px;transform-style:preserve-3d}
+  .card{position:relative;background:var(--panel);border:1px solid var(--rule);border-radius:14px;
+    padding:22px;overflow:hidden;transform-style:preserve-3d;
+    transition:transform 150ms ease-out, box-shadow 150ms ease-out}
+  .card--l{transform:rotateX(-8deg) rotateY(18deg) translateZ(32px);
+    box-shadow:-36px 44px 56px rgba(5,7,12,.6)}
+  .card--m{transform:rotateX(-10deg) rotateY(-4deg) translateZ(48px);
+    box-shadow:0 52px 72px rgba(255,92,106,.24)}
+  .card--r{transform:rotateX(-8deg) rotateY(-18deg) translateZ(32px);
+    box-shadow:36px 44px 56px rgba(5,7,12,.6)}
+  .card:hover{transform:rotateX(-4deg) rotateY(0deg) translateZ(56px);
+    box-shadow:0 56px 72px rgba(142,232,245,.2)}
+  .card .pill{display:inline-flex;align-items:center;gap:8px;padding:5px 10px;border-radius:999px;
+    font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;
+    background:color-mix(in srgb, var(--void) 70%, var(--panel));color:var(--beam);border:1px solid var(--rule)}
+  .card .pill b{color:var(--ember);font-weight:400}
+  .card h3{font-family:var(--sans);font-size:22px;letter-spacing:-.01em;margin:16px 0 6px;color:var(--ink)}
+  .card p{margin:0;color:var(--dim);font-size:15px;line-height:1.55;max-width:42ch}
+  .card .plate{margin-top:14px;background:color-mix(in srgb, var(--void) 55%, var(--panel));
+    border:1px solid var(--rule);border-radius:10px;padding:14px;overflow:hidden}
+  .card .plate svg{display:block;width:100%;height:130px}
+  .card .foot{margin-top:14px;display:flex;justify-content:space-between;font-family:var(--mono);
+    font-size:11px;letter-spacing:.16em;color:var(--dim);text-transform:uppercase}
+
+  .chart{background:var(--panel);border:1px solid var(--rule);border-radius:14px;padding:22px;
+    margin-top:8px;position:relative;overflow:hidden}
+  .chart svg{display:block;width:100%;height:220px}
+  .chart .caption{margin-top:10px;font-family:var(--mono);font-size:11px;letter-spacing:.2em;
+    color:var(--dim);text-transform:uppercase}
+  .chart .sweep{position:absolute;top:0;bottom:0;width:2px;left:0;
+    background:linear-gradient(180deg,transparent,var(--beam),transparent);
+    filter:blur(1px);opacity:.55;pointer-events:none;
+    animation:sweep 4.5s ease-out infinite}
+  @keyframes sweep{
+    from{transform:translateX(-12px)}
+    to{transform:translateX(1320px)}
+  }
+
+  .flavors{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+  .flavor{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:16px}
+  .flavor .y{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--ember);text-transform:uppercase}
+  .flavor h3{margin:8px 0 6px;font-size:18px;letter-spacing:-.01em}
+  .flavor p{margin:0;color:var(--dim);font-size:14.5px;max-width:40ch}
+
+  .now{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--rule);border-radius:14px;overflow:hidden}
+  .now dl{margin:0;display:grid;grid-template-columns:160px 1fr}
+  .now dt,.now dd{margin:0;padding:18px 22px;border-bottom:1px solid var(--rule);font-size:15px}
+  .now dt{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--dim);background:var(--panel)}
+  .now dd{color:var(--ink);max-width:none}
+  .now dl:last-child dt,.now dl:last-child dd{border-bottom:0}
+
+  .ticket{background:var(--panel);border:1px dashed color-mix(in srgb, var(--ember) 45%, var(--rule));
+    border-radius:14px;padding:24px 28px;max-width:65ch;
+    box-shadow:0 32px 48px rgba(255,92,106,.12);
+    transform:rotateX(-4deg) rotateY(-8deg) translateZ(24px)}
+  .ticket .who{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim)}
+  .ticket a{display:inline-block;margin-top:10px;font-size:22px;letter-spacing:-.02em;font-weight:600}
+
+  footer{padding:64px 0 0;color:var(--dim);font-family:var(--mono);font-size:11px;
+    letter-spacing:.22em;text-transform:uppercase;display:flex;gap:22px;flex-wrap:wrap}
+  footer span:last-child{margin-left:auto}
+
+  @media (max-width:900px){
+    .row,.flavors,.now{grid-template-columns:1fr}
+    .now dl{grid-template-columns:1fr}
+    .card--l,.card--m,.card--r,.ticket{transform:none;box-shadow:0 24px 40px rgba(5,7,12,.5)}
+    .stage,.stage canvas{height:360px}
+    .title{font-size:56px}
+    .rail .end{display:none}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{
+      animation-duration:0.001ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:0.001ms !important;
+      scroll-behavior:auto !important;
+    }
+    :focus-visible{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<nav class="rail" aria-label="Section index">
+  <a href="#masthead">Harbor</a>
+  <a href="#places">Windows</a>
+  <a href="#flavors">Board</a>
+  <a href="#now">Now</a>
+  <a href="#contact">Ticket</a>
+  <span class="end">Port Meridian · 1980</span>
+</nav>
+
+<main class="wrap">
+
+  <section class="stage" id="masthead" aria-label="Cold room shader">
+    <canvas id="shader" width="840" height="520" aria-hidden="true"></canvas>
+    <div class="frame"></div>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="badge"><b>Cold room</b> · ice-blue light</div>
+    <div class="readout" id="readout">the original freezer still hums</div>
+    <div class="masthead">
+      <div class="kicker">Founded 1980 · Port Meridian · kept plain</div>
+      <h1 class="title">Jules <em>Ice</em> Cream<span class="cursor" aria-hidden="true"></span></h1>
+      <div class="subtitle">The parlor, the flavors, and the freezer</div>
+    </div>
+  </section>
+
+  <section class="sec" id="places">
+    <div class="num"><b>1980</b><span>Windows</span><i>Three</i></div>
+    <h2>Harbor Street, the cold room, <em>Ferry Road</em></h2>
+    <div class="rule"></div>
+
+    <div class="row">
+      <article class="card card--l">
+        <span class="pill"><b>1980</b> parlor</span>
+        <h3>Harbor Street parlor</h3>
+        <p>The first window in Port Meridian. One marble counter, one brass scoop, waffle cones baked gold. Jules still opens the door at ten.</p>
+        <div class="plate">
+          <svg viewBox="0 0 300 130" role="img" aria-label="Marble counter and brass scoop">
+            <rect width="300" height="130" fill="#05070c"/>
+            <line x1="18" y1="96" x2="282" y2="96" stroke="#8ee8f5" stroke-opacity=".35" stroke-dasharray="8 6"/>
+            <rect x="28" y="78" width="244" height="14" rx="2" fill="#0f1420" stroke="#8ee8f5" stroke-opacity=".4"/>
+            <ellipse cx="210" cy="52" rx="22" ry="16" fill="none" stroke="#ff5c6a" stroke-width="2"/>
+            <path d="M210 68 L218 108" stroke="#8ee8f5" stroke-width="2" stroke-linecap="round"/>
+            <text x="28" y="36" fill="#7c8aa8" font-family="ui-monospace,Consolas,monospace" font-size="10" letter-spacing="1.8">MARBLE · BRASS</text>
+          </svg>
+        </div>
+        <div class="foot"><span>First window</span><span>Ten</span></div>
+      </article>
+
+      <article class="card card--m">
+        <span class="pill"><b>1980</b> cold room</span>
+        <h3>The cold room</h3>
+        <p>Behind the parlor. Ice-blue light at night. The original freezer still hums. Harbor fog the color of pistachio shells sits on the glass.</p>
+        <div class="plate">
+          <svg viewBox="0 0 300 130" role="img" aria-label="Freezer hum waveform">
+            <rect width="300" height="130" fill="#05070c"/>
+            <path class="hum" d="M12 72 C 40 40, 68 104, 96 72 S 152 40, 180 72 S 236 104, 264 72 S 300 40, 320 72"
+              fill="none" stroke="#8ee8f5" stroke-width="2"/>
+            <g fill="#ff5c6a">
+              <circle cx="96" cy="72" r="3"/>
+              <circle cx="180" cy="72" r="3"/>
+              <circle cx="264" cy="72" r="3"/>
+            </g>
+            <text x="18" y="28" fill="#7c8aa8" font-family="ui-monospace,Consolas,monospace" font-size="10" letter-spacing="1.8">HUM</text>
+          </svg>
+        </div>
+        <div class="foot"><span>Behind the parlor</span><span>Night</span></div>
+      </article>
+
+      <article class="card card--r">
+        <span class="pill"><b>2006</b> walk-up</span>
+        <h3>Ferry Road cone counter</h3>
+        <p>The second window. Walk-up only. Same gold cones, same brass scoop, the harbor behind you.</p>
+        <div class="plate">
+          <svg viewBox="0 0 300 130" role="img" aria-label="Walk-up cone counter">
+            <rect width="300" height="130" fill="#05070c"/>
+            <rect x="88" y="28" width="124" height="74" rx="4" fill="none" stroke="#8ee8f5" stroke-opacity=".55"/>
+            <polygon points="150,86 132,118 168,118" fill="none" stroke="#ff5c6a" stroke-width="1.6"/>
+            <circle cx="150" cy="78" r="14" fill="none" stroke="#f3efe6" stroke-width="1.6"/>
+            <text x="18" y="22" fill="#7c8aa8" font-family="ui-monospace,Consolas,monospace" font-size="10" letter-spacing="1.8">WALK-UP ONLY</text>
+          </svg>
+        </div>
+        <div class="foot"><span>Second window</span><span>2006</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sec" id="flavors">
+    <div class="num"><b>1980–2022</b><span>Board</span><i>Six flavors</i></div>
+    <h2>From vanilla bean to burnt sugar <em>&amp;</em> cream</h2>
+    <div class="rule"></div>
+
+    <div class="chart" aria-label="Flavor years">
+      <div class="sweep" aria-hidden="true"></div>
+      <svg viewBox="0 0 900 220" role="img" aria-label="Flavor years from 1980 to 2022">
+        <line x1="40" y1="160" x2="860" y2="160" stroke="#7c8aa8" stroke-opacity=".35"/>
+        <g fill="#8ee8f5">
+          <circle cx="70" cy="160" r="6"/>
+          <circle cx="210" cy="128" r="6"/>
+          <circle cx="360" cy="96" r="6"/>
+          <circle cx="510" cy="118" r="6"/>
+          <circle cx="680" cy="84" r="6"/>
+          <circle cx="830" cy="64" r="6"/>
+        </g>
+        <path d="M70 160 L210 128 L360 96 L510 118 L680 84 L830 64"
+          fill="none" stroke="#ff5c6a" stroke-width="2"/>
+        <g font-family="ui-monospace,Consolas,monospace" font-size="11" fill="#7c8aa8">
+          <text x="52" y="188">1980</text>
+          <text x="188" y="188">1984</text>
+          <text x="336" y="188">1991</text>
+          <text x="486" y="188">1998</text>
+          <text x="656" y="188">2014</text>
+          <text x="806" y="188">2022</text>
+          <text x="52" y="36" fill="#f3efe6">VANILLA</text>
+          <text x="188" y="36">STRAWBERRY</text>
+          <text x="336" y="36">PISTACHIO</text>
+          <text x="486" y="36">CHOCOLATE</text>
+          <text x="656" y="36">MINT CHIP</text>
+          <text x="806" y="36" fill="#ff5c6a">BURNT SUGAR</text>
+        </g>
+      </svg>
+      <div class="caption">Still on the board every day · twelve flats · fourteen-day July heatwave · eight tubs a week in August</div>
+    </div>
+
+    <div class="flavors">
+      <article class="flavor">
+        <div class="y">1980</div>
+        <h3>Vanilla bean</h3>
+        <p>Madagascar vanilla. The first scoop. Cream, not white. Still on the board every day.</p>
+      </article>
+      <article class="flavor">
+        <div class="y">1984</div>
+        <h3>Strawberry buttermilk</h3>
+        <p>Twelve flats from the river farms. Pink as the ticket they still write orders on.</p>
+      </article>
+      <article class="flavor">
+        <div class="y">1991</div>
+        <h3>Pistachio rose</h3>
+        <p>Fourteen-day July heatwave. The freezer held. They sold only pistachio for two weeks. Green as the shells on the dock.</p>
+      </article>
+      <article class="flavor">
+        <div class="y">1998</div>
+        <h3>Dark chocolate sea salt</h3>
+        <p>The harbor in a cup. Chocolate from the bean, salt from the channel.</p>
+      </article>
+      <article class="flavor">
+        <div class="y">2014</div>
+        <h3>Mint chip</h3>
+        <p>Eight tubs a week in August. Cold as the room behind the parlor.</p>
+      </article>
+      <article class="flavor">
+        <div class="y">2022</div>
+        <h3>Burnt sugar &amp; cream</h3>
+        <p>The current weenie. Caramelized sugar folded into the 1980 vanilla. Jules is tasting this now.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="sec" id="now">
+    <div class="num"><b>Now</b><span>Freezer</span><i>One hum · one taste</i></div>
+    <h2>The 1980 freezer still <em>hums</em></h2>
+    <div class="rule"></div>
+    <div class="now">
+      <dl>
+        <dt>The freezer</dt>
+        <dd>The 1980 freezer still hums.</dd>
+      </dl>
+      <dl>
+        <dt>Jules</dt>
+        <dd>Jules is tasting the burnt sugar.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="sec" id="contact">
+    <div class="num"><b>Ticket</b><span>Contact</span><i>Write it here</i></div>
+    <h2>Email</h2>
+    <div class="rule"></div>
+    <div class="ticket">
+      <div class="who">Email</div>
+      <a href="mailto:hello@julesicecream.example">hello@julesicecream.example</a>
+    </div>
+  </section>
+
+  <footer>
+    <span>Jules Ice Cream</span>
+    <span>Port Meridian</span>
+    <span>Founded 1980 · kept plain</span>
+  </footer>
+</main>
+
+<script type="x-shader/x-fragment" id="frag">#version 300 es
+precision highp float;
+out vec4 outColor;
+uniform vec2 u_res;
+uniform float u_time;
+
+float hash(vec2 p){ return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453123); }
+float noise(vec2 p){
+  vec2 i=floor(p), f=fract(p);
+  float a=hash(i), b=hash(i+vec2(1,0));
+  float c=hash(i+vec2(0,1)), d=hash(i+vec2(1,1));
+  vec2 u=f*f*(3.0-2.0*f);
+  return mix(a,b,u.x)+(c-a)*u.y*(1.0-u.x)+(d-b)*u.x*u.y;
+}
+float fbm(vec2 p){
+  float v=0.0, a=0.5;
+  for(int i=0;i<5;i++){ v+=a*noise(p); p*=2.02; a*=0.5; }
+  return v;
+}
+void main(){
+  vec2 uv = (gl_FragCoord.xy - 0.5*u_res.xy) / u_res.y;
+  float t = u_time * 0.14;
+  vec2 q = vec2(fbm(uv*1.6 + t), fbm(uv*1.6 - t + 2.4));
+  float fold = fbm(uv*2.0 + q*1.2 - t*0.4);
+
+  vec2 scoopPist = vec2(-0.22 + 0.05*sin(t*0.7),  0.08);
+  vec2 scoopStraw = vec2( 0.26 + 0.04*cos(t*0.55), -0.06);
+  float ra = length(uv - scoopPist);
+  float rb = length(uv - scoopStraw);
+  float swirlA = 0.5 + 0.5*sin(9.0*ra - t*2.1 + fold*4.0);
+  float swirlB = 0.5 + 0.5*sin(9.0*rb + t*1.8 + fold*4.0);
+  float vein = smoothstep(0.38, 0.62, fract(fold*2.6 + t*0.15));
+
+  vec3 night  = vec3(0.03, 0.055, 0.08);
+  vec3 ice    = vec3(0.42, 0.80, 0.92);
+  vec3 cream  = vec3(0.94, 0.89, 0.74);
+  vec3 pist   = vec3(0.46, 0.80, 0.36);
+  vec3 straw  = vec3(1.00, 0.30, 0.40);
+  vec3 waffle = vec3(0.84, 0.64, 0.28);
+
+  vec3 col = night;
+  col += ice * 0.22 * (1.0 - length(uv)*0.65);
+  col = mix(col, cream, fold * 0.28 + vein * 0.22);
+  col = mix(col, pist, (1.0 - smoothstep(0.04, 0.58, ra)) * swirlA * 0.92);
+  col = mix(col, straw, (1.0 - smoothstep(0.04, 0.58, rb)) * swirlB * 0.92);
+  col = mix(col, waffle, 0.10 * vein * swirlA);
+
+  float vig = smoothstep(1.25, 0.18, length(uv));
+  col *= mix(0.42, 1.0, vig);
+  outColor = vec4(pow(col, vec3(0.9)), 1.0);
+}
+</script>
+<script>
+(function(){
+  var canvas = document.getElementById('shader');
+  var readout = document.getElementById('readout');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var gl = canvas.getContext('webgl2', { antialias:false, alpha:false });
+
+  function size2d(ctx){
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = canvas.clientWidth || 840;
+    var h = canvas.clientHeight || 520;
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    if(ctx) ctx.setTransform(dpr,0,0,dpr,0,0);
+    return {w:w,h:h};
+  }
+
+  function fallback2d(){
+    var ctx = canvas.getContext('2d');
+    if(!ctx) return;
+    var t0 = performance.now();
+    function draw(now){
+      var s = size2d(ctx);
+      var t = reduce ? 1.2 : (now - t0) / 1000;
+      ctx.fillStyle = '#05070c';
+      ctx.fillRect(0,0,s.w,s.h);
+      function blob(x,y,rad,color){
+        var g = ctx.createRadialGradient(x,y,4,x,y,rad);
+        g.addColorStop(0, color);
+        g.addColorStop(1, 'rgba(5,7,12,0)');
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(x,y,rad,0,Math.PI*2); ctx.fill();
+      }
+      blob(s.w*0.42 + Math.sin(t*0.4)*28, s.h*0.48, s.w*0.38, 'rgba(142,232,245,.38)');
+      blob(s.w*0.50 + Math.cos(t*0.22)*16, s.h*0.40, s.w*0.24, 'rgba(243,239,230,.28)');
+      blob(s.w*0.58 + Math.sin(t*0.28)*18, s.h*0.56, s.w*0.26, 'rgba(255,92,106,.32)');
+      blob(s.w*0.36 + Math.cos(t*0.35)*22, s.h*0.52, s.w*0.22, 'rgba(120,168,96,.30)');
+      if(!reduce) requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  }
+
+  if(!gl){ fallback2d(); return; }
+
+  function resize(){
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = canvas.clientWidth || 840;
+    var h = canvas.clientHeight || 520;
+    canvas.width  = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    gl.viewport(0,0,canvas.width,canvas.height);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  var vs = '#version 300 es\nin vec2 p; void main(){ gl_Position = vec4(p,0.0,1.0); }';
+  var fs = document.getElementById('frag').textContent;
+
+  function compile(type, src){
+    var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+    if(!gl.getShaderParameter(s, gl.COMPILE_STATUS)){
+      console.error(gl.getShaderInfoLog(s)); return null;
+    }
+    return s;
+  }
+  var vsh = compile(gl.VERTEX_SHADER, vs);
+  var fsh = compile(gl.FRAGMENT_SHADER, fs);
+  if(!vsh || !fsh){ fallback2d(); return; }
+  var prog = gl.createProgram();
+  gl.attachShader(prog, vsh);
+  gl.attachShader(prog, fsh);
+  gl.linkProgram(prog);
+  if(!gl.getProgramParameter(prog, gl.LINK_STATUS)){ fallback2d(); return; }
+  gl.useProgram(prog);
+
+  var buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+  var loc = gl.getAttribLocation(prog, 'p');
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+  var uRes  = gl.getUniformLocation(prog, 'u_res');
+  var uTime = gl.getUniformLocation(prog, 'u_time');
+  var t0 = performance.now();
+
+  function frame(now){
+    var t = reduce ? 1.4 : (now - t0) / 1000.0;
+    gl.uniform2f(uRes, canvas.width, canvas.height);
+    gl.uniform1f(uTime, t);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    if(readout && !reduce){
+      readout.textContent = 'the original freezer still hums';
+    }
+    if(!reduce) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

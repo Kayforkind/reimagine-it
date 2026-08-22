@@ -23,6 +23,7 @@ test/pipeline/github-live.png
 gold/gallery.html
 gold/forms/**/*.tgz
 gold/forms/gif-frames/
+gold/jules/gif-frames/
 __pycache__/
 *.pyc
 

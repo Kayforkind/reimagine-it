@@ -4,52 +4,55 @@ Load only when the user token is `artistic`. Extends the shared spine ([../webpa
 
 ## Aesthetic in one sentence
 
-A warm-paper editorial: italic serif display type at magazine scale, a disciplined but colorful five-color palette, drifting SVG arcs behind the masthead, and cards that tilt in CSS 3D just enough to feel handled.
+A painting of **this** source: italic serif at magazine scale, a five-color palette taken from the file's materials, ambient SVG that is this object's geometry (not gold's ellipses), and a 3D fan of plates that are pictures of *these* nouns.
 
-## Palette (five, do not exceed)
+Gold `gold/domains/artistic/after.html` is **one** Texas/personal-site draw (cream, aubergine, coral, sine waves, quiet-week / lantern / rift plates). Live runs derive palette, ambient marks, and plates from **this** source. Fail if a client could mistake the PNG for that gold with the title swapped.
 
-- `--paper` cream #fdf5e9
-- `--ink` deep aubergine #2d1a3d
-- `--coral` #ff6f5c (primary accent, italic ampersand, callouts)
-- `--ochre` #e8a94a (art plates, warm secondary)
-- `--violet` #7a3fb2 (link, subhead lift)
-- `--blush` #f2b8b0 (art shadows, marble dots)
+## Palette (five, from this source)
+
+Do not ship the pack example as a default. Derive:
+
+- `--paper` — the source's ground (cream parlor, night ink, press stock…)
+- `--ink` — the source's darkest material
+- `--accent` — the weenie color (a scoop, a flag red, a brass)
+- `--second` — a named material (waffle gold, pistachio, ice-blue)
+- `--lift` — a second named hue for the kinetic mark
+
+Example (not a skin): Texas gold used cream / aubergine / coral / ochre / violet because that notebook was parchment and a star-red. A parlor uses cream / chocolate / strawberry / waffle-gold / pistachio.
 
 ## Type
 
-- Display: italic serif (`"Iowan Old Style", Palatino, Georgia, serif`), 88px–180px, tight tracking `-0.03em`, line-height `0.9`.
+- Display: italic serif, 88px–180px, tight tracking `-0.03em`, line-height `0.9`. Family may be Iowan / Palatino / Georgia — the **words** and **colors** are from this source.
 - Section: same serif italic, 36px.
-- Body: sans (`ui-sans-serif`), 15–18px.
-- Meta / labels: monospace, 11px, tracking `0.24em`, uppercase.
-- Ampersand and stress words in coral, italic, weight 700.
-- Last-name treatment as a heavy sans block-caps line under the italic first line ("RIVERS" under "Jordan & the small machines").
+- Body: sans, 15–18px.
+- Meta: monospace, 11px, tracking `0.24em`, uppercase.
+- Kinetic stress: an ampersand **or** one weenie word (Ice, Star, Press) in the accent, italic, slow sway.
+- Block-caps second line is the source's category word (`ICE CREAM`, `NOTES`) — not a leftover `RIVERS` / `REPUBLIC` from gold.
 
 ## Motif and layout
 
-- Ambient background: three drifting `<g>` groups of concentric circles / ellipses / a hand-drawn curve, each with a slow `@keyframes` rotate. Absolute-positioned, `z-index: 0`, `pointer-events: none`.
-- Marble accent (four dots in coral / ochre / violet / blush) as a running mark, bobbing on a 4s ease-in-out infinite.
-- One "stage" that holds three SVG art plates for the three projects. Each plate is a real composition, not decoration:
-  - `quiet-week` — landscape with sun and ledger lines
-  - `lantern` — blueprint page with a diagonal stroke
-  - `rift` — grid-of-squares over a warm ground
-- Cards below the stage carry pill "year badges" that overlap the top edge.
+- Ambient background: three drifting groups whose **paths are this source** (waffle grid, drips, scoop clusters, press rollers, flag rays). Not concentric ellipses + a triple sine wave because gold did.
+- One running mark from this source (a scoop, a punch, a star) bobbing on ~4s ease-in-out.
+- One "stage" that holds three SVG **paintings** of the three named places / objects here. Each plate is a real composition of *this* file's nouns. Do not reuse gold's `quiet-week` / `lantern` / `rift` geometry.
+- Cards or captions may carry year badges that overlap the plate edge.
 
 ## Non-negotiables specific to artistic
 
-- **Serif display type must be italic in the masthead.** No exceptions. This is the tone of the whole page.
-- **Kinetic ampersand.** The italic `&` sways or rotates a few degrees on a slow ease-in-out so the masthead is alive even in stills.
-- **At least one hero-scale animated SVG element** in the ambient layer (drifting concentric arcs, or a self-tracing scribble via `stroke-dasharray` + `stroke-dashoffset`). Not a decorative pixel.
-- **A real mid-page chart or plate that animates** — dots pulse, sweep line runs, path draws. This is the "signal chart" beat.
-- **Real 3D on the card fan.** Perspective ≥ 1400px on the container, outer cards `rotateY(±14deg)` with `translateZ(-12px)`, middle card `translateZ(+30px) translateY(-16px)`, drop shadow blur ≥ 40px. **Rule of thumb: a static PNG must read as depth without the animation.**
-- **Real 3D on the stage plates too.** Outer figures `rotateY(±16deg)`; middle plate popped forward. Same shadow rule.
-- **No emoji.** No pattern-photography from an image bank. No paid image API.
+- **Serif display type must be italic in the masthead.**
+- **One kinetic stress mark** (ampersand or weenie word) sways a few degrees.
+- **Hero-scale animated SVG in the ambient layer** — this source's geometry tracing or rotating. Not a decorative pixel.
+- **A real mid-page beat that animates** — a drip, a sweep, a pulse on a source noun.
+- **Real 3D on the plate fan.** Perspective ≥ 1400px, outer plates `rotateY(±14deg)`, middle `translateZ(+30px)`, shadow blur ≥ 40px. A static PNG must read as depth.
+- **No emoji.** No stock photography. No paid image API.
+- **No gold clone.** Palette, ambient paths, and plate pictures would be wrong on a different source.
 
 ## Cut list (in addition to the shared cut list)
 
-- Gradient washing across the whole page. A whole-page gradient hides the paper.
+- Gradient washing across the whole page.
 - Blur / glassmorphism on the ambient layer.
-- Cards floating in space with drop shadows on a gradient bg.
 - More than one CTA. There is one contact pill.
+- Shipping cream + coral + violet + sine-wave ambient because `gold/domains/artistic` did.
+- Comparing the screenshot to that gold and matching its layout.
 
 ## Where to write
 
@@ -57,14 +60,16 @@ A warm-paper editorial: italic serif display type at magazine scale, a disciplin
 
 ## Verify
 
-- Ambient layer renders in a headless screenshot (compare against `gold/domains/artistic/after.png`).
-- Cards visibly tilt (CSS 3D perspective) — check by rendering at 1400 wide.
-- Three SVG art plates are three different compositions, not the same shape three times.
+- Ambient marks are nouns from **this** source (not gold's ellipses).
+- Cards visibly tilt at 1400 wide.
+- Three plates are three different pictures of *this* file, not the same shape three times.
+- Fail if the PNG is `gold/domains/artistic/after.png` with a new title.
 
 ## Report addition
 
 ```
-Motif: drifting concentric arcs + a single running marble strip
-Make-strange: three project cards as SVG art plates instead of thumbnails
-Tone: warm-paper editorial, italic serif at magazine scale
+DNA: <five colors from this source + ambient geometry nouns>
+Motif: <this source's drifting mark> + plate fan
+Make-strange: three named things as paintings, not thumbnails
+Tone: magazine-scale italic, this object's art
 ```

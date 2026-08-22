@@ -6,7 +6,7 @@ Public **tested results** (live exits, not stories): repo-root [README.md](../..
 
 `gold/reimagine.py` is example A made runnable on **this** skill: `--fail` exits 1 with a vibe list; `--ship` exits 0 and writes `gold/shipped.json`. Same two beats in `gold/index.html`.
 
-Looping examples from the Texas notebook: [`gold/forms/examples.gif`](../../gold/forms/examples.gif) — before → `/reimagine-it infographic` → `svg` → `3js` → four alive-micro loops → `simulation`. Live gallery: [`gold/forms/see.html`](../../gold/forms/see.html).
+Looping examples from the Texas notebook: [`gold/forms/examples.gif`](../../gold/forms/examples.gif) — before → webpage tokens → infographic → `svg` → `3js` → four alive-micro loops → `simulation`. Live gallery: [`gold/forms/see.html`](../../gold/forms/see.html).
 
 ---
 
@@ -52,7 +52,7 @@ Looping examples from the Texas notebook: [`gold/forms/examples.gif`](../../gold
 
 **Notes:** riddle the object · microscopic vastness · weenie · title last.
 
-**Hero (gold):** `gold/domains/infographic/after.html` — *one* Texas-notebook draw: portrait-grid paper poster, Priestley 1836–1995, eight equal acre-units, custom glyphs from *that* source's nouns, lossless table. A different source must produce different DNA (palette, pattern, glyphs, layout). Leftover words after `infographic` are an open brief — a lens, not a theme catalog.
+**Hero (gold):** `gold/domains/infographic/after.html` — *one* Texas-notebook draw: portrait-grid paper poster, Priestley 1836–1995, eight equal acre-units, custom glyphs from *that* source's nouns, lossless table. **Second gold:** `gold/jules/domains/infographic/after.html` — parlor star around the cone, not that Priestley. A different source must produce different DNA (palette, pattern, glyphs, **composition**). Leftover words after `infographic` are an open brief — a lens, not a theme catalog.
 
 **Hero (ledger):** `reimagined/2026-08-18-ledger-skyline/index.html` — each line is a building; height = kind of work.
 
@@ -88,7 +88,7 @@ Looping examples from the Texas notebook: [`gold/forms/examples.gif`](../../gold
 
 **Stretch:** `/reimagine-it 3js` the same three places as a living room.
 
-**Not:** Mermaid. **Not:** a screenshot of a webpage saved as `.svg`. **Not:** every mark bouncing.
+**Not:** Mermaid. **Not:** a screenshot of a webpage saved as `.svg`. **Not:** every mark bouncing. **Not:** cloning that Lone Star gold onto a source that is not this notebook.
 
 ---
 
@@ -104,7 +104,7 @@ Looping examples from the Texas notebook: [`gold/forms/examples.gif`](../../gold
 
 **Stretch:** `/reimagine-it simulation` run the years.
 
-**Not:** a default cube. **Not:** Dribbble lighting on unrelated geometry. **Not:** CSS labels on the canvas.
+**Not:** a default cube. **Not:** Dribbble lighting on unrelated geometry. **Not:** CSS labels on the canvas. **Not:** cloning that Texas room onto a source that is not this notebook.
 
 ---
 
@@ -112,11 +112,13 @@ Looping examples from the Texas notebook: [`gold/forms/examples.gif`](../../gold
 
 **Context:** the same notebook, facts that already have years and one magnitude.
 
-**Lock:** A playable model. The clock is 1836–1995. Events light when their year arrives. The Rio Grande flows. Big Bend counts as eight equal units after 1944.
+**Lock:** A playable clock. Domain is 1836–1995. Default **paused on 1836**. The 19-day siege runs at day scale while the year holds 1836 — then years advance. Type lives in the gutter. The field is the SVG schematic (outline, Rio Grande cubic, pin colors). Each event has a mark: pin, star, spring bloom, eight unlabeled acre units, longhorn.
 
-**Hero (gold):** [`gold/forms/simulation/after.html`](../../gold/forms/simulation/after.html) — play / pause / scrub. The 19-day siege is a label on 1836, not a bar on the century axis.
+**Hero (gold):** [`gold/forms/simulation/after.html`](../../gold/forms/simulation/after.html) — Play / Pause / Prev / Next / scrub. Space and arrows. Click a pin or a row to jump. Pack: [`references/forms/simulation.md`](references/forms/simulation.md).
 
-**Not:** a dashboard of fake live KPIs. **Not:** invented battle statistics.
+**Do:** settle at 1995 (no auto-loop). Reset returns to 1836. `prefers-reduced-motion` (or `?still=1`) lands on the last year, paused.
+
+**Not:** a dashboard of fake live KPIs. **Not:** invented battle statistics. **Not:** “day 19/19” painted on 1995. **Not:** place names on the canvas. **Not:** a sine-wave river or a toy rectangle Texas. **Not:** cloning that gold clock onto a source that is not this notebook.
 
 ---
 

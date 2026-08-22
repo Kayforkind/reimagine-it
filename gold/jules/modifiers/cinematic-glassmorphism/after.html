@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jules Ice Cream — cold room glass</title>
+<style>
+  :root{
+    --void:#05070c;
+    --panel:#0f1420;
+    --ink:#f3efe6;
+    --dim:#7c8aa8;
+    --beam:#8ee8f5;
+    --ember:#ff5c6a;
+    --light:rgba(243,239,230,.30);
+    --depth:rgba(5,7,12,.48);
+    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Consolas,monospace;
+    --serif:"Iowan Old Style",Palatino,Georgia,serif;
+    --rule:color-mix(in srgb, var(--beam) 16%, var(--panel));
+  }
+  *{box-sizing:border-box}
+  html{scroll-padding-top:56px}
+  html,body{margin:0;padding:0;background:var(--void);color:var(--ink);font-family:var(--sans);
+    font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:var(--beam);text-decoration:none;transition:color 120ms ease-out}
+  a:hover{color:var(--ember)}
+  a:focus-visible{outline:2px solid var(--beam);outline-offset:3px}
+  ::selection{background:var(--ember);color:var(--void)}
+
+  .rail{position:sticky;top:0;z-index:60;display:flex;gap:22px;flex-wrap:wrap;
+    padding:14px 32px;background:rgba(5,7,12,.78);border-bottom:1px solid var(--rule);
+    font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim)}
+  .rail a{color:var(--dim)}
+  .rail a:hover{color:var(--beam)}
+  .rail b{color:var(--ember);font-weight:400;margin-right:6px}
+  .rail .end{margin-left:auto;pointer-events:none}
+
+  .wrap{max-width:1320px;margin:0 auto;padding:32px 32px 96px;position:relative}
+
+  .stage{position:relative;margin-top:24px;border-radius:20px;overflow:hidden;
+    border:1px solid var(--rule);background:var(--panel);min-height:520px;
+    box-shadow:0 40px 80px -24px rgba(142,232,245,.16)}
+  .stage canvas{display:block;width:100%;height:520px}
+  .stage .frame{position:absolute;inset:0;pointer-events:none;
+    box-shadow:inset 0 0 0 1px rgba(243,239,230,.05), inset 0 0 100px rgba(5,7,12,.45)}
+
+  .glass{position:absolute;border-radius:16px;color:var(--ink);overflow:hidden}
+  .glass::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(135deg,rgba(243,239,230,.10) 0%,transparent 42%);
+    border-radius:16px}
+  @keyframes rise{
+    from{transform:translateY(20px);opacity:0}
+    to{transform:translateY(0);opacity:1}
+  }
+
+  .glass--deep{
+    z-index:10;top:36px;right:28px;width:min(360px,32vw);padding:18px 20px;
+    background:rgba(8,14,22,.34);
+    backdrop-filter:blur(24px) saturate(140%);
+    -webkit-backdrop-filter:blur(24px) saturate(140%);
+    box-shadow:
+      inset 1px 1px 0 var(--light),
+      inset -1px -1px 0 var(--depth),
+      0 32px 56px rgba(142,232,245,.18);
+  }
+  .glass--deep .k{font-family:var(--mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--beam)}
+  .glass--deep .k b{color:var(--ember);font-weight:400}
+  .glass--deep h3{margin:8px 0 6px;font-size:16px;letter-spacing:-.01em;font-weight:600}
+  .glass--deep p{margin:0;font-size:13px;color:var(--dim);line-height:1.5;max-width:36ch}
+
+  .glass--front{
+    z-index:20;top:148px;right:44px;width:min(340px,30vw);padding:22px 22px 20px;
+    animation:rise 400ms cubic-bezier(.2,.7,.2,1) both;
+    background:rgba(8,14,22,.46);
+    background-image:linear-gradient(180deg,rgba(5,7,12,.22),rgba(5,7,12,.12));
+    backdrop-filter:blur(12px) saturate(160%);
+    -webkit-backdrop-filter:blur(12px) saturate(160%);
+    box-shadow:
+      inset 1px 1px 0 var(--light),
+      inset -1px -1px 0 var(--depth),
+      -16px 28px 48px rgba(255,92,106,.22),
+      0 20px 48px rgba(5,7,12,.55);
+  }
+  .glass--front .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.32em;
+    text-transform:uppercase;color:var(--ink);opacity:.9;margin-bottom:10px}
+  .glass--front .title{font-size:clamp(32px,4.2vw,56px);line-height:.88;letter-spacing:-.035em;
+    font-weight:600;margin:0;color:var(--ink)}
+  .glass--front .title em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--ember)}
+  .glass--front .sub{margin:12px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--dim);max-width:34ch}
+
+  .sec{padding:80px 0 24px;position:relative}
+  .sec .num{font-family:var(--mono);font-size:11px;letter-spacing:.28em;color:var(--dim);
+    text-transform:uppercase;margin-bottom:12px;display:flex;gap:14px;align-items:baseline}
+  .sec .num b{color:var(--ember);font-weight:400}
+  .sec .num i{font-style:normal;margin-left:auto}
+  .sec h2{font-weight:600;font-size:32px;letter-spacing:-.02em;margin:0;max-width:22ch}
+  .sec h2 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--beam)}
+  .sec .rule{height:1px;margin:22px 0 34px;
+    background:repeating-linear-gradient(90deg,var(--rule) 0 10px,transparent 10px 16px)}
+
+  .row3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;perspective:1200px}
+  .card{position:relative;background:var(--panel);border:1px solid var(--rule);
+    border-radius:14px;padding:22px}
+  .card--l{transform:rotateX(-8deg) rotateY(18deg) translateZ(28px);
+    box-shadow:-32px 40px 56px rgba(5,7,12,.55)}
+  .card--m{transform:rotateX(-10deg) rotateY(-4deg) translateZ(40px);
+    box-shadow:0 48px 64px rgba(255,92,106,.2)}
+  .card--r{transform:rotateX(-8deg) rotateY(-18deg) translateZ(28px);
+    box-shadow:32px 40px 56px rgba(5,7,12,.55)}
+  .card .k{font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--dim);text-transform:uppercase}
+  .card .k b{color:var(--ember);font-weight:400}
+  .card h3{margin:12px 0 6px;font-size:17px;letter-spacing:-.01em;font-weight:600}
+  .card p{margin:0 0 14px;color:var(--dim);font-size:14px;max-width:40ch}
+  .card .foot{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;
+    letter-spacing:.16em;color:var(--dim);text-transform:uppercase;margin-top:16px;
+    border-top:1px dashed var(--rule);padding-top:10px}
+  .card .foot b{color:var(--beam);font-weight:400}
+  .plate svg{width:100%;height:120px;display:block}
+
+  .rest{margin-top:32px;max-width:65ch;color:var(--dim);font-size:15px;line-height:1.55}
+  .years{margin-top:8px;background:var(--panel);border:1px solid var(--rule);border-radius:14px;padding:18px;overflow:hidden}
+  .years svg{display:block;width:100%;height:180px}
+  .foot-strip{margin-top:64px;padding:22px 0;border-top:1px solid var(--rule);
+    display:flex;gap:22px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;
+    letter-spacing:.18em;color:var(--dim);text-transform:uppercase}
+  .foot-strip span b{color:var(--ember);font-weight:400}
+
+  @media (max-width:900px){
+    .glass--deep,.glass--front{position:relative;top:auto;right:auto;width:auto;margin:16px;
+      max-width:none}
+    .stage canvas{height:360px}
+    .row3{grid-template-columns:1fr}
+    .card--l,.card--m,.card--r{transform:none;box-shadow:0 24px 40px rgba(5,7,12,.5)}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{
+      animation-duration:0.001ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:0.001ms !important;
+      scroll-behavior:auto !important;
+    }
+    :focus-visible{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<nav class="rail" aria-label="Section index">
+  <a href="#masthead">Harbor</a>
+  <a href="#places">Windows</a>
+  <a href="#flavors">Board</a>
+  <span class="end">Ice-blue light at night</span>
+</nav>
+
+<main class="wrap">
+
+  <section class="stage" id="masthead" aria-label="Cold room shader with glass beside">
+    <canvas id="c" width="1280" height="520" aria-hidden="true"></canvas>
+    <div class="frame"></div>
+
+    <aside class="glass glass--deep" aria-label="Now">
+      <div class="k"><b>Now</b> · 1980 freezer</div>
+      <h3>The original freezer still hums</h3>
+      <p>Jules is tasting the burnt sugar. Harbor fog the color of pistachio shells sits on the glass.</p>
+    </aside>
+
+    <div class="glass glass--front" aria-label="Masthead">
+      <div class="kicker">Port Meridian · 1980</div>
+      <h1 class="title">Jules <em>Ice</em> Cream</h1>
+      <p class="sub">Founded 1980 · kept plain · waffle cones baked gold</p>
+    </div>
+  </section>
+
+  <section class="sec" id="places">
+    <div class="num"><b>1980</b>Windows<i>Three</i></div>
+    <h2>The parlor, the cold room, the <em>cone counter</em></h2>
+    <div class="rule"></div>
+
+    <div class="row3">
+      <article class="card card--l">
+        <div class="k"><b>1980</b> Harbor Street</div>
+        <h3>Harbor Street parlor</h3>
+        <p>The first window in Port Meridian. One marble counter, one brass scoop, waffle cones baked gold. Jules still opens the door at ten.</p>
+        <div class="plate">
+          <svg viewBox="0 0 300 120" role="img" aria-label="Marble counter">
+            <rect width="300" height="120" fill="#05070c"/>
+            <rect x="24" y="70" width="252" height="12" fill="#0f1420" stroke="#8ee8f5" stroke-opacity=".4"/>
+            <circle cx="220" cy="48" r="16" fill="none" stroke="#ff5c6a"/>
+            <line x1="220" y1="64" x2="228" y2="96" stroke="#8ee8f5"/>
+          </svg>
+        </div>
+        <div class="foot"><span>First window</span><span><b>Ten</b></span></div>
+      </article>
+
+      <article class="card card--m">
+        <div class="k"><b>1980</b> Cold room</div>
+        <h3>The cold room</h3>
+        <p>Behind the parlor. Ice-blue light at night. The original freezer still hums.</p>
+        <div class="plate">
+          <svg viewBox="0 0 300 120" role="img" aria-label="Ice-blue freezer hum">
+            <rect width="300" height="120" fill="#05070c"/>
+            <path d="M16 64 C 48 32, 80 96, 112 64 S 176 32, 208 64 S 272 96, 304 64"
+              fill="none" stroke="#8ee8f5" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="foot"><span>Behind the parlor</span><span><b>Night</b></span></div>
+      </article>
+
+      <article class="card card--r">
+        <div class="k"><b>2006</b> Ferry Road</div>
+        <h3>Ferry Road cone counter</h3>
+        <p>The second window. Walk-up only. Same gold cones, same brass scoop, the harbor behind you.</p>
+        <div class="plate">
+          <svg viewBox="0 0 300 120" role="img" aria-label="Walk-up window">
+            <rect width="300" height="120" fill="#05070c"/>
+            <rect x="90" y="24" width="120" height="72" fill="none" stroke="#8ee8f5"/>
+            <polygon points="150,78 136,108 164,108" fill="none" stroke="#ff5c6a"/>
+          </svg>
+        </div>
+        <div class="foot"><span>Walk-up only</span><span><b>2006</b></span></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sec" id="flavors">
+    <div class="num"><b>Board</b>Flavors<i>Six</i></div>
+    <h2>Strawberry buttermilk, pistachio rose, burnt sugar <em>&amp;</em> cream</h2>
+    <div class="rule"></div>
+    <div class="years">
+      <svg viewBox="0 0 900 180" role="img" aria-label="Flavor years 1980 to 2022">
+        <line x1="40" y1="110" x2="860" y2="110" stroke="#7c8aa8" stroke-opacity=".35"/>
+        <g fill="#8ee8f5">
+          <circle cx="70" cy="110" r="6"/>
+          <circle cx="210" cy="96" r="6"/>
+          <circle cx="360" cy="78" r="6"/>
+          <circle cx="510" cy="88" r="6"/>
+          <circle cx="680" cy="70" r="6"/>
+          <circle cx="830" cy="58" r="6"/>
+        </g>
+        <path d="M70 110 L210 96 L360 78 L510 88 L680 70 L830 58" fill="none" stroke="#ff5c6a" stroke-width="2"/>
+        <g font-family="ui-monospace,Consolas,monospace" font-size="11" fill="#7c8aa8">
+          <text x="52" y="140">1980</text>
+          <text x="188" y="140">1984</text>
+          <text x="336" y="140">1991</text>
+          <text x="486" y="140">1998</text>
+          <text x="656" y="140">2014</text>
+          <text x="806" y="140">2022</text>
+        </g>
+      </svg>
+    </div>
+    <div class="row3">
+      <article class="card card--l">
+        <div class="k"><b>1984</b> twelve flats</div>
+        <h3>Strawberry buttermilk</h3>
+        <p>Twelve flats from the river farms. Pink as the ticket they still write orders on.</p>
+        <div class="foot"><span>River farms</span><span><b>12</b></span></div>
+      </article>
+      <article class="card card--m">
+        <div class="k"><b>1991</b> fourteen-day</div>
+        <h3>Pistachio rose</h3>
+        <p>Fourteen-day July heatwave. The freezer held. They sold only pistachio for two weeks.</p>
+        <div class="foot"><span>Green as the shells</span><span><b>14</b></span></div>
+      </article>
+      <article class="card card--r">
+        <div class="k"><b>2022</b> current weenie</div>
+        <h3>Burnt sugar &amp; cream</h3>
+        <p>Caramelized sugar folded into the 1980 vanilla. Jules is tasting this now.</p>
+        <div class="foot"><span>Vanilla bean · 1980</span><span><b>Now</b></span></div>
+      </article>
+    </div>
+    <p class="rest">
+      Vanilla bean (1980). Madagascar vanilla. The first scoop. Cream, not white. Still on the board every day.
+      Dark chocolate sea salt (1998). The harbor in a cup. Chocolate from the bean, salt from the channel.
+      Mint chip (2014). Eight tubs a week in August. Cold as the room behind the parlor.
+      Email: <a href="mailto:hello@julesicecream.example">hello@julesicecream.example</a>.
+    </p>
+  </section>
+
+  <div class="foot-strip">
+    <span><b>Jules</b> Ice Cream</span>
+    <span><b>Port</b> Meridian</span>
+    <span><b>Founded</b> 1980</span>
+    <span><b>Kept</b> plain</span>
+  </div>
+
+</main>
+
+<script type="x-shader/x-vertex" id="vs">#version 300 es
+in vec2 p;void main(){gl_Position=vec4(p,0.,1.);}
+</script>
+<script type="x-shader/x-fragment" id="fs">#version 300 es
+precision highp float;
+out vec4 O;
+uniform vec2 R;
+uniform float t;
+
+float hash(vec2 p){ return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453); }
+float noise(vec2 p){
+  vec2 i=floor(p), f=fract(p);
+  float a=hash(i), b=hash(i+vec2(1,0));
+  float c=hash(i+vec2(0,1)), d=hash(i+vec2(1,1));
+  vec2 u=f*f*(3.-2.*f);
+  return mix(a,b,u.x)+(c-a)*u.y*(1.-u.x)+(d-b)*u.x*u.y;
+}
+float fbm(vec2 p){
+  float v=0., a=.5;
+  for(int i=0;i<5;i++){ v+=a*noise(p); p*=2.02; a*=.5; }
+  return v;
+}
+void main(){
+  vec2 uv = (gl_FragCoord.xy - .5*R) / R.y;
+  uv.x += .32;
+  float tt = t * .14;
+  vec2 q = vec2(fbm(uv*1.6 + tt), fbm(uv*1.6 - tt + 2.4));
+  float fold = fbm(uv*2.0 + q*1.2 - tt*.4);
+  vec2 scoopPist = vec2(-.18 + .05*sin(tt*.7), .08);
+  vec2 scoopStraw = vec2( .18 + .04*cos(tt*.55), -.04);
+  float ra = length(uv - scoopPist);
+  float rb = length(uv - scoopStraw);
+  float swirlA = .5 + .5*sin(9.*ra - tt*2.1 + fold*4.);
+  float swirlB = .5 + .5*sin(9.*rb + tt*1.8 + fold*4.);
+  float vein = smoothstep(.38,.62, fract(fold*2.6 + tt*.15));
+  vec3 night = vec3(.03,.055,.08);
+  vec3 ice = vec3(.42,.80,.92);
+  vec3 cream = vec3(.94,.89,.74);
+  vec3 pist = vec3(.46,.80,.36);
+  vec3 straw = vec3(1.,.30,.40);
+  vec3 col = night;
+  col += ice * .22 * (1. - length(uv)*.65);
+  col = mix(col, cream, fold*.28 + vein*.22);
+  col = mix(col, pist, (1.-smoothstep(.04,.58,ra))*swirlA*.92);
+  col = mix(col, straw, (1.-smoothstep(.04,.58,rb))*swirlB*.92);
+  float vig = smoothstep(1.25,.18,length(uv));
+  col *= mix(.42,1.,vig);
+  O = vec4(pow(col, vec3(.9)), 1.);
+}
+</script>
+<script>
+(()=>{
+  const c = document.getElementById('c');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const gl = c.getContext('webgl2', {antialias:false, alpha:false});
+  if(!gl){
+    c.style.background = 'radial-gradient(800px 460px at 30% 48%, rgba(142,232,245,.35) 0%, rgba(120,168,96,.22) 32%, rgba(255,92,106,.18) 58%, #05070c 100%)';
+    return;
+  }
+  const src = id => document.getElementById(id).textContent.trim();
+  const mk = (t,s)=>{const sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);
+    if(!gl.getShaderParameter(sh,gl.COMPILE_STATUS)){console.error(gl.getShaderInfoLog(sh));}return sh;};
+  const vs = mk(gl.VERTEX_SHADER, src('vs'));
+  const fs = mk(gl.FRAGMENT_SHADER, src('fs'));
+  const p = gl.createProgram(); gl.attachShader(p,vs); gl.attachShader(p,fs); gl.linkProgram(p); gl.useProgram(p);
+  const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(p,'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+  const uR = gl.getUniformLocation(p,'R'), uT = gl.getUniformLocation(p,'t');
+  const fit = () => {
+    const dpr = Math.min(window.devicePixelRatio||1, 2);
+    const w = c.clientWidth*dpr, h = c.clientHeight*dpr;
+    if (c.width!==w||c.height!==h){ c.width=w; c.height=h; gl.viewport(0,0,w,h); }
+    gl.uniform2f(uR, c.width, c.height);
+  };
+  const t0 = performance.now();
+  const loop = (now) => {
+    fit();
+    gl.uniform1f(uT, reduce ? 1.4 : (now-t0)*.001);
+    gl.drawArrays(gl.TRIANGLES,0,3);
+    if(!reduce) requestAnimationFrame(loop);
+  };
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

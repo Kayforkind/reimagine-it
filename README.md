@@ -26,13 +26,17 @@ Same naive HTML, nine webpage tokens, then three other forms:
 /reimagine-it svg | 3js | simulation
 ```
 
-![same Texas notebook looping: before, infographic, SVG, Three.js, four alive-micro loops, simulation](gold/forms/examples.gif?v=alive-2)
+![same Texas notebook looping: before, nine webpage tokens, SVG, Three.js, four alive-micro loops, latest simulation](gold/forms/examples.gif?v=all-1)
 
 Live loop gallery (hover the pins, Alive / Still): [`gold/forms/see.html`](gold/forms/see.html)
 
 ![four alive-micro close-ups: weenie breathe, river flow, pin ping, quiet tick](gold/forms/loops-strip.png?v=alive-2)
 
 ![same Texas notebook as SVG, Three.js, and a playable year-clock simulation](gold/forms/strip.png?v=forms-1)
+
+A second source, same tokens. [`gold/jules/`](gold/jules/) is Jules Ice Cream (founded 1980): parlor DNA — full-bleed counter, cone, freezer — not a Texas notebook with scoops glued on.
+
+![same naive Jules HTML looping through webpage tokens, infographic, SVG, Three.js, and a flavor-board simulation](gold/jules/best.gif)
 
 ---
 
@@ -496,14 +500,15 @@ Open the live file &rarr; [`gold/forms/3js/after.html`](gold/forms/3js/after.htm
 
 `/reimagine-it simulation`
 
-*A playable model of the years already in the file. Not a dashboard.*
+*A playable clock of the years already in the file. Not a dashboard. Type in the gutter; marks on the field.*
 
-- **Clock** &mdash; 1836 to 1995. Play, pause, scrub.
-- **Events** &mdash; Alamo, Austin, flag, bluebonnet, Big Bend, Longhorn light when their year arrives. Every year is in the source.
-- **Flow** &mdash; Rio Grande particles. After 1944, eight equal acre units. Bluebonnet only in spring months once 1901 has passed.
-- **Not** &mdash; invented battle stats. The 19-day siege is a label on 1836, not a bar on the century axis.
+- **First encounter** &mdash; paused on 1836. Play holds the year at 1836 while the siege runs at ~4 days/s, then advances ~10 years/s and settles at 1995 (no loop). Reset returns to 1836.
+- **Event-step** &mdash; Prev / Next (and arrow keys) snap to 1836, 1839, 1901, 1944, 1995. Click a pin or a list row to jump.
+- **Field** &mdash; the same SVG schematic: Texas outline, Rio Grande cubic, pin colors (gold Alamo, navy Austin, star-red Big Bend). After 1839 a star; in spring after 1901 a bloom; after 1944 eight unlabeled acre units; after 1995 a longhorn. No names on the canvas.
+- **Siege caption** &mdash; only while the year is 1836. Not a bar on the century, and not “19/19” at 1995.
+- **Not** &mdash; invented battle stats, fake KPIs, or a toy rectangle with a sine-wave river.
 
-![After: year-clock simulation of the Texas notebook -- schematic field, Rio Grande, event list, scrubber](gold/forms/simulation/after.png)
+![After: year-clock simulation of the Texas notebook -- schematic field, Rio Grande, event list, scrubber](gold/forms/simulation/after.png?v=sim-2)
 
 Open the live file &rarr; [`gold/forms/simulation/after.html`](gold/forms/simulation/after.html)
 
@@ -569,7 +574,7 @@ Every visual is a real file in this repo, generated locally by a script you can 
 | Per-pack full-page `after.png` shots used by every case study above | `python gold/shots.py` |
 | Infographic poster (full page, real Chrome) &rarr; `gold/domains/infographic/after.png` | `python gold/_shot_full.py gold/domains/infographic/after.html gold/domains/infographic/after.png` |
 | Form gold: SVG + Three.js + simulation + loop close-ups (real Chrome) | `python gold/forms/shot.py` |
-| Form examples GIF (`gold/forms/examples.gif`) | `python gold/forms/make_gif.py` |
+| Jules second-source gold (real Chrome) + X GIF | `python gold/jules/shot.py` then `python gold/jules/make_gif.py` |
 | Draw C full-page shot (v2.2, WebGL2, real Chrome) &rarr; `gold/webpage/after-3-full.png` | `python gold/_shot_full.py gold/webpage/after-3.html gold/webpage/after-3-full.png` |
 | Master gallery (`gold/gallery.png`) + per-pack tile heroes | `python gold/gallery.py` |
 | Quartet (`gold/webpage/quartet.png`) + twins triptych (`twins.png`) + per-pack wide before/after compares | `python gold/compare.py` |

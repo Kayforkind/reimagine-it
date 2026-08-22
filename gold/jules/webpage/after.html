@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jules Ice Cream — Port Meridian</title>
+<style>
+  :root {
+    --wall: #3a2418;
+    --marble: #efe4d4;
+    --ink: #3a2418;
+    --cream: #f7efe4;
+    --berry: #c45c6a;
+    --gold: #e4b15a;
+    --ice: #8eb8c4;
+    --serif: Georgia, Palatino, "Times New Roman", serif;
+    --sans: ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+    --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-padding-top: 24px; background: var(--wall); }
+  body {
+    background: var(--wall);
+    color: var(--cream);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--gold); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  ::selection { background: var(--gold); color: var(--ink); }
+  a:focus-visible, button:focus-visible, input:focus-visible {
+    outline: 2px solid var(--berry);
+    outline-offset: 3px;
+  }
+  button {
+    font: inherit; cursor: pointer; user-select: none;
+    color: var(--ink); background: var(--gold); border: 0;
+    padding: 12px 18px; letter-spacing: 0.12em; text-transform: uppercase;
+    font-family: var(--mono); font-size: 11px;
+    transition: transform 150ms ease-out, opacity 150ms ease-out;
+  }
+  button:hover { transform: translateY(-2px); }
+  button:disabled { opacity: 0.7; }
+
+  .parlor {
+    position: relative;
+    height: 900px;
+    overflow: hidden;
+    perspective: 1400px;
+    background:
+      radial-gradient(ellipse at 78% 42%, rgba(142, 184, 196, 0.55), transparent 42%),
+      linear-gradient(180deg, #2a1812 0%, #3a2418 55%, #241610 100%);
+  }
+  .freezer {
+    position: absolute; right: 6%; top: 8%;
+    width: 280px; height: 520px;
+    border: 10px solid #2a1812;
+    background:
+      repeating-linear-gradient(
+        180deg,
+        transparent 0 56px,
+        rgba(58, 36, 24, 0.22) 56px 58px
+      ),
+      linear-gradient(180deg, #c5e4ea 0%, #8eb8c4 40%, #5a8894 100%);
+    box-shadow: 0 0 80px 24px rgba(142, 184, 196, 0.35);
+    animation: hum 3.2s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .freezer::after {
+    content: "";
+    position: absolute; inset: 18px;
+    border: 1px solid rgba(247, 239, 228, 0.35);
+    background: linear-gradient(135deg, rgba(247,239,228,.28), transparent 46%);
+  }
+  @keyframes hum {
+    0%, 100% { box-shadow: 0 0 72px 20px rgba(142, 184, 196, 0.32); }
+    50% { box-shadow: 0 0 96px 32px rgba(142, 184, 196, 0.5); }
+  }
+
+  .copy {
+    position: absolute; left: 56px; top: 56px; z-index: 2; max-width: 22ch;
+  }
+  .copy .meta {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  .copy h1 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: 112px; line-height: 0.82; letter-spacing: -0.04em;
+  }
+  .copy h1 em { font-style: italic; color: var(--berry); }
+  .copy .lede {
+    margin-top: 20px; font-size: 18px; max-width: 28ch; color: rgba(247,239,228,.82);
+  }
+
+  .counter {
+    position: absolute; left: -4%; right: -4%; bottom: -8%;
+    height: 340px;
+    background:
+      linear-gradient(180deg, #f3e6c4 0%, var(--marble) 28%, #dcc9b0 100%);
+    transform: perspective(1400px) rotateX(12deg);
+    transform-origin: 50% 0;
+    box-shadow: 0 -24px 64px rgba(0,0,0,.45);
+    z-index: 3;
+  }
+  .counter .vein {
+    position: absolute; left: 8%; right: 8%; top: 28%;
+    height: 2px; background: rgba(58,36,24,.18);
+    pointer-events: none;
+  }
+
+  .cone-wrap {
+    position: absolute; left: 42%; bottom: 88px; z-index: 4;
+    width: 280px; height: 460px;
+    transform: rotateY(16deg);
+    transform-origin: 50% 80%;
+    filter: drop-shadow(18px 28px 28px rgba(0,0,0,.45));
+  }
+  .cone-wrap svg { width: 100%; height: 100%; display: block; }
+  .cone { transform-origin: 50% 70%; animation: breathe 2.8s ease-in-out infinite; }
+  .drip { stroke-dasharray: 8 12; animation: drip 3.6s linear infinite; }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+  }
+  @keyframes drip { to { stroke-dashoffset: -40; } }
+
+  .board {
+    position: absolute; left: 56px; bottom: 132px; z-index: 5;
+    display: flex; gap: 14px; align-items: flex-end;
+  }
+  .scoop {
+    width: 44px; text-align: center;
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink);
+  }
+  .scoop i {
+    display: block; width: 40px; height: 40px; border-radius: 50%;
+    margin: 0 auto 6px; border: 2px solid var(--ink);
+  }
+
+  .ticket {
+    position: absolute; right: 12%; bottom: 148px; z-index: 5;
+    width: 200px; background: #f4d0c8; color: var(--ink);
+    padding: 16px 16px 16px 22px;
+    transform: rotate(-6deg);
+    box-shadow: 8px 18px 28px rgba(0,0,0,.28);
+  }
+  .ticket::before {
+    content: "";
+    position: absolute; left: 8px; top: 10px; bottom: 10px; width: 6px;
+    background: radial-gradient(circle, var(--wall) 2px, transparent 3px);
+    background-size: 6px 14px;
+  }
+  .ticket b { font-family: var(--serif); font-size: 18px; font-weight: 400; }
+  .ticket p { font-size: 12px; margin-top: 6px; }
+
+  .below { background: var(--cream); color: var(--ink); padding: 64px 56px 96px; }
+  .below h2 {
+    font-family: var(--serif); font-weight: 400; font-size: 36px; margin-bottom: 24px;
+  }
+  .rooms {
+    display: grid; grid-template-columns: 1.2fr .9fr .9fr; gap: 16px; margin-bottom: 48px;
+  }
+  .room {
+    background: var(--wall); color: var(--cream); min-height: 220px; padding: 24px;
+    position: relative; overflow: hidden;
+  }
+  .room .glow {
+    position: absolute; inset: auto 12px 12px 12px; height: 48px;
+    background: var(--ice); opacity: .35; pointer-events: none;
+  }
+  .room h3 { font-family: var(--serif); font-size: 24px; font-weight: 400; }
+  .room p { margin-top: 10px; font-size: 14px; max-width: 36ch; color: rgba(247,239,228,.8); }
+  .room .yr {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
+  }
+  .now {
+    background: var(--ink); color: var(--cream); padding: 20px 24px; margin-bottom: 32px;
+    font-family: var(--serif); font-style: italic; font-size: 22px;
+  }
+  .now strong { font-style: normal; color: var(--gold); }
+  form { display: grid; gap: 10px; max-width: 420px; }
+  label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; }
+  input {
+    font: inherit; padding: 12px; border: 2px solid var(--ink);
+    background: #fff; color: var(--ink);
+  }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .copied { font-family: var(--mono); font-size: 12px; color: #6a9a6e; min-height: 1em; }
+
+  @media (max-width: 900px) {
+    .parlor { height: auto; min-height: 900px; }
+    .copy h1 { font-size: 72px; }
+    .rooms { grid-template-columns: 1fr; }
+    .cone-wrap { left: 28%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+    :focus-visible { transition: none; }
+    .counter, .cone-wrap, .ticket { transform: none; }
+  }
+</style>
+</head>
+<body>
+<section class="parlor" aria-label="Harbor Street parlor">
+  <div class="freezer" aria-hidden="true"></div>
+  <div class="copy">
+    <p class="meta">Harbor Street · opens at ten · 1980</p>
+    <h1>Jules <em>Ice</em> Cream</h1>
+    <p class="lede">The parlor, the flavors, and the freezer. Port Meridian. Kept plain.</p>
+  </div>
+  <div class="counter" aria-hidden="true"><i class="vein"></i></div>
+  <div class="cone-wrap">
+    <svg viewBox="0 0 280 460" role="img" aria-labelledby="cone-title">
+      <title id="cone-title">Waffle cone with six scoops on the marble counter. The current weenie is burnt sugar.</title>
+      <g class="cone">
+        <ellipse cx="142" cy="48" rx="70" ry="42" fill="#e4b15a"/>
+        <ellipse cx="118" cy="92" rx="66" ry="40" fill="#8eb8c4"/>
+        <ellipse cx="168" cy="128" rx="62" ry="38" fill="#5a3428"/>
+        <ellipse cx="122" cy="168" rx="68" ry="40" fill="#6a9a6e"/>
+        <ellipse cx="164" cy="208" rx="64" ry="38" fill="#c45c6a"/>
+        <ellipse cx="140" cy="248" rx="76" ry="44" fill="#f3e6c4" stroke="#3a2418" stroke-width="2"/>
+        <path d="M70 268 L140 448 L210 268 Z" fill="#e4b15a" stroke="#3a2418" stroke-width="2.5"/>
+        <path d="M88 300 H192 M82 332 H198 M92 364 H188 M104 396 H176 M116 424 H164" stroke="#3a2418" stroke-width="1.4" opacity=".5"/>
+        <path class="drip" d="M198 220 C 228 268, 214 320, 206 360" fill="none" stroke="#c45c6a" stroke-width="4"/>
+      </g>
+    </svg>
+  </div>
+  <div class="board" aria-label="Six flavors on the board">
+    <div class="scoop"><i style="background:#f3e6c4"></i>1980</div>
+    <div class="scoop"><i style="background:#c45c6a"></i>1984</div>
+    <div class="scoop"><i style="background:#6a9a6e"></i>1991</div>
+    <div class="scoop"><i style="background:#5a3428"></i>1998</div>
+    <div class="scoop"><i style="background:#8eb8c4"></i>2014</div>
+    <div class="scoop"><i style="background:#e4b15a"></i>2022</div>
+  </div>
+  <aside class="ticket">
+    <b>Write it here</b>
+    <p>hello@julesicecream.example</p>
+  </aside>
+</section>
+
+<section class="below">
+  <h2>Three windows</h2>
+  <div class="rooms">
+    <article class="room">
+      <div class="glow" aria-hidden="true"></div>
+      <p class="yr">1980 · Harbor Street parlor</p>
+      <h3>One marble counter, one brass scoop</h3>
+      <p>The first window in Port Meridian. Waffle cones baked gold. Jules still opens the door at ten.</p>
+    </article>
+    <article class="room">
+      <div class="glow" aria-hidden="true"></div>
+      <p class="yr">1980 · The cold room</p>
+      <h3>Ice-blue light at night</h3>
+      <p>Behind the parlor. The original freezer still hums. Harbor fog the color of pistachio shells sits on the glass.</p>
+    </article>
+    <article class="room">
+      <div class="glow" aria-hidden="true"></div>
+      <p class="yr">2006 · Ferry Road</p>
+      <h3>Walk-up only</h3>
+      <p>The second window. Same gold cones, same brass scoop, the harbor behind you.</p>
+    </article>
+  </div>
+  <p class="now">Now: the original freezer still hums. Jules is tasting the <strong>burnt sugar</strong>.</p>
+  <form id="ticket-form" action="#" method="post">
+    <label for="scoop">Write it on the ticket</label>
+    <input id="scoop" name="scoop" type="text" required autocomplete="off" spellcheck="false" placeholder="burnt sugar, one scoop">
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" required value="hello@julesicecream.example" autocomplete="email">
+    <div class="row">
+      <button type="submit" id="send">Send</button>
+      <button type="button" id="copy">Copy email</button>
+      <span class="copied" id="copied" aria-live="polite"></span>
+    </div>
+  </form>
+</section>
+<script>
+  const form = document.getElementById("ticket-form");
+  const send = document.getElementById("send");
+  const copied = document.getElementById("copied");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    send.disabled = true;
+    send.textContent = "Written";
+  });
+  document.getElementById("copy").addEventListener("click", async () => {
+    const email = document.getElementById("email").value;
+    try {
+      await navigator.clipboard.writeText(email);
+      copied.textContent = "copied";
+    } catch {
+      copied.textContent = email;
+    }
+  });
+</script>
+</body>
+</html>

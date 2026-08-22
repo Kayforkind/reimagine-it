@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>julesicecream.example/cold-room — /reimagine-it dashboard</title>
+<style>
+  :root {
+    --bg: #05090c;
+    --panel: #0b1418;
+    --stroke: #1a2e34;
+    --ink: #d7eef0;
+    --dim: #6a9094;
+    --accent: #8fd4dc;
+    --pist: #6a9a6e;
+    --berry: #c45c6a;
+    --gold: #e4b15a;
+    --sans: ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+    --mono: ui-monospace, "Cascadia Mono", Consolas, Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-padding-top: 24px; background: var(--bg); }
+  html, body { background: var(--bg); color: var(--ink); font-family: var(--sans); }
+  body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    padding: 24px 32px 48px;
+    max-width: 1440px;
+    margin: 0 auto;
+    background-image:
+      linear-gradient(rgba(143, 212, 220, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(143, 212, 220, 0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-position: -1px -1px;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  ::selection { background: var(--accent); color: var(--bg); }
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+    :focus-visible { transition: none; }
+    .chart .bars rect { transform: scaleY(1); }
+  }
+
+  .topbar {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    gap: 24px;
+    align-items: center;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--stroke);
+  }
+  .brand {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .brand .path { color: var(--dim); }
+  .live {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    position: relative;
+    flex: none;
+  }
+  .live::after {
+    content: "";
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    border: 1px solid var(--accent);
+    animation: ping 2s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes ping {
+    50% { transform: scale(1.8); opacity: 0; }
+  }
+  .search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--panel);
+    border: 1px solid var(--stroke);
+    border-radius: 8px;
+    padding: 8px 14px;
+  }
+  .search label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+  .search input {
+    flex: 1;
+    background: transparent;
+    border: 0;
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 12px;
+    min-width: 0;
+  }
+  .search kbd {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--dim);
+    border: 1px solid var(--stroke);
+    border-radius: 4px;
+    padding: 2px 6px;
+    user-select: none;
+  }
+  .env {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--dim);
+    text-transform: uppercase;
+  }
+  .env b { color: var(--accent); font-weight: 700; }
+  .avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--bg);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    user-select: none;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .headline { display: flex; flex-direction: column; gap: 8px; justify-content: center; }
+  .headline .who {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    color: var(--dim);
+    text-transform: uppercase;
+  }
+  .headline h1 {
+    font-size: clamp(28px, 3vw, 40px);
+    letter-spacing: -0.01em;
+    font-weight: 700;
+  }
+  .headline p { color: var(--dim); max-width: 55ch; font-size: 14px; }
+  .stamp {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+  }
+  .kpi {
+    background: var(--panel);
+    border: 1px solid var(--stroke);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 150ms ease-out;
+  }
+  .kpi:hover { transform: translateY(-2px); }
+  .kpi::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: 0; height: 3px;
+    width: 70%;
+    background: var(--accent);
+    pointer-events: none;
+  }
+  .kpi.k2::after { background: var(--gold); width: 40%; }
+  .kpi.k3::after { background: var(--pist); width: 55%; }
+  .kpi.k4::after { background: var(--berry); width: 30%; }
+  .kpi.k5::after { background: var(--accent); width: 50%; }
+  .kpi .lab {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    color: var(--dim);
+    text-transform: uppercase;
+  }
+  .kpi .val {
+    font-family: var(--mono);
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .kpi .delta {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+  }
+  .kpi.k2 .delta { color: var(--gold); }
+  .kpi.k3 .delta { color: var(--pist); }
+  .kpi.k4 .delta { color: var(--berry); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+    perspective: 1400px;
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--stroke);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .card.lift {
+    transform: rotateX(12deg) translateZ(32px);
+    box-shadow: 0 28px 40px rgba(0, 0, 0, 0.45);
+  }
+  .card > .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .card > .head h2 {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--dim);
+    font-weight: 700;
+  }
+  .card > .head .legend {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--dim);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .card > .head .legend span::before {
+    content: "";
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 2px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .lg-gold::before { background: var(--gold); }
+  .lg-berry::before { background: var(--berry); }
+  .lg-pist::before { background: var(--pist); }
+  .lg-ink::before { background: var(--ink); }
+  .lg-ice::before { background: var(--accent); }
+
+  .chart svg { display: block; width: 100%; height: 260px; }
+  .chart .bars rect {
+    transform-box: fill-box;
+    transform-origin: center bottom;
+    animation: rise 1.2s cubic-bezier(.2, .6, .2, 1) both;
+  }
+  .chart .bars .b1 { animation-delay: 0.05s; }
+  .chart .bars .b2 { animation-delay: 0.15s; }
+  .chart .bars .b3 { animation-delay: 0.25s; }
+  .chart .bars .b4 { animation-delay: 0.35s; }
+  .chart .bars .b5 { animation-delay: 0.45s; }
+  .chart .bars .b6 { animation-delay: 0.55s; }
+  @keyframes rise {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+
+  .rows { display: flex; flex-direction: column; }
+  .rows .row {
+    display: grid;
+    grid-template-columns: 200px 1fr 64px 88px;
+    gap: 12px;
+    padding: 10px 4px;
+    border-top: 1px solid var(--stroke);
+    font-family: var(--mono);
+    font-size: 12px;
+    align-items: center;
+  }
+  .rows .row:first-of-type { border-top: none; padding-top: 0; }
+  .rows .name { color: var(--ink); font-weight: 700; }
+  .rows .name .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .rows .desc { color: var(--dim); font-family: var(--sans); font-size: 12px; }
+  .rows .yr { color: var(--dim); text-align: right; }
+  .rows .st {
+    text-align: right;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .rows .st.walk { color: var(--gold); }
+  .rows .st.hums { color: var(--accent); }
+
+  .now {
+    background: var(--panel);
+    border: 1px solid var(--stroke);
+    border-radius: 12px;
+    padding: 16px 20px;
+  }
+  .now h2 {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--dim);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .now .item {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 12px;
+    padding: 8px 0;
+    border-top: 1px solid var(--stroke);
+    align-items: baseline;
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+  .now .item:first-of-type { border-top: none; padding-top: 0; }
+  .now .k { color: var(--dim); text-transform: uppercase; font-size: 10px; letter-spacing: 0.24em; }
+  .now .v { color: var(--ink); font-family: var(--sans); font-size: 13px; }
+  .now .s {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 999px;
+  }
+  .s.ok { background: rgba(143, 212, 220, 0.12); color: var(--accent); border: 1px solid rgba(143, 212, 220, 0.35); }
+  .s.gold { background: rgba(228, 177, 90, 0.12); color: var(--gold); border: 1px solid rgba(228, 177, 90, 0.35); }
+  .s.pist { background: rgba(106, 154, 110, 0.12); color: var(--pist); border: 1px solid rgba(106, 154, 110, 0.35); }
+  .s.berry { background: rgba(196, 92, 106, 0.12); color: var(--berry); border: 1px solid rgba(196, 92, 106, 0.35); }
+
+  .terminal {
+    background: var(--panel);
+    border: 1px solid var(--stroke);
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-family: var(--mono);
+    font-size: 12px;
+    margin-top: 16px;
+  }
+  .terminal .line { display: flex; gap: 10px; padding: 4px 0; }
+  .terminal .p { color: var(--accent); }
+  .terminal .out { color: var(--dim); }
+  .caret {
+    display: inline-block;
+    width: 8px;
+    height: 14px;
+    background: var(--accent);
+    vertical-align: middle;
+    margin-left: 2px;
+    animation: blink 1.1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .footbar {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-top: 16px;
+    border-top: 1px solid var(--stroke);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .footbar b { color: var(--accent); font-weight: 700; }
+
+  .mark { width: 12px; height: 16px; fill: var(--accent); }
+
+  @media (max-width: 1100px) {
+    .hero, .grid, .stamp, .topbar { grid-template-columns: 1fr; }
+    .card.lift { transform: none; }
+    .rows .row { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <span class="live" aria-hidden="true"></span>
+    julesicecream.example<span class="path">/cold-room</span>
+  </div>
+  <form class="search" role="search" action="#" method="get">
+    <label for="q">ask</label>
+    <input type="search" id="q" name="q" placeholder="vanilla bean · harbor street · 1991" spellcheck="false" autocomplete="off">
+    <kbd>ctrl-K</kbd>
+  </form>
+  <div class="env">ENV <b>COLD ROOM</b> · 1980</div>
+  <div class="avatar" title="Jules">J</div>
+</div>
+
+<section class="hero" aria-labelledby="dash-h">
+  <div class="headline">
+    <span class="who">01 · operator · jules ice cream · port meridian</span>
+    <h1>The 1980 freezer still hums.</h1>
+    <p>Ice-blue light at night. Behind the parlor. Jules is tasting the burnt sugar.</p>
+  </div>
+  <div class="stamp">
+    <div class="kpi" tabindex="0">
+      <span class="lab">Years</span>
+      <span class="val">46</span>
+      <span class="delta">founded 1980</span>
+    </div>
+    <div class="kpi k2" tabindex="0">
+      <span class="lab">Flavors</span>
+      <span class="val">6</span>
+      <span class="delta">on the board</span>
+    </div>
+    <div class="kpi k3" tabindex="0">
+      <span class="lab">August tubs</span>
+      <span class="val">8</span>
+      <span class="delta">mint chip · a week</span>
+    </div>
+    <div class="kpi k4" tabindex="0">
+      <span class="lab">Heatwave</span>
+      <span class="val">14</span>
+      <span class="delta">days · July 1991</span>
+    </div>
+    <div class="kpi k5" tabindex="0">
+      <span class="lab">Places</span>
+      <span class="val">3</span>
+      <span class="delta">harbor · cold room · ferry</span>
+    </div>
+  </div>
+</section>
+
+<section class="grid">
+  <div class="card lift">
+    <div class="head">
+      <h2>02 · Flavor years on the board</h2>
+      <div class="legend">
+        <span class="lg-gold">vanilla</span>
+        <span class="lg-berry">strawberry</span>
+        <span class="lg-pist">pistachio</span>
+        <span class="lg-ink">sea salt</span>
+        <span class="lg-ice">mint / burnt</span>
+      </div>
+    </div>
+    <div class="chart">
+      <svg viewBox="0 0 720 260" role="img" aria-labelledby="chart-title">
+        <title id="chart-title">Years on the board by flavor, 1980–2022. Bar height is years since that flavor arrived.</title>
+        <defs>
+          <linearGradient id="julesFade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#8fd4dc" stop-opacity="0.4"/>
+            <stop offset="1" stop-color="#8fd4dc" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <g stroke="#1a2e34" stroke-width="1">
+          <line x1="48" y1="36" x2="700" y2="36"/>
+          <line x1="48" y1="90" x2="700" y2="90"/>
+          <line x1="48" y1="144" x2="700" y2="144"/>
+          <line x1="48" y1="198" x2="700" y2="198"/>
+        </g>
+        <g font-family="ui-monospace, Consolas, monospace" font-size="10" fill="#6a9094">
+          <text x="4" y="40">46y</text>
+          <text x="4" y="94">30y</text>
+          <text x="4" y="148">14y</text>
+          <text x="4" y="202">0</text>
+        </g>
+        <!-- ages: 46, 42, 35, 28, 12, 4  scale 168/46 ≈ 3.65  baseline y=198 -->
+        <g class="bars">
+          <rect class="b1" x="72"  y="30"  width="44" height="168" fill="#e4b15a" rx="2"/>
+          <rect class="b2" x="176" y="45"  width="44" height="153" fill="#c45c6a" rx="2"/>
+          <rect class="b3" x="280" y="70"  width="44" height="128" fill="#6a9a6e" rx="2"/>
+          <rect class="b4" x="384" y="96"  width="44" height="102" fill="#d7eef0" rx="2"/>
+          <rect class="b5" x="488" y="154" width="44" height="44"  fill="#8fd4dc" rx="2"/>
+          <rect class="b6" x="592" y="183" width="44" height="15"  fill="#e4b15a" rx="2"/>
+        </g>
+        <path d="M 94 30 L 198 45 L 302 70 L 406 96 L 510 154 L 614 183" fill="none" stroke="#8fd4dc" stroke-width="2"/>
+        <path d="M 94 30 L 198 45 L 302 70 L 406 96 L 510 154 L 614 183 L 614 198 L 94 198 Z" fill="url(#julesFade)"/>
+        <g fill="#8fd4dc">
+          <circle cx="94" cy="30" r="3"/>
+          <circle cx="198" cy="45" r="3"/>
+          <circle cx="302" cy="70" r="3"/>
+          <circle cx="406" cy="96" r="3"/>
+          <circle cx="510" cy="154" r="3"/>
+          <circle cx="614" cy="183" r="4"/>
+        </g>
+        <g font-family="ui-monospace, Consolas, monospace" font-size="10" fill="#6a9094">
+          <text x="72"  y="220">1980</text>
+          <text x="176" y="220">1984</text>
+          <text x="280" y="220">1991</text>
+          <text x="384" y="220">1998</text>
+          <text x="488" y="220">2014</text>
+          <text x="592" y="220">2022</text>
+          <text x="48"  y="248" letter-spacing="1.4">YEARS ON THE BOARD · 1980 VANILLA → 2022 BURNT SUGAR</text>
+        </g>
+      </svg>
+    </div>
+    <div class="rows" role="table" aria-label="Places">
+      <div class="row" role="row">
+        <span class="name"><span class="dot" style="background:#e4b15a"></span>Harbor Street parlor</span>
+        <span class="desc">first window · marble counter · brass scoop · waffle cones baked gold</span>
+        <span class="yr">1980</span>
+        <span class="st">open</span>
+      </div>
+      <div class="row" role="row">
+        <span class="name"><span class="dot" style="background:#8fd4dc"></span>The cold room</span>
+        <span class="desc">behind the parlor · ice-blue light at night · original freezer still hums</span>
+        <span class="yr">1980</span>
+        <span class="st hums">hums</span>
+      </div>
+      <div class="row" role="row">
+        <span class="name"><span class="dot" style="background:#6a9a6e"></span>Ferry Road cone counter</span>
+        <span class="desc">second window · walk-up only · same gold cones · harbor behind you</span>
+        <span class="yr">2006</span>
+        <span class="st walk">walk-up</span>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="now">
+      <h2>03 · Now</h2>
+      <div class="item"><span class="k">freezer</span><span class="v">The 1980 freezer still hums.</span><span class="s ok">hums</span></div>
+      <div class="item"><span class="k">jules</span><span class="v">Jules is tasting the burnt sugar.</span><span class="s gold">taste</span></div>
+      <div class="item"><span class="k">parlor</span><span class="v">Jules still opens the door at ten.</span><span class="s pist">open</span></div>
+      <div class="item"><span class="k">heat</span><span class="v">Fourteen-day July heatwave. The freezer held.</span><span class="s berry">1991</span></div>
+    </div>
+    <div class="terminal">
+      <div class="line"><span class="p">$</span><span>whoami</span></div>
+      <div class="line"><span class="p">&gt;</span><span class="out">jules · port meridian · 1980</span></div>
+      <div class="line"><span class="p">$</span><span>echo "The 1980 freezer still hums." | mail hello@julesicecream.example<span class="caret"></span></span></div>
+    </div>
+  </div>
+</section>
+
+<div class="footbar">
+  <span>Jules Ice Cream · Port Meridian · <b>3 places</b> · 6 flavors</span>
+  <span>gold · /reimagine-it dashboard</span>
+</div>
+
+<script>
+(function () {
+  var form = document.querySelector("form.search");
+  if (form) form.addEventListener("submit", function (e) { e.preventDefault(); });
+  document.addEventListener("keydown", function (e) {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+      var q = document.getElementById("q");
+      if (q) { e.preventDefault(); q.focus(); }
+    }
+  });
+})();
+</script>
+</body>
+</html>

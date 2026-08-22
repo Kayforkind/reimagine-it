@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A Texas notebook — simulation</title>
+<title>A Texas notebook — the years run</title>
 <style>
   :root {
     --void: #0a1626;
@@ -12,25 +12,40 @@
     --hot: #b22234;
     --gold: #e8a63f;
     --dim: #8b8579;
+    --navy: #1a2138;
   }
   * { box-sizing: border-box; }
-  html, body { margin: 0; min-height: 100%; background: var(--void); color: var(--paper);
-    font-family: ui-sans-serif, system-ui, Segoe UI, sans-serif; }
+  html, body {
+    margin: 0; min-height: 100%; background: var(--void); color: var(--paper);
+    font-family: ui-sans-serif, system-ui, Segoe UI, sans-serif;
+  }
   header { padding: 22px 28px 8px; }
-  .kicker { font-family: ui-monospace, Consolas, monospace; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
-  h1 { margin: 8px 0 0; font-family: "Iowan Old Style", Palatino, Georgia, serif; font-weight: 400; font-size: clamp(28px, 4.4vw, 48px); }
+  h1 {
+    margin: 0; font-family: "Iowan Old Style", Palatino, Georgia, serif;
+    font-weight: 400; font-size: clamp(28px, 4.4vw, 48px);
+  }
   h1 em { font-style: italic; color: var(--gold); }
-  .sub { max-width: 54ch; color: var(--dim); margin-top: 8px; }
-  .stage { display: grid; grid-template-columns: 1.2fr .8fr; gap: 20px; padding: 8px 28px 28px; }
-  canvas { width: 100%; height: 520px; background: #08101c; border: 1px solid rgba(244,236,216,.12); display: block; }
+  .sub { max-width: 54ch; color: var(--dim); margin: 8px 0 0; }
+  .stage {
+    display: grid; grid-template-columns: 1.2fr .8fr; gap: 20px;
+    padding: 8px 28px 28px;
+  }
+  #view {
+    position: relative; min-height: 0;
+    border: 1px solid rgba(244,236,216,.12); background: #08101c;
+  }
+  canvas { display: block; width: 100%; height: 520px; cursor: default; }
+  canvas.hot { cursor: pointer; }
   aside { font-size: 14px; }
   .year {
     font-family: "Iowan Old Style", Palatino, Georgia, serif;
     font-size: clamp(42px, 8vw, 88px); line-height: .9; color: var(--paper);
   }
-  .year span { display: block; font-size: 13px; letter-spacing: .18em; text-transform: uppercase;
-    font-family: ui-monospace, Consolas, monospace; color: var(--gold); margin-bottom: 8px; }
-  .controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .year span {
+    display: block; font-size: 13px; letter-spacing: .18em; text-transform: uppercase;
+    font-family: ui-monospace, Consolas, monospace; color: var(--gold); margin-bottom: 8px;
+  }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 16px 0 8px; }
   button, input[type="range"] { accent-color: var(--gold); }
   button {
     background: transparent; color: var(--paper); border: 1px solid rgba(244,236,216,.3);
@@ -40,216 +55,458 @@
   button:focus-visible, a:focus-visible, input:focus-visible {
     outline: 2px solid var(--gold); outline-offset: 3px;
   }
+  input[type="range"] { flex: 1; min-width: 120px; }
   ::selection { background: var(--gold); color: var(--void); }
-  ul { list-style: none; padding: 0; margin: 12px 0 0; }
-  li { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0;
-    border-top: 1px solid rgba(244,236,216,.1); color: var(--dim); }
+  .siege, .hint {
+    margin: 8px 0 0; font-family: ui-monospace, Consolas, monospace;
+    font-size: 12px; color: var(--gold); min-height: 1.2em;
+  }
+  .hint { color: var(--dim); }
+  ul { list-style: none; padding: 0; margin: 16px 0 0; }
+  li {
+    display: grid; grid-template-columns: 14px 1fr auto; gap: 10px; align-items: baseline;
+    padding: 8px 0; border-top: 1px solid rgba(244,236,216,.1); color: var(--dim);
+    cursor: pointer;
+  }
   li.on { color: var(--paper); }
+  li.hot { color: var(--gold); }
   li b { font-weight: 600; color: inherit; }
-  .siege { margin-top: 14px; font-family: ui-monospace, Consolas, monospace; font-size: 12px; color: var(--gold); }
-  @media (max-width: 900px) { .stage { grid-template-columns: 1fr; } canvas { height: 380px; } }
+  .swatch {
+    width: 10px; height: 10px; border-radius: 50%; margin-top: 5px;
+    background: #2c3a5a; box-shadow: inset 0 0 0 1px rgba(244,236,216,.25);
+  }
+  .swatch.gold { background: var(--gold); }
+  .swatch.navy { background: var(--navy); box-shadow: inset 0 0 0 1px var(--paper); }
+  .swatch.hot { background: var(--hot); }
+  .swatch.star, .swatch.bloom, .swatch.horn { border-radius: 2px; }
+  @media (max-width: 900px) {
+    .stage { grid-template-columns: 1fr; }
+    canvas { height: 380px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    button { transition: none; }
+  }
 </style>
 </head>
 <body>
 <header>
-  <div class="kicker">/reimagine-it simulation · from gold/webpage/before.html</div>
   <h1>The years <em>run</em></h1>
-  <p class="sub">A playable model of facts already in the file. The clock is 1836–1995. Events light when their year arrives. The Rio Grande flows. Big Bend’s acres count as eight equal units after 1944. No invented KPIs.</p>
+  <p class="sub">A playable model of facts already in the notebook. 1836–1995. The siege is nineteen days on 1836. The river is the Rio Grande. Eight equal units after 1944. Nothing invented.</p>
 </header>
 <div class="stage">
-  <canvas id="field" width="1400" height="780" aria-label="Field simulation of places and the Rio Grande"></canvas>
+  <div id="view">
+    <canvas id="field" width="1400" height="780" aria-label="Schematic Texas. Marks only; names in the list."></canvas>
+  </div>
   <aside>
     <div class="year"><span>year in the notebook</span><strong id="yearLabel">1836</strong></div>
     <div class="controls">
-      <button type="button" id="play" aria-pressed="true">Pause</button>
+      <button type="button" id="play" aria-pressed="false">Play</button>
+      <button type="button" id="prev" aria-label="Previous event">Prev</button>
+      <button type="button" id="next" aria-label="Next event">Next</button>
       <button type="button" id="reset">1836</button>
-      <input id="scrub" type="range" min="1836" max="1995" value="1836" aria-label="Scrub year">
+      <input id="scrub" type="range" min="1836" max="1995" value="1836" step="1" aria-label="Scrub year">
     </div>
-    <p class="siege" id="siege">Alamo siege day — / 19</p>
+    <p class="siege" id="siege" hidden></p>
+    <p class="hint" id="acres" hidden>Eight equal units on the field — 800,000 acres.</p>
     <ul id="events"></ul>
   </aside>
 </div>
 <script>
 const EVENTS = [
-  { year: 1836, name: "Alamo, San Antonio", kind: "place", note: "19-day siege" },
-  { year: 1839, name: "Austin, on the Colorado", kind: "place", note: "capital" },
-  { year: 1839, name: "Lone Star flag", kind: "signal", note: "one five-point star" },
-  { year: 1901, name: "Bluebonnet", kind: "signal", note: "blooms in spring" },
-  { year: 1944, name: "Big Bend, west Texas", kind: "place", note: "800,000 acres" },
-  { year: 1995, name: "Longhorn", kind: "signal", note: "7 ft tip to tip" },
+  { year: 1836, name: "Alamo, San Antonio", note: "19-day siege", mark: "alamo", swatch: "gold" },
+  { year: 1839, name: "Austin, on the Colorado", note: "capital", mark: "austin", swatch: "navy" },
+  { year: 1839, name: "Lone Star flag", note: "one five-point star", mark: "star", swatch: "star" },
+  { year: 1901, name: "Bluebonnet", note: "blooms in spring", mark: "bloom", swatch: "bloom" },
+  { year: 1944, name: "Big Bend, west Texas", note: "800,000 acres", mark: "bend", swatch: "hot" },
+  { year: 1995, name: "Longhorn", note: "7 ft tip to tip", mark: "horn", swatch: "horn" },
 ];
+const STOPS = [1836, 1839, 1901, 1944, 1995];
 const YEAR0 = 1836;
 const YEAR1 = 1995;
+const OUTLINE = [
+  [78, 40], [198, 40], [198, 124], [438, 124], [486, 196], [474, 258],
+  [428, 304], [368, 352], [286, 408], [210, 428], [142, 408], [96, 368],
+  [70, 312], [58, 248], [66, 176], [78, 124],
+];
+const RIVER = [[96, 368], [150, 396], [220, 420], [286, 408]];
+const LOCAL = {
+  alamo: [252, 328],
+  austin: [292, 268],
+  bend: [118, 352],
+  star: [160, 88],
+  bloom: [210, 210],
+  horn: [390, 290],
+};
+
+const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  || /\bstill\b/.test(String(location.search));
 const canvas = document.getElementById("field");
 const ctx = canvas.getContext("2d");
 const yearLabel = document.getElementById("yearLabel");
 const scrub = document.getElementById("scrub");
 const playBtn = document.getElementById("play");
 const siegeEl = document.getElementById("siege");
+const acresEl = document.getElementById("acres");
 const list = document.getElementById("events");
+
 EVENTS.forEach((e, i) => {
   const li = document.createElement("li");
-  li.id = "ev-" + i;
-  li.innerHTML = "<b>" + e.year + " · " + e.name + "</b><span>" + e.note + "</span>";
+  li.dataset.mark = e.mark;
+  li.dataset.year = String(e.year);
+  li.innerHTML = "<i class=\"swatch " + e.swatch + "\" aria-hidden=\"true\"></i><b>" +
+    e.year + " · " + e.name + "</b><span>" + e.note + "</span>";
+  li.addEventListener("click", () => jumpTo(e.year, e.mark));
+  li.addEventListener("mouseenter", () => { hot = e.mark; });
+  li.addEventListener("mouseleave", () => { if (hot === e.mark) hot = null; });
   list.appendChild(li);
 });
 
-const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 let year = reduce ? YEAR1 : YEAR0;
-let playing = !reduce;
+let siegeDay = reduce ? 19 : 0;
+let playing = false;
 let last = performance.now();
-let siegeDay = 0;
-const particles = Array.from({ length: 48 }, (_, i) => ({ t: i / 48, y: 0 }));
+let hot = null;
+let world = { to: (x, y) => [x, y], cssW: 1400, cssH: 780 };
+const particles = Array.from({ length: 36 }, (_, i) => ({ t: i / 36 }));
 
-function setYear(y) {
+function cubic(p0, p1, p2, p3, t) {
+  const u = 1 - t;
+  return [
+    u * u * u * p0[0] + 3 * u * u * t * p1[0] + 3 * u * t * t * p2[0] + t * t * t * p3[0],
+    u * u * u * p0[1] + 3 * u * u * t * p1[1] + 3 * u * t * t * p2[1] + t * t * t * p3[1],
+  ];
+}
+
+function riverAt(t) {
+  return cubic(RIVER[0], RIVER[1], RIVER[2], RIVER[3], t);
+}
+
+function fitWorld(cssW, cssH) {
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  OUTLINE.forEach(([x, y]) => {
+    minX = Math.min(minX, x); minY = Math.min(minY, y);
+    maxX = Math.max(maxX, x); maxY = Math.max(maxY, y);
+  });
+  const padX = 56;
+  const padTop = 36;
+  const padBot = 88;
+  const scale = Math.min((cssW - padX * 2) / (maxX - minX), (cssH - padTop - padBot) / (maxY - minY));
+  const ox = (cssW - (maxX - minX) * scale) / 2 - minX * scale;
+  const oy = padTop - minY * scale;
+  return {
+    cssW, cssH, scale,
+    to(x, y) { return [x * scale + ox, y * scale + oy]; },
+  };
+}
+
+function resize() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const cssW = Math.max(1, canvas.clientWidth);
+  const cssH = Math.max(1, canvas.clientHeight);
+  canvas.width = Math.round(cssW * dpr);
+  canvas.height = Math.round(cssH * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  world = fitWorld(cssW, cssH);
+}
+
+function lit(y) { return year >= y; }
+
+function setPlay(on) {
+  if (on && !reduce && year >= YEAR1) {
+    siegeDay = 0;
+    hot = null;
+    setYear(YEAR0);
+  }
+  playing = on && !reduce;
+  playBtn.textContent = playing ? "Pause" : "Play";
+  playBtn.setAttribute("aria-pressed", playing ? "true" : "false");
+}
+
+function setYear(y, fromPlay) {
   year = Math.max(YEAR0, Math.min(YEAR1, y));
+  if (!fromPlay) {
+    if (Math.floor(year) > 1836) siegeDay = 19;
+    else if (Math.floor(year) < 1836) siegeDay = 0;
+    else siegeDay = 0;
+  }
   yearLabel.textContent = String(Math.floor(year));
   scrub.value = String(Math.floor(year));
   EVENTS.forEach((e, i) => {
-    document.getElementById("ev-" + i).classList.toggle("on", year >= e.year);
+    const li = list.children[i];
+    li.classList.toggle("on", year >= e.year);
+    li.classList.toggle("hot", hot === e.mark);
   });
-  if (Math.floor(year) === 1836) {
-    siegeDay = Math.min(19, siegeDay + 0.08);
-  } else if (year > 1836) {
-    siegeDay = 19;
-  } else {
-    siegeDay = 0;
+  const inSiege = Math.floor(year) === 1836;
+  siegeEl.hidden = !inSiege;
+  if (inSiege) {
+    siegeEl.textContent = "Siege day " + Math.floor(siegeDay) + " / 19";
   }
-  siegeEl.textContent = "Alamo siege day " + Math.floor(siegeDay) + " / 19 — a label on 1836, not a bar on the century axis.";
+  acresEl.hidden = year < 1944;
 }
 
-playBtn.addEventListener("click", () => {
-  playing = !playing;
-  playBtn.textContent = playing ? "Pause" : "Play";
-  playBtn.setAttribute("aria-pressed", playing ? "true" : "false");
-});
-document.getElementById("reset").addEventListener("click", () => { setYear(YEAR0); siegeDay = 0; });
-scrub.addEventListener("input", () => { setYear(Number(scrub.value)); playing = false; playBtn.textContent = "Play"; playBtn.setAttribute("aria-pressed", "false"); });
+function jumpTo(y, mark) {
+  setPlay(false);
+  hot = mark || null;
+  setYear(y);
+}
 
-function riverPoint(t, w, h) {
-  const x = 48 + t * (w - 96);
-  const y = h * 0.62 + Math.sin(t * 6.2) * 28 + Math.sin(t * 2.1 + year * 0.01) * 10;
-  return [x, y];
+function step(dir) {
+  const y = Math.floor(year);
+  const next = dir > 0
+    ? STOPS.find((s) => s > y) ?? YEAR1
+    : [...STOPS].reverse().find((s) => s < y) ?? YEAR0;
+  jumpTo(next);
+}
+
+playBtn.addEventListener("click", () => setPlay(!playing));
+document.getElementById("reset").addEventListener("click", () => {
+  setPlay(false);
+  siegeDay = 0;
+  hot = null;
+  setYear(YEAR0);
+});
+document.getElementById("prev").addEventListener("click", () => step(-1));
+document.getElementById("next").addEventListener("click", () => step(1));
+scrub.addEventListener("input", () => {
+  setPlay(false);
+  setYear(Number(scrub.value));
+});
+addEventListener("keydown", (e) => {
+  const tag = e.target && e.target.tagName;
+  if (tag === "INPUT") return;
+  if (e.code === "Space") {
+    if (tag === "BUTTON") return;
+    e.preventDefault();
+    setPlay(!playing);
+  }
+  if (e.code === "ArrowRight") { e.preventDefault(); step(1); }
+  if (e.code === "ArrowLeft") { e.preventDefault(); step(-1); }
+});
+
+function markAt(cssX, cssY) {
+  const hits = ["alamo", "austin", "bend", "star", "bloom", "horn"];
+  for (const id of hits) {
+    if (id === "star" && !lit(1839)) continue;
+    if (id === "bloom" && !(lit(1901) && spring())) continue;
+    if (id === "horn" && !lit(1995)) continue;
+    const [x, y] = world.to(...LOCAL[id]);
+    if (Math.hypot(cssX - x, cssY - y) < 18) return id;
+  }
+  return null;
+}
+
+canvas.addEventListener("pointermove", (e) => {
+  const r = canvas.getBoundingClientRect();
+  const id = markAt(e.clientX - r.left, e.clientY - r.top);
+  hot = id;
+  canvas.classList.toggle("hot", !!id);
+});
+canvas.addEventListener("pointerleave", () => { hot = null; canvas.classList.remove("hot"); });
+canvas.addEventListener("click", (e) => {
+  const r = canvas.getBoundingClientRect();
+  const id = markAt(e.clientX - r.left, e.clientY - r.top);
+  if (!id) return;
+  const ev = EVENTS.find((x) => x.mark === id);
+  if (ev) jumpTo(ev.year, id);
+});
+
+function spring() {
+  const month = (year % 1) * 12;
+  return month >= 2 && month <= 5;
+}
+
+function starPath(cx, cy, r) {
+  ctx.beginPath();
+  for (let i = 0; i < 10; i++) {
+    const rad = i % 2 === 0 ? r : r * 0.4;
+    const a = (i / 10) * Math.PI * 2 - Math.PI / 2;
+    const x = cx + Math.cos(a) * rad;
+    const y = cy + Math.sin(a) * rad;
+    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  }
+  ctx.closePath();
+}
+
+function acreUnit(x, y, on) {
+  const s = 0.72;
+  ctx.beginPath();
+  ctx.moveTo(x + 6 * s, y + 52 * s);
+  ctx.lineTo(x + 16 * s, y + 28 * s);
+  ctx.lineTo(x + 26 * s, y + 38 * s);
+  ctx.lineTo(x + 34 * s, y + 18 * s);
+  ctx.lineTo(x + 46 * s, y + 34 * s);
+  ctx.lineTo(x + 58 * s, y + 14 * s);
+  ctx.lineTo(x + 64 * s, y + 52 * s);
+  ctx.closePath();
+  ctx.fillStyle = on ? "#2c3a5a" : "#142033";
+  ctx.fill();
+  if (on) {
+    ctx.beginPath();
+    ctx.moveTo(x + 6 * s, y + 54 * s);
+    ctx.quadraticCurveTo(x + 35 * s, y + 46 * s, x + 64 * s, y + 54 * s);
+    ctx.strokeStyle = "#e8a63f";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+}
+
+function ring(x, y, on) {
+  if (!on) return;
+  ctx.beginPath();
+  ctx.arc(x, y, 14, 0, Math.PI * 2);
+  ctx.strokeStyle = "#e8a63f";
+  ctx.lineWidth = 2;
+  ctx.stroke();
 }
 
 function draw(ts) {
-  const w = canvas.width;
-  const h = canvas.height;
+  const w = world.cssW;
+  const h = world.cssH;
   ctx.fillStyle = "#08101c";
   ctx.fillRect(0, 0, w, h);
 
-  // darkest-night-sky field
   ctx.fillStyle = "#f4ecd8";
   for (let i = 0; i < 90; i++) {
     const x = (i * 97) % w;
-    const y = (i * 53) % (h * 0.42);
-    ctx.globalAlpha = 0.15 + ((i * 13) % 7) / 18;
+    const y = (i * 53) % (h * 0.38);
+    ctx.globalAlpha = 0.12 + ((i * 13) % 7) / 22;
     ctx.fillRect(x, y, 2, 2);
   }
   ctx.globalAlpha = 1;
 
-  // schematic ground
-  ctx.strokeStyle = "#2c3a5a";
-  ctx.lineWidth = 2;
   ctx.beginPath();
-  ctx.moveTo(80, 90);
-  ctx.lineTo(420, 90);
-  ctx.lineTo(420, 220);
-  ctx.lineTo(1180, 220);
-  ctx.lineTo(1240, 340);
-  ctx.lineTo(1100, 560);
-  ctx.lineTo(620, 620);
-  ctx.lineTo(220, 520);
+  OUTLINE.forEach((p, i) => {
+    const [x, y] = world.to(p[0], p[1]);
+    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  });
   ctx.closePath();
+  ctx.fillStyle = "#efe4c8";
+  ctx.fill();
+  ctx.strokeStyle = "#1a2138";
+  ctx.lineWidth = 2.5;
   ctx.stroke();
 
-  // Rio Grande
-  ctx.strokeStyle = "#e8a63f";
-  ctx.lineWidth = 3;
   ctx.beginPath();
   for (let t = 0; t <= 1; t += 0.02) {
-    const [x, y] = riverPoint(t, w, h);
+    const [x, y] = world.to(...riverAt(t));
     if (t === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
   }
+  ctx.strokeStyle = "#e8a63f";
+  ctx.lineWidth = 3;
+  ctx.setLineDash([10, 12]);
   ctx.stroke();
-  particles.forEach((p) => {
-    if (playing) p.t = (p.t + 0.003) % 1;
-    const [x, y] = riverPoint(p.t, w, h);
+  ctx.setLineDash([]);
+  const flow = playing && !reduce;
+  if (flow) {
+    particles.forEach((p) => {
+      p.t = (p.t + 0.004) % 1;
+      const [x, y] = world.to(...riverAt(p.t));
+      ctx.fillStyle = "#e8a63f";
+      ctx.beginPath();
+      ctx.arc(x, y, 2.4, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  }
+
+  if (year >= 1944) {
+    for (let i = 0; i < 8; i++) {
+      acreUnit(28 + i * 52, h - 62, true);
+    }
+  }
+
+  if (lit(1839)) {
+    const [sx, sy] = world.to(...LOCAL.star);
     ctx.fillStyle = "#e8a63f";
-    ctx.beginPath();
-    ctx.arc(x, y, 3, 0, Math.PI * 2);
+    starPath(sx, sy, 16);
     ctx.fill();
+    ring(sx, sy, hot === "star");
+  }
+
+  if (lit(1901) && spring()) {
+    const [bx, by] = world.to(...LOCAL.bloom);
+    ctx.beginPath();
+    ctx.moveTo(bx, by + 16);
+    ctx.bezierCurveTo(bx - 10, by + 2, bx - 7, by - 10, bx, by - 14);
+    ctx.bezierCurveTo(bx + 7, by - 10, bx + 10, by + 2, bx, by + 16);
+    ctx.fillStyle = "#2c3a5a";
+    ctx.fill();
+    ctx.beginPath();
+    ctx.fillStyle = "#e8a63f";
+    ctx.arc(bx, by - 10, 3.2, 0, Math.PI * 2);
+    ctx.fill();
+    ring(bx, by - 4, hot === "bloom");
+  }
+
+  if (lit(1995)) {
+    const [hx, hy] = world.to(...LOCAL.horn);
+    ctx.beginPath();
+    ctx.moveTo(hx - 22, hy + 8);
+    ctx.quadraticCurveTo(hx, hy - 18, hx + 22, hy + 8);
+    ctx.quadraticCurveTo(hx, hy - 2, hx - 22, hy + 8);
+    ctx.strokeStyle = "#1a2138";
+    ctx.lineWidth = 2.2;
+    ctx.stroke();
+    ring(hx, hy, hot === "horn");
+  }
+
+  function pin(id, color, stroke) {
+    const on = (id === "alamo" && lit(1836)) || (id === "austin" && lit(1839)) || (id === "bend" && lit(1944));
+    const [x, y] = world.to(...LOCAL[id]);
+    const pulse = id === "alamo" && Math.floor(year) === 1836 && !reduce
+      ? 1 + 0.12 * Math.sin(ts / 280)
+      : 1;
+    ctx.beginPath();
+    ctx.fillStyle = on ? color : "#2c3a5a";
+    ctx.arc(x, y, 8 * pulse, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = on ? stroke : "rgba(244,236,216,.25)";
+    ctx.lineWidth = 1.8;
+    ctx.stroke();
+    ring(x, y, hot === id);
+  }
+  pin("bend", "#b22234", "#f4ecd8");
+  pin("alamo", "#e8a63f", "#1a2138");
+  pin("austin", "#1a2138", "#f4ecd8");
+
+  EVENTS.forEach((e, i) => {
+    list.children[i].classList.toggle("hot", hot === e.mark);
   });
 
-  const lit = (y) => year >= y;
-  function pin(x, y, on, label) {
-    ctx.beginPath();
-    ctx.fillStyle = on ? "#b22234" : "#2c3a5a";
-    ctx.arc(x, y, 8, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = on ? "#f4ecd8" : "#6a624e";
-    ctx.font = "16px Georgia, serif";
-    ctx.fillText(label, x + 14, y + 5);
-  }
-  pin(980, 310, lit(1836), "Alamo");
-  pin(1040, 250, lit(1839), "Austin");
-  pin(280, 430, lit(1944), "Big Bend");
-
-  // ISOTYPE 8 units after 1944
-  const units = year >= 1944 ? 8 : 0;
-  ctx.font = "12px ui-monospace, Consolas, monospace";
-  ctx.fillStyle = "#8b8579";
-  ctx.fillText("ISOTYPE  " + units + " × 100,000 acres", 64, h - 48);
-  for (let i = 0; i < 8; i++) {
-    ctx.fillStyle = i < units ? "#2c3a5a" : "#142033";
-    const x = 64 + i * 36;
-    ctx.beginPath();
-    ctx.moveTo(x, h - 28);
-    ctx.lineTo(x + 8, h - 52);
-    ctx.lineTo(x + 16, h - 40);
-    ctx.lineTo(x + 22, h - 58);
-    ctx.lineTo(x + 30, h - 28);
-    ctx.closePath();
-    ctx.fill();
-  }
-
-  // spring bloom after 1901
-  const month = ((year % 1) * 12);
-  const spring = year >= 1901 && month >= 2 && month <= 5;
-  if (spring) {
-    ctx.fillStyle = "#e8a63f";
-    ctx.beginPath();
-    ctx.arc(720, 180, 10, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = "#f4ecd8";
-    ctx.font = "14px Georgia, serif";
-    ctx.fillText("Bluebonnet in bloom", 738, 185);
-  }
-
-  ctx.fillStyle = "#e8a63f";
-  ctx.font = "13px ui-monospace, Consolas, monospace";
-  ctx.fillText("Lone Star  " + (lit(1839) ? "flying" : "not yet 1839"), 64, 48);
-
-  if (playing) {
+  if (playing && !reduce) {
     const dt = Math.min(0.05, (ts - last) / 1000);
-    setYear(year + dt * 8); // ~8 years / second
+    if (Math.floor(year) === 1836 && siegeDay < 19) {
+      siegeDay = Math.min(19, siegeDay + dt * 4);
+      setYear(1836, true);
+    } else {
+      const next = year + dt * 10;
+      if (next >= YEAR1) {
+        setYear(YEAR1, true);
+        setPlay(false);
+      } else {
+        if (Math.floor(year) === 1836 && siegeDay >= 19 && year === 1836) {
+          setYear(1836.05, true);
+        } else {
+          setYear(next, true);
+        }
+      }
+    }
   }
   last = ts;
+  if (!draw.framed) {
+    draw.framed = true;
+    document.documentElement.dataset.ready = "1";
+  }
   requestAnimationFrame(draw);
 }
 
+addEventListener("resize", resize);
+resize();
 setYear(year);
-playBtn.textContent = playing ? "Pause" : "Play";
-playBtn.setAttribute("aria-pressed", playing ? "true" : "false");
+setPlay(false);
 window.reimagineSim = {
-  setYear,
-  pause() {
-    playing = false;
-    playBtn.textContent = "Play";
-    playBtn.setAttribute("aria-pressed", "false");
-  },
+  setYear(y) { setPlay(false); setYear(y); },
+  pause() { setPlay(false); },
 };
-document.documentElement.dataset.ready = "1";
 requestAnimationFrame(draw);
 </script>
 </body>
