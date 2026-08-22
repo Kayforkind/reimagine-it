@@ -1,9 +1,10 @@
 ---
 name: reimagine-it
 description: >-
-  Claude Code plugin and Cursor / Codex / Copilot / Gemini CLI Agent Skill.
-  Install with npx skills add Kayforkind/reimagine-it or
-  /plugin marketplace add Kayforkind/reimagine-it.
+  Claude Code / Codex / Factory Droid plugin and Cursor / Copilot / Gemini CLI
+  Agent Skill. Install with npx skills add Kayforkind/reimagine-it,
+  /plugin marketplace add Kayforkind/reimagine-it, or
+  codex plugin marketplace add Kayforkind/reimagine-it.
   Redesign any file from its own content: webpage, HTML, landing page,
   README, PDF, document, slides, PowerPoint, infographic, SVG, dashboard,
   CLI, or protocol. Use when the user says /reimagine-it, reimagine it,
@@ -21,6 +22,7 @@ metadata:
     - codex
     - copilot
     - gemini-cli
+    - factory-droid
     - agent-skills
 ---
 

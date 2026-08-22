@@ -1,0 +1,20 @@
+{
+  "name": "reimagine-it",
+  "interface": {
+    "displayName": "reimagine-it"
+  },
+  "plugins": [
+    {
+      "name": "reimagine-it",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

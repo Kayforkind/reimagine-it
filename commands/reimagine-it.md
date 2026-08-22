@@ -1,9 +1,8 @@
 ---
 description: >-
-  Claude Code, Cursor, Codex, Copilot, Gemini CLI. Redesign any file from
-  its own content — webpage, PDF, slides, infographic. Invent a leap they
-  did not know to ask for. Not a mood board. Not Mermaid slop. Same chair
-  as /reimagine-it.
+  Claude Code, Codex, Factory Droid, Cursor, Copilot, Gemini CLI. Redesign
+  any file from its own content — webpage, PDF, slides, infographic. Invent
+  a leap they did not know to ask for. Not a mood board. Not Mermaid slop.
 argument-hint: "[webpage|infographic|pdf|slides] [tokens] [open brief]"
 ---
 
@@ -28,8 +27,6 @@ Copy this file to `~/.cursor/commands/reimagine-it.md` if you want the slash in 
 | `/reimagine-it <brief>` | Context + brief |
 
 User arguments: `$ARGUMENTS`
-
-`/reimagine-it` is the **same chair**, elevation/Tuesday-door default.
 
 ## Hard contract
 

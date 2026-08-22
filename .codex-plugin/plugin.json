@@ -1,0 +1,39 @@
+{
+  "name": "reimagine-it",
+  "description": "Plugin wrapping the /reimagine-it Agent Skill. Redesign any file from its own content — webpage, HTML, landing page, PDF, slides, infographic, SVG, dashboard. Not a mood board. Not Mermaid slop.",
+  "version": "2.3.0",
+  "author": {
+    "name": "Kayforkind",
+    "url": "https://github.com/Kayforkind"
+  },
+  "homepage": "https://kayforkind.github.io/reimagine-it/",
+  "repository": "https://github.com/Kayforkind/reimagine-it",
+  "license": "MIT",
+  "keywords": [
+    "codex",
+    "openai",
+    "claude-code",
+    "cursor",
+    "agent-skills",
+    "infographic",
+    "webpage",
+    "redesign",
+    "content-aware"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "reimagine-it",
+    "shortDescription": "Redesign the file you actually have, from what it is about.",
+    "longDescription": "Plugin wrapping the /reimagine-it Agent Skill. Redesign any file from its own content — webpage, HTML, landing page, PDF, slides, infographic, SVG, dashboard. One extra word picks the register (infographic, cinematic, dashboard, artistic, photography, landing). Not a mood board. Not Mermaid slop.",
+    "developerName": "Kayforkind",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "websiteURL": "https://github.com/Kayforkind/reimagine-it",
+    "defaultPrompt": [
+      "Redesign this page from its own content.",
+      "Turn this HTML into an infographic poster. Do not invent numbers.",
+      "/reimagine-it webpage cinematic"
+    ],
+    "brandColor": "#e8a63f"
+  }
+}

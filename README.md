@@ -83,19 +83,53 @@ Regenerate the quartet locally: `python gold/compare.py` (writes `gold/webpage/q
 
 ## Install
 
-**Cursor / Agent Skills**
+One chair: `skills/reimagine-it/`. Hosts with a plugin marketplace get a native wrapper in this repo. Hosts that only speak Agent Skills install the same folder.
 
-```bash
-npx skills add Kayforkind/reimagine-it            # one project
-npx skills add Kayforkind/reimagine-it -g          # global (Cursor, Claude Code, Codex, Copilot, Gemini CLI)
-```
-
-**Claude Code** (plugin marketplace)
+**Claude Code**
 
 ```text
 /plugin marketplace add Kayforkind/reimagine-it
 /plugin install reimagine-it@reimagine-it
 ```
+
+Then enable updates once: `/plugin` → **Marketplaces** → **reimagine-it** → **Enable auto-update**. Claude Code leaves third-party auto-update off by default. Run `/reload-plugins` when prompted.
+
+**Codex**
+
+```bash
+codex plugin marketplace add Kayforkind/reimagine-it
+codex plugin add reimagine-it@reimagine-it
+```
+
+Codex refreshes Git marketplaces at startup. To fetch immediately: `codex plugin marketplace upgrade reimagine-it`, then start a new session.
+
+**Factory Droid**
+
+```bash
+droid plugin marketplace add https://github.com/Kayforkind/reimagine-it
+droid plugin install reimagine-it@reimagine-it --scope user
+```
+
+Droid tracks Git plugins by commit. After a merge: `droid plugin marketplace update reimagine-it`, then `droid plugin update reimagine-it@reimagine-it --scope user`.
+
+**Cursor, Copilot, Gemini CLI, Windsurf, and other Agent Skills hosts**
+
+These hosts have no third-party plugin marketplace for this kind of chair. They load `SKILL.md`.
+
+```bash
+npx skills add Kayforkind/reimagine-it             # one project
+npx skills add Kayforkind/reimagine-it -g           # global
+gh skill install Kayforkind/reimagine-it reimagine-it --agent cursor
+gemini skills install https://github.com/Kayforkind/reimagine-it.git --path skills/reimagine-it
+```
+
+**Pi**
+
+```bash
+pi install https://github.com/Kayforkind/reimagine-it
+```
+
+Then `/reload` in an open Pi session.
 
 Then say `/reimagine-it` in the host. Also matches: "reimagine it", "redesign this page", "make an infographic".
 

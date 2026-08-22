@@ -17,11 +17,18 @@ You are loading **reimagine-it**, one Agent Skill. Progressive disclosure. Do no
 npx skills add Kayforkind/reimagine-it
 ```
 
-Claude Code:
+Native plugin wrappers (same skill inside):
 
 ```text
 /plugin marketplace add Kayforkind/reimagine-it
 /plugin install reimagine-it@reimagine-it
+```
+
+```bash
+codex plugin marketplace add Kayforkind/reimagine-it
+codex plugin add reimagine-it@reimagine-it
+droid plugin marketplace add https://github.com/Kayforkind/reimagine-it
+droid plugin install reimagine-it@reimagine-it --scope user
 ```
 
 Fallback: copy `skills/reimagine-it/` into the host skills root. Never into `~/.cursor/skills-cursor/`.

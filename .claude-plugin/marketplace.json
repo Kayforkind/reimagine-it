@@ -1,9 +1,9 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "reimagine-it",
-  "description": "Claude Code plugin marketplace for /reimagine-it. Cursor, Codex, Copilot, and Gemini CLI install via npx skills. Redesign any file from its own content — webpage, PDF, slides, infographic. Offline HTML. No CDN. No Mermaid slop.",
+  "description": "Claude Code plugin marketplace for /reimagine-it. Cursor, Copilot, Gemini CLI, and other Agent Skills hosts install via npx skills. Codex and Factory Droid have native plugin wrappers in this repo. Redesign any file from its own content — webpage, PDF, slides, infographic. Offline HTML. No CDN. No Mermaid slop.",
   "metadata": {
-    "description": "Claude Code / Cursor / Codex / Copilot / Gemini CLI Agent Skill. Redesign any file from its own content — webpage, PDF, slides, infographic. Offline HTML. No CDN. No Mermaid slop."
+    "description": "Claude Code plugin wrapping /reimagine-it. Redesign any file from its own content — webpage, PDF, slides, infographic. Offline HTML. No CDN. No Mermaid slop."
   },
   "owner": {
     "name": "Kayforkind",
