@@ -22,7 +22,7 @@ Re-shoot (writes form stills + `after-b.png` pairs, `loops/*.png`, `strip.png`, 
 python gold/forms/shot.py
 ```
 
-Looping examples GIF (`examples.gif` — before → nine webpage tokens → svg → 3js → four loops → simulation):
+Looping examples GIF (`examples.gif` — before, then the tall infographic; no per-asset catalog):
 
 ```powershell
 python gold/forms/make_gif.py

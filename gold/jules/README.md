@@ -18,7 +18,7 @@ Naive notebook: [`before.html`](before.html). Founded 1980, Port Meridian. Not a
 | `3js` | [`forms/3js/after.html`](forms/3js/after.html) |
 | `simulation` | [`forms/simulation/after.html`](forms/simulation/after.html) |
 
-X GIF: [`best.gif`](best.gif). Copy: [`POST.md`](POST.md).
+X GIF: [`best.gif`](best.gif) — before, then the tall infographic. Copy: [`POST.md`](POST.md).
 
 ```powershell
 python gold/jules/shot.py

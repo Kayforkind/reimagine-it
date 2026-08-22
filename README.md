@@ -27,7 +27,7 @@ Palette and motifs come from *this* file (Lone Star flag, Alamo, Rio Grande). Th
 
 ![one raw Texas notebook, nine content-aware redesigns](gold/gallery.png?v=texas-5)
 
-![same Texas notebook looping: before, nine webpage tokens, SVG, Three.js, four alive-micro loops, latest simulation](gold/forms/examples.gif?v=flag-1)
+![same naive Texas HTML, then the tall infographic poster](gold/forms/examples.gif?v=before-info-1)
 
 Alive-micro close-ups (weenie breathe is the Lone Star flag):
 
@@ -41,7 +41,7 @@ Live loops (GitHub file view is source only): open [`gold/forms/see.html`](gold/
 
 Same tokens, parlor DNA. Not a Texas notebook with scoops glued on. [`gold/jules/`](gold/jules/)
 
-![same naive Jules HTML looping through webpage tokens, infographic, SVG, Three.js, and a flavor-board simulation](gold/jules/best.gif?v=1)
+![same naive Jules HTML, then the tall parlor infographic](gold/jules/best.gif?v=before-info-1)
 
 ---
 
