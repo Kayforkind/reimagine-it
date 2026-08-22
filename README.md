@@ -26,6 +26,8 @@ Same naive HTML, nine webpage tokens, then three other forms:
 /reimagine-it svg | 3js | simulation
 ```
 
+![same Texas notebook looping: before, infographic, SVG, Three.js, simulation](gold/forms/examples.gif?v=forms-gif-1)
+
 ![same Texas notebook as SVG, Three.js, and a playable year-clock simulation](gold/forms/strip.png?v=forms-1)
 
 ---
@@ -563,6 +565,7 @@ Every visual is a real file in this repo, generated locally by a script you can 
 | Per-pack full-page `after.png` shots used by every case study above | `python gold/shots.py` |
 | Infographic poster (full page, real Chrome) &rarr; `gold/domains/infographic/after.png` | `python gold/_shot_full.py gold/domains/infographic/after.html gold/domains/infographic/after.png` |
 | Form gold: SVG + Three.js + simulation (real Chrome) | `python gold/forms/shot.py` |
+| Form examples GIF (`gold/forms/examples.gif`) | `python gold/forms/make_gif.py` |
 | Draw C full-page shot (v2.2, WebGL2, real Chrome) &rarr; `gold/webpage/after-3-full.png` | `python gold/_shot_full.py gold/webpage/after-3.html gold/webpage/after-3-full.png` |
 | Master gallery (`gold/gallery.png`) + per-pack tile heroes | `python gold/gallery.py` |
 | Quartet (`gold/webpage/quartet.png`) + twins triptych (`twins.png`) + per-pack wide before/after compares | `python gold/compare.py` |

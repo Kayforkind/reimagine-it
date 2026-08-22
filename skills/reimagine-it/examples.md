@@ -6,6 +6,8 @@ Public **tested results** (live exits, not stories): repo-root [README.md](../..
 
 `gold/reimagine.py` is example A made runnable on **this** skill: `--fail` exits 1 with a vibe list; `--ship` exits 0 and writes `gold/shipped.json`. Same two beats in `gold/index.html`.
 
+Looping examples from the Texas notebook: [`gold/forms/examples.gif`](../../gold/forms/examples.gif) — before → `/reimagine-it infographic` → `svg` → `3js` → `simulation`.
+
 ---
 
 ## A — Missing capability (`/reimagine-it`)

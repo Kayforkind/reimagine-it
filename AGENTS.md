@@ -49,6 +49,6 @@ Interview only if the user passed `interview`.
 - `gold/domains/motion-strip.png` — three-frame animation proof (per domain).
 - `gold/domains/cinematic/hero.png` — the WebGL2 cinematic domain full-shot.
 - `gold/modifiers/` — domain + modifier combinations (e.g. `cinematic-glassmorphism/`).
-- `gold/forms/` — same `gold/webpage/before.html` as SVG, Three.js (vendored r185), and a playable simulation. Re-shoot: `python gold/forms/shot.py`.
+- `gold/forms/` — same `gold/webpage/before.html` as SVG, Three.js (vendored r185), and a playable simulation. Re-shoot: `python gold/forms/shot.py`. Looping GIF: `python gold/forms/make_gif.py`.
 
 Never invent a screenshot. If a screenshot cannot be regenerated from a fixture in this repo, it does not go in the README.

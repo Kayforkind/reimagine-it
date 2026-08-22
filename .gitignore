@@ -22,6 +22,7 @@ test/pipeline/after-*-t*.png
 test/pipeline/github-live.png
 gold/gallery.html
 gold/forms/**/*.tgz
+gold/forms/gif-frames/
 __pycache__/
 *.pyc
 

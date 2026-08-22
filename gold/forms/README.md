@@ -13,3 +13,9 @@ Re-shoot (writes `svg/after.png`, `3js/after.png`, `simulation/after.png`, `stri
 ```powershell
 python gold/forms/shot.py
 ```
+
+Looping examples GIF (`examples.gif` — before → infographic → svg → 3js → simulation):
+
+```powershell
+python gold/forms/make_gif.py
+```
