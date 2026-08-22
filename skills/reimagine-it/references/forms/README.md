@@ -1,9 +1,11 @@
 # Non-webpage form packs
 
-Load one of these packs when the form router (or a user category token) picks a **non-web** medium:
+Load one of these packs when the form router (or a user category token) picks that medium:
 
 | Token | Pack | Regeneration tool |
 |-------|------|-------------------|
+| `svg` | [svg.md](svg.md) | Inline SVG weenie. Type in the gutter. No label on a mark. |
+| `3js` | [3js.md](3js.md) | One HTML + pinned Three.js r185 (no CDN). HUD in a reserved strip. |
 | `pdf` | [pdf.md](pdf.md) | Weasyprint (HTML → PDF, honors CSS) or ReportLab (Python DSL for print-native control) |
 | `document` / `docx` / `md` | [document.md](document.md) | python-docx (docx), pandoc (md ↔ everything), or LaTeX for print-quality |
 | `slides` / `pptx` / `deck` | [slides.md](slides.md) | python-pptx (pptx), reveal.js (HTML deck), or LaTeX Beamer |

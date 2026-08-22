@@ -82,9 +82,9 @@ Looping examples from the Texas notebook: [`gold/forms/examples.gif`](../../gold
 
 **Context:** the naive Texas notebook at `gold/webpage/before.html`.
 
-**Lock:** One vector weenie a client can drop in a README. Timeline on a common scale. Eight equal acre units. No clipart state.
+**Lock:** One vector weenie. Type in the gutter — no label on the flag, map, or ISOTYPE row. Timeline ticks that would collide (1836/1839) stay unlabeled on the axis.
 
-**Hero (gold):** [`gold/forms/svg/after.svg`](../../gold/forms/svg/after.svg) — Lone Star, schematic Texas with three pins, Priestley 1836–1995, ISOTYPE acres, bluebonnet glyph. Offline. No CDN.
+**Hero (gold):** [`gold/forms/svg/after.svg`](../../gold/forms/svg/after.svg) — Lone Star **flag geometry**, schematic Texas with three unlabeled pins, legend gutter, Priestley 1836–1995, eight equal acre units. Offline. No CDN.
 
 **Stretch:** `/reimagine-it 3js` the same three places as meshes.
 
@@ -96,9 +96,9 @@ Looping examples from the Texas notebook: [`gold/forms/examples.gif`](../../gold
 
 **Context:** the same notebook. No existing Vite app.
 
-**Lock:** Alamo, Austin, and Big Bend as meshes under a west-Texas sunset. First frame not blank.
+**Lock:** Alamo chapel facade, capitol with wings, Big Bend as displaced ground + river tube. HUD in a reserved strip. Field fills the frame. First frame not blank.
 
-**Hero (gold):** [`gold/forms/3js/after.html`](../../gold/forms/3js/after.html) — one HTML file, import map to **vendored** `three@0.185.1` (REVISION 185). Drag to orbit. HUD jumps to each place.
+**Hero (gold):** [`gold/forms/3js/after.html`](../../gold/forms/3js/after.html) — one HTML file, import map to **vendored** `three@0.185.1` (REVISION 185). Drag to orbit. HUD jumps to each place. Sunset + soft shadows.
 
 **Do:** pin Three.js in-repo when there is no app to edit. **Do not:** `npm create vite`. **Do not:** CDN `three`.
 

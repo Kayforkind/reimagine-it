@@ -7,55 +7,46 @@
 <style>
   :root { --void:#0a1626; --ink:#f4ecd8; --hot:#b22234; --gold:#e8a63f; --dim:#8b8579; }
   * { box-sizing: border-box; }
-  html, body { margin: 0; height: 100%; background: var(--void); color: var(--ink);
-    font-family: ui-sans-serif, system-ui, Segoe UI, sans-serif; overflow: hidden; }
-  canvas { display: block; }
-  header {
-    position: absolute; top: 0; left: 0; right: 0; z-index: 2;
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    padding: 18px 22px; pointer-events: none;
+  html, body {
+    margin: 0; height: 100%; background: var(--void); color: var(--ink);
+    font-family: ui-sans-serif, system-ui, Segoe UI, sans-serif;
+    display: flex; flex-direction: column; overflow: hidden;
   }
-  header, .hud { pointer-events: none; }
-  header * , .hud * { pointer-events: auto; }
-  .kicker { font-family: ui-monospace, Consolas, monospace; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
-  h1 { margin: 6px 0 0; font-family: "Iowan Old Style", Palatino, Georgia, serif; font-weight: 400; font-size: clamp(28px, 4vw, 44px); }
-  h1 em { font-style: italic; color: var(--gold); }
-  .sub { max-width: 42ch; color: var(--dim); font-size: 14px; margin-top: 8px; }
-  .hud {
-    position: absolute; left: 22px; bottom: 22px; z-index: 2;
-    display: flex; gap: 8px; flex-wrap: wrap;
+  #view { flex: 1; position: relative; min-height: 0; }
+  canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+  .bar {
+    flex: 0 0 auto;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    padding: 10px 18px 12px;
+    background: var(--void);
+    border-top: 1px solid rgba(232,166,63,.4);
   }
+  .bar h1 {
+    margin: 0; font-family: "Iowan Old Style", Palatino, Georgia, serif;
+    font-weight: 400; font-size: 18px; letter-spacing: .02em;
+  }
+  .bar h1 em { font-style: italic; color: var(--gold); }
+  .hud { display: flex; gap: 8px; flex-wrap: wrap; }
   button {
     background: transparent; color: var(--ink); border: 1px solid rgba(244,236,216,.35);
-    padding: 8px 12px; border-radius: 999px; cursor: pointer; font: 13px/1.2 inherit;
+    padding: 7px 12px; border-radius: 999px; cursor: pointer; font: 13px/1.2 inherit;
   }
   button:hover, button[aria-pressed="true"] { background: var(--gold); color: var(--void); border-color: var(--gold); }
   button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
   ::selection { background: var(--gold); color: var(--void); }
-  .note {
-    position: absolute; right: 22px; bottom: 22px; z-index: 2;
-    font-size: 12px; color: var(--dim); max-width: 28ch; text-align: right;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    /* JS reads this via matchMedia and stops auto-orbit */
-  }
 </style>
 </head>
 <body>
-<header>
-  <div>
-    <div class="kicker">/reimagine-it 3js · from gold/webpage/before.html</div>
-    <h1>Texas <em>&amp;</em> the field</h1>
-    <p class="sub">The notebook’s three places as meshes under a west-Texas sunset. Offline Three.js r185. No CDN.</p>
-  </div>
-</header>
-<nav class="hud" aria-label="Places in the source">
-  <button type="button" data-look="wide" aria-pressed="true">All three</button>
-  <button type="button" data-look="alamo">Alamo, 1836</button>
-  <button type="button" data-look="austin">Austin, 1839</button>
-  <button type="button" data-look="bend">Big Bend, 1944</button>
-</nav>
-<p class="note">Drag to orbit. Scroll to dolly. One five-point star. Eight-hundred-thousand acres is the ridge, not a fake KPI.</p>
+<div id="view" aria-label="Three places from the Texas notebook as meshes"></div>
+<footer class="bar">
+  <h1>Texas <em>&amp;</em> the field</h1>
+  <nav class="hud" aria-label="Places in the source">
+    <button type="button" data-look="wide" aria-pressed="true">All three</button>
+    <button type="button" data-look="alamo">Alamo, 1836</button>
+    <button type="button" data-look="austin">Austin, 1839</button>
+    <button type="button" data-look="bend">Big Bend, 1944</button>
+  </nav>
+</footer>
 <script type="importmap">
 {
   "imports": {
@@ -67,146 +58,269 @@
 import * as THREE from "three";
 
 const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const view = document.getElementById("view");
 
-function starShape(outer = 1.15, inner = 0.46, n = 5) {
+const stone = new THREE.MeshStandardMaterial({ color: 0xefe4c8, roughness: 0.86, metalness: 0.04 });
+const stoneDeep = new THREE.MeshStandardMaterial({ color: 0xd9cbb0, roughness: 0.9 });
+const gold = new THREE.MeshStandardMaterial({
+  color: 0xe8a63f, metalness: 0.52, roughness: 0.32, emissive: 0x5a3a08, emissiveIntensity: 0.22,
+});
+const earth = new THREE.MeshStandardMaterial({ color: 0x3a2818, roughness: 0.96 });
+const ridgeMat = new THREE.MeshStandardMaterial({ color: 0x2c3a5a, roughness: 0.92, metalness: 0.05 });
+const canopy = new THREE.MeshStandardMaterial({ color: 0x243a28, roughness: 0.88 });
+const trunk = new THREE.MeshStandardMaterial({ color: 0x4a321c, roughness: 0.9 });
+const voidMat = new THREE.MeshStandardMaterial({ color: 0x1a2138, roughness: 1 });
+
+function shadowize(root) {
+  root.traverse((c) => {
+    if (c.isMesh) {
+      c.castShadow = true;
+      c.receiveShadow = true;
+    }
+  });
+}
+
+function starShape(outer = 0.95, inner = 0.38, n = 5) {
   const s = new THREE.Shape();
   for (let i = 0; i < n * 2; i++) {
     const r = i % 2 === 0 ? outer : inner;
     const a = (i / (n * 2)) * Math.PI * 2 - Math.PI / 2;
-    const x = Math.cos(a) * r;
-    const y = Math.sin(a) * r;
-    if (i === 0) s.moveTo(x, y);
-    else s.lineTo(x, y);
+    if (i === 0) s.moveTo(Math.cos(a) * r, Math.sin(a) * r);
+    else s.lineTo(Math.cos(a) * r, Math.sin(a) * r);
   }
   s.closePath();
   return s;
 }
 
-function mission() {
+function alamo() {
+  const s = new THREE.Shape();
+  s.moveTo(-2.08, 0);
+  s.lineTo(-2.08, 1.52);
+  s.lineTo(-1.52, 1.52);
+  s.lineTo(-1.52, 2.02);
+  s.lineTo(-0.64, 2.02);
+  s.lineTo(-0.64, 2.46);
+  s.lineTo(-0.22, 2.46);
+  s.lineTo(0, 3.14);
+  s.lineTo(0.22, 2.46);
+  s.lineTo(0.64, 2.46);
+  s.lineTo(0.64, 2.02);
+  s.lineTo(1.52, 2.02);
+  s.lineTo(1.52, 1.52);
+  s.lineTo(2.08, 1.52);
+  s.lineTo(2.08, 0);
+  s.closePath();
+  const geo = new THREE.ExtrudeGeometry(s, { depth: 1.4, bevelEnabled: false });
+  geo.translate(0, 0, -0.7);
   const g = new THREE.Group();
-  const wall = new THREE.Mesh(
-    new THREE.BoxGeometry(2.6, 1.35, 1.7),
-    new THREE.MeshStandardMaterial({ color: 0xefe4c8, roughness: 0.82 })
-  );
-  wall.position.y = 0.68;
-  const ped = new THREE.Mesh(
-    new THREE.ConeGeometry(1.55, 0.9, 4),
-    new THREE.MeshStandardMaterial({ color: 0xf4ecd8, roughness: 0.7 })
-  );
-  ped.position.y = 1.7;
-  ped.rotation.y = Math.PI / 4;
-  g.add(wall, ped);
+  g.add(new THREE.Mesh(geo, stone));
+  const door = new THREE.Mesh(new THREE.BoxGeometry(0.58, 1.02, 0.22), voidMat);
+  door.position.set(0, 0.52, 0.72);
+  const win = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.28, 0.12), voidMat);
+  win.position.set(0, 1.72, 0.72);
+  g.add(door, win);
   g.name = "Alamo";
   return g;
 }
 
 function capitol() {
   const g = new THREE.Group();
-  const shaft = new THREE.Mesh(
-    new THREE.BoxGeometry(1.1, 2.8, 1.1),
-    new THREE.MeshStandardMaterial({ color: 0xe8dcc4, roughness: 0.6 })
-  );
-  shaft.position.y = 1.4;
-  const dome = new THREE.Mesh(
-    new THREE.SphereGeometry(0.62, 24, 16),
-    new THREE.MeshStandardMaterial({ color: 0xe8a63f, metalness: 0.35, roughness: 0.35 })
-  );
-  dome.position.y = 3.05;
-  g.add(shaft, dome);
+  const wing = new THREE.BoxGeometry(3.5, 0.98, 1.55);
+  const left = new THREE.Mesh(wing, stoneDeep);
+  left.position.set(-2.45, 0.49, 0);
+  const right = new THREE.Mesh(wing, stoneDeep);
+  right.position.set(2.45, 0.49, 0);
+  const shaft = new THREE.Mesh(new THREE.BoxGeometry(1.6, 2.45, 1.6), stone);
+  shaft.position.y = 1.22;
+  const dome = new THREE.Mesh(new THREE.SphereGeometry(0.74, 28, 18), gold);
+  dome.position.y = 2.58;
+  const lantern = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.16, 0.28, 10), gold);
+  lantern.position.y = 3.18;
+  const spike = new THREE.Mesh(new THREE.ConeGeometry(0.07, 0.42, 8), gold);
+  spike.position.y = 3.48;
+  g.add(left, right, shaft, dome, lantern, spike);
   g.name = "Austin";
   return g;
 }
 
-function ridge() {
+function bend() {
   const g = new THREE.Group();
-  const mat = new THREE.MeshStandardMaterial({ color: 0x2c3a5a, roughness: 0.9 });
-  const peaks = [
-    [0, 1.8, 0, 2.4],
-    [-2.2, 1.1, 0.6, 1.8],
-    [2.4, 1.3, -0.4, 2.0],
-    [-1.1, 0.7, 1.8, 1.2],
-  ];
-  for (const [x, h, z, r] of peaks) {
-    const m = new THREE.Mesh(new THREE.ConeGeometry(r, h, 7), mat);
-    m.position.set(x, h / 2, z);
-    g.add(m);
+  const geo = new THREE.PlaneGeometry(16, 11, 52, 38);
+  geo.rotateX(-Math.PI / 2);
+  const pos = geo.attributes.position;
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i);
+    const z = pos.getZ(i);
+    let y = 0.08 * Math.sin(x * 1.1) * Math.cos(z * 0.8);
+    const peaks = [
+      [0.2, 0.1, 3.1, 4.4],
+      [-3.6, -0.4, 2.4, 3.2],
+      [3.2, 0.6, 2.1, 2.8],
+      [-1.2, 1.4, 1.6, 2.2],
+    ];
+    for (const [px, pz, h, r] of peaks) {
+      const d = Math.hypot(x - px, z - pz) / r;
+      y += h * Math.max(0, 1 - d) ** 2.4;
+    }
+    if (z > 2.15 && z < 4.4) y = Math.min(y, 0.16 + 0.04 * Math.sin(x * 1.4));
+    pos.setY(i, y);
   }
+  geo.computeVertexNormals();
+  g.add(new THREE.Mesh(geo, ridgeMat));
+  const curve = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(-7.2, 0.18, 3.5),
+    new THREE.Vector3(-2.4, 0.14, 4.1),
+    new THREE.Vector3(1.6, 0.12, 3.6),
+    new THREE.Vector3(6.8, 0.16, 3.0),
+  ]);
   const river = new THREE.Mesh(
-    new THREE.BoxGeometry(7.2, 0.08, 0.42),
-    new THREE.MeshStandardMaterial({ color: 0xe8a63f, metalness: 0.2, roughness: 0.4, emissive: 0x6a4a12, emissiveIntensity: 0.35 })
+    new THREE.TubeGeometry(curve, 56, 0.16, 8, false),
+    gold
   );
-  river.position.set(0.2, 0.06, 2.2);
-  river.rotation.y = 0.18;
   g.add(river);
+  const peakMat = ridgeMat;
+  [
+    [0.1, 3.2, -0.2, 1.35],
+    [-3.4, 2.4, 0.5, 1.15],
+    [3.0, 2.55, 0.2, 1.2],
+  ].forEach(([x, h, z, r]) => {
+    const peak = new THREE.Mesh(new THREE.ConeGeometry(r, h, 7), peakMat);
+    peak.position.set(x, h / 2, z);
+    g.add(peak);
+  });
   g.name = "Big Bend";
   return g;
 }
 
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x0a1626);
-scene.fog = new THREE.Fog(0x0a1626, 18, 48);
+function tree() {
+  const g = new THREE.Group();
+  const bole = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.12, 0.9, 6), trunk);
+  bole.position.y = 0.45;
+  const top = new THREE.Mesh(new THREE.IcosahedronGeometry(0.55, 0), canopy);
+  top.position.y = 1.05;
+  top.scale.set(1, 0.85, 1);
+  g.add(bole, top);
+  return g;
+}
 
-const camera = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, 0.1, 120);
+function skyDome() {
+  const geo = new THREE.SphereGeometry(80, 32, 24);
+  const col = new Float32Array(geo.attributes.position.count * 3);
+  const cZenith = new THREE.Color(0x0a1626);
+  const cHorizon = new THREE.Color(0xc46a28);
+  const tmp = new THREE.Color();
+  for (let i = 0; i < geo.attributes.position.count; i++) {
+    const y = geo.attributes.position.getY(i) / 80;
+    const t = THREE.MathUtils.clamp((y + 0.02) / 0.14, 0, 1);
+    tmp.copy(cHorizon).lerp(cZenith, t);
+    col[i * 3] = tmp.r;
+    col[i * 3 + 1] = tmp.g;
+    col[i * 3 + 2] = tmp.b;
+  }
+  geo.setAttribute("color", new THREE.BufferAttribute(col, 3));
+  const mesh = new THREE.Mesh(
+    geo,
+    new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.BackSide, fog: false, depthWrite: false })
+  );
+  return mesh;
+}
+
+const scene = new THREE.Scene();
+scene.fog = new THREE.Fog(0x1c140f, 18, 62);
+scene.add(skyDome());
+
+const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 140);
 const looks = {
-  wide: new THREE.Vector3(16, 11, 18),
-  alamo: new THREE.Vector3(7.5, 3.2, 9.5),
-  austin: new THREE.Vector3(2.2, 4.8, 9),
-  bend: new THREE.Vector3(-11, 6, 10),
+  wide: new THREE.Vector3(6.4, 3.35, 11.8),
+  alamo: new THREE.Vector3(8.2, 2.4, 7.4),
+  austin: new THREE.Vector3(0.4, 3.2, 8.6),
+  bend: new THREE.Vector3(-10.5, 4.2, 8.8),
 };
 camera.position.copy(looks.wide);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-renderer.setSize(innerWidth, innerHeight);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.12;
 renderer.shadowMap.enabled = true;
-document.body.prepend(renderer.domElement);
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+view.appendChild(renderer.domElement);
 
-const hemi = new THREE.HemisphereLight(0x4a6080, 0x6a3a18, 0.85);
+const hemi = new THREE.HemisphereLight(0x6a88aa, 0xc4783a, 1.05);
 scene.add(hemi);
-const sun = new THREE.DirectionalLight(0xffc070, 1.65);
-sun.position.set(-12, 8, 4);
+const sun = new THREE.DirectionalLight(0xffc070, 1.55);
+sun.position.set(-14, 9, 5);
 sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.camera.near = 1;
+sun.shadow.camera.far = 70;
+sun.shadow.camera.left = -22;
+sun.shadow.camera.right = 22;
+sun.shadow.camera.top = 18;
+sun.shadow.camera.bottom = -18;
+sun.shadow.bias = -0.00035;
 scene.add(sun);
+const rim = new THREE.DirectionalLight(0x4a6080, 0.35);
+rim.position.set(10, 4, -8);
+scene.add(rim);
 
-const ground = new THREE.Mesh(
-  new THREE.CircleGeometry(22, 48),
-  new THREE.MeshStandardMaterial({ color: 0x24160f, roughness: 0.95 })
-);
+const ground = new THREE.Mesh(new THREE.CircleGeometry(36, 64), earth);
 ground.rotation.x = -Math.PI / 2;
 ground.receiveShadow = true;
 scene.add(ground);
 
-const alamo = mission();
-alamo.position.set(5.2, 0, 3.4);
-scene.add(alamo);
-const austin = capitol();
-austin.position.set(1.4, 0, -1.2);
-scene.add(austin);
-const bend = ridge();
-bend.position.set(-7.4, 0, 1.6);
-scene.add(bend);
+const mission = alamo();
+mission.position.set(5.4, 0, 2.1);
+mission.rotation.y = 0.32;
+mission.scale.setScalar(1.22);
+scene.add(mission);
+const cap = capitol();
+cap.position.set(0.3, 0, -2.2);
+cap.scale.setScalar(1.12);
+scene.add(cap);
+const ridge = bend();
+ridge.position.set(-7.6, 0, 0.4);
+scene.add(ridge);
 
-const starMesh = new THREE.Mesh(
-  new THREE.ExtrudeGeometry(starShape(), { depth: 0.18, bevelEnabled: false }),
-  new THREE.MeshStandardMaterial({ color: 0xe8a63f, metalness: 0.55, roughness: 0.28, emissive: 0x5a3a08, emissiveIntensity: 0.25 })
-);
-starMesh.rotation.x = -Math.PI / 2;
-starMesh.position.set(0.2, 0.12, 6.8);
+const starGeo = new THREE.ExtrudeGeometry(starShape(), {
+  depth: 0.22, bevelEnabled: true, bevelThickness: 0.045, bevelSize: 0.04, bevelSegments: 1,
+});
+starGeo.center();
+const starMesh = new THREE.Mesh(starGeo, gold);
+starMesh.scale.setScalar(0.58);
+starMesh.position.set(-2.1, 0.68, 5.6);
 scene.add(starMesh);
 
-const starCount = 420;
+const plinth = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.52, 0.18, 12), stoneDeep);
+plinth.position.set(-2.1, 0.09, 5.6);
+scene.add(plinth);
+
+[3.2, 4.6, 6.8].forEach((x, i) => {
+  const t = tree();
+  t.position.set(x, 0, 3.4 + i * 0.4);
+  t.scale.setScalar(0.9 + i * 0.08);
+  scene.add(t);
+});
+
+const starCount = 900;
 const starPos = new Float32Array(starCount * 3);
 for (let i = 0; i < starCount; i++) {
-  starPos[i * 3] = (Math.random() - 0.5) * 40;
-  starPos[i * 3 + 1] = 6 + Math.random() * 16;
-  starPos[i * 3 + 2] = (Math.random() - 0.5) * 40;
+  starPos[i * 3] = (Math.random() - 0.5) * 70;
+  starPos[i * 3 + 1] = 8 + Math.random() * 28;
+  starPos[i * 3 + 2] = (Math.random() - 0.5) * 70;
 }
-const starGeo = new THREE.BufferGeometry();
-starGeo.setAttribute("position", new THREE.BufferAttribute(starPos, 3));
-scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xf4ecd8, size: 0.05 })));
+const starPts = new THREE.BufferGeometry();
+starPts.setAttribute("position", new THREE.BufferAttribute(starPos, 3));
+scene.add(new THREE.Points(starPts, new THREE.PointsMaterial({ color: 0xf4ecd8, size: 0.07, sizeAttenuation: true })));
 
-const target = new THREE.Vector3(0, 1.2, 1.4);
+shadowize(mission);
+shadowize(cap);
+shadowize(ridge);
+shadowize(starMesh);
+plinth.castShadow = true;
+
+const target = new THREE.Vector3(0.2, 1.15, 1.1);
 const spherical = new THREE.Spherical().setFromVector3(camera.position.clone().sub(target));
 spherical.makeSafe();
 let dest = looks.wide.clone();
@@ -214,6 +328,14 @@ let dragging = false;
 let lastX = 0;
 let lastY = 0;
 const canvas = renderer.domElement;
+
+function size() {
+  const w = view.clientWidth;
+  const h = view.clientHeight;
+  camera.aspect = w / Math.max(1, h);
+  camera.updateProjectionMatrix();
+  renderer.setSize(w, h, false);
+}
 
 canvas.addEventListener("pointerdown", (e) => {
   dragging = true;
@@ -232,14 +354,14 @@ canvas.addEventListener("pointermove", (e) => {
   lastX = e.clientX;
   lastY = e.clientY;
   spherical.theta -= dx * 0.005;
-  spherical.phi = THREE.MathUtils.clamp(spherical.phi + dy * 0.005, 0.12, Math.PI * 0.48);
+  spherical.phi = THREE.MathUtils.clamp(spherical.phi + dy * 0.005, 0.18, Math.PI * 0.46);
   spherical.makeSafe();
   dest.setFromSpherical(spherical).add(target);
   camera.position.copy(dest);
 });
 canvas.addEventListener("wheel", (e) => {
   e.preventDefault();
-  spherical.radius = THREE.MathUtils.clamp(spherical.radius + e.deltaY * 0.012, 6, 32);
+  spherical.radius = THREE.MathUtils.clamp(spherical.radius + e.deltaY * 0.012, 7, 28);
   dest.setFromSpherical(spherical).add(target);
 }, { passive: false });
 
@@ -256,8 +378,8 @@ document.querySelectorAll("[data-look]").forEach((btn) => {
 let framed = false;
 renderer.setAnimationLoop(() => {
   if (!reduce) {
-    if (!dragging) camera.position.lerp(dest, 0.045);
-    starMesh.rotation.z += 0.003;
+    if (!dragging) camera.position.lerp(dest, 0.05);
+    starMesh.rotation.y += 0.004;
   } else {
     camera.position.copy(dest);
   }
@@ -269,11 +391,8 @@ renderer.setAnimationLoop(() => {
   }
 });
 
-addEventListener("resize", () => {
-  camera.aspect = innerWidth / innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(innerWidth, innerHeight);
-});
+size();
+addEventListener("resize", size);
 </script>
 </body>
 </html>

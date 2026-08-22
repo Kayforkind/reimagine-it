@@ -180,6 +180,10 @@ Follow [references/forms.md](references/forms.md) unless a category forced the f
 
 **Webpage / HTML / infographic** → load [references/webpage-craft.md](references/webpage-craft.md) before writing the file. If the user added a **domain** (second word), also load the matching pack in [references/domains/](references/domains/). Token `infographic` — as a visual form *or* as a domain — always loads [references/domains/infographic.md](references/domains/infographic.md) and [references/research/infographic-craft.md](references/research/infographic-craft.md). If they added a **modifier** (third word or `--style`), also load the matching pack in [references/modifiers/](references/modifiers/). Leftover words are the brief (step 0) — follow them; do not require a pack file. If they passed `--ref <name>`, load [references/locks/<name>.md](references/locks/) instead of (or in addition to) a domain — treat locks as domain packs.
 
+**SVG** → load [references/forms/svg.md](references/forms/svg.md). Marks in the field, type in the gutter. No label on a path.
+
+**3js** → load [references/forms/3js.md](references/forms/3js.md). Reserved HUD strip. Silhouettes from the source. Not a primitive demo.
+
 **PDF / document / slides / universal** → load the matching form pack in [references/forms/](references/forms/). These packs specify the regeneration tool (ReportLab, Weasyprint, python-docx, python-pptx, LaTeX) and the "reimagine" bar for that medium.
 
 **Any webpage output** — with or without a domain / modifier / lock — must land **hero-scale inline SVG doing real work, three moving elements at any moment, and 3D that reads in a still** (rotation ≥ 12° + shadow blur ≥ 24px, or `translateZ` ≥ 30px + real shadow, or inline WebGL2). If a screenshot cannot prove all three, the redesign did not earn the form. **Exception — `infographic`:** the poster stays orthographic (paper drop-shadow only; no `rotateX` on the board).
@@ -284,7 +288,7 @@ Render the hero into an image (headless Chrome for HTML → PNG at ≥ 1400 px w
 
 - **Blank plates / placeholder labels.** No visible element may literally read `blank`, `placeholder`, `TBD`, `TODO`, `lorem`, `…`, `[…]`, `xxx`, `sample text`, `Title goes here`, `caption`, or an alt-text stand-in. If a slot has no real content from the source, **delete the slot** — do not paint a card with the word "blank" on it.
 - **Every plate maps to an anchor.** Cross-check every visible unit against the anchor list from step 0.85. Unmapped tiles are drift — delete them.
-- **Clipped / overlapping text.** No label is cut off by another element (e.g. `POST OFFICE` rendered as `POST O CE` because a foreground shape overlaps the text). Fix z-index / padding / `overflow` or move the overlapping element.
+- **Clipped / overlapping text.** No label is cut off by another element (e.g. `POST OFFICE` rendered as `POST O CE` because a foreground shape overlaps the text). Fix z-index / padding / `overflow` or move the overlapping element. **SVG / 3js:** no label sits on a mark, mesh, or path; 3js HUD is a reserved strip, never a stack on the canvas.
 - **Broken image / broken svg.** No `alt` text is showing where a picture should be. No `<svg>` renders empty.
 - **Runaway columns / squashed hero.** Nothing extends past the viewport. Hero is not vertically flattened.
 - **Off-palette accent.** Every colored element is on the content-derived palette. No stray CSS-default blue link, no browser-default `<button>` chrome.

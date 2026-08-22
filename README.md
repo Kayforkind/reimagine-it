@@ -26,7 +26,7 @@ Same naive HTML, nine webpage tokens, then three other forms:
 /reimagine-it svg | 3js | simulation
 ```
 
-![same Texas notebook looping: before, infographic, SVG, Three.js, simulation](gold/forms/examples.gif?v=forms-gif-1)
+![same Texas notebook looping: before, infographic, SVG, Three.js, simulation](gold/forms/examples.gif?v=forms-gif-2)
 
 ![same Texas notebook as SVG, Three.js, and a playable year-clock simulation](gold/forms/strip.png?v=forms-1)
 
@@ -465,11 +465,11 @@ The webpage gallery is one family. The same `gold/webpage/before.html` also ship
 *The notebook as one mark you can drop in a README.*
 
 - **Palette** &mdash; parchment, navy, star-red, sun gold (from the flag and the land in the source).
-- **Motif** &mdash; Lone Star weenie, schematic Texas with three pins (Alamo 1836, Austin 1839, Big Bend 1944), Priestley timeline 1836&ndash;1995, eight equal acre units, bluebonnet glyph.
-- **Motion** &mdash; star pulse, bloom sway, Rio Grande dash flow. `prefers-reduced-motion` kills them.
-- **Not** &mdash; Mermaid. Not a PNG renamed `.svg`.
+- **Motif** &mdash; Lone Star **flag** (canton + bars + star), schematic Texas with unlabeled pins, legend gutter, Priestley 1836&ndash;1995 (1839 is a gold tick), eight equal acre units.
+- **Motion** &mdash; star pulse, Rio Grande dash flow. `prefers-reduced-motion` kills them.
+- **Not** &mdash; Mermaid. Not labels sitting on the map. Not a PNG renamed `.svg`.
 
-![After: SVG weenie of the Texas notebook -- Lone Star, schematic Texas pins, common-scale timeline, eight equal acre units](gold/forms/svg/after.png)
+![After: SVG weenie of the Texas notebook -- Lone Star flag, schematic Texas pins, legend gutter, common-scale timeline](gold/forms/svg/after.png?v=craft-1)
 
 Open the live file &rarr; [`gold/forms/svg/after.svg`](gold/forms/svg/after.svg)
 
@@ -480,11 +480,11 @@ Open the live file &rarr; [`gold/forms/svg/after.svg`](gold/forms/svg/after.svg)
 *The three places as meshes under a west-Texas sunset. Offline Three.js r185, vendored, no CDN.*
 
 - **Palette** &mdash; dusk navy sky, earth ground, cream mission, gold star and river.
-- **Motif** &mdash; Alamo as a small stone mission, Austin as a shaft-and-dome capitol, Big Bend as a ridge with a gold Rio Grande, one five-point star on the field, night-sky points.
-- **Motion** &mdash; orbit drag, HUD jumps to each place, slow star spin. Reduced motion pins the camera.
-- **Not** &mdash; a default cube. Not a CDN import.
+- **Motif** &mdash; Alamo chapel facade, capitol wings + dome, Big Bend ridge with a gold Rio Grande tube, upright star monument.
+- **Motion** &mdash; orbit drag, HUD look-ats in the **footer strip** (not over the 3D), slow star spin. Reduced motion pins the camera.
+- **Not** &mdash; a default cube. Not four cones. Not type stacked on the canvas.
 
-![After: Three.js field of the Texas notebook -- dusk ground, mission, capitol, ridge, gold star](gold/forms/3js/after.png)
+![After: Three.js field of the Texas notebook -- dusk ground, mission, capitol, ridge, gold star](gold/forms/3js/after.png?v=craft-1)
 
 Open the live file &rarr; [`gold/forms/3js/after.html`](gold/forms/3js/after.html)
 

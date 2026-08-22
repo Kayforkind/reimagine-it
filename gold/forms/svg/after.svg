@@ -1,121 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" role="img"
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img"
      aria-labelledby="title desc">
   <title id="title">A Texas notebook, as one SVG</title>
-  <desc id="desc">The same plain HTML notebook redrawn as a vector weenie: schematic Texas with three place pins, a common-scale timeline 1836 to 1995, eight equal acre units for Big Bend, and one Lone Star. No invented numbers.</desc>
+  <desc id="desc">Lone Star flag as the weenie, schematic Texas with three unlabeled pins, eight equal acre units, and a common-scale timeline 1836 to 1995. Labels live in the legend gutter. No invented numbers.</desc>
   <style>
-    :root { color-scheme: light; }
-    .pulse { transform-origin: 180px 210px; animation: pulse 2.8s ease-in-out infinite; }
-    .bloom { transform-origin: 1188px 248px; animation: sway 3.2s ease-in-out infinite; }
-    .river { stroke-dasharray: 8 10; animation: flow 6s linear infinite; }
-    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
-    @keyframes sway { 0%,100% { transform: rotate(-4deg); } 50% { transform: rotate(5deg); } }
-    @keyframes flow { to { stroke-dashoffset: -72; } }
+    .river { stroke-dasharray: 10 12; animation: flow 7s linear infinite; }
+    .star { transform-origin: 80px 168px; animation: pulse 2.8s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+    @keyframes flow { to { stroke-dashoffset: -88; } }
     @media (prefers-reduced-motion: reduce) {
-      .pulse, .bloom, .river { animation: none; }
+      .river, .star { animation: none; }
     }
   </style>
 
-  <rect width="1400" height="900" fill="#f4ecd8"/>
-  <rect x="36" y="36" width="1328" height="828" fill="none" stroke="#1a2138" stroke-width="1.25"/>
+  <rect width="1600" height="900" fill="#f4ecd8"/>
+  <rect x="40" y="40" width="1520" height="820" fill="none" stroke="#1a2138" stroke-width="1.5"/>
 
-  <text x="64" y="78" fill="#b22234" font-family="ui-monospace, Consolas, monospace" font-size="12" letter-spacing="3.2">/REIMAGINE-IT SVG &#183; FROM gold/webpage/before.html</text>
-  <text x="64" y="128" fill="#1a2138" font-family="Iowan Old Style, Palatino, Georgia, serif" font-size="42">A Texas notebook</text>
-  <text x="64" y="158" fill="#6a624e" font-family="Georgia, serif" font-size="18" font-style="italic">the state, the flag, and the people &#8212; kept as marks, not a mood board</text>
+  <!-- Title band &#183; type only, empty of marks -->
+  <text x="64" y="88" fill="#1a2138" font-family="Iowan Old Style, Palatino, Georgia, serif" font-size="36">A Texas notebook</text>
+  <text x="1188" y="82" fill="#6a624e" font-family="Georgia, serif" font-size="15" font-style="italic">the state, the flag, and the people</text>
 
-  <!-- Weenie: Lone Star -->
-  <g class="pulse" aria-hidden="true">
-    <circle cx="180" cy="210" r="86" fill="#1a2138"/>
-    <path d="M180 138 L198 192 L256 192 L210 226 L228 280 L180 248 L132 280 L150 226 L104 192 L162 192 Z" fill="#e8a63f"/>
-    <text x="180" y="318" text-anchor="middle" fill="#1a2138" font-family="Georgia, serif" font-size="13">Lone Star flag &#183; 1839</text>
-    <text x="180" y="336" text-anchor="middle" fill="#6a624e" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="11">blue loyalty &#183; white purity &#183; red bravery</text>
-  </g>
-
-  <!-- Schematic Texas + pins -->
-  <g transform="translate(430,168)" aria-hidden="true">
-    <text x="0" y="0" fill="#6a624e" font-family="ui-monospace, Consolas, monospace" font-size="11" letter-spacing="2.4">PLACES</text>
-    <path d="M70 28 H148 V78 H318 L338 118 L312 198 L268 248 L198 268 L128 252 L78 210 L52 168 L48 118 L70 92 Z"
-          fill="#efe4c8" stroke="#1a2138" stroke-width="2"/>
-    <!-- Rio Grande as gold line along the south-west -->
-    <path class="river" d="M78 210 C 108 232, 168 248, 228 258" fill="none" stroke="#e8a63f" stroke-width="3"/>
-    <!-- Big Bend west -->
-    <g transform="translate(92,198)">
-      <circle r="9" fill="#b22234"/>
-      <text x="14" y="-8" fill="#1a2138" font-family="Georgia, serif" font-size="13">Big Bend</text>
-      <text x="14" y="8" fill="#6a624e" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="11">1944 &#183; 800,000 acres</text>
-    </g>
-    <!-- Alamo -->
-    <g transform="translate(188,168)">
-      <circle r="9" fill="#e8a63f"/>
-      <text x="14" y="-8" fill="#1a2138" font-family="Georgia, serif" font-size="13">Alamo</text>
-      <text x="14" y="8" fill="#6a624e" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="11">1836 &#183; 19-day siege</text>
-    </g>
-    <!-- Austin -->
-    <g transform="translate(228,128)">
-      <circle r="9" fill="#1a2138"/>
-      <text x="14" y="-8" fill="#1a2138" font-family="Georgia, serif" font-size="13">Austin</text>
-      <text x="14" y="8" fill="#6a624e" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="11">1839 &#183; on the Colorado</text>
+  <!-- Weenie: real Lone Star flag geometry, no type on the cloth -->
+  <g transform="translate(64,118)" aria-hidden="true">
+    <rect width="160" height="320" fill="#1a2138"/>
+    <rect x="160" width="320" height="160" fill="#f4ecd8"/>
+    <rect x="160" y="160" width="320" height="160" fill="#b22234"/>
+    <g class="star">
+      <path fill="#e8a63f" d="M80,118 L92,156 L132,156 L100,180 L112,218 L80,194 L48,218 L60,180 L28,156 L68,156 Z"/>
     </g>
   </g>
 
-  <!-- Bluebonnet glyph -->
-  <g class="bloom" aria-hidden="true">
-    <text x="1120" y="188" fill="#6a624e" font-family="ui-monospace, Consolas, monospace" font-size="11" letter-spacing="2.4">SIGNAL &#183; 1901</text>
-    <path d="M1188 268 C1176 238, 1162 228, 1188 208 C1214 228, 1200 238, 1188 268 Z" fill="#2c3a5a"/>
-    <circle cx="1188" cy="204" r="8" fill="#e8a63f"/>
-    <text x="1188" y="292" text-anchor="middle" fill="#1a2138" font-family="Georgia, serif" font-size="13">Bluebonnet</text>
-    <text x="1188" y="310" text-anchor="middle" fill="#6a624e" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="11">blooms in spring</text>
+  <!-- ISOTYPE: eight equal units, no caption on the row -->
+  <g transform="translate(64,468)" aria-hidden="true">
+    <g fill="#2c3a5a" stroke="none">
+      <g transform="translate(0,0)"><path d="M6 52 L16 28 L26 38 L34 18 L46 34 L58 14 L64 52 Z"/><path d="M6 54 Q35 46 64 54" fill="none" stroke="#e8a63f" stroke-width="2.2"/></g>
+      <g transform="translate(72,0)"><path d="M6 52 L16 28 L26 38 L34 18 L46 34 L58 14 L64 52 Z"/><path d="M6 54 Q35 46 64 54" fill="none" stroke="#e8a63f" stroke-width="2.2"/></g>
+      <g transform="translate(144,0)"><path d="M6 52 L16 28 L26 38 L34 18 L46 34 L58 14 L64 52 Z"/><path d="M6 54 Q35 46 64 54" fill="none" stroke="#e8a63f" stroke-width="2.2"/></g>
+      <g transform="translate(216,0)"><path d="M6 52 L16 28 L26 38 L34 18 L46 34 L58 14 L64 52 Z"/><path d="M6 54 Q35 46 64 54" fill="none" stroke="#e8a63f" stroke-width="2.2"/></g>
+      <g transform="translate(288,0)"><path d="M6 52 L16 28 L26 38 L34 18 L46 34 L58 14 L64 52 Z"/><path d="M6 54 Q35 46 64 54" fill="none" stroke="#e8a63f" stroke-width="2.2"/></g>
+      <g transform="translate(360,0)"><path d="M6 52 L16 28 L26 38 L34 18 L46 34 L58 14 L64 52 Z"/><path d="M6 54 Q35 46 64 54" fill="none" stroke="#e8a63f" stroke-width="2.2"/></g>
+      <g transform="translate(432,0)"><path d="M6 52 L16 28 L26 38 L34 18 L46 34 L58 14 L64 52 Z"/><path d="M6 54 Q35 46 64 54" fill="none" stroke="#e8a63f" stroke-width="2.2"/></g>
+      <g transform="translate(504,0)"><path d="M6 52 L16 28 L26 38 L34 18 L46 34 L58 14 L64 52 Z"/><path d="M6 54 Q35 46 64 54" fill="none" stroke="#e8a63f" stroke-width="2.2"/></g>
+    </g>
   </g>
 
-  <!-- Priestley timeline -->
-  <g transform="translate(64,430)" aria-hidden="true">
-    <text x="0" y="0" fill="#6a624e" font-family="ui-monospace, Consolas, monospace" font-size="11" letter-spacing="2.4">COMMON SCALE &#183; 1836&#8211;1995</text>
-    <line x1="0" y1="48" x2="1272" y2="48" stroke="#1a2138" stroke-width="2"/>
-    <!-- years: 1836, 1839, 1901, 1944, 1995 on 159-year axis -->
-    <g font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="12" fill="#1a2138">
-      <g transform="translate(0,48)">
-        <line y1="-8" y2="8" stroke="#1a2138" stroke-width="2"/>
-        <text y="-16">1836</text>
-        <text y="28" font-family="Georgia, serif">Alamo</text>
+  <!-- Schematic Texas: pins only. Labels are in the gutter. -->
+  <g transform="translate(580,130)" aria-hidden="true">
+    <path d="M78 40 H 198 V 124 H 438 L 486 196 L 474 258 L 428 304 L 368 352 L 286 408 L 210 428 L 142 408 L 96 368 L 70 312 L 58 248 L 66 176 L 78 124 Z"
+          fill="#efe4c8" stroke="#1a2138" stroke-width="2.5"/>
+    <path class="river" d="M96 368 C 150 396, 220 420, 286 408" fill="none" stroke="#e8a63f" stroke-width="4"/>
+    <circle cx="118" cy="352" r="11" fill="#b22234" stroke="#f4ecd8" stroke-width="2"/>
+    <circle cx="252" cy="328" r="11" fill="#e8a63f" stroke="#1a2138" stroke-width="2"/>
+    <circle cx="292" cy="268" r="11" fill="#1a2138" stroke="#f4ecd8" stroke-width="2"/>
+  </g>
+
+  <!-- Gutter legend: every name lives here -->
+  <g transform="translate(1188,130)" font-family="Georgia, serif">
+    <text y="0" fill="#6a624e" font-family="ui-monospace, Consolas, monospace" font-size="11" letter-spacing="2.6">PLACES</text>
+    <g transform="translate(0,28)">
+      <circle cx="8" cy="10" r="8" fill="#e8a63f"/>
+      <text x="28" y="14" fill="#1a2138" font-size="18">Alamo</text>
+      <text x="28" y="36" fill="#6a624e" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="13">1836 &#183; San Antonio &#183; 19-day siege</text>
+    </g>
+    <g transform="translate(0,78)">
+      <circle cx="8" cy="10" r="8" fill="#1a2138"/>
+      <text x="28" y="14" fill="#1a2138" font-size="18">Austin</text>
+      <text x="28" y="36" fill="#6a624e" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="13">1839 &#183; on the Colorado</text>
+    </g>
+    <g transform="translate(0,128)">
+      <circle cx="8" cy="10" r="8" fill="#b22234"/>
+      <text x="28" y="14" fill="#1a2138" font-size="18">Big Bend</text>
+      <text x="28" y="36" fill="#6a624e" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="13">1944 &#183; 800,000 acres &#183; eight units</text>
+    </g>
+
+    <text y="210" fill="#6a624e" font-family="ui-monospace, Consolas, monospace" font-size="11" letter-spacing="2.6">SIGNALS</text>
+    <g transform="translate(0,238)">
+      <path fill="#e8a63f" d="M8 2 L9.6 6.6 L14.4 6.6 L10.6 9.4 L12 14 L8 11.2 L4 14 L5.4 9.4 L1.6 6.6 L6.4 6.6 Z"/>
+      <text x="28" y="14" fill="#1a2138" font-size="18">Lone Star flag</text>
+      <text x="28" y="36" fill="#6a624e" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="13">1839 &#183; loyalty &#183; purity &#183; bravery</text>
+    </g>
+    <g transform="translate(0,288)">
+      <path d="M8 28 C2 16, 4 8, 8 4 C12 8, 14 16, 8 28 Z" fill="#2c3a5a"/>
+      <circle cx="8" cy="6" r="3.5" fill="#e8a63f"/>
+      <text x="28" y="14" fill="#1a2138" font-size="18">Bluebonnet</text>
+      <text x="28" y="36" fill="#6a624e" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="13">1901 &#183; blooms in spring</text>
+    </g>
+    <g transform="translate(0,338)">
+      <path d="M0 12 Q8 0 16 12 Q8 6 0 12" fill="none" stroke="#1a2138" stroke-width="2"/>
+      <text x="28" y="14" fill="#1a2138" font-size="18">Longhorn</text>
+      <text x="28" y="36" fill="#6a624e" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="13">1995 &#183; 7 ft tip to tip</text>
+    </g>
+  </g>
+
+  <!-- Timeline: four labeled years. 1839 is the small gold tick &#183; named in the gutter. -->
+  <g transform="translate(64,700)" aria-hidden="true">
+    <line x1="0" y1="36" x2="1472" y2="36" stroke="#1a2138" stroke-width="2"/>
+    <g font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="13" fill="#1a2138">
+      <g transform="translate(0,36)">
+        <line y1="-10" y2="10" stroke="#1a2138" stroke-width="2"/>
+        <text y="-18">1836</text>
+        <text y="32" font-family="Georgia, serif" font-size="16">Alamo</text>
       </g>
-      <g transform="translate(24,48)">
-        <line y1="-8" y2="8" stroke="#e8a63f" stroke-width="2"/>
-        <text y="44" fill="#6a624e">1839 Austin + flag</text>
+      <g transform="translate(28,36)">
+        <line y1="-6" y2="6" stroke="#e8a63f" stroke-width="2"/>
       </g>
-      <g transform="translate(520,48)">
-        <line y1="-8" y2="8" stroke="#1a2138" stroke-width="2"/>
-        <text y="-16">1901</text>
-        <text y="28" font-family="Georgia, serif">Bluebonnet</text>
+      <g transform="translate(602,36)">
+        <line y1="-10" y2="10" stroke="#1a2138" stroke-width="2"/>
+        <text y="-18">1901</text>
+        <text y="32" font-family="Georgia, serif" font-size="16">Bluebonnet</text>
       </g>
-      <g transform="translate(864,48)">
-        <line y1="-8" y2="8" stroke="#b22234" stroke-width="2"/>
-        <text y="-16">1944</text>
-        <text y="28" font-family="Georgia, serif">Big Bend</text>
+      <g transform="translate(1000,36)">
+        <line y1="-10" y2="10" stroke="#b22234" stroke-width="2"/>
+        <text y="-18">1944</text>
+        <text y="32" font-family="Georgia, serif" font-size="16">Big Bend</text>
       </g>
-      <g transform="translate(1272,48)">
-        <line y1="-8" y2="8" stroke="#1a2138" stroke-width="2"/>
-        <text y="-16" text-anchor="end">1995</text>
-        <text y="28" text-anchor="end" font-family="Georgia, serif">Longhorn &#183; 7 ft tip to tip</text>
+      <g transform="translate(1472,36)">
+        <line y1="-10" y2="10" stroke="#1a2138" stroke-width="2"/>
+        <text y="-18" text-anchor="end">1995</text>
+        <text y="32" text-anchor="end" font-family="Georgia, serif" font-size="16">Longhorn</text>
       </g>
     </g>
   </g>
 
-  <!-- ISOTYPE acres: 8 equal units -->
-  <g transform="translate(64,620)" aria-hidden="true">
-    <text x="0" y="0" fill="#6a624e" font-family="ui-monospace, Consolas, monospace" font-size="11" letter-spacing="2.4">ISOTYPE &#183; 8 &#215; 100,000 ACRES &#183; SAME SIZE</text>
-    <g fill="#2c3a5a" transform="translate(0,24)">
-      <g transform="translate(0,0)"><path d="M4 48 L12 28 L22 36 L28 20 L36 32 L48 18 L52 48 Z"/><path d="M4 50 Q28 44 52 50" fill="none" stroke="#e8a63f" stroke-width="2"/></g>
-      <g transform="translate(72,0)"><path d="M4 48 L12 28 L22 36 L28 20 L36 32 L48 18 L52 48 Z"/><path d="M4 50 Q28 44 52 50" fill="none" stroke="#e8a63f" stroke-width="2"/></g>
-      <g transform="translate(144,0)"><path d="M4 48 L12 28 L22 36 L28 20 L36 32 L48 18 L52 48 Z"/><path d="M4 50 Q28 44 52 50" fill="none" stroke="#e8a63f" stroke-width="2"/></g>
-      <g transform="translate(216,0)"><path d="M4 48 L12 28 L22 36 L28 20 L36 32 L48 18 L52 48 Z"/><path d="M4 50 Q28 44 52 50" fill="none" stroke="#e8a63f" stroke-width="2"/></g>
-      <g transform="translate(288,0)"><path d="M4 48 L12 28 L22 36 L28 20 L36 32 L48 18 L52 48 Z"/><path d="M4 50 Q28 44 52 50" fill="none" stroke="#e8a63f" stroke-width="2"/></g>
-      <g transform="translate(360,0)"><path d="M4 48 L12 28 L22 36 L28 20 L36 32 L48 18 L52 48 Z"/><path d="M4 50 Q28 44 52 50" fill="none" stroke="#e8a63f" stroke-width="2"/></g>
-      <g transform="translate(432,0)"><path d="M4 48 L12 28 L22 36 L28 20 L36 32 L48 18 L52 48 Z"/><path d="M4 50 Q28 44 52 50" fill="none" stroke="#e8a63f" stroke-width="2"/></g>
-      <g transform="translate(504,0)"><path d="M4 48 L12 28 L22 36 L28 20 L36 32 L48 18 L52 48 Z"/><path d="M4 50 Q28 44 52 50" fill="none" stroke="#e8a63f" stroke-width="2"/></g>
-    </g>
-    <text x="0" y="108" fill="#1a2138" font-family="Georgia, serif" font-size="16">Big Bend&#8217;s acreage is counted, not enlarged. Neurath: more copies, never a bigger icon.</text>
-  </g>
-
-  <text x="64" y="834" fill="#6a624e" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="13">Now: rereading J. Frank Dobie. Watching the mockingbird nest under the eave.</text>
-  <text x="1336" y="834" text-anchor="end" fill="#1a2138" font-family="ui-monospace, Consolas, monospace" font-size="11">notes@texasnote.example</text>
+  <text x="64" y="838" fill="#6a624e" font-family="ui-sans-serif, Segoe UI, sans-serif" font-size="13">Now: rereading J. Frank Dobie. Watching the mockingbird nest under the eave.</text>
+  <text x="1536" y="838" text-anchor="end" fill="#1a2138" font-family="ui-monospace, Consolas, monospace" font-size="12">notes@texasnote.example</text>
 </svg>

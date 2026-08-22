@@ -13,7 +13,7 @@ from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parent
 BEFORE = ROOT.parent / "webpage" / "before.png"
 JOBS = [
-    ("/svg/after.svg", ROOT / "svg" / "after.png", 1400, 900, False, None),
+    ("/svg/after.html", ROOT / "svg" / "after.png", 1400, 900, False, None),
     ("/3js/after.html", ROOT / "3js" / "after.png", 1400, 900, True, None),
     ("/simulation/after.html", ROOT / "simulation" / "after.png", 1400, 900, True, 1944.3),
 ]
@@ -49,7 +49,7 @@ def shoot(page, url: str, out: Path, w: int, h: int, wait_ready: bool, year: flo
                 }""",
                 year,
             )
-        page.wait_for_timeout(1800)
+        page.wait_for_timeout(2200)
     else:
         page.wait_for_timeout(500)
     page.screenshot(path=str(out), type="png")

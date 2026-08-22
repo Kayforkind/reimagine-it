@@ -59,4 +59,4 @@ These are optional host skills. Skip if not installed. Do not fail the chair bec
 | product | One empty-state or dead-end that now has a door | Screenshot or scripted path if UI |
 | architecture | One law they can violate on purpose | A slice that obeys it |
 | experiment | One falsifiable claim | Command + output |
-| svg/html/3js/canvas | Weenie in the first viewport | File opens; first frame not blank |
+| svg/html/3js/canvas | Weenie in the first viewport; type not on the mark | File opens; first frame not blank; SVG/3js packs in [forms/](forms/) |
