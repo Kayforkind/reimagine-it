@@ -12,7 +12,7 @@ Public **tested results** (live exits, not stories): repo-root [README.md](../..
 
 **Context:** Users paste a workaround into every PR because the CLI cannot read stdin.
 
-**Lock:** A stranger pipes a diff in and gets a structured verdict without flags.
+**Lock:** A client pipes a diff in and gets a structured verdict without flags.
 
 **Adjacent possible:** Combine existing file parser + unused stdin branch. SCAMPER: **Put to another use**.
 
@@ -46,7 +46,7 @@ Public **tested results** (live exits, not stories): repo-root [README.md](../..
 
 **Context:** `ledger/CONTRIBUTIONS.jsonl` **or** any source that names dates, counts, and magnitudes (gold uses `gold/webpage/before.html`).
 
-**Lock:** A stranger can state the question and the finding from one still. Encodings are position/length or ISOTYPE *counts* — never area pies.
+**Lock:** A client can state the question and the finding from one still. Encodings are position/length or ISOTYPE *counts* — never area pies.
 
 **Notes:** riddle the object · microscopic vastness · weenie · title last.
 
@@ -99,7 +99,7 @@ Public **tested results** (live exits, not stories): repo-root [README.md](../..
 
 **You choose:** talk. **Agent decides:** the questions.
 
-**Q1 (agent):** What should the stranger experience in one sentence? Recommended: they pipe a diff and get a verdict, not a log.
+**Q1 (agent):** What should the client experience in one sentence? Recommended: they pipe a diff and get a verdict, not a log.
 
 User takes it or replaces it. Next question only after the reply. Cap 4. Then build as in example A.
 

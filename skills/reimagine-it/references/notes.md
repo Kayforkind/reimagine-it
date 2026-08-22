@@ -11,7 +11,7 @@ Use **one** of these as the mutation engine. The four notes still get filled.
 | Make-strange | Shklovsky, *Art as Device* (1917): ostranenie | Recover sensation. Make the stone stony. They have been *recognizing* this codebase; make them *see* it. |
 | Adjacent possible | Kauffman; Johnson, *Where Good Ideas Come From* | The leap is a combination of spare parts already in the room — not a teleport from another product. |
 | One SCAMPER letter | Eberle after Osborn | Substitute / Combine / Adapt / Modify / Put to another use / Eliminate / Reverse. **One letter.** Do not print all seven. |
-| Effect before method | Stage magic (Fitzkee / Ortiz as craft, not a brand) | Write the stranger’s experience in one sentence before choosing technique. |
+| Effect before method | Stage magic (Fitzkee / Ortiz as craft, not a brand) | Write the client’s experience in one sentence before choosing technique. |
 | Plus | Disney plussing | A criticism that does not contain a new move is not a plus. |
 | Notes | Pixar Braintrust shape (Catmull): wrong / missing / unclear / nonsense; no mandate | Private notes, then you still decide. |
 
@@ -27,7 +27,7 @@ If stuck after sniff: draw **one** Device row as a constraint card. Do not paste
 | Change the narrator | Whose eyes make it unfamiliar? | Protocol watches the user; test watches the API. |
 | Honour the error | Which glitch woke perception? | Keep it. Kill the polish that re-automatized it. |
 | Discard an axiom | Which rule is panic? | Ban the default library, shot, or folder layout. |
-| Effect before method | What does the stranger experience, in one sentence? | Write that sentence first. |
+| Effect before method | What does the client experience, in one sentence? | Write that sentence first. |
 | Syuzhet not fabula | Can the telling scramble the tale? | Ending first; cause after effect. |
 | Plus the trajectory | Serving the idea, or the ego? | Criticism must contain a new move. |
 | Riddle the object | Describe it with words never used for it? | Two rings, two stings, a nail in the middle. |

@@ -2,7 +2,7 @@
 
 For each domain gold + the default webpage gold, shoot a frame at t=0, t=500ms,
 and t=1000ms of virtual time. Composite into a single per-variant strip AND a
-combined all-variants motion strip so a stranger can see the animation is real.
+combined all-variants motion strip so a client can see the animation is real.
 
 Usage:
     python gold/domains/motion-run.py

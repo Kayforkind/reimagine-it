@@ -8,7 +8,7 @@ Load from SKILL.md. Default: **you** pick the form from context. The user may fo
 |----------------|-----------|---------|
 | Missing capability, workaround in issues/docs, “we always have to…” | **code** — the feature/API they did not know to ask for | CLI wrapper, property test, or a reverse-demo |
 | Commands, flags, agent-unfriendly CLI | **cli** — one proving command with examples in `--help` | Same command as a tiny MCP tool or stdin pipeline |
-| Handshake, layers, state machine, “the protocol is the product” | **protocol** — runnable spike *or* a spec a stranger can implement | The handshake as SVG/3js space, or the inverse |
+| Handshake, layers, state machine, “the protocol is the product” | **protocol** — runnable spike *or* a spec a client can implement | The handshake as SVG/3js space, or the inverse |
 | Empty product, README-only, first-run pain | **demo** — gold fail-demo then the same path green | Door weenie / first-run copy in the real README |
 | Architecture, monorepo, “inside the machine” | **architecture** — a new grammar *and* a slice that uses it | 3js room, or delete a layer (Eliminate) |
 | Numbers, ledger, scorecard, comparison, research | **infographic** (HTML) or a **working model** | Same data as SVG skyline or a query they can rerun |
@@ -50,7 +50,7 @@ These are optional host skills. Skip if not installed. Do not fail the chair bec
 
 | Family | Magnet | Proof |
 |--------|--------|-------|
-| code | One API or function a stranger can call | Test or REPL snippet that ran |
+| code | One API or function a client can call | Test or REPL snippet that ran |
 | cli | One command in `--help` with an example | Non-interactive run, exit 0 on the happy path |
 | protocol | One handshake they can replay | Spike or fixture, not only a diagram |
 | demo | Fail then the same steps green | You actually ran both |

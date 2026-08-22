@@ -8,7 +8,7 @@ This is **not** a dashboard. A dashboard is an ops screen you monitor. An infogr
 
 The gold file (`gold/domains/infographic/after.html`) is **one draw of one Texas notebook**. It is not a skin to restyle. Live runs start from **this** source's nouns, dates, magnitudes, and atmosphere.
 
-Fail the run if a stranger could mistake the poster for that gold when the source is not that notebook.
+Fail the run if a client could mistake the poster for that gold when the source is not that notebook.
 
 Extract DNA before drawing:
 
@@ -125,7 +125,7 @@ Gold (Texas notebook example only): `gold/domains/infographic/after.html`
 
 ## Verify
 
-- A stranger can state the question and the finding from one screenshot.
+- A client can state the question and the finding from one screenshot.
 - Timeline/bars share a common scale (inspect SVG coordinates).
 - ISOTYPE units are equal size; count matches the caption.
 - Data table numbers equal the visual.

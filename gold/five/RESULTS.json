@@ -1,5 +1,5 @@
 {
-  "started": "2026-08-20T03:45:15Z",
+  "started": "2026-08-22T12:25:39Z",
   "python": "3.13.3",
   "failed": 0,
   "runs": [
@@ -126,7 +126,7 @@
       "cmd": "reimagine.py --ship",
       "cwd": "gold",
       "exit": 0,
-      "stdout": "{\n  \"reimagined\": \"shipped\",\n  \"mode\": \"reimagine-it\",\n  \"about\": \"A stranger sees a vibe list die, then the same context as one proving command.\",\n  \"hero\": \"gold/reimagine.py --ship\",\n  \"stretch\": \"npx skills add kazimrmerchant/skill-slice --skill reimagine-it\",\n  \"verified\": \"this command exits 0; gold/reimagine.py --fail exits 1\"\n}\n",
+      "stdout": "{\n  \"reimagined\": \"shipped\",\n  \"mode\": \"reimagine-it\",\n  \"about\": \"A client sees a vibe list die, then the same context as one proving command.\",\n  \"hero\": \"gold/reimagine.py --ship\",\n  \"stretch\": \"npx skills add Kayforkind/skill-slice --skill reimagine-it\",\n  \"verified\": \"this command exits 0; gold/reimagine.py --fail exits 1\"\n}\n",
       "stderr": "",
       "stdin": false,
       "expect": 0,

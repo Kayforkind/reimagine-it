@@ -97,7 +97,7 @@ SWAPS: list[tuple[str, str]] = [
     # CINEMATIC — terminal SVG in Q2 (Lantern -> Big Bend field notes)
     ("<text x=\"18\" y=\"30\">$ node lantern.js</text>",
      "<text x=\"18\" y=\"30\">$ read bigbend.md</text>"),
-    ("<text x=\"18\" y=\"52\" fill=\"#f4ecd8\">hello, stranger.</text>",
+    ("<text x=\"18\" y=\"52\" fill=\"#f4ecd8\">hello, client.</text>",
      "<text x=\"18\" y=\"52\" fill=\"#f4ecd8\">cottonwood.</text>"),
     ("<text x=\"18\" y=\"70\" fill=\"#f4ecd8\">hello, machine.</text>",
      "<text x=\"18\" y=\"70\" fill=\"#f4ecd8\">prickly pear.</text>"),

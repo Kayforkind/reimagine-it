@@ -2,7 +2,7 @@
 
 Load only when the user token is `ecommerce`. Extends the shared spine ([../webpage-craft.md](../webpage-craft.md)).
 
-Spec pack — no live gold yet. Ship the first artistic gold under `gold/domains/ecommerce/after.html` when a stranger asks for it.
+Spec pack — no live gold yet. Ship the first artistic gold under `gold/domains/ecommerce/after.html` when a client asks for it.
 
 ## Aesthetic in one sentence
 

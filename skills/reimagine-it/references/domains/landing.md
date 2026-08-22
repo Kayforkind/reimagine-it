@@ -2,7 +2,7 @@
 
 Load only when the user token is `landing`. Extends the shared spine ([../webpage-craft.md](../webpage-craft.md)).
 
-Spec pack — no live gold yet. Ship the first landing gold under `gold/domains/landing/after.html` when a stranger asks for it.
+Spec pack — no live gold yet. Ship the first landing gold under `gold/domains/landing/after.html` when a client asks for it.
 
 ## Aesthetic in one sentence
 

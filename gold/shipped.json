@@ -1,8 +1,8 @@
 {
   "reimagined": "shipped",
   "mode": "reimagine-it",
-  "about": "A stranger sees a vibe list die, then the same context as one proving command.",
+  "about": "A client sees a vibe list die, then the same context as one proving command.",
   "hero": "gold/reimagine.py --ship",
-  "stretch": "npx skills add kazimrmerchant/skill-slice --skill reimagine-it",
+  "stretch": "npx skills add Kayforkind/skill-slice --skill reimagine-it",
   "verified": "this command exits 0; gold/reimagine.py --fail exits 1"
 }

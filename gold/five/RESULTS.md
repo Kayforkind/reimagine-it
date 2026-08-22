@@ -1,6 +1,6 @@
 # Tested results
 
-Captured `2026-08-20T03:45:15Z` with `python.exe 3.13.3`.
+Captured `2026-08-22T12:25:39Z` with `python.exe 3.13.3`.
 Re-run: `python gold/five/run.py`
 
 ### 1. CLI stdin — `/reimagine-it`
@@ -117,9 +117,9 @@ exit: 0 (expect 0) PASS
 {
   "reimagined": "shipped",
   "mode": "reimagine-it",
-  "about": "A stranger sees a vibe list die, then the same context as one proving command.",
+  "about": "A client sees a vibe list die, then the same context as one proving command.",
   "hero": "gold/reimagine.py --ship",
-  "stretch": "npx skills add kazimrmerchant/skill-slice --skill reimagine-it",
+  "stretch": "npx skills add Kayforkind/skill-slice --skill reimagine-it",
   "verified": "this command exits 0; gold/reimagine.py --fail exits 1"
 }
 ```

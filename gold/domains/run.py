@@ -5,7 +5,7 @@ Windows-first (uses headless msedge or Chrome). Run:
     python gold/domains/run.py
 
 Writes per-variant after.png files and a strip.png that shows all four
-variants side by side so a stranger can see the one-command range.
+variants side by side so a client can see the one-command range.
 """
 
 from __future__ import annotations
