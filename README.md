@@ -450,6 +450,14 @@ Open the live file &rarr; [`gold/webpage/after-3.html`](gold/webpage/after-3.htm
 
 *The notebook as a paper poster of an argument &mdash; one question, answered in marks you can read in a still. Not a dashboard. This gold is **one draw of this Texas source**. A different file (or leftover words after the token) must change palette, pattern, glyphs, and layout. Leftover words are an open brief, not a closed list of themes.*
 
+> **What gold is not.** A gold poster is a paper poster of an argument — not a dashboard, not a CV, not an AntV template gallery. No pies, donuts, gauges, 3D, or fabricated KPIs (Cleveland–McGill / Neurath ISOTYPE floor). `@antv/infographic` is not imported; AntV is a structure router only (see [`skills/reimagine-it/references/research/infographic-craft.md`](skills/reimagine-it/references/research/infographic-craft.md) S16).
+
+**Two reference golds (method travels, layout chrome does not):**
+- Texas — [`gold/domains/infographic/after.html`](gold/domains/infographic/after.html) (Priestley 1836–1995 strip, ISOTYPE 8-acre units)
+- Jules — [`gold/jules/domains/infographic/after.html`](gold/jules/domains/infographic/after.html) (6-flavor sequence, star-around-cone, 8 mint tubs)
+
+[Discussions](https://github.com/Kayforkind/reimagine-it/discussions) — show your gold, propose encodings, vote the next domain.
+
 **Before.** Same raw Texas notebook.
 
 ![Before: raw HTML of A Texas notebook -- Times New Roman, single column, no color, no motif](gold/webpage/before.png)

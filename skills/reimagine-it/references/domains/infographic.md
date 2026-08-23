@@ -1,5 +1,17 @@
 # /reimagine-it webpage infographic
 
+## Gold is NOT
+
+- A dashboard, a CV, or an AntV template gallery.
+- Pies, donuts, gauges, 3D charts, or fabricated KPIs (Cleveland–McGill / Neurath ISOTYPE floor).
+- `@antv/infographic`, or any of its ~200 templates / icon packs / template names. AntV is a **structure router** only (see [research/infographic-craft.md](../research/infographic-craft.md) S16).
+- latexcv donut/bar résumé charts. latexcv is layout-craft inspiration only.
+- Texas chrome on Jules, or Jules chrome on Texas. Method travels; layout chrome does not.
+
+## Gold IS
+
+A paper poster of an argument. Two reference golds (Texas, Jules) show the same method under distinct chrome.
+
 Load when the user token is `infographic` (as a **domain** after `webpage`, or as a **visual form**). Extends the shared spine ([../webpage-craft.md](../webpage-craft.md)). Deep sources: [../research/infographic-craft.md](../research/infographic-craft.md).
 
 This is **not** a dashboard. A dashboard is an ops screen you monitor. An infographic is a **poster of an argument** — one question, answered in marks you can read in a still.
