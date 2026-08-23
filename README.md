@@ -1,33 +1,47 @@
 # reimagine-it
 
-[![license MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE) [![Claude Code](https://img.shields.io/badge/Claude_Code-plugin-d97757.svg)](https://code.claude.com/docs/en/plugins) [![Cursor](https://img.shields.io/badge/Cursor-skill-1a2138.svg)](https://cursor.com) [![Codex](https://img.shields.io/badge/Codex-skill-6e6e6e.svg)](https://github.com/openai/codex) [![agentskills.io spec](https://img.shields.io/badge/agentskills.io-spec-e8a63f.svg)](https://agentskills.io/specification) [![version 2.3](https://img.shields.io/badge/version-2.3-b22234.svg)](skills/reimagine-it/SKILL.md) [![sponsor](https://img.shields.io/badge/sponsor-%E2%98%85-b22234.svg)](https://github.com/sponsors/Kayforkind)
+[![license MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE) [![skills.sh](https://skills.sh/b/kayforkind/reimagine-it)](https://skills.sh/kayforkind/reimagine-it) [![Claude Code](https://img.shields.io/badge/Claude_Code-plugin-d97757.svg)](https://code.claude.com/docs/en/plugins) [![Cursor](https://img.shields.io/badge/Cursor-skill-1a2138.svg)](https://cursor.com) [![Codex](https://img.shields.io/badge/Codex-skill-6e6e6e.svg)](https://github.com/openai/codex) [![agentskills.io spec](https://img.shields.io/badge/agentskills.io-spec-e8a63f.svg)](https://agentskills.io/specification) [![version 2.3](https://img.shields.io/badge/version-2.3-b22234.svg)](skills/reimagine-it/SKILL.md) [![sponsor](https://img.shields.io/badge/sponsor-%E2%98%85-b22234.svg)](https://github.com/sponsors/Kayforkind)
 
-**Your AI redesigns the file you actually have — from what it is about.**
+**Agents ship a mood board. This reads the file and redesigns from it.**
 
-Ask for a redesign and most agents ship a mood board. `/reimagine-it` reads the nouns, dates, and colors in *your* source and ships a real artifact: webpage, infographic poster, SVG, Three.js scene, simulation, PDF, or slides. One file. Offline. No Figma, no CDN.
+Same naive HTML. Completely different pages — webpage, infographic poster, living SVG, Three.js room, playable simulation. One file. Offline. No Figma, no CDN.
+
+![same naive Texas HTML, then full-page afters: webpage tokens, infographic, SVG, Three.js, simulation](gold/forms/examples.gif?v=pages-1)
+
+Browse without installing: **[live gallery](https://kayforkind.github.io/reimagine-it/)** · [`gold/README.md`](gold/)
+
+### One command
+
+**Claude Code**
+
+```text
+/plugin marketplace add Kayforkind/reimagine-it
+/plugin install reimagine-it@reimagine-it
+```
+
+**Cursor, Codex, Copilot, Gemini CLI**
 
 ```bash
 npx skills add Kayforkind/reimagine-it
 ```
 
-Then: `/reimagine-it` · `/reimagine-it infographic` · `/reimagine-it svg` · `/reimagine-it 3js` · `/reimagine-it simulation`
+Then `/reimagine-it` · `/reimagine-it infographic` · `/reimagine-it svg` · `/reimagine-it 3js` · `/reimagine-it simulation`
 
-Live gold: [kayforkind.github.io/reimagine-it](https://kayforkind.github.io/reimagine-it/) · index: [`gold/README.md`](gold/)
+| Token | What you get |
+|-------|----------------|
+| `webpage` | A real page from this file's nouns, dates, colors |
+| `infographic` | A paper poster of facts already in the file — not a fake dashboard |
+| `svg` | A living mark (the motion is on the drawing) |
+| `3js` | A room you can orbit |
+| `simulation` | A playable model of those facts |
 
-```
-/reimagine-it webpage
-/reimagine-it webpage artistic | dashboard | photography | cinematic | landing
-/reimagine-it infographic
-/reimagine-it svg | 3js | simulation
-```
+Full host matrix (Droid, Pi, `gh skill`, Gemini CLI path): [all hosts](#install).
 
 ### Source 1 — Texas notebook
 
 Palette and motifs come from *this* file (Lone Star flag, Alamo, Rio Grande). The SVG weenie is the **actual flag**: white star, white over red — not a gold-star logo.
 
 ![one raw Texas notebook, nine content-aware redesigns](gold/gallery.png?v=texas-5)
-
-![same naive Texas HTML, then full-page afters: webpage tokens, infographic, SVG, Three.js, simulation](gold/forms/examples.gif?v=pages-1)
 
 Alive-micro close-ups (weenie breathe is the Lone Star flag):
 
@@ -132,7 +146,7 @@ Droid tracks Git plugins by commit. After a merge: `droid plugin marketplace upd
 
 **Cursor, Copilot, Gemini CLI, Windsurf, and other Agent Skills hosts**
 
-These hosts have no third-party plugin marketplace for this kind of chair. They load `SKILL.md`.
+They load `SKILL.md`. Cursor also has a native plugin wrapper in `.cursor-plugin/` (Marketplace / cursor.directory). Until those listings go live, install the skill:
 
 ```bash
 npx skills add Kayforkind/reimagine-it             # one project
