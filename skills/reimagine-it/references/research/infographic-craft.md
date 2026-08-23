@@ -28,7 +28,7 @@ Cleveland & McGill 1984 ranking, most → least accurate for quantity (S01, S03)
 
 ## Layout router (pick one from the source)
 
-From InfoAlign’s six storytelling layouts (S13) plus the newsroom taxonomy (S16):
+Sniff **structure** first (S16): list, sequence, hierarchy, compare, values, relation. Then pick InfoAlign scenery (S13). The newsroom taxonomy (statistical / timeline / process / comparison / anatomical) is a content-type alias of that pair:
 
 | Source shape | Layout | Why |
 |---|---|---|
@@ -69,6 +69,8 @@ Do not pick spiral unless the source’s own metaphor is a spiral. Do not pick a
 | **S15** | Datawrapper, “When to use sequential and when to use diverging color scales” | Color | Sequential for “highest is the story”; diverging only with a real midpoint **and** a legend. |
 
 Supporting (not counted in the 15): Visme layout taxonomy (statistical / timeline / process / comparison / anatomical) as a content-type alias of S13; Stephen Few dashboards — **do not** turn an infographic into a dashboard (that is the `dashboard` domain).
+
+| **S16** | AntV Infographic, github.com/antvis/Infographic (syntax: list / sequence / hierarchy / compare / values / relation; SVG-first; themes). Accessed 2026-08-23 | Contemporary practice | **Information structure + graphic meaning.** Sniff source into list, sequence, hierarchy, compare, values, or relation *before* picking InfoAlign scenery. Item = glyph + label + desc + optional value. SVG output. Do **not** import `@antv/infographic`, do **not** paste their ~200 templates, do **not** use keyword icons. Method travels; their chrome does not. |
 
 ## Must ship in every infographic draw
 

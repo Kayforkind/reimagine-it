@@ -457,7 +457,7 @@ Open the live file &rarr; [`gold/webpage/after-3.html`](gold/webpage/after-3.htm
 **The four notes the command picked.**
 
 - **Palette** &mdash; parchment ground (`#f4ecd8`) with navy ink, star-red, and sun gold. Same Lone-Star family as every other Texas draw; weighted as *paper*, not night ops.
-- **Motif** &mdash; a **Priestley timeline 1836&ndash;1995** on a common year scale (Alamo, Austin + flag sharing 1839, Bluebonnet, Big Bend, Longhorn). An **ISOTYPE strip** of eight equal cottonwood-and-ridge units for Big Bend's 800,000 acres (Neurath: more copies, never a bigger icon). Custom glyphs for mission, ridge, capitol, star, bloom, horns. A schematic Texas with three pins. A **lossless data table** of the six named facts.
+- **Motif** &mdash; **structure first:** a **sequence** of six dated names (Priestley 1836&ndash;1995 on a common year scale) plus a **compare** of places vs signals (glyph · label · desc · value). An **ISOTYPE strip** of eight equal cottonwood-and-ridge units for Big Bend's 800,000 acres (Neurath: more copies, never a bigger icon). Custom glyphs from source nouns. A schematic Texas with three pins. A **lossless data table** of the six named facts. Not a dashboard; not an AntV template clone.
 - **Motion** &mdash; Lone Star pulse, bluebonnet sway, longhorn horn-tip opacity. Compositor-only (`transform` / `opacity`). The encodings are true at frame 0 so a PNG is enough.
 - **3D** &mdash; the poster is **flat** (no `rotateX`). Depth is a paper drop-shadow only, so the timeline stays a true common scale. Bars are not extruded (lie factor).
 
@@ -471,7 +471,7 @@ Open the live file &rarr; [`gold/webpage/after-3.html`](gold/webpage/after-3.htm
 
 **After.**
 
-![After: cream paper infographic poster of the Texas notebook -- kicker What can we count without inventing a number, italic title Six dated things One magnitude, Priestley timeline 1836 to 1995 with Alamo Austin-flag Bluebonnet Big Bend Longhorn, eight equal ISOTYPE acre units, three place cards, schematic Texas pins, and a data table of the six facts](gold/domains/infographic/after.png)
+![After: cream paper infographic poster of the Texas notebook -- kicker What can we count without inventing a number, sequence of six dated names, Priestley timeline 1836 to 1995, eight equal ISOTYPE acre units, compare of places vs signals with source glyphs, schematic Texas pins, and a data table of the six facts](gold/domains/infographic/after.png?v=struct-1)
 
 Open the live file &rarr; [`gold/domains/infographic/after.html`](gold/domains/infographic/after.html)
 

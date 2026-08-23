@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>reimagine-it — redesign the file you actually have</title>
-<meta name="description" content="Claude Code, Cursor, Codex, Copilot, Gemini CLI Agent Skill. Redesign any file from its own content — webpage, infographic, SVG, Three.js, simulation, PDF, slides. Offline. No CDN.">
+<title>reimagine-it — agents ship a mood board. this reads the file.</title>
+<meta name="description" content="Same naive HTML. Completely different pages. Claude Code plugin and Agent Skill: webpage, infographic, SVG, Three.js, simulation from the file you have. Offline. No Figma.">
 <meta name="keywords" content="claude-code, claude, cursor, codex, copilot, gemini-cli, agent-skills, infographic, webpage, html, svg, threejs, simulation, pdf, slides, redesign, content-aware">
 <link rel="canonical" href="https://kayforkind.github.io/reimagine-it/">
 <style>
@@ -106,6 +106,27 @@
     border: 1px solid rgba(26,33,56,.12);
     box-shadow: 0 28px 56px -20px rgba(26,33,56,.28);
   }
+  .types {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+    margin: 22px 0 8px;
+  }
+  .types a {
+    display: block;
+    background: #fff;
+    border: 1px solid rgba(26,33,56,.14);
+    border-radius: 10px;
+    padding: 14px 14px 12px;
+    color: var(--ink);
+  }
+  .types a:hover { border-color: var(--hot); box-shadow: 0 10px 24px -16px rgba(26,33,56,.4); }
+  .types .n {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--hot); display: block; margin-bottom: 6px;
+  }
+  .types .t { font-family: var(--serif); font-size: 20px; line-height: 1.15; }
+  .types .d { font-size: 12px; color: var(--dim); margin-top: 6px; }
   footer {
     border-top: 1px solid rgba(26,33,56,.12);
     padding: 22px 0 40px;
@@ -137,19 +158,19 @@
     <section class="hero" id="summary">
       <div>
         <p class="kicker">Claude Code · Cursor · Codex · Agent Skills</p>
-        <h1>Your AI redesigns the file you <em>actually have.</em></h1>
+        <h1>Agents ship a mood board. This <em>reads the file.</em></h1>
         <div class="eli5">
           <span class="lab">ELI5</span>
-          <p>Ask an AI to redesign a page and you get a mood board. This skill reads the nouns, dates, and colors <em>in your source</em> and ships a real artifact — webpage, infographic poster, SVG, Three.js scene, simulation, PDF, slides. One file. Offline. No Figma.</p>
+          <p>Same naive HTML. Completely different pages. <code>/reimagine-it</code> pulls nouns, dates, and colors from <em>your</em> source and ships a real artifact — not a mood board. Webpage, infographic, living SVG, Three.js, simulation. Offline. No Figma.</p>
         </div>
         <div class="cta">
-          <a class="btn" href="https://github.com/Kayforkind/reimagine-it">View on GitHub →</a>
-          <a class="btn btn--ghost" href="#install">Install</a>
+          <a class="btn" href="#install">Install</a>
+          <a class="btn btn--ghost" href="#gallery">See examples</a>
         </div>
       </div>
       <aside class="proof">
-        <div class="meta"><span>Same HTML · webpage, SVG, 3js, simulation</span><span>No CDN</span></div>
-        <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/gold/gallery.png" alt="Nine content-aware redesigns of the same Texas notebook">
+        <div class="meta"><span>Same HTML · full-page afters</span><span>No CDN</span></div>
+        <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/gold/forms/examples.gif?v=pages-1" alt="Same naive Texas HTML, then full-page afters: webpage, infographic, SVG, Three.js, simulation">
       </aside>
     </section>
   </div>
@@ -168,8 +189,36 @@
 
   <div class="wrap">
     <section class="gallery" id="gallery">
-      <h2>Two sources. Same tokens. Different DNA.</h2>
-      <p class="sub" id="gallery">Every tile is a real file in the repo. GitHub.com shows HTML as source; this page shows the shots.</p>
+      <h2>Click a type. See the file.</h2>
+      <p class="sub">No install. Each tile opens the gold after for that token. GitHub.com file view is source; open HTML locally over HTTP for 3js / simulation.</p>
+      <div class="types">
+        <a href="https://github.com/Kayforkind/reimagine-it/blob/main/gold/webpage/after.html">
+          <span class="n">01</span><span class="t">Webpage</span>
+          <span class="d">Nouns, dates, colors already in the file</span>
+        </a>
+        <a href="https://github.com/Kayforkind/reimagine-it/blob/main/gold/domains/infographic/after.html">
+          <span class="n">02</span><span class="t">Infographic</span>
+          <span class="d">Paper poster — sequence, compare, ISOTYPE. Not a dashboard</span>
+        </a>
+        <a href="https://github.com/Kayforkind/reimagine-it/blob/main/gold/forms/svg/after.svg">
+          <span class="n">03</span><span class="t">SVG</span>
+          <span class="d">Living mark. Motion on the drawing</span>
+        </a>
+        <a href="https://github.com/Kayforkind/reimagine-it/blob/main/gold/forms/3js/after.html">
+          <span class="n">04</span><span class="t">3js</span>
+          <span class="d">A room you can orbit</span>
+        </a>
+        <a href="https://github.com/Kayforkind/reimagine-it/blob/main/gold/forms/simulation/after.html">
+          <span class="n">05</span><span class="t">Simulation</span>
+          <span class="d">Playable model of facts in the file</span>
+        </a>
+        <a href="https://github.com/Kayforkind/reimagine-it/blob/main/gold/jules/webpage/after.html">
+          <span class="n">06</span><span class="t">Jules</span>
+          <span class="d">Second source. Parlor DNA, not Texas</span>
+        </a>
+      </div>
+      <h2 style="margin-top:48px">Two sources. Same tokens. Different DNA.</h2>
+      <p class="sub">Every loop is a real file in the repo.</p>
       <h3 style="font-family:var(--serif);font-weight:400;font-size:22px;margin:28px 0 8px">Source 1 — Texas notebook</h3>
       <p class="sub">Navy / cream / red because <em>this</em> file names the Lone Star flag. The SVG weenie is that flag: white star, white over red — not a gold-star logo.</p>
       <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/gold/webpage/quartet.png" alt="Three different reader registers from the same /reimagine-it webpage command">

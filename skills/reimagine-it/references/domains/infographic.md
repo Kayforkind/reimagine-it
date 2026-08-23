@@ -22,6 +22,27 @@ Extract DNA before drawing:
 
 A second run on the **same** source must still be a new draw (fresh sample on the variation axes in SKILL.md §2.4) unless `--seed` / `--variant` pinned it. Same facts, different register / ground / layout / type / pattern.
 
+## Structure first (then marks)
+
+Contemporary infographic engines (e.g. AntV Infographic) treat a poster as **information structure + graphic meaning**, not as a dashboard skin. Steal the *router*, not the template pack, not `@antv/infographic`, not their stock icons.
+
+Sniff **this source** into one primary structure. Secondary structures may support it. Do not pick a structure because a gallery looks slick.
+
+| Source shape | Structure | Graphic meaning |
+|---|---|---|
+| Unordered peers (flavors, features, places with no rank) | **list** | Equal item cells: source glyph · label · desc · optional value |
+| Ordered steps or dated beats | **sequence** | Connected items (spine, stairs, chevrons). Position still honest if years exist |
+| Tree / org / nested parts | **hierarchy** | Parent–child. Depth from the source, not a fake org chart |
+| Two or more groups to hold apart | **compare** | Parallel columns or small multiples on **identical** scales |
+| Magnitudes / counts | **values** | Position or length on a **common** scale, or ISOTYPE copies |
+| Named links (A then B, A vs B, A inside B) | **relation** | Nodes + edges only if the source actually relates them |
+
+Item anatomy (every cell): **glyph from a source noun** · **label** · **one-line desc** · **value only if the source wrote a number**. No Lucide. No “Step 1 / Start / In progress” filler.
+
+Still required on top of structure: one question, one hero encoding on a common scale, ISOTYPE for at least one discrete count, written takeaway, lossless table. Structure chooses *how items sit*. It does not replace encodings.
+
+Fail: AntV-style generic process arrows with invented KPIs; cloning `list-row-horizontal-icon-arrow` chrome onto a notebook; using their hand-drawn theme when this source is not hand-drawn.
+
 ## Open brief (leftover words)
 
 Unknown words after known tokens are a **creative lens**, not a catalog. There is no theme pack list. Do not wait for a matching `domains/<word>.md`. Do not ask "did you mean cinematic?"
@@ -65,7 +86,7 @@ Qualitative hues for **categories**. Sequential only if encoding ordered magnitu
 
 ## Motif and layout
 
-Pick **one** layout from **this** source's object and data (see research S13). Gold Texas used portrait-grid because that notebook was dates-plus-a-flag. Do not default to it.
+Lock **structure** from this source first (list / sequence / hierarchy / compare / values / relation — see above). Then pick **one** InfoAlign scenery from **this** source's object and data (research S13). Gold Texas is sequence+compare on portrait-grid because that notebook was dated beats plus two lists. Gold Jules is sequence+star around the cone. Do not default to either.
 
 - A **shop, product, or person** (one weenie, many attributes) → **Star** (center weenie, facts radiate; length or position still honest).
 - Dates as the *story* and no stronger object → **Portrait** Priestley (shared year axis).
@@ -141,5 +162,6 @@ Brief: <leftover phrase, or none>
 Motif: common-scale encoding + ISOTYPE unit count + custom source glyphs
 Make-strange: <what this source became as a poster>
 Tone: paper, countable, labeled, still-true
+Structure: list | sequence | hierarchy | compare | values | relation
 Layout: portrait-grid | star | small-multiples | priestley-timeline | landscape | spiral
 ```

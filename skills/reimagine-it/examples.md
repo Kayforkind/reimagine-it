@@ -52,7 +52,7 @@ Looping examples from the Texas notebook: [`gold/forms/examples.gif`](../../gold
 
 **Notes:** riddle the object · microscopic vastness · weenie · title last.
 
-**Hero (gold):** `gold/domains/infographic/after.html` — *one* Texas-notebook draw: portrait-grid paper poster, Priestley 1836–1995, eight equal acre-units, custom glyphs from *that* source's nouns, lossless table. **Second gold:** `gold/jules/domains/infographic/after.html` — parlor star around the cone, not that Priestley. A different source must produce different DNA (palette, pattern, glyphs, **composition**). Leftover words after `infographic` are an open brief — a lens, not a theme catalog.
+**Hero (gold):** `gold/domains/infographic/after.html` — *one* Texas-notebook draw: sequence + compare on portrait-grid, Priestley 1836–1995, eight equal acre-units, item anatomy (source glyph · label · desc · value), lossless table. **Second gold:** `gold/jules/domains/infographic/after.html` — parlor sequence + star around the cone, compare of flavors vs windows — not that Priestley. A different source must produce different DNA (palette, pattern, glyphs, **composition**). Leftover words after `infographic` are an open brief — a lens, not a theme catalog.
 
 **Hero (ledger):** `reimagined/2026-08-18-ledger-skyline/index.html` — each line is a building; height = kind of work.
 
