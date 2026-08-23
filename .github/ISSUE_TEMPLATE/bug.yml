@@ -1,0 +1,42 @@
+name: Bug
+description: Something in the skill, gold, gallery, or install path is wrong.
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gold is the bar. If a live run on a *different* source looks like the Texas notebook, that is a bug.
+  - type: dropdown
+    id: host
+    attributes:
+      label: Host
+      options:
+        - Claude Code
+        - Cursor
+        - Codex
+        - Copilot
+        - Gemini CLI
+        - Droid
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Skill or plugin version
+      placeholder: "2.3 / commit SHA / marketplace build"
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      placeholder: Expected vs actual. Attach a screenshot if the after looks like Texas gold on a non-Texas source.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: How to reproduce
+      placeholder: Command, source file type, modifiers.
+    validations:
+      required: true

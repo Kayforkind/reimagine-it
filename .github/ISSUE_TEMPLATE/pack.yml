@@ -1,0 +1,35 @@
+name: Pack or feature
+description: Propose a domain, modifier, form, lock, or host change. Open this before a large PR.
+title: "feat: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        See [CONTRIBUTING.md](https://github.com/Kayforkind/reimagine-it/blob/main/CONTRIBUTING.md). A pack PR must ship working gold, not a spec-only markdown file.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options:
+        - Domain pack
+        - Modifier pack
+        - Form pack
+        - Lock
+        - Host / install
+        - Docs / gallery
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: What and why
+      placeholder: What the client would get. Cite the source content the design would come from.
+    validations:
+      required: true
+  - type: textarea
+    id: gold
+    attributes:
+      label: Gold you can ship
+      placeholder: Path for after.html (or pdf/pptx) and the regenerator script.

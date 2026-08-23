@@ -1,0 +1,11 @@
+name: Question
+description: Install, hosts, or how /reimagine-it is supposed to behave.
+title: "q: "
+labels: ["question"]
+body:
+  - type: textarea
+    attributes:
+      label: Question
+      placeholder: Which host, which token (webpage / infographic / svg / 3js / simulation), what you already tried.
+    validations:
+      required: true

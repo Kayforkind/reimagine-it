@@ -1,5 +1,7 @@
 # Contributing to reimagine-it
 
+By participating you agree to the [Code of Conduct](CODE_OF_CONDUCT.md).
+
 Real content beats a spec. The fastest way to improve `/reimagine-it` is to add a real domain, a real modifier, a real form pack, or a real lock — with a shipped `.html` (or `.pdf` / `.pptx` / `.docx`) that proves the design language works on a real source.
 
 ## What we accept
