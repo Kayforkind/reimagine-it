@@ -27,10 +27,11 @@ function extractContent(html, filePath) {
     .replace(/\s+/g, ' ')
     .trim();
 
-  // Extract title
-  const titleMatch = text.match(/<title[^>]*>([^<]+)<\/title>/i)
-    || html.match(/<title[^>]*>([^<]+)<\/title>/i);
-  const title = titleMatch ? titleMatch[1].trim() : filePath ? require('path').basename(filePath, '.html') : 'Untitled';
+  // Extract title: <title> first, then <h1>, then filename, then 'Untitled'
+  const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
+  const h1Match = html.match(/<h1[^>]*>([^<]+)<\/h1>/i);
+  const titleRaw = titleMatch ? titleMatch[1].trim() : h1Match ? h1Match[1].trim() : null;
+  const title = titleRaw || (filePath ? require('path').basename(filePath, '.html').replace(/^before$/, 'Untitled') : 'Untitled');
 
   // Extract colors from inline styles, CSS vars, hex values
   const hexColors = html.match(/#[0-9a-fA-F]{3,8}\b/g) || [];

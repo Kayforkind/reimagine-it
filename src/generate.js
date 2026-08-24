@@ -204,7 +204,7 @@ ${kpis}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escape(title)} — artistic</title>
 <style>
-  :root { --ground:${ground}; --accent:${accent}; --sup1:${support1}; --ink:#${isLight(ground) ? '0a0a0a' : 'f4ecd8'}; }
+  :root { --ground:${ground}; --accent:${accent}; --sup1:${support1}; --sup2:${support2}; --ink:#${isLight(ground) ? '0a0a0a' : 'f4ecd8'}; }
   * { box-sizing: border-box; margin: 0; }
   html { background: var(--ground); color: var(--ink); font-family: "Iowan Old Style", Palatino, Georgia, serif; overflow-x: hidden; }
   body { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 48px 24px; }
@@ -214,7 +214,7 @@ ${kpis}
   .stripe { position: fixed; top: 0; z-index: -1; opacity: .04; }
   .stripe:nth-child(1) { left: 5%; width: 30%; height: 100%; background: var(--accent); }
   .stripe:nth-child(2) { left: 40%; width: 20%; height: 100%; background: var(--sup1); }
-  .stripe:nth-child(3) { left: 65%; width: 15%; height: 100%; background: var(--accent); }
+  .stripe:nth-child(3) { left: 65%; width: 15%; height: 100%; background: var(--sup1); }
   ::selection { background: var(--accent); color: var(--ground); }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
@@ -238,7 +238,7 @@ ${kpis}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escape(title)} — cinematic</title>
 <style>
-  :root { --ground:${ground}; --accent:${accent}; --sup1:${support1}; --ink:#${isLight(ground) ? '0a0a0a' : 'f4ecd8'}; }
+  :root { --ground:${ground}; --accent:${accent}; --sup1:${support1}; --sup2:${support2}; --ink:#${isLight(ground) ? '0a0a0a' : 'f4ecd8'}; }
   * { box-sizing: border-box; margin: 0; }
   html { background: var(--ground); color: var(--ink); font-family: "Iowan Old Style", Palatino, Georgia, serif; scroll-behavior: smooth; }
   .hero { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
@@ -277,7 +277,7 @@ ${kpis}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escape(title)} — photography</title>
 <style>
-  :root { --ground:${ground}; --accent:${accent}; --sup1:${support1}; --ink:#${isLight(ground) ? '0a0a0a' : 'f4ecd8'}; }
+  :root { --ground:${ground}; --accent:${accent}; --sup1:${support1}; --sup2:${support2}; --ink:#${isLight(ground) ? '0a0a0a' : 'f4ecd8'}; }
   * { box-sizing: border-box; margin: 0; }
   html { background: var(--ground); color: var(--ink); font-family: "Iowan Old Style", Palatino, Georgia, serif; }
   body { max-width: 900px; margin: 0 auto; padding: 48px 24px; }
