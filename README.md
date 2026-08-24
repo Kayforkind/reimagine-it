@@ -1,8 +1,10 @@
 # reimagine-it
 
+> The source file is the design brief. Turn existing HTML into a beautiful, usable page without losing its meaning.
+
 [![CI](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/audit.yml?branch=main&label=CI)](https://github.com/Kayforkind/reimagine-it/actions/workflows/audit.yml) [![version 2.3.2](https://img.shields.io/badge/version-2.3.2-b22234.svg)](CHANGELOG.md) [![MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE) [![skills.sh](https://skills.sh/b/kayforkind/reimagine-it)](https://skills.sh/kayforkind/reimagine-it)
 
-# Turn the HTML you already have into a page worth keeping.
+## One command. One inspectable result.
 
 **reimagine-it** redesigns an existing HTML page from the content already inside it. It extracts the real headings, facts, links, names, dates, numbers, and colors, then builds a stronger visual system around them—without replacing the page with invented filler.
 

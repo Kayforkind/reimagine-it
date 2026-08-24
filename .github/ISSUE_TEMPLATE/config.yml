@@ -1,11 +1,8 @@
-blank_issues_enabled: true
+blank_issues_enabled: false
 contact_links:
-  - name: README and install
-    url: https://github.com/Kayforkind/reimagine-it#readme
-    about: Commands, hosts, and gold examples.
-  - name: Live gallery
-    url: https://kayforkind.github.io/reimagine-it/
-    about: Browse before/after in the browser. No install.
-  - name: Contributing
-    url: https://github.com/Kayforkind/reimagine-it/blob/main/CONTRIBUTING.md
-    about: What a pack PR must ship (gold HTML, regenerator, source-cited design).
+  - name: Live playground
+    url: https://kayforkind.github.io/reimagine-it/#playground
+    about: Try a redesign in the browser before opening an issue.
+  - name: Questions and ideas
+    url: https://github.com/Kayforkind/reimagine-it/discussions
+    about: Ask questions, share a result, or propose a new direction.
