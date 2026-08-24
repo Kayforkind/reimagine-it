@@ -30,17 +30,22 @@
   .hud { display: flex; gap: 8px; flex-wrap: wrap; }
   button {
     background: transparent; color: var(--ink); border: 1px solid rgba(247,239,228,.35);
-    padding: 7px 12px; border-radius: 999px; cursor: pointer; font: 13px/1.2 inherit;
+    padding: 7px 12px; border-radius: 999px; cursor: pointer; font-size: 13px; font-family: inherit; line-height: 1.2;
   }
   button:hover, button[aria-pressed="true"] { background: var(--gold); color: var(--void); border-color: var(--gold); }
   button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
   ::selection { background: var(--gold); color: var(--void); }
 
+
+  .display { font-family: "Iowan Old Style", Palatino, Georgia, serif; font-weight: 400; font-size: 52px; letter-spacing: -.02em; opacity: .35; }
+  .section-title { font-family: ui-sans-serif, system-ui, Segoe UI, sans-serif; font-weight: 400; font-size: 24px; opacity: .6; line-height: 1.3; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }
 </style>
 </head>
 <body>
 <div id="view" aria-label="Marble counter, waffle cone, brass scoop, ice-blue freezer"></div>
+
+<div class="display" aria-hidden="true" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:2;text-align:center" role="presentation"></div>
 <footer class="bar">
   <h1>On the <em>counter</em></h1>
   <nav class="hud" aria-label="Look at">

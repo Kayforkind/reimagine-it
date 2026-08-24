@@ -93,9 +93,9 @@ PREFERS_REDUCED_RE = re.compile(r'prefers-reduced-motion', re.IGNORECASE)
 FOCUS_VISIBLE_RE = re.compile(r':focus-visible', re.IGNORECASE)
 SELECTION_RE = re.compile(r'::selection', re.IGNORECASE)
 
-# Type hierarchy: look for font-size declarations
+# Type hierarchy: look for font-size declarations and font: shorthand
 FONT_SIZE_RE = re.compile(
-    r'font-size\s*:\s*(\d+(?:\.\d+)?)\s*(px|rem|em|clamp)',
+    r'font(?:-size)?\s*:\s*(\d+(?:\.\d+)?)\s*(?:/\s*\d+(?:\.\d+)?\s*)?(px|rem|em)',
     re.IGNORECASE
 )
 
@@ -110,6 +110,7 @@ BAD_ANIM_PROPS = {"top", "left", "right", "bottom", "margin", "margin-top",
                   "padding-bottom", "padding-left",
                   "width", "max-width", "min-width",
                   "height", "max-height", "min-height",
+                  "font",
                   "font-size", "letter-spacing", "line-height"}
 
 

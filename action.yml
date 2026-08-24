@@ -1,0 +1,136 @@
+name: "reimagine-it Design Health"
+description: "18 deterministic design-quality checks for HTML. No LLM, no API key. Catches blank plates, missing focus rings, non-compositor motion, un-styled selection, palette drift, and more. Use in CI to gate deploys on design quality."
+author: "Kayforkind"
+branding:
+  icon: "check-circle"
+  color: "yellow"
+
+inputs:
+  path:
+    description: "Glob pattern for HTML files to audit"
+    required: false
+    default: "**/*.html"
+  fail-on-warnings:
+    description: "Exit 1 on warnings too (not just failures)"
+    required: false
+    default: "false"
+  verbose:
+    description: "Show per-category breakdown in logs"
+    required: false
+    default: "false"
+  strict:
+    description: "Exit 1 if NO HTML files matched the glob (catches misconfigured paths)"
+    required: false
+    default: "false"
+
+outputs:
+  verdict:
+    description: "CLEAN | WARNINGS | FAIL"
+  failures:
+    description: "Number of blocking failures"
+  warnings:
+    description: "Number of advisory warnings"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Validate inputs
+      shell: bash
+      run: |
+        echo "::group::Design Health — reimagine-it"
+        echo "Path pattern: ${{ inputs.path }}"
+        echo "Fail on warnings: ${{ inputs.fail-on-warnings }}"
+        echo "Verbose: ${{ inputs.verbose }}"
+
+    - name: Run audit
+      id: audit
+      shell: bash
+      run: |
+        set -e
+        VERBOSE_FLAG=""
+        if [ "${{ inputs.verbose }}" = "true" ]; then
+          VERBOSE_FLAG="--verbose"
+        fi
+
+        TOTAL=0
+        PASS=0
+        WARN=0
+        FAIL=0
+        FAIL_ON_WARN="${{ inputs.fail-on-warnings }}"
+        STRICT="${{ inputs.strict }}"
+
+        # Build summary table header
+        SUMMARY="| File | Verdict | Failures | Warnings |\n|------|---------|----------|----------|\n"
+
+        for f in ${{ inputs.path }}; do
+          # Skip dirs, non-existent files, vendored paths
+          [ ! -f "$f" ] && continue
+          case "$f" in *vendor/*|*node_modules/*|*.min.html) continue ;; esac
+          case "$f" in *.html) ;; *) continue ;; esac
+
+          TOTAL=$((TOTAL + 1))
+          RESULT=$(python $GITHUB_ACTION_PATH/scripts/audit.py "$f" --json 2>&1) || true
+          VERDICT=$(echo "$RESULT" | python -c "import sys,json; d=json.load(sys.stdin); print(d.get('verdict','FAIL'))" 2>/dev/null || echo "ERROR")
+          FCOUNT=$(echo "$RESULT" | python -c "import sys,json; d=json.load(sys.stdin); print(d.get('failures',99))" 2>/dev/null || echo "99")
+          WCOUNT=$(echo "$RESULT" | python -c "import sys,json; d=json.load(sys.stdin); print(d.get('warnings',99))" 2>/dev/null || echo "99")
+
+          case "$VERDICT" in
+            CLEAN)
+              SUMMARY+="| \`$f\` | ✅ Clean | — | — |\n"
+              PASS=$((PASS + 1))
+              ;;
+            WARNINGS)
+              SUMMARY+="| \`$f\` | ⚠️ Warnings | — | $WCOUNT |\n"
+              WARN=$((WARN + 1))
+              ;;
+            *)
+              SUMMARY+="| \`$f\` | ❌ $VERDICT | $FCOUNT | $WCOUNT |\n"
+              FAIL=$((FAIL + 1))
+              ;;
+          esac
+        done
+
+        # Strict mode: fail if no files matched
+        if [ "$STRICT" = "true" ] && [ "$TOTAL" -eq 0 ]; then
+          echo "::error::No HTML files matched path '${{ inputs.path }}' (strict mode enabled)"
+          exit 1
+        fi
+
+        if [ "$TOTAL" -eq 0 ]; then
+          echo "::warning::No HTML files matched path '${{ inputs.path }}'"
+          SUMMARY+="\n_(no files matched)_"
+        fi
+
+        SUMMARY+="\n**Design Health:** $PASS clean · $WARN warnings · $FAIL failures  \n"
+        SUMMARY+="[reimagine-it](https://github.com/${{ github.action_repository }}) | "
+        SUMMARY+="[Content-Derived Design](https://kayforkind.github.io/reimagine-it/) | "
+        SUMMARY+="[18 rules](https://github.com/${{ github.action_repository }}/blob/main/scripts/audit.py)"
+
+        echo "verdict=$VERDICT" >> $GITHUB_OUTPUT
+        echo "failures=$FAIL" >> $GITHUB_OUTPUT
+        echo "warnings=$WARN" >> $GITHUB_OUTPUT
+
+        {
+          echo "summary<<EOF"
+          echo -e "$SUMMARY"
+          echo "EOF"
+        } >> $GITHUB_OUTPUT
+
+        echo -e "$SUMMARY" >> $GITHUB_STEP_SUMMARY
+
+        if [ "$FAIL" -gt 0 ]; then
+          echo "::error::$FAIL file(s) have design-health failures — see summary above."
+          exit 1
+        fi
+
+        if [ "$WARN" -gt 0 ] && [ "$FAIL_ON_WARN" = "true" ]; then
+          echo "::error::$WARN file(s) have design warnings. Failing because fail-on-warnings is enabled."
+          exit 1
+        fi
+
+        if [ "$WARN" -gt 0 ]; then
+          echo "::warning::$WARN file(s) have design warnings. Review the step summary."
+        fi
+
+        echo "✅ Design Health passed — $PASS clean, $WARN warnings"
+        echo "::endgroup::"
