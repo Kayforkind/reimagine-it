@@ -42,6 +42,7 @@ try {
 const { extractContent } = require('../src/extract');
 const { generate, TOKENS, TOKEN_DESCRIPTIONS } = require('../src/generate');
 const { buildPlan, autoGenerate } = require('../src/auto');
+const { sourceFidelity } = require('../src/result');
 const pkg = require('../package.json');
 const { execSync } = require('child_process');
 const path = require('path');
@@ -154,15 +155,17 @@ async function main() {
       const content = extractContent(args.html, 'mcp-input.html');
       if (token === 'auto') {
         const result = autoGenerate(content, { seed, brief: args.brief });
+        const designResult = buildDesignResult(content, { mode: 'auto', token: result.token, seed: result.seed, score: result.score, rationale: result.rationale, candidates: result.candidates, output: result.output, source: 'mcp-input.html', artifact: 'response' });
         return {
           content: [
-            { type: 'text', text: JSON.stringify({ token: result.token, seed: result.seed, score: result.score, rationale: result.rationale, candidates: result.candidates, anchors: result.plan.anchors }, null, 2) },
+            { type: 'text', text: JSON.stringify(designResult, null, 2) },
             { type: 'text', text: '\n--- Generated HTML ---\n' },
             { type: 'text', text: result.output },
           ],
         };
       }
       const output = generate({ content, token, seed, brief: args.brief });
+      const fidelity = sourceFidelity(content, output);
 
       // Also return the extraction summary
       const summary = {
@@ -172,6 +175,7 @@ async function main() {
         token: token,
         seed: seed !== undefined ? seed : 'random',
         outputSize: (output.length / 1024).toFixed(1) + ' KB',
+        fidelity: fidelity,
       };
 
       return {
@@ -186,9 +190,10 @@ async function main() {
     if (name === 'design_auto') {
       const content = extractContent(args.html, 'mcp-input.html');
       const result = autoGenerate(content, { seed: args.seed, brief: args.brief });
+      const designResult = buildDesignResult(content, { mode: 'auto', token: result.token, seed: result.seed, score: result.score, rationale: result.rationale, candidates: result.candidates, output: result.output, source: 'mcp-input.html', artifact: 'response' });
       return {
         content: [
-          { type: 'text', text: JSON.stringify({ token: result.token, seed: result.seed, score: result.score, rationale: result.rationale, candidates: result.candidates, anchors: result.plan.anchors }, null, 2) },
+          { type: 'text', text: JSON.stringify(designResult, null, 2) },
           { type: 'text', text: '\n--- Generated HTML ---\n' },
           { type: 'text', text: result.output },
         ],

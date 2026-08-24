@@ -9,6 +9,7 @@ var extractMod = require('../../src/extract');
 var extractContent = extractMod.extractContent;
 var generate = require('../../src/generate').generate;
 var autoMod = require('../../src/auto');
+var resultMod = require('../../src/result');
 var fs = require('fs');
 var childProcess = require('child_process');
 var path = require('path');
@@ -255,6 +256,14 @@ test('auto generation returns a verified standalone artifact', function() {
   assert.ok(result.output.indexOf('<!doctype html>') === 0);
   assert.ok(result.candidates.length >= 1);
   assert.ok(result.candidates[0].quality >= 0);
+});
+
+test('source fidelity reports preserved values', function() {
+  var content = extractContent('<title>Night &amp; Tide</title><h1>Night &amp; Tide</h1><p>Wave data from 2026.</p><a href="https://example.com">Field notes</a>', 'notes.html');
+  var output = generate({content: content, token: 'webpage', seed: 4});
+  var fidelity = resultMod.sourceFidelity(content, output);
+  assert.strictEqual(fidelity.percentage, 100);
+  assert.ok(fidelity.detected > 0);
 });
 
 test('auto generation is reproducible when seeded', function() {

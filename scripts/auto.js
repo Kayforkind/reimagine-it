@@ -10,6 +10,7 @@ const fs = require('fs');
 const path = require('path');
 const { extractContent } = require('../src/extract');
 const { autoGenerate } = require('../src/auto');
+const { sourceFidelity } = require('../src/result');
 
 const MAX_INPUT_BYTES = 10 * 1024 * 1024;
 const args = parseArgs(process.argv.slice(2));
@@ -58,6 +59,7 @@ const result = autoGenerate(content, {
 const artifactIsStdout = args.output === '-';
 const outputPath = artifactIsStdout ? null : path.resolve(args.output || path.join('reimagined', 'auto.html'));
 const reportPath = path.resolve(args.report || (outputPath ? outputPath.replace(/\.html?$/i, '.json') : 'reimagined/auto.json'));
+const fidelity = sourceFidelity(content, result.output);
 
 if (outputPath) {
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
@@ -78,6 +80,7 @@ fs.writeFileSync(reportPath, JSON.stringify({
   facts: result.plan.facts,
   source: inputLabel,
   artifact: outputPath || 'stdout',
+  fidelity,
 }, null, 2) + '\n', 'utf8');
 
 if (!args.quiet) {

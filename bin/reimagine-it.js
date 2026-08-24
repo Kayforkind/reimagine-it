@@ -12,6 +12,7 @@ const path = require('path');
 const { extractContent } = require('../src/extract');
 const { generate, TOKENS, TOKEN_DESCRIPTIONS } = require('../src/generate');
 const { buildPlan, autoGenerate } = require('../src/auto');
+const { sourceFidelity } = require('../src/result');
 
 const MAX_INPUT_BYTES = 10 * 1024 * 1024;
 const args = parseArgs(process.argv.slice(2));
@@ -75,6 +76,8 @@ if (autoMode) {
   output = generate({ content, token, seed, brief: args.brief });
 }
 
+const fidelity = sourceFidelity(content, output);
+
 if (outputToStdout) {
   process.stderr.write(`reimagine-it → ${token} · ${path.basename(inputPath)}\n`);
   process.stdout.write(output);
@@ -101,6 +104,7 @@ if (!args.quiet) {
   }
   console.log(`  Output:  ${outputPath}`);
   console.log(`  Size:    ${(output.length / 1024).toFixed(1)} KB`);
+  console.log(`  Fidelity: ${fidelity.percentage}% of detected source facts preserved`);
   console.log('\n  REIMAGINED: shipped ✓\n');
 }
 
