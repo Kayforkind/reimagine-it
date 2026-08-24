@@ -1,7 +1,7 @@
 {
   "name": "reimagine-it",
   "version": "2.3.0",
-  "description": "Content-Derived Design — an AI agent skill that reads your file and redesigns it from its own content. Palette, motifs, and motion derived from concrete nouns, dates, and colors already in your source.",
+  "description": "Content-Derived Design \u00e2\u20ac\u201d an AI agent skill that reads your file and redesigns it from its own content. Palette, motifs, and motion derived from concrete nouns, dates, and colors already in your source.",
   "license": "MIT",
   "author": "Kayforkind",
   "repository": "github:Kayforkind/reimagine-it",
@@ -22,7 +22,10 @@
     "simulation",
     "redesign",
     "html",
-    "css"
+    "css",
+    "cli",
+    "command-line",
+    "npx"
   ],
   "scripts": {
     "audit": "python scripts/audit_all.py",
@@ -31,15 +34,25 @@
     "regenerate:dry": "python gold/regenerate_all.py --dry",
     "regenerate:no-screenshots": "python gold/regenerate_all.py --skip-screenshots",
     "test": "python scripts/audit_all.py && python gold/reimagine.py --ship",
-    "lint:gold": "python scripts/audit_all.py"
+    "lint:gold": "python scripts/audit_all.py",
+    "cli": "node bin/reimagine-it.js",
+    "cli:help": "node bin/reimagine-it.js --help",
+    "cli:example": "node bin/reimagine-it.js -i gold/webpage/before.html -t webpage -d"
   },
   "files": [
     "skills/reimagine-it/",
     "commands/reimagine-it.md",
     "prompts/reimagine-it.md",
-    "AGENTS.md"
+    "AGENTS.md",
+    "bin/",
+    "src/",
+    "scripts/audit.py",
+    "scripts/audit_all.py"
   ],
   "engines": {
     "node": ">=18"
+  },
+  "bin": {
+    "reimagine-it": "./bin/reimagine-it.js"
   }
 }
