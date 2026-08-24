@@ -302,7 +302,7 @@
             <button class="token-btn" data-token="landing">landing</button>
             <button class="token-btn" data-token="photography">photography</button>
           </div>
-          <button class="run-btn" id="playRun">Reimagine →</button>
+          <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="run-btn" id="playRun">Reimagine →</button><button class="run-btn" id="playShare" style="background:transparent;color:var(--gold);box-shadow:inset 0 0 0 1px rgba(232,166,63,.25)">Share this →</button></div>
           <div class="play-notes" id="playNotes"></div>
         </div>
         <div class="play-right">
@@ -613,9 +613,40 @@
     frame.srcdoc = generatePage(content, currentToken);
   }
 
-  runBtn.addEventListener('click', run);
+runBtn.addEventListener('click', run);
   input.addEventListener('keydown', function(e) { if (e.key === 'Enter' && e.ctrlKey) run(); });
   input.addEventListener('focus', function() { if (!input._ran) { input._ran = true; run(); } });
+
+  /* ---- share button ---- */
+  var shareBtn = document.getElementById('playShare');
+  shareBtn.addEventListener('click', function() {
+    var data = { h: input.value.trim() || input.getAttribute('placeholder') || '', t: currentToken };
+    var encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+    var url = location.origin + location.pathname + '#' + encoded;
+    navigator.clipboard.writeText(url).then(function() {
+      var orig = shareBtn.textContent;
+      shareBtn.textContent = 'Copied!';
+      setTimeout(function() { shareBtn.textContent = orig; }, 2000);
+    }).catch(function() {
+      prompt('Copy this URL:', url);
+    });
+  });
+
+  /* Load shared state from URL hash */
+  (function loadHash() {
+    var hash = location.hash.slice(1);
+    if (!hash) return;
+    try {
+      var data = JSON.parse(decodeURIComponent(escape(atob(hash))));
+      if (data.h) { input.value = data.h; }
+      if (data.t) {
+        tokenBtns.forEach(function(b) { b.classList.remove('active'); if (b.dataset.token === data.t) b.classList.add('active'); });
+        currentToken = data.t;
+      }
+      setTimeout(run, 100);
+    } catch(e) { /* ignore bad hash */ }
+  })();
+
   run();
 })();
 </script></body>
