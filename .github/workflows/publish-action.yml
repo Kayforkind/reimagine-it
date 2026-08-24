@@ -11,8 +11,12 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "Tag to publish (leave empty for latest release)"
+        description: "Release tag to validate and document"
         required: false
+        default: "v2.3.2"
+
+permissions:
+  contents: write
 
 jobs:
   validate-and-publish:
@@ -81,11 +85,11 @@ jobs:
           echo "::endgroup::"
 
       - name: Post marketplace metadata to release
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.tag != '')
         env:
           GH_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-          TAG: ${{ github.event.release.tag_name }}
+          TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || inputs.tag }}
         run: |
           echo "::group::Appending marketplace metadata to release notes"
           python - <<'PYEOF'
@@ -112,8 +116,10 @@ jobs:
 
   publish-npm:
     needs: validate-and-publish
-    if: github.event_name == 'release' && !github.event.release.prerelease
+    if: (github.event_name == 'release' && !github.event.release.prerelease) || (github.event_name == 'workflow_dispatch' && inputs.tag != '')
     runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v5
 
@@ -123,6 +129,11 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Publish to npm
+        if: env.NPM_TOKEN != ''
         run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ env.NPM_TOKEN }}
+
+      - name: Report skipped npm publication
+        if: env.NPM_TOKEN == ''
+        run: echo "::warning::NPM_TOKEN is not configured; npm publication was skipped."
