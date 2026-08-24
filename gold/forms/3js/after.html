@@ -35,6 +35,8 @@
   button:hover, button[aria-pressed="true"] { background: var(--gold); color: var(--void); border-color: var(--gold); }
   button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
   ::selection { background: var(--gold); color: var(--void); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }
 </style>
 </head>
 <body>

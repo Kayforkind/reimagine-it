@@ -142,6 +142,9 @@
     .row3{grid-template-columns:1fr}
     .card--l,.card--m,.card--r{transform:none;box-shadow:0 24px 40px -20px #000, 0 0 0 1px var(--rule)}
   }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }
+:focus-visible { outline: 2px solid var(--accent, currentColor); outline-offset: 2px; }
 </style>
 </head>
 <body>

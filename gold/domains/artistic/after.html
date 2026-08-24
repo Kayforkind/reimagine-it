@@ -173,6 +173,9 @@
       transform:none;box-shadow:0 30px 60px -30px rgba(45,26,61,.35)}
     figure:nth-child(1) .art,figure:nth-child(2) .art,figure:nth-child(3) .art{transform:none}
   }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }
+:focus-visible { outline: 2px solid var(--accent, currentColor); outline-offset: 2px; }
 </style>
 </head>
 <body>

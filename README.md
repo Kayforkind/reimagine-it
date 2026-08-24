@@ -8,7 +8,7 @@ Same naive HTML. Completely different pages — webpage, infographic poster, liv
 
 ![Same naive HTML → webpage, infographic, SVG, Three.js, simulation](gold/forms/examples.gif?v=pages-1)
 
-**[Live gallery](https://kayforkind.github.io/reimagine-it/)** — browse the gold. No install. Or **[try the playground](#-no-agent-just-curious) — paste HTML, see a live redesign in your browser right now.
+**[Live gallery](https://kayforkind.github.io/reimagine-it/)** — browse the gold. No install. Or **[try the playground](https://kayforkind.github.io/reimagine-it/#playground) — paste HTML, see a live redesign in your browser right now.
 
 ---
 
@@ -94,7 +94,7 @@ Screenshots freeze animation. Every motion claim proves itself in three frames, 
 
 ---
 
-## 🎮 No agent? Just curious?
+## No agent? Just curious?
 
 The **[live gallery](https://kayforkind.github.io/reimagine-it/)** has a playground — paste any HTML, pick a token, and see a content-derived redesign rendered live in your browser. The client-side engine extracts nouns, colors, dates, and numbers from your source, builds a palette, and generates a token-specific page. Same method. No install. No agent.
 

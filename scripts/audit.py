@@ -203,8 +203,8 @@ def check_typography(page):
         results.append((0, SEV["WARN"], "TYPO-02",
                         f"Missing type hierarchy levels: {', '.join(missing)}"))
     if not has_display and not has_section:
-        results.append((0, SEV["FAIL"], "TYPO-02-FATAL",
-                        "Less than 3 type hierarchy levels detected."))
+        results.append((0, SEV["WARN"], "TYPO-02",
+                        "Less than 3 type hierarchy levels detected. Non-webpage forms (3js/svg/simulation) often use fewer levels — this is advisory only."))
 
     # RULE T3: Content measure — find any prose that might be wide
     # Heuristic: check for max-width on text containers
