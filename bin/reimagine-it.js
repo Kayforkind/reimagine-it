@@ -119,17 +119,26 @@ if (argv.json) {
 }
 
 if (argv.dry) {
-  console.log(`\n  Content extraction — ${path.basename(inputPath)}\n`);
+  console.log(`\n  Content extraction \u2014 ${path.basename(inputPath)}\n`);
+  var p = content.palette;
   console.log(`  Title:        ${content.title || '(none)'}`);
-  console.log(`  Palette:      ${content.palette.ground} · ${content.palette.accent} · ${content.palette.muted}`);
-  console.log(`  Nouns:        ${content.nouns.slice(0, 6).join(', ')}${content.nouns.length > 6 ? '...' : ''}`);
+  console.log(`  Palette:`);
+  console.log(`    ground  ${p.ground}  \u2588\u2588\u2588\u2588`);
+  console.log(`    accent  ${p.accent}  \u2588\u2588\u2588\u2588`);
+  console.log(`    muted   ${p.muted}  \u2588\u2588\u2588\u2588`);
+  console.log(`    surface ${p.surface}  \u2588\u2588\u2588\u2588`);
+  console.log(`    ink     ${p.ink}  \u2588\u2588\u2588\u2588`);
+  console.log(`  Headings:     ${content.headings.length} found`);
+  if (content.headings.length) console.log(`    ${content.headings.slice(0,3).join(' \u00b7 ')}`);
+  console.log(`  Paragraphs:   ${content.paragraphs.length}`);
+  console.log(`  List items:   ${content.items.length}`);
+  console.log(`  Anchors:      ${content.anchors.join(', ')}`);
+  console.log(`  Proper nouns: ${content.properNouns.slice(0, 6).join(', ')}${content.properNouns.length > 6 ? '...' : ''}`);
   console.log(`  Dates:        ${content.dates.slice(0, 4).join(', ')}${content.dates.length > 4 ? '...' : ''}`);
   console.log(`  Numbers:      ${content.numbers.slice(0, 4).join(', ')}${content.numbers.length > 4 ? '...' : ''}`);
-  console.log(`  Proper nouns: ${content.properNouns.slice(0, 4).join(', ')}${content.properNouns.length > 4 ? '...' : ''}`);
   console.log(`  Emails:       ${content.emails.join(', ') || '(none)'}`);
-  console.log(`  Paragraphs:   ${content.paragraphs.length}`);
-  console.log(`  Anchors:      ${content.anchors.length} plates mapped`);
-  console.log();
+  if (content.sourceHex.length) console.log(`  Source hex:   ${content.sourceHex.join(', ')}`);
+  console.log(`\n  Run with -t <token> to generate. Use --list to see all tokens.\n`);
   process.exit(0);
 }
 
