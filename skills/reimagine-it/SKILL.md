@@ -29,6 +29,33 @@ keywords:
   - infographic
   - svg
   - threejs
+  - frontend
+  - html
+  - css
+  - palette
+  - motion
+  - offline
+category: Design
+capabilities:
+  - content-extraction
+  - color-palette-generation
+  - infographic-creation
+  - svg-generation
+  - threejs-scene-generation
+  - simulation-generation
+  - accessibility-audit
+  - visual-verification
+trigger_phrases:
+  - /reimagine-it
+  - reimagine it
+  - reinvent this
+  - redesign this page
+  - make an infographic
+  - content-aware redesign
+  - design from content
+  - redesign from source
+  - palette from content
+  - content-derived design
   - simulation
   - webpage
   - frontend

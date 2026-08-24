@@ -1,0 +1,121 @@
+name: "reimagine-it Design Health"
+description: "Deterministic design quality checks for HTML files — 18 rules across typography, palette, motion, content, structure, and performance. No LLM, no API key."
+author: "Kayforkind"
+branding:
+  icon: "check-circle"
+  color: "yellow"
+inputs:
+  path:
+    description: "Path to HTML file(s) to audit. Supports glob patterns."
+    required: false
+    default: "**/*.html"
+  fail-on-warnings:
+    description: "Treat warnings as failures (exit code 1 instead of 0)"
+    required: false
+    default: "false"
+  verbose:
+    description: "Show per-category breakdown in output"
+    required: false
+    default: "false"
+outputs:
+  verdict:
+    description: "Overall verdict: CLEAN, WARNINGS, or FAIL"
+  failures:
+    description: "Number of blocking failures"
+  warnings:
+    description: "Number of advisory warnings"
+  summary:
+    description: "Markdown summary table for PR comments"
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Clone reimagine-it (if not already checked out)
+      shell: bash
+      run: |
+        if [ ! -f "scripts/audit.py" ]; then
+          echo "reimagine-it audit tool not found in workspace. Clone it or add as a submodule."
+          echo "Add to your workflow:"
+          echo "  - uses: actions/checkout@v4"
+          echo "    with:"
+          echo "      repository: Kayforkind/reimagine-it"
+          echo "      path: .reimagine-it"
+          exit 1
+        fi
+
+    - name: Run Design Health audit
+      id: audit
+      shell: bash
+      run: |
+        set -e
+        ARGS=""
+        if [ "${{ inputs.verbose }}" = "true" ]; then
+          ARGS="$ARGS --verbose"
+        fi
+
+        PASS=0
+        FAIL=0
+        WARN=0
+        SUMMARY="| File | Verdict | Failures | Warnings |\n|------|---------|----------|----------|\n"
+        BLOCKED=""
+
+        FAIL_ON_WARN="${{ inputs.fail-on-warnings }}"
+
+        for f in ${{ inputs.path }}; do
+          if [ ! -f "$f" ]; then continue; fi
+          if [[ "$f" == *vendor/* ]] || [[ "$f" == *node_modules/* ]]; then continue; fi
+          if [[ "$f" != *.html ]]; then continue; fi
+
+          RESULT=$(python scripts/audit.py "$f" --json 2>&1) || true
+          VERDICT=$(echo "$RESULT" | python -c "import sys,json; d=json.load(sys.stdin); print(d.get('verdict','FAIL'))" 2>/dev/null || echo "ERROR")
+          FCOUNT=$(echo "$RESULT" | python -c "import sys,json; d=json.load(sys.stdin); print(d.get('failures',99))" 2>/dev/null || echo "99")
+          WCOUNT=$(echo "$RESULT" | python -c "import sys,json; d=json.load(sys.stdin); print(d.get('warnings',99))" 2>/dev/null || echo "99")
+
+          case "$VERDICT" in
+            CLEAN)
+              SUMMARY+="| \`$f\` | ✅ Clean | — | — |\n"
+              PASS=$((PASS + 1))
+              ;;
+            WARNINGS)
+              SUMMARY+="| \`$f\` | ⚠️ Warnings | — | $WCOUNT |\n"
+              WARN=$((WARN + 1))
+              ;;
+            *)
+              SUMMARY+="| \`$f\` | ❌ $VERDICT | $FCOUNT | $WCOUNT |\n"
+              FAIL=$((FAIL + 1))
+              BLOCKED="$BLOCKED $f"
+              ;;
+          esac
+        done
+
+        echo "verdict=CLEAN" >> $GITHUB_OUTPUT
+        echo "failures=$FAIL" >> $GITHUB_OUTPUT
+        echo "warnings=$WARN" >> $GITHUB_OUTPUT
+
+        SUMMARY+="\n**Design Health:** $PASS clean · $WARN warnings · $FAIL failures · [reimagine-it](https://github.com/Kayforkind/reimagine-it) | [Content-Derived Design](https://kayforkind.github.io/reimagine-it/)"
+
+        # Write summary to step output
+        echo "summary<<EOF" >> $GITHUB_OUTPUT
+        echo -e "$SUMMARY" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+
+        # Post to job summary
+        echo -e "$SUMMARY" >> $GITHUB_STEP_SUMMARY
+
+        if [ "$FAIL" -gt 0 ]; then
+          echo "::error::$FAIL file(s) have design health failures — fix before shipping."
+          exit 1
+        fi
+
+        if [ "$WARN" -gt 0 ] && [ "$FAIL_ON_WARN" = "true" ]; then
+          echo "::error::$WARN file(s) have design warnings. Failing because fail-on-warnings is enabled."
+          exit 1
+        fi
+
+        if [ "$WARN" -gt 0 ]; then
+          echo "::warning::$WARN file(s) have design warnings. Review above."
+        fi

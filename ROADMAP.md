@@ -321,3 +321,48 @@ The risk is that the moat is invisible because:
 - **Trust:** Deterministic quality checker, visual test loop, gold dataset
 - **Adoption:** CLI installer, multi-agent support, community pipeline
 - **Contribution:** Gold per domain program, Partner submissions, open dataset
+
+---
+
+## Tier 2.5: Research-Backed Improvements (based on August 2026 internet research)
+
+### Sources:
+- [OSS Insight: Agent Skills Explosion 2026](https://ossinsight.io/blog/agent-skills-explosion-2026) — 250K stars, 57K AGENTS.md, skills are "transitional"
+- [Agentman: Agent Skills Ecosystem Report 2026](https://agentman.ai/blog/agent-skills-ecosystem-report-2026) — 1.17M skills on skills.sh, design is smallest major category
+- [SkillsBench academic benchmark](https://skillsbench.ai) — focused skills outperform monolithic by 18.6 pts
+- [Impeccable v4 changelog](https://www.chaseai.io/blog/impeccable-4-claude-code-design-skill) — Live Mode, Worlds, Finish Reviewer
+- [Stop Writing Agent Skills Like Longer Prompts](https://blog.stackademic.com/stop-writing-agent-skills-like-longer-prompts-cca908b50915) — description is routing code, push deterministic work to scripts
+
+### Key competitive findings:
+
+| Finding | Implication |
+|---------|-------------|
+| Design is 6th category (25K skills vs 288K dev) — underserved | Less competition; higher visibility per skill |
+| SkillsBench: monolithic skills hurt performance by 2.9 pts | Split SKILL.md into focused sub-skills |
+| No other design skill derives palette from content | Unique moat still valid |
+| Impeccable has 177 Worlds, Live Mode, 20K+ ratings | UX gap is the biggest weakness |
+| 1.17M skills on skills.sh — discovery is impossible | Metadata optimization is critical |
+| Community calls every AI design "slop" | Content-Derived Design is the fix |
+| SkillsBench: curated skills raise pass rates 16.2 pts | Quality bar = competitive advantage |
+| 36% of skills have prompt injection / 26% security issues | CI + audit pipeline = trust signal |
+
+### New Tier 2.5 items:
+
+| # | Improvement | Effort | Impact | Section |
+|---|-------------|--------|--------|---------|
+| 17 | Split monolithic SKILL.md (374 lines) into core + 6 focused sub-skills (per SkillsBench data: +18.6 pts) | Medium | **Very High** | Agent perf |
+| 18 | Skills.sh metadata optimization — add trigger_phrases, capabilities, category to SKILL.md frontmatter for 1.17M-skill catalog discoverability | Low | High | Distribution |
+| 19 | Create SkillsBench Self-Score badge — evaluate against 12-point academic quality criteria, display on README | Low | Medium | Trust |
+| 20 | Design Health GitHub Action — marketplace action running audit.py on committed HTML/PRs | Medium | High | Infrastructure |
+| 21 | `/reimagine-it variations N` — show 2–4 content-derived palette/motif alternatives before committing | Medium | Medium | UX |
+| 22 | `/reimagine-it reverse-lock <url>` — extract any public site's design DNA into a lock file, then reimagine your content through it | Medium | High | Feature |
+| 23 | Live Preview mode in playground — click element, choose bolder/quieter/typeset, see 3 variations, accept one (Impeccable parity) | High | High | UX |
+| 24 | "Content Extraction" standalone skill — `/reimagine-it extract` returns palette + motif + anchors without building full redesign (for non-designers: marketers, writers, docs teams) | Low | Medium | Audience |
+| 25 | YouTube/tutorial content program — "reimagine-it in 60 seconds" screen capture for distribution to AI coding YouTubers | Low | High | Distribution |
+| 26 | GitHub bot for design suggestions on PRs — auto-comments content-derived palette when HTML changes | High | Medium | Virality |
+
+### What to do today (from this research):
+
+1. **Add trigger_phrases to SKILL.md** (10 minutes, #18 above) — the highest-leverage metadata change
+2. **Create the Design Health GitHub Action** (1 hour, #20 above) — publish to marketplace
+3. **Write Content-Derived Design manifesto** as a standalone markdown file (already in ROADMAP Tier 3, item 3.1) — makes CDD citable
