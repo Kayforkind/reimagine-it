@@ -28,27 +28,25 @@ jobs:
       - name: Validate action.yml
         run: |
           echo "::group::Validating action.yml"
-          python -c "
-          import yaml, sys, os
+          python - <<'PYEOF'
+          import yaml, sys
+
           with open('action.yml') as f:
               action = yaml.safe_load(f)
-          
+
           required = ['name', 'description', 'runs']
           missing = [k for k in required if k not in action]
           if missing:
-              print(f'ERROR: Missing required fields: {missing}')
+              print('ERROR: Missing required fields:', missing)
               sys.exit(1)
-          
-          print(f'Action name: {action[\"name\"]}')
-          print(f'Description: {action[\"description\"]}')
-          print(f'Author: {action.get(\"author\", \"(not set)\")}')
-          print(f'Inputs: {list(action.get(\"inputs\", {}).keys())}')
-          print(f'Outputs: {list(action.get(\"outputs\", {}).keys())}')
+
+          print('Action name:', action['name'])
+          print('Description:', action['description'])
+          print('Author:', action.get('author', '(not set)'))
+          print('Inputs:', list(action.get('inputs', {}).keys()))
+          print('Outputs:', list(action.get('outputs', {}).keys()))
           print('action.yml is valid')
-          " || {
-            echo "::error::action.yml validation failed"
-            exit 1
-          }
+          PYEOF
           echo "::endgroup::"
 
       - name: Verify audit tool runs
@@ -71,7 +69,7 @@ jobs:
             exit 1
           }
           echo "CLI --help: OK"
-          
+
           node bin/reimagine-it.js --version 2>&1 || {
             echo "::error::CLI --version failed"
             exit 1
@@ -83,42 +81,31 @@ jobs:
         if: github.event_name == 'release'
         env:
           GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          TAG: ${{ github.event.release.tag_name }}
         run: |
-          TAG="${{ github.event.release.tag_name }}"
-          
-          gh release edit "$TAG" \
-            --notes "$(cat <<'BODY'
-$(gh release view "$TAG" --json body -q '.body')
+          echo "::group::Appending marketplace metadata to release notes"
+          python - <<'PYEOF'
+          import os, subprocess
 
----
+          tag = os.environ["TAG"]
+          repo = os.environ["GITHUB_REPOSITORY"]
 
-## 🛒 GitHub Actions Marketplace
+          current = subprocess.run(
+              ["gh", "api", "repos/" + repo + "/releases/tags/" + tag,
+               "--jq", ".body"],
+              capture_output=True, text=True, check=True,
+          ).stdout.strip()
 
-This release publishes the **reimagine-it Design Health** action to the GitHub Actions marketplace.
+          appendix = "\n\n---\n\n## \U0001F6D2 GitHub Actions Marketplace\n\nThis release publishes the **reimagine-it Design Health** action to the GitHub Actions marketplace.\n\n### Quick start\n\n```yaml\n- uses: Kayforkind/reimagine-it@" + tag + "\n  with:\n    path: \"**/*.html\"\n```\n\n### What it checks\n\n| Category | Checks |\n|----------|--------|\n| Typography | Hierarchy levels, text measure, missing display fonts |\n| Palette | Off-palette accents, unstyled ::selection, >5 non-neutral colors |\n| Motion | Missing prefers-reduced-motion, missing :focus-visible, non-compositor animation |\n| Content | Blank plates, placeholder labels, fabricated content |\n| Structure | No hero SVG, missing landmarks, broken images |\n| Performance | Missing content-visibility, CLS risk, DOM depth |\n\n18 deterministic rules. No LLM. No API key."
 
-### Quick start
-
-```yaml
-- uses: Kayforkind/reimagine-it@${TAG}
-  with:
-    path: "**/*.html"
-```
-
-### What it checks
-
-| Category | Checks |
-|----------|--------|
-| Typography | Hierarchy levels, text measure, missing display fonts |
-| Palette | Off-palette accents, unstyled ::selection, >5 non-neutral colors |
-| Motion | Missing prefers-reduced-motion, missing :focus-visible, non-compositor animation |
-| Content | Blank plates, placeholder labels, fabricated content |
-| Structure | No hero SVG, missing landmarks, broken images |
-| Performance | Missing content-visibility, CLS risk, DOM depth |
-
-18 deterministic rules. No LLM. No API key.
-
-BODY
-)" || echo "::warning::Could not update release notes (may already have metadata)"
+          subprocess.run(
+              ["gh", "release", "edit", tag, "--notes", current + appendix],
+              check=True,
+          )
+          print("Release notes updated with marketplace metadata")
+          PYEOF
+          echo "::endgroup::"
 
   publish-npm:
     needs: validate-and-publish
