@@ -17,3 +17,22 @@ jobs:
         run: python scripts/verify_plugin_package.py
       - name: Gold review
         run: python scripts/review_gold.py
+
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+      - name: Run cross-platform test suite
+        run: npm test
+      - name: Check JavaScript entrypoints
+        run: |
+          node --check bin/reimagine-it.js
+          node --check src/extract.js
+          node --check src/generate.js
+          node --check mcp/server.js
+          node --check extension/popup.js
+      - name: Validate package contents
+        run: npm pack --dry-run --json > package-preview.json

@@ -35,7 +35,7 @@ droid plugin install reimagine-it@reimagine-it --scope user
 
 Cursor wrapper: `.cursor-plugin/plugin.json` (same `skills/reimagine-it/` chair). Marketplace / cursor.directory submit from the GitHub repo URL. Daily install remains `npx skills add Kayforkind/reimagine-it`.
 
-**MCP server** (any MCP-compatible agent): `npx reimagine-it-mcp` — exposes 4 tools: `reimagine`, `extract_content`, `list_tokens`, `audit_html`. Add to your MCP client config:
+**MCP server** (any MCP-compatible agent): `npx reimagine-it-mcp` — exposes 5 tools: `reimagine`, `design_auto`, `extract_content`, `list_tokens`, `audit_html`. Add to your MCP client config:
 ```json
 { "mcpServers": { "reimagine-it": { "command": "npx", "args": ["reimagine-it-mcp"] } } }
 ```
@@ -65,6 +65,6 @@ Run `python scripts/audit.py <output-file.html>` on any shipped webpage to valid
 - `gold/domains/motion-strip.png` — three-frame animation proof (per domain).
 - `gold/domains/cinematic/hero.png` — the WebGL2 cinematic domain full-shot.
 - `gold/modifiers/` — domain + modifier combinations (e.g. `cinematic-glassmorphism/`).
-- `gold/forms/` — same `gold/webpage/before.html` as SVG, Three.js (vendored r185), and a playable simulation. Re-shoot: `python gold/forms/shot.py`. Looping GIF: `python gold/forms/make_gif.py`.
+- `gold/forms/` — same `gold/webpage/before.html` as SVG, Three.js (vendored r185), and a playable simulation. Re-shoot: `python gold/forms/shot.py`. Static proof: `gold/forms/strip.png`; live motion proof: open `gold/forms/see.html`. The GIF generator remains available for social previews but is not the primary product proof.
 
 Never invent a screenshot. If a screenshot cannot be regenerated from a fixture in this repo, it does not go in the README.

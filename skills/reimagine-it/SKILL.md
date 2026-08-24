@@ -83,6 +83,7 @@ Optional tokens. **Combine freely.** You pick tokens; the agent picks questions,
 | Category | You choose | Agent decides |
 |----------|------------|---------------|
 | *(none)* | Default. No interview. | Infer, lock, form, build. |
+| **Auto** — `auto` / `--auto` | Let the tool manage the normal redesign loop. | Extract evidence → rank coherent forms → generate candidates → verify → return the strongest artifact. Source stays read-only. |
 | `interview` | Talk before build. | Which questions, recommended answers, when to stop. |
 | **Form family** — `code` `cli` `protocol` `demo` `prose` `product` `architecture` `experiment` | Force that form family. | How the notes land in it. |
 | **Visual form** — `svg` `3js` `infographic` `canvas` `html` `webpage` `simulation` | Force a visual form. | Craft inside that medium. Token `infographic` also loads [references/domains/infographic.md](references/domains/infographic.md) (poster of an argument, not a dashboard). Token `svg` / `3js` ship **alive-micro** by default (2–4 fact-tied loops that beautify; brief `still` freezes). Token `simulation` ships a playable model of facts already in **this** source — default paused on the first fact; nested short spans are inspectable; type in the gutter. None of these are a Texas skin; leftover words are a lens. |
@@ -104,7 +105,9 @@ Optional tokens. **Combine freely.** You pick tokens; the agent picks questions,
 Combine freely. Known form / domain / modifier tokens load packs. **Every other word is kept** and followed. There is no list of allowed leftover words.
 
 ```
+/reimagine-it auto
 /reimagine-it webpage cinematic
+
 /reimagine-it webpage infographic
 /reimagine-it infographic
 /reimagine-it infographic <any leftover words>
@@ -156,6 +159,12 @@ REIMAGINED Progress:
 - [ ] 5. Verify with evidence (functional + visual + craft-floor scan)
 - [ ] 6. Report REIMAGINED: shipped | partial | blocked
 ```
+
+### Auto mode — the automatic design loop
+
+`auto` is the person-like invocation: the user gives context, not a pile of commands. Infer the best form from the source, generate up to three coherent candidate directions, run the craft-floor checks, and return the strongest standalone artifact plus the selected token, seed, evidence, and rejected candidates. Never overwrite the source. Never invent facts. If a host can render previews, show the selected artifact and make the alternatives available for comparison.
+
+Auto is deliberately model-agnostic. An agent host may use the returned plan as structured context, delegate visual review to a subagent, or supply a model-specific renderer. The core engine remains deterministic and safe without an API key. `--auto` is an explicit CLI equivalent; plain `/reimagine-it` remains the full inferred workflow.
 
 ### 0. Token parse (open brief — do not drop words)
 
@@ -307,7 +316,7 @@ Include a 5-line `README.md` next to one-shot folders: what it is, how to run/op
 - Effect before method: they should be able to say what happened, not only how you did it
 - Withhold the label until the artifact has done work
 
-**Stretch (required in the report):** one thing they did not know was in bounds. Build when it is one extra file or a small sibling; otherwise give the exact next slash (`/reimagine-it webpage cinematic`, `/reimagine-it slides`, `/reimagine-it lock <path>`, …).
+**Stretch (required in the report):** one thing they did not know was in bounds. Build when it is one extra file or a small sibling; otherwise give the exact next slash (`/reimagine-it auto`, `/reimagine-it webpage cinematic`, `/reimagine-it slides`, `/reimagine-it lock <path>`, …).
 
 ### 4. `--full` plus-pass
 
@@ -353,6 +362,7 @@ Render the hero into an image (headless Chrome for HTML → PNG at ≥ 1400 px w
 - **Kinetic type reserves space**: any variable-font axis morph has a `letter-spacing` buffer or `min-width` reservation on the animated element.
 - **Interactive elements have hover + focus states** (not just `:hover`).
 - **Sound off by default**: if `--sound` was not passed, there is no `<audio autoplay>`, no Howler `autoplay: true`, and no unmuted `<video>` outside an explicit user gesture.
+- **Auto source safety**: `auto` may read and write only the generated artifact/report; it must not mutate the source unless the user explicitly asks for an edit.
 
 If any of these fail, patch the CSS in one pass; if the fix crosses into "add a whole subsystem," downgrade to `partial` and name the specific miss.
 
@@ -405,6 +415,7 @@ Lead the user-facing reply with the artifact and the stretch, not the protocol.
 - **Ship a page with `outline: 0` / `outline: none` and no visible focus replacement** — WCAG 2.4.7 non-negotiable.
 - **Paint a plate that does not map back to an anchor from step 0.85** (i.e. drift into invented content). Every visible unit serves a source anchor or it is deleted.
 - Treat `/reimagine-it` as graphics-only
+- Let `auto` overwrite the source or hide which direction was selected
 - Interview without the `interview` category
 - Ask "what style do you want?"
 - Use `wow`, "make it pop", or shock-as-strategy

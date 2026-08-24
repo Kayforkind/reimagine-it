@@ -2,7 +2,7 @@
 
 > Based on competitive analysis of Anthropic frontend-design (277k installs), Impeccable (23 commands, 59 detector rules, product website), Superpowers (243k stars), gstack (118k stars), and the broader agent-skills ecosystem.
 >
-> **Last updated:** v2.3.1 — see [CHANGELOG.md](CHANGELOG.md) for completed items.
+> **Last updated:** v2.3.2 — see [CHANGELOG.md](CHANGELOG.md) for completed items.
 
 ---
 
@@ -75,7 +75,7 @@ GitHub Actions workflow with 18-check audit, 0 failures, and regression test pro
 **Problem:** The repo README is the only entry point. Impeccable has `impeccable.style` — a dedicated product site with documentation, install guide, and case studies.
 
 **Fix:** Ship a polished `docs/` microsite with:
-- Hero with animated before/after demo (the examples.gif, but larger)
+- Static source → signal → artifact illustration with live playground link
 - One-command install for every agent tool (Claude Code, Cursor, Codex, Copilot, Gemini, Pi)
 - 3 diverse case studies front-loaded (not buried in SHOWCASE.md)
 - Embedded playground (already built)
@@ -103,7 +103,7 @@ GitHub Actions workflow with 18-check audit, 0 failures, and regression test pro
 - Submit to the "awesome-agent-skills" curated GitHub repo
 - Submit to skills.sh marketplace
 - Submit to Cursor Directory
-- Post on r/ClaudeCode, r/cursor, r/ChatGPTCoding with actual before/after GIFs
+- Post on r/ClaudeCode, r/cursor, r/ChatGPTCoding with static before/after proof and a live playground link
 - Reach out to YouTubers who review agent skills (the Impeccable video has good traction)
 
 #### 1.4 Metrics badge on README

@@ -23,10 +23,10 @@ A Chrome/Edge/Firefox extension that adds a "Reimagine this page" button to your
 1. Navigate to any web page
 2. Click the extension icon
 3. The popup shows what was extracted (title, colors, dates, numbers, nouns)
-4. Pick a design token (webpage, infographic, dashboard, artistic, cinematic, landing, svg, simulation)
+4. Pick one of the ten design tokens (webpage, landing, dashboard, infographic, cinematic, artistic, photography, svg, 3js, simulation)
 5. Click **Reimagine →** — the redesigned page opens in a new tab
 
-Everything runs locally in your browser. No server, no API calls, no data sent anywhere.
+Everything runs locally in your browser. No server, API key, page upload, or external asset fetch is required. The extension intentionally uses a lightweight local renderer; the CLI is the highest-fidelity path for batch and production work.
 
 ## Tokens
 
@@ -38,8 +38,10 @@ Everything runs locally in your browser. No server, no API calls, no data sent a
 | `artistic` | Full-bleed canvas with mix-blend typography |
 | `cinematic` | Full-viewport hero with radial glow |
 | `landing` | Hero + feature cards + CTA |
-| `svg` | Inline living SVG with star + anchor nodes |
-| `simulation` | Timeline of dates/events from the page |
+| `svg` | Inline living SVG with a source-anchor network |
+| `3js` | Offline canvas object with drag and keyboard orbit |
+| `simulation` | Playable sequence of dates/events from the page |
+| `photography` | Abstract visual folio, one study per source anchor |
 
 ## License
 

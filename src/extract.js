@@ -1,18 +1,13 @@
 /**
  * Content extraction engine — Content-Derived Design.
  *
- * Reads HTML, extracts content signals (nouns, dates, colors, numbers,
- * headings, paragraphs), and derives a design-ready palette with
- * luminance ordering and WCAG-safe contrast pairs.
- *
- * The palette is returned as a structured object:
- *   { ground, ink, accent, muted, surface }
- * where every pair meets WCAG AA contrast (4.5:1 for text, 3:1 for UI).
+ * This module deliberately has no DOM or Node-only dependency so the exact
+ * extraction contract can run in the CLI, playground, and browser extension.
+ * It extracts content first, then derives a readable palette from those
+ * signals. It never invents source facts.
  */
 
-// ── Color knowledge ────────────────────────────────────────────────
-
-const COLOR_NAMES = {
+var COLOR_NAMES = {
   red: '#c23a2a', crimson: '#a0141e', scarlet: '#b22234', maroon: '#6b1f1a',
   blue: '#2563eb', navy: '#1a2138', cobalt: '#1c3d6e', indigo: '#312e81', azure: '#0e7ec0',
   green: '#16a34a', forest: '#166534', olive: '#4d7c0f', sage: '#4a7c59', mint: '#6ee7b7',
@@ -31,8 +26,7 @@ const COLOR_NAMES = {
   navy2: '#0a1626', sky: '#38bdf8', ocean: '#0e7490', sea: '#1e5f74',
 };
 
-// Content-profile palette presets — each genre gets a distinctive look.
-const PROFILE_PALETTES = {
+var PROFILE_PALETTES = {
   saas:       { ground: '#0a1626', accent: '#6ee7b7', muted: '#3b82f6', surface: '#111f38', ink: '#e2e8f0' },
   tech:       { ground: '#0d1117', accent: '#a78bfa', muted: '#38bdf8', surface: '#161b27', ink: '#e6edf3' },
   essay:      { ground: '#f8f5ef', accent: '#a0141e', muted: '#4a3c2a', surface: '#efe9df', ink: '#1a1612' },
@@ -48,274 +42,343 @@ const PROFILE_PALETTES = {
   default:    { ground: '#1a1a2e', accent: '#e8a63f', muted: '#6366f1', surface: '#24243e', ink: '#f4ecd8' },
 };
 
-// ── Color science helpers ──────────────────────────────────────────
+var STOP_NOUNS = new Set([
+  'this','that','with','from','have','been','were','they','their','about','which','there','would','could',
+  'should','other','some','only','also','more','into','over','after','before','between','through','during',
+  'above','below','under','your','our','what','when','where','while','since','until','upon','within',
+  'without','these','those','them','then','than','here','will','just','like','make','made','take','taken',
+  'give','given','come','came','went','goes','gone','said','says','say','see','seen','saw','get','got','put',
+  'set','let','may','might','must','shall','need','used','uses','using','want','wants','know','knows','known',
+  'think','thinks','thought','feel','feels','felt','look','looks','looked','seem','seems','seemed','find','found',
+  'work','works','worked','call','called','each','many','much','very','such','same','both','either','neither',
+  'even','still','back','away','down','once','done','well','way','own','too','yet','per','via','from',
+]);
+
+var STOP_PROPER = new Set([
+  'The','This','That','And','But','For','From','With','When','Where','What','How','Who','Which','There',
+  'Their','These','Those','About','After','Before','During','While','Since','Until','Above','Below','Under',
+  'Over','Into','Upon','Within','Without','They','Them','Are','Was','Were','Been','Have','Has','Had','Will',
+  'Would','Could','Should','May','Might','Can','Did','Does','Not','Yes','Get','Set','Put','Use','See','Try',
+  'Open','More','Most','Some','Any','All','New','Old','One','Two','Three','Here','Your','Our','Its','Content',
+  'Design','Source','Read','Run','Play','Drag','Timeline','Statistical','Poster','Data','Signal','Item',
+]);
+
+function isHex(value) {
+  return typeof value === 'string' && /^#[0-9a-f]{3,8}$/i.test(value);
+}
+
+function canonicalHex(value) {
+  if (!isHex(value)) return null;
+  var c = value.toLowerCase();
+  if (c.length === 4) return '#' + c[1] + c[1] + c[2] + c[2] + c[3] + c[3];
+  if (c.length === 5) return '#' + c[1] + c[1] + c[2] + c[2] + c[3] + c[3];
+  if (c.length === 7) return c;
+  if (c.length === 9) return c.slice(0, 7);
+  return null;
+}
 
 function hexToRgb(hex) {
-  var c = hex.replace('#', '');
-  if (c.length === 3) c = c[0]+c[0]+c[1]+c[1]+c[2]+c[2];
-  return { r: parseInt(c.slice(0,2),16), g: parseInt(c.slice(2,4),16), b: parseInt(c.slice(4,6),16) };
+  var c = canonicalHex(hex) || '#000000';
+  return {
+    r: parseInt(c.slice(1, 3), 16),
+    g: parseInt(c.slice(3, 5), 16),
+    b: parseInt(c.slice(5, 7), 16),
+  };
 }
 
 function rgbToHex(r, g, b) {
-  return '#' + [r, g, b].map(function(v) {
-    v = Math.max(0, Math.min(255, Math.round(v)));
-    return v.toString(16).padStart(2, '0');
+  return '#' + [r, g, b].map(function(value) {
+    value = Math.max(0, Math.min(255, Math.round(value)));
+    return value.toString(16).padStart(2, '0');
   }).join('');
 }
 
 function relativeLuminance(rgb) {
-  function channel(c) { c /= 255; return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); }
+  function channel(value) {
+    value /= 255;
+    return value <= 0.03928 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
+  }
   return 0.2126 * channel(rgb.r) + 0.7152 * channel(rgb.g) + 0.0722 * channel(rgb.b);
 }
 
 function contrastRatio(hex1, hex2) {
   var l1 = relativeLuminance(hexToRgb(hex1));
   var l2 = relativeLuminance(hexToRgb(hex2));
-  var lighter = Math.max(l1, l2);
-  var darker = Math.min(l1, l2);
-  return (lighter + 0.05) / (darker + 0.05);
+  return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
 }
 
 function isLight(hex) { return relativeLuminance(hexToRgb(hex)) > 0.42; }
 
-// Tint (mix with white) or shade (mix with black)
 function tint(hex, amount) {
   var c = hexToRgb(hex);
   return rgbToHex(c.r + (255 - c.r) * amount, c.g + (255 - c.g) * amount, c.b + (255 - c.b) * amount);
 }
+
 function shade(hex, amount) {
   var c = hexToRgb(hex);
   return rgbToHex(c.r * (1 - amount), c.g * (1 - amount), c.b * (1 - amount));
 }
 
-// Ensure accent has sufficient contrast against ground for text
-function ensureContrast(ground, accent, target) {
+function ensureContrast(ground, color, target) {
   target = target || 4.5;
-  var ratio = contrastRatio(ground, accent);
-  if (ratio >= target) return accent;
-  // Try darkening or lightening accent
-  var groundIsLight = isLight(ground);
-  var adjusted = accent;
-  for (var i = 0; i < 20; i++) {
-    adjusted = groundIsLight ? shade(adjusted, 0.08) : tint(adjusted, 0.08);
-    ratio = contrastRatio(ground, adjusted);
-    if (ratio >= target) break;
+  ground = canonicalHex(ground) || '#10131a';
+  color = canonicalHex(color) || (isLight(ground) ? '#1a1612' : '#f4ecd8');
+  if (contrastRatio(ground, color) >= target) return color;
+
+  var lightGround = isLight(ground);
+  var adjusted = color;
+  for (var i = 0; i < 28; i++) {
+    adjusted = lightGround ? shade(adjusted, 0.06) : tint(adjusted, 0.06);
+    if (contrastRatio(ground, adjusted) >= target) return adjusted;
   }
-  return adjusted;
+  return lightGround ? '#1a1612' : '#f4ecd8';
 }
 
-// ── Main extraction function ────────────────────────────────────────
-
-function extractContent(html, filePath) {
-  // Clean text (strip scripts/styles/tags)
-  var text = html
-    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
-    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
-    .replace(/<!--[\s\S]*?-->/g, '')
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/&nbsp;/gi, ' ')
-    .replace(/&amp;/gi, '&')
-    .replace(/&[a-z]+;/gi, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-
-  var lower = text.toLowerCase();
-
-  // ── Title: <title> → <h1> → first heading → filename → Untitled ──
-  var titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
-  var h1Match = html.match(/<h1[^>]*>([^<]+)<\/h1>/i);
-  var h2Match = html.match(/<h2[^>]*>([^<]+)<\/h2>/i);
-  var titleRaw = titleMatch ? titleMatch[1].trim() : h1Match ? h1Match[1].trim() : h2Match ? h2Match[2] ? h2Match[2].trim() : h2Match[1].trim() : null;
-  var title = titleRaw || (filePath ? require('path').basename(filePath, '.html').replace(/^before$/, 'Untitled') : 'Untitled');
-
-  // ── Headings (for editorial structure) ──
-  var headings = [];
-  var hRe = /<h([1-3])[^>]*>([^<]+)<\/h\1>/gi;
-  var hm;
-  while ((hm = hRe.exec(html)) !== null) {
-    var ht = hm[2].trim();
-    if (ht.length > 2 && headings.indexOf(ht) === -1) headings.push(ht);
-  }
-
-  // ── Paragraphs ──
-  var paragraphs = [];
-  var pRe = /<p[^>]*>([\s\S]*?)<\/p>/gi;
-  var pm;
-  while ((pm = pRe.exec(html)) !== null) {
-    var p = pm[1].replace(/<[^>]+>/g, '').trim();
-    if (p.length > 20) paragraphs.push(p);
-  }
-
-  // ── List items (features, menu items, etc.) ──
-  var items = [];
-  var liRe = /<li[^>]*>([\s\S]*?)<\/li>/gi;
-  var lim;
-  while ((lim = liRe.exec(html)) !== null) {
-    var li = lim[1].replace(/<[^>]+>/g, '').trim();
-    if (li.length > 2 && items.indexOf(li) === -1) items.push(li);
-  }
-
-  // ── Emails ──
-  var emails = [];
-  var emRe = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g;
-  var em;
-  while ((em = emRe.exec(text)) !== null) { if (emails.indexOf(em[0]) === -1) emails.push(em[0]); }
-
-  // ── Dates (4-digit years, month+date, slash dates) ──
-  var dates = [];
-  var dateRe = /\b(?:18|19|20)\d{2}\b|\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}(?:st|nd|rd|th)?,?\s+(?:18|19|20)\d{2}\b/gi;
-  var dm2;
-  while ((dm2 = dateRe.exec(text)) !== null) { if (dates.indexOf(dm2[0]) === -1) dates.push(dm2[0]); }
-
-  // ── Numbers (with units) ──
-  var numbers = [];
-  var numRe = /\b\d+(?:\.\d+)?\s*(?:ms|s|min|hr|hours?|days?|weeks?|months?|years?|seats?|users?|people|persons?|dollars?|usd|eur|gbp|gb|mb|kb|px|em|rem|rpm|acres|miles|km|metres|meters|feet|ft|pounds?|kg|g|oz|%|x|k|m|b)\b/gi;
-  var nm;
-  while ((nm = numRe.exec(text)) !== null) {
-    if (numbers.indexOf(nm[0]) === -1) numbers.push(nm[0]);
-  }
-  // Also grab standalone significant numbers
-  var sigNumRe = /\b\d{2,}(?:\.\d+)?\b/g;
-  var snm;
-  while ((snm = sigNumRe.exec(text)) !== null) {
-    var n = snm[0];
-    if (numbers.indexOf(n) === -1 && !dates.some(function(d) { return d.indexOf(n) >= 0; })) numbers.push(n);
-  }
-
-  // ── Proper nouns ──
-  var properNouns = [];
-  var stopWords = new Set(['The','This','That','And','But','For','From','With','When','Where','What','How','Who','Which','There','Their','These','Those','About','After','Before','During','While','Since','Until','Above','Below','Under','Over','Into','Upon','Within','Without','They','Them','Their','Are','Was','Were','Been','Have','Has','Had','Will','Would','Could','Should','May','Might','Can','Did','Does','Not','Yes','Get','Set','Put','Use','See','Try','Open','More','Most','Some','Any','All','New','Old','One','Two','Three','Here','Your','Our','Its']);
-  var words = text.split(/\s+/);
-  for (var i = 0; i < words.length; i++) {
-    var w = words[i].replace(/[^a-zA-Z]/g, '');
-    if (w.length > 2 && w[0] === w[0].toUpperCase() && w[0] !== w[0].toLowerCase() && !stopWords.has(w)) {
-      if (properNouns.indexOf(w) === -1) properNouns.push(w);
-    }
-  }
-
-  // ── Color words in text ──
-  var foundColors = [];
-  Object.keys(COLOR_NAMES).forEach(function(name) {
-    if (lower.indexOf(name) !== -1) {
-      var hex = COLOR_NAMES[name];
-      if (foundColors.indexOf(hex) === -1) foundColors.push(hex);
-    }
+function decodeEntities(value) {
+  return String(value || '').replace(/&(#x[0-9a-f]+|#\d+|amp|lt|gt|quot|apos|nbsp);/gi, function(_, entity) {
+    var lower = entity.toLowerCase();
+    if (lower === 'amp') return '&';
+    if (lower === 'lt') return '<';
+    if (lower === 'gt') return '>';
+    if (lower === 'quot') return '"';
+    if (lower === 'apos') return "'";
+    if (lower === 'nbsp') return ' ';
+    var number = lower.indexOf('#x') === 0 ? parseInt(lower.slice(2), 16) : parseInt(lower.slice(1), 10);
+    return Number.isFinite(number) && number >= 0 && number <= 0x10ffff ? String.fromCodePoint(number) : '';
   });
-
-  // ── Hex colors from source HTML ──
-  var hexColors = html.match(/#[0-9a-fA-F]{6}\b/g) || [];
-  var uniqueHex = [];
-  hexColors.forEach(function(h) {
-    var lh = h.toLowerCase();
-    if (uniqueHex.indexOf(lh) === -1) uniqueHex.push(lh);
-  });
-
-  // ── Derive palette ──
-  var palette = derivePalette(lower, uniqueHex, foundColors);
-
-  // ── Nouns (frequency-sorted) ──
-  var freq = {};
-  for (var j = 0; j < words.length; j++) {
-    var cw = words[j].replace(/[^a-zA-Z]/g, '').toLowerCase();
-    if (cw.length > 3 && !STOP_NOUNS.has(cw)) {
-      freq[cw] = (freq[cw] || 0) + 1;
-    }
-  }
-  var topNouns = Object.keys(freq)
-    .sort(function(a, b) { return freq[b] - freq[a]; })
-    .slice(0, 8)
-    .map(function(w) { return w.charAt(0).toUpperCase() + w.slice(1); });
-
-  // ── Anchors: 3-5 concrete things the design serves ──
-  // Prefer proper nouns + top content nouns, deduplicated
-  var anchors = [];
-  properNouns.slice(0, 5).forEach(function(n) { if (anchors.indexOf(n) === -1 && anchors.length < 5) anchors.push(n); });
-  topNouns.forEach(function(n) { if (anchors.indexOf(n) === -1 && anchors.length < 5) anchors.push(n); });
-  if (anchors.length < 3) anchors = topNouns.slice(0, 5);
-  if (anchors.length === 0) anchors = ['Content', 'Design', 'Source'];
-
-  return {
-    title: title,
-    headings: headings.slice(0, 10),
-    paragraphs: paragraphs.slice(0, 6),
-    items: items.slice(0, 12),
-    emails: emails.slice(0, 3),
-    dates: dates.slice(0, 8),
-    numbers: numbers.slice(0, 8),
-    properNouns: properNouns.slice(0, 8),
-    nouns: topNouns,
-    anchors: anchors.slice(0, 5),
-    palette: palette,
-    foundColors: foundColors,
-    sourceHex: uniqueHex.slice(0, 8),
-  };
 }
 
-var STOP_NOUNS = new Set([
-  'this','that','with','from','have','been','were','they','their','about','which','there','would','could',
-  'should','other','some','only','also','more','into','over','after','before','between','through','during',
-  'above','below','under','your','our','their','what','when','where','while','since','until','upon','within',
-  'without','these','those','them','then','than','that','here','will','just','like','make','made','take','taken',
-  'give','given','come','came','went','goes','gone','said','says','say','see','seen','saw','get','got','put',
-  'set','let','may','might','must','shall','need','used','uses','using','want','wants','know','knows','known',
-  'think','thinks','thought','feel','feels','felt','look','looks','looked','seem','seems','seemed','find','found',
-  'work','works','worked','call','called','each','many','much','very','such','same','both','either','neither',
-  'even','still','back','away','down','upon','once','done','well','way','own','too','yet','per','via','etc',
-]);
+function cleanFragment(value) {
+  return decodeEntities(String(value || '').replace(/<[^>]*>/g, ' ')).replace(/\s+/g, ' ').trim();
+}
+
+function filenameTitle(filePath) {
+  var raw = String(filePath || '').split(/[\\/]/).pop() || '';
+  raw = raw.replace(/\.[^.]+$/, '').replace(/^before$/i, '');
+  return raw.replace(/[-_]+/g, ' ').trim() || 'Untitled';
+}
+
+function uniquePush(list, value) {
+  if (value && list.indexOf(value) === -1) list.push(value);
+}
+
+function profileName(lowerText) {
+  if (/observability|traces?|infrastructure|deploy|kubernetes|pipeline|latency|uptime|metrics?|saas|api|sdk/.test(lowerText)) return 'saas';
+  if (/tech|software|code|programming|developer|engineer|framework|library|runtime|compiler|algorithm/.test(lowerText)) return 'tech';
+  if (/lighthouse|journal|diary|letter|correspondence|reflection|personal/.test(lowerText)) return 'essay';
+  if (/essay|memoir|narrative|prose|literary|chapter|story|told|wrote|author|poem|poetry|verse/.test(lowerText)) return 'literary';
+  if (/menu|recipe|dish|restaurant|kitchen|chef|flavor|taste|cuisine|dining|served|saffron|smoke/.test(lowerText)) return 'restaurant';
+  if (/food|cook|bake|ingredient|meal|delicious|spice|herb/.test(lowerText)) return 'food';
+  if (/forest|tree|mountain|river|trail|hike|camp|wilderness|outdoor|nature|garden/.test(lowerText)) return 'nature';
+  if (/ocean|sea|marine|wave|coast|beach|surf|sail|diving|reef|coral/.test(lowerText)) return 'ocean';
+  if (/night|dark|midnight|moon|star|shadow|void|dream|nocturnal/.test(lowerText)) return 'night';
+  if (/editorial|magazine|article|column|feature|issue|press|news/.test(lowerText)) return 'editorial';
+  return 'default';
+}
+
+function readablePalette(palette) {
+  var ground = canonicalHex(palette.ground) || '#10131a';
+  var light = isLight(ground);
+  var ink = ensureContrast(ground, palette.ink, 4.5);
+  var accent = ensureContrast(ground, palette.accent, 3);
+  var muted = ensureContrast(ground, palette.muted, 2.5);
+  var surface = canonicalHex(palette.surface) || (light ? shade(ground, 0.05) : tint(ground, 0.08));
+  if (contrastRatio(ground, surface) < 1.08) surface = light ? shade(ground, 0.07) : tint(ground, 0.12);
+  return { ground: ground, accent: accent, muted: muted, surface: surface, ink: ink };
+}
 
 function derivePalette(lowerText, sourceHex, foundColors) {
-  // 1. Detect content profile
-  var profile = 'default';
-  if (/observability|traces?|infrastructure|deploy|kubernetes|pipeline|latency|uptime|metrics?|saas|api|sdk/.test(lowerText)) profile = 'saas';
-  else if (/tech|software|code|programming|developer|engineer|framework|library|runtime|compiler|algorithm/.test(lowerText)) profile = 'tech';
-  else if (/essay|memoir|narrative|prose|literary|chapter|story|told|wrote|author|poem|poetry|verse/.test(lowerText)) profile = 'literary';
-  else if (/lighthouse|essay|journal|diary|letter|correspondence|reflection|personal/.test(lowerText)) profile = 'essay';
-  else if (/menu|recipe|dish|restaurant|kitchen|chef|flavor|taste|cuisine|dining|served|saffron|smoke/.test(lowerText)) profile = 'restaurant';
-  else if (/food|cook|bake|ingredient|meal|flavor|delicious|spice|herb/.test(lowerText)) profile = 'food';
-  else if (/forest|tree|mountain|river|trail|hike|camp|wilderness|outdoor|nature|garden|garden/.test(lowerText)) profile = 'nature';
-  else if (/ocean|sea|marine|wave|coast|beach|surf|sail|diving|reef|coral/.test(lowerText)) profile = 'ocean';
-  else if (/night|dark|midnight|moon|star|shadow|void|dream|nocturnal/.test(lowerText)) profile = 'night';
-  else if (/editorial|magazine|article|column|feature|issue|press|news/.test(lowerText)) profile = 'editorial';
-
+  var profile = profileName(lowerText);
   var base = PROFILE_PALETTES[profile];
 
-  // 2. Override with source hex colors if 3+ present (they define the brand)
   if (sourceHex.length >= 3) {
     var ground = sourceHex[0];
     var accent = sourceHex[1];
     var muted = sourceHex[2] || base.muted;
-    var surface = sourceHex[3] || (isLight(ground) ? tint(ground, 0.05) : shade(ground, 0.15));
+    var surface = sourceHex[3] || (isLight(ground) ? shade(ground, 0.05) : tint(ground, 0.12));
     var ink = isLight(ground) ? '#0a0a0a' : '#f4ecd8';
-    // Ensure accent has enough contrast against ground for text use
-    accent = ensureContrast(ground, accent, 3.0);
-    return { ground: ground, accent: accent, muted: muted, surface: surface, ink: ink };
+    return readablePalette({ ground: ground, accent: accent, muted: muted, surface: surface, ink: ink });
   }
 
-  // 3. Override with found color words if 2+ present
   if (foundColors.length >= 2) {
-    var ground2 = isLight(foundColors[0]) ? foundColors[0] : shade(foundColors[0], 0.1);
-    var accent2 = foundColors[1];
-    var muted2 = foundColors[2] || base.muted;
-    var surface2 = isLight(ground2) ? shade(ground2, 0.05) : tint(ground2, 0.08);
-    var ink2 = isLight(ground2) ? '#0a0a0a' : '#f4ecd8';
-    accent2 = ensureContrast(ground2, accent2, 3.0);
-    return { ground: ground2, accent: accent2, muted: muted2, surface: surface2, ink: ink2 };
+    var lightColor = foundColors.find(function(hex) { return isLight(hex); });
+    var darkColor = foundColors.find(function(hex) { return !isLight(hex); });
+    var ground2 = base.ground;
+    var accent2 = isLight(ground2) ? (darkColor || foundColors[0]) : (lightColor || darkColor || foundColors[0]);
+    return readablePalette({
+      ground: ground2,
+      accent: accent2,
+      muted: foundColors[2] || base.muted,
+      surface: isLight(ground2) ? shade(ground2, 0.05) : tint(ground2, 0.08),
+      ink: isLight(ground2) ? '#0a0a0a' : '#f4ecd8',
+    });
   }
 
-  // 4. Use the profile preset
-  return { ground: base.ground, accent: base.accent, muted: base.muted, surface: base.surface, ink: base.ink };
+  return readablePalette(base);
 }
 
-module.exports = {
-  extractContent,
-  hexToRgb,
-  rgbToHex,
-  relativeLuminance,
-  contrastRatio,
-  isLight,
-  tint,
-  shade,
-  ensureContrast,
-  PROFILE_PALETTES,
-  COLOR_NAMES,
+function extractContent(html, filePath) {
+  html = String(html == null ? '' : html);
+
+  var sourceWithoutNoise = html
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+    .replace(/<!--[\s\S]*?-->/g, '');
+  var text = cleanFragment(sourceWithoutNoise);
+  var lower = text.toLowerCase();
+
+  var titleMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+  var h1Match = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
+  var h2Match = html.match(/<h2[^>]*>([\s\S]*?)<\/h2>/i);
+  var title = cleanFragment(titleMatch ? titleMatch[1] : h1Match ? h1Match[1] : h2Match ? h2Match[1] : '');
+  if (!title) title = filenameTitle(filePath);
+
+  var headings = [];
+  var headingRe = /<h([1-3])[^>]*>([\s\S]*?)<\/h\1>/gi;
+  var headingMatch;
+  while ((headingMatch = headingRe.exec(html)) !== null) {
+    var heading = cleanFragment(headingMatch[2]);
+    if (heading.length > 2) uniquePush(headings, heading);
+  }
+
+  var paragraphs = [];
+  var paragraphRe = /<p[^>]*>([\s\S]*?)<\/p>/gi;
+  var paragraphMatch;
+  while ((paragraphMatch = paragraphRe.exec(sourceWithoutNoise)) !== null) {
+    var paragraph = cleanFragment(paragraphMatch[1]);
+    if (paragraph.length > 20) uniquePush(paragraphs, paragraph);
+  }
+
+  var items = [];
+  var itemRe = /<li[^>]*>([\s\S]*?)<\/li>/gi;
+  var itemMatch;
+  while ((itemMatch = itemRe.exec(sourceWithoutNoise)) !== null) {
+    var item = cleanFragment(itemMatch[1]);
+    if (item.length > 2) uniquePush(items, item);
+  }
+
+  var links = [];
+  var linkRe = /<a\b([^>]*)>([\s\S]*?)<\/a>/gi;
+  var linkMatch;
+  while ((linkMatch = linkRe.exec(sourceWithoutNoise)) !== null) {
+    var hrefMatch = linkMatch[1].match(/\bhref\s*=\s*["']([^"']+)["']/i);
+    if (!hrefMatch) continue;
+    var href = hrefMatch[1].trim();
+    if (!/^(?:https?:|mailto:|#|\/)/i.test(href)) continue;
+    var label = cleanFragment(linkMatch[2]);
+    if (label || href) {
+      var duplicate = links.some(function(existing) { return existing.href === href; });
+      if (!duplicate) links.push({ label: label || href, href: href });
+    }
+  }
+
+  var emails = [];
+  var emailRe = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g;
+  var emailMatch;
+  while ((emailMatch = emailRe.exec(text)) !== null) uniquePush(emails, emailMatch[0]);
+
+  var dates = [];
+  var dateRe = /\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}(?:st|nd|rd|th)?,?\s+(?:18|19|20)\d{2}\b|\b(?:18|19|20)\d{2}\b/gi;
+  var dateMatch;
+  while ((dateMatch = dateRe.exec(text)) !== null) uniquePush(dates, dateMatch[0]);
+
+  var numbers = [];
+  var numberRe = /\b\d+(?:[,.]\d+)?\s*(?:ms|s|min|hr|hours?|days?|weeks?|months?|years?|seats?|users?|people|persons?|dollars?|usd|eur|gbp|gb|mb|kb|px|em|rem|rpm|acres|miles|km|metres|meters|feet|ft|pounds?|kg|g|oz|%|x|k|m|b)\b/gi;
+  var numberMatch;
+  while ((numberMatch = numberRe.exec(text)) !== null) uniquePush(numbers, numberMatch[0]);
+  var significantRe = /\b\d{2,}(?:\.\d+)?\b/g;
+  var significantMatch;
+  while ((significantMatch = significantRe.exec(text)) !== null) {
+    var significant = significantMatch[0];
+    if (!dates.some(function(date) { return date.indexOf(significant) >= 0; })) uniquePush(numbers, significant);
+  }
+
+  var properNouns = [];
+  var properRe = /\b[A-Z][a-zA-Z]{2,}(?:\s+[A-Z][a-zA-Z]{2,}){0,2}\b/g;
+  var properMatch;
+  while ((properMatch = properRe.exec(text)) !== null) {
+    var proper = properMatch[0].trim();
+    var parts = proper.split(/\s+/);
+    if (parts.some(function(part) { return STOP_PROPER.has(part); })) {
+      parts = parts.filter(function(part) { return !STOP_PROPER.has(part); });
+      proper = parts.join(' ');
+    }
+    if (proper.length > 2) uniquePush(properNouns, proper);
+  }
+
+  var foundColors = [];
+  Object.keys(COLOR_NAMES).forEach(function(name) {
+    if (new RegExp('\\b' + name + '\\b', 'i').test(lower)) uniquePush(foundColors, COLOR_NAMES[name]);
+  });
+
+  // CSS hex values are useful, but do not let a source page's framework
+  // neutrals (white/black/gray) become the new visual ground. Keep a compact,
+  // chromatic list for content-derived palette decisions.
+  var chromaticColors = foundColors.filter(function(hex) {
+    var rgb = hexToRgb(hex);
+    var max = Math.max(rgb.r, rgb.g, rgb.b);
+    var min = Math.min(rgb.r, rgb.g, rgb.b);
+    return max - min >= 28 && max > 35 && min < 245;
+  });
+
+  var sourceHex = [];
+  var hexRe = /#[0-9a-fA-F]{3,8}\b/g;
+  var hexMatch;
+  while ((hexMatch = hexRe.exec(html)) !== null) uniquePush(sourceHex, canonicalHex(hexMatch[0]));
+
+  var frequency = {};
+  text.split(/\s+/).forEach(function(word) {
+    var noun = word.replace(/[^a-zA-Z]/g, '').toLowerCase();
+    if (noun.length > 3 && !STOP_NOUNS.has(noun)) frequency[noun] = (frequency[noun] || 0) + 1;
+  });
+  var nouns = Object.keys(frequency)
+    .sort(function(a, b) { return frequency[b] - frequency[a] || a.localeCompare(b); })
+    .slice(0, 10)
+    .map(function(noun) { return noun.charAt(0).toUpperCase() + noun.slice(1); });
+
+  var anchors = [];
+  properNouns.forEach(function(value) { if (anchors.length < 5) uniquePush(anchors, value); });
+  nouns.forEach(function(value) { if (anchors.length < 5) uniquePush(anchors, value); });
+  if (!anchors.length) anchors = ['Content', 'Design', 'Source'];
+
+  var profile = profileName(lower);
+  return {
+    title: title,
+    headings: headings.slice(0, 12),
+    paragraphs: paragraphs.slice(0, 8),
+    items: items.slice(0, 16),
+    links: links.slice(0, 12),
+    emails: emails.slice(0, 5),
+    dates: dates.slice(0, 10),
+    numbers: numbers.slice(0, 10),
+    properNouns: properNouns.slice(0, 10),
+    nouns: nouns,
+    anchors: anchors.slice(0, 5),
+    palette: derivePalette(lower, sourceHex, chromaticColors),
+    foundColors: foundColors,
+    sourceHex: sourceHex.slice(0, 10),
+    sourceText: text.slice(0, 8000),
+    profile: profile,
+    density: paragraphs.length + items.length > 12 ? 'rich' : paragraphs.length + items.length > 4 ? 'medium' : 'sparse',
+    hasTimeline: dates.length >= 2,
+    hasMetrics: numbers.length >= 2,
+    hasContact: emails.length > 0,
+  };
+}
+
+var extractApi = {
+  extractContent: extractContent,
+  hexToRgb: hexToRgb,
+  rgbToHex: rgbToHex,
+  relativeLuminance: relativeLuminance,
+  contrastRatio: contrastRatio,
+  isLight: isLight,
+  tint: tint,
+  shade: shade,
+  ensureContrast: ensureContrast,
+  PROFILE_PALETTES: PROFILE_PALETTES,
+  COLOR_NAMES: COLOR_NAMES,
 };
+
+if (typeof module !== 'undefined' && module.exports) module.exports = extractApi;
+if (typeof window !== 'undefined') window.ReimagineExtract = extractApi;

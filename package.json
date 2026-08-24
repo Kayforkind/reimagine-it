@@ -35,14 +35,17 @@
     "regenerate": "python gold/regenerate_all.py",
     "regenerate:dry": "python gold/regenerate_all.py --dry",
     "regenerate:no-screenshots": "python gold/regenerate_all.py --skip-screenshots",
-    "test": "bash scripts/test.sh",
+    "test": "node scripts/test.js",
     "lint:gold": "python scripts/audit_all.py",
     "cli": "node bin/reimagine-it.js",
     "cli:help": "node bin/reimagine-it.js --help",
     "cli:example": "node bin/reimagine-it.js -i gold/webpage/before.html -t webpage -d",
     "test:unit": "node test/unit/cli.test.js",
-    "prepublishOnly": "python scripts/audit_all.py && node test/unit/cli.test.js",
-    "mcp": "node mcp/server.js"
+    "prepublishOnly": "node scripts/test.js",
+    "mcp": "node mcp/server.js",
+    "auto": "node scripts/auto.js",
+    "build:docs": "node scripts/build-docs-engine.js",
+    "check:docs": "node scripts/build-docs-engine.js --check"
   },
   "files": [
     "skills/reimagine-it/",
@@ -53,8 +56,18 @@
     "src/",
     "scripts/audit.py",
     "scripts/audit_all.py",
+    "scripts/auto.js",
+    "src/auto.js",
+    "dsh/README.md",
+    "dsh/auto.mjs",
+    "dsh/cordis.patch.yml",
     "mcp/server.js"
   ],
+  "dsh": {
+    "bundle": {
+      "patch": "./dsh/cordis.patch.yml"
+    }
+  },
   "engines": {
     "node": ">=18"
   },

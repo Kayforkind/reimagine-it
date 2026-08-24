@@ -10,7 +10,7 @@
  *   reimagine        — extract content + generate a redesigned page
  *   extract_content   — extract nouns, colors, dates, numbers from HTML
  *   list_tokens       — list all available design tokens
- *   audit_html        — run the 18-check craft-floor audit on an HTML file
+ *   audit_html        — run the craft-floor audit on an HTML file
  *
  * Usage (Claude Desktop / any MCP host):
  *   npx reimagine-it-mcp
@@ -40,7 +40,9 @@ try {
 }
 
 const { extractContent } = require('../src/extract');
-const { generate } = require('../src/generate');
+const { generate, TOKENS, TOKEN_DESCRIPTIONS } = require('../src/generate');
+const { buildPlan, autoGenerate } = require('../src/auto');
+const pkg = require('../package.json');
 const { execSync } = require('child_process');
 const path = require('path');
 const fs = require('fs');
@@ -62,14 +64,30 @@ const TOOLS = [
         token: {
           type: 'string',
           description: 'Design token (default: webpage)',
-          enum: ['webpage', 'infographic', 'dashboard', 'artistic', 'cinematic',
-                 'photography', 'landing', 'svg', '3js', 'simulation'],
+          enum: TOKENS.concat('auto'),
           default: 'webpage',
         },
         seed: {
           type: 'number',
           description: 'Pin creative variation for reproducibility (optional)',
         },
+        brief: {
+          type: 'string',
+          description: 'Optional creative lens; does not add source facts',
+        },
+      },
+      required: ['html'],
+    },
+  },
+  {
+    name: 'design_auto',
+    description: 'Automatically inspect HTML, choose the best design direction, generate candidates, and return the strongest verified standalone artifact. The source is never modified.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        html: { type: 'string', description: 'The HTML content to redesign' },
+        seed: { type: 'number', description: 'Optional reproducibility seed' },
+        brief: { type: 'string', description: 'Optional creative lens' },
       },
       required: ['html'],
     },
@@ -100,7 +118,7 @@ const TOOLS = [
   },
   {
     name: 'audit_html',
-    description: 'Run the 18-check craft-floor audit on an HTML file. ' +
+    description: 'Run the craft-floor audit on an HTML file. ' +
       'Checks typography, palette, motion, content, structure, and performance. ' +
       'Returns JSON with verdict (CLEAN/WARNINGS/FAIL), failure count, warning count.',
     inputSchema: {
@@ -118,7 +136,7 @@ const TOOLS = [
 
 async function main() {
   const server = new Server(
-    { name: 'reimagine-it', version: '2.3.1' },
+    { name: 'reimagine-it', version: pkg.version },
     { capabilities: { tools: {} } }
   );
 
@@ -127,13 +145,24 @@ async function main() {
   }));
 
   server.setRequestHandler(CallToolRequestSchema, async (request) => {
-    const { name, arguments: args } = request.params;
+    const { name, arguments: requestArgs } = request.params;
+    const args = requestArgs || {};
 
     if (name === 'reimagine') {
       const token = args.token || 'webpage';
       const seed = args.seed !== undefined ? args.seed : undefined;
       const content = extractContent(args.html, 'mcp-input.html');
-      const output = generate({ content, token, seed });
+      if (token === 'auto') {
+        const result = autoGenerate(content, { seed, brief: args.brief });
+        return {
+          content: [
+            { type: 'text', text: JSON.stringify({ token: result.token, seed: result.seed, score: result.score, rationale: result.rationale, candidates: result.candidates, anchors: result.plan.anchors }, null, 2) },
+            { type: 'text', text: '\n--- Generated HTML ---\n' },
+            { type: 'text', text: result.output },
+          ],
+        };
+      }
+      const output = generate({ content, token, seed, brief: args.brief });
 
       // Also return the extraction summary
       const summary = {
@@ -154,6 +183,18 @@ async function main() {
       };
     }
 
+    if (name === 'design_auto') {
+      const content = extractContent(args.html, 'mcp-input.html');
+      const result = autoGenerate(content, { seed: args.seed, brief: args.brief });
+      return {
+        content: [
+          { type: 'text', text: JSON.stringify({ token: result.token, seed: result.seed, score: result.score, rationale: result.rationale, candidates: result.candidates, anchors: result.plan.anchors }, null, 2) },
+          { type: 'text', text: '\n--- Generated HTML ---\n' },
+          { type: 'text', text: result.output },
+        ],
+      };
+    }
+
     if (name === 'extract_content') {
       const content = extractContent(args.html, 'mcp-input.html');
       return {
@@ -164,19 +205,7 @@ async function main() {
     }
 
     if (name === 'list_tokens') {
-      const tokens = [
-        ['webpage', 'A real page from this file\'s nouns, dates, colors'],
-        ['infographic', 'A paper poster of facts — not a fake dashboard'],
-        ['dashboard', 'KPI cards with content-derived metrics'],
-        ['artistic', 'Full-bleed canvas with mix-blend-mode typography'],
-        ['cinematic', 'Full-viewport hero with scroll-driven sections'],
-        ['photography', 'Folio grid with content-derived plates'],
-        ['landing', 'Hero + features + CTA from the source'],
-        ['svg', 'Inline living SVG with star/river/anchor motion'],
-        ['3js', 'Canvas 3D cube with drag-to-rotate'],
-        ['simulation', 'Playable timeline scrubber with year events'],
-      ];
-      const text = tokens.map(([t, d]) => `  ${t.padEnd(14)} ${d}`).join('\n');
+      const text = TOKENS.concat('auto').map((tokenName) => `  ${tokenName.padEnd(14)} ${tokenName === 'auto' ? 'Choose, generate, verify, and explain' : TOKEN_DESCRIPTIONS[tokenName]}`).join('\n');
       return {
         content: [
           { type: 'text', text: 'Available design tokens:\n\n' + text },

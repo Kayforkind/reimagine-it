@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
+  <title id="title">Source content becomes a distinct designed artifact</title>
+  <desc id="desc">A three-part editorial diagram: an HTML source card, extracted signals, and a finished visual composition with type, a chart, and a living mark.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f9f1df"/>
+      <stop offset="1" stop-color="#e9d9b8"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101c31"/>
+      <stop offset="1" stop-color="#1d3557"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#07111f" flood-opacity=".22"/>
+    </filter>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="560" rx="28" fill="#091525"/>
+  <circle cx="750" cy="104" r="150" fill="#b22234" opacity=".14" filter="url(#soft)"/>
+  <circle cx="820" cy="470" r="190" fill="#e8a63f" opacity=".12" filter="url(#soft)"/>
+
+  <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13" letter-spacing="1.4" fill="#e8a63f">
+    <text x="54" y="58">01 / READ THE REAL PAGE</text>
+    <text x="378" y="58">02 / FIND THE SIGNAL</text>
+    <text x="680" y="58">03 / SHIP A DIRECTION</text>
+  </g>
+
+  <!-- Source card -->
+  <g filter="url(#shadow)">
+    <rect x="48" y="92" width="258" height="360" rx="12" fill="url(#paper)"/>
+    <rect x="70" y="120" width="112" height="12" rx="6" fill="#b22234"/>
+    <rect x="70" y="152" width="194" height="10" rx="5" fill="#17243d" opacity=".82"/>
+    <rect x="70" y="171" width="162" height="10" rx="5" fill="#17243d" opacity=".22"/>
+    <path d="M70 222h194M70 236h171M70 250h188M70 264h136" stroke="#17243d" stroke-width="7" stroke-linecap="round" opacity=".24"/>
+    <rect x="70" y="306" width="82" height="70" rx="6" fill="#17243d" opacity=".9"/>
+    <rect x="164" y="306" width="100" height="70" rx="6" fill="#b22234" opacity=".88"/>
+    <circle cx="218" cy="412" r="18" fill="#e8a63f"/>
+    <path d="M208 412h20M218 402v20" stroke="#17243d" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- Signal extraction -->
+  <g stroke="#e8a63f" stroke-width="2" fill="none" opacity=".7">
+    <path d="M330 178h50"/>
+    <path d="M330 282h50"/>
+    <path d="M330 386h50"/>
+  </g>
+  <g fill="#e8a63f">
+    <path d="m372 170 16 8-16 8z"/>
+    <path d="m372 274 16 8-16 8z"/>
+    <path d="m372 378 16 8-16 8z"/>
+  </g>
+  <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13" fill="#f4ecd8">
+    <rect x="390" y="140" width="218" height="76" rx="10" fill="#132641" stroke="#35557b"/>
+    <text x="410" y="168" fill="#6ee7b7">PALETTE</text>
+    <circle cx="410" cy="192" r="8" fill="#1a2138"/><circle cx="438" cy="192" r="8" fill="#b22234"/><circle cx="466" cy="192" r="8" fill="#e8a63f"/><circle cx="494" cy="192" r="8" fill="#f4ecd8"/>
+    <text x="390" y="260" fill="#38bdf8">NOUNS / DATES / NUMBERS</text>
+    <text x="390" y="284" fill="#f4ecd8" opacity=".72">Texas · 1836 · river · 1995</text>
+    <text x="390" y="364" fill="#f43f5e">MOTIF + MOTION</text>
+    <path d="M390 396c28-38 48 38 76 0s48 38 76 0" stroke="#e8a63f" stroke-width="3" fill="none"/>
+  </g>
+
+  <!-- Finished artifact -->
+  <g filter="url(#shadow)">
+    <rect x="668" y="92" width="244" height="360" rx="14" fill="url(#ink)" stroke="#35557b"/>
+    <circle cx="820" cy="180" r="56" fill="#b22234" opacity=".2"/>
+    <path d="M820 132 833 168 872 168 840 191 852 228 820 206 788 228 800 191 768 168 807 168z" fill="#e8a63f"/>
+    <text x="700" y="292" font-family="Georgia, serif" font-size="32" fill="#f4ecd8">A real</text>
+    <text x="700" y="327" font-family="Georgia, serif" font-size="32" font-style="italic" fill="#e8a63f">direction.</text>
+    <path d="M700 365h140" stroke="#6ee7b7" stroke-width="4" stroke-linecap="round"/>
+    <path d="M700 383h92" stroke="#f4ecd8" stroke-width="4" stroke-linecap="round" opacity=".45"/>
+    <text x="700" y="422" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="11" letter-spacing="1.2" fill="#f4ecd8" opacity=".62">OPEN · EDIT · SHIP</text>
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="11" fill="#f4ecd8" opacity=".54">
+    <text x="54" y="516">same content</text>
+    <text x="390" y="516">different decisions</text>
+    <text x="668" y="516">one standalone HTML artifact</text>
+  </g>
+</svg>

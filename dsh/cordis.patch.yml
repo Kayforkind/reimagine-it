@@ -1,0 +1,7 @@
+# Optional DeepSeek Harness bundle layer for reimagine-it.
+# The package declares this patch through dsh.bundle.patch. DSH resolves the
+# plugin row from the installed package name, not this repository path.
+- insert:
+    - id: reimagine-it-auto
+      name: reimagine-it/dsh/auto.mjs
+      inject: [tools]

@@ -26,7 +26,7 @@
     font-family: var(--mono); font-size: 11px; letter-spacing: .06em;
     padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(26,33,56,.18);
     background: transparent; color: var(--dim); cursor: pointer;
-    transition: all .12s ease-out; text-align: center;
+    transition: background-color .12s ease-out, color .12s ease-out, border-color .12s ease-out; text-align: center;
   }
   .token-btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
   .token-btn.active { background: var(--hot); color: var(--paper); border-color: var(--hot); }
@@ -56,19 +56,23 @@
     </div>
     <div class="token-grid" id="tokenGrid">
       <button class="token-btn active" data-token="webpage">webpage</button>
+      <button class="token-btn" data-token="auto">auto · choose for me</button>
       <button class="token-btn" data-token="infographic">infographic</button>
       <button class="token-btn" data-token="dashboard">dashboard</button>
       <button class="token-btn" data-token="artistic">artistic</button>
       <button class="token-btn" data-token="cinematic">cinematic</button>
       <button class="token-btn" data-token="landing">landing</button>
       <button class="token-btn" data-token="svg">svg</button>
+      <button class="token-btn" data-token="photography">photography</button>
       <button class="token-btn" data-token="simulation">simulation</button>
+      <button class="token-btn" data-token="3js">3js</button>
     </div>
     <button class="run-btn" id="runBtn">Reimagine →</button>
   </div>
   <div class="footer">
     <a href="https://github.com/Kayforkind/reimagine-it" target="_blank">reimagine-it</a> · <a href="https://kayforkind.github.io/reimagine-it/" target="_blank">playground</a> · MIT
   </div>
+<script src="engine.js"></script>
 <script src="popup.js"></script>
 </body>
 </html>

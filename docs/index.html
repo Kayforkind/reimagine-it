@@ -166,7 +166,7 @@ h1 em { font-style: italic; color: var(--ink); }
 .token-btn {
   font-family: var(--mono); font-size: 11px; letter-spacing: .08em;
   padding: 7px 14px; border-radius: 999px; border: 1px solid rgba(26,33,56,.18);
-  background: transparent; color: var(--dim); cursor: pointer; transition: all .15s ease-out;
+  background: transparent; color: var(--dim); cursor: pointer; transition: background-color .15s ease-out, color .15s ease-out, border-color .15s ease-out;
 }
 .token-btn:hover, .token-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 .run-btn {
@@ -260,7 +260,7 @@ footer a { color: var(--hot); }
       </div>
       <aside class="proof">
         <div class="meta"><span>Same naive HTML · 5 outputs</span><span>No CDN</span></div>
-        <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/gold/forms/examples.gif?v=pages-1" alt="Same naive HTML, then full-page afters: webpage, infographic, SVG, Three.js, simulation">
+        <img src="hero.svg" width="960" height="560" alt="Source content becomes a designed artifact through palette, anchors, motif, and composition">
       </aside>
     </section>
   </div>
@@ -299,15 +299,15 @@ footer a { color: var(--hot); }
 
       <h3 class="source-name">Source 1 — Texas notebook</h3>
       <p class="source-sub">3 places, 3 signals, Lone Star flag, Big Bend sunset. Navy / cream / red / gold palette from the flag. → <a href="https://github.com/Kayforkind/reimagine-it/blob/main/gold/webpage/after-3.html">See the gold</a></p>
-      <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/gold/webpage/quartet.png" alt="Same command, three different reader registers" loading="lazy">
+      <img src="../gold/webpage/quartet.png" width="2400" height="1180" alt="Three different reader registers from the same source" loading="lazy">
       <div class="before-after">
-        <div><img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/gold/webpage/compare.png" alt="Texas before and after" loading="lazy"><p class="label">Before → After (dashboard)</p></div>
-        <div><img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/gold/domains/strip.png" alt="Four domain aesthetics from same source" loading="lazy"><p class="label">Same HTML → artistic / dashboard / photography / cinematic</p></div>
+        <div><img src="../gold/webpage/compare.png" width="1680" height="1100" alt="Texas source page compared with a redesigned dashboard" loading="lazy"><p class="label">Before → After (dashboard)</p></div>
+        <div><img src="../gold/domains/strip.png" width="1720" height="1120" alt="Four domain compositions from the same source" loading="lazy"><p class="label">Same HTML → artistic / dashboard / photography / cinematic</p></div>
       </div>
 
       <h3 class="source-name">Source 2 — Jules Ice Cream</h3>
       <p class="source-sub">6 flavors, hours, counter. Parlor DNA — not a Texas reskin. → <a href="https://github.com/Kayforkind/reimagine-it/blob/main/gold/jules/webpage/after.html">See the gold</a></p>
-      <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/gold/jules/best.gif?v=pages-1" alt="Jules Ice Cream before and after animated" loading="lazy">
+      <img src="../gold/jules/before.png" width="1400" height="900" alt="Jules Ice Cream source page — a parlor brief ready for a content-derived redesign" loading="lazy">
 
       <h3 class="source-name">Sources 3–5 — SaaS, essay, restaurant</h3>
       <p class="source-sub">Three new golds proving the method travels to any content.</p>
@@ -407,6 +407,7 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
             <button class="token-btn" data-token="svg">svg</button>
             <button class="token-btn" data-token="3js">3js</button>
             <button class="token-btn" data-token="simulation">simulation</button>
+            <button class="token-btn" data-token="auto">auto</button>
           </div>
           <div class="play-share-row">
             <button class="run-btn" id="playRun">Reimagine →</button>
@@ -429,8 +430,10 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
     </footer>
   </div>
 
+<script src="engine.js"></script>
 <script>
 (function(){
+  /* Legacy renderer retained for cached pages; current pages use engine.js.
   var COLOR_MAP = {
     'red':'#c23a2a','blue':'#2563eb','navy':'#1c2d3d','green':'#16a34a','teal':'#0d9488',
     'gold':'#e8a63f','amber':'#e8a63f','orange':'#ea580c','purple':'#7c3aed','pink':'#db2777',
@@ -528,7 +531,9 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
     else if (token === 'landing') {
       page += '<div style="max-width:900px;margin:0 auto;padding:80px 28px;text-align:center;position:relative"><div style="position:absolute;top:0;left:0;right:0;height:100%;background:radial-gradient(ellipse at 50% 0%,'+pal.accent+'14,transparent 70%);pointer-events:none;z-index:0"></div><p style="font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:'+pal.accent+';margin-bottom:16px;position:relative">'+esc(content.title)+'</p><h1 style="font-size:clamp(38px,7vw,72px);line-height:1.05;letter-spacing:-.02em;position:relative">Ship the <em class="pg-accent" style="font-style:italic">'+esc(content.title.split(' ').slice(-1)[0]||'thing')+'</em>,<br>not the pitch.</h1>';
       if (content.paras[0]) page += '<p style="font-size:17px;opacity:.6;max-width:40ch;margin:24px auto 0;position:relative">'+esc(content.paras[0])+'</p>';
-      page += '<div style="margin-top:36px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative"><a href="#" style="display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:999px;background:'+pal.accent+';color:'+ground+';font-weight:600;font-size:15px;text-decoration:none">Get started →</a><a href="#" style="display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:999px;border:1px solid '+pal.dim+';color:'+pal.ink+';font-weight:600;font-size:15px;text-decoration:none">See how</a></div></div>';
+      var actionHref = content.emails && content.emails[0] ? 'mailto:' + content.emails[0] : '#playground';
+      var actionLabel = content.emails && content.emails[0] ? 'Contact source' : 'Try this direction';
+      page += '<div style="margin-top:36px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative"><a href="'+esc(actionHref)+'" style="display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:999px;background:'+pal.accent+';color:'+ground+';font-weight:600;font-size:15px;text-decoration:none">'+esc(actionLabel)+' →</a><a href="#features" style="display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:999px;border:1px solid '+pal.dim+';color:'+pal.ink+';font-weight:600;font-size:15px;text-decoration:none">See how</a></div></div>';
     }
     else if (token === 'photography') {
       page += '<div style="max-width:900px;margin:0 auto;padding:48px 28px"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:32px;border-bottom:1px solid '+pal.dim+'33;padding-bottom:16px"><div style="font-size:clamp(28px,5vw,40px);font-weight:400;letter-spacing:-.01em">'+esc(content.title.split(' ').slice(0,2).join(' '))+'<br><span style="font-size:.45em;opacity:.5">'+esc(content.title.split(' ').slice(2).join(' ')||'NOTES')+'</span></div><div style="font-size:11px;text-transform:uppercase;letter-spacing:.14em;opacity:.5">Num 01 · '+esc(content.dates[0]||'')+'</div></div>';
@@ -539,9 +544,11 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
     page += '</body></html>'; return page;
   }
 
+  */
+
   var input=document.getElementById('playInput'),runBtn=document.getElementById('playRun'),frame=document.getElementById('playFrame'),notes=document.getElementById('playNotes'),tokenBtns=document.querySelectorAll('.token-btn'),currentToken='webpage';
   tokenBtns.forEach(function(btn){btn.addEventListener('click',function(){tokenBtns.forEach(function(b){b.classList.remove('active')});btn.classList.add('active');currentToken=btn.dataset.token})});
-  function run(){var html=input.value.trim();if(!html){var ph=input.getAttribute('placeholder');if(ph)html=ph;else return}var c=extractContent(html);var n=[];if(c.colors.length>0)n.push('Palette: <span>'+c.colors.map(function(x){return x.word}).join(' / ')+'</span>');else n.push('Palette: <span>content-derived</span>');if(c.dates.length>0)n.push('Dates: <span>'+c.dates.slice(0,4).join(', ')+'</span>');if(c.nums.length>0)n.push('Numbers: <span>'+c.nums.slice(0,4).join(', ')+'</span>');if(c.proper.length>0)n.push('Nouns: <span>'+c.proper.slice(0,3).join(', ')+'</span>');notes.innerHTML='Extracted — '+n.join(' · ')+'. <br>Token: <span>'+currentToken+'</span>.';frame.srcdoc=generatePage(c,currentToken)}
+  function run(){var html=input.value.trim();if(!html){var ph=input.getAttribute('placeholder');if(ph)html=ph;else return}var c=window.ReimagineExtract.extractContent(html,'playground.html');var n=[];n.push('Palette: '+[c.palette.ground,c.palette.accent,c.palette.muted].join(' / '));if(c.dates.length>0)n.push('Dates: '+c.dates.slice(0,4).join(', '));if(c.numbers.length>0)n.push('Numbers: '+c.numbers.slice(0,4).join(', '));if(c.anchors.length>0)n.push('Anchors: '+c.anchors.slice(0,3).join(', '));if(currentToken==='auto'){var auto=window.ReimagineAuto.autoGenerate(c);n.push('Auto chose: '+auto.token+' · '+auto.candidates.length+' candidates');notes.textContent='Extracted — '+n.join(' · ')+'. Auto verified the strongest direction.';frame.srcdoc=auto.output}else{notes.textContent='Extracted — '+n.join(' · ')+'. Token: '+currentToken+'.';frame.srcdoc=window.ReimagineGenerate.generate({content:c,token:currentToken})}}
   runBtn.addEventListener('click',run);
   input.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.ctrlKey)run()});
   input.addEventListener('focus',function(){if(!input._r){input._r=true;run()}});

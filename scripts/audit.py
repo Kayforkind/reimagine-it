@@ -111,7 +111,9 @@ BAD_ANIM_PROPS = {"top", "left", "right", "bottom", "margin", "margin-top",
                   "width", "max-width", "min-width",
                   "height", "max-height", "min-height",
                   "font",
-                  "font-size", "letter-spacing", "line-height"}
+                  "font-size", "letter-spacing", "line-height", "word-spacing",
+                  "color", "background", "background-color", "fill", "stroke",
+                  "stroke-dashoffset"}
 
 
 # ── Core — parse HTML, extract styles and text ─────────────────────────────
@@ -222,13 +224,13 @@ def check_palette(page):
     colors = page["colors"]
     non_neutral = colors - NEUTRAL_COLORS
 
-    if len(non_neutral) > 8:
+    if len(non_neutral) > 12:
+        results.append((0, SEV["FAIL"], "PAL-01-FATAL",
+                        f"{len(non_neutral)} colors — palette is unconstrained."))
+    elif len(non_neutral) > 8:
         results.append((0, SEV["WARN"], "PAL-01",
                         f"{len(non_neutral)} distinct non-neutral colors found. "
                         f"Consider ≤ 5 + one status color."))
-    elif len(non_neutral) > 12:
-        results.append((0, SEV["FAIL"], "PAL-01-FATAL",
-                        f"{len(non_neutral)} colors — palette is unconstrained."))
 
     # RULE P2: transition: all banned
     if BANNED_TRANSITION_RE.search(page["raw"]):

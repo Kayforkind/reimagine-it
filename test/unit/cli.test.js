@@ -8,7 +8,10 @@ var assert = require('assert');
 var extractMod = require('../../src/extract');
 var extractContent = extractMod.extractContent;
 var generate = require('../../src/generate').generate;
+var autoMod = require('../../src/auto');
 var fs = require('fs');
+var childProcess = require('child_process');
+var path = require('path');
 
 var passed = 0;
 var failed = 0;
@@ -91,6 +94,25 @@ test('empty HTML does not crash', function() {
   assert.ok(c.palette.ground, 'should have palette.ground');
 });
 
+test('negative safe integer seeds work through the CLI', function() {
+  var result = childProcess.spawnSync(process.execPath, [path.join(__dirname, '../../bin/reimagine-it.js'), '--auto', '--seed', '-1', '-o', '-'], {
+    input: '<h1>Ocean Atlas</h1><p>Wave data from 2026.</p>', encoding: 'utf8'
+  });
+  assert.strictEqual(result.status, 0, result.stderr);
+  assert.ok(result.stdout.indexOf('<!doctype html>') === 0);
+});
+
+test('invalid numeric entities do not crash extraction', function() {
+  var c = extractContent('<h1>Atlas &#99999999;</h1>', 'entity.html');
+  assert.strictEqual(c.title, 'Atlas');
+});
+
+test('short and alpha-channel hex values are ignored safely', function() {
+  var c = extractContent('<style>:root{--a:#abcd;--b:#11223344}</style><h1>Ocean</h1>', 'colors.html');
+  assert.deepStrictEqual(c.sourceHex, ['#aabbcc', '#112233']);
+  assert.strictEqual(c.palette.accent.length, 7);
+});
+
 test('anchors are derived from content', function() {
   var c = extractContent('<p>Texas Texas Texas Austin Austin Live Live Live Live</p>', 'test.html');
   assert.ok(c.anchors.length > 0, 'should produce anchors');
@@ -115,6 +137,22 @@ test('extracts headings', function() {
   var c = extractContent(html, 'test.html');
   assert.ok(c.headings.length >= 3, 'should find 3 headings, got ' + c.headings.length);
   assert.ok(c.headings.indexOf('Main Title') >= 0);
+});
+
+test('decodes nested title and preserves source links', function() {
+  var html = '<title>Night &amp; Tide</title><h1>Night &amp; Tide</h1><p>Read the field notes.</p><a href="https://example.com">Field notes</a>';
+  var c = extractContent(html, 'notes.html');
+  assert.strictEqual(c.title, 'Night & Tide');
+  assert.strictEqual(c.links[0].label, 'Field notes');
+  assert.strictEqual(c.links[0].href, 'https://example.com');
+});
+
+test('returns source metadata for generation decisions', function() {
+  var c = extractContent('<h1>Ocean Atlas</h1><p>Wave data from 2026.</p><p>12 miles offshore.</p>', 'ocean.html');
+  assert.strictEqual(c.profile, 'ocean');
+  assert.strictEqual(c.hasTimeline, false);
+  assert.strictEqual(c.hasMetrics, true);
+  assert.ok(['sparse', 'medium', 'rich'].indexOf(c.density) >= 0);
 });
 
 // ── generate.js ─────────────────────────────────────────────────────
@@ -152,7 +190,7 @@ test('infographic token produces valid HTML', function() {
 test('dashboard token produces valid HTML', function() {
   var out = generate({content: sampleContent, token: 'dashboard', seed: 42});
   assert.ok(out.indexOf('<!doctype html>') === 0);
-  assert.ok(out.indexOf('kpi') > 0, 'should have kpi elements');
+  assert.ok(out.indexOf('kpi') > 0 || out.indexOf('metric') > 0, 'should have metric elements');
 });
 
 test('svg token produces inline SVG', function() {
@@ -204,9 +242,73 @@ test('empty anchors does not crash', function() {
   assert.ok(out.indexOf('<!doctype html>') === 0);
 });
 
+test('auto ranks data-rich content toward infographic', function() {
+  var c = extractContent('<h1>History</h1><p>Compare data from 1836 and 2026.</p><ul><li>12 users</li><li>24 users</li></ul>', 'history.html');
+  var plan = autoMod.buildPlan(c);
+  assert.strictEqual(plan.recommendation, 'infographic');
+  assert.ok(plan.candidates.length <= 3);
+});
+
+test('auto generation returns a verified standalone artifact', function() {
+  var result = autoMod.autoGenerate(sampleContent, { seed: 42 });
+  assert.ok(['webpage', 'landing', 'dashboard', 'infographic', 'cinematic', 'artistic', 'photography', 'svg', '3js', 'simulation'].indexOf(result.token) >= 0);
+  assert.ok(result.output.indexOf('<!doctype html>') === 0);
+  assert.ok(result.candidates.length >= 1);
+  assert.ok(result.candidates[0].quality >= 0);
+});
+
+test('auto generation is reproducible when seeded', function() {
+  var a = autoMod.autoGenerate(sampleContent, { seed: 17 });
+  var b = autoMod.autoGenerate(sampleContent, { seed: 17 });
+  assert.strictEqual(a.token, b.token);
+  assert.strictEqual(a.seed, b.seed);
+  assert.strictEqual(a.output, b.output);
+});
+
 test('default token falls back to webpage', function() {
   var out = generate({content: sampleContent, token: 'unknown', seed: 42});
   assert.ok(out.indexOf('<!doctype html>') === 0);
+});
+
+test('all generated tokens remain source-faithful and standalone', function() {
+  var tokens = ['webpage','landing','dashboard','infographic','cinematic','artistic','photography','svg','3js','simulation'];
+  tokens.forEach(function(token) {
+    var out = generate({content: sampleContent, token: token, seed: 7});
+    assert.ok(out.indexOf('Test Page') >= 0, token + ': keeps title');
+    assert.ok(out.indexOf('https://') < 0, token + ': must be offline');
+  });
+});
+
+test('CLI stdout mode emits only HTML on stdout', function() {
+  var result = childProcess.spawnSync(process.execPath, [path.join(__dirname, '../../bin/reimagine-it.js'), '-t', 'svg', '-o', '-'], {
+    input: '<h1>Ocean Atlas</h1><p>Wave notes from 2026.</p>', encoding: 'utf8'
+  });
+  assert.strictEqual(result.status, 0, result.stderr);
+  assert.ok(result.stdout.indexOf('<!doctype html>') === 0, 'stdout should begin with HTML');
+  assert.ok(result.stderr.indexOf('reimagine-it') >= 0, 'progress should stay on stderr');
+});
+
+test('CLI auto mode generates an artifact without source mutation', function() {
+  var result = childProcess.spawnSync(process.execPath, [path.join(__dirname, '../../bin/reimagine-it.js'), '--auto', '-o', '-'], {
+    input: '<h1>Ocean Atlas</h1><p>Wave data from 2026.</p><p>12 miles offshore.</p>', encoding: 'utf8'
+  });
+  assert.strictEqual(result.status, 0, result.stderr);
+  assert.ok(result.stdout.indexOf('<!doctype html>') === 0);
+  assert.ok(result.stderr.indexOf('reimagine-it') >= 0);
+});
+
+test('CLI accepts negative safe integer seeds', function() {
+  var result = childProcess.spawnSync(process.execPath, [path.join(__dirname, '../../bin/reimagine-it.js'), '--auto', '--seed', '-1', '-o', '-'], {
+    input: '<h1>Ocean Atlas</h1><p>Wave data from 2026.</p>', encoding: 'utf8'
+  });
+  assert.strictEqual(result.status, 0, result.stderr);
+  assert.ok(result.stdout.indexOf('<!doctype html>') === 0);
+});
+
+test('CLI rejects unknown options instead of silently falling back', function() {
+  var result = childProcess.spawnSync(process.execPath, [path.join(__dirname, '../../bin/reimagine-it.js'), '--not-a-real-flag'], { encoding: 'utf8' });
+  assert.strictEqual(result.status, 2);
+  assert.ok(result.stderr.indexOf('unknown option') >= 0);
 });
 
 test('escape function handles special chars', function() {

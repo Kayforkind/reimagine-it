@@ -11,6 +11,8 @@ Locate the available `reimagine-it` skill using its `SKILL.md` path advertised b
 
 User arguments: `$ARGUMENTS`
 
+If the arguments contain `auto` (case-insensitive), run the automatic design loop: inspect context, infer the best form, create up to three distinct candidates, verify them, and ship the strongest artifact without modifying the source unless the user explicitly requests that edit.
+
 Say once: **"Running /reimagine-it."**
 
 Report `REIMAGINED: shipped | partial | blocked`.
