@@ -1,17 +1,16 @@
 ---
 name: reimagine-it
 description: >-
-  Claude Code / Codex / Factory Droid plugin and Cursor / Copilot / Gemini CLI
-  Agent Skill. Install with npx skills add Kayforkind/reimagine-it,
-  /plugin marketplace add Kayforkind/reimagine-it, or
-  codex plugin marketplace add Kayforkind/reimagine-it.
-  Redesign any file from its own content: webpage, HTML, landing page,
-  README, PDF, document, slides, PowerPoint, infographic, SVG, dashboard,
-  CLI, or protocol. Use when the user says /reimagine-it, reimagine it,
-  reinvent this, redesign this page, make an infographic, content-aware
-  redesign, or wants a visual leap instead of a mood board.
-  Tokens: artistic, cinematic, photography, neon, glassmorphism, bento,
-  infographic, svg, 3js, simulation, plus leftover words as an open brief. Not /better.
+  Content-Derived Design — reads the source file and derives palette, motifs,
+  and motion from concrete nouns, dates, and colors already in the content.
+  Use when the user says /reimagine-it, "reimagine it", "reinvent this",
+  "redesign this page", "make an infographic", wants a content-aware redesign
+  or a visual leap instead of a mood board. Tokens: webpage, infographic,
+  svg, 3js, simulation, artistic, cinematic, dashboard, photography, landing,
+  portfolio, ecommerce, glassmorphism, bento, neon, brutalism, neumorphism,
+  handdrawn. Also /reimagine-it audit to run deterministic quality checks.
+  Installed via npx skills add Kayforkind/reimagine-it or plugin marketplace.
+  Not /better. Not a mood board.
 license: MIT
 metadata:
   author: Kayforkind
@@ -24,6 +23,20 @@ metadata:
     - gemini-cli
     - factory-droid
     - agent-skills
+keywords:
+  - content-derived-design
+  - redesign
+  - infographic
+  - svg
+  - threejs
+  - simulation
+  - webpage
+  - frontend
+  - html
+  - css
+  - palette
+  - motion
+  - offline
 ---
 
 # /reimagine-it
@@ -59,6 +72,7 @@ Optional tokens. **Combine freely.** You pick tokens; the agent picks questions,
 | `--seed <n>` | Pin the creative variation sample so two runs produce **the same** draw. Default is fresh every run. | Use the seed to deterministically pick one option per variation axis. |
 | `--variant a\|b\|c\|...` | Shorthand for a named seed (`a` = first canonical draw, `b` = second, …). | Reproduce a specific shipped draw; useful for locks (`--variant b --lock`). |
 | `<brief>` | Any leftover words after known tokens. Open vocabulary — not a theme catalog. | Treat as a creative lens on register, ground, motif, pattern, type, motion. Still sniff context; brief does not replace source facts. |
+| **Audit** — `audit` | Run deterministic quality checks on an HTML file. | Runs `scripts/audit.py` — 18 checks across typography, palette, motion, content, structure, and performance with no LLM and no API key. Zero failures must pass. Supports `--verbose` and `--json`. |
 
 Combine freely. Known form / domain / modifier tokens load packs. **Every other word is kept** and followed. There is no list of allowed leftover words.
 
@@ -68,6 +82,7 @@ Combine freely. Known form / domain / modifier tokens load packs. **Every other 
 /reimagine-it infographic
 /reimagine-it infographic <any leftover words>
 /reimagine-it svg
+/reimagine-it audit
 /reimagine-it 3js
 /reimagine-it simulation
 /reimagine-it webpage artistic glassmorphism --font "Playfair Display, serif"
@@ -302,6 +317,7 @@ Render the hero into an image (headless Chrome for HTML → PNG at ≥ 1400 px w
 - **Motion proof.** If the pack claims motion (svg/3js default is `alive-micro`), capture two frames (~600 ms apart) and compare hashes; identical hashes = motion did not run. Brief `still` is the exception.
 
 **5.c Craft-floor pass** (webpage only) — grep the produced HTML/CSS and confirm the [craft-floor](references/craft-floor.md) contract holds:
+**Run the deterministic audit:** `python scripts/audit.py <output-file.html>` (or `/reimagine-it audit` as a standalone command). This runs 18 checks across typography, palette, motion, content, structure, and performance with no LLM and no API key. Zero failures must pass; warnings are advisory. Supports `--verbose` and `--json` for CI.
 
 - **Focus & selection**: at least one `::selection` rule; at least one `:focus-visible` rule; **no** `outline: 0` / `outline: none` without a real replacement.
 - **Reduced motion**: a `@media (prefers-reduced-motion: reduce)` block is present and decomposes correctly (transitions off, focus indicators still visible, essential state feedback preserved).

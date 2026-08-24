@@ -1,0 +1,45 @@
+{
+  "name": "reimagine-it",
+  "version": "2.3.0",
+  "description": "Content-Derived Design — an AI agent skill that reads your file and redesigns it from its own content. Palette, motifs, and motion derived from concrete nouns, dates, and colors already in your source.",
+  "license": "MIT",
+  "author": "Kayforkind",
+  "repository": "github:Kayforkind/reimagine-it",
+  "homepage": "https://kayforkind.github.io/reimagine-it/",
+  "keywords": [
+    "agent-skills",
+    "claude-code",
+    "cursor",
+    "codex",
+    "copilot",
+    "gemini-cli",
+    "design",
+    "frontend",
+    "content-derived-design",
+    "infographic",
+    "svg",
+    "threejs",
+    "simulation",
+    "redesign",
+    "html",
+    "css"
+  ],
+  "scripts": {
+    "audit": "python scripts/audit_all.py",
+    "audit:verbose": "python scripts/audit.py gold/webpage/after.html --verbose",
+    "regenerate": "python gold/regenerate_all.py",
+    "regenerate:dry": "python gold/regenerate_all.py --dry",
+    "regenerate:no-screenshots": "python gold/regenerate_all.py --skip-screenshots",
+    "test": "python scripts/audit_all.py && python gold/reimagine.py --ship",
+    "lint:gold": "python scripts/audit_all.py"
+  },
+  "files": [
+    "skills/reimagine-it/",
+    "commands/reimagine-it.md",
+    "prompts/reimagine-it.md",
+    "AGENTS.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}
