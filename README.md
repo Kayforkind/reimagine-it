@@ -1,292 +1,339 @@
 # reimagine-it
 
-[![license MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE) [![CI](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/audit.yml?branch=main)](https://github.com/Kayforkind/reimagine-it/actions/workflows/audit.yml) [![skills.sh](https://skills.sh/b/kayforkind/reimagine-it)](https://skills.sh/kayforkind/reimagine-it) [![Claude Code](https://img.shields.io/badge/Claude_Code-plugin-d97757.svg)](https://code.claude.com/docs/en/plugins) [![Cursor](https://img.shields.io/badge/Cursor-skill-1a2138.svg)](https://cursor.com) [![Codex](https://img.shields.io/badge/Codex-skill-6e6e6e.svg)](https://github.com/openai/codex) [![agentskills.io spec](https://img.shields.io/badge/agentskills.io-spec-e8a63f.svg)](https://agentskills.io/specification) [![version 2.3.1](https://img.shields.io/badge/version-2.3.2-b22234.svg)](skills/reimagine-it/SKILL.md) [![sponsor](https://img.shields.io/badge/sponsor-%E2%98%85-b22234.svg)](https://github.com/sponsors/Kayforkind)
+[![CI](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/audit.yml?branch=main&label=CI)](https://github.com/Kayforkind/reimagine-it/actions/workflows/audit.yml) [![version 2.3.2](https://img.shields.io/badge/version-2.3.2-b22234.svg)](CHANGELOG.md) [![MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE) [![skills.sh](https://skills.sh/b/kayforkind/reimagine-it)](https://skills.sh/kayforkind/reimagine-it)
 
-**This is an agent skill — an AI reads your file and redesigns it from its own content. Not a mood board. A real artifact.**
+# Make the page you already have worth keeping.
 
-Same naive HTML. Completely different pages — webpage, infographic poster, living SVG, Three.js room, playable simulation. One file. Offline. No Figma, no CDN.
+**reimagine-it** is Content-Derived Design for AI agents and the command line. Point it at an existing HTML page. It reads the real content, preserves the meaning, then gives the page a stronger visual system: typography, hierarchy, palette, composition, motif, and motion.
 
-![Same naive HTML → webpage, infographic, SVG, Three.js, simulation](gold/forms/examples.gif?v=pages-1)
+Not a template picker. Not a mood board. Not a prompt that fills your page with invented copy.
 
-**[Live gallery](https://kayforkind.github.io/reimagine-it/)** — browse the gold. No install. Or **[try the playground](https://kayforkind.github.io/reimagine-it/#playground) — paste HTML, see a live redesign in your browser right now.
+> **Your content narrows the design space. Your client approves the direction. A seed or lock makes the approved direction repeatable.**
+
+<div align="center">
+
+**[Open the live playground](https://kayforkind.github.io/reimagine-it/#playground)** · **[Browse the case studies](https://kayforkind.github.io/reimagine-it/)** · **[Install the skill](#install)**
+
+</div>
 
 ---
 
-## One command
+## The workflow: beautify → compare → approve → repeat
+
+A good redesign is not “generate once and hope.” Use a small, inspectable loop:
 
 ```text
-# Claude Code
-/plugin marketplace add Kayforkind/reimagine-it
-/plugin install reimagine-it@reimagine-it
-
-# Cursor, Codex, Copilot, Gemini CLI
-npx skills add Kayforkind/reimagine-it
+source page
+    ↓
+extract content signals
+    ↓
+create a few distinct directions
+    ↓
+compare the actual page, not a fake prompt
+    ↓
+choose one direction
+    ↓
+pin its seed or lock its design DNA
+    ↓
+ship and audit
 ```
 
-Then in your AI agent: `/reimagine-it` · `/reimagine-it infographic` · `/reimagine-it svg` · `/reimagine-it 3js` · `/reimagine-it simulation`
+### Try it in three commands
 
-| Token | What you get |
-|-------|----------------|
-| `webpage` | A real page from this file's nouns, dates, colors |
-| `infographic` | A paper poster of facts already in the file — not a fake dashboard |
-| `dashboard` | KPI cards with content-derived metrics |
-| `artistic` | Full-bleed canvas with mix-blend-mode typography |
-| `cinematic` | Full-viewport hero with scroll-driven sections |
-| `photography` | Folio grid with content-derived plates |
-| `landing` | Hero + features + CTA from the source |
-| `svg` | A living mark (the motion is on the drawing) |
-| `3js` | A 3D cube you can drag to orbit |
-| `simulation` | A playable timeline of those facts |
+```bash
+# Generate a polished editorial webpage from an existing page
+npx reimagine-it -i before.html -t webpage -o reimagined/page.html
 
-Full host matrix (Droid, Pi, `gh skill`, Gemini CLI, Windsurf): [install guide ↓](#install).
+# Generate a different medium from the same source
+npx reimagine-it -i before.html -t infographic -o reimagined/poster.html
+
+# Preview what the engine found before changing anything
+npx reimagine-it -i before.html --dry
+```
+
+The input remains the source of truth. The engine extracts headings, paragraphs, list items, proper nouns, dates, numbers, emails, color words, and source hex values. It does not need a CDN, Figma file, paid API, or remote image service.
 
 ---
 
-## How it works
+## No accidental repetition
 
-The skill reads your file, extracts concrete nouns / dates / colors / proper nouns, and builds a design language from them. **Palette, motifs, motion, and 3D are all derived from your content — nothing is hard-coded.**
+Fresh does not mean random chaos, and repeatable does not mean samey.
 
-- Point at a **Texas notebook** → navy / cream / red / gold palette, Lone Star motif, sunset shader
-- Point at a **coffee roaster's site** → warm browns, burlap textures, roast-level charts
-- Point at a **night-diving report** → deep teals, bioluminescent accents, depth-profile SVG
-- Point at a **restaurant menu** → warm clay / saffron / smoke palette; flame-flicker motion
+- **No seed:** a new creative direction each run. Layout density, anchor order, palette emphasis, and visual register can change.
+- **`--seed 42`:** the same source and token reproduce the same direction for review, QA, and deployment.
+- **`lock`:** capture an approved design language — palette, type, motif, motion, and structure — then reuse it across pages or media.
 
-**Same command, three runs = three different reader registers.** The engine samples along seven axes (reader register, palette weighting, hero move, plate style, motion budget, type accent, 3D signature). The content narrows the space — a Texas notebook can't return a marine-caustics shader — but inside that space, every draw is fresh. Pin with `--seed` when you need reproducibility.
+```bash
+# Explore distinct directions
+npx reimagine-it -i page.html -t webpage -o draws/draw-a.html
+npx reimagine-it -i page.html -t webpage -o draws/draw-b.html
+npx reimagine-it -i page.html -t webpage -o draws/draw-c.html
 
-![Same /reimagine-it webpage command, three runs = three different reader registers](gold/webpage/quartet.png?v=texas-v22)
+# Approve one direction and make it reproducible
+npx reimagine-it -i page.html -t webpage --seed 42 -o approved/page.html
+```
 
----
+For an AI agent:
 
-## Same source, different aesthetics
+```text
+/reimagine-it webpage
+/reimagine-it webpage --seed 42
+/reimagine-it lock approved/page.html as house-style
+/reimagine-it webpage --ref house-style
+/reimagine-it slides --ref house-style
+```
 
-One naive HTML page. Eight commands. Eight completely different designs — each palette, motif, and motion choice traced back to the content:
-
-![Same Texas notebook HTML, redesigned as artistic, dashboard, photography, and cinematic domains](gold/domains/strip.png)
-
-**[→ Full case studies with palette/motif/motion/3D notes for all 13 commands](docs/SHOWCASE.md)**
-
----
-
-## Five sources — the method travels
-
-The gallery is proof the method works on any content, not a Texas demo:
-
-<a href="gold/webpage/before.html"><img alt="Texas notebook: navy / red / gold from the Lone Star flag" src="gold/webpage/compare.png" width="100%"></a>
-
-**Texas notebook** — 3 places, 3 signals, Lone Star flag, Big Bend sunset. Navy / cream / red / gold palette from the flag; sunset shader from Big Bend. → [see the gold](gold/webpage/after-3.html)
-
-<a href="gold/jules/before.html"><img alt="Jules Ice Cream: parlor DNA, not a Texas reskin" src="gold/jules/best.gif?v=pages-1" width="100%"></a>
-
-**Jules Ice Cream** — 6 flavors, hours, counter. Parlor DNA — counter, cone, freezer, flavor board. Not a Texas notebook with scoops glued on. → [see the gold](gold/jules/webpage/after.html)
-
-| Source | Genre | Palette from content | Motif | Links |
-|--------|-------|---------------------|-------|-------|
-| [Pulsewave](gold/pulsewave/before.html) | SaaS observability | `#08141a` ground · `#3ae098` accent · dark teal | Pulse wave / heartbeat ring | [before](gold/pulsewave/before.html) · [after](gold/pulsewave/after.html) |
-| [Two Lights](gold/twolights/before.html) | Personal essay | `#e8e0d4` ground · `#c23a2a` accent · slate | Lighthouse beam sweep + flash pulse | [before](gold/twolights/before.html) · [after](gold/twolights/after.html) |
-| [Saffron &amp; Smoke](gold/saffron/before.html) | Restaurant menu | `#f4efe4` ground · `#d4882b` accent · warm clay | Smoke drift + flame flicker | [before](gold/saffron/before.html) · [after](gold/saffron/after.html) |
-
-Three new golds proving the palette/motif/motion method works on any content. → [see all gold](gold/)
+The goal is **controlled variation**: genuinely new when the client wants options, intentionally similar when the client wants a system.
 
 ---
 
-## Motion is real
+## Ten usable output tokens
 
-Screenshots freeze animation. Every motion claim proves itself in three frames, spaced ~1.6 s apart:
+Every token generates a standalone HTML artifact with a distinct composition. The output is designed to be opened, reviewed, edited, and shipped — not just admired in a screenshot.
 
-![Motion strip: cinematic shader evolves, artistic ampersand sways, dashboard bars rise, infographic star pulses, photography deliberately still](gold/domains/motion-strip.png?v=texas-5)
+| Token | Best for | Output character |
+|---|---|---|
+| `webpage` | Editorial pages, articles, source documents | Measured reading layout, numbered sections, display/body contrast |
+| `landing` | Product and service pages | Clear hero, CTA hierarchy, feature rhythm |
+| `dashboard` | Metrics and operational content | Dark console, KPI cards, inline sparklines |
+| `infographic` | Facts, comparisons, timelines | Common-scale bars, ISOTYPE units, lossless data table |
+| `cinematic` | Narrative and brand moments | Full-viewport opening, depth, scroll-led sections |
+| `artistic` | Posters and expressive pages | Oversized type, asymmetric rhythm, layered fields |
+| `photography` | Portfolios and visual indexes | Folio composition, varied plate sizes, captions |
+| `svg` | Marks, diagrams, living illustrations | Inline SVG, geometric motif, restrained micro-motion |
+| `3js` | Spatial or object-based stories | Offline canvas object, drag-to-rotate interaction |
+| `simulation` | Time, sequence, or process | Playable timeline with scrubber and speed control |
 
-**Alive-micro by default.** SVG and Three.js ship with 2–4 fact-tied micro-loops — star breathe, river flow, pin ping, beam sweep. Not a page that twitches. → [see the loops](gold/forms/see.html)
+Force a token with the CLI:
+
+```bash
+npx reimagine-it -i source.html -t webpage
+npx reimagine-it -i source.html -t landing
+npx reimagine-it -i source.html -t infographic
+npx reimagine-it -i source.html -t svg
+npx reimagine-it -i source.html -t 3js
+npx reimagine-it -i source.html -t simulation
+```
+
+List every token:
+
+```bash
+npx reimagine-it --list
+```
 
 ---
 
-## No agent? Just curious?
+## The client approval loop
 
-The **[live gallery](https://kayforkind.github.io/reimagine-it/)** has a playground — paste any HTML, pick a token, and see a content-derived redesign rendered live in your browser. The client-side engine extracts nouns, colors, dates, and numbers from your source, builds a palette, and generates a token-specific page. Same method. No install. No agent.
+Use the tool like a designer, not a slot machine:
 
-**[→ Open the playground](https://kayforkind.github.io/reimagine-it/#playground)**
+1. **Start with the real page.** Do not rewrite the source into a generic prompt.
+2. **Show two or three distinct draws.** Each should make a different, defensible choice — not just swap a hex value.
+3. **Ask the client to choose a direction.** Prefer “editorial / cinematic / operational” over “do you like it?”
+4. **Pin the approved direction.** Use `--seed` for one artifact or `lock` for a reusable system.
+5. **Audit the output.** A beautiful page that clips text, loses focus visibility, or invents facts is not finished.
+6. **Ship the artifact.** The generated HTML is standalone and can be opened locally or deployed as-is.
 
-
----
-
-## Not just webpages — also CLI, protocol, code architecture
-
-The five golds above are webpages. The same method works on non-visual artifacts too:
-
-| Fixture | Form | What /reimagine-it did | Proof |
-|---------|------|------------------------|-------|
-| [01-cli](gold/five/01-cli) | `cli` | Before: reads one positional arg, exits 2 with no stdin. After: `--stdin` flag, JSON output, exit 0 on piped data | `python gold/five/run.py` |
-| [02-door](gold/five/02-door) | `protocol` | Before: first-run exits 1 with a wall of text. After: copies one command to clipboard, exits 0 | `python gold/five/run.py` |
-| [03-ledger](gold/five/03-ledger) | `html` + data | Before: 30 lines of naive JSONL. After: filterable index.html with SVG timeline | [index.html](gold/five/03-ledger/index.html) · [RUN.svg](gold/five/RUN.svg) |
-| [04-layers](gold/five/04-layers) | `code` architecture | Two Python packages with tangled internal imports → clean public-internal split with a layer-check script | `python gold/five/run.py` |
-
-[Full tested results →](gold/five/RESULTS.md) · Regenerate: `python gold/five/run.py`
+The design should be visibly different from the original while remaining recognizably about the same content. Meaning is preserved; hierarchy is transformed.
 
 ---
 
 ## Install
 
-One chair: `skills/reimagine-it/`. Hosts with a plugin marketplace get a native wrapper in this repo. Hosts that only speak Agent Skills install the same folder.
+### AI agents — Agent Skills
 
-**Claude Code**
+```bash
+npx skills add Kayforkind/reimagine-it
+```
+
+Works with hosts that support Agent Skills, including Cursor, Codex, Copilot, Gemini CLI, Windsurf, and others.
+
+### Claude Code
 
 ```text
 /plugin marketplace add Kayforkind/reimagine-it
 /plugin install reimagine-it@reimagine-it
 ```
 
-Then enable updates: `/plugin` → **Marketplaces** → **reimagine-it** → **Enable auto-update**. Run `/reload-plugins` when prompted.
-
-**Codex**
+### Codex
 
 ```bash
 codex plugin marketplace add Kayforkind/reimagine-it
 codex plugin add reimagine-it@reimagine-it
 ```
 
-**Factory Droid**
+### Factory Droid
 
 ```bash
 droid plugin marketplace add https://github.com/Kayforkind/reimagine-it
 droid plugin install reimagine-it@reimagine-it --scope user
 ```
 
-**Cursor, Copilot, Gemini CLI, Windsurf**
+Then ask the agent:
 
-```bash
-npx skills add Kayforkind/reimagine-it             # one project
-npx skills add Kayforkind/reimagine-it -g           # global
-gh skill install Kayforkind/reimagine-it reimagine-it --agent cursor
-gemini skills install https://github.com/Kayforkind/reimagine-it.git --path skills/reimagine-it
+```text
+/reimagine-it webpage
+/reimagine-it infographic
+/reimagine-it svg
+/reimagine-it 3js
+/reimagine-it simulation
 ```
 
-**Pi**
+---
+
+## CLI — no agent required
+
+The CLI is zero-config for the core path and works with files or stdin:
 
 ```bash
-pi install https://github.com/Kayforkind/reimagine-it
+# File in, file out
+npx reimagine-it -i page.html -t webpage -o redesign.html
+
+# Pipe HTML in
+cat page.html | npx reimagine-it -t landing -o redesign.html
+
+# Inspect extraction as JSON
+npx reimagine-it -i page.html --json
+
+# Preview extraction without generating
+npx reimagine-it -i page.html --dry
+
+# Reproduce an approved direction
+npx reimagine-it -i page.html -t webpage --seed 42 -o approved.html
 ```
 
-Then say `/reimagine-it` in the host. Also matches: "reimagine it", "redesign this page", "make an infographic".
+`--dry` shows the derived ground, accent, muted, surface, and ink colors, plus headings, list items, anchors, dates, numbers, and source hex values.
 
-**No agent? Use the CLI.**
+### CLI output guarantees
 
-```bash
-npx reimagine-it -i before.html -t infographic
-npx reimagine-it -i menu.html -t landing -o redesign.html
-cat page.html | npx reimagine-it -t svg > output.html
-npx reimagine-it --list          # see all 10 tokens
-```
+- Standalone HTML; no CDN required
+- Source-derived palette and content anchors
+- Seeded reproducibility when requested
+- `prefers-reduced-motion`, `:focus-visible`, and `::selection` rules in every token
+- No fabricated KPI values when source numbers exist
+- Graceful empty-source handling
 
-Same content-derived method — extracts nouns, colors, dates, derives palette, generates a token-specific redesign. `--seed` pins variation for reproducibility.
+---
 
-**MCP server** (real-time design feedback in any agent):
+## MCP server
+
+Expose the method to any MCP-compatible agent:
 
 ```json
-{ "mcpServers": { "reimagine-it": { "command": "npx", "args": ["reimagine-it-mcp"] } } }
+{
+  "mcpServers": {
+    "reimagine-it": {
+      "command": "npx",
+      "args": ["reimagine-it-mcp"]
+    }
+  }
+}
 ```
 
-Exposes 4 tools: `reimagine`, `extract_content`, `list_tokens`, `audit_html`.
+The server exposes four tools:
 
-**Browser extension** — [Reimagine This Page](extension/) — click a toolbar button on any website to extract its content and generate a redesigned version. No server, no API. Load it unpacked from `extension/`.
+- `reimagine` — generate a token-specific redesign from raw HTML
+- `extract_content` — inspect the source signals
+- `list_tokens` — discover available output directions
+- `audit_html` — run the craft-floor audit
 
----
-
-## The five levers
-
-| Lever | Syntax | Effect |
-|-------|--------|--------|
-| **Form** | `webpage` \| `svg` \| `3js` \| `simulation` \| `pdf` \| `slides` \| `document` \| `mobi` \| `epub` \| `code` \| `cli` \| `protocol` \| ... | Force the medium. `svg` and `3js` are **alive by default** (2–4 fact-tied micro-loops). Leftover `still` / `no-motion` / `print` freezes them. |
-| **Domain** | `webpage artistic` \| `dashboard` \| `photography` \| `cinematic` \| `landing` \| `portfolio` \| `infographic` | Force the aesthetic. `infographic` is a statistical poster (common-scale encodings + ISOTYPE + data table), not an ops dashboard. See [`references/domains/`](skills/reimagine-it/references/domains/). |
-| **Modifier** | `webpage cinematic glassmorphism` \| `bento` \| `neon` \| `brutalism` \| `neumorphism` \| `handdrawn` <br><sub>*brutalism/neumorphism/handdrawn are spec-only stubs (coming in v2.4)*</sub> | Layer a UI/UX style on any domain. See [`references/modifiers/`](skills/reimagine-it/references/modifiers/). |
-| **Font** | `--font "Playfair Display, Iowan Old Style, Georgia, serif"` | Pin display / body family. Full stack. No webfont fetch unless `--allow-fetch`. |
-| **Lock** | `lock <path> as <name>` then `--ref <name>` | Capture design DNA (palette, type, motifs, motion, 3D) and reuse it — even across media. |
-
-Compose freely: `/reimagine-it webpage artistic glassmorphism --font "Playfair Display, serif" --ref house-cinema`.
+The core CLI remains usable without the MCP SDK.
 
 ---
 
-## Three hard guarantees (v2.2)
+## Browser extension
 
-Three things that were sometimes missing before are now part of the shipped bar. If any fails, the command reports `partial`, not `shipped`.
+The `extension/` directory contains a Manifest V3 extension for Chrome, Edge, and Firefox.
 
-- **Same-format twin by default.** Point at a distributable file (`.pdf`, `.docx`, `.pptx`, `.mobi`, `.azw3`, `.epub`, `.md`) and get **two artifacts**: a companion HTML reading room *and* a same-format twin in the source's native format. If the toolchain is missing, the report names it and the exact next command.
-- **Visual verification pass on every render.** Before `shipped`, the skill scans for blank plates, placeholder labels (`blank` / `TBD` / `lorem`), clipped text, broken SVGs, off-palette accents, fabricated content, dead motion, and unmapped plates. **Empty slots are deleted, never painted with a placeholder.**
-- **Craft floor on every webpage output.** Every page clears: `:focus-visible` ring with contrast ≥ 3:1, `::selection` on-palette, compositor-only motion (`transform` / `opacity` only), `prefers-reduced-motion` respected by *decomposing* (not by hiding focus rings), no `transition: all`, no `outline: 0` without replacement, scroll-driven animations via `animation-timeline: view()`, Core Web Vitals sane. See [`references/craft-floor.md`](skills/reimagine-it/references/craft-floor.md).
+1. Open `chrome://extensions` or `edge://extensions`.
+2. Enable **Developer mode**.
+3. Choose **Load unpacked**.
+4. Select this repository's `extension/` directory.
+5. Open a page, click **Reimagine This Page**, choose a token, and compare the result.
 
-All three enforced by [`SKILL.md`](skills/reimagine-it/SKILL.md) § 2.6 / § 5.b / § 5.c and [`references/forms/universal.md`](skills/reimagine-it/references/forms/universal.md).
+The extension extracts content in the browser and opens a local generated artifact. No server, API key, or page upload is required.
 
----
-
-## Not just webpages — PDF · document · slides · anything
-
-Point at any file. Force any output:
-
-| Token | Pack | Regenerator |
-|-------|------|-------------|
-| `pdf` | [forms/pdf.md](skills/reimagine-it/references/forms/pdf.md) | Weasyprint (HTML → PDF) or ReportLab (print-native Python) |
-| `document` / `docx` / `md` | [forms/document.md](skills/reimagine-it/references/forms/document.md) | python-docx, pandoc, or LaTeX |
-| `slides` / `pptx` / `deck` | [forms/slides.md](skills/reimagine-it/references/forms/slides.md) | python-pptx or reveal.js |
-| `universal` | [forms/universal.md](skills/reimagine-it/references/forms/universal.md) | Detects file type, dispatches, or writes a companion overlay |
-
-Every non-web pack keeps the same bar: cover magnet, one data-driven plate, one repeating motif, one make-strange move, real content from *your* file, **palette and motifs derived from what your file is about**. All regenerators are free, offline, locally installable.
+→ [Extension installation and limitations](extension/README.md)
 
 ---
 
-## Lock — capture a shipped design, reuse it anywhere
+## What makes this different
 
-Once a design lands, save its DNA:
+Most design prompts begin with a visual adjective: *modern*, *premium*, *minimal*, *bold*. That is how unrelated pages end up looking alike.
 
-```
-/reimagine-it lock gold/domains/cinematic/after.html as house-cinema
+Content-Derived Design starts somewhere more useful:
+
+```text
+source signals → design decisions → working artifact → human approval
 ```
 
-The skill extracts palette + type stack + motifs + motion + 3D + section structure into a markdown pack under [`references/locks/`](skills/reimagine-it/references/locks/). Example: [`house-cinema.md`](skills/reimagine-it/references/locks/house-cinema.md).
+A lighthouse essay can become a beam-led editorial page. A SaaS observability page can become a pulse-led operational console. A restaurant menu can become a warm, typographic folio. The source constrains the design so the result has a reason to exist.
 
+The engine also refuses the usual shortcuts:
+
+- no invented testimonials or logos;
+- no placeholder copy painted into empty plates;
+- no generic “AI startup” dashboard for every source;
+- no CDN dependency for the generated artifact;
+- no accidental duplication when a new direction is requested.
+
+---
+
+## Proof, not promises
+
+The repository contains curated source/after pairs and regenerators. They are reference artifacts; the CLI is the path for transforming your own page:
+
+| Source | What it demonstrates | Proof |
+|---|---|---|
+| Texas notebook | Content-derived palette, place anchors, editorial and spatial directions | [`gold/webpage/`](gold/webpage/) |
+| Pulsewave | SaaS content becoming pulse/trace-oriented design | [`gold/pulsewave/`](gold/pulsewave/) |
+| Two Lights | Personal essay becoming a lighthouse-led narrative system | [`gold/twolights/`](gold/twolights/) |
+| Saffron & Smoke | Menu content becoming food-specific visual language | [`gold/saffron/`](gold/saffron/) |
+| Jules Ice Cream | A second source with parlor-specific design DNA | [`gold/jules/`](gold/jules/) |
+| Five non-web artifacts | CLI, protocol, data ledger, and code-architecture transformations | [`gold/five/`](gold/five/) |
+
+See the [full showcase](docs/SHOWCASE.md) or open the [live gallery](https://kayforkind.github.io/reimagine-it/).
+
+The repository's static gold pages are curated reference artifacts. The standalone CLI is the general-purpose path for beautifying a user's own HTML.
+
+---
+
+## Quality bar
+
+Run the same checks locally and in CI:
+
+```bash
+npm test
+npm run audit
+npm run test:unit
 ```
-/reimagine-it webpage --ref house-cinema
-/reimagine-it slides  --ref house-cinema
-/reimagine-it pdf     --ref house-cinema
-```
 
-Locks include a **cross-medium translation table** — a webpage lock informs a slides deck or a PDF. Locks are portable text — share via gist, commit, or copy-paste.
+Current automated coverage:
 
----
+- 30 CLI unit tests
+- 32 curated gold HTML files audited
+- 50 end-to-end generated outputs tested across five sources and ten tokens (the repository validation sweep)
+- deterministic seeded output checks
+- intentional-failure regression fixture to ensure CI catches craft-floor failures
+- plugin manifest consistency verification
 
-## Everything on this page is tested
-
-Every visual is a real file in this repo, generated locally by a script you can rerun:
-
-| Regenerates | Command |
-|-------------|---------|
-| Per-pack full-page `after.png` shots | `python gold/shots.py` |
-| Infographic poster (full page, real Chrome) | `python gold/_shot_full.py gold/domains/infographic/after.html gold/domains/infographic/after.png` |
-| Form gold: SVG + Three.js + simulation + loop close-ups | `python gold/forms/shot.py` |
-| Form examples GIF | `python gold/forms/make_gif.py` |
-| Jules second-source gold + GIF | `python gold/jules/shot.py` then `python gold/jules/make_gif.py` |
-| Gold review (flag cloth, clone scan, after.png pairs) | `python scripts/review_gold.py` |
-| Draw C full-page shot (v2.2, WebGL2) | `python gold/_shot_full.py gold/webpage/after-3.html gold/webpage/after-3-full.png` |
-| Master gallery + per-pack tile heroes | `python gold/gallery.py` |
-| Quartet + twins triptych + per-pack compares | `python gold/compare.py` |
-| Default before + after screenshots | `python gold/webpage/run.py` |
-| Motion strip | `python gold/domains/motion-run.py` |
-| Skill smoke fixture | `python gold/reimagine.py --ship` |
-| Pulsewave gold | `python gold/pulsewave/shot.py` |
-| Two Lights gold | `python gold/twolights/shot.py` |
-| Saffron & Smoke gold | `python gold/saffron/shot.py` |
-
-If a regenerator fails on your machine, that's a bug — please open an issue. Nothing on this page is rendered by a third-party service or fetched from a CDN.
+The audit checks typography, palette, motion, content, structure, and performance heuristics. A warning is advisory; a failure blocks shipping.
 
 ---
 
-## If this helps you
+## Contributing
 
-If `/reimagine-it` gives you an output you'd have paid a designer for, three ways to help:
+The best contribution is a real source with a defensible redesign, not another abstract prompt.
 
-- **Star the repo.** The single fastest signal this project should keep growing.
-- **[Sponsor on GitHub →](https://github.com/sponsors/Kayforkind)** Any tier keeps the studio going. Sponsors get priority on custom domain packs and roadmap input.
-- **Contribute a domain or a lock.** Open a PR under [`skills/reimagine-it/references/domains/`](skills/reimagine-it/references/domains/) or [`references/locks/`](skills/reimagine-it/references/locks/). Real content beats a spec.
+- Add a domain, form, modifier, or lock with its source content.
+- Explain why the palette, motif, type, and motion come from that source.
+- Provide a regenerator for every committed visual.
+- Include an offline artifact and run `npm test`.
 
-Say hi on [GitHub](https://github.com/Kayforkind).
+See [`CONTRIBUTING.md`](CONTRIBUTING.md), [`ROADMAP.md`](ROADMAP.md), and [`CHANGELOG.md`](CHANGELOG.md).
 
 ---
 
-MIT licensed — see [LICENSE](LICENSE). Skill spec: [agentskills.io](https://agentskills.io/specification).
+## License
+
+MIT — see [`LICENSE`](LICENSE).
