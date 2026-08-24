@@ -3,4 +3,3 @@
 test-e2e/
 *.tgz
 release-notes.md
-.npmrc

@@ -4,7 +4,24 @@ All notable changes to reimagine-it.
 
 ---
 
-## v2.3 (current)
+## v2.3.1 (current)
+
+### Fixes
+
+- **CLI infographic and dashboard generators had no CSS.** Both tokens output class-based HTML (`.poster`, `.chart`, `.bar`, `.dashboard`, `.kpi-card`, etc.) but the `<style>` block only contained `:root` and accessibility rules. Pages rendered completely unstyled. Added full CSS for all classes in both generators.
+- **CLI title extraction.** The extractor fell back to the filename (`before`) instead of deriving a title from `<h1>` content. Now reads `<h1>` before falling back.
+- **CLI creative variation.** Same source + token without `--seed` produced identical output every run. Added a seeded PRNG (mulberry32) with three creative axes: anchor shuffle, palette rotation, vibe selection. `--seed 42` reproduces; no seed = fresh each run.
+- **Palette consistency.** The `artistic`, `cinematic`, and `photography` generators used the un-rotated palette instead of the rotated one, ignoring the creative variation engine. All generators now use the rotated palette.
+- **CI: `publish-action.yml` YAML parse failure.** The release-notes heredoc body was written flush-left inside the `run: |` block, terminating the YAML block scalar early. Rewrote both fragile steps as properly-indented `python - <<'PYEOF'` blocks.
+- **CI: PyYAML missing on runner.** The validate step imported `yaml` but `setup-python` does not include PyYAML. Added `pip install pyyaml`.
+- **CI: audit smoke step killed by `set -e`.** `audit_all.py`'s exit code 1 (warnings-only) aborted the script before the failure threshold check could run. Wrapped with `set +e` and `PIPESTATUS[0]`.
+- **CI: audit workflow exit-code masking.** The audit step piped `audit_all.py` through `tee` and read `$?` (tee's exit code), masking real craft-floor failures. Now captures `PIPESTATUS[0]`.
+- **CI: deprecated Node 20 actions.** All three workflows bumped to `checkout@v5`, `setup-python@v6`, `setup-node@v6`.
+- **`.npmignore`: removed stale `.npmrc` reference** (file does not exist in the repo).
+
+---
+
+## v2.3
 
 **Ship date:** August 2026
 

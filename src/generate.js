@@ -104,6 +104,26 @@ ${cards}
 <title>${escape(title)} — infographic</title>
 <style>
   :root { --ground:${vground}; --accent:${vaccent}; --sup1:${vsup1}; --sup2:${vsup2}; --ink:#${isLight(vground) ? '0a0a0a' : 'f4ecd8'}; }
+  * { box-sizing: border-box; margin: 0; }
+  html { background: var(--ground); color: var(--ink); font-family: "Iowan Old Style", Palatino, Georgia, serif; }
+  body { max-width: 800px; margin: 0 auto; padding: 48px 24px; }
+  .poster h1 { font-size: clamp(32px, 6vw, 56px); font-weight: 400; line-height: 1.05; letter-spacing: -.02em; color: var(--accent); margin-bottom: 16px; }
+  .deck { font-size: 17px; opacity: .6; line-height: 1.6; max-width: 560px; margin-bottom: 40px; }
+  .chart table { width: 100%; border-collapse: collapse; margin-bottom: 32px; }
+  .chart td { padding: 10px 0; vertical-align: middle; }
+  .chart .label { font-size: 14px; width: 35%; }
+  .chart .bar-cell { width: 50%; }
+  .chart .bar { display: block; height: 24px; background: var(--accent); border-radius: 2px; }
+  .chart .value { font-size: 14px; font-variant-numeric: tabular-nums; opacity: .7; text-align: right; width: 15%; }
+  .isotype { display: flex; flex-wrap: wrap; gap: 2px; margin-bottom: 8px; }
+  .isotype-unit { display: inline-block; width: 16px; height: 24px; background: var(--sup1); }
+  .data-table { margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(128,128,128,.2); }
+  .data-table h2 { font-size: 14px; text-transform: uppercase; letter-spacing: .1em; opacity: .5; margin-bottom: 12px; }
+  .data-table table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .data-table th, .data-table td { text-align: left; padding: 6px 12px 6px 0; }
+  .data-table th { opacity: .4; font-weight: 400; }
+  .data-table td { opacity: .7; }
+  .source { font-size: 12px; opacity: .35; margin-top: 40px; padding-top: 16px; border-top: 1px solid rgba(128,128,128,.12); }
   ::selection { background: var(--accent); color: var(--ground); }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
@@ -156,6 +176,19 @@ ${dataRows}
 <title>${escape(title)} — dashboard</title>
 <style>
   :root { --ground:${vground}; --accent:${vaccent}; --sup1:${vsup1}; --sup2:${vsup2}; --ink:#${isLight(vground) ? '0a0a0a' : 'f4ecd8'}; }
+  * { box-sizing: border-box; margin: 0; }
+  html { background: var(--ground); color: var(--ink); font-family: ui-sans-serif, system-ui, Segoe UI, sans-serif; }
+  body { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 48px 24px; }
+  .dashboard { max-width: 800px; width: 100%; }
+  .dashboard h1 { font-size: clamp(28px, 5vw, 44px); font-weight: 400; color: var(--accent); margin-bottom: 8px; }
+  .sub { font-size: 14px; opacity: .5; margin-bottom: 32px; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
+  .kpi-card { background: var(--sup2); border: 1px solid rgba(128,128,128,.15); border-radius: 12px; padding: 20px; }
+  .kpi-label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; opacity: .5; margin-bottom: 8px; }
+  .kpi-value { display: block; font-size: 32px; font-weight: 400; font-variant-numeric: tabular-nums; color: var(--accent); margin-bottom: 4px; }
+  .kpi-delta { font-size: 13px; font-variant-numeric: tabular-nums; }
+  .kpi-delta.up { color: #3ae098; }
+  .kpi-delta.down { color: #e85a5a; }
   ::selection { background: var(--accent); color: var(--ground); }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
