@@ -24,6 +24,9 @@
     font-family: ui-monospace, Consolas, Menlo, monospace; font-size: 11px;
     color: #6a7688; letter-spacing: 0.16em; text-transform: uppercase; }
   .foot b { color: #7ee0c0; font-weight: 700; }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }
+:focus-visible { outline: 2px solid var(--accent, currentColor); outline-offset: 2px; }
 </style></head><body>
 
 <div class="head">

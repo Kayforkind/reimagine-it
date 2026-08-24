@@ -5,18 +5,18 @@ on:
     paths:
       - "gold/**/*.html"
       - "scripts/audit.py"
+      - "scripts/audit_all.py"
       - ".github/workflows/audit.yml"
   pull_request:
     paths:
       - "gold/**/*.html"
       - "scripts/audit.py"
+      - "scripts/audit_all.py"
   workflow_dispatch:
 
 jobs:
   audit-gold:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
     steps:
       - uses: actions/checkout@v4
 
@@ -29,49 +29,28 @@ jobs:
         run: |
           echo "## Gold Audit Results" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-
-          PASS=0
-          FAIL=0
-          WARN=0
-          BLOCKED=""
-
-          echo "| File | Verdict | Failures | Warnings |" >> $GITHUB_STEP_SUMMARY
-          echo "|------|---------|----------|----------|" >> $GITHUB_STEP_SUMMARY
-
-          for f in $(find gold -name '*.html' -not -path '*/vendor/*' -not -path '*/loops/*' -not -path '*/_preview*/*' -not -name 'before.html' -not -name 'see.html' | sort); do
-            RESULT=$(python scripts/audit.py "$f" --json 2>&1 || true)
-            VERDICT=$(echo "$RESULT" | python -c "import sys,json; d=json.load(sys.stdin); print(d.get('verdict','FAIL'))" 2>/dev/null || echo "ERROR")
-            FCOUNT=$(echo "$RESULT" | python -c "import sys,json; d=json.load(sys.stdin); print(d.get('failures',99))" 2>/dev/null || echo "99")
-            WCOUNT=$(echo "$RESULT" | python -c "import sys,json; d=json.load(sys.stdin); print(d.get('warnings',99))" 2>/dev/null || echo "99")
-
-            case "$VERDICT" in
-              CLEAN)
-                echo "| \`$f\` | ✅ Clean | — | — |" >> $GITHUB_STEP_SUMMARY
-                PASS=$((PASS + 1))
-                ;;
-              WARNINGS)
-                echo "| \`$f\` | ⚠️ Warnings | — | $WCOUNT |" >> $GITHUB_STEP_SUMMARY
-                WARN=$((WARN + 1))
-                ;;
-              FAIL|ERROR)
-                echo "| \`$f\` | ❌ $VERDICT | $FCOUNT | $WCOUNT |" >> $GITHUB_STEP_SUMMARY
-                FAIL=$((FAIL + 1))
-                BLOCKED="$BLOCKED $f"
-                ;;
-            esac
-          done
-
+          
+          # Run the full sweep — same as `npm test` locally.
+          # audit_all.py uses the same find_gold_html() as the CI,
+          # writes per-file results to stdout, and exits non-zero on failures.
+          python scripts/audit_all.py 2>&1 | tee audit.log
+          EXIT=$?
+          
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Summary:** $PASS clean · $WARN warnings · $FAIL failures" >> $GITHUB_STEP_SUMMARY
-
-          if [ -n "$BLOCKED" ]; then
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "🚫 **Blocked files:** $BLOCKED" >> $GITHUB_STEP_SUMMARY
-          fi
-
-          if [ "$FAIL" -gt 0 ]; then
-            echo "::error::$FAIL gold file(s) have audit failures — see step summary for details"
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat audit.log >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Audited with [reimagine-it](https://github.com/Kayforkind/reimagine-it) — [Content-Derived Design](https://kayforkind.github.io/reimagine-it/)" >> $GITHUB_STEP_SUMMARY
+          
+          # Exit codes: 0 = clean, 1 = warnings only, 2 = failures
+          if [ "$EXIT" -ge 2 ]; then
+            echo "::error::Gold audit has craft-floor failures — see step summary"
             exit 1
           fi
-
-          echo "All gold files pass: $PASS clean, $WARN warnings"
+          
+          if [ "$EXIT" -eq 1 ]; then
+            echo "::warning::Gold audit has warnings only — no blockers"
+          fi
+          
+          echo "Audit pass: exit code $EXIT"

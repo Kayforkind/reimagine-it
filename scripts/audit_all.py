@@ -31,7 +31,7 @@ def find_gold_html():
         for fn in filenames:
             fp = os.path.join(root, fn)
             rel = os.path.relpath(fp, REPO)
-            if fn.endswith(".html") and fn not in ("before.html", "see.html", "strip.html"):
+            if fn.endswith(".html") and fn not in ("before.html", "see.html"):
                 files.append(rel)
     return sorted(files)
 
