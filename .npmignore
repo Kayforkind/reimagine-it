@@ -1,5 +1,8 @@
 # Keep npm package small — package.json "files" array controls what's included.
 # These override the files array to exclude things that slipped through.
 test-e2e/
+test/
 *.tgz
 release-notes.md
+extension/
+reimagined/

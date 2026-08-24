@@ -4,7 +4,14 @@ All notable changes to reimagine-it.
 
 ---
 
-## v2.3.1 (current)
+## v2.3.2 (current)
+
+### New
+
+- **MCP server** (`mcp/server.js`): exposes reimagine-it as Model Context Protocol tools — `reimagine`, `extract_content`, `list_tokens`, `audit_html`. Any MCP-compatible agent can call reimagine-it without installing the full skill. Run with `npx reimagine-it-mcp`.
+- **Browser extension** (`extension/`): Chrome/Edge/Firefox extension that adds a toolbar button to reimagine any web page. Extracts content in-browser, generates a redesigned page, opens it in a new tab. No server, no API. 8 tokens supported.
+
+## v2.3.1
 
 ### Fixes
 

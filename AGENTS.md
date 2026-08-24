@@ -35,6 +35,11 @@ droid plugin install reimagine-it@reimagine-it --scope user
 
 Cursor wrapper: `.cursor-plugin/plugin.json` (same `skills/reimagine-it/` chair). Marketplace / cursor.directory submit from the GitHub repo URL. Daily install remains `npx skills add Kayforkind/reimagine-it`.
 
+**MCP server** (any MCP-compatible agent): `npx reimagine-it-mcp` — exposes 4 tools: `reimagine`, `extract_content`, `list_tokens`, `audit_html`. Add to your MCP client config:
+```json
+{ "mcpServers": { "reimagine-it": { "command": "npx", "args": ["reimagine-it-mcp"] } } }
+```
+
 Fallback: copy `skills/reimagine-it/` into the host skills root. Never into `~/.cursor/skills-cursor/`.
 
 ## Job
