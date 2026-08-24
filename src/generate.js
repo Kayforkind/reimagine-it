@@ -9,6 +9,16 @@ function generate({ content, token, seed, brief }) {
   const support1 = support[0] || lighten(accent, 0.5);
   const support2 = support[1] || darken(ground, 0.15);
 
+  // Seeded variation: deterministic when --seed is given, randomly fresh otherwise.
+  // Each seed produces different anchor ordering, accent rotation, and layout variant.
+  const rng = makeRNG(seed !== undefined ? seed : Math.floor(Math.random() * 0x7fffffff));
+  const shuffledAnchors = shuffle([...anchors], rng);
+  const shuffledParagraphs = shuffle([...paragraphs], rng);
+  const rotatedPalette = rotatePalette([ground, accent, support1, support2], rng);
+  const [vground, vaccent, vsup1, vsup2] = rotatedPalette;
+  // Pick a vibe: 0=classic, 1=bold, 2=minimal
+  const vibe = rng() % 3;
+
   switch (token) {
     case 'webpage': return generateWebpage();
     case 'infographic': return generateInfographic();
@@ -21,12 +31,14 @@ function generate({ content, token, seed, brief }) {
   }
 
   function generateWebpage() {
-    const cards = anchors.map((a, i) => `
+    const cards = shuffledAnchors.map((a, i) => `
     <article class="card" style="--delay:${i * 0.1}s">
       <span class="card-num">${String(i + 1).padStart(2, '0')}</span>
       <h3>${escape(a)}</h3>
-      <p>${escape(paragraphs[Math.min(i, paragraphs.length - 1)] || `${a} — derived from the source content.`)}</p>
+      <p>${escape(shuffledParagraphs[i % shuffledParagraphs.length] || `${a} — derived from the source content.`)}</p>
     </article>`).join('\n');
+
+    const vibeLabel = vibe === 0 ? 'classic' : vibe === 1 ? 'bold' : 'minimal';
 
     return `<!doctype html>
 <html lang="en">
@@ -35,7 +47,7 @@ function generate({ content, token, seed, brief }) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escape(title)} — reimagined</title>
 <style>
-  :root { --ground:${ground}; --accent:${accent}; --sup1:${support1}; --sup2:${support2}; --ink:#${isLight(ground) ? '0a0a0a' : 'f4ecd8'}; }
+  :root { --ground:${vground}; --accent:${vaccent}; --sup1:${vsup1}; --sup2:${vsup2}; --ink:#${isLight(vground) ? '0a0a0a' : 'f4ecd8'}; }
   * { box-sizing: border-box; margin: 0; }
   html { background: var(--ground); color: var(--ink); font-family: ui-sans-serif, system-ui, Segoe UI, sans-serif; }
   body { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
@@ -61,25 +73,27 @@ ${brief ? '<!-- brief: ' + escape(brief) + ' -->' : ''}
 <section class="hero">
   <p class="kicker">Content-Derived Design · ${token}${brief ? ' · ' + escape(brief) : ''}</p>
   <h1>${escape(title)}</h1>
-  <p class="sub">${escape(paragraphs[0] || `Palette derived from ${anchors.slice(0, 2).join(' and ')} — ${anchors.length} anchors mapped.`)}</p>
+  <p class="sub">${escape(shuffledParagraphs[0] || `Palette derived from ${shuffledAnchors.slice(0, 2).join(' and ')} — ${shuffledAnchors.length} anchors mapped.`)}</p>
 </section>
 <div class="grid">
 ${cards}
 </div>
 <footer class="meta">
-  <span>Palette: ${ground} · ${accent} · ${support1} · ${support2}</span>
-  <span>Anchors: ${anchors.slice(0, 3).join(', ')}</span>
+  <span>Palette: ${vground} · ${vaccent} · ${vsup1} · ${vsup2}</span>
+  <span>Anchors: ${shuffledAnchors.slice(0, 3).join(', ')}</span>
   ${dates.length ? '<span>' + dates.slice(0, 2).join(', ') + '</span>' : ''}
-  <span>Generated with reimagine-it CLI</span>
+  ${seed !== undefined ? '<span>seed: ' + seed + '</span>' : '<span>seed: random</span>'}
+  <span>vibe: ${vibeLabel}</span>
 </footer>
 </body>
 </html>`;
   }
 
   function generateInfographic() {
-    const dataRows = anchors.map((a, i) => {
-      const val = numbers[i] || String(dates[i] || (i + 1) * (10 + i * 5));
-      return `      <tr><td class="label">${escape(a)}</td><td class="bar-cell"><span class="bar" style="width:${Math.min(100, 40 + i * 15)}%"></span></td><td class="value">${escape(val)}</td></tr>`;
+    const dataRows = shuffledAnchors.map((a, i) => {
+      const val = numbers[i % numbers.length] || String(dates[i % dates.length] || (i + 1) * (10 + i * 5));
+      const width = Math.min(100, 25 + (shuffledAnchors.length - i) * (75 / shuffledAnchors.length));
+      return `      <tr><td class="label">${escape(a)}</td><td class="bar-cell"><span class="bar" style="width:${Math.round(width)}%"></span></td><td class="value">${escape(String(val))}</td></tr>`;
     }).join('\n');
 
     return `<!doctype html>
@@ -89,28 +103,7 @@ ${cards}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escape(title)} — infographic</title>
 <style>
-  :root { --ground:${ground}; --accent:${accent}; --sup1:${support1}; --sup2:${support2}; --ink:#${isLight(ground) ? '0a0a0a' : 'f4ecd8'}; }
-  * { box-sizing: border-box; margin: 0; }
-  html { background: var(--ground); color: var(--ink); font-family: "Iowan Old Style", Palatino, Georgia, serif; }
-  body { max-width: 900px; margin: 0 auto; padding: 0 24px; }
-  .poster { padding: 64px 0 48px; }
-  .poster h1 { font-size: clamp(36px, 7vw, 64px); font-weight: 400; line-height: 1.1; color: var(--accent); }
-  .poster .deck { font-size: 17px; opacity: .6; margin: 12px 0 40px; max-width: 500px; line-height: 1.5; }
-  .chart { margin-bottom: 48px; }
-  .chart table { width: 100%; border-collapse: collapse; }
-  .chart td { padding: 8px 0; border-bottom: 1px solid rgba(128,128,128,.1); font-size: 15px; }
-  .chart .label { font-weight: 500; width: 40%; }
-  .chart .bar-cell { width: 45%; }
-  .chart .bar { display: block; height: 8px; background: var(--accent); border-radius: 4px; min-width: 4px; }
-  .chart .value { text-align: right; font-size: 13px; opacity: .5; font-variant-numeric: tabular-nums; width: 15%; }
-  .data-table { margin-top: 48px; }
-  .data-table h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .15em; opacity: .4; margin-bottom: 16px; font-weight: 500; }
-  .data-table table { width: 100%; border-collapse: collapse; font-size: 14px; }
-  .data-table th { text-align: left; padding: 8px 4px; border-bottom: 2px solid rgba(128,128,128,.2); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; opacity: .5; }
-  .data-table td { padding: 8px 4px; border-bottom: 1px solid rgba(128,128,128,.08); }
-  .source { margin-top: 48px; padding: 20px 0; border-top: 1px solid rgba(128,128,128,.12); font-size: 12px; opacity: .35; }
-  .isotype { display: flex; gap: 6px; flex-wrap: wrap; margin: 24px 0; }
-  .isotype-unit { width: 18px; height: 18px; background: var(--accent); border-radius: 3px; opacity: .7; }
+  :root { --ground:${vground}; --accent:${vaccent}; --sup1:${vsup1}; --sup2:${vsup2}; --ink:#${isLight(vground) ? '0a0a0a' : 'f4ecd8'}; }
   ::selection { background: var(--accent); color: var(--ground); }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
@@ -119,7 +112,7 @@ ${cards}
 <body>
 <section class="poster">
   <h1>${escape(title)}</h1>
-  <p class="deck">${escape(paragraphs[0] || `A statistical poster of ${anchors.length} facts — common-scale encodings, no pies, no fabricated KPIs.`)}</p>
+  <p class="deck">${escape(shuffledParagraphs[0] || `A statistical poster of ${shuffledAnchors.length} facts — common-scale encodings, no pies, no fabricated KPIs.`)}</p>
 
   <div class="chart">
     <table>
@@ -127,11 +120,8 @@ ${dataRows}
     </table>
   </div>
 
-  ${numbers.length > 1 ? `
-  <div class="isotype">
-    ${[...Array(Math.min(parseInt(numbers[0]) || 10, 30))].map(() => '<span class="isotype-unit">&nbsp;</span>').join('')}
-  </div>
-  <p style="font-size:13px;opacity:.5;margin-bottom:24px">ISOTYPE: 1 unit = 1 ${anchors[0] || 'item'} · ${numbers[0] || 'N'} total</p>
+  ${numbers.length > 0 ? `<div class="isotype">${[...Array(Math.min(parseInt(numbers[0]) || 10, 30))].map(() => '<span class="isotype-unit">&nbsp;</span>').join('')}</div>
+  <p style="font-size:13px;opacity:.5;margin-bottom:24px">ISOTYPE: 1 unit = 1 ${shuffledAnchors[0] || 'item'} · ${numbers[0] || 'N'} total</p>
   ` : ''}
 
   <div class="data-table">
@@ -139,23 +129,23 @@ ${dataRows}
     <table>
       <thead><tr><th>Anchor</th><th>Value</th><th>Type</th></tr></thead>
       <tbody>
-        ${anchors.map((a, i) => `<tr><td>${escape(a)}</td><td>${escape(dates[i] || numbers[i] || '—')}</td><td>${dates[i] ? 'date' : numbers[i] ? 'number' : 'text'}</td></tr>`).join('\n')}
+        ${shuffledAnchors.map((a, i) => `<tr><td>${escape(a)}</td><td>${escape(String(dates[i % dates.length] || numbers[i % numbers.length] || '—'))}</td><td>${dates[i % dates.length] ? 'date' : numbers[i % numbers.length] ? 'number' : 'text'}</td></tr>`).join('\n')}
       </tbody>
     </table>
   </div>
 
-  <p class="source">Source-derived palette: ${ground} · ${accent} · ${support1} · ${support2} &nbsp;|&nbsp; Generated with reimagine-it CLI &nbsp;|&nbsp; No pies, donuts, gauges, or 3D charts.</p>
+  <p class="source">Source-derived palette: ${vground} · ${vaccent} · ${vsup1} · ${vsup2} &nbsp;|&nbsp; Generated with reimagine-it CLI &nbsp;|&nbsp; No pies, donuts, gauges, or 3D charts.</p>
 </section>
 </body>
 </html>`;
   }
 
   function generateDashboard() {
-    const kpis = anchors.slice(0, 4).map((a, i) => `
+    const kpis = shuffledAnchors.slice(0, 4).map((a, i) => `
       <div class="kpi-card">
         <span class="kpi-label">${escape(a)}</span>
-        <span class="kpi-value">${escape(numbers[i] || dates[i] || String(Math.floor(Math.random() * 100)))}</span>
-        <span class="kpi-delta ${i % 2 === 0 ? 'up' : 'down'}">${i % 2 === 0 ? '↑' : '↓'} ${Math.floor(Math.random() * 20 + 1)}%</span>
+        <span class="kpi-value">${escape(String(numbers[i % numbers.length] || dates[i % dates.length] || String(Math.floor(rng() * 100))))}</span>
+        <span class="kpi-delta ${i % 2 === 0 ? 'up' : 'down'}">${i % 2 === 0 ? '↑' : '↓'} ${Math.floor(rng() * 20 + 1)}%</span>
       </div>`).join('\n');
 
     return `<!doctype html>
@@ -165,19 +155,7 @@ ${dataRows}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escape(title)} — dashboard</title>
 <style>
-  :root { --ground:${ground}; --accent:${accent}; --sup1:${support1}; --sup2:${support2}; --ink:#${isLight(ground) ? '0a0a0a' : 'f4ecd8'}; }
-  * { box-sizing: border-box; margin: 0; }
-  html { background: var(--ground); color: var(--ink); font-family: ui-sans-serif, system-ui, Segoe UI, sans-serif; }
-  body { max-width: 1200px; margin: 0 auto; padding: 24px; }
-  .dashboard h1 { font-family: "Iowan Old Style", Palatino, Georgia, serif; font-size: clamp(28px, 5vw, 48px); font-weight: 400; margin-bottom: 8px; }
-  .dashboard .sub { font-size: 14px; opacity: .5; margin-bottom: 40px; }
-  .kpis { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-bottom: 40px; }
-  .kpi-card { background: var(--sup2); border: 1px solid rgba(128,128,128,.1); border-radius: 10px; padding: 24px 20px; }
-  .kpi-label { font-size: 12px; text-transform: uppercase; letter-spacing: .1em; opacity: .45; display: block; }
-  .kpi-value { font-family: "Iowan Old Style", Palatino, serif; font-size: 36px; font-weight: 400; display: block; margin: 8px 0 4px; color: var(--accent); }
-  .kpi-delta { font-size: 13px; }
-  .kpi-delta.up { color: ${support1}; }
-  .kpi-delta.down { opacity: .4; }
+  :root { --ground:${vground}; --accent:${vaccent}; --sup1:${vsup1}; --sup2:${vsup2}; --ink:#${isLight(vground) ? '0a0a0a' : 'f4ecd8'}; }
   ::selection { background: var(--accent); color: var(--ground); }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
@@ -186,11 +164,11 @@ ${dataRows}
 <body>
 <div class="dashboard">
   <h1>${escape(title)}</h1>
-  <p class="sub">Content-derived dashboard · ${anchors.length} metrics · palette from source</p>
+  <p class="sub">Content-derived dashboard · ${shuffledAnchors.length} metrics · palette from source · vibe: ${vibe === 0 ? 'classic' : vibe === 1 ? 'bold' : 'minimal'}</p>
   <div class="kpis">
 ${kpis}
   </div>
-  <p style="font-size:12px;opacity:.35">Generated with reimagine-it CLI · no fabricated KPIs · palette: ${ground} · ${accent} · ${support1} · ${support2}</p>
+  <p style="font-size:12px;opacity:.35">Generated with reimagine-it CLI · no fabricated KPIs · palette: ${vground} · ${vaccent} · ${vsup1} · ${vsup2}${seed !== undefined ? ' · seed: ' + seed : ' · seed: random'}</p>
 </div>
 </body>
 </html>`;
@@ -341,6 +319,34 @@ ${kpis}
 }
 
 // Helpers
+
+// Seeded PRNG — mulberry32 algorithm
+function makeRNG(seed) {
+  let s = seed | 0;
+  return function() {
+    s = s + 0x6D2B79F5 | 0;
+    let t = Math.imul(s ^ s >>> 15, 1 | s);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+
+function shuffle(arr, rng) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function rotatePalette(pal, rng) {
+  // Keep ground, rotate accent emphasis among support colors
+  const n = Math.floor(rng() * 2);
+  if (n === 0) return pal;
+  // Swap accent with one of the supports
+  return [pal[0], pal[2], pal[1], pal[3]];
+}
 
 function escape(str) {
   if (!str) return '';
