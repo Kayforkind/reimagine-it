@@ -37,7 +37,8 @@
     "lint:gold": "python scripts/audit_all.py",
     "cli": "node bin/reimagine-it.js",
     "cli:help": "node bin/reimagine-it.js --help",
-    "cli:example": "node bin/reimagine-it.js -i gold/webpage/before.html -t webpage -d"
+    "cli:example": "node bin/reimagine-it.js -i gold/webpage/before.html -t webpage -d",
+    "prepublishOnly": "python scripts/audit_all.py"
   },
   "files": [
     "skills/reimagine-it/",
@@ -54,5 +55,8 @@
   },
   "bin": {
     "reimagine-it": "./bin/reimagine-it.js"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

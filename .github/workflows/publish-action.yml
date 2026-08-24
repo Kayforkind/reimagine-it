@@ -1,0 +1,138 @@
+name: Publish Design Health Action
+
+# GitHub automatically discovers action.yml at the repo root on every
+# tagged release and lists it in the GitHub Actions marketplace.
+# This workflow validates the action and updates the release notes
+# with marketplace metadata.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to publish (leave empty for latest release)"
+        required: false
+
+jobs:
+  validate-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate action.yml
+        run: |
+          echo "::group::Validating action.yml"
+          python -c "
+          import yaml, sys, os
+          with open('action.yml') as f:
+              action = yaml.safe_load(f)
+          
+          required = ['name', 'description', 'runs']
+          missing = [k for k in required if k not in action]
+          if missing:
+              print(f'ERROR: Missing required fields: {missing}')
+              sys.exit(1)
+          
+          print(f'Action name: {action[\"name\"]}')
+          print(f'Description: {action[\"description\"]}')
+          print(f'Author: {action.get(\"author\", \"(not set)\")}')
+          print(f'Inputs: {list(action.get(\"inputs\", {}).keys())}')
+          print(f'Outputs: {list(action.get(\"outputs\", {}).keys())}')
+          print('action.yml is valid')
+          " || {
+            echo "::error::action.yml validation failed"
+            exit 1
+          }
+          echo "::endgroup::"
+
+      - name: Verify audit tool runs
+        run: |
+          echo "::group::Smoke-testing audit tool"
+          python scripts/audit_all.py --json > /dev/null 2>&1
+          EXIT=$?
+          if [ "$EXIT" -ge 2 ]; then
+            echo "::error::audit_all.py returned exit code $EXIT (failures present)"
+            exit 1
+          fi
+          echo "audit_all.py exit code: $EXIT (warnings only or clean)"
+          echo "::endgroup::"
+
+      - name: Verify CLI works
+        run: |
+          echo "::group::Smoke-testing CLI"
+          node bin/reimagine-it.js --help > /dev/null 2>&1 || {
+            echo "::error::CLI --help failed"
+            exit 1
+          }
+          echo "CLI --help: OK"
+          
+          node bin/reimagine-it.js --version 2>&1 || {
+            echo "::error::CLI --version failed"
+            exit 1
+          }
+          echo "CLI --version: OK"
+          echo "::endgroup::"
+
+      - name: Post marketplace metadata to release
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${{ github.event.release.tag_name }}"
+          
+          gh release edit "$TAG" \
+            --notes "$(cat <<'BODY'
+$(gh release view "$TAG" --json body -q '.body')
+
+---
+
+## 🛒 GitHub Actions Marketplace
+
+This release publishes the **reimagine-it Design Health** action to the GitHub Actions marketplace.
+
+### Quick start
+
+```yaml
+- uses: Kayforkind/reimagine-it@${TAG}
+  with:
+    path: "**/*.html"
+```
+
+### What it checks
+
+| Category | Checks |
+|----------|--------|
+| Typography | Hierarchy levels, text measure, missing display fonts |
+| Palette | Off-palette accents, unstyled ::selection, >5 non-neutral colors |
+| Motion | Missing prefers-reduced-motion, missing :focus-visible, non-compositor animation |
+| Content | Blank plates, placeholder labels, fabricated content |
+| Structure | No hero SVG, missing landmarks, broken images |
+| Performance | Missing content-visibility, CLS risk, DOM depth |
+
+18 deterministic rules. No LLM. No API key.
+
+BODY
+)" || echo "::warning::Could not update release notes (may already have metadata)"
+
+  publish-npm:
+    needs: validate-and-publish
+    if: github.event_name == 'release' && !github.event.release.prerelease
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Publish to npm
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
