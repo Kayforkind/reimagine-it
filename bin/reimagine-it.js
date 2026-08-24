@@ -30,9 +30,9 @@ Usage:
 
 Options:
   --input, -i <path>      Source HTML file (required)
-  --token, -t <name>      Design token: webpage, infographic, svg, 3js,
-                           dashboard, artistic, cinematic, photography,
-                           landing, simulation (default: webpage)
+  --token, -t <name>      Design token: webpage, infographic, dashboard,
+                           artistic, cinematic, photography, landing,
+                           svg, 3js, simulation (default: webpage)
   --output, -o <path>     Output file (default: reimagined/<name>.html)
   --seed, -s <n>          Pin creative variation for reproducibility
   --brief, -b <text>      Creative lens for the redesign

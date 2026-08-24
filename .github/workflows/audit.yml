@@ -6,12 +6,14 @@ on:
       - "gold/**/*.html"
       - "scripts/audit.py"
       - "scripts/audit_all.py"
+      - "test/fixtures/**"
       - ".github/workflows/audit.yml"
   pull_request:
     paths:
       - "gold/**/*.html"
       - "scripts/audit.py"
       - "scripts/audit_all.py"
+      - "test/fixtures/**"
   workflow_dispatch:
 
 jobs:
@@ -58,3 +60,32 @@ jobs:
           fi
           
           echo "Audit pass: exit code $EXIT"
+
+  regression-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Assert audit catches failures
+        run: |
+          echo "## Regression test: audit.py must exit 2 on failing fixture" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          set +e
+          python scripts/audit.py test/fixtures/failing-craft-floor.html --json > /tmp/audit-result.json 2>&1
+          EXIT=$?
+          set -e
+          if [ "$EXIT" -ne 2 ]; then
+            echo "::error::audit.py should exit 2 on failing fixture, got $EXIT"
+            cat /tmp/audit-result.json
+            exit 1
+          fi
+          echo '```json' >> $GITHUB_STEP_SUMMARY
+          cat /tmp/audit-result.json >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ audit.py correctly exits 2 on failing fixture" >> $GITHUB_STEP_SUMMARY

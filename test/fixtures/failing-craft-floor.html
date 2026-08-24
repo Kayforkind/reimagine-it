@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Intentionally failing fixture — do not ship</title>
+<style>
+  body { background: #fff; color: #000; font-family: Arial; }
+  /* Missing: prefers-reduced-motion, :focus-visible, ::selection */
+  /* This file exists solely to prove audit.py exit code 2 propagates through CI */
+  a { outline: 0; }
+  * { transition: all 0.3s ease; }
+</style>
+</head>
+<body>
+  <h1>Failing Fixture</h1>
+  <p>This page intentionally violates MOT-01 (outline:0), MOT-02 (no reduced-motion),
+     MOT-03 (no focus-visible), and PAL-02 (transition: all).</p>
+  <a href="#">link</a>
+</body>
+</html>

@@ -33,12 +33,13 @@
     "regenerate": "python gold/regenerate_all.py",
     "regenerate:dry": "python gold/regenerate_all.py --dry",
     "regenerate:no-screenshots": "python gold/regenerate_all.py --skip-screenshots",
-    "test": "python scripts/audit_all.py && python gold/reimagine.py --ship",
+    "test": "bash scripts/test.sh",
     "lint:gold": "python scripts/audit_all.py",
     "cli": "node bin/reimagine-it.js",
     "cli:help": "node bin/reimagine-it.js --help",
     "cli:example": "node bin/reimagine-it.js -i gold/webpage/before.html -t webpage -d",
-    "prepublishOnly": "python scripts/audit_all.py"
+    "test:unit": "node test/unit/cli.test.js",
+    "prepublishOnly": "python scripts/audit_all.py && node test/unit/cli.test.js"
   },
   "files": [
     "skills/reimagine-it/",
