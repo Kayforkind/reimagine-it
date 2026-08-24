@@ -121,7 +121,7 @@ if (argv.json) {
 if (argv.dry) {
   console.log(`\n  Content extraction — ${path.basename(inputPath)}\n`);
   console.log(`  Title:        ${content.title || '(none)'}`);
-  console.log(`  Palette:      ${content.palette.join(', ')}`);
+  console.log(`  Palette:      ${content.palette.ground} · ${content.palette.accent} · ${content.palette.muted}`);
   console.log(`  Nouns:        ${content.nouns.slice(0, 6).join(', ')}${content.nouns.length > 6 ? '...' : ''}`);
   console.log(`  Dates:        ${content.dates.slice(0, 4).join(', ')}${content.dates.length > 4 ? '...' : ''}`);
   console.log(`  Numbers:      ${content.numbers.slice(0, 4).join(', ')}${content.numbers.length > 4 ? '...' : ''}`);
@@ -135,11 +135,10 @@ if (argv.dry) {
 
 // Phase 2: Generate
 const seed = argv.seed ? parseInt(argv.seed, 10) : undefined;
-const brief = argv.brief || undefined;
-
-console.log(`\n  reimagine-it → ${token}  ·  ${path.basename(inputPath)}\n`);
-console.log(`  Palette: ${content.palette.join(' · ')}`);
-console.log(`  Motif:   ${content.anchors.slice(0, 3).join(', ')}`);
+const brief = argv.brief || undefined;  console.log(`\n  reimagine-it → ${token}  ·  ${path.basename(inputPath)}\n`);
+  var p = content.palette;
+  console.log(`  Palette: ${p.ground} · ${p.accent} · ${p.muted}`);
+  console.log(`  Motif:   ${content.anchors.slice(0, 3).join(', ')}`);
 
 const output = generate({ content, token, seed, brief });
 
