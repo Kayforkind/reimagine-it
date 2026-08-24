@@ -53,13 +53,15 @@ jobs:
       - name: Verify audit tool runs
         run: |
           echo "::group::Smoke-testing audit tool"
+          set +e
           python scripts/audit_all.py --json > /dev/null 2>&1
           EXIT=$?
+          set -e
+          echo "audit_all.py exit code: $EXIT (0=clean, 1=warnings only)"
           if [ "$EXIT" -ge 2 ]; then
             echo "::error::audit_all.py returned exit code $EXIT (failures present)"
             exit 1
           fi
-          echo "audit_all.py exit code: $EXIT (warnings only or clean)"
           echo "::endgroup::"
 
       - name: Verify CLI works
