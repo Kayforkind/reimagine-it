@@ -11,7 +11,7 @@ const fs = require('fs');
 const path = require('path');
 
 const root = path.resolve(__dirname, '..');
-const inputs = ['src/extract.js', 'src/generate.js', 'src/auto.js'];
+const inputs = ['src/extract.js', 'src/generate.js', 'src/auto.js', 'src/result.js'];
 const outputs = [path.join(root, 'docs', 'engine.js'), path.join(root, 'extension', 'engine.js')];
 const contents = inputs.map((file) => {
   const source = fs.readFileSync(path.join(root, file), 'utf8');

@@ -1,7 +1,7 @@
 {
   "name": "reimagine-it",
   "version": "2.3.2",
-  "description": "Content-Derived Design \u00e2\u20ac\u201d an AI agent skill that reads your file and redesigns it from its own content. Palette, motifs, and motion derived from concrete nouns, dates, and colors already in your source.",
+  "description": "Content-Derived Design \u2014 an AI agent skill that reads your file and redesigns it from its own content. Palette, motifs, and motion derived from concrete nouns, dates, and colors already in your source.",
   "license": "MIT",
   "author": "Kayforkind",
   "repository": "github:Kayforkind/reimagine-it",

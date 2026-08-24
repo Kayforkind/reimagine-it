@@ -415,9 +415,10 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
           </div>
           <div class="play-share-row">
             <button class="run-btn" id="playRun">Reimagine →</button>
+            <button class="run-btn" id="playDownload" style="background:var(--gold);color:var(--ink)">Download HTML ↓</button>
             <button class="run-btn" id="playShare" style="background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px rgba(26,33,56,.22)">Share this →</button>
           </div>
-          <div class="play-notes" id="playNotes"></div>
+          <div class="play-notes" id="playNotes" aria-live="polite"></div>
         </div>
         <div class="play-right">
           <span class="play-label">Result</span>
@@ -550,15 +551,17 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
 
   */
 
-  var input=document.getElementById('playInput'),runBtn=document.getElementById('playRun'),frame=document.getElementById('playFrame'),notes=document.getElementById('playNotes'),tokenBtns=document.querySelectorAll('.token-btn'),currentToken='webpage';
-  tokenBtns.forEach(function(btn){btn.addEventListener('click',function(){tokenBtns.forEach(function(b){b.classList.remove('active')});btn.classList.add('active');currentToken=btn.dataset.token})});
-  function run(){var html=input.value.trim();if(!html){var ph=input.getAttribute('placeholder');if(ph)html=ph;else return}var c=window.ReimagineExtract.extractContent(html,'playground.html');var n=[];n.push('Palette: '+[c.palette.ground,c.palette.accent,c.palette.muted].join(' / '));if(c.dates.length>0)n.push('Dates: '+c.dates.slice(0,4).join(', '));if(c.numbers.length>0)n.push('Numbers: '+c.numbers.slice(0,4).join(', '));if(c.anchors.length>0)n.push('Anchors: '+c.anchors.slice(0,3).join(', '));if(currentToken==='auto'){var auto=window.ReimagineAuto.autoGenerate(c);n.push('Auto chose: '+auto.token+' · '+auto.candidates.length+' candidates');notes.textContent='Extracted — '+n.join(' · ')+'. Auto verified the strongest direction.';frame.srcdoc=auto.output}else{notes.textContent='Extracted — '+n.join(' · ')+'. Token: '+currentToken+'.';frame.srcdoc=window.ReimagineGenerate.generate({content:c,token:currentToken})}}
+  var input=document.getElementById('playInput'),runBtn=document.getElementById('playRun'),downloadBtn=document.getElementById('playDownload'),frame=document.getElementById('playFrame'),notes=document.getElementById('playNotes'),tokenBtns=document.querySelectorAll('.token-btn'),currentToken='webpage',lastOutput='';
+  tokenBtns.forEach(function(btn){btn.addEventListener('click',function(){tokenBtns.forEach(function(b){b.classList.remove('active')});btn.classList.add('active');currentToken=btn.dataset.token;run()})});
+  function run(){var html=input.value.trim();if(!html){var ph=input.getAttribute('placeholder');if(ph)html=ph;else{lastOutput='';frame.srcdoc='';notes.textContent='Paste HTML to preview a redesign.';return}}var c=window.ReimagineExtract.extractContent(html,'playground.html');var n=[];n.push('Palette: '+[c.palette.ground,c.palette.accent,c.palette.muted].join(' / '));if(c.dates.length>0)n.push('Dates: '+c.dates.slice(0,4).join(', '));if(c.numbers.length>0)n.push('Numbers: '+c.numbers.slice(0,4).join(', '));if(c.anchors.length>0)n.push('Anchors: '+c.anchors.slice(0,3).join(', '));var tokenLabel=currentToken;if(currentToken==='auto'){var auto=window.ReimagineAuto.autoGenerate(c);tokenLabel=auto.token;n.push('Auto chose: '+auto.token+' · '+auto.candidates.length+' candidates');lastOutput=auto.output}else{lastOutput=window.ReimagineGenerate.generate({content:c,token:currentToken})}var fidelity=window.ReimagineResult.sourceFidelity(c,lastOutput);notes.textContent='Extracted — '+n.join(' · ')+'. Direction: '+tokenLabel+' · Fidelity: '+fidelity.percentage+'% of detected source facts preserved.';frame.srcdoc=lastOutput}
   runBtn.addEventListener('click',run);
+  input.addEventListener('input',function(){if(input.value.trim())run()});
   input.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.ctrlKey)run()});
   input.addEventListener('focus',function(){if(!input._r){input._r=true;run()}});
   /* share */
   var shareBtn=document.getElementById('playShare');
   shareBtn.addEventListener('click',function(){var d={h:input.value.trim()||input.getAttribute('placeholder')||'',t:currentToken};var enc=btoa(unescape(encodeURIComponent(JSON.stringify(d))));var url=location.origin+location.pathname+'#'+enc;navigator.clipboard.writeText(url).then(function(){var o=shareBtn.textContent;shareBtn.textContent='Copied!';setTimeout(function(){shareBtn.textContent=o},2000)}).catch(function(){prompt('Copy this URL:',url)})});
+  downloadBtn.addEventListener('click',function(){if(!lastOutput)return;var blob=new Blob([lastOutput],{type:'text/html'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='reimagined-'+currentToken+'.html';document.body.appendChild(link);link.click();link.remove();setTimeout(function(){URL.revokeObjectURL(url)},0)});
   (function(){var h=location.hash.slice(1);if(!h)return;try{var d=JSON.parse(decodeURIComponent(escape(atob(h))));if(d.h)input.value=d.h;if(d.t){tokenBtns.forEach(function(b){b.classList.remove('active');if(b.dataset.token===d.t)b.classList.add('active')});currentToken=d.t}setTimeout(run,100)}catch(e){}})();
   run();
 })();

@@ -2,164 +2,154 @@
 
 [![CI](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/audit.yml?branch=main&label=CI)](https://github.com/Kayforkind/reimagine-it/actions/workflows/audit.yml) [![version 2.3.2](https://img.shields.io/badge/version-2.3.2-b22234.svg)](CHANGELOG.md) [![MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE) [![skills.sh](https://skills.sh/b/kayforkind/reimagine-it)](https://skills.sh/kayforkind/reimagine-it)
 
-# Make the page you already have worth keeping.
+# Turn the HTML you already have into a page worth keeping.
 
-[![Explore the visual method](docs/hero.svg)](https://kayforkind.github.io/reimagine-it/#playground)
+**reimagine-it** redesigns an existing HTML page from the content already inside it. It extracts the real headings, facts, links, names, dates, numbers, and colors, then builds a stronger visual system around them—without replacing the page with invented filler.
 
-**reimagine-it** is Content-Derived Design for AI agents and the command line. Point it at an existing HTML page. It reads the real content, preserves the meaning, then gives the page a stronger visual system: typography, hierarchy, palette, composition, motif, and motion.
-
-Not a template picker. Not a mood board. Not a prompt that fills your page with invented copy.
-
-> **Your content narrows the design space. Your client approves the direction. A seed or lock makes the approved direction repeatable.**
+> **Source in. Beautiful, usable HTML out. The source stays untouched.**
 
 <div align="center">
 
-**[Open the live playground](https://kayforkind.github.io/reimagine-it/#playground)** · **[Browse the case studies](https://kayforkind.github.io/reimagine-it/)** · **[Try end-user examples](examples/end-users/)** · **[Install the skill](#install)**
+**[Try the live playground](https://kayforkind.github.io/reimagine-it/#playground)** · **[See the proof](https://kayforkind.github.io/reimagine-it/#cases)** · **[Run it locally](#the-60-second-proof)** · **[Install it](#install)**
 
 </div>
 
----
+[![A source page becomes several content-derived compositions](docs/hero.svg)](https://kayforkind.github.io/reimagine-it/#playground)
 
-## The workflow: beautify → compare → approve → repeat
+## The 60-second proof
 
-A good redesign is not “generate once and hope.” Use a small, inspectable loop:
+Start with a real page—not a generic prompt:
 
-```text
-source page
-    ↓
-extract content signals
-    ↓
-create a few distinct directions
-    ↓
-compare the actual page, not a fake prompt
-    ↓
-choose one direction
-    ↓
-pin its seed or lock its design DNA
-    ↓
-ship and audit
+```html
+<!-- before.html -->
+<h1>A Letter to the Night Tide</h1>
+<p>Field notes from the coast, written after the last light.</p>
+<h2>Three things the water taught us</h2>
+<ul>
+  <li>Patience · 12 minutes of stillness</li>
+  <li>Distance · 4 miles offshore</li>
+  <li>Return · notes from 2026</li>
+</ul>
 ```
 
-### Try it in three commands
+Generate a direction:
 
 ```bash
-# Generate a polished editorial webpage from an existing page
-npx reimagine-it -i before.html -t webpage -o reimagined/page.html
-
-# Generate a different medium from the same source
-npx reimagine-it -i before.html -t infographic -o reimagined/poster.html
-
-# Preview what the engine found before changing anything
-npx reimagine-it -i before.html --dry
+npx reimagine-it --auto -i before.html -o redesign.html
 ```
 
-The input remains the source of truth. The engine extracts headings, paragraphs, list items, proper nouns, dates, numbers, emails, color words, and source hex values. It does not need a CDN, Figma file, paid API, or remote image service. Auto reports its decision instead of silently pretending a visual preference is objective.
+Open `redesign.html`. It is a standalone artifact: no server, CDN, API key, Figma file, or build step is required.
 
----
-
-## No accidental repetition
-
-Fresh does not mean random chaos, and repeatable does not mean samey.
-
-- **No seed:** a new creative direction each run. Layout density, anchor order, palette emphasis, and visual register can change.
-- **`--seed 42`:** the same source and token reproduce the same direction for review, QA, and deployment. Auto also returns the selected seed in its report.
-- **`lock`:** capture an approved design language — palette, type, motif, motion, and structure — then reuse it across pages or media. (The CLI core currently exposes seeded reuse; the agent skill handles lock files.)
+For a reviewable client handoff, keep the decision report too:
 
 ```bash
-# Explore distinct directions
-npx reimagine-it -i page.html -t webpage -o draws/draw-a.html
-npx reimagine-it -i page.html -t webpage -o draws/draw-b.html
-npx reimagine-it -i page.html -t webpage -o draws/draw-c.html
-
-# Approve one direction and make it reproducible
-npx reimagine-it -i page.html -t webpage --seed 42 -o approved/page.html
+npm run auto -- \
+  -i before.html \
+  -o review/auto.html \
+  --report review/auto.json \
+  --seed 42
 ```
 
-For an AI agent:
+The report records the selected direction, candidate scores, seed, rationale, source anchors, and source-fidelity checks. The input file is never overwritten.
+
+## Why this exists
+
+Generic design prompts begin with adjectives—*modern*, *premium*, *minimal*, *bold*. That is why unrelated pages often converge on the same cards, gradients, and invented SaaS copy.
+
+Content-Derived Design begins with evidence:
 
 ```text
-/reimagine-it webpage
-/reimagine-it webpage --seed 42
-/reimagine-it lock approved/page.html as house-style
-/reimagine-it webpage --ref house-style
-/reimagine-it slides --ref house-style
+source signals → design decisions → working artifact → human approval
 ```
 
-The goal is **controlled variation**: genuinely new when the client wants options, intentionally similar when the client wants a system.
+A restaurant menu can become a warm typographic folio. An observability page can become a pulse-led console. A personal essay can become a quiet narrative field. The content gives the redesign a reason to look the way it does.
 
----
+### What is guaranteed
 
-## Ten usable output tokens
+- **Meaning stays anchored.** Titles, headings, dates, numbers, links, emails, and source anchors are extracted and checked in generated output.
+- **The artifact is usable.** Generated pages are standalone HTML with inline CSS/SVG/canvas where needed.
+- **The choice is inspectable.** Auto ranks up to three directions and reports why it selected one.
+- **Variation is controlled.** No seed explores; `--seed 42` reproduces an approved direction.
+- **The craft floor is explicit.** Every token includes reduced-motion, focus-visible, and selection styling.
 
-Every token generates a standalone HTML artifact with a distinct composition. The output is designed to be opened, reviewed, edited, and shipped — not just admired in a screenshot.
+## Design Auto
 
-| Token | Best for | Output character |
+Use Auto when you know the outcome you want but do not want to choose a token first:
+
+```bash
+npx reimagine-it --auto -i page.html -o reimagined/auto.html
+```
+
+Auto reads the source, scores the directions that fit its evidence, generates candidates, rejects candidates that fail its craft checks, and writes the strongest result. It is deterministic when seeded and model-agnostic: a host agent may add judgment, but the artifact still comes from the source.
+
+Use a specific direction when the medium is already clear:
+
+```bash
+npx reimagine-it -i page.html -t webpage -o reimagined/article.html
+npx reimagine-it -i page.html -t dashboard -o reimagined/ops.html
+npx reimagine-it -i page.html -t infographic -o reimagined/poster.html
+```
+
+Preview the extracted evidence before generating:
+
+```bash
+npx reimagine-it -i page.html --dry
+npx reimagine-it -i page.html --json
+```
+
+## A client-ready workflow
+
+1. **Start with the real source.** Do not flatten the page into a vague prompt.
+2. **Generate two or three defensible directions.** Change the composition and visual register, not just the hex values.
+3. **Show the live artifact.** Let the client inspect the page, not only a screenshot.
+4. **Approve one direction.** Keep its report beside the artifact.
+5. **Pin the decision.** Use a seed for a reproducible page; use the agent skill's lock workflow for a reusable design language.
+6. **Run the quality gate.** A page is not done if it clips content, loses focus visibility, or invents facts.
+
+The intended outcome is **fresh when requested, consistent when approved**—not accidental repetition and not random chaos.
+
+## See it work
+
+- **[Live playground](https://kayforkind.github.io/reimagine-it/#playground)** — paste HTML, select a direction, preview the result, and share the input.
+- **[Texas notebook case study](gold/webpage/)** — the original content becomes several reader registers.
+- **[Pulsewave](gold/pulsewave/)** — observability language becomes a signal-oriented system.
+- **[Two Lights](gold/twolights/)** — a personal essay becomes a lighthouse-led narrative.
+- **[Saffron & Smoke](gold/saffron/)** — a menu becomes a warm food-specific composition.
+- **[End-user examples](examples/end-users/)** — three realistic sources with source HTML, Auto output, alternate output, reports, and GIF proof.
+- **[Full showcase](docs/SHOWCASE.md)** — source, rationale, artifact, and regeneration notes.
+
+The committed examples are reproducible references, not promises about an unknown input. Run the command on your own page to see what its content produces.
+
+## Ten output directions
+
+| Token | Best for | Character |
 |---|---|---|
-| `webpage` | Editorial pages, articles, source documents | Measured reading layout, numbered sections, display/body contrast |
-| `landing` | Product and service pages | Clear hero, CTA hierarchy, feature rhythm |
-| `dashboard` | Metrics and operational content | Dark console, KPI cards, inline sparklines |
-| `infographic` | Facts, comparisons, timelines | Common-scale bars, ISOTYPE units, lossless data table |
-| `cinematic` | Narrative and brand moments | Full-viewport opening, depth, scroll-led sections |
-| `artistic` | Posters and expressive pages | Oversized type, asymmetric rhythm, layered fields |
-| `photography` | Portfolios and visual indexes | Folio composition, varied plate sizes, captions |
-| `svg` | Marks, diagrams, living illustrations | Inline SVG, geometric motif, restrained micro-motion |
-| `3js` | Spatial or object-based stories | Offline canvas object, drag-to-rotate interaction |
-| `simulation` | Time, sequence, or process | Playable timeline with scrubber and speed control |
+| `webpage` | Articles and source documents | Measured reading hierarchy |
+| `landing` | Products and services | Hero and action rhythm |
+| `dashboard` | Metrics and operations | Console, KPIs, and status |
+| `infographic` | Facts and comparisons | Shared scales and timelines |
+| `cinematic` | Narrative moments | Depth and paced chapters |
+| `artistic` | Posters and expressive pages | Asymmetric type and layered fields |
+| `photography` | Portfolios and collections | Folio plates and captions |
+| `svg` | Marks and diagrams | Inline geometric illustration |
+| `3js` | Spatial stories | Offline orbitable canvas |
+| `simulation` | Time and process | Playable timeline and scrubber |
 
-Force a token with the CLI:
-
-```bash
-npx reimagine-it -i source.html -t webpage
-npx reimagine-it -i source.html -t landing
-npx reimagine-it -i source.html -t infographic
-npx reimagine-it -i source.html -t svg
-npx reimagine-it -i source.html -t 3js
-npx reimagine-it -i source.html -t simulation
-```
-
-List every token:
+List the registry from the CLI:
 
 ```bash
 npx reimagine-it --list
 ```
 
-## Design Auto — say what you want, then let it drive
-
-When you do not want to choose a token, use `auto`. It reads the page, ranks the forms that fit its evidence, generates up to three candidate directions, verifies their safety and craft signals, and writes the strongest standalone result. The source is never overwritten.
-
-```bash
-npx reimagine-it --auto -i page.html -o reimagined/auto.html
-npm run auto -- -i page.html -o reimagined/auto.html --report reimagined/auto.json
-```
-
-`auto` is intentionally model-agnostic. In a host agent, the model can provide the brief, inspect the candidate report, delegate visual review, and ask for approval; the deterministic engine still guarantees that the final artifact is source-backed, standalone, and reproducible when a seed is supplied.
-
----
-
-## The client approval loop
-
-Use the tool like a designer, not a slot machine:
-
-1. **Start with the real page.** Do not rewrite the source into a generic prompt.
-2. **Show two or three distinct draws.** Each should make a different, defensible choice — not just swap a hex value.
-3. **Ask the client to choose a direction.** Prefer “editorial / cinematic / operational” over “do you like it?”
-4. **Pin the approved direction.** Use `--seed` for one artifact or `lock` for a reusable system.
-5. **Audit the output.** A beautiful page that clips text, loses focus visibility, or invents facts is not finished.
-6. **Ship the artifact.** The generated HTML is standalone and can be opened locally or deployed as-is.
-
-The design should be visibly different from the original while remaining recognizably about the same content. Meaning is preserved; hierarchy is transformed.
-
----
-
 ## Install
 
-### AI agents — Agent Skills
+### Agent Skill
 
 ```bash
 npx skills add Kayforkind/reimagine-it
 ```
 
-Works with hosts that support Agent Skills, including Cursor, Codex, Copilot, Gemini CLI, Windsurf, and others.
+Works with Agent Skills hosts including Cursor, Codex, Claude Code, Copilot, Gemini CLI, Windsurf, and Factory Droid. The skill is the orchestration layer; the dependency-free CLI is the artifact layer.
 
 ### Claude Code
 
@@ -168,88 +158,53 @@ Works with hosts that support Agent Skills, including Cursor, Codex, Copilot, Ge
 /plugin install reimagine-it@reimagine-it
 ```
 
-### Codex
+### Codex and Factory Droid
 
 ```bash
 codex plugin marketplace add Kayforkind/reimagine-it
 codex plugin add reimagine-it@reimagine-it
-```
 
-### Factory Droid
-
-```bash
 droid plugin marketplace add https://github.com/Kayforkind/reimagine-it
 droid plugin install reimagine-it@reimagine-it --scope user
 ```
 
-Then ask the agent:
+## Design Health in CI
 
-```text
-/reimagine-it webpage
-/reimagine-it infographic
-/reimagine-it svg
-/reimagine-it 3js
-/reimagine-it simulation
+The repository also ships a public composite Action for deterministic HTML quality checks. It is a separate quality gate from the redesign engine:
+
+```yaml
+- uses: Kayforkind/reimagine-it@v2.3.0
+  with:
+    path: "**/*.html"
+    fail-on-warnings: "false"
 ```
 
----
+Design Health reports `CLEAN`, `WARNINGS`, or `FAIL` and checks typography, palette, motion, content, structure, and performance heuristics. It needs no LLM or API key. Pin a release tag in production rather than depending on `main`.
 
-## CLI — no agent required
+## CLI reference
 
-### A safe handoff: stdout mode
-
-Use `-o -` when another tool should receive only the generated HTML. Progress stays on stderr, so the result can be piped directly into a file, formatter, or deployment step.
-
-```bash
-cat page.html | npx reimagine-it -t webpage -o - > redesign.html
-```
-
-The CLI is zero-config for the core path and works with files or stdin:
+The core path accepts a file or stdin:
 
 ```bash
 # File in, file out
 npx reimagine-it -i page.html -t webpage -o redesign.html
 
-# Pipe HTML in
-cat page.html | npx reimagine-it -t landing -o redesign.html
+# HTML through a pipeline; stdout contains only the artifact
+cat page.html | npx reimagine-it -t webpage -o - > redesign.html
 
-# Inspect extraction as JSON
+# Inspect extraction
+npx reimagine-it -i page.html --dry
 npx reimagine-it -i page.html --json
 
-# Preview extraction without generating
-npx reimagine-it -i page.html --dry
-
-# Reproduce an approved direction
+# Reproduce an approved draw
 npx reimagine-it -i page.html -t webpage --seed 42 -o approved.html
 ```
 
-`--dry` shows the derived ground, accent, muted, surface, and ink colors, plus headings, list items, anchors, dates, numbers, and source hex values.
-
-### CLI output guarantees
-
-- Standalone HTML; no CDN required
-- Source-derived palette and content anchors
-- Seeded reproducibility when requested
-- `prefers-reduced-motion`, `:focus-visible`, and `::selection` rules in every token
-- No fabricated KPI values when source numbers exist
-- Graceful empty-source handling
-
----
-
-## DeepSeek Harness integration
-
-The core package stays portable; `dsh/` contains an optional plugin adapter for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness). DeepSeek Harness is a developer-preview, plugin-first runtime where model providers, tools, sessions, sandboxes, storage, loops, and UI can be composed independently. That makes it a strong host for Auto without coupling this project to its rapidly changing runtime.
-
-```bash
-dsh plugin --profile web add reimagine-it
-dsh web
-```
-
-After installation, the `design_auto` tool reads a workspace-relative HTML file, chooses a direction, generates and verifies candidates, and returns the best artifact. It never edits the source. DSH owns model access, context, approvals, sandboxing, persistence, and traceability; reimagine-it owns the design decision and HTML artifact. Read the [DeepSeek Harness adapter guide](dsh/README.md) for the exact contract and safety boundary.
+Use `-o -` when another tool should receive only generated HTML; progress stays on stderr.
 
 ## MCP server
 
-Expose the method to any MCP-compatible agent:
+Expose the same engine to an MCP-compatible host:
 
 ```json
 {
@@ -262,110 +217,47 @@ Expose the method to any MCP-compatible agent:
 }
 ```
 
-The server exposes five tools:
+Tools:
 
-- `reimagine` — generate a token-specific redesign from raw HTML
-- `design_auto` — choose, generate, verify, and explain the strongest direction
-- `extract_content` — inspect the source signals
-- `list_tokens` — discover available output directions
+- `reimagine` — generate a selected direction from raw HTML
+- `design_auto` — choose, generate, verify, and explain a direction
+- `extract_content` — inspect source evidence
+- `list_tokens` — discover directions
 - `audit_html` — run the craft-floor audit
 
-The core CLI remains usable without the MCP SDK. The MCP server shares the same token registry as the CLI, so token names and descriptions do not drift between interfaces.
+## Browser extension and DeepSeek Harness
 
----
+- The **[browser extension](extension/README.md)** adds local redesign to Chrome, Edge, and Firefox. It does not upload the page or require a server.
+- The optional **[DeepSeek Harness adapter](dsh/README.md)** exposes `design_auto` while leaving model access, approvals, sandboxing, and persistence to the host runtime.
 
-## Browser extension
+## Quality and limits
 
-The `extension/` directory contains a Manifest V3 extension for Chrome, Edge, and Firefox. It now exposes the same ten output directions as the CLI, including the interactive `3js` and `simulation` forms.
-
-1. Open `chrome://extensions` or `edge://extensions`.
-2. Enable **Developer mode**.
-3. Choose **Load unpacked**.
-4. Select this repository's `extension/` directory.
-5. Open a page, click **Reimagine This Page**, choose a token, and compare the result.
-
-The extension extracts content in the browser and opens a local generated artifact. No server, API key, or page upload is required.
-
-→ [Extension installation and limitations](extension/README.md)
-
----
-
-## What makes this different
-
-Most design prompts begin with a visual adjective: *modern*, *premium*, *minimal*, *bold*. That is how unrelated pages end up looking alike.
-
-Content-Derived Design starts somewhere more useful:
-
-```text
-source signals → design decisions → working artifact → human approval
-```
-
-A lighthouse essay can become a beam-led editorial page. A SaaS observability page can become a pulse-led operational console. A restaurant menu can become a warm, typographic folio. The source constrains the design so the result has a reason to exist.
-
-The engine also refuses the usual shortcuts:
-
-- no invented testimonials or logos;
-- no placeholder copy painted into empty plates;
-- no generic “AI startup” dashboard for every source;
-- no CDN dependency for the generated artifact;
-- no accidental duplication when a new direction is requested.
-
----
-
-## Proof, not promises
-
-The repository contains curated source/after pairs and regenerators. They are reference artifacts; the CLI is the path for transforming your own page:
-
-| Source | What it demonstrates | Proof |
-|---|---|---|
-| Texas notebook | Content-derived palette, place anchors, editorial and spatial directions | [`gold/webpage/`](gold/webpage/) |
-| Pulsewave | SaaS content becoming pulse/trace-oriented design | [`gold/pulsewave/`](gold/pulsewave/) |
-| Two Lights | Personal essay becoming a lighthouse-led narrative system | [`gold/twolights/`](gold/twolights/) |
-| Saffron & Smoke | Menu content becoming food-specific visual language | [`gold/saffron/`](gold/saffron/) |
-| Jules Ice Cream | A second source with parlor-specific design DNA | [`gold/jules/`](gold/jules/) |
-| Five non-web artifacts | CLI, protocol, data ledger, and code-architecture transformations | [`gold/five/`](gold/five/) |
-
-See the [full showcase](docs/SHOWCASE.md), try the [fresh end-user examples](examples/end-users/), or open the [live gallery](https://kayforkind.github.io/reimagine-it/).
-
-The repository's static gold pages are curated reference artifacts. The standalone CLI is the general-purpose path for beautifying a user's own HTML. GIFs remain optional social-proof assets; the primary proof is the live, inspectable HTML output and its audit report.
-
----
-
-## Quality bar
-
-Run the same checks locally and in CI:
+Run the project checks locally:
 
 ```bash
 npm test
-npm run audit
-npm run test:unit
+npm run check:docs
 ```
 
-Current automated coverage:
+Current repository checks include:
 
-- 43 CLI and Auto unit tests
-- 32 curated gold HTML files audited
-- 50 end-to-end generated outputs tested across five sources and ten tokens (the repository validation sweep)
-- deterministic seeded output checks
-- intentional-failure regression fixture to ensure CI catches craft-floor failures
-- plugin manifest consistency verification
+- 44 unit tests covering extraction, generation, Auto, CLI behavior, and color science.
+- 32 curated gold HTML files audited; warnings are advisory and failures block shipping.
+- Intentional failing-fixture coverage to ensure the audit exit code catches real craft-floor failures.
+- Browser bundle freshness checks for the landing page and extension.
 
-The audit checks typography, palette, motion, content, structure, and performance heuristics. A warning is advisory; a failure blocks shipping.
-
----
+The audit is deterministic and heuristic. It is not a claim of full WCAG conformance, visual taste, or universal browser compatibility. Review the generated page before shipping it to a client.
 
 ## Contributing
 
-The best contribution is a real source with a defensible redesign, not another abstract prompt.
+The best contribution is a real source with a defensible transformation:
 
-- Add a domain, form, modifier, or lock with its source content.
-- Explain why the palette, motif, type, and motion come from that source.
-- Provide a regenerator for every committed visual.
-- Include an offline artifact and run `npm test`.
+- add source HTML and a generated artifact;
+- explain why the palette, motif, type, and motion come from the source;
+- provide a regenerating command or script;
+- run `npm test` and inspect the result in a browser.
 
 See [`CONTRIBUTING.md`](CONTRIBUTING.md), [`ROADMAP.md`](ROADMAP.md), and [`CHANGELOG.md`](CHANGELOG.md).
-
----
 
 ## License
 

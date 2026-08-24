@@ -26,10 +26,16 @@ inputs:
 outputs:
   verdict:
     description: "CLEAN | WARNINGS | FAIL"
+    value: ${{ steps.audit.outputs.verdict }}
   failures:
     description: "Number of blocking failures"
+    value: ${{ steps.audit.outputs.failures }}
   warnings:
     description: "Number of advisory warnings"
+    value: ${{ steps.audit.outputs.warnings }}
+  summary:
+    description: "Markdown summary table for the workflow summary"
+    value: ${{ steps.audit.outputs.summary }}
 
 runs:
   using: "composite"
@@ -56,11 +62,13 @@ runs:
         PASS=0
         WARN=0
         FAIL=0
+        OVERALL="CLEAN"
         FAIL_ON_WARN="${{ inputs.fail-on-warnings }}"
         STRICT="${{ inputs.strict }}"
 
         # Build summary table header
         SUMMARY="| File | Verdict | Failures | Warnings |\n|------|---------|----------|----------|\n"
+        shopt -s nullglob globstar
 
         for f in ${{ inputs.path }}; do
           # Skip dirs, non-existent files, vendored paths
@@ -69,7 +77,7 @@ runs:
           case "$f" in *.html) ;; *) continue ;; esac
 
           TOTAL=$((TOTAL + 1))
-          RESULT=$(python $GITHUB_ACTION_PATH/scripts/audit.py "$f" --json 2>&1) || true
+          RESULT=$(python "$GITHUB_ACTION_PATH/scripts/audit.py" "$f" --json $VERBOSE_FLAG 2>&1) || true
           VERDICT=$(echo "$RESULT" | python -c "import sys,json; d=json.load(sys.stdin); print(d.get('verdict','FAIL'))" 2>/dev/null || echo "ERROR")
           FCOUNT=$(echo "$RESULT" | python -c "import sys,json; d=json.load(sys.stdin); print(d.get('failures',99))" 2>/dev/null || echo "99")
           WCOUNT=$(echo "$RESULT" | python -c "import sys,json; d=json.load(sys.stdin); print(d.get('warnings',99))" 2>/dev/null || echo "99")
@@ -82,21 +90,22 @@ runs:
             WARNINGS)
               SUMMARY+="| \`$f\` | ⚠️ Warnings | — | $WCOUNT |\n"
               WARN=$((WARN + 1))
+              if [ "$OVERALL" = "CLEAN" ]; then OVERALL="WARNINGS"; fi
               ;;
             *)
               SUMMARY+="| \`$f\` | ❌ $VERDICT | $FCOUNT | $WCOUNT |\n"
               FAIL=$((FAIL + 1))
+              OVERALL="FAIL"
               ;;
           esac
         done
 
         # Strict mode: fail if no files matched
-        if [ "$STRICT" = "true" ] && [ "$TOTAL" -eq 0 ]; then
-          echo "::error::No HTML files matched path '${{ inputs.path }}' (strict mode enabled)"
-          exit 1
-        fi
-
         if [ "$TOTAL" -eq 0 ]; then
+          if [ "$STRICT" = "true" ]; then
+            echo "::error::No HTML files matched path '${{ inputs.path }}' (strict mode enabled)"
+            exit 1
+          fi
           echo "::warning::No HTML files matched path '${{ inputs.path }}'"
           SUMMARY+="\n_(no files matched)_"
         fi
@@ -106,7 +115,8 @@ runs:
         SUMMARY+="[Content-Derived Design](https://kayforkind.github.io/reimagine-it/) | "
         SUMMARY+="[18 rules](https://github.com/${{ github.action_repository }}/blob/main/scripts/audit.py)"
 
-        echo "verdict=$VERDICT" >> $GITHUB_OUTPUT
+        if [ "$TOTAL" -eq 0 ]; then OVERALL="WARNINGS"; fi
+        echo "verdict=$OVERALL" >> $GITHUB_OUTPUT
         echo "failures=$FAIL" >> $GITHUB_OUTPUT
         echo "warnings=$WARN" >> $GITHUB_OUTPUT
 
