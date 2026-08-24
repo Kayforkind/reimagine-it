@@ -1,6 +1,6 @@
 # /reimagine-it svg
 
-Load when the user forces `svg`, or the router picks a weenie. Gold: [`gold/forms/svg/after.svg`](../../../gold/forms/svg/after.svg) — **one draw of one Texas notebook**, not a skin.
+Load when the user forces `svg`, or the router picks a weenie. Gold: [`gold/forms/svg/after.svg`](../../../../gold/forms/svg/after.svg) — **one draw of one Texas notebook**, not a skin.
 
 This is a **living mark**, not a captioned webpage saved as `.svg`, and not a paper poster (that is `infographic`). Pick this form when the source should **breathe** — micro-motion that beautifies the read.
 

@@ -84,13 +84,13 @@ Five diverse sources prove the method travels:
 
 | Source | Genre | Palette from content | Motif | Files |
 |--------|-------|---------------------|-------|-------|
-| Texas notebook | Historical notes | Navy / cream / red / gold | Lone Star | [before](gold/webpage/before.html) · [after](gold/webpage/after-3.html) |
-| Jules Ice Cream | Small business | Parlor pastels / cone brown | Scoop + cone | [before](gold/jules/before.html) · [after](gold/jules/webpage/after.html) |
-| Pulsewave | SaaS startup | Dark teal / electric green | Pulse wave | [before](gold/pulsewave/before.html) · [after](gold/pulsewave/after.html) |
-| Two Lights | Personal essay | Slate / cream / beam amber | Lighthouse beam | [before](gold/twolights/before.html) · [after](gold/twolights/after.html) |
-| Saffron & Smoke | Restaurant menu | Warm clay / saffron / herb green | Smoke tendril | [before](gold/saffron/before.html) · [after](gold/saffron/after.html) |
+| Texas notebook | Historical notes | Navy / cream / red / gold | Lone Star | [before](../gold/webpage/before.html) · [after](../gold/webpage/after-3.html) |
+| Jules Ice Cream | Small business | Parlor pastels / cone brown | Scoop + cone | [before](../gold/jules/before.html) · [after](../gold/jules/webpage/after.html) |
+| Pulsewave | SaaS startup | Dark teal / electric green | Pulse wave | [before](../gold/pulsewave/before.html) · [after](../gold/pulsewave/after.html) |
+| Two Lights | Personal essay | Slate / cream / beam amber | Lighthouse beam | [before](../gold/twolights/before.html) · [after](../gold/twolights/after.html) |
+| Saffron & Smoke | Restaurant menu | Warm clay / saffron / herb green | Smoke tendril | [before](../gold/saffron/before.html) · [after](../gold/saffron/after.html) |
 
-Four additional non-webpage proofs: [CLI redesign](gold/five/01-cli), [protocol redesign](gold/five/02-door), [data ledger](gold/five/03-ledger), [code architecture](gold/five/04-layers).
+Four additional non-webpage proofs: [CLI redesign](../gold/five/01-cli), [protocol redesign](../gold/five/02-door), [data ledger](../gold/five/03-ledger), [code architecture](../gold/five/04-layers).
 
 ---
 

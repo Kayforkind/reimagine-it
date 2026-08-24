@@ -1,6 +1,6 @@
 # /reimagine-it 3js
 
-Load when the user forces `3js`, or the router picks a Three.js scene. Gold: [`gold/forms/3js/after.html`](../../../gold/forms/3js/after.html) — **one draw of one Texas notebook**, not a skin.
+Load when the user forces `3js`, or the router picks a Three.js scene. Gold: [`gold/forms/3js/after.html`](../../../../gold/forms/3js/after.html) — **one draw of one Texas notebook**, not a skin.
 
 This is a **room that lives**, not a 30 KB primitive dump (default cube, four cones, HUD over the subject). Pick this form when the source should be **orbitable and quietly alive** — micro-motion on the meshes themselves.
 

@@ -1,6 +1,6 @@
 # /reimagine-it simulation
 
-Load when the user forces `simulation`, or the router picks a playable model. Gold: [`gold/forms/simulation/after.html`](../../../gold/forms/simulation/after.html) — **one draw of one Texas notebook**, not a skin.
+Load when the user forces `simulation`, or the router picks a playable model. Gold: [`gold/forms/simulation/after.html`](../../../../gold/forms/simulation/after.html) — **one draw of one Texas notebook**, not a skin.
 
 This is a **playable model of facts already in this source**, not a dashboard and not a labeled map. Time (or the source's own sequence) actually passes. Each dated or ordered thing gets a **field verb** (a mark that changes) and a **gutter name** (type off the field).
 

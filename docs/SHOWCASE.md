@@ -1,8 +1,8 @@
 # Case studies — one source, one command each
 
-> **This document is the extended gallery.** For the quick start, see the [README](README.md).
+> **This document is the extended gallery.** For the quick start, see the [README](../README.md).
 
-Every case below reimagines the **exact same naive HTML** ([`gold/webpage/before.html`](gold/webpage/before.html) — a plain Texas notebook, 40 lines, no CSS, one email) with **one different token**. Cases 1–8 are eight different domains and modifiers on the default `webpage` pack. **Case 09** is the v2.2 raised bar — a third *reader register* of the default pack (`--variant c`, `cinematic-shader`). **Case 10** is the v2.3 infographic pack — the same notebook read as a statistical poster, not a dashboard. **Cases 11–13** keep that HTML and change the *form*: SVG, Three.js, simulation. To match how a designer reads a case study, each case is laid out top-to-bottom:
+Every case below reimagines the **exact same naive HTML** ([`gold/webpage/before.html`](../gold/webpage/before.html) — a plain Texas notebook, 40 lines, no CSS, one email) with **one different token**. Cases 1–8 are eight different domains and modifiers on the default `webpage` pack. **Case 09** is the v2.2 raised bar — a third *reader register* of the default pack (`--variant c`, `cinematic-shader`). **Case 10** is the v2.3 infographic pack — the same notebook read as a statistical poster, not a dashboard. **Cases 11–13** keep that HTML and change the *form*: SVG, Three.js, simulation. To match how a designer reads a case study, each case is laid out top-to-bottom:
 
 1. the **before** shot sits on its own line,
 2. the **five notes the command picked** (reader register · palette · motif · motion · 3D) sit between the two shots as real descriptive text,
@@ -44,7 +44,7 @@ Change the source and the whole design changes. `/reimagine-it` on a coffee roas
 
 **Before.** The raw HTML in the browser default — one heading, two lists, an email, a note. Times New Roman on paper white. No hierarchy, no motion, no motif.
 
-![Before: raw HTML of A Texas notebook — Times New Roman, single column, no color, no motif, ~40 lines of untouched markup](gold/webpage/before.png)
+![Before: raw HTML of A Texas notebook — Times New Roman, single column, no color, no motif, ~40 lines of untouched markup](../gold/webpage/before.png)
 
 **The four notes the command picked.**
 
@@ -55,9 +55,9 @@ Change the source and the whole design changes. `/reimagine-it` on a coffee roas
 
 **After.**
 
-![After Draw A: navy dashboard for the Texas notebook — a red lone-star lockup, oversized ivory display type, three sun-gold KPI tiles for the three places, three place cards with charts, a terminal card, and a status table for Now](gold/webpage/after.png)
+![After Draw A: navy dashboard for the Texas notebook — a red lone-star lockup, oversized ivory display type, three sun-gold KPI tiles for the three places, three place cards with charts, a terminal card, and a status table for Now](../gold/webpage/after.png)
 
-Open the live file → [`gold/webpage/after.html`](gold/webpage/after.html)
+Open the live file → [`../gold/webpage/after.html`](../gold/webpage/after.html)
 
 ---
 
@@ -69,7 +69,7 @@ Open the live file → [`gold/webpage/after.html`](gold/webpage/after.html)
 
 **Before.** Same raw Texas notebook.
 
-![Before: raw HTML of A Texas notebook — Times New Roman, single column, no color, no motif](gold/webpage/before.png)
+![Before: raw HTML of A Texas notebook — Times New Roman, single column, no color, no motif](../gold/webpage/before.png)
 
 **The four notes the command picked.**
 
@@ -80,9 +80,9 @@ Open the live file → [`gold/webpage/after.html`](gold/webpage/after.html)
 
 **After.**
 
-![After: italic-serif editorial cover of the Texas notebook — Texas & the Lone Star REPUBLIC in navy and star-red across a warm parchment ground, three drifting orbital arcs behind the type, three place-cards fanning out at plus-minus 16 degrees below](gold/domains/artistic/after.png)
+![After: italic-serif editorial cover of the Texas notebook — Texas & the Lone Star REPUBLIC in navy and star-red across a warm parchment ground, three drifting orbital arcs behind the type, three place-cards fanning out at plus-minus 16 degrees below](../gold/domains/artistic/after.png)
 
-Open the live file → [`gold/domains/artistic/after.html`](gold/domains/artistic/after.html)
+Open the live file → [`../gold/domains/artistic/after.html`](../gold/domains/artistic/after.html)
 
 ---
 
@@ -94,7 +94,7 @@ Open the live file → [`gold/domains/artistic/after.html`](gold/domains/artisti
 
 **Before.** Same raw Texas notebook.
 
-![Before: raw HTML of A Texas notebook — Times New Roman, single column, no color, no motif](gold/webpage/before.png)
+![Before: raw HTML of A Texas notebook — Times New Roman, single column, no color, no motif](../gold/webpage/before.png)
 
 **The four notes the command picked.**
 
@@ -105,9 +105,9 @@ Open the live file → [`gold/domains/artistic/after.html`](gold/domains/artisti
 
 **After.**
 
-![After: ops-surface dashboard for the Texas notebook — top ribbon of four sun-gold KPI tiles for projects and lines and reading and book chapter, a two-color shipping-volume chart for Alamo and Big Bend and Austin, three status rows for the places, a Now-this-week table on the right, and a terminal card sending the source email](gold/domains/dashboard/after.png)
+![After: ops-surface dashboard for the Texas notebook — top ribbon of four sun-gold KPI tiles for projects and lines and reading and book chapter, a two-color shipping-volume chart for Alamo and Big Bend and Austin, three status rows for the places, a Now-this-week table on the right, and a terminal card sending the source email](../gold/domains/dashboard/after.png)
 
-Open the live file → [`gold/domains/dashboard/after.html`](gold/domains/dashboard/after.html)
+Open the live file → [`../gold/domains/dashboard/after.html`](../gold/domains/dashboard/after.html)
 
 ---
 
@@ -119,7 +119,7 @@ Open the live file → [`gold/domains/dashboard/after.html`](gold/domains/dashbo
 
 **Before.** Same raw Texas notebook.
 
-![Before: raw HTML of A Texas notebook — Times New Roman, single column, no color, no motif](gold/webpage/before.png)
+![Before: raw HTML of A Texas notebook — Times New Roman, single column, no color, no motif](../gold/webpage/before.png)
 
 **The four notes the command picked.**
 
@@ -130,9 +130,9 @@ Open the live file → [`gold/domains/dashboard/after.html`](gold/domains/dashbo
 
 **After.**
 
-![After: Didot magazine folio of the Texas notebook — Texas slash NOTES nameplate in italic and caps, an index bar for four plates, three real SVG photographs of Austin at sunset and Big Bend at night and the Alamo mission, dropcap paragraphs, and caption strips](gold/domains/photography/after.png)
+![After: Didot magazine folio of the Texas notebook — Texas slash NOTES nameplate in italic and caps, an index bar for four plates, three real SVG photographs of Austin at sunset and Big Bend at night and the Alamo mission, dropcap paragraphs, and caption strips](../gold/domains/photography/after.png)
 
-Open the live file → [`gold/domains/photography/after.html`](gold/domains/photography/after.html)
+Open the live file → [`../gold/domains/photography/after.html`](../gold/domains/photography/after.html)
 
 ---
 
@@ -144,7 +144,7 @@ Open the live file → [`gold/domains/photography/after.html`](gold/domains/phot
 
 **Before.** Same raw Texas notebook.
 
-![Before: raw HTML of A Texas notebook — Times New Roman, single column, no color, no motif](gold/webpage/before.png)
+![Before: raw HTML of A Texas notebook — Times New Roman, single column, no color, no motif](../gold/webpage/before.png)
 
 **The four notes the command picked.**
 
@@ -155,11 +155,11 @@ Open the live file → [`gold/domains/photography/after.html`](gold/domains/phot
 
 **After.**
 
-![After: WebGL2 Texas-sunset shader hero for the Texas notebook — oversized ivory Texas and the Lone Star with a red ampersand set over a running raymarch field, three place cards for Austin Big Bend Alamo below, and four sun-gold KPI stats along the bottom](gold/domains/cinematic/after.png)
+![After: WebGL2 Texas-sunset shader hero for the Texas notebook — oversized ivory Texas and the Lone Star with a red ampersand set over a running raymarch field, three place cards for Austin Big Bend Alamo below, and four sun-gold KPI stats along the bottom](../gold/domains/cinematic/after.png)
 
 **No CDN, no `import` from `https://`, no vendor folder.** The shader ships in the same `.html` file as everything else.
 
-Open the live file → [`gold/domains/cinematic/after.html`](gold/domains/cinematic/after.html)
+Open the live file → [`../gold/domains/cinematic/after.html`](../gold/domains/cinematic/after.html)
 
 ---
 
@@ -171,7 +171,7 @@ Open the live file → [`gold/domains/cinematic/after.html`](gold/domains/cinema
 
 **Before.** Same raw Texas notebook.
 
-![Before: raw HTML of A Texas notebook — Times New Roman, single column, no color, no motif](gold/webpage/before.png)
+![Before: raw HTML of A Texas notebook — Times New Roman, single column, no color, no motif](../gold/webpage/before.png)
 
 **The four notes the command picked.**
 
@@ -182,9 +182,9 @@ Open the live file → [`gold/domains/cinematic/after.html`](gold/domains/cinema
 
 **After.**
 
-![After: two glass tiers over a running Texas sunset shader — front tier over the masthead and a deep tier over an Austin data tile, with three reader cards below explaining substrate glass-rules motion-budget](gold/modifiers/cinematic-glassmorphism/after.png)
+![After: two glass tiers over a running Texas sunset shader — front tier over the masthead and a deep tier over an Austin data tile, with three reader cards below explaining substrate glass-rules motion-budget](../gold/modifiers/cinematic-glassmorphism/after.png)
 
-Open the live file → [`gold/modifiers/cinematic-glassmorphism/after.html`](gold/modifiers/cinematic-glassmorphism/after.html)
+Open the live file → [`../gold/modifiers/cinematic-glassmorphism/after.html`](../gold/modifiers/cinematic-glassmorphism/after.html)
 
 ---
 
@@ -196,7 +196,7 @@ Open the live file → [`gold/modifiers/cinematic-glassmorphism/after.html`](gol
 
 **Before.** Same raw Texas notebook.
 
-![Before: raw HTML of A Texas notebook — Times New Roman, single column, no color, no motif](gold/webpage/before.png)
+![Before: raw HTML of A Texas notebook — Times New Roman, single column, no color, no motif](../gold/webpage/before.png)
 
 **The four notes the command picked.**
 
@@ -207,9 +207,9 @@ Open the live file → [`gold/modifiers/cinematic-glassmorphism/after.html`](gol
 
 **After.**
 
-![After: nine-tile bento of the Texas notebook — top-left hero tile visibly elevated over a sun-gold visitors chart, right column showing dawn-dusk daylight and star-count-since-1839 and a scrolling field log, bottom row with parts and field notes](gold/modifiers/dashboard-bento/after.png)
+![After: nine-tile bento of the Texas notebook — top-left hero tile visibly elevated over a sun-gold visitors chart, right column showing dawn-dusk daylight and star-count-since-1839 and a scrolling field log, bottom row with parts and field notes](../gold/modifiers/dashboard-bento/after.png)
 
-Open the live file → [`gold/modifiers/dashboard-bento/after.html`](gold/modifiers/dashboard-bento/after.html)
+Open the live file → [`../gold/modifiers/dashboard-bento/after.html`](../gold/modifiers/dashboard-bento/after.html)
 
 ---
 
@@ -221,7 +221,7 @@ Open the live file → [`gold/modifiers/dashboard-bento/after.html`](gold/modifi
 
 **Before.** Same raw Texas notebook.
 
-![Before: raw HTML of A Texas notebook — Times New Roman, single column, no color, no motif](gold/webpage/before.png)
+![Before: raw HTML of A Texas notebook — Times New Roman, single column, no color, no motif](../gold/webpage/before.png)
 
 **The four notes the command picked.**
 
@@ -232,9 +232,9 @@ Open the live file → [`gold/modifiers/dashboard-bento/after.html`](gold/modifi
 
 **After.**
 
-![After: one glowing sun-gold star in a dark void — oversized ivory headline Ship the note not the pitch with a glowing gold italic note word, an orbital SVG with a lone star at the center, one CTA see the notebook, and four bottom stats pulled from the source](gold/modifiers/landing-neon/after.png)
+![After: one glowing sun-gold star in a dark void — oversized ivory headline Ship the note not the pitch with a glowing gold italic note word, an orbital SVG with a lone star at the center, one CTA see the notebook, and four bottom stats pulled from the source](../gold/modifiers/landing-neon/after.png)
 
-Open the live file → [`gold/modifiers/landing-neon/after.html`](gold/modifiers/landing-neon/after.html)
+Open the live file → [`../gold/modifiers/landing-neon/after.html`](../gold/modifiers/landing-neon/after.html)
 
 ---
 
@@ -246,7 +246,7 @@ Open the live file → [`gold/modifiers/landing-neon/after.html`](gold/modifiers
 
 **Before.** Same raw Texas notebook.
 
-![Before: raw HTML of A Texas notebook — Times New Roman, single column, no color, no motif](gold/webpage/before.png)
+![Before: raw HTML of A Texas notebook — Times New Roman, single column, no color, no motif](../gold/webpage/before.png)
 
 **The five notes the command picked** (Draw C runs an extra note — the *reader register* — from v2.2 forward).
 
@@ -267,11 +267,11 @@ Open the live file → [`gold/modifiers/landing-neon/after.html`](gold/modifiers
 
 **After.**
 
-![After Draw C: cinematic Texas reader with a full-bleed WebGL2 west-Texas sunset — dusk-navy sky with a twinkling star field, warm orange horizon, sun disc off-center, low mountain silhouette, cream TEXAS wordmark with an orange glow over the horizon, italic serif subhead, and six content-derived plates below for Alamo Big Bend Austin Lone-Star Bluebonnet and Longhorn](gold/webpage/after-3-full.png?v=texas-v22)
+![After Draw C: cinematic Texas reader with a full-bleed WebGL2 west-Texas sunset — dusk-navy sky with a twinkling star field, warm orange horizon, sun disc off-center, low mountain silhouette, cream TEXAS wordmark with an orange glow over the horizon, italic serif subhead, and six content-derived plates below for Alamo Big Bend Austin Lone-Star Bluebonnet and Longhorn](../gold/webpage/after-3-full.png?v=texas-v22)
 
 **No CDN, no `import` from `https://`, no vendor folder, no external font fetch.** The WebGL2 shader source, the SVG motifs, and every micro-interaction ship in the same `.html` file. One artifact.
 
-Open the live file → [`gold/webpage/after-3.html`](gold/webpage/after-3.html)
+Open the live file → [`../gold/webpage/after-3.html`](../gold/webpage/after-3.html)
 
 ---
 
@@ -281,17 +281,17 @@ Open the live file → [`gold/webpage/after-3.html`](gold/webpage/after-3.html)
 
 *The notebook as a paper poster of an argument — one question, answered in marks you can read in a still. Not a dashboard.*
 
-> **What gold is not.** A gold poster is a paper poster of an argument — not a dashboard, not a CV, not an AntV template gallery. No pies, donuts, gauges, 3D, or fabricated KPIs (Cleveland–McGill / Neurath ISOTYPE floor). `@antv/infographic` is not imported; AntV is a structure router only (see [`skills/reimagine-it/references/research/infographic-craft.md`](skills/reimagine-it/references/research/infographic-craft.md) S16).
+> **What gold is not.** A gold poster is a paper poster of an argument — not a dashboard, not a CV, not an AntV template gallery. No pies, donuts, gauges, 3D, or fabricated KPIs (Cleveland–McGill / Neurath ISOTYPE floor). `@antv/infographic` is not imported; AntV is a structure router only (see [`skills/reimagine-it/references/research/infographic-craft.md`](../skills/reimagine-it/references/research/infographic-craft.md) S16).
 
 **Two reference golds (method travels, layout chrome does not):**
-- Texas — [`gold/domains/infographic/after.html`](gold/domains/infographic/after.html) (Priestley 1836–1995 strip, ISOTYPE 8-acre units)
-- Jules — [`gold/jules/domains/infographic/after.html`](gold/jules/domains/infographic/after.html) (6-flavor sequence, star-around-cone, 8 mint tubs)
+- Texas — [`gold/domains/infographic/after.html`](../gold/domains/infographic/after.html) (Priestley 1836–1995 strip, ISOTYPE 8-acre units)
+- Jules — [`gold/jules/domains/infographic/after.html`](../gold/jules/domains/infographic/after.html) (6-flavor sequence, star-around-cone, 8 mint tubs)
 
 [Discussions](https://github.com/Kayforkind/reimagine-it/discussions) — show your gold, propose encodings, vote the next domain.
 
 **Before.** Same raw Texas notebook.
 
-![Before: raw HTML of A Texas notebook — Times New Roman, single column, no color, no motif](gold/webpage/before.png)
+![Before: raw HTML of A Texas notebook — Times New Roman, single column, no color, no motif](../gold/webpage/before.png)
 
 **The four notes the command picked.**
 
@@ -310,9 +310,9 @@ Open the live file → [`gold/webpage/after-3.html`](gold/webpage/after-3.html)
 
 **After.**
 
-![After: cream paper infographic poster of the Texas notebook — kicker What can we count without inventing a number, sequence of six dated names, Priestley timeline 1836 to 1995, eight equal ISOTYPE acre units, compare of places vs signals with source glyphs, schematic Texas pins, and a data table of the six facts](gold/domains/infographic/after.png?v=struct-1)
+![After: cream paper infographic poster of the Texas notebook — kicker What can we count without inventing a number, sequence of six dated names, Priestley timeline 1836 to 1995, eight equal ISOTYPE acre units, compare of places vs signals with source glyphs, schematic Texas pins, and a data table of the six facts](../gold/domains/infographic/after.png?v=struct-1)
 
-Open the live file → [`gold/domains/infographic/after.html`](gold/domains/infographic/after.html)
+Open the live file → [`../gold/domains/infographic/after.html`](../gold/domains/infographic/after.html)
 
 ---
 
@@ -327,9 +327,9 @@ Open the live file → [`gold/domains/infographic/after.html`](gold/domains/info
 - **Motion** — alive-micro: star breathe, Rio Grande dash flow, Alamo pin ping, 1839 tick hush. Hover a pin and its legend swatch answers. Brief `still` freezes loops. `prefers-reduced-motion` keeps hover, kills loops.
 - **Not** — Mermaid. Not labels sitting on the map. Not a PNG renamed `.svg`. Not every mark bouncing.
 
-![After: SVG weenie of the Texas notebook — Lone Star flag, schematic Texas pins, legend gutter, common-scale timeline](gold/forms/svg/after.png?v=alive-1)
+![After: SVG weenie of the Texas notebook — Lone Star flag, schematic Texas pins, legend gutter, common-scale timeline](../gold/forms/svg/after.png?v=alive-1)
 
-Open the live file → [`gold/forms/svg/after.svg`](gold/forms/svg/after.svg) · loop close-ups → [`gold/forms/see.html`](gold/forms/see.html)
+Open the live file → [`../gold/forms/svg/after.svg`](../gold/forms/svg/after.svg) · loop close-ups → [`gold/forms/see.html`](../gold/forms/see.html)
 
 ### Case 12 · `3js`
 
@@ -342,9 +342,9 @@ Open the live file → [`gold/forms/svg/after.svg`](gold/forms/svg/after.svg) ·
 - **Motion** — alive-micro: star turn, gold motes on the river, chapel-window sun-breath, slow wide-drift on "All three". Orbit drag and HUD look-ats in the **footer strip**. Brief `still` pins the camera. Reduced motion stops idle life.
 - **Not** — a default cube. Not four cones. Not type stacked on the canvas.
 
-![After: Three.js field of the Texas notebook — dusk ground, mission, capitol, ridge, gold star](gold/forms/3js/after.png?v=alive-1)
+![After: Three.js field of the Texas notebook — dusk ground, mission, capitol, ridge, gold star](../gold/forms/3js/after.png?v=alive-1)
 
-Open the live file → [`gold/forms/3js/after.html`](gold/forms/3js/after.html) · same gallery → [`gold/forms/see.html`](gold/forms/see.html)
+Open the live file → [`../gold/forms/3js/after.html`](../gold/forms/3js/after.html) · same gallery → [`gold/forms/see.html`](../gold/forms/see.html)
 
 ### Case 13 · `simulation`
 
@@ -358,9 +358,9 @@ Open the live file → [`gold/forms/3js/after.html`](gold/forms/3js/after.html) 
 - **Siege caption** — only while the year is 1836. Not a bar on the century, and not "19/19" at 1995.
 - **Not** — invented battle stats, fake KPIs, or a toy rectangle with a sine-wave river.
 
-![After: year-clock simulation of the Texas notebook — schematic field, Rio Grande, event list, scrubber](gold/forms/simulation/after.png?v=sim-2)
+![After: year-clock simulation of the Texas notebook — schematic field, Rio Grande, event list, scrubber](../gold/forms/simulation/after.png?v=sim-2)
 
-Open the live file → [`gold/forms/simulation/after.html`](gold/forms/simulation/after.html)
+Open the live file → [`../gold/forms/simulation/after.html`](../gold/forms/simulation/after.html)
 
 ---
 
@@ -368,7 +368,7 @@ Open the live file → [`gold/forms/simulation/after.html`](gold/forms/simulatio
 
 Screenshots freeze animation, so every claim about motion proves itself in a strip. Three frames per pack, spaced ~1.6 s apart in virtual time — if the pixels change, the motion budget landed:
 
-![motion strip: five packs, three frames each](gold/domains/motion-strip.png?v=texas-5)
+![motion strip: five packs, three frames each](../gold/domains/motion-strip.png?v=texas-5)
 
 - **cinematic** — WebGL2 raymarch field evolves visibly frame to frame.
 - **artistic** — italic ampersand sways ±3°.

@@ -47,8 +47,8 @@ trigger_phrases:
 # /reimagine-it infographic
 
 **Parent:** [../SKILL.md](../SKILL.md) — the full Content-Derived Design engine.
-**Research pack:** [../../references/research/infographic-craft.md](../../references/research/infographic-craft.md) — 15-source infographic method (Cleveland–McGill, Tufte, Bertin, ISOTYPE, Minard/Snow, Cairo, Lupi, FT Visual Vocabulary, USWDS, WCAG charts, InfoAlign layouts).
-**Domain pack:** [../../references/domains/infographic.md](../../references/domains/infographic.md) — the infographic domain non-negotiables.
+**Research pack:** [../references/research/infographic-craft.md](../references/research/infographic-craft.md) — 15-source infographic method (Cleveland–McGill, Tufte, Bertin, ISOTYPE, Minard/Snow, Cairo, Lupi, FT Visual Vocabulary, USWDS, WCAG charts, InfoAlign layouts).
+**Domain pack:** [../references/domains/infographic.md](../references/domains/infographic.md) — the infographic domain non-negotiables.
 
 Builds a **statistical poster of facts already in the source** — not an ops dashboard, not a CV, not an AntV template clone.
 
@@ -78,7 +78,7 @@ Before drawing, sniff the source and lock a **structure**:
 
 ## Procedure
 
-1. Load [../../references/research/infographic-craft.md](../../references/research/infographic-craft.md) and [../../references/domains/infographic.md](../../references/domains/infographic.md).
+1. Load [../references/research/infographic-craft.md](../references/research/infographic-craft.md) and [../references/domains/infographic.md](../references/domains/infographic.md).
 2. Extract anchors from the source (3–5 concrete nouns, dates, numbers).
 3. Route the structure (list/sequence/hierarchy/compare/values/relation).
 4. Pick InfoAlign scenery (grid/star/portrait/landscape/portrait-grid/spiral).
