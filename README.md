@@ -6,24 +6,20 @@
 
 Same naive HTML. Completely different pages — webpage, infographic poster, living SVG, Three.js room, playable simulation. One file. Offline. No Figma, no CDN.
 
-![same naive Texas HTML, then full-page afters: webpage tokens, infographic, SVG, Three.js, simulation](gold/forms/examples.gif?v=pages-1)
+![Same naive HTML → webpage, infographic, SVG, Three.js, simulation](gold/forms/examples.gif?v=pages-1)
 
-Browse without installing: **[live gallery](https://kayforkind.github.io/reimagine-it/)** · **[full case studies](docs/SHOWCASE.md)** · [`gold/README.md`](gold/)
+**[Live gallery](https://kayforkind.github.io/reimagine-it/)** — browse the gold. No install. Or **[try the playground](#-no-agent-just-curious) — paste HTML, see a live redesign in your browser right now.
 
 ---
 
 ## One command
 
-**Claude Code**
-
 ```text
+# Claude Code
 /plugin marketplace add Kayforkind/reimagine-it
 /plugin install reimagine-it@reimagine-it
-```
 
-**Cursor, Codex, Copilot, Gemini CLI**
-
-```bash
+# Cursor, Codex, Copilot, Gemini CLI
 npx skills add Kayforkind/reimagine-it
 ```
 
@@ -37,39 +33,72 @@ Then in your AI agent: `/reimagine-it` · `/reimagine-it infographic` · `/reima
 | `3js` | A room you can orbit |
 | `simulation` | A playable model of those facts |
 
-Full host matrix (Droid, Pi, `gh skill`, Gemini CLI path): [all hosts](#install).
+Full host matrix (Droid, Pi, `gh skill`, Gemini CLI, Windsurf): [install guide ↓](#install).
 
 ---
 
 ## How it works
 
-The skill reads your file, extracts concrete nouns / dates / colors / proper nouns, and builds a design language from them. Palette, motifs, motion, and 3D are all derived from **your** content.
+The skill reads your file, extracts concrete nouns / dates / colors / proper nouns, and builds a design language from them. **Palette, motifs, motion, and 3D are all derived from your content — nothing is hard-coded.**
 
-- Point at a **Texas notebook** → navy / cream / red / gold palette, Lone Star motif, sunset shader\
-  → [see the result](gold/webpage/after-3.html)
+- Point at a **Texas notebook** → navy / cream / red / gold palette, Lone Star motif, sunset shader
 - Point at a **coffee roaster's site** → warm browns, burlap textures, roast-level charts
 - Point at a **night-diving report** → deep teals, bioluminescent accents, depth-profile SVG
-- Point at a **printing press page** → hand-set caps, paper grain, ink-bleed motifs
+- Point at a **restaurant menu** → warm clay / saffron / smoke palette; flame-flicker motion
 
-**Same command, three runs = three different reader registers.** The engine samples along seven axes (reader register, palette weighting, hero move, plate style, motion budget, type accent, 3D signature). The content narrows the space — a Texas notebook can't return a marine-caustics shader — but inside that space, every draw is fresh. Pin with `--seed` or `--variant` when you need reproducibility.
+**Same command, three runs = three different reader registers.** The engine samples along seven axes (reader register, palette weighting, hero move, plate style, motion budget, type accent, 3D signature). The content narrows the space — a Texas notebook can't return a marine-caustics shader — but inside that space, every draw is fresh. Pin with `--seed` when you need reproducibility.
 
-![quartet: same Texas notebook source, three different reader registers](gold/webpage/quartet.png?v=texas-v22)
+![Same /reimagine-it webpage command, three runs = three different reader registers](gold/webpage/quartet.png?v=texas-v22)
 
 ---
 
-## Five sources, one skill
+## Same source, different aesthetics
 
-The gallery is not a one-trick demo. It's proof the method travels:
+One naive HTML page. Eight commands. Eight completely different designs — each palette, motif, and motion choice traced back to the content:
 
-| Source | Content | Key design decision |
-|--------|---------|---------------------|
-| [Texas notebook](gold/webpage/before.html) | 3 places, 3 signals, Lone Star flag | Navy / red / gold from the flag; sunset shader from Big Bend |
-| [Jules Ice Cream](gold/jules/before.html) | 6 flavors, hours, counter | Parlor DNA — counter, cone, freezer — not a Texas reskin |
-| [Pulsewave API](gold/pulsewave/before.html) | SaaS startup, observability | Svelte-wave green / dark teal; trace-path SVG; pulse motif |
-| [Two Lights](gold/twolights/before.html) | Essay on a lighthouse trip | Salt / fog / beam palette; lighthouse beam SVG; tide pattern |
-| [Saffron & Smoke](gold/saffron/before.html) | Restaurant menu, 6 dishes | Warm clay / saffron / smoke palette; hand-drawn plate divider |
+![Same Texas notebook HTML, redesigned as artistic, dashboard, photography, and cinematic domains](gold/domains/strip.png)
 
-[Full case studies with before/after comparison and design notes →](docs/SHOWCASE.md)
+**[→ Full case studies with palette/motif/motion/3D notes for all 13 commands](docs/SHOWCASE.md)**
+
+---
+
+## Five sources — the method travels
+
+The gallery is proof the method works on any content, not a Texas demo:
+
+<a href="gold/webpage/before.html"><img alt="Texas notebook: navy / red / gold from the Lone Star flag" src="gold/webpage/compare.png" width="100%"></a>
+
+**Texas notebook** — 3 places, 3 signals, Lone Star flag, Big Bend sunset. Navy / cream / red / gold palette from the flag; sunset shader from Big Bend. → [see the gold](gold/webpage/after-3.html)
+
+<a href="gold/jules/before.html"><img alt="Jules Ice Cream: parlor DNA, not a Texas reskin" src="gold/jules/best.gif?v=pages-1" width="100%"></a>
+
+**Jules Ice Cream** — 6 flavors, hours, counter. Parlor DNA — counter, cone, freezer, flavor board. Not a Texas notebook with scoops glued on. → [see the gold](gold/jules/webpage/after.html)
+
+| Source | Genre | Palette from content | Motif | Links |
+|--------|-------|---------------------|-------|-------|
+| [Pulsewave](gold/pulsewave/before.html) | SaaS observability | `#08141a` ground · `#3ae098` accent · dark teal | Pulse wave / heartbeat ring | [before](gold/pulsewave/before.html) · [after](gold/pulsewave/after.html) |
+| [Two Lights](gold/twolights/before.html) | Personal essay | `#e8e0d4` ground · `#c23a2a` accent · slate | Lighthouse beam sweep + flash pulse | [before](gold/twolights/before.html) · [after](gold/twolights/after.html) |
+| [Saffron &amp; Smoke](gold/saffron/before.html) | Restaurant menu | `#f4efe4` ground · `#d4882b` accent · warm clay | Smoke drift + flame flicker | [before](gold/saffron/before.html) · [after](gold/saffron/after.html) |
+
+Three new golds proving the palette/motif/motion method works on any content. → [see all gold](gold/)
+
+---
+
+## Motion is real
+
+Screenshots freeze animation. Every motion claim proves itself in three frames, spaced ~1.6 s apart:
+
+![Motion strip: cinematic shader evolves, artistic ampersand sways, dashboard bars rise, infographic star pulses, photography deliberately still](gold/domains/motion-strip.png?v=texas-5)
+
+**Alive-micro by default.** SVG and Three.js ship with 2–4 fact-tied micro-loops — star breathe, river flow, pin ping, beam sweep. Not a page that twitches. → [see the loops](gold/forms/see.html)
+
+---
+
+## 🎮 No agent? Just curious?
+
+The **[live gallery](https://kayforkind.github.io/reimagine-it/)** has a playground — paste any HTML, pick a token, and see a content-derived redesign rendered live in your browser. The client-side engine extracts nouns, colors, dates, and numbers from your source, builds a palette, and generates a token-specific page. Same method. No install. No agent.
+
+**[→ Open the playground](https://kayforkind.github.io/reimagine-it/#playground)**
 
 ---
 
@@ -84,7 +113,7 @@ One chair: `skills/reimagine-it/`. Hosts with a plugin marketplace get a native 
 /plugin install reimagine-it@reimagine-it
 ```
 
-Then enable updates once: `/plugin` → **Marketplaces** → **reimagine-it** → **Enable auto-update**. Claude Code leaves third-party auto-update off by default. Run `/reload-plugins` when prompted.
+Then enable updates: `/plugin` → **Marketplaces** → **reimagine-it** → **Enable auto-update**. Run `/reload-plugins` when prompted.
 
 **Codex**
 
@@ -93,8 +122,6 @@ codex plugin marketplace add Kayforkind/reimagine-it
 codex plugin add reimagine-it@reimagine-it
 ```
 
-Codex refreshes Git marketplaces at startup. To fetch immediately: `codex plugin marketplace upgrade reimagine-it`, then start a new session.
-
 **Factory Droid**
 
 ```bash
@@ -102,11 +129,7 @@ droid plugin marketplace add https://github.com/Kayforkind/reimagine-it
 droid plugin install reimagine-it@reimagine-it --scope user
 ```
 
-Droid tracks Git plugins by commit. After a merge: `droid plugin marketplace update reimagine-it`, then `droid plugin update reimagine-it@reimagine-it --scope user`.
-
-**Cursor, Copilot, Gemini CLI, Windsurf, and other Agent Skills hosts**
-
-They load `SKILL.md`. Cursor also has a native plugin wrapper in `.cursor-plugin/` (Marketplace / cursor.directory). Until those listings go live, install the skill:
+**Cursor, Copilot, Gemini CLI, Windsurf**
 
 ```bash
 npx skills add Kayforkind/reimagine-it             # one project
@@ -120,8 +143,6 @@ gemini skills install https://github.com/Kayforkind/reimagine-it.git --path skil
 ```bash
 pi install https://github.com/Kayforkind/reimagine-it
 ```
-
-Then `/reload` in an open Pi session.
 
 Then say `/reimagine-it` in the host. Also matches: "reimagine it", "redesign this page", "make an infographic".
 
@@ -145,11 +166,11 @@ Compose freely: `/reimagine-it webpage artistic glassmorphism --font "Playfair D
 
 Three things that were sometimes missing before are now part of the shipped bar. If any fails, the command reports `partial`, not `shipped`.
 
-- **Same-format twin by default.** If you point at a distributable file (`.pdf`, `.docx`, `.pptx`, `.mobi`, `.azw3`, `.epub`, `.md`), the default output is **two artifacts**: a companion HTML reading room *and* a same-format twin in the source's native format. The HTML alone is not enough — you picked that format because you want to hand it around in that format. If the same-format toolchain is missing on the current machine (e.g. no Calibre for `.mobi`), the report names the missing tool and the exact next command that would produce the twin; it does not silently drop the twin.
-- **Visual verification pass on every render.** Before reporting `shipped`, the skill renders the hero into an image and manually scans it for: blank plates, placeholder labels (`blank` / `TBD` / `lorem` / `Title goes here`), clipped or overlapping text (e.g. `POST OFFICE` rendered as `POST O CE` because a foreground shape covers the label), broken SVGs, off-palette accents, fabricated content, dead motion (identical frame hashes), and — new in v2.2 — **every plate maps to a source anchor** (no unmapped plates painted). Any failure fails the render and forces a fix or a `partial` report — **empty slots are deleted, never painted with a placeholder**.
-- **Craft floor on every webpage output (new in v2.2).** Every rendered page must clear the craft floor before shipping: `:focus-visible` ring with contrast ≥ 3:1, `::selection` on-palette, motion timing 100–300 ms `ease-out` for micro-interactions, animations only on `transform` and `opacity` (compositor-only), `prefers-reduced-motion` respected by *decomposing* (turn off scroll-triggered motion, cap kinetic type at the lit state, disable WebGL loops — not by suppressing focus rings), no `transition: all`, no `outline: 0` without an explicit replacement, scroll-driven animations offloaded via `animation-timeline: view()` when supported, and Core Web Vitals sane (no CLS from motion, INP under 200 ms). See [`references/craft-floor.md`](skills/reimagine-it/references/craft-floor.md).
+- **Same-format twin by default.** Point at a distributable file (`.pdf`, `.docx`, `.pptx`, `.mobi`, `.azw3`, `.epub`, `.md`) and get **two artifacts**: a companion HTML reading room *and* a same-format twin in the source's native format. If the toolchain is missing, the report names it and the exact next command.
+- **Visual verification pass on every render.** Before `shipped`, the skill scans for blank plates, placeholder labels (`blank` / `TBD` / `lorem`), clipped text, broken SVGs, off-palette accents, fabricated content, dead motion, and unmapped plates. **Empty slots are deleted, never painted with a placeholder.**
+- **Craft floor on every webpage output.** Every page clears: `:focus-visible` ring with contrast ≥ 3:1, `::selection` on-palette, compositor-only motion (`transform` / `opacity` only), `prefers-reduced-motion` respected by *decomposing* (not by hiding focus rings), no `transition: all`, no `outline: 0` without replacement, scroll-driven animations via `animation-timeline: view()`, Core Web Vitals sane. See [`references/craft-floor.md`](skills/reimagine-it/references/craft-floor.md).
 
-All three are enforced by [`skills/reimagine-it/SKILL.md`](skills/reimagine-it/SKILL.md) § 2.6 / § 5.b / § 5.c and by [`references/forms/universal.md`](skills/reimagine-it/references/forms/universal.md). The research that raised the bar (150+ sources: award-winning studios, editorial newsrooms, motion masters, WebGL creative devs, type foundries, scrollytelling, print-to-web bridges, sonic branding, modern web-platform features) lives at [`references/research/web-craft-2025.md`](skills/reimagine-it/references/research/web-craft-2025.md).
+All three enforced by [`SKILL.md`](skills/reimagine-it/SKILL.md) § 2.6 / § 5.b / § 5.c and [`references/forms/universal.md`](skills/reimagine-it/references/forms/universal.md).
 
 ---
 
@@ -178,15 +199,13 @@ Once a design lands, save its DNA:
 
 The skill extracts palette + type stack + motifs + motion + 3D + section structure into a markdown pack under [`references/locks/`](skills/reimagine-it/references/locks/). Example: [`house-cinema.md`](skills/reimagine-it/references/locks/house-cinema.md).
 
-Apply a lock to a new target — **same medium or a different one**:
-
 ```
 /reimagine-it webpage --ref house-cinema
 /reimagine-it slides  --ref house-cinema
 /reimagine-it pdf     --ref house-cinema
 ```
 
-Locks include a **cross-medium translation table** so a webpage lock informs a slides deck or a PDF (a `rotateY(9deg) translateZ(-8px)` card becomes a pptx panel with paired shadows; a WebGL shader hero becomes a snapshot PNG cover). Locks are portable text — share via gist, commit, or copy-paste.
+Locks include a **cross-medium translation table** — a webpage lock informs a slides deck or a PDF. Locks are portable text — share via gist, commit, or copy-paste.
 
 ---
 
@@ -196,18 +215,18 @@ Every visual is a real file in this repo, generated locally by a script you can 
 
 | Regenerates | Command |
 |-------------|---------|
-| Per-pack full-page `after.png` shots used by every case study | `python gold/shots.py` |
-| Infographic poster (full page, real Chrome) → `gold/domains/infographic/after.png` | `python gold/_shot_full.py gold/domains/infographic/after.html gold/domains/infographic/after.png` |
-| Form gold: SVG + Three.js + simulation + loop close-ups (real Chrome) | `python gold/forms/shot.py` |
-| Form examples GIF (`gold/forms/examples.gif`) | `python gold/forms/make_gif.py` |
-| Jules second-source gold (real Chrome) + GIF | `python gold/jules/shot.py` then `python gold/jules/make_gif.py` |
-| Gold review (flag cloth, Jules clone scan, after.png pairs) | `python scripts/review_gold.py` |
-| Draw C full-page shot (v2.2, WebGL2, real Chrome) → `gold/webpage/after-3-full.png` | `python gold/_shot_full.py gold/webpage/after-3.html gold/webpage/after-3-full.png` |
-| Master gallery (`gold/gallery.png`) + per-pack tile heroes | `python gold/gallery.py` |
-| Quartet (`gold/webpage/quartet.png`) + twins triptych (`twins.png`) + per-pack wide before/after compares | `python gold/compare.py` |
-| Default before + after screenshots (`gold/webpage/*.png`) | `python gold/webpage/run.py` |
-| Motion strip (`gold/domains/motion-strip.png`) | `python gold/domains/motion-run.py` |
-| Skill smoke fixture (`gold/reimagine.py`) | `python gold/reimagine.py --ship` |
+| Per-pack full-page `after.png` shots | `python gold/shots.py` |
+| Infographic poster (full page, real Chrome) | `python gold/_shot_full.py gold/domains/infographic/after.html gold/domains/infographic/after.png` |
+| Form gold: SVG + Three.js + simulation + loop close-ups | `python gold/forms/shot.py` |
+| Form examples GIF | `python gold/forms/make_gif.py` |
+| Jules second-source gold + GIF | `python gold/jules/shot.py` then `python gold/jules/make_gif.py` |
+| Gold review (flag cloth, clone scan, after.png pairs) | `python scripts/review_gold.py` |
+| Draw C full-page shot (v2.2, WebGL2) | `python gold/_shot_full.py gold/webpage/after-3.html gold/webpage/after-3-full.png` |
+| Master gallery + per-pack tile heroes | `python gold/gallery.py` |
+| Quartet + twins triptych + per-pack compares | `python gold/compare.py` |
+| Default before + after screenshots | `python gold/webpage/run.py` |
+| Motion strip | `python gold/domains/motion-run.py` |
+| Skill smoke fixture | `python gold/reimagine.py --ship` |
 | Pulsewave gold | `python gold/pulsewave/shot.py` |
 | Two Lights gold | `python gold/twolights/shot.py` |
 | Saffron & Smoke gold | `python gold/saffron/shot.py` |
@@ -218,10 +237,10 @@ If a regenerator fails on your machine, that's a bug — please open an issue. N
 
 ## If this helps you
 
-If `/reimagine-it` gives you an output you'd have paid a designer for, three ways to help me keep shipping the next domains, form packs, and locks:
+If `/reimagine-it` gives you an output you'd have paid a designer for, three ways to help:
 
-- **Star the repo.** It's the single fastest signal that this project should keep growing. Use the star button at the top of the page.
-- **[Sponsor on GitHub →](https://github.com/sponsors/Kayforkind)** Any tier keeps the studio's lights on. Sponsors get priority on custom domain packs and roadmap input.
+- **Star the repo.** The single fastest signal this project should keep growing.
+- **[Sponsor on GitHub →](https://github.com/sponsors/Kayforkind)** Any tier keeps the studio going. Sponsors get priority on custom domain packs and roadmap input.
 - **Contribute a domain or a lock.** Open a PR under [`skills/reimagine-it/references/domains/`](skills/reimagine-it/references/domains/) or [`references/locks/`](skills/reimagine-it/references/locks/). Real content beats a spec.
 
 Say hi on [GitHub](https://github.com/Kayforkind).
