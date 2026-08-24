@@ -1,4 +1,6 @@
-# reimagine-it — how an agent should use this repo
+# reimagine-it — Content-Derived Design
+
+**Content-Derived Design:** reads the source file and derives palette, motifs, and motion from concrete nouns, dates, and colors already in the content. Not a mood board. A real artifact.
 
 You are loading **reimagine-it**, one Agent Skill. Progressive disclosure. Do not ingest extra files until the procedure says so.
 
@@ -40,6 +42,13 @@ Fallback: copy `skills/reimagine-it/` into the host skills root. Never into `~/.
 Open a creative mind on **this** context — webpage, PDF, document, deck, code, CLI, protocol, prose. Ship a leap the user did not know to ask for. Reimagining is not graphics-only. Lists of vibes are a fail.
 
 Interview only if the user passed `interview`.
+
+## Quality
+
+Run `python scripts/audit.py <output-file.html>` on any shipped webpage to validate 18 deterministic checks (no LLM, no API key). Zero failures must pass. Run `python gold/five/run.py` for non-webpage gold fixture smoke tests.
+
+**[CHANGELOG.md](CHANGELOG.md)** — version history. **[ROADMAP.md](ROADMAP.md)** — improvement plan.
+
 
 ## Visuals in this repo
 

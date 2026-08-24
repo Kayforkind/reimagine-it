@@ -334,6 +334,18 @@ footer a { color: var(--hot); }
       </table>
     </section>
 
+    <section class="method" id="non-webpage">
+      <h2>Not just webpages — also CLI, protocol, code architecture</h2>
+      <p class="sub">The five golds above are webpages. The same Content-Derived Design method works on non-visual artifacts too. <a href="https://github.com/Kayforkind/reimagine-it/blob/main/gold/five/RESULTS.md">Full tested results →</a></p>
+      <table class="case-table">
+        <tr><th>Fixture</th><th>Form</th><th>What /reimagine-it did</th><th>Proof</th></tr>
+        <tr><td class="src">01-cli</td><td><code>cli</code></td><td>Before: reads one positional arg, exits 2 with no stdin. After: <code>--stdin</code> flag, JSON output, exit 0 on piped data</td><td><code>python gold/five/run.py</code></td></tr>
+        <tr><td class="src">02-door</td><td><code>protocol</code></td><td>Before: first-run exits 1 with a wall of text. After: copies one command to clipboard, exits 0</td><td><code>python gold/five/run.py</code></td></tr>
+        <tr><td class="src">03-ledger</td><td><code>html</code> + data</td><td>Before: 30 lines of naive JSONL. After: filterable index.html with SVG timeline</td><td><a href="https://github.com/Kayforkind/reimagine-it/blob/main/gold/five/03-ledger/index.html">index.html</a> · <a href="https://github.com/Kayforkind/reimagine-it/blob/main/gold/five/RUN.svg">RUN.svg</a></td></tr>
+        <tr><td class="src">04-layers</td><td><code>code</code> architecture</td><td>Two Python packages with tangled internal imports → clean public-internal split with layer-check script</td><td><code>python gold/five/run.py</code></td></tr>
+      </table>
+    </section>
+
     <section class="install-section" id="install">
       <h2>Install — one command</h2>
       <p class="sub">Works in Claude Code, Cursor, Codex, Copilot, Gemini CLI, Factory Droid, Windsurf, Pi, and any Agent Skills host. One chair: <code>skills/reimagine-it/</code>.</p>

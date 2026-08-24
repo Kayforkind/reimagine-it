@@ -100,6 +100,22 @@ The **[live gallery](https://kayforkind.github.io/reimagine-it/)** has a playgro
 
 **[→ Open the playground](https://kayforkind.github.io/reimagine-it/#playground)**
 
+
+---
+
+## Not just webpages — also CLI, protocol, code architecture
+
+The five golds above are webpages. The same method works on non-visual artifacts too:
+
+| Fixture | Form | What /reimagine-it did | Proof |
+|---------|------|------------------------|-------|
+| [01-cli](gold/five/01-cli) | `cli` | Before: reads one positional arg, exits 2 with no stdin. After: `--stdin` flag, JSON output, exit 0 on piped data | `python gold/five/run.py` |
+| [02-door](gold/five/02-door) | `protocol` | Before: first-run exits 1 with a wall of text. After: copies one command to clipboard, exits 0 | `python gold/five/run.py` |
+| [03-ledger](gold/five/03-ledger) | `html` + data | Before: 30 lines of naive JSONL. After: filterable index.html with SVG timeline | [index.html](gold/five/03-ledger/index.html) · [RUN.svg](gold/five/RUN.svg) |
+| [04-layers](gold/five/04-layers) | `code` architecture | Two Python packages with tangled internal imports → clean public-internal split with a layer-check script | `python gold/five/run.py` |
+
+[Full tested results →](gold/five/RESULTS.md) · Regenerate: `python gold/five/run.py`
+
 ---
 
 ## Install
@@ -154,7 +170,7 @@ Then say `/reimagine-it` in the host. Also matches: "reimagine it", "redesign th
 |-------|--------|--------|
 | **Form** | `webpage` \| `svg` \| `3js` \| `simulation` \| `pdf` \| `slides` \| `document` \| `mobi` \| `epub` \| `code` \| `cli` \| `protocol` \| ... | Force the medium. `svg` and `3js` are **alive by default** (2–4 fact-tied micro-loops). Leftover `still` / `no-motion` / `print` freezes them. |
 | **Domain** | `webpage artistic` \| `dashboard` \| `photography` \| `cinematic` \| `landing` \| `portfolio` \| `infographic` | Force the aesthetic. `infographic` is a statistical poster (common-scale encodings + ISOTYPE + data table), not an ops dashboard. See [`references/domains/`](skills/reimagine-it/references/domains/). |
-| **Modifier** | `webpage cinematic glassmorphism` \| `bento` \| `neon` \| `brutalism` \| `neumorphism` \| `handdrawn` | Layer a UI/UX style on any domain. See [`references/modifiers/`](skills/reimagine-it/references/modifiers/). |
+| **Modifier** | `webpage cinematic glassmorphism` \| `bento` \| `neon` \| `brutalism` \| `neumorphism` \| `handdrawn` <br><sub>*brutalism/neumorphism/handdrawn are spec-only stubs (coming in v2.4)*</sub> | Layer a UI/UX style on any domain. See [`references/modifiers/`](skills/reimagine-it/references/modifiers/). |
 | **Font** | `--font "Playfair Display, Iowan Old Style, Georgia, serif"` | Pin display / body family. Full stack. No webfont fetch unless `--allow-fetch`. |
 | **Lock** | `lock <path> as <name>` then `--ref <name>` | Capture design DNA (palette, type, motifs, motion, 3D) and reuse it — even across media. |
 
