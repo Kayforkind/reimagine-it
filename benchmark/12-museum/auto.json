@@ -1,0 +1,208 @@
+{
+  "mode": "auto",
+  "token": "3js",
+  "seed": 194530803,
+  "score": 136,
+  "rationale": "The source has spatial or exploratory language suited to an orbitable field. Evidence: 5 anchors, 1 measurable facts.",
+  "candidates": [
+    {
+      "token": "3js",
+      "seed": 194530803,
+      "fit": 18,
+      "quality": 100,
+      "total": 136,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "landing",
+      "seed": 995504220,
+      "fit": 15,
+      "quality": 100,
+      "total": 130,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "webpage",
+      "seed": 762171139,
+      "fit": 15,
+      "quality": 100,
+      "total": 130,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "anchors": [
+    "Museum Hours",
+    "Audience",
+    "Format",
+    "Shape",
+    "Intent"
+  ],
+  "facts": {
+    "headings": 2,
+    "paragraphs": 2,
+    "items": 4,
+    "dates": 1,
+    "numbers": 0,
+    "links": 0
+  },
+  "source": "D:\\scratch\\temp\\reimagine-it\\benchmark\\12-museum\\source.html",
+  "artifact": "D:\\scratch\\temp\\reimagine-it\\benchmark\\12-museum\\auto.html",
+  "fidelity": {
+    "preserved": 6,
+    "detected": 10,
+    "percentage": 60,
+    "checks": {
+      "title": [
+        {
+          "value": "Museum After Hours",
+          "preserved": true
+        }
+      ],
+      "headings": [
+        {
+          "value": "Museum After Hours",
+          "preserved": true
+        },
+        {
+          "value": "What to know",
+          "preserved": false
+        }
+      ],
+      "dates": [
+        {
+          "value": "2027",
+          "preserved": false
+        }
+      ],
+      "numbers": [],
+      "emails": [
+        {
+          "value": "hello@example.test",
+          "preserved": false
+        }
+      ],
+      "anchors": [
+        {
+          "value": "Museum Hours",
+          "preserved": true
+        },
+        {
+          "value": "Audience",
+          "preserved": false
+        },
+        {
+          "value": "Format",
+          "preserved": true
+        },
+        {
+          "value": "Shape",
+          "preserved": true
+        },
+        {
+          "value": "Intent",
+          "preserved": true
+        }
+      ],
+      "links": []
+    }
+  }
+}

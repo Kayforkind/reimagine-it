@@ -1,0 +1,208 @@
+{
+  "mode": "auto",
+  "token": "photography",
+  "seed": 376638896,
+  "score": 142,
+  "rationale": "The source has a collection of items that can become visual studies. Evidence: 5 anchors, 1 measurable facts.",
+  "candidates": [
+    {
+      "token": "photography",
+      "seed": 376638896,
+      "fit": 21,
+      "quality": 100,
+      "total": 142,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "artistic",
+      "seed": 1910604745,
+      "fit": 20,
+      "quality": 100,
+      "total": 140,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "cinematic",
+      "seed": -1625709468,
+      "fit": 17,
+      "quality": 100,
+      "total": 134,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "anchors": [
+    "Northline Motion Studio",
+    "Audience",
+    "Format",
+    "Shape",
+    "Intent"
+  ],
+  "facts": {
+    "headings": 2,
+    "paragraphs": 2,
+    "items": 4,
+    "dates": 1,
+    "numbers": 0,
+    "links": 0
+  },
+  "source": "D:\\scratch\\temp\\reimagine-it\\benchmark\\02-studio\\source.html",
+  "artifact": "D:\\scratch\\temp\\reimagine-it\\benchmark\\02-studio\\auto.html",
+  "fidelity": {
+    "preserved": 7,
+    "detected": 10,
+    "percentage": 70,
+    "checks": {
+      "title": [
+        {
+          "value": "Northline Motion Studio",
+          "preserved": true
+        }
+      ],
+      "headings": [
+        {
+          "value": "Northline Motion Studio",
+          "preserved": true
+        },
+        {
+          "value": "What to know",
+          "preserved": false
+        }
+      ],
+      "dates": [
+        {
+          "value": "2027",
+          "preserved": false
+        }
+      ],
+      "numbers": [],
+      "emails": [
+        {
+          "value": "hello@example.test",
+          "preserved": false
+        }
+      ],
+      "anchors": [
+        {
+          "value": "Northline Motion Studio",
+          "preserved": true
+        },
+        {
+          "value": "Audience",
+          "preserved": true
+        },
+        {
+          "value": "Format",
+          "preserved": true
+        },
+        {
+          "value": "Shape",
+          "preserved": true
+        },
+        {
+          "value": "Intent",
+          "preserved": true
+        }
+      ],
+      "links": []
+    }
+  }
+}

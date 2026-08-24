@@ -175,7 +175,7 @@ droid plugin install reimagine-it@reimagine-it --scope user
 The repository also ships a public composite Action for deterministic HTML quality checks. It is a separate quality gate from the redesign engine:
 
 ```yaml
-- uses: Kayforkind/reimagine-it@v2.3.0
+- uses: Kayforkind/reimagine-it@v2.3.2
   with:
     path: "**/*.html"
     fail-on-warnings: "false"

@@ -1,0 +1,208 @@
+{
+  "mode": "auto",
+  "token": "artistic",
+  "seed": 1910596841,
+  "score": 140,
+  "rationale": "The source is sparse or expressive enough for a poster-like composition. Evidence: 5 anchors, 1 measurable facts.",
+  "candidates": [
+    {
+      "token": "artistic",
+      "seed": 1910596841,
+      "fit": 20,
+      "quality": 100,
+      "total": 140,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "landing",
+      "seed": 995504225,
+      "fit": 15,
+      "quality": 100,
+      "total": 130,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "webpage",
+      "seed": 762171144,
+      "fit": 15,
+      "quality": 100,
+      "total": 130,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "anchors": [
+    "Field Residency",
+    "Audience",
+    "Format",
+    "Shape",
+    "Intent"
+  ],
+  "facts": {
+    "headings": 2,
+    "paragraphs": 2,
+    "items": 4,
+    "dates": 1,
+    "numbers": 0,
+    "links": 0
+  },
+  "source": "D:\\scratch\\temp\\reimagine-it\\benchmark\\20-residency\\source.html",
+  "artifact": "D:\\scratch\\temp\\reimagine-it\\benchmark\\20-residency\\auto.html",
+  "fidelity": {
+    "preserved": 9,
+    "detected": 10,
+    "percentage": 90,
+    "checks": {
+      "title": [
+        {
+          "value": "Field Residency 2027",
+          "preserved": true
+        }
+      ],
+      "headings": [
+        {
+          "value": "Field Residency 2027",
+          "preserved": true
+        },
+        {
+          "value": "What to know",
+          "preserved": false
+        }
+      ],
+      "dates": [
+        {
+          "value": "2027",
+          "preserved": true
+        }
+      ],
+      "numbers": [],
+      "emails": [
+        {
+          "value": "hello@example.test",
+          "preserved": true
+        }
+      ],
+      "anchors": [
+        {
+          "value": "Field Residency",
+          "preserved": true
+        },
+        {
+          "value": "Audience",
+          "preserved": true
+        },
+        {
+          "value": "Format",
+          "preserved": true
+        },
+        {
+          "value": "Shape",
+          "preserved": true
+        },
+        {
+          "value": "Intent",
+          "preserved": true
+        }
+      ],
+      "links": []
+    }
+  }
+}

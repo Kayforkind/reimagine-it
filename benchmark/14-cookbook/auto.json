@@ -1,0 +1,208 @@
+{
+  "mode": "auto",
+  "token": "photography",
+  "seed": 376638906,
+  "score": 142,
+  "rationale": "The source has a collection of items that can become visual studies. Evidence: 5 anchors, 1 measurable facts.",
+  "candidates": [
+    {
+      "token": "photography",
+      "seed": 376638906,
+      "fit": 21,
+      "quality": 100,
+      "total": 142,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "landing",
+      "seed": 995504220,
+      "fit": 15,
+      "quality": 100,
+      "total": 130,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "webpage",
+      "seed": 762171139,
+      "fit": 15,
+      "quality": 100,
+      "total": 130,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "anchors": [
+    "Sunday Pantry Sunday",
+    "Pantry",
+    "Audience",
+    "Format",
+    "Shape"
+  ],
+  "facts": {
+    "headings": 2,
+    "paragraphs": 2,
+    "items": 4,
+    "dates": 1,
+    "numbers": 0,
+    "links": 0
+  },
+  "source": "D:\\scratch\\temp\\reimagine-it\\benchmark\\14-cookbook\\source.html",
+  "artifact": "D:\\scratch\\temp\\reimagine-it\\benchmark\\14-cookbook\\auto.html",
+  "fidelity": {
+    "preserved": 7,
+    "detected": 10,
+    "percentage": 70,
+    "checks": {
+      "title": [
+        {
+          "value": "Sunday Pantry",
+          "preserved": true
+        }
+      ],
+      "headings": [
+        {
+          "value": "Sunday Pantry",
+          "preserved": true
+        },
+        {
+          "value": "What to know",
+          "preserved": false
+        }
+      ],
+      "dates": [
+        {
+          "value": "2027",
+          "preserved": false
+        }
+      ],
+      "numbers": [],
+      "emails": [
+        {
+          "value": "hello@example.test",
+          "preserved": false
+        }
+      ],
+      "anchors": [
+        {
+          "value": "Sunday Pantry Sunday",
+          "preserved": true
+        },
+        {
+          "value": "Pantry",
+          "preserved": true
+        },
+        {
+          "value": "Audience",
+          "preserved": true
+        },
+        {
+          "value": "Format",
+          "preserved": true
+        },
+        {
+          "value": "Shape",
+          "preserved": true
+        }
+      ],
+      "links": []
+    }
+  }
+}

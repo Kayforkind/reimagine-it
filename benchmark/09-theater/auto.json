@@ -1,0 +1,208 @@
+{
+  "mode": "auto",
+  "token": "dashboard",
+  "seed": -457102600,
+  "score": 146,
+  "rationale": "The source contains enough measurable signals for an operational view. Evidence: 5 anchors, 1 measurable facts.",
+  "candidates": [
+    {
+      "token": "dashboard",
+      "seed": -457102600,
+      "fit": 23,
+      "quality": 100,
+      "total": 146,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "artistic",
+      "seed": 1910604750,
+      "fit": 20,
+      "quality": 100,
+      "total": 140,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "3js",
+      "seed": 194546636,
+      "fit": 18,
+      "quality": 100,
+      "total": 136,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "anchors": [
+    "Lantern Room Season",
+    "Audience",
+    "Format",
+    "Shape",
+    "Intent"
+  ],
+  "facts": {
+    "headings": 2,
+    "paragraphs": 2,
+    "items": 4,
+    "dates": 1,
+    "numbers": 0,
+    "links": 0
+  },
+  "source": "D:\\scratch\\temp\\reimagine-it\\benchmark\\09-theater\\source.html",
+  "artifact": "D:\\scratch\\temp\\reimagine-it\\benchmark\\09-theater\\auto.html",
+  "fidelity": {
+    "preserved": 4,
+    "detected": 10,
+    "percentage": 40,
+    "checks": {
+      "title": [
+        {
+          "value": "Lantern Room Season",
+          "preserved": true
+        }
+      ],
+      "headings": [
+        {
+          "value": "Lantern Room Season",
+          "preserved": true
+        },
+        {
+          "value": "What to know",
+          "preserved": false
+        }
+      ],
+      "dates": [
+        {
+          "value": "2027",
+          "preserved": true
+        }
+      ],
+      "numbers": [],
+      "emails": [
+        {
+          "value": "hello@example.test",
+          "preserved": false
+        }
+      ],
+      "anchors": [
+        {
+          "value": "Lantern Room Season",
+          "preserved": true
+        },
+        {
+          "value": "Audience",
+          "preserved": false
+        },
+        {
+          "value": "Format",
+          "preserved": false
+        },
+        {
+          "value": "Shape",
+          "preserved": false
+        },
+        {
+          "value": "Intent",
+          "preserved": false
+        }
+      ],
+      "links": []
+    }
+  }
+}
