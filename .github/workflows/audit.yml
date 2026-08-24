@@ -33,8 +33,12 @@ jobs:
           # Run the full sweep — same as `npm test` locally.
           # audit_all.py uses the same find_gold_html() as the CI,
           # writes per-file results to stdout, and exits non-zero on failures.
+          # Guard against `set -e` aborting on warnings/failures, then
+          # capture audit_all.py's true exit via PIPESTATUS[0] (not tee's).
+          set +e
           python scripts/audit_all.py 2>&1 | tee audit.log
-          EXIT=$?
+          EXIT=${PIPESTATUS[0]}
+          set -e
           
           echo "" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
