@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Saffron & Smoke — Margate</title><style>
+:root{--ground:#f4efe4;--panel:#ede6d8;--ink:#1e1814;--dim:#8a7b6a;--accent:#d4882b;--pom:#b23a3a;--herb:#6b8f58;--serif:"Iowan Old Style",Palatino,Georgia,serif;--sans:ui-sans-serif,system-ui,"Segoe UI",Inter,sans-serif;--mono:ui-monospace,"SF Mono",Consolas,Menlo,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--ground);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:focus-visible,.card:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+::selection{background:var(--accent);color:var(--ground)}
+.header{max-width:1080px;margin:0 auto;padding:40px 24px 20px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:12px}
+.header .logotype{font-family:var(--serif);font-size:30px;font-weight:400;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+.header .logotype .amp{font-style:italic;color:var(--accent)}
+.header .logotype .smoke-mark{width:24px;height:24px;display:block}
+.header .meta{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);text-align:right}
+.hero{max-width:1080px;margin:0 auto;padding:0 24px 48px}
+.hero .tagline{font-family:var(--serif);font-size:28px;font-weight:400;letter-spacing:-.01em;max-width:32ch;line-height:1.25}
+.hero .details{display:flex;gap:32px;margin-top:20px;flex-wrap:wrap}
+.hero .details span{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.hero .details span strong{color:var(--ink);font-weight:500}
+.smoke-divider{max-width:1080px;margin:0 auto;padding:8px 24px 40px}
+.smoke-divider svg{width:100%;height:28px;overflow:visible}
+.smoke-line{fill:none;stroke:var(--dim);stroke-width:.8;opacity:.25;stroke-dasharray:4 6;animation:smoke-drift 8s ease-in-out infinite}
+@keyframes smoke-drift{0%,100%{transform:translateX(0) translateY(0)}25%{transform:translateX(4px) translateY(-2px)}50%{transform:translateX(-2px) translateY(2px)}75%{transform:translateX(3px) translateY(-1px)}}
+.dish-grid{max-width:1080px;margin:0 auto;padding:0 24px 56px;display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.dish-card{background:var(--panel);border-radius:14px;padding:24px;position:relative;overflow:hidden;border:1px solid rgba(30,24,20,.04);transition:transform .2s ease-out,box-shadow .2s ease-out;display:flex;flex-direction:column}
+.dish-card:hover{transform:translateY(-4px);box-shadow:0 20px 48px -20px rgba(30,24,20,.35)}
+.dish-card .dish-num{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.dish-card h3{font-family:var(--serif);font-weight:400;font-size:22px;margin-bottom:6px;letter-spacing:-.01em}
+.dish-card p{font-size:14px;color:var(--dim);line-height:1.65;flex:1}
+.dish-card .dish-price{font-family:var(--mono);font-size:18px;color:var(--accent);margin-top:14px;font-weight:500}
+.dish-card .spice-dots{position:absolute;top:16px;right:16px;display:flex;gap:4px;opacity:.2}
+.spice-dots span{width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.spice-dots span:nth-child(2){background:var(--pom)}
+.spice-dots span:nth-child(3){background:var(--herb)}
+.dish-card.featured{border-color:rgba(212,136,43,.15);box-shadow:0 0 48px -20px rgba(212,136,43,.15)}
+.hours-section{max-width:1080px;margin:0 auto;padding:0 24px 64px}
+.hours-section h2{font-family:var(--serif);font-weight:400;font-size:22px;margin-bottom:20px;letter-spacing:-.01em}
+.hours-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.hours-card{background:var(--panel);border-radius:10px;padding:20px;border:1px solid rgba(30,24,20,.04)}
+.hours-card .day{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:8px;display:block}
+.hours-card h3{font-family:var(--serif);font-weight:400;font-size:18px;margin-bottom:4px}
+.hours-card p{font-size:14px;color:var(--dim)}
+.hours-card.closed{opacity:.6}
+.hours-card.open .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--herb);margin-right:6px;animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.3}}
+.flame-divider{max-width:1080px;margin:0 auto;padding:24px 24px 48px}
+.flame-waves{display:flex;gap:6px;align-items:flex-end;justify-content:center;height:32px}
+.flame-waves span{width:3px;border-radius:2px;background:var(--accent);animation:flame-flicker 1.6s ease-in-out infinite}
+.flame-waves span:nth-child(1){height:16px;animation-delay:0s;opacity:.3}
+.flame-waves span:nth-child(2){height:24px;animation-delay:.2s;opacity:.5}
+.flame-waves span:nth-child(3){height:18px;animation-delay:.4s;opacity:.35}
+.flame-waves span:nth-child(4){height:28px;animation-delay:.6s;opacity:.6}
+.flame-waves span:nth-child(5){height:20px;animation-delay:.8s;opacity:.4}
+.flame-waves span:nth-child(6){height:26px;animation-delay:1s;opacity:.55}
+.flame-waves span:nth-child(7){height:22px;animation-delay:1.2s;opacity:.45}
+.flame-waves span:nth-child(8){height:30px;animation-delay:1.4s;opacity:.65}
+@keyframes flame-flicker{0%,100%{transform:scaleY(1)}25%{transform:scaleY(.7)}50%{transform:scaleY(1.15)}75%{transform:scaleY(.85)}}
+.contact-bar{max-width:1080px;margin:0 auto;padding:40px 24px 64px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(30,24,20,.08);flex-wrap:wrap;gap:16px}
+.contact-bar .booking{font-family:var(--mono);font-size:12px;color:var(--dim);line-height:1.8}
+.contact-bar .booking a{color:var(--accent)}
+footer{max-width:1080px;margin:0 auto;padding:24px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);border-top:1px solid rgba(30,24,20,.06);flex-wrap:wrap;gap:12px}
+@media(max-width:768px){.dish-grid{grid-template-columns:1fr}.hours-grid{grid-template-columns:1fr}.hero .tagline{font-size:22px}}
+@media(prefers-reduced-motion:reduce){.dish-card:hover{transform:none}.smoke-line{animation:none}.flame-waves span{animation:none}.hours-card.open .dot{animation:none;opacity:1}}
+</style></head><body>
+
+<header class="header">
+  <div class="logotype">Saffron <span class="amp">&amp;</span> Smoke
+    <svg class="smoke-mark" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 22 Q6 14,10 22 T18 22" fill="none" stroke="var(--dim)" stroke-width=".8" opacity=".4"/>
+      <path d="M4 20 Q8 13,12 20 T20 20" fill="none" stroke="var(--accent)" stroke-width=".6" opacity=".5"/>
+    </svg>
+  </div>
+  <div class="meta">Margate · Open fire<br>14 Harbour Walk</div>
+</header>
+
+<main>
+  <section class="hero">
+    <p class="tagline">A small kitchen. Six dishes. The fire decides the pace.</p>
+    <div class="details">
+      <span>Open <strong>Thu–Sat</strong></span>
+      <span>Bookings <strong>table@saffronsmoke.kitchen</strong></span>
+      <span>Phone <strong>01843 293 007</strong></span>
+    </div>
+  </section>
+
+  <div class="smoke-divider">
+    <svg viewBox="0 0 960 28" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path class="smoke-line" d="M0 14 Q 80 6,160 14 T 320 14 T 480 14 T 640 14 T 800 14 T 960 14"/>
+      <path class="smoke-line" d="M0 18 Q 80 10,160 18 T 320 18 T 480 18 T 640 18 T 800 18 T 960 18" style="animation-delay:.3s;opacity:.15"/>
+    </svg>
+  </div>
+
+  <div class="dish-grid">
+    <div class="dish-card featured" tabindex="0">
+      <span class="dish-num">01 · Starter</span>
+      <h3>Smoked aubergine</h3>
+      <p>Whole aubergine charred over applewood, whipped with tahini, pomegranate seeds, mint oil. Served with wood-fired flatbread.</p>
+      <span class="dish-price">£12</span>
+      <div class="spice-dots"><span></span><span></span><span></span></div>
+    </div>
+    <div class="dish-card" tabindex="0">
+      <span class="dish-num">02 · Main</span>
+      <h3>Lamb shoulder</h3>
+      <p>Twelve-hour slow roast with saffron, preserved lemon, and rose harissa. Falls off the fork.</p>
+      <span class="dish-price">£26 <span style="font-size:12px;color:var(--dim);font-weight:400">for two</span></span>
+      <div class="spice-dots"><span></span><span></span><span></span></div>
+    </div>
+    <div class="dish-card" tabindex="0">
+      <span class="dish-num">03 · Main</span>
+      <h3>Fire-roasted cauliflower</h3>
+      <p>Half head, blistered in the coals, drenched in smoked butter and toasted pistachio crumb.</p>
+      <span class="dish-price">£14</span>
+      <div class="spice-dots"><span></span><span></span><span></span></div>
+    </div>
+    <div class="dish-card" tabindex="0">
+      <span class="dish-num">04 · Small plate</span>
+      <h3>Pistachio labneh</h3>
+      <p>Strained overnight, topped with honey-roast pistachios, za'atar, and a slick of olive oil from the West Bank.</p>
+      <span class="dish-price">£9</span>
+      <div class="spice-dots"><span></span><span></span><span></span></div>
+    </div>
+    <div class="dish-card" tabindex="0">
+      <span class="dish-num">05 · Bread</span>
+      <h3>Za'atar flatbread</h3>
+      <p>Wood-fired to order. The dough proofs for 24 hours. Served with house labneh.</p>
+      <span class="dish-price">£7</span>
+      <div class="spice-dots"><span></span><span></span><span></span></div>
+    </div>
+    <div class="dish-card" tabindex="0">
+      <span class="dish-num">06 · Dessert</span>
+      <h3>Saffron rice pudding</h3>
+      <p>Arborio rice, cardamom, saffron threads, burnt honey. Served cold in a clay pot.</p>
+      <span class="dish-price">£8</span>
+      <div class="spice-dots"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+
+  <section class="hours-section">
+    <h2>Hours</h2>
+    <div class="hours-grid">
+      <div class="hours-card open">
+        <span class="day"><span class="dot"></span>Open today · from 6 pm</span>
+        <h3>Thursday &amp; Friday</h3>
+        <p>6 pm – 10 pm</p>
+      </div>
+      <div class="hours-card open">
+        <span class="day"><span class="dot"></span>Open today · from 12 pm</span>
+        <h3>Saturday</h3>
+        <p>12 pm – 3 pm, 6 pm – 10 pm</p>
+      </div>
+      <div class="hours-card closed">
+        <span class="day">Closed</span>
+        <h3>Sunday to Wednesday</h3>
+        <p>The fire needs rest too.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="flame-divider">
+    <div class="flame-waves"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  </div>
+
+  <div class="contact-bar">
+    <p class="booking">
+      Bookings: <a href="mailto:table@saffronsmoke.kitchen">table@saffronsmoke.kitchen</a><br>
+      01843 293 007 · 14 Harbour Walk, Margate CT9 1LN
+    </p>
+    <p style="font-family:var(--mono);font-size:11px;color:var(--dim)">Kitchen capacity: <span style="color:var(--pom)">18 seats</span> · Walk-ins welcome</p>
+  </div>
+</main>
+
+<footer>
+  <span>MIT · Saffron &amp; Smoke is a reimagine-it demo · <a href="https://github.com/Kayforkind/reimagine-it">repo</a></span>
+  <span>Palette: clay + saffron + herb · Motif: smoke wave · Motion: smoke drift + flame flicker</span>
+</footer>
+</body></html>

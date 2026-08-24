@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Two lights, twenty miles</title><style>
+:root{--ground:#e8e0d4;--panel:#f2ece3;--ink:#2a2322;--dim:#7a6b60;--accent:#c23a2a;--beam:#e8a63f;--navy:#1c2d3d;--serif:"Iowan Old Style",Palatino,Georgia,serif;--sans:ui-sans-serif,system-ui,"Segoe UI",Inter,sans-serif;--mono:ui-monospace,"SF Mono",Consolas,Menlo,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--ground);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:focus-visible,.btn:focus-visible,.card:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+::selection{background:var(--beam);color:var(--navy)}
+header{max-width:960px;margin:0 auto;padding:40px 24px 32px;display:flex;justify-content:space-between;align-items:baseline}
+header .byline{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+.hero{max-width:960px;margin:0 auto;padding:0 24px 64px}
+.hero .kicker{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;display:block}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(42px,6vw,72px);line-height:1.04;letter-spacing:-.02em;max-width:18ch}
+h1 .amp{font-style:italic;color:var(--accent)}
+h1 .miles{color:var(--dim);font-size:.65em;vertical-align:middle}
+.hero .sub{max-width:48ch;font-size:17px;color:var(--dim);margin-top:20px;line-height:1.7}
+.hero .stat-strip{display:flex;gap:32px;margin-top:32px;flex-wrap:wrap}
+.stat-item{font-family:var(--mono)}
+.stat-item .val{font-size:28px;font-weight:500;color:var(--accent)}
+.stat-item .lab{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);display:block}
+.beam-divider{max-width:960px;margin:0 auto;padding:24px 24px}
+.beam-divider svg{width:100%;height:56px;overflow:visible}
+.walk-section{max-width:960px;margin:0 auto;padding:0 24px 48px}
+.walk-section h2{font-family:var(--serif);font-weight:400;font-size:32px;letter-spacing:-.01em;margin-bottom:32px}
+.walk-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:56px}
+.walk-card{background:var(--panel);border-radius:12px;padding:28px;position:relative;overflow:hidden;border:1px solid rgba(26,33,56,.06);transition:transform .2s ease-out,box-shadow .2s ease-out}
+.walk-card:hover{transform:translateY(-4px) rotateY(-2deg);box-shadow:-16px 24px 56px -24px rgba(42,35,34,.25)}
+.walk-card:nth-child(2):hover{transform:translateY(-4px) rotateY(2deg);box-shadow:16px 24px 56px -24px rgba(42,35,34,.25)}
+.walk-card .tag{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px;display:block}
+.walk-card .tag-sunrise{color:var(--beam)}
+.walk-card .tag-sunset{color:var(--accent)}
+.walk-card h3{font-family:var(--serif);font-weight:400;font-size:26px;margin-bottom:4px}
+.walk-card .loc{font-size:13px;color:var(--dim);margin-bottom:16px;font-style:italic}
+.walk-card p{font-size:15px;color:var(--ink);line-height:1.7}
+.walk-card .beam-svg{position:absolute;top:0;right:0;width:180px;height:180px;pointer-events:none;opacity:.06}
+.lesson-section{max-width:960px;margin:0 auto;padding:0 24px 80px}
+.lesson-section h2{font-family:var(--serif);font-weight:400;font-size:24px;margin-bottom:24px;letter-spacing:-.01em}
+.lesson-list{list-style:none;display:grid;gap:20px}
+.lesson-item{background:var(--panel);border-radius:10px;padding:20px 24px;border:1px solid rgba(26,33,56,.04);transition:transform .15s ease-out}
+.lesson-item:hover{transform:translateX(8px)}
+.lesson-item h3{font-family:var(--serif);font-weight:400;font-size:18px;margin-bottom:6px;color:var(--ink)}
+.lesson-item p{font-size:14px;color:var(--dim);line-height:1.6}
+.lesson-item .num{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;display:block}
+.flash-divider{max-width:960px;margin:0 auto;padding:0 24px 48px;display:flex;gap:12px;align-items:center;justify-content:center}
+.flash-dot{width:8px;height:8px;border-radius:50%;background:var(--beam);animation:flash-pulse 2.7s ease-in-out infinite}
+.flash-dot:nth-child(2){animation-delay:.15s}
+.flash-gap{width:40px;height:1px;background:var(--dim);opacity:.2}
+@keyframes flash-pulse{0%,100%{opacity:.15;transform:scale(1)}5%,25%{opacity:1;transform:scale(1.6)}26%,100%{opacity:.15;transform:scale(1)}}
+.contact{max-width:960px;margin:0 auto;padding:40px 24px 64px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(26,33,56,.08);flex-wrap:wrap;gap:16px}
+.contact .newsletter{font-family:var(--mono);font-size:13px;color:var(--dim)}
+.contact .newsletter a{color:var(--accent)}
+footer{max-width:960px;margin:0 auto;padding:24px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);border-top:1px solid rgba(26,33,56,.06);flex-wrap:wrap;gap:12px}
+@media(max-width:768px){.walk-grid{grid-template-columns:1fr}.hero .stat-strip{gap:16px}}
+@media(prefers-reduced-motion:reduce){.walk-card:hover{transform:translateY(-2px)}.flash-dot{animation:none;opacity:1}.lesson-item:hover{transform:none}.beam-svg{animation:none}}
+</style></head><body>
+
+<header>
+  <span class="byline">Kayforkind · reimagine-it</span>
+  <span class="byline">January walk · 20 miles</span>
+</header>
+
+<main>
+  <section class="hero">
+    <span class="kicker">Personal essay</span>
+    <h1>Two lights, <span class="amp">&amp;</span> <span class="miles">twenty miles</span></h1>
+    <p class="sub">A walk along the coast — from Portland Bill to Start Point — and what the beams taught me about patience. Both towers were lit before my grandparents were born. Neither one cares whether I arrived.</p>
+    <div class="stat-strip">
+      <div class="stat-item"><span class="val">41m</span><span class="lab">Portland Bill tower</span></div>
+      <div class="stat-item"><span class="val">28m</span><span class="lab">Start Point tower</span></div>
+      <div class="stat-item"><span class="val">25 NM</span><span class="lab">Beam reach</span></div>
+      <div class="stat-item"><span class="val">2.7s</span><span class="lab">Flash cycle</span></div>
+    </div>
+  </section>
+
+  <div class="beam-divider">
+    <svg viewBox="0 0 960 56" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <defs>
+        <radialGradient id="beamGrad"><stop offset="0%" stop-color="var(--beam)" stop-opacity=".3"/><stop offset="100%" stop-color="var(--beam)" stop-opacity="0"/></radialGradient>
+      </defs>
+      <line x1="80" y1="28" x2="880" y2="28" stroke="rgba(42,35,34,.08)" stroke-width="1"/>
+      <ellipse cx="240" cy="28" rx="160" ry="16" fill="url(#beamGrad)" style="animation:beam-sweep 5.4s ease-in-out infinite;transform-origin:240px 28px"/>
+      <ellipse cx="720" cy="28" rx="160" ry="16" fill="url(#beamGrad)" style="animation:beam-sweep 5.4s ease-in-out infinite 2.7s;transform-origin:720px 28px"/>
+    </svg>
+    <style>@keyframes beam-sweep{0%,100%{opacity:.1;transform:scaleX(.3)}50%{opacity:.5;transform:scaleX(1.1)}}</style>
+  </div>
+
+  <section class="walk-section">
+    <h2>The walks</h2>
+    <div class="walk-grid">
+      <div class="walk-card" tabindex="0">
+        <span class="tag tag-sunrise">Sunrise · 6:40 AM</span>
+        <h3>Portland Bill</h3>
+        <p class="loc">Isle of Portland, Dorset · lit 1906</p>
+        <p>A 41-metre tower painted red and white, standing on the Isle of Portland since 1906. The beam reaches 25 nautical miles. We arrived at 6:40 am. The sea rolled in heavy, slate-grey and cream — the same two colours as the tower.</p>
+        <svg class="beam-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="200" cy="0" r="80" fill="none" stroke="var(--accent)" stroke-width=".5"/><circle cx="200" cy="0" r="140" fill="none" stroke="var(--accent)" stroke-width=".3"/><line x1="200" y1="0" x2="200" y2="200" stroke="var(--accent)" stroke-width=".5"/><line x1="200" y1="0" x2="0" y2="0" stroke="var(--accent)" stroke-width=".5"/>
+        </svg>
+      </div>
+      <div class="walk-card" tabindex="0">
+        <span class="tag tag-sunset">Sunset · Hallsands Bay</span>
+        <h3>Start Point</h3>
+        <p class="loc">Devon headland · lit 1836</p>
+        <p>A 28-metre granite tower on a jagged headland, lit in 1836. The beam sweeps every 2.7 seconds. We caught it from Hallsands, across the bay — two flashes, eleven seconds of dark, two flashes again.</p>
+        <svg class="beam-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="200" cy="0" r="80" fill="none" stroke="var(--accent)" stroke-width=".5"/><circle cx="200" cy="0" r="140" fill="none" stroke="var(--accent)" stroke-width=".3"/><line x1="200" y1="0" x2="200" y2="200" stroke="var(--accent)" stroke-width=".5"/><line x1="200" y1="0" x2="0" y2="0" stroke="var(--accent)" stroke-width=".5"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h2>What I learned</h2>
+    <ul class="lesson-list">
+      <li class="lesson-item">
+        <span class="num">01 · Lesson</span>
+        <h3>Rhythm is older than urgency</h3>
+        <p>Both lights have been flashing since before my grandparents were born. Neither tower cares whether I arrived.</p>
+      </li>
+      <li class="lesson-item">
+        <span class="num">02 · Lesson</span>
+        <h3>Twenty miles is a small country</h3>
+        <p>The two towers are a morning's walk apart — but their beams never cross. They take turns with the horizon.</p>
+      </li>
+      <li class="lesson-item">
+        <span class="num">03 · Lesson</span>
+        <h3>Cold air carries further</h3>
+        <p>The clearest view came when the temperature dropped. The beam sharpened. The fog lifted. The lesson wrote itself.</p>
+      </li>
+    </ul>
+  </section>
+
+  <div class="flash-divider">
+    <span class="flash-dot"></span><span class="flash-dot"></span><span class="flash-gap"></span><span class="flash-dot"></span><span class="flash-dot"></span><span class="flash-gap"></span><span class="flash-dot"></span><span class="flash-dot"></span><span class="flash-gap"></span><span class="flash-dot"></span><span class="flash-dot"></span>
+  </div>
+
+  <div class="contact">
+    <p class="newsletter">Monthly essays on light, coast, and patience. <a href="mailto:newsletter@twolights.blog">newsletter@twolights.blog</a></p>
+    <p style="font-family:var(--mono);font-size:11px;color:var(--dim)">Last sent: <span style="color:var(--beam)">January 12 · 5:18 AM</span></p>
+  </div>
+</main>
+
+<footer>
+  <span>MIT · Two Lights is a reimagine-it demo · <a href="https://github.com/Kayforkind/reimagine-it">repo</a></span>
+  <span>Palette: slate + cream + red tower · Motif: sweeping beam · Motion: flash pulse + beam sweep</span>
+</footer>
+</body></html>
