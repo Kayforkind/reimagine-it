@@ -18,16 +18,17 @@ jobs:
   validate-and-publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
       - name: Validate action.yml
         run: |
           echo "::group::Validating action.yml"
+          python -m pip install --quiet pyyaml
           python - <<'PYEOF'
           import yaml, sys
 
@@ -112,11 +113,11 @@ jobs:
     if: github.event_name == 'release' && !github.event.release.prerelease
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: "20"
+          node-version: "22"
           registry-url: "https://registry.npmjs.org"
 
       - name: Publish to npm
