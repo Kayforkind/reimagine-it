@@ -27,26 +27,59 @@ dates, and colors already in your source. Nothing is hard-coded.
 
 Usage:
   npx reimagine-it [options]
+  cat file.html | npx reimagine-it -t webpage > output.html
 
 Options:
-  --input, -i <path>      Source HTML file (required)
-  --token, -t <name>      Design token: webpage, infographic, dashboard,
-                           artistic, cinematic, photography, landing,
-                           svg, 3js, simulation (default: webpage)
-  --output, -o <path>     Output file (default: reimagined/<name>.html)
+  --input, -i <path>      Source HTML file (or pipe via stdin)
+  --token, -t <name>      Design token (default: webpage)
+  --output, -o <path>     Output file (default: reimagined/<token>.html)
   --seed, -s <n>          Pin creative variation for reproducibility
   --brief, -b <text>      Creative lens for the redesign
   --dry, -d               Show what would be extracted, don't generate
   --json                  Output extraction results as JSON
+  --list, -l              List all available design tokens
   --version, -v           Show version
   --help, -h              Show this help
+
+Tokens:
+  webpage        A real page from this file's nouns, dates, colors
+  infographic    A paper poster of facts — not a fake dashboard
+  dashboard      KPI cards with content-derived metrics
+  artistic       Full-bleed canvas with mix-blend-mode typography
+  cinematic      Full-viewport hero with scroll-driven sections
+  photography    Folio grid with content-derived plates
+  landing        Hero + features + CTA from the source
+  svg            Inline living SVG with star/river/anchor motion
+  3js            Canvas 3D cube with drag-to-rotate
+  simulation     Playable timeline scrubber with year events
 
 Examples:
   npx reimagine-it -i before.html -t infographic
   npx reimagine-it -i menu.html -t webpage -o menu-redesigned.html
   npx reimagine-it -i source.html -t dashboard --dry
+  cat page.html | npx reimagine-it -t svg > output.html
+  npx reimagine-it --list
 
 Learn more: https://kayforkind.github.io/reimagine-it/
+`);
+  process.exit(0);
+}
+
+if (argv.list) {
+  console.log(`Available design tokens:
+
+  webpage        A real page from this file's nouns, dates, colors
+  infographic    A paper poster of facts — not a fake dashboard
+  dashboard      KPI cards with content-derived metrics
+  artistic       Full-bleed canvas with mix-blend-mode typography
+  cinematic      Full-viewport hero with scroll-driven sections
+  photography    Folio grid with content-derived plates
+  landing        Hero + features + CTA from the source
+  svg            Inline living SVG with star/river/anchor motion
+  3js            Canvas 3D cube with drag-to-rotate
+  simulation     Playable timeline scrubber with year events
+
+Usage: npx reimagine-it -i <file> -t <token>
 `);
   process.exit(0);
 }
@@ -57,19 +90,25 @@ if (argv.version) {
   process.exit(0);
 }
 
-if (!argv.input) {
-  console.error('Error: --input is required. Use --help for usage.');
-  process.exit(1);
-}
-
-const inputPath = path.resolve(argv.input);
-if (!fs.existsSync(inputPath)) {
-  console.error(`Error: input file not found: ${inputPath}`);
-  process.exit(1);
-}
-
 const token = argv.token || 'webpage';
-const source = fs.readFileSync(inputPath, 'utf-8');
+
+let source, inputPath;
+
+if (argv.input) {
+  inputPath = path.resolve(argv.input);
+  if (!fs.existsSync(inputPath)) {
+    console.error(`Error: input file not found: ${inputPath}`);
+    process.exit(1);
+  }
+  source = fs.readFileSync(inputPath, 'utf-8');
+} else if (!process.stdin.isTTY) {
+  // Read from stdin (piped input)
+  source = fs.readFileSync(0, 'utf-8');
+  inputPath = 'stdin.html';
+} else {
+  console.error('Error: --input is required (or pipe HTML via stdin). Use --help for usage.');
+  process.exit(1);
+}
 
 // Phase 1: Extract
 const content = extractContent(source, inputPath);
@@ -142,6 +181,8 @@ function parseArgs(raw) {
         opts.version = true; break;
       case '-h': case '--help':
         opts.help = true; break;
+      case '-l': case '--list':
+        opts.list = true; break;
     }
   }
   return opts;

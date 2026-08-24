@@ -1,6 +1,6 @@
 # reimagine-it
 
-[![license MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE) [![CI](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/audit.yml?branch=main)](https://github.com/Kayforkind/reimagine-it/actions/workflows/audit.yml) [![skills.sh](https://skills.sh/b/kayforkind/reimagine-it)](https://skills.sh/kayforkind/reimagine-it) [![Claude Code](https://img.shields.io/badge/Claude_Code-plugin-d97757.svg)](https://code.claude.com/docs/en/plugins) [![Cursor](https://img.shields.io/badge/Cursor-skill-1a2138.svg)](https://cursor.com) [![Codex](https://img.shields.io/badge/Codex-skill-6e6e6e.svg)](https://github.com/openai/codex) [![agentskills.io spec](https://img.shields.io/badge/agentskills.io-spec-e8a63f.svg)](https://agentskills.io/specification) [![version 2.3](https://img.shields.io/badge/version-2.3-b22234.svg)](skills/reimagine-it/SKILL.md) [![sponsor](https://img.shields.io/badge/sponsor-%E2%98%85-b22234.svg)](https://github.com/sponsors/Kayforkind)
+[![license MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE) [![CI](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/audit.yml?branch=main)](https://github.com/Kayforkind/reimagine-it/actions/workflows/audit.yml) [![skills.sh](https://skills.sh/b/kayforkind/reimagine-it)](https://skills.sh/kayforkind/reimagine-it) [![Claude Code](https://img.shields.io/badge/Claude_Code-plugin-d97757.svg)](https://code.claude.com/docs/en/plugins) [![Cursor](https://img.shields.io/badge/Cursor-skill-1a2138.svg)](https://cursor.com) [![Codex](https://img.shields.io/badge/Codex-skill-6e6e6e.svg)](https://github.com/openai/codex) [![agentskills.io spec](https://img.shields.io/badge/agentskills.io-spec-e8a63f.svg)](https://agentskills.io/specification) [![version 2.3.1](https://img.shields.io/badge/version-2.3.1-b22234.svg)](skills/reimagine-it/SKILL.md) [![sponsor](https://img.shields.io/badge/sponsor-%E2%98%85-b22234.svg)](https://github.com/sponsors/Kayforkind)
 
 **This is an agent skill — an AI reads your file and redesigns it from its own content. Not a mood board. A real artifact.**
 
@@ -29,9 +29,14 @@ Then in your AI agent: `/reimagine-it` · `/reimagine-it infographic` · `/reima
 |-------|----------------|
 | `webpage` | A real page from this file's nouns, dates, colors |
 | `infographic` | A paper poster of facts already in the file — not a fake dashboard |
+| `dashboard` | KPI cards with content-derived metrics |
+| `artistic` | Full-bleed canvas with mix-blend-mode typography |
+| `cinematic` | Full-viewport hero with scroll-driven sections |
+| `photography` | Folio grid with content-derived plates |
+| `landing` | Hero + features + CTA from the source |
 | `svg` | A living mark (the motion is on the drawing) |
-| `3js` | A room you can orbit |
-| `simulation` | A playable model of those facts |
+| `3js` | A 3D cube you can drag to orbit |
+| `simulation` | A playable timeline of those facts |
 
 Full host matrix (Droid, Pi, `gh skill`, Gemini CLI, Windsurf): [install guide ↓](#install).
 
@@ -161,6 +166,17 @@ pi install https://github.com/Kayforkind/reimagine-it
 ```
 
 Then say `/reimagine-it` in the host. Also matches: "reimagine it", "redesign this page", "make an infographic".
+
+**No agent? Use the CLI.**
+
+```bash
+npx reimagine-it -i before.html -t infographic
+npx reimagine-it -i menu.html -t landing -o redesign.html
+cat page.html | npx reimagine-it -t svg > output.html
+npx reimagine-it --list          # see all 10 tokens
+```
+
+Same content-derived method — extracts nouns, colors, dates, derives palette, generates a token-specific redesign. `--seed` pins variation for reproducibility.
 
 ---
 

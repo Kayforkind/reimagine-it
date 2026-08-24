@@ -1,6 +1,8 @@
 # reimagine-it Improvement Roadmap — Good → Great → Legendary
 
 > Based on competitive analysis of Anthropic frontend-design (277k installs), Impeccable (23 commands, 59 detector rules, product website), Superpowers (243k stars), gstack (118k stars), and the broader agent-skills ecosystem.
+>
+> **Last updated:** v2.3.1 — see [CHANGELOG.md](CHANGELOG.md) for completed items.
 
 ---
 
@@ -46,7 +48,29 @@
 
 These fix basic product gaps that make the repo look like a weekend project.
 
-#### 1.1 Product landing page (impeccable.style equivalent)
+#### ✅ 1.1 Product landing page (impeccable.style equivalent) — DONE
+
+`docs/index.html` shipped as a polished product site with hero, 4-step method, case studies, install grid, and embedded playground. Live at [kayforkind.github.io/reimagine-it](https://kayforkind.github.io/reimagine-it/).
+
+#### ✅ 1.2 Proper CLI installer — DONE
+
+`npx reimagine-it` ships as a standalone npm package. Reads HTML, extracts content, generates all 10 tokens. Supports `--seed`, `--json`, `--dry`, `--list`, stdin piping. No agent required.
+
+#### 1.3 Get featured in skills roundups — IN PROGRESS
+
+`SHOW-HN.md` and `SUBMISSIONS.md` drafted for 6 platforms.
+
+#### ✅ 1.4 Metrics badge on README — DONE
+
+CI status badge, version badge, license badge, and 5 platform badges on README.
+
+#### ✅ 1.5 Diverse case studies in SHOWCASE.md — DONE
+
+Three new gold sources (Pulsewave SaaS, Two Lights essay, Saffron & Smoke restaurant) prove the method travels beyond Texas.
+
+#### ✅ 1.6 CI pipeline — DONE
+
+GitHub Actions workflow with 18-check audit, 0 failures, and regression test proving failures are caught.
 
 **Problem:** The repo README is the only entry point. Impeccable has `impeccable.style` — a dedicated product site with documentation, install guide, and case studies.
 
@@ -104,7 +128,27 @@ These fix basic product gaps that make the repo look like a weekend project.
 
 These add capabilities that close the gap with Impeccable and frontend-design.
 
-#### 2.1 Multiple commands (like Impeccable's 23)
+#### ✅ 2.1 Multiple commands — DONE (focused sub-skills)
+
+Three focused sub-skills shipped: `audit`, `lock`, `infographic`. Each has its own SKILL.md with frontmatter. Monolithic SKILL.md split per SkillsBench research (+18.6 pts accuracy).
+
+#### ✅ 2.2 Deterministic quality checker (like Impeccable's 59 rules) — DONE
+
+`scripts/audit.py` — 18 deterministic checks across typography, palette, motion, content, structure, and performance. `scripts/audit_all.py` runs the full sweep. CI-ready with `--json` output. Exit codes: 0=clean, 1=warnings, 2=failures.
+
+#### ✅ 2.3 Content-derived vs brand-locked modes — DONE (via `--ref` lock system)
+
+`/reimagine-it lock <path> as <name>` captures design DNA. `--ref <name>` reuses it. Cross-medium translation table included.
+
+#### ✅ 3.1 Named methodology: Content-Derived Design (CDD) — DONE
+
+`docs/MANIFESTO.md` defines CDD as the third path between taste-enforcement (frontend-design, Impeccable) and template-generation (v0.dev, Bolt.new). Includes BibTeX citation block.
+
+#### ✅ 3.2 `npx reimagine-it` standalone CLI (no agent required) — DONE
+
+All 10 tokens, seeded variation, stdin support, `--list`, `--json`, `--dry`. 26 unit tests. Published to npm.
+
+#### Original Tier 2 items still open:
 
 **Problem:** One command (`/reimagine-it`). Impeccable has 23. Users want to do specific things without remembering token combinations.
 

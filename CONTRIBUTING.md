@@ -38,6 +38,15 @@ Real content beats a spec. The fastest way to improve `/reimagine-it` is to add 
 git clone https://github.com/Kayforkind/reimagine-it.git
 cd reimagine-it
 
+# Test everything (gold audit + smoke + unit tests):
+npm test
+
+# Run just the CLI unit tests:
+npm run test:unit
+
+# Audit gold output quality (32 files, 0 failures expected):
+npm run audit
+
 # Regenerate everything:
 python gold/shots.py          # per-pack full-page after.png
 python gold/gallery.py        # master gallery + tile heroes
@@ -46,6 +55,16 @@ python gold/domains/motion-run.py   # motion strip
 ```
 
 Chrome or Edge must be on the `PATH`, or set `REIMAGINE_BROWSER=<full path to chrome.exe>`.
+
+### CLI development
+
+The standalone CLI lives in `bin/reimagine-it.js` with core logic in `src/extract.js` and `src/generate.js`. Test any token:
+
+```bash
+node bin/reimagine-it.js -i gold/webpage/before.html -t svg --dry   # preview extraction
+node bin/reimagine-it.js -i gold/webpage/before.html -t 3js -o /tmp/test.html
+node bin/reimagine-it.js --list                                     # list all tokens
+```
 
 ## Questions
 
