@@ -1,0 +1,149 @@
+{
+  "mode": "auto",
+  "token": "webpage",
+  "seed": 762163192,
+  "score": 150,
+  "rationale": "The source benefits from a measured reading hierarchy. Evidence: 5 anchors, 4 measurable facts.",
+  "candidates": [
+    {
+      "token": "webpage",
+      "seed": 762163192,
+      "fit": 25,
+      "quality": 100,
+      "total": 150,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "infographic",
+      "seed": -1088304032,
+      "fit": 22,
+      "quality": 100,
+      "total": 144,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "dashboard",
+      "seed": -457086785,
+      "fit": 20,
+      "quality": 100,
+      "total": 140,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "anchors": [
+    "Ember",
+    "Table Ember",
+    "Table",
+    "Tonight",
+    "Saffron"
+  ],
+  "facts": {
+    "headings": 4,
+    "paragraphs": 4,
+    "items": 5,
+    "dates": 1,
+    "numbers": 3,
+    "links": 1
+  },
+  "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\ember-table\\source.html",
+  "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\ember-table\\auto.html"
+}

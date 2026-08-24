@@ -1,0 +1,412 @@
+{
+  "examples": [
+    {
+      "name": "Orbitline Release Desk",
+      "source": "examples/end-users/orbitline/source.html",
+      "auto": "examples/end-users/orbitline/auto.html",
+      "report": "examples/end-users/orbitline/auto.json",
+      "alternate": "examples/end-users/orbitline/alternate.html",
+      "auto_token": "dashboard",
+      "alternate_token": "infographic",
+      "seed": 11,
+      "score": 226,
+      "candidates": [
+        {
+          "token": "dashboard",
+          "seed": -457102635,
+          "fit": 63,
+          "quality": 100,
+          "total": 226,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "infographic",
+          "seed": -1088304044,
+          "fit": 47,
+          "quality": 100,
+          "total": 194,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "webpage",
+          "seed": 762179018,
+          "fit": 25,
+          "quality": 100,
+          "total": 150,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ember & Table",
+      "source": "examples/end-users/ember-table/source.html",
+      "auto": "examples/end-users/ember-table/auto.html",
+      "report": "examples/end-users/ember-table/auto.json",
+      "alternate": "examples/end-users/ember-table/alternate.html",
+      "auto_token": "webpage",
+      "alternate_token": "photography",
+      "seed": 23,
+      "score": 150,
+      "candidates": [
+        {
+          "token": "webpage",
+          "seed": 762163192,
+          "fit": 25,
+          "quality": 100,
+          "total": 150,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "infographic",
+          "seed": -1088304032,
+          "fit": 22,
+          "quality": 100,
+          "total": 144,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "dashboard",
+          "seed": -457086785,
+          "fit": 20,
+          "quality": 100,
+          "total": 140,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "A Letter to the Night Tide",
+      "source": "examples/end-users/tide-letter/source.html",
+      "auto": "examples/end-users/tide-letter/auto.html",
+      "report": "examples/end-users/tide-letter/auto.json",
+      "alternate": "examples/end-users/tide-letter/alternate.html",
+      "auto_token": "webpage",
+      "alternate_token": "artistic",
+      "seed": 37,
+      "score": 172,
+      "candidates": [
+        {
+          "token": "webpage",
+          "seed": 762163206,
+          "fit": 36,
+          "quality": 100,
+          "total": 172,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "cinematic",
+          "seed": -1625717391,
+          "fit": 22,
+          "quality": 100,
+          "total": 144,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "3js",
+          "seed": 194546627,
+          "fit": 18,
+          "quality": 100,
+          "total": 136,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

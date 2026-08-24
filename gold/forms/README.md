@@ -22,8 +22,15 @@ Re-shoot (writes form stills + `after-b.png` pairs, `loops/*.png`, `strip.png`, 
 python gold/forms/shot.py
 ```
 
-Looping examples GIF (`examples.gif` — before, then every full-page after; no cropped loop cards):
+Legacy Texas montage GIF (`examples.gif` — before, then every full-page after; no cropped loop cards). For fresh end-user journeys, see [`examples/end-users/`](../../examples/end-users/) and its three source-specific GIFs:
 
 ```powershell
 python gold/forms/make_gif.py
+```
+
+```text
+examples/end-users/gallery.gif
+examples/end-users/orbitline/before-after.gif
+examples/end-users/ember-table/before-after.gif
+examples/end-users/tide-letter/before-after.gif
 ```

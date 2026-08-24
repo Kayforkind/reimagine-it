@@ -1,5 +1,7 @@
 # Gold
 
+For fresh, realistic end-user examples (observability, hospitality, and essay content), start with [`examples/end-users/`](../examples/end-users/) rather than the curated Texas fixtures.
+
 Two naive sources. Same tokens. Different DNA. GitHub.com file view is **source**, not a live page.
 
 | Source | Naive file | Looping GIF | How to open |

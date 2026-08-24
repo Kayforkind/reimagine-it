@@ -1,0 +1,149 @@
+{
+  "mode": "auto",
+  "token": "webpage",
+  "seed": 762163206,
+  "score": 172,
+  "rationale": "The source benefits from a measured reading hierarchy. Evidence: 5 anchors, 1 measurable facts.",
+  "candidates": [
+    {
+      "token": "webpage",
+      "seed": 762163206,
+      "fit": 36,
+      "quality": 100,
+      "total": 172,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "cinematic",
+      "seed": -1625717391,
+      "fit": 22,
+      "quality": 100,
+      "total": 144,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "3js",
+      "seed": 194546627,
+      "fit": 18,
+      "quality": 100,
+      "total": 136,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "anchors": [
+    "Letter",
+    "Night Tide",
+    "Keep",
+    "Write",
+    "Notes"
+  ],
+  "facts": {
+    "headings": 5,
+    "paragraphs": 7,
+    "items": 0,
+    "dates": 1,
+    "numbers": 0,
+    "links": 1
+  },
+  "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\tide-letter\\source.html",
+  "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\tide-letter\\auto.html"
+}

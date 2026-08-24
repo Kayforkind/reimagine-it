@@ -45,7 +45,8 @@
     "mcp": "node mcp/server.js",
     "auto": "node scripts/auto.js",
     "build:docs": "node scripts/build-docs-engine.js",
-    "check:docs": "node scripts/build-docs-engine.js --check"
+    "check:docs": "node scripts/build-docs-engine.js --check",
+    "examples": "python examples/end-users/build.py"
   },
   "files": [
     "skills/reimagine-it/",

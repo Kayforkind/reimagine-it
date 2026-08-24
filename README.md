@@ -14,7 +14,7 @@ Not a template picker. Not a mood board. Not a prompt that fills your page with 
 
 <div align="center">
 
-**[Open the live playground](https://kayforkind.github.io/reimagine-it/#playground)** · **[Browse the case studies](https://kayforkind.github.io/reimagine-it/)** · **[Install the skill](#install)**
+**[Open the live playground](https://kayforkind.github.io/reimagine-it/#playground)** · **[Browse the case studies](https://kayforkind.github.io/reimagine-it/)** · **[Try end-user examples](examples/end-users/)** · **[Install the skill](#install)**
 
 </div>
 
@@ -325,7 +325,7 @@ The repository contains curated source/after pairs and regenerators. They are re
 | Jules Ice Cream | A second source with parlor-specific design DNA | [`gold/jules/`](gold/jules/) |
 | Five non-web artifacts | CLI, protocol, data ledger, and code-architecture transformations | [`gold/five/`](gold/five/) |
 
-See the [full showcase](docs/SHOWCASE.md) or open the [live gallery](https://kayforkind.github.io/reimagine-it/).
+See the [full showcase](docs/SHOWCASE.md), try the [fresh end-user examples](examples/end-users/), or open the [live gallery](https://kayforkind.github.io/reimagine-it/).
 
 The repository's static gold pages are curated reference artifacts. The standalone CLI is the general-purpose path for beautifying a user's own HTML. GIFs remain optional social-proof assets; the primary proof is the live, inspectable HTML output and its audit report.
 
