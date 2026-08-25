@@ -90,9 +90,9 @@
     {
       "token": "webpage",
       "seed": 762179018,
-      "fit": 25,
+      "fit": 42,
       "quality": 100,
-      "total": 150,
+      "total": 184,
       "checks": [
         {
           "name": "standalone HTML",

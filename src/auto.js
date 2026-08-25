@@ -11,7 +11,7 @@ var generateApi = typeof module !== 'undefined' && module.exports
   ? require('./generate')
   : (typeof window !== 'undefined' ? window.ReimagineGenerate : {});
 
-var DEFAULT_CANDIDATES = ['webpage', 'landing', 'dashboard', 'infographic', 'cinematic', 'artistic', 'photography', 'svg', '3js', 'simulation'];
+var DEFAULT_CANDIDATES = ['webpage', 'landing', 'dashboard', 'infographic', 'cinematic', 'artistic', 'photography', 'svg', '3js', 'simulation', 'glass', 'editorial', 'motion', 'gradient'];
 
 function normaliseCount(value) {
   value = Number(value);
@@ -37,6 +37,11 @@ function scoreToken(token, content) {
   if (token === 'cinematic' && (content.profile === 'essay' || content.profile === 'literary')) score += 24;
   if (token === 'cinematic' && facts >= 2 && /compare|data|history|statistics|report|survey/.test(text)) score -= 24;
   if (token === 'artistic') score += (/poem|poetry|essay|memory|color|art|creative|voice|emotion/.test(text) ? 13 : 0) + Math.max(0, 8 - facts);
+  if (token === 'webpage') score += 5 + (content.paragraphs || []).length * 2 + (content.headings || []).length;
+  if (token === 'glass') score += (/glass|frosted|transparent|layer|panel|depth/.test(text) ? 12 : 0) + links * 2;
+  if (token === 'editorial') score += (content.paragraphs || []).length * 3 + (/essay|article|magazine|editorial|journal|publish/.test(text) ? 14 : 0);
+  if (token === 'motion') score += (/animation|scroll|motion|interactive|reveal|parallax/.test(text) ? 11 : 0) + (content.anchors || []).length;
+  if (token === 'gradient') score += items * 2 + (/brand|modern|color|vibrant|bold|fresh/.test(text) ? 10 : 0) + (content.headings || []).length;
   if (token === 'webpage') score += 5 + (content.paragraphs || []).length * 2 + (content.headings || []).length;
   return score;
 }
@@ -83,6 +88,10 @@ function rationale(token, content) {
     svg: 'The source names enough anchors to map into a compact living diagram.',
     '3js': 'The source has spatial or exploratory language suited to an orbitable field.',
     simulation: 'The source has a sequence or dated progression that can be scrubbed.',
+    glass: 'The source benefits from layered, depth-aware presentation.',
+    editorial: 'The source has enough text for a magazine-grade treatment.',
+    motion: 'The source structure supports a scroll-reveal narrative.',
+    gradient: 'The source has signals that benefit from bold color meshing.',
   };
   return reasons[token] + ' Evidence: ' + anchors + ' anchors, ' + facts + ' measurable facts.';
 }

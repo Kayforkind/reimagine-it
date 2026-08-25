@@ -1,16 +1,16 @@
 {
   "mode": "auto",
-  "token": "cinematic",
-  "seed": -1625725310,
-  "score": 188,
-  "rationale": "The source has narrative language that benefits from paced chapters. Evidence: 5 anchors, 1 measurable facts.",
+  "token": "webpage",
+  "seed": 762163206,
+  "score": 200,
+  "rationale": "The source benefits from a measured reading hierarchy. Evidence: 5 anchors, 1 measurable facts.",
   "candidates": [
     {
-      "token": "cinematic",
-      "seed": -1625725310,
-      "fit": 44,
+      "token": "webpage",
+      "seed": 762163206,
+      "fit": 50,
       "quality": 100,
-      "total": 188,
+      "total": 200,
       "checks": [
         {
           "name": "standalone HTML",
@@ -47,11 +47,11 @@
       ]
     },
     {
-      "token": "webpage",
-      "seed": 762171125,
-      "fit": 30,
+      "token": "cinematic",
+      "seed": -1625717391,
+      "fit": 44,
       "quality": 100,
-      "total": 160,
+      "total": 188,
       "checks": [
         {
           "name": "standalone HTML",
@@ -147,9 +147,9 @@
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\tide-letter\\source.html",
   "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\tide-letter\\auto.html",
   "fidelity": {
-    "preserved": 13,
+    "preserved": 14,
     "detected": 14,
-    "percentage": 93,
+    "percentage": 100,
     "checks": {
       "title": [
         {
@@ -218,7 +218,7 @@
         {
           "value": "mailto:hello@nighttide.example",
           "label": "hello@nighttide.example",
-          "preserved": false
+          "preserved": true
         }
       ]
     }

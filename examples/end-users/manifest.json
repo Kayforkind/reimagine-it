@@ -102,9 +102,9 @@
         {
           "token": "webpage",
           "seed": 762179018,
-          "fit": 25,
+          "fit": 42,
           "quality": 100,
-          "total": 150,
+          "total": 184,
           "checks": [
             {
               "name": "standalone HTML",
@@ -157,14 +157,14 @@
         "landing"
       ],
       "seed": 23,
-      "score": 150,
+      "score": 184,
       "candidates": [
         {
           "token": "webpage",
           "seed": 762163192,
-          "fit": 25,
+          "fit": 42,
           "quality": 100,
-          "total": 150,
+          "total": 184,
           "checks": [
             {
               "name": "standalone HTML",
@@ -293,20 +293,20 @@
         "examples/end-users/tide-letter/option-2-artistic.html",
         "examples/end-users/tide-letter/option-3-simulation.html"
       ],
-      "auto_token": "cinematic",
+      "auto_token": "webpage",
       "alternate_tokens": [
         "artistic",
         "simulation"
       ],
       "seed": 37,
-      "score": 188,
+      "score": 200,
       "candidates": [
         {
-          "token": "cinematic",
-          "seed": -1625725310,
-          "fit": 44,
+          "token": "webpage",
+          "seed": 762163206,
+          "fit": 50,
           "quality": 100,
-          "total": 188,
+          "total": 200,
           "checks": [
             {
               "name": "standalone HTML",
@@ -343,11 +343,11 @@
           ]
         },
         {
-          "token": "webpage",
-          "seed": 762171125,
-          "fit": 30,
+          "token": "cinematic",
+          "seed": -1625717391,
+          "fit": 44,
           "quality": 100,
-          "total": 160,
+          "total": 188,
           "checks": [
             {
               "name": "standalone HTML",
