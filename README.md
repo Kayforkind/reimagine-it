@@ -117,12 +117,13 @@ The intended outcome is **fresh when requested, consistent when approved**—not
 - **[Pulsewave](gold/pulsewave/)** — observability language becomes a signal-oriented system.
 - **[Two Lights](gold/twolights/)** — a personal essay becomes a lighthouse-led narrative.
 - **[Saffron & Smoke](gold/saffron/)** — a menu becomes a warm food-specific composition.
-- **[End-user examples](examples/end-users/)** — three realistic sources with source HTML, Auto output, alternate output, reports, and GIF proof.
+- **[End-user examples](examples/end-users/)** — three realistic sources (release dashboard, restaurant menu, personal essay) with source HTML, Auto output, alternate options, reports, and GIF proof.
 - **[Full showcase](docs/SHOWCASE.md)** — source, rationale, artifact, and regeneration notes.
+- **[Live playground](https://kayforkind.github.io/reimagine-it/#playground)** — all 14 design tokens now selectable in-browser.
 
 The committed examples are reproducible references, not promises about an unknown input. Run the command on your own page to see what its content produces.
 
-## Ten output directions
+## Fourteen output directions
 
 | Token | Best for | Character |
 |---|---|---|
@@ -136,6 +137,10 @@ The committed examples are reproducible references, not promises about an unknow
 | `svg` | Marks and diagrams | Inline geometric illustration |
 | `3js` | Spatial stories | Offline orbitable canvas |
 | `simulation` | Time and process | Playable timeline and scrubber |
+| `glass` | Modern panels and cards | Frosted backdrop-filter depth |
+| `editorial` | Long-form text and essays | Magazine layout with drop caps |
+| `motion` | Scroll-driven stories | Animated reveals and parallax |
+| `gradient` | Bold brand presentations | Gradient mesh cards and text |
 
 List the registry from the CLI:
 
