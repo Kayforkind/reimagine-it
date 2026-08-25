@@ -121,13 +121,12 @@ def screenshot(browser: str, source: Path, output: Path, width: int = 1400, heig
     output.unlink(missing_ok=True)
     subprocess.run([
         browser,
-        "--headless=new",
-        "--disable-gpu",
+        "--headless",
         "--hide-scrollbars",
-        "--use-gl=swiftshader",
         "--no-sandbox",
         "--disable-extensions",
         "--disable-sync",
+        "--disable-background-networking",
         f"--window-size={width},{height}",
         f"--virtual-time-budget={delay}",
         f"--screenshot={output}",
@@ -319,8 +318,8 @@ def main() -> int:
 
             phone_before = scratch / f"{example['slug']}-phone-before.png"
             phone_auto = scratch / f"{example['slug']}-phone-auto.png"
-            screenshot(browser, ROOT / example["source"], phone_before, width=430, height=920)
-            screenshot(browser, folder / "auto.html", phone_auto, width=430, height=920)
+            screenshot(browser, ROOT / example["source"], phone_before, width=480, height=960)
+            screenshot(browser, folder / "auto.html", phone_auto, width=480, height=960)
 
             meta = {
                 "author": example["author"],

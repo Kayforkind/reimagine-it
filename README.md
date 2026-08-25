@@ -151,7 +151,8 @@ The committed examples are reproducible references, not promises about an unknow
 | `gradient` | Bold brand presentations | Gradient mesh cards and text |
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/tokens-board.png" alt="All 14 design tokens applied to the same source — real CLI output" width="720">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/tokens-board.png" alt="All 14 design tokens at desktop width — real CLI output" width="560">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/tokens-phone.png" alt="All 14 design tokens at phone width — real CLI output" width="180">
 </p>
 
 List the registry from the CLI:

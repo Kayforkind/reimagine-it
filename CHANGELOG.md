@@ -6,6 +6,18 @@ All notable changes to reimagine-it.
 
 ## v2.3.4 (current)
 
+### Fix — `webpage` token shipped an empty page
+
+The `webpage` generator called `page(title, bodyHTML)` but `page(title, css, body, script)` expects the stylesheet as its second argument. The entire markup landed inside the `<style>` tag and `<body>` was the literal string `undefined`. The missing `css` argument is now passed, so the token emits the full page (`<main class="page">`, hero, contents, and sections) again.
+
+### Fix — noisy hero chips and blurry headless rendering
+
+The landing hero's decorative chips used `backdrop-filter: blur(8px)` with no fallback, which rendered as smudges under software rasterization. Removed the blur (the chips keep their solid card look), and the example builder no longer forces `--use-gl=swiftshader`, so headless screenshots use the real GPU path and come out sharp. Phone screenshots also render at 480px (was 430px) for crisper text.
+
+### New — token showcase gallery (wide + tall)
+
+Every one of the 14 tokens now renders at desktop and phone width. The landing page replaces the cramped single-image grid with an interactive gallery — large desktop preview plus a phone preview, 14 selector chips, and prev/next — and ships the individual `docs/tokens/*-desktop.png` / `*-phone.png` shots plus `tokens-board.png` (desktop grid) and `tokens-phone.png` (phone grid).
+
 ### Fix — MCP server import paths
 
 The MCP server required SDK subpaths without the `.js` suffix (`@modelcontextprotocol/sdk/server/stdio`, `@modelcontextprotocol/sdk/types`). Against the SDK's exports map (v1.30.0) those resolve to extension-less paths and fail with MODULE_NOT_FOUND, so `npx reimagine-it-mcp` never started. Both imports now use the canonical `.js` subpaths and the server boots and negotiates correctly.
