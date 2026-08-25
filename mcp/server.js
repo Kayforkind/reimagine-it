@@ -30,8 +30,8 @@
 let Server, StdioServerTransport, CallToolRequestSchema, ListToolsRequestSchema;
 try {
   ({ Server } = require('@modelcontextprotocol/sdk/server'));
-  ({ StdioServerTransport } = require('@modelcontextprotocol/sdk/server/stdio'));
-  ({ CallToolRequestSchema, ListToolsRequestSchema } = require('@modelcontextprotocol/sdk/types'));
+  ({ StdioServerTransport } = require('@modelcontextprotocol/sdk/server/stdio.js'));
+  ({ CallToolRequestSchema, ListToolsRequestSchema } = require('@modelcontextprotocol/sdk/types.js'));
 } catch (e) {
   console.error('reimagine-it MCP server requires the MCP SDK.');
   console.error('Install it with: npm install @modelcontextprotocol/sdk');

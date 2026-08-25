@@ -4,7 +4,15 @@ All notable changes to reimagine-it.
 
 ---
 
-## v2.3.3 (current)
+## v2.3.4 (current)
+
+### Fix — MCP server import paths
+
+The MCP server required SDK subpaths without the `.js` suffix (`@modelcontextprotocol/sdk/server/stdio`, `@modelcontextprotocol/sdk/types`). Against the SDK's exports map (v1.30.0) those resolve to extension-less paths and fail with MODULE_NOT_FOUND, so `npx reimagine-it-mcp` never started. Both imports now use the canonical `.js` subpaths and the server boots and negotiates correctly.
+
+Also: `reimagine-it@2.3.3` is now live on npm, and `NPM_TOKEN` is configured as a repository secret so every future release auto-publishes through the workflow.
+
+## v2.3.3
 
 ### New — the remaining generators close the gap
 
