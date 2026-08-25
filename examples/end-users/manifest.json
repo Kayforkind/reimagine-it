@@ -425,6 +425,148 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Teralyte \u2014 Infrastructure that answers back",
+      "source": "examples/end-users/teralyte/source.html",
+      "auto": "examples/end-users/teralyte/auto.html",
+      "report": "examples/end-users/teralyte/auto.json",
+      "alternates": [
+        "examples/end-users/teralyte/option-2-landing.html",
+        "examples/end-users/teralyte/option-3-gradient.html"
+      ],
+      "auto_token": "dashboard",
+      "alternate_tokens": [
+        "landing",
+        "gradient"
+      ],
+      "seed": 43,
+      "score": 196,
+      "candidates": [
+        {
+          "token": "dashboard",
+          "seed": -457102603,
+          "fit": 48,
+          "quality": 100,
+          "total": 196,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "webpage",
+          "seed": 762171131,
+          "fit": 40,
+          "quality": 100,
+          "total": 180,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "infographic",
+          "seed": -1088296093,
+          "fit": 34,
+          "quality": 100,
+          "total": 168,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        }
+      ]
     }
   ]
 }

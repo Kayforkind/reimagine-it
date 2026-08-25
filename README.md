@@ -117,7 +117,7 @@ The intended outcome is **fresh when requested, consistent when approved**—not
 - **[Pulsewave](gold/pulsewave/)** — observability language becomes a signal-oriented system.
 - **[Two Lights](gold/twolights/)** — a personal essay becomes a lighthouse-led narrative.
 - **[Saffron & Smoke](gold/saffron/)** — a menu becomes a warm food-specific composition.
-- **[End-user examples](examples/end-users/)** — three realistic sources (release dashboard, restaurant menu, personal essay) with source HTML, Auto output, alternate options, reports, and GIF proof.
+- **[End-user examples](examples/end-users/)** — four realistic sources (release console, restaurant menu, personal essay, infrastructure docs) with source HTML, Auto output, alternate options, reports, and GIF proof on desktop and phone.
 - **[Full showcase](docs/SHOWCASE.md)** — source, rationale, artifact, and regeneration notes.
 - **[Live playground](https://kayforkind.github.io/reimagine-it/#playground)** — all 14 design tokens now selectable in-browser.
 

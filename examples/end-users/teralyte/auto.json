@@ -1,0 +1,242 @@
+{
+  "mode": "auto",
+  "token": "dashboard",
+  "seed": -457102603,
+  "score": 196,
+  "rationale": "The source contains enough measurable signals for an operational view. Evidence: 5 anchors, 6 measurable facts.",
+  "candidates": [
+    {
+      "token": "dashboard",
+      "seed": -457102603,
+      "fit": 48,
+      "quality": 100,
+      "total": 196,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "webpage",
+      "seed": 762171131,
+      "fit": 40,
+      "quality": 100,
+      "total": 180,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "infographic",
+      "seed": -1088296093,
+      "fit": 34,
+      "quality": 100,
+      "total": 168,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "anchors": [
+    "Teralyte Cloud Platform",
+    "Teralyte Overview Pricing",
+    "Docs Support Teralyte",
+    "Cloud Platform Manage",
+    "Teralyte"
+  ],
+  "facts": {
+    "headings": 5,
+    "paragraphs": 3,
+    "items": 8,
+    "dates": 2,
+    "numbers": 4,
+    "links": 1
+  },
+  "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\teralyte\\source.html",
+  "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\teralyte\\auto.html",
+  "fidelity": {
+    "preserved": 13,
+    "detected": 18,
+    "percentage": 72,
+    "checks": {
+      "title": [
+        {
+          "value": "Teralyte Cloud Platform",
+          "preserved": true
+        }
+      ],
+      "headings": [
+        {
+          "value": "Teralyte Cloud Platform",
+          "preserved": true
+        },
+        {
+          "value": "Quick Start",
+          "preserved": true
+        },
+        {
+          "value": "Pricing Plans",
+          "preserved": true
+        },
+        {
+          "value": "Features",
+          "preserved": true
+        },
+        {
+          "value": "About",
+          "preserved": true
+        }
+      ],
+      "dates": [
+        {
+          "value": "2019",
+          "preserved": false
+        },
+        {
+          "value": "2024",
+          "preserved": false
+        }
+      ],
+      "numbers": [
+        {
+          "value": "10",
+          "preserved": true
+        },
+        {
+          "value": "29",
+          "preserved": true
+        },
+        {
+          "value": "50",
+          "preserved": true
+        },
+        {
+          "value": "99",
+          "preserved": true
+        }
+      ],
+      "emails": [],
+      "anchors": [
+        {
+          "value": "Teralyte Cloud Platform",
+          "preserved": true
+        },
+        {
+          "value": "Teralyte Overview Pricing",
+          "preserved": false
+        },
+        {
+          "value": "Docs Support Teralyte",
+          "preserved": false
+        },
+        {
+          "value": "Cloud Platform Manage",
+          "preserved": false
+        },
+        {
+          "value": "Teralyte",
+          "preserved": true
+        }
+      ],
+      "links": [
+        {
+          "value": "#",
+          "label": "Overview",
+          "preserved": true
+        }
+      ]
+    }
+  }
+}

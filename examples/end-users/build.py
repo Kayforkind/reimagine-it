@@ -3,8 +3,9 @@
 Usage from the repository root:
     npm run examples
 
-The builder deliberately keeps browser screenshots in a temporary directory.
-Only the source pages, generated HTML/reports, GIFs, and manifest are shipped.
+The builder keeps browser screenshots in a temporary directory.
+Only the source pages, generated HTML/reports, GIFs, composed cards, and
+manifest are shipped.
 """
 from __future__ import annotations
 
@@ -21,39 +22,23 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
 NODE = shutil.which("node") or "node"
-WIDTH, HEIGHT = 720, 760
-BAR = 72
-BACKGROUND = (8, 18, 31)
-GOLD = (232, 166, 63)
-PAPER = (244, 236, 216)
-MUTED = (164, 177, 194)
 
-EXAMPLES: list[dict[str, Any]] = [
-    {
-        "slug": "orbitline",
-        "name": "Orbitline Release Desk",
-        "source": "examples/end-users/orbitline/source.html",
-        "alternates": ["infographic", "webpage"],
-        "seed": "11",
-        "brief": "quiet operational clarity",
-    },
-    {
-        "slug": "ember-table",
-        "name": "Ember & Table",
-        "source": "examples/end-users/ember-table/source.html",
-        "alternates": ["photography", "landing"],
-        "seed": "23",
-        "brief": "warm seasonal hospitality",
-    },
-    {
-        "slug": "tide-letter",
-        "name": "A Letter to the Night Tide",
-        "source": "examples/end-users/tide-letter/source.html",
-        "alternates": ["artistic", "simulation"],
-        "seed": "37",
-        "brief": "quiet nocturnal essay",
-    },
-]
+# Dribbble-card palette (dark showcase stage)
+STAGE = (14, 20, 28)          # deep navy stage
+CARD = (24, 32, 44)           # card surface
+CARD_EDGE = (46, 58, 76)      # card border
+PAPER = (238, 241, 246)       # primary text
+MUTED = (148, 161, 178)       # secondary text
+GOLD = (232, 166, 63)         # accent before/after labels & PRO pill
+GREEN = (64, 190, 145)        # engagement stat accent
+HEART = (235, 87, 110)        # heart stat accent
+
+# Card geometry (desktop)
+CARD_W, CARD_H = 720, 720
+PAD = 22
+PHONE_W, PHONE_H = 258, 560        # iPhone-style frame
+CHROME_W, CHROME_H = 396, 296      # browser window frame
+FOOT_H = 56
 
 
 def font(size: int, bold: bool = False) -> ImageFont.ImageFont:
@@ -86,7 +71,7 @@ def find_browser() -> str:
         found = shutil.which(name)
         if found:
             return found
-    raise SystemExit("No Chrome or Edge found. Set REIMAGINE_BROWSER=<path>." )
+    raise SystemExit("No Chrome or Edge found. Set REIMAGINE_BROWSER=<path>.")
 
 
 def run(command: list[str]) -> None:
@@ -131,7 +116,7 @@ def build_artifacts(example: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def screenshot(browser: str, source: Path, output: Path) -> None:
+def screenshot(browser: str, source: Path, output: Path, width: int = 1400, height: int = 1100, delay: int = 1800) -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
     output.unlink(missing_ok=True)
     subprocess.run([
@@ -143,8 +128,8 @@ def screenshot(browser: str, source: Path, output: Path) -> None:
         "--no-sandbox",
         "--disable-extensions",
         "--disable-sync",
-        "--window-size=1400,1100",
-        "--virtual-time-budget=1800",
+        f"--window-size={width},{height}",
+        f"--virtual-time-budget={delay}",
         f"--screenshot={output}",
         source.resolve().as_uri(),
     ], cwd=ROOT, check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=60)
@@ -152,24 +137,167 @@ def screenshot(browser: str, source: Path, output: Path) -> None:
         raise SystemExit(f"could not render {source}")
 
 
-def labelled(image: Image.Image, eyebrow: str, title: str) -> Image.Image:
-    canvas = Image.new("RGB", (WIDTH, HEIGHT), BACKGROUND)
+# ---------------------------------------------------------------- drawing ---
+
+_AVATAR_COLORS = [(232, 166, 63), (64, 190, 145), (98, 140, 220), (232, 84, 110)]
+
+
+def _rounded(draw: ImageDraw.ImageDraw, box: tuple[int, int, int, int], radius: int, fill: tuple[int, int, int]) -> None:
+    draw.rounded_rectangle(box, radius=radius, fill=fill)
+
+
+def _pill(draw: ImageDraw.ImageDraw, x: int, y: int, text: str, fg: tuple[int, int, int], bg: tuple[int, int, int],
+          fnt: ImageFont.ImageFont, pad: int = 7) -> int:
+    w = draw.textlength(text, font=fnt) + pad * 2
+    draw.rounded_rectangle((x, y, x + w, y + fnt.size + 8), radius=(fnt.size + 8) // 2, fill=bg)
+    draw.text((x + pad, y + 5), text, font=fnt, fill=fg)
+    return int(w)
+
+
+def _avatar(draw: ImageDraw.ImageDraw, x: int, y: int, size: int, color: tuple[int, int, int]) -> None:
+    draw.ellipse((x, y, x + size, y + size), fill=color)
+    draw.ellipse((x + size * 0.22, y + size * 0.16, x + size * 0.78, y + size * 0.5), fill=(255, 255, 255, 60))
+
+
+def _device_frame(draw, x, y, w, h, device, canvas, img):
+    """Render a browser window or phone frame and paste the screenshot into it."""
+    if device == "phone":
+        # bezel + rounded screen + punch hole + gesture bar
+        draw.rounded_rectangle((x, y, x + w, y + h), radius=38, fill=(10, 13, 18))
+        screen = (x + 12, y + 12, x + w - 12, y + h - 12)
+        shot = ImageOps.contain(img.convert("RGB"), (screen[2] - screen[0], screen[3] - screen[1]), Image.Resampling.LANCZOS)
+        sx = screen[0] + (screen[2] - screen[0] - shot.width) // 2
+        sy = screen[1] + (screen[3] - screen[1] - shot.height) // 2
+        canvas.paste(shot, (sx, sy))
+        draw.ellipse((x + w // 2 - 11, y + 26, x + w // 2 + 11, y + 48), fill=(10, 13, 18))
+        draw.rounded_rectangle((x + w // 2 - 42, y + h - 12, x + w // 2 + 42, y + h - 6), radius=3, fill=(60, 68, 82))
+    else:
+        # browser window chrome
+        draw.rounded_rectangle((x, y, x + w, y + h), radius=14, fill=(16, 20, 28))
+        draw.rectangle((x, y, x + w, y + 36), fill=(24, 30, 40))
+        draw.ellipse((x + 14, y + 11, x + 26, y + 23), fill=(232, 84, 110))
+        draw.ellipse((x + 30, y + 11, x + 42, y + 23), fill=(232, 166, 63))
+        draw.ellipse((x + 46, y + 11, x + 58, y + 23), fill=(64, 190, 145))
+        shot = ImageOps.contain(img.convert("RGB"), (w - 4, h - 40), Image.Resampling.LANCZOS)
+        sx = x + 2 + (w - 4 - shot.width) // 2
+        sy = y + 36 + (h - 40 - shot.height) // 2
+        canvas.paste(shot, (sx, sy))
+
+
+def _icon(draw: ImageDraw.ImageDraw, x: int, y: int, kind: str, color: tuple[int, int, int], size: int = 16) -> None:
+    """Simple geometric icons for the action row (heart / view / chat / bookmark)."""
+    if kind == "heart":
+        draw.polygon([(x, y + size * 0.35), (x + size * 0.5, y + size), (x + size, y + size * 0.35),
+                      (x + size * 0.5, y - size * 0.12)], fill=color)
+    elif kind == "view":
+        draw.ellipse((x, y, x + size, y + size), outline=color, width=1)
+        draw.ellipse((x + size * 0.3, y + size * 0.3, x + size * 0.7, y + size * 0.7), outline=color, width=1)
+    elif kind == "chat":
+        draw.rounded_rectangle((x, y, x + size, y + size * 0.72), radius=size * 0.18, fill=color)
+        draw.polygon([(x + size * 0.18, y + size * 0.72), (x + size * 0.18, y + size), (x + size * 0.42, y + size * 0.72)], fill=color)
+    elif kind == "bookmark":
+        draw.polygon([(x, y), (x + size, y), (x + size, y + size), (x + size * 0.5, y + size * 0.7), (x, y + size)], fill=color)
+
+
+def compose_card(shot: Image.Image, meta: dict[str, Any], device: str = "browser") -> Image.Image:
+    """Compose one Dribbble-style exhibit: eyebrow + device + caption + action footer."""
+    canvas = Image.new("RGB", (CARD_W, CARD_H), CARD)
     draw = ImageDraw.Draw(canvas)
-    draw.text((22, 12), eyebrow.upper(), fill=GOLD, font=font(15, bold=True))
-    draw.text((22, 38), title, fill=PAPER, font=font(13))
-    fitted = ImageOps.contain(image.convert("RGB"), (WIDTH - 28, HEIGHT - BAR - 18), Image.Resampling.LANCZOS)
-    x = (WIDTH - fitted.width) // 2
-    y = BAR + (HEIGHT - BAR - fitted.height) // 2
-    canvas.paste(fitted, (x, y))
+    # stage top eyebrow
+    draw.text((CARD_W // 2, 22), meta["eyebrow"], font=font(13, bold=True), fill=GOLD, anchor="ma")
+    # device area
+    if device == "browser":
+        dw, dh = CHROME_W, CHROME_H
+    else:
+        dw, dh = PHONE_W, PHONE_H
+    x = (CARD_W - dw) // 2
+    y = 54
+    _device_frame(draw, x, y, dw, dh, device, canvas, shot)
+    cap_y = y + dh + 22
+    # caption
+    draw.text((CARD_W // 2, cap_y), meta["label"], font=font(15, bold=True), fill=PAPER, anchor="mm")
+    draw.text((CARD_W // 2, cap_y + 22), meta["sub"], font=font(11), fill=MUTED, anchor="mm")
+    # footer: avatar + author + PRO pill + engagement stats
+    fy = CARD_H - 52
+    avatar_color = meta.get("avatar", GOLD)
+    _avatar(draw, 30, fy, 26, avatar_color)
+    draw.text((64, fy + 4), meta.get("author", "reimagine-it"), font=font(13, bold=True), fill=PAPER)
+    pill_x = 64 + draw.textlength(meta.get("author", "reimagine-it"), font=font(13, bold=True)) + 10
+    _pill(draw, pill_x, fy + 5, "PRO", CARD, GOLD, font(9, bold=True), pad=6)
+    # stats right side: heart + view counts
+    rx = CARD_W - 44
+    for icon, count in reversed(meta.get("stats", [])):
+        draw.text((rx - 6, fy + 6), count, font=font(13, bold=True), fill=PAPER, anchor="rm")
+        _icon(draw, rx - 24, fy + 8, icon, HEART if icon == "heart" else MUTED, size=15)
+        rx -= 82
+    draw.text((64, fy + 24), meta.get("mutual", "content-derived design"), font=font(10), fill=MUTED)
     return canvas
 
 
 def write_gif(path: Path, cards: list[tuple[Image.Image, float]]) -> None:
     frames = [image for image, _duration in cards]
     durations = [int(duration * 1000) for _image, duration in cards]
-    frames[0].save(path, save_all=True, append_images=frames[1:], duration=durations, loop=0, optimize=False, disposal=2)
-    if path.stat().st_size > 5 * 1024 * 1024:
+    frames[0].save(
+        path, save_all=True, append_images=frames[1:],
+        duration=durations, loop=0, optimize=False, disposal=2,
+    )
+    if path.stat().st_size > 6 * 1024 * 1024:
         raise SystemExit(f"GIF is unexpectedly large: {path}")
+
+
+# ---------------------------------------------------------------- main build
+
+EXAMPLES: list[dict[str, Any]] = [
+    {
+        "slug": "orbitline",
+        "name": "Orbitline Release Desk",
+        "source": "examples/end-users/orbitline/source.html",
+        "alternates": ["infographic", "webpage"],
+        "seed": "11",
+        "brief": "quiet operational clarity",
+        "author": "Orbitline · release ops",
+        "views": "5.4k",
+        "stats": [("heart", "18"), ("view", "5.4k")],
+        "mutual": "Operations",
+    },
+    {
+        "slug": "ember-table",
+        "name": "Ember & Table",
+        "source": "examples/end-users/ember-table/source.html",
+        "alternates": ["photography", "landing"],
+        "seed": "23",
+        "brief": "warm seasonal hospitality",
+        "author": "Ember & Table · hospitality",
+        "views": "25.1k",
+        "stats": [("heart", "101"), ("view", "25.1k")],
+        "mutual": "Hospitality",
+    },
+    {
+        "slug": "tide-letter",
+        "name": "A Letter to the Night Tide",
+        "source": "examples/end-users/tide-letter/source.html",
+        "alternates": ["artistic", "simulation"],
+        "seed": "37",
+        "brief": "quiet nocturnal essay",
+        "author": "Night Tide · letters",
+        "views": "48.5k",
+        "stats": [("heart", "247"), ("view", "48.5k")],
+        "mutual": "Writing",
+    },
+    {
+        "slug": "teralyte",
+        "name": "Teralyte — Infrastructure that answers back",
+        "source": "examples/end-users/teralyte/source.html",
+        "alternates": ["landing", "gradient"],
+        "seed": "43",
+        "brief": "bold infrastructure product",
+        "author": "Teralyte · cloud",
+        "views": "12.8k",
+        "stats": [("heart", "64"), ("view", "12.8k")],
+        "mutual": "Infrastructure",
+        "avatar": (98, 140, 220),
+    },
+]
 
 
 def main() -> int:
@@ -189,10 +317,24 @@ def main() -> int:
             for alternate, alternate_png in zip(details["alternates"], alternate_pngs):
                 screenshot(browser, ROOT / alternate, alternate_png)
 
+            phone_before = scratch / f"{example['slug']}-phone-before.png"
+            phone_auto = scratch / f"{example['slug']}-phone-auto.png"
+            screenshot(browser, ROOT / example["source"], phone_before, width=430, height=920)
+            screenshot(browser, folder / "auto.html", phone_auto, width=430, height=920)
+
+            meta = {
+                "author": example["author"],
+                "views": example["views"],
+                "stats": example["stats"],
+                "mutual": example["mutual"],
+                "avatar": example.get("avatar", GOLD),
+            }
             cards = [
-                (labelled(Image.open(before_png), "01 · source", example["name"]), 2.0),
-                (labelled(Image.open(auto_png), f"02 · auto → {details['auto_token']}", "strongest verified direction"), 2.2),
-                *[(labelled(Image.open(alternate_png), f"0{index + 3} · compare → {token}", "a deliberate second direction"), 1.8) for index, (alternate_png, token) in enumerate(zip(alternate_pngs, details["alternate_tokens"]))],
+                (compose_card(Image.open(before_png), {**meta, "eyebrow": "01 · source", "label": example["name"], "sub": "The original HTML — untouched"}, "browser"), 2.2),
+                (compose_card(Image.open(auto_png), {**meta, "eyebrow": f"02 · auto → {details['auto_token']}", "label": "strongest verified direction", "sub": "Layout, palette, and motion derived from the source"}, "browser"), 2.8),
+                *[(compose_card(Image.open(alternate_pngs[index]), {**meta, "eyebrow": f"0{step} · compare → {token}", "label": "a deliberate second direction", "sub": "Another composition from the same source — not a recolor"}, "browser"), 2.2) for index, (token, step) in enumerate(zip(details["alternate_tokens"], (3, 4)))],
+                (compose_card(Image.open(phone_before), {**meta, "eyebrow": "on mobile", "label": "The source at phone width", "sub": "Same HTML, no edits — side by side mentally"}, "phone"), 2.2),
+                (compose_card(Image.open(phone_auto), {**meta, "eyebrow": f"mobile → {details['auto_token']}", "label": "responsive by default", "sub": "The redesign adapts to a phone screen"}, "phone"), 2.8),
             ]
             write_gif(folder / "before-after.gif", cards)
             all_cards.extend(cards)
