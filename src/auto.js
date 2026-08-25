@@ -11,7 +11,7 @@ var generateApi = typeof module !== 'undefined' && module.exports
   ? require('./generate')
   : (typeof window !== 'undefined' ? window.ReimagineGenerate : {});
 
-var DEFAULT_CANDIDATES = ['webpage', 'landing', 'dashboard', 'infographic', 'cinematic', 'artistic', 'photography', 'svg', '3js', 'simulation', 'glass', 'editorial', 'motion', 'gradient'];
+var DEFAULT_CANDIDATES = ['webpage', 'landing', 'dashboard', 'infographic', 'cinematic', 'artistic', 'photography', 'svg', '3js', 'simulation', 'glass', 'editorial', 'motion', 'gradient', 'showcase'];
 
 function normaliseCount(value) {
   value = Number(value);
@@ -42,6 +42,8 @@ function scoreToken(token, content) {
   if (token === 'editorial') score += (content.paragraphs || []).length * 3 + (/essay|article|magazine|editorial|journal|publish/.test(text) ? 14 : 0);
   if (token === 'motion') score += (/animation|scroll|motion|interactive|reveal|parallax/.test(text) ? 11 : 0) + (content.anchors || []).length;
   if (token === 'gradient') score += items * 2 + (/brand|modern|color|vibrant|bold|fresh/.test(text) ? 10 : 0) + (content.headings || []).length;
+  if (token === 'showcase') score += (/demo|showcase|motion|catalog|capability|feature|lab/.test(text) ? 12 : 0) + (content.anchors || []).length * 2;
+  if (token === 'showcase' && (content.anchors || []).length < 4) score -= 8;
   if (token === 'webpage') score += 5 + (content.paragraphs || []).length * 2 + (content.headings || []).length;
   return score;
 }
@@ -92,6 +94,7 @@ function rationale(token, content) {
     editorial: 'The source has enough text for a magazine-grade treatment.',
     motion: 'The source structure supports a scroll-reveal narrative.',
     gradient: 'The source has signals that benefit from bold color meshing.',
+    showcase: 'The source has enough anchors for a full CSS motion demonstration.',
   };
   return reasons[token] + ' Evidence: ' + anchors + ' anchors, ' + facts + ' measurable facts.';
 }
