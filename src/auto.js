@@ -24,27 +24,27 @@ function scoreToken(token, content) {
   var facts = (content.numbers || []).length + (content.dates || []).length;
   var links = (content.links || []).length;
   var items = (content.items || []).length;
-  if (token === 'dashboard') score += facts * 5 + (/metric|status|uptime|latency|observability|operations|analytics|performance/.test(text) ? 18 : 0);
+  if (token === 'dashboard') score += (/metric|status|uptime|latency|observability|operations|analytics|performance|deploy|traffic|infrastructure|console|monitor|signal/.test(text) ? facts * 5 + 18 : 0);
   if (token === 'infographic') score += facts * 3 + items * 2 + (/compare|timeline|history|statistics|data|report|survey/.test(text) ? 14 : 0);
   if (token === 'webpage') score += (content.paragraphs || []).length + (content.headings || []).length;
   if (token === 'simulation') score += (content.dates || []).length * 6 + (/process|sequence|steps?|timeline|round|version|flow/.test(text) ? 16 : 0);
   if (token === 'simulation' && (content.dates || []).length < 2) score -= 12;
   if (token === '3js') score += (/space|orbit|planet|map|landscape|architecture|room|journey|explore/.test(text) ? 13 : 0) + (content.anchors || []).length;
   if (token === 'svg') score += (/diagram|system|network|map|relationship|brand|identity|signal/.test(text) ? 13 : 0) + links;
-  if (token === 'landing') score += links * 3 + (/product|service|startup|contact|signup|pricing|launch/.test(text) ? 15 : 0);
+  if (token === 'landing') score += links * 3 + (/product|service|startup|contact|signup|pricing|launch|reserve|book|order|visit/.test(text) ? 15 : 0);
+  if (token === 'landing' && (content.profile === 'restaurant' || content.profile === 'food' || content.profile === 'retail')) score += 12;
   if (token === 'photography') score += items * 2 + (/portfolio|gallery|studio|collection|visual|photo|image/.test(text) ? 13 : 0);
   if (token === 'cinematic') score += (/story|journey|chapter|film|cinema|night|dream|light/.test(text) ? 15 : 0) + (content.paragraphs || []).length;
-  if (token === 'cinematic' && (content.profile === 'essay' || content.profile === 'literary')) score += 24;
+  if (token === 'cinematic' && (content.profile === 'essay' || content.profile === 'literary')) score += 10;
   if (token === 'cinematic' && facts >= 2 && /compare|data|history|statistics|report|survey/.test(text)) score -= 24;
   if (token === 'artistic') score += (/poem|poetry|essay|memory|color|art|creative|voice|emotion/.test(text) ? 13 : 0) + Math.max(0, 8 - facts);
-  if (token === 'webpage') score += 5 + (content.paragraphs || []).length * 2 + (content.headings || []).length;
   if (token === 'glass') score += (/glass|frosted|transparent|layer|panel|depth/.test(text) ? 12 : 0) + links * 2;
-  if (token === 'editorial') score += (content.paragraphs || []).length * 3 + (/essay|article|magazine|editorial|journal|publish/.test(text) ? 14 : 0);
+  if (token === 'editorial') score += (content.paragraphs || []).length * 5 + (/essay|article|magazine|editorial|journal|publish/.test(text) ? 14 : 0);
+  if (token === 'editorial' && (content.profile === 'essay' || content.profile === 'literary')) score += 16;
   if (token === 'motion') score += (/animation|scroll|motion|interactive|reveal|parallax/.test(text) ? 11 : 0) + (content.anchors || []).length;
   if (token === 'gradient') score += items * 2 + (/brand|modern|color|vibrant|bold|fresh/.test(text) ? 10 : 0) + (content.headings || []).length;
   if (token === 'showcase') score += (/demo|showcase|motion|catalog|capability|feature|lab/.test(text) ? 12 : 0) + (content.anchors || []).length * 2;
   if (token === 'showcase' && (content.anchors || []).length < 4) score -= 8;
-  if (token === 'webpage') score += 5 + (content.paragraphs || []).length * 2 + (content.headings || []).length;
   return score;
 }
 

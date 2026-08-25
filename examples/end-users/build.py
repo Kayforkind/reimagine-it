@@ -264,7 +264,7 @@ EXAMPLES: list[dict[str, Any]] = [
         "slug": "ember-table",
         "name": "Ember & Table",
         "source": "examples/end-users/ember-table/source.html",
-        "alternates": ["photography", "landing"],
+        "alternates": ["photography", "cinematic"],
         "seed": "23",
         "brief": "warm seasonal hospitality",
         "author": "Ember & Table · hospitality",

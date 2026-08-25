@@ -2,15 +2,15 @@
   "mode": "auto",
   "token": "dashboard",
   "seed": -457102603,
-  "score": 196,
-  "rationale": "The source contains enough measurable signals for an operational view. Evidence: 5 anchors, 6 measurable facts.",
+  "score": 156,
+  "rationale": "The source contains enough measurable signals for an operational view. Evidence: 5 anchors, 2 measurable facts.",
   "candidates": [
     {
       "token": "dashboard",
       "seed": -457102603,
-      "fit": 48,
+      "fit": 28,
       "quality": 100,
-      "total": 196,
+      "total": 156,
       "checks": [
         {
           "name": "standalone HTML",
@@ -47,11 +47,11 @@
       ]
     },
     {
-      "token": "webpage",
-      "seed": 762171131,
-      "fit": 40,
+      "token": "simulation",
+      "seed": 42996767,
+      "fit": 28,
       "quality": 100,
-      "total": 180,
+      "total": 156,
       "checks": [
         {
           "name": "standalone HTML",
@@ -90,9 +90,9 @@
     {
       "token": "infographic",
       "seed": -1088296093,
-      "fit": 34,
+      "fit": 22,
       "quality": 100,
-      "total": 168,
+      "total": 144,
       "checks": [
         {
           "name": "standalone HTML",
@@ -141,15 +141,15 @@
     "paragraphs": 3,
     "items": 8,
     "dates": 2,
-    "numbers": 4,
+    "numbers": 0,
     "links": 1
   },
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\teralyte\\source.html",
   "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\teralyte\\auto.html",
   "fidelity": {
-    "preserved": 13,
-    "detected": 18,
-    "percentage": 72,
+    "preserved": 9,
+    "detected": 14,
+    "percentage": 64,
     "checks": {
       "title": [
         {
@@ -172,41 +172,24 @@
         },
         {
           "value": "Features",
-          "preserved": true
+          "preserved": false
         },
         {
           "value": "About",
-          "preserved": true
+          "preserved": false
         }
       ],
       "dates": [
         {
           "value": "2019",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "2024",
-          "preserved": false
-        }
-      ],
-      "numbers": [
-        {
-          "value": "10",
-          "preserved": true
-        },
-        {
-          "value": "29",
-          "preserved": true
-        },
-        {
-          "value": "50",
-          "preserved": true
-        },
-        {
-          "value": "99",
           "preserved": true
         }
       ],
+      "numbers": [],
       "emails": [],
       "anchors": [
         {

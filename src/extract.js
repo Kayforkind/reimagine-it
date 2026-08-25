@@ -286,12 +286,8 @@ function extractContent(html, filePath) {
   var numberRe = /\b\d+(?:[,.]\d+)?\s*(?:ms|s|min|hr|hours?|days?|weeks?|months?|years?|seats?|users?|people|persons?|dollars?|usd|eur|gbp|gb|mb|kb|px|em|rem|rpm|acres|miles|km|metres|meters|feet|ft|pounds?|kg|g|oz|%|x|k|m|b)\b/gi;
   var numberMatch;
   while ((numberMatch = numberRe.exec(text)) !== null) uniquePush(numbers, numberMatch[0]);
-  var significantRe = /\b\d{2,}(?:\.\d+)?\b/g;
-  var significantMatch;
-  while ((significantMatch = significantRe.exec(text)) !== null) {
-    var significant = significantMatch[0];
-    if (!dates.some(function(date) { return date.indexOf(significant) >= 0; })) uniquePush(numbers, significant);
-  }
+  // Only unit-qualified numbers are kept. Bare digits (ids, hours, phone
+  // fragments) have no context and would surface as fake metrics in output.
 
   var properNouns = [];
   var properRe = /\b[A-Z][a-zA-Z]{2,}(?:\s+[A-Z][a-zA-Z]{2,}){0,2}\b/g;
@@ -361,7 +357,7 @@ function extractContent(html, filePath) {
     profile: profile,
     density: paragraphs.length + items.length > 12 ? 'rich' : paragraphs.length + items.length > 4 ? 'medium' : 'sparse',
     hasTimeline: dates.length >= 2,
-    hasMetrics: numbers.length >= 2,
+    hasMetrics: numbers.length >= 1,
     hasContact: emails.length > 0,
   };
 }

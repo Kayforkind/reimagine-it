@@ -1,16 +1,16 @@
 {
   "mode": "auto",
-  "token": "webpage",
-  "seed": 762163206,
-  "score": 200,
-  "rationale": "The source benefits from a measured reading hierarchy. Evidence: 5 anchors, 1 measurable facts.",
+  "token": "editorial",
+  "seed": -522456334,
+  "score": 182,
+  "rationale": "The source has enough text for a magazine-grade treatment. Evidence: 5 anchors, 1 measurable facts.",
   "candidates": [
     {
-      "token": "webpage",
-      "seed": 762163206,
-      "fit": 50,
+      "token": "editorial",
+      "seed": -522456334,
+      "fit": 41,
       "quality": 100,
-      "total": 200,
+      "total": 182,
       "checks": [
         {
           "name": "standalone HTML",
@@ -49,9 +49,9 @@
     {
       "token": "cinematic",
       "seed": -1625717391,
-      "fit": 44,
+      "fit": 30,
       "quality": 100,
-      "total": 188,
+      "total": 160,
       "checks": [
         {
           "name": "standalone HTML",
@@ -88,11 +88,11 @@
       ]
     },
     {
-      "token": "3js",
-      "seed": 194546627,
-      "fit": 18,
+      "token": "dashboard",
+      "seed": -457086771,
+      "fit": 23,
       "quality": 100,
-      "total": 136,
+      "total": 146,
       "checks": [
         {
           "name": "standalone HTML",
@@ -147,9 +147,9 @@
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\tide-letter\\source.html",
   "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\tide-letter\\auto.html",
   "fidelity": {
-    "preserved": 14,
+    "preserved": 12,
     "detected": 14,
-    "percentage": 100,
+    "percentage": 86,
     "checks": {
       "title": [
         {
@@ -164,7 +164,7 @@
         },
         {
           "value": "The first light",
-          "preserved": true
+          "preserved": false
         },
         {
           "value": "A slower story",
@@ -218,7 +218,7 @@
         {
           "value": "mailto:hello@nighttide.example",
           "label": "hello@nighttide.example",
-          "preserved": true
+          "preserved": false
         }
       ]
     }

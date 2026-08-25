@@ -15,14 +15,14 @@
         "webpage"
       ],
       "seed": 11,
-      "score": 226,
+      "score": 166,
       "candidates": [
         {
           "token": "dashboard",
           "seed": -457102635,
-          "fit": 63,
+          "fit": 33,
           "quality": 100,
-          "total": 226,
+          "total": 166,
           "checks": [
             {
               "name": "standalone HTML",
@@ -61,9 +61,9 @@
         {
           "token": "infographic",
           "seed": -1088304044,
-          "fit": 47,
+          "fit": 29,
           "quality": 100,
-          "total": 194,
+          "total": 158,
           "checks": [
             {
               "name": "standalone HTML",
@@ -100,11 +100,11 @@
           ]
         },
         {
-          "token": "webpage",
-          "seed": 762179018,
-          "fit": 42,
+          "token": "editorial",
+          "seed": -522440522,
+          "fit": 20,
           "quality": 100,
-          "total": 184,
+          "total": 140,
           "checks": [
             {
               "name": "standalone HTML",
@@ -149,22 +149,22 @@
       "report": "examples/end-users/ember-table/auto.json",
       "alternates": [
         "examples/end-users/ember-table/option-2-photography.html",
-        "examples/end-users/ember-table/option-3-landing.html"
+        "examples/end-users/ember-table/option-3-cinematic.html"
       ],
-      "auto_token": "webpage",
+      "auto_token": "landing",
       "alternate_tokens": [
         "photography",
-        "landing"
+        "cinematic"
       ],
       "seed": 23,
-      "score": 184,
+      "score": 160,
       "candidates": [
         {
-          "token": "webpage",
-          "seed": 762163192,
-          "fit": 42,
+          "token": "landing",
+          "seed": 995488354,
+          "fit": 30,
           "quality": 100,
-          "total": 184,
+          "total": 160,
           "checks": [
             {
               "name": "standalone HTML",
@@ -201,52 +201,52 @@
           ]
         },
         {
-          "token": "infographic",
-          "seed": -1088304032,
-          "fit": 22,
-          "quality": 100,
-          "total": 144,
-          "checks": [
-            {
-              "name": "standalone HTML",
-              "passed": true
-            },
-            {
-              "name": "title preserved",
-              "passed": true
-            },
-            {
-              "name": "source anchors retained",
-              "passed": true
-            },
-            {
-              "name": "focus-visible",
-              "passed": true
-            },
-            {
-              "name": "reduced motion",
-              "passed": true
-            },
-            {
-              "name": "selection styling",
-              "passed": true
-            },
-            {
-              "name": "no placeholder copy",
-              "passed": true
-            },
-            {
-              "name": "no external asset fetch",
-              "passed": true
-            }
-          ]
-        },
-        {
-          "token": "dashboard",
-          "seed": -457086785,
+          "token": "editorial",
+          "seed": -522448429,
           "fit": 20,
           "quality": 100,
           "total": 140,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "cinematic",
+          "seed": -1625709486,
+          "fit": 19,
+          "quality": 100,
+          "total": 138,
           "checks": [
             {
               "name": "standalone HTML",
@@ -293,20 +293,20 @@
         "examples/end-users/tide-letter/option-2-artistic.html",
         "examples/end-users/tide-letter/option-3-simulation.html"
       ],
-      "auto_token": "webpage",
+      "auto_token": "editorial",
       "alternate_tokens": [
         "artistic",
         "simulation"
       ],
       "seed": 37,
-      "score": 200,
+      "score": 182,
       "candidates": [
         {
-          "token": "webpage",
-          "seed": 762163206,
-          "fit": 50,
+          "token": "editorial",
+          "seed": -522456334,
+          "fit": 41,
           "quality": 100,
-          "total": 200,
+          "total": 182,
           "checks": [
             {
               "name": "standalone HTML",
@@ -345,9 +345,9 @@
         {
           "token": "cinematic",
           "seed": -1625717391,
-          "fit": 44,
+          "fit": 30,
           "quality": 100,
-          "total": 188,
+          "total": 160,
           "checks": [
             {
               "name": "standalone HTML",
@@ -384,11 +384,11 @@
           ]
         },
         {
-          "token": "3js",
-          "seed": 194546627,
-          "fit": 18,
+          "token": "dashboard",
+          "seed": -457086771,
+          "fit": 23,
           "quality": 100,
-          "total": 136,
+          "total": 146,
           "checks": [
             {
               "name": "standalone HTML",
@@ -441,14 +441,14 @@
         "gradient"
       ],
       "seed": 43,
-      "score": 196,
+      "score": 156,
       "candidates": [
         {
           "token": "dashboard",
           "seed": -457102603,
-          "fit": 48,
+          "fit": 28,
           "quality": 100,
-          "total": 196,
+          "total": 156,
           "checks": [
             {
               "name": "standalone HTML",
@@ -485,11 +485,11 @@
           ]
         },
         {
-          "token": "webpage",
-          "seed": 762171131,
-          "fit": 40,
+          "token": "simulation",
+          "seed": 42996767,
+          "fit": 28,
           "quality": 100,
-          "total": 180,
+          "total": 156,
           "checks": [
             {
               "name": "standalone HTML",
@@ -528,9 +528,9 @@
         {
           "token": "infographic",
           "seed": -1088296093,
-          "fit": 34,
+          "fit": 22,
           "quality": 100,
-          "total": 168,
+          "total": 144,
           "checks": [
             {
               "name": "standalone HTML",

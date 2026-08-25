@@ -201,7 +201,6 @@ function generate(opts) {
     var contents = anchors.map(function(anchor, index) {
       return '<a href="#' + sectionId(anchor, index) + '">' + esc(anchor) + '</a>';
     }).join('');
-    var sourceLinks = content.links.length ? '<aside class="source-block"><span class="eyebrow">Source links</span><ul>' + linkList() + '</ul></aside>' : '';
     var css = 'html{scroll-behavior:smooth}body{font-family:' + sans + ';background:var(--g);color:var(--i)}' +
       '.page{max-width:920px;margin:0 auto;padding:clamp(28px,7vw,92px) 28px 100px}' +
       '.hero{display:grid;grid-template-columns:minmax(0,1fr) 180px;gap:44px;align-items:end;padding-bottom:64px;border-bottom:1px solid ' + border + '}' +
@@ -218,12 +217,12 @@ function generate(opts) {
       '.section p{max-width:62ch;font-size:16px;line-height:1.75;opacity:.76}' +
       '.section .fact{font:11px ' + mono + ';color:var(--a);opacity:1;margin-top:18px;text-transform:uppercase;letter-spacing:.08em}' +
       '.section .fact span{color:var(--m);margin-right:8px}' +
-      '.source-block{margin-top:46px;padding:22px 0;border-top:1px solid ' + border + '}' +
-      '.source-block ul{display:flex;gap:16px;flex-wrap:wrap;list-style:none;font-size:13px}' +
+      '.source-block{margin-top:48px;padding:24px 0 6px;border-top:1px solid ' + border + '}.source-block ul{display:flex;gap:14px;flex-wrap:wrap;list-style:none;font-size:13px;margin-top:14px}.source-block a{color:var(--m);text-decoration:none;border-bottom:1px solid transparent}.source-block a:hover{color:var(--a);border-color:var(--a)}' +
       '@media(max-width:700px){.hero{grid-template-columns:1fr}.stamp{justify-self:start;transform:none}.section{grid-template-columns:42px 1fr;gap:12px}}' +
     '@keyframes sec-in{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}' +
     '@supports not (animation-timeline:view()){.section{opacity:1;animation:none}}';
-    return page(content.title, css, '<main class="page"><header class="hero"><div><span class="eyebrow">' + esc(label) + '</span><h1>' + esc(content.title) + '</h1><p class="lede">' + esc(paragraphAt(0, anchors[0])) + '</p></div><div class="stamp"><strong>' + anchors.length + '</strong>source<br>anchors</div></header><nav class="contents" aria-label="On this page">' + contents + '</nav>' + sections + sourceLinks + '</main>');
+    var linksAside = content.links.length ? '<aside class="source-block"><span class="eyebrow">Notes &amp; links</span><ul>' + content.links.slice(0, 6).map(function(l) { return '<li><a href="' + esc(l.href) + '">' + esc(l.label || l.href) + '</a></li>'; }).join('') + '</ul></aside>' : '';
+    return page(content.title, '<main class="page"><header class="hero"><div><span class="eyebrow" style="color:var(--a)">' + esc(label) + '</span><h1>' + esc(content.title) + '</h1><p class="lede">' + esc(paragraphAt(0, anchors[0])) + '</p></div><div class="stamp"><strong>' + anchors.length + '</strong><span>sections</span></div></header><nav class="contents" aria-label="On this page">' + contents + '</nav>' + sections + linksAside + '</main>');
   }
 
   function landing() {
@@ -293,7 +292,7 @@ function generate(opts) {
       '.metric svg{width:120px;height:28px;overflow:visible}.metric path{fill:none;stroke:' + dAccent + ';stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.8}' +
       '.provenance{font:11px ' + mono + ';color:' + dMuted + ';margin-top:18px}' +
       '@media(max-width:820px){.metrics{grid-template-columns:repeat(2,1fr)}}@media(max-width:480px){.console-head{display:block}.console-head p{text-align:left;margin-top:12px}.metrics{grid-template-columns:1fr}}';
-    var body = '<main class="console"><header class="console-head"><div><span class="metric-kind">' + esc(label) + '</span><h1>' + esc(content.title) + '</h1></div><p>Source-backed signals<br>no invented trends</p></header><section class="metrics" aria-label="Source metrics">' + cards + '</section><p class="provenance">Facts are quoted from the source; counts are derived from extracted structure.</p></main>';
+    var body = '<main class="console"><header class="console-head"><div><span class="metric-kind">' + esc(label) + '</span><h1>' + esc(content.title) + '</h1></div><p>Metrics drawn from the source page</p></header><section class="metrics" aria-label="Source metrics">' + cards + '</section><p class="provenance">Every number shown appears in the source; labels mirror how the page names them.</p></main>';
     return pageWithPalette(content.title, css, body, dGround, dAccent, dMuted, dSurface, '#e6edf3');
   }
 
@@ -308,11 +307,20 @@ function generate(opts) {
   function infographic() {
     var light = isLight(ground);
     var border = light ? 'rgba(15,18,24,.14)' : 'rgba(255,255,255,.14)';
-    var rows = anchors.map(function(anchor, index) {
-      var fact = facts[index];
-      var width = fact ? factBarWidth(fact, facts) : 24 + ((anchor.length * 7) % 58);
-      var value = fact && fact.value ? fact.value : 'anchor signal';
-      return '<tr><th scope="row">' + esc(anchor) + '</th><td><span class="bar" style="width:' + width + '%"></span></td><td>' + esc(value) + '</td></tr>';
+    var rowData = anchors.map(function(anchor, index) {
+      var fact = facts[index] && facts[index].value ? facts[index] : null;
+      var text = sectionParagraphAt(index, anchor);
+      var value = '';
+      if (fact && text) {
+        var n = String(fact.value).replace(/[^0-9]/g, '');
+        value = (n && text.indexOf(n) >= 0) ? String(fact.value) : '';
+      }
+      var width = value ? factBarWidth(fact, facts) : 24 + ((anchor.length * 7) % 58);
+      return { anchor: anchor, width: width, value: value };
+    });
+    var rows = rowData.map(function(row) {
+      var cell = row.value ? '<td>' + esc(row.value) + '</td>' : '<td class="no-value" aria-hidden="true"></td>';
+      return '<tr><th scope="row">' + esc(row.anchor) + '</th><td><span class="bar" style="width:' + row.width + '%"></span></td>' + cell + '</tr>';
     }).join('');
     var factualRows = facts.filter(function(fact) { return fact.value; }).map(function(fact) {
       return '<tr><th scope="row">' + esc(fact.label) + '</th><td>' + esc(fact.value) + '</td><td>' + esc(fact.kind) + '</td></tr>';
@@ -335,7 +343,7 @@ function generate(opts) {
       '.isotype{padding:48px 0;border-bottom:1px solid ' + border + '}.isotype>div{display:flex;gap:5px;flex-wrap:wrap;margin-top:18px}.isotype i{display:block;width:18px;height:28px;background:var(--m);border-radius:2px}' +
       '.data{padding-top:42px}.data table{font:12px ' + mono + '}.data th,.data td{text-align:left;padding:10px 12px 10px 0;border-bottom:1px solid ' + border + '}.data th{color:var(--m);font-weight:400}' +
       '.note{font:11px/1.6 ' + mono + ';color:var(--m);margin-top:18px}';
-    var body = '<main class="poster"><header class="poster-head"><span class="eyebrow">' + esc(label) + '</span><h1>' + esc(content.title) + '</h1><p class="deck">' + esc(paragraphAt(0, anchors[0])) + '</p></header><section class="chart" aria-label="Content signals"><table><tbody>' + rows + '</tbody></table><p class="note">' + (facts.length ? 'Bars use only source facts; unnumbered anchors are labeled as signals.' : 'No numeric facts were found, so bars show relative anchor text length—not invented measurements.') + '</p></section>' + timeline + iso + (factualRows ? '<section class="data"><span class="eyebrow">Lossless source facts</span><table><thead><tr><th>Label</th><th>Value</th><th>Kind</th></tr></thead><tbody>' + factualRows + '</tbody></table></section>' : '') + '</main>';
+    var body = '<main class="poster"><header class="poster-head"><span class="eyebrow">' + esc(label) + '</span><h1>' + esc(content.title) + '</h1><p class="deck">' + esc(paragraphAt(0, anchors[0])) + '</p></header><section class="chart" aria-label="Content signals"><table><tbody>' + rows + '</tbody></table><p class="note">' + (facts.some(function (f) { return f.value; }) ? 'Bars and numbers come only from the source.' : 'No usable numbers were found, so bars show relative section length instead.') + '</p></section>' + timeline + iso + (factualRows ? '<section class="data"><span class="eyebrow">Lossless source facts</span><table><thead><tr><th>Label</th><th>Value</th><th>Kind</th></tr></thead><tbody>' + factualRows + '</tbody></table></section>' : '') + '</main>';
     return page(content.title + ' — poster', css, body);
   }
 
@@ -591,8 +599,10 @@ function glass() {
       return "<li class=tl-item style=--ti:" + i + "><span class=tl-dot></span><div><strong>" + esc(a) + "</strong><p>" + esc(sectionParagraphAt(i, a)) + "</p></div></li>";
     }).join("");
     var stats = anchors.slice(0, 4).map(function(a, i) {
-      var n = parseInt(String(((content.numbers || [])[i] || String((i + 1) * 7 + 12))).replace(/[^0-9]/g, "") || "0");
-      return "<article class=stat-card style=--sc:" + i + "><span class=stat-num style=--target:" + n + ">" + n + "</span><strong>" + esc(a) + "</strong></article>";
+      var raw = (content.numbers || [])[i];
+      var n = raw ? parseInt(String(raw).replace(/[^0-9]/g, ""), 10) : null;
+      var num = (n !== null && !isNaN(n)) ? n : null;
+      return "<article class=stat-card style=--sc:" + i + ">" + (num !== null ? "<span class=stat-num>" + num + "</span><strong>" + esc(a) + "</strong>" : "<strong>" + esc(a) + "</strong>") + "</article>";
     }).join("");
     var css = "body{font-family:" + sans + ";background:var(--g);color:var(--i)}" +
       ".show-hero{min-height:80svh;display:grid;place-items:center;padding:64px 28px;position:relative;overflow:hidden;isolation:isolate}" +
@@ -663,15 +673,9 @@ function factsFor(content, anchors) {
 
 function metricCards(facts, anchors) {
   var metrics = facts.slice(0, 4).map(function(fact) {
-    return { value: fact.value, label: fact.label, kind: 'source ' + fact.kind, detail: 'quoted from source' };
+    var kind = fact.kind === 'date' ? 'date' : 'metric';
+    return { value: fact.value, label: fact.label, kind: kind, detail: 'from source' };
   });
-  var counts = [
-    { value: anchors.length, label: 'content anchors' },
-  ];
-  while (metrics.length < 4 && counts.length) {
-    var count = counts.shift();
-    metrics.push({ value: String(count.value), label: count.label, kind: 'derived count', detail: 'counted in source' });
-  }
   return metrics.slice(0, 4);
 }
 

@@ -15,8 +15,8 @@ Open the source first, then open **Auto**, then open the two generated options. 
 | Example | Source → Auto | Two more options | Why it is here |
 |---|---|---|---|
 | [Orbitline Release Desk](orbitline/) | operational notes → `dashboard` | `infographic`, `webpage` | dense status information gets hierarchy and scan paths |
-| [Ember &amp; Table](ember-table/) | seasonal menu → `webpage` | `photography`, `landing` | food language gets warmth without fake food imagery |
-| [A Letter to the Night Tide](tide-letter/) | essay → `cinematic` | `artistic`, `simulation` | narrative content gets pacing and room to breathe |
+| [Ember &amp; Table](ember-table/) | seasonal menu → `landing` | `photography`, `cinematic` | food language gets warmth without fake food imagery |
+| [A Letter to the Night Tide](tide-letter/) | essay → `editorial` | `artistic`, `simulation` | narrative content gets a magazine treatment |
 | [Teralyte](teralyte/) | plain docs → `dashboard` | `landing`, `gradient` | dense product facts get a confident, icon-forward identity |
 
 ## Run one yourself

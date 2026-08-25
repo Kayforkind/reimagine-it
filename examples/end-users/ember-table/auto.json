@@ -1,16 +1,16 @@
 {
   "mode": "auto",
-  "token": "webpage",
-  "seed": 762163192,
-  "score": 184,
-  "rationale": "The source benefits from a measured reading hierarchy. Evidence: 5 anchors, 4 measurable facts.",
+  "token": "landing",
+  "seed": 995488354,
+  "score": 160,
+  "rationale": "The source has an outward-facing action or product-like structure. Evidence: 5 anchors, 1 measurable facts.",
   "candidates": [
     {
-      "token": "webpage",
-      "seed": 762163192,
-      "fit": 42,
+      "token": "landing",
+      "seed": 995488354,
+      "fit": 30,
       "quality": 100,
-      "total": 184,
+      "total": 160,
       "checks": [
         {
           "name": "standalone HTML",
@@ -47,52 +47,52 @@
       ]
     },
     {
-      "token": "infographic",
-      "seed": -1088304032,
-      "fit": 22,
-      "quality": 100,
-      "total": 144,
-      "checks": [
-        {
-          "name": "standalone HTML",
-          "passed": true
-        },
-        {
-          "name": "title preserved",
-          "passed": true
-        },
-        {
-          "name": "source anchors retained",
-          "passed": true
-        },
-        {
-          "name": "focus-visible",
-          "passed": true
-        },
-        {
-          "name": "reduced motion",
-          "passed": true
-        },
-        {
-          "name": "selection styling",
-          "passed": true
-        },
-        {
-          "name": "no placeholder copy",
-          "passed": true
-        },
-        {
-          "name": "no external asset fetch",
-          "passed": true
-        }
-      ]
-    },
-    {
-      "token": "dashboard",
-      "seed": -457086785,
+      "token": "editorial",
+      "seed": -522448429,
       "fit": 20,
       "quality": 100,
       "total": 140,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "cinematic",
+      "seed": -1625709486,
+      "fit": 19,
+      "quality": 100,
+      "total": 138,
       "checks": [
         {
           "name": "standalone HTML",
@@ -141,15 +141,15 @@
     "paragraphs": 4,
     "items": 5,
     "dates": 1,
-    "numbers": 3,
+    "numbers": 0,
     "links": 1
   },
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\ember-table\\source.html",
   "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\ember-table\\auto.html",
   "fidelity": {
-    "preserved": 15,
-    "detected": 16,
-    "percentage": 94,
+    "preserved": 10,
+    "detected": 13,
+    "percentage": 77,
     "checks": {
       "title": [
         {
@@ -178,23 +178,10 @@
       "dates": [
         {
           "value": "2026",
-          "preserved": true
+          "preserved": false
         }
       ],
-      "numbers": [
-        {
-          "value": "18",
-          "preserved": true
-        },
-        {
-          "value": "09",
-          "preserved": true
-        },
-        {
-          "value": "01",
-          "preserved": true
-        }
-      ],
+      "numbers": [],
       "emails": [
         {
           "value": "reserve@embertable.example",
@@ -220,7 +207,7 @@
         },
         {
           "value": "Five",
-          "preserved": true
+          "preserved": false
         }
       ],
       "links": [

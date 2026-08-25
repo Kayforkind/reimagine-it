@@ -2,15 +2,15 @@
   "mode": "auto",
   "token": "dashboard",
   "seed": -457102635,
-  "score": 226,
-  "rationale": "The source contains enough measurable signals for an operational view. Evidence: 5 anchors, 9 measurable facts.",
+  "score": 166,
+  "rationale": "The source contains enough measurable signals for an operational view. Evidence: 5 anchors, 3 measurable facts.",
   "candidates": [
     {
       "token": "dashboard",
       "seed": -457102635,
-      "fit": 63,
+      "fit": 33,
       "quality": 100,
-      "total": 226,
+      "total": 166,
       "checks": [
         {
           "name": "standalone HTML",
@@ -49,9 +49,9 @@
     {
       "token": "infographic",
       "seed": -1088304044,
-      "fit": 47,
+      "fit": 29,
       "quality": 100,
-      "total": 194,
+      "total": 158,
       "checks": [
         {
           "name": "standalone HTML",
@@ -88,11 +88,11 @@
       ]
     },
     {
-      "token": "webpage",
-      "seed": 762179018,
-      "fit": 42,
+      "token": "editorial",
+      "seed": -522440522,
+      "fit": 20,
       "quality": 100,
-      "total": 184,
+      "total": 140,
       "checks": [
         {
           "name": "standalone HTML",
@@ -141,15 +141,15 @@
     "paragraphs": 4,
     "items": 3,
     "dates": 1,
-    "numbers": 8,
+    "numbers": 2,
     "links": 1
   },
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\orbitline\\source.html",
   "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\orbitline\\auto.html",
   "fidelity": {
-    "preserved": 16,
-    "detected": 21,
-    "percentage": 76,
+    "preserved": 10,
+    "detected": 15,
+    "percentage": 67,
     "checks": {
       "title": [
         {
@@ -172,13 +172,13 @@
         },
         {
           "value": "Start a conversation",
-          "preserved": true
+          "preserved": false
         }
       ],
       "dates": [
         {
           "value": "2026",
-          "preserved": false
+          "preserved": true
         }
       ],
       "numbers": [
@@ -188,30 +188,6 @@
         },
         {
           "value": "27 users",
-          "preserved": true
-        },
-        {
-          "value": "142",
-          "preserved": true
-        },
-        {
-          "value": "98",
-          "preserved": true
-        },
-        {
-          "value": "27",
-          "preserved": true
-        },
-        {
-          "value": "08",
-          "preserved": true
-        },
-        {
-          "value": "14",
-          "preserved": true
-        },
-        {
-          "value": "21",
           "preserved": true
         }
       ],
