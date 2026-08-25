@@ -4,7 +4,13 @@ All notable changes to reimagine-it.
 
 ---
 
-## v2.3.4 (current)
+## v2.3.5 (current)
+
+### Fix — the `webpage` token again (patch over 2.3.4)
+
+2.3.4 shipped a broken `webpage` generator (empty body), fixed in this release. Token gallery added; examples sharpened. See v2.3.4 notes below for the full list.
+
+## v2.3.4
 
 ### Fix — `webpage` token shipped an empty page
 
