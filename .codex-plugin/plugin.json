@@ -1,7 +1,7 @@
 {
   "name": "reimagine-it",
-  "description": "Plugin wrapping the /reimagine-it Agent Skill. Redesign any file from its own content — webpage, HTML, landing page, PDF, slides, infographic, SVG, dashboard. Not a mood board. Not Mermaid slop.",
-  "version": "2.3.2",
+  "description": "Plugin wrapping the /reimagine-it Agent Skill. Redesign any file from its own content \u2014 webpage, HTML, landing page, PDF, slides, infographic, SVG, dashboard. Not a mood board. Not Mermaid slop.",
+  "version": "2.3.3",
   "author": {
     "name": "Kayforkind",
     "url": "https://github.com/Kayforkind"
@@ -26,10 +26,13 @@
   "interface": {
     "displayName": "reimagine-it",
     "shortDescription": "Redesign the file you actually have, from what it is about.",
-    "longDescription": "Plugin wrapping the /reimagine-it Agent Skill. Redesign any file from its own content — webpage, HTML, landing page, PDF, slides, infographic, SVG, dashboard. One extra word picks the register (infographic, cinematic, dashboard, artistic, photography, landing). Not a mood board. Not Mermaid slop.",
+    "longDescription": "Plugin wrapping the /reimagine-it Agent Skill. Redesign any file from its own content \u2014 webpage, HTML, landing page, PDF, slides, infographic, SVG, dashboard. One extra word picks the register (infographic, cinematic, dashboard, artistic, photography, landing). Not a mood board. Not Mermaid slop.",
     "developerName": "Kayforkind",
     "category": "Productivity",
-    "capabilities": ["Read", "Write"],
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
     "websiteURL": "https://github.com/Kayforkind/reimagine-it",
     "defaultPrompt": [
       "Redesign this page from its own content.",

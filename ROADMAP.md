@@ -2,7 +2,7 @@
 
 > Based on competitive analysis of Anthropic frontend-design (277k installs), Impeccable (23 commands, 59 detector rules, product website), Superpowers (243k stars), gstack (118k stars), and the broader agent-skills ecosystem.
 >
-> **Last updated:** v2.3.2 — see [CHANGELOG.md](CHANGELOG.md) for completed items.
+> **Last updated:** v2.3.3 — see [CHANGELOG.md](CHANGELOG.md) for completed items.
 
 ---
 

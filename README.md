@@ -2,7 +2,7 @@
 
 > The source file is the design brief. Turn existing HTML into a beautiful, usable page without losing its meaning.
 
-[![CI](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/audit.yml?branch=main&label=CI)](https://github.com/Kayforkind/reimagine-it/actions/workflows/audit.yml) [![version 2.3.2](https://img.shields.io/badge/version-2.3.2-b22234.svg)](CHANGELOG.md) [![MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE) [![skills.sh](https://skills.sh/b/kayforkind/reimagine-it)](https://skills.sh/kayforkind/reimagine-it)
+[![CI](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/audit.yml?branch=main&label=CI)](https://github.com/Kayforkind/reimagine-it/actions/workflows/audit.yml) [![version 2.3.3](https://img.shields.io/badge/version-2.3.3-b22234.svg)](CHANGELOG.md) [![MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE) [![skills.sh](https://skills.sh/b/kayforkind/reimagine-it)](https://skills.sh/kayforkind/reimagine-it)
 
 ## One command. One inspectable result.
 
@@ -180,7 +180,7 @@ droid plugin install reimagine-it@reimagine-it --scope user
 The repository also ships a public composite Action for deterministic HTML quality checks. It is a separate quality gate from the redesign engine:
 
 ```yaml
-- uses: Kayforkind/reimagine-it@v2.3.2
+- uses: Kayforkind/reimagine-it@v2.3.3
   with:
     path: "**/*.html"
     fail-on-warnings: "false"

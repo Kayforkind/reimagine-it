@@ -4,7 +4,32 @@ All notable changes to reimagine-it.
 
 ---
 
-## v2.3.2 (current)
+## v2.3.3 (current)
+
+### New — Dribbble-grade design engine
+
+- **Premium shared shell for every token.** All nine generators now sit on one polished craft floor: a subtle film-grain overlay, a scroll-progress bar in the accent color, a tinted scrollbar, deduplicated `@property` tokens, and View Transitions — so every page feels finished, not templated.
+- **Landing token redesigned.** Dribbble-style hero with an animated art panel — a breathing gradient core, orbiting dashed ring, drifting glow, and floating content chips — plus a scrolling keyword marquee and a crisp headline treatment (the old blur veil that dimmed titles is gone).
+- **Dashboard token refined.** Ambient accent glow at the top of the viewport, a pulsing "live" dot in the header, gradient-sheen metric cards that lift with an accent glow on hover, glowing sparklines, and scroll-driven entrance animations (previously referenced but never defined).
+
+### Data honesty — the extractor stops fabricating
+
+- Bare 2+ digit numbers (phone fragments, IDs, hours like `09:00` or `18`) are no longer treated as facts. Only unit-qualified numbers survive — `142 ms`, `27 users`, `$29`, `12 miles` — so output pages never invent metrics.
+- Infographic rows no longer show fake `anchor signal` values; a number appears only when it literally occurs in that section's text, otherwise bars honestly show relative section length.
+- `showcase` no longer invents numeric captions when the source has none.
+
+### Auto — smarter, non-repetitive token selection
+
+- `webpage` was scored three times in the selection loop and won almost every text-heavy job; it is now scored once.
+- `dashboard` requires operational language (uptime, latency, deploy, traffic) instead of winning on generic words like "users".
+- Routing now produces structurally distinct outputs for similar-looking jobs: release-ops pages → `dashboard`, menus → `landing`, essays → `editorial`, stories → `cinematic`.
+
+### Housekeeping
+
+- Removed stale tracked `auto-options/` build artifacts no script produces.
+- Version bumped to 2.3.3 across package, extension manifest, plugin manifests, skill frontmatter, and README badge/pin.
+
+## v2.3.2
 
 ### New
 

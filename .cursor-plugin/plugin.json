@@ -1,8 +1,8 @@
 {
   "name": "reimagine-it",
   "displayName": "reimagine-it",
-  "version": "2.3.2",
-  "description": "Cursor plugin wrapping /reimagine-it. Agents ship a mood board; this reads the file and redesigns from it — webpage, infographic, SVG, Three.js, simulation. Offline. No Figma.",
+  "version": "2.3.3",
+  "description": "Cursor plugin wrapping /reimagine-it. Agents ship a mood board; this reads the file and redesigns from it \u2014 webpage, infographic, SVG, Three.js, simulation. Offline. No Figma.",
   "author": {
     "name": "Kayforkind"
   },

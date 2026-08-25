@@ -108,7 +108,10 @@ function generate(opts) {
     '::view-transition-old(root){animation:vt-old .35s cubic-bezier(.4,0,.2,1) both}' +
     '::view-transition-new(root){animation:vt-new .35s cubic-bezier(.4,0,.2,1) both}' +
     '@keyframes vt-old{to{opacity:0;filter:blur(8px)}}' +
-    '@keyframes vt-new{from{opacity:0;filter:blur(8px)}to{opacity:1;filter:none}}';
+    '@keyframes vt-new{from{opacity:0;filter:blur(8px)}to{opacity:1;filter:none}}' +
+    'html{scrollbar-color:var(--a) var(--g);scrollbar-width:thin}' +
+    'body::before{content:"";position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.045;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns=%27http://www.w3.org/2000/svg%27 width=%27160%27 height=%27160%27><filter id=%27n%27><feTurbulence type=%27fractalNoise%27 baseFrequency=%270.85%27 numOctaves=%272%27 stitchTiles=%27stitch%27/></filter><rect width=%27160%27 height=%27160%27 filter=%27url(%23n)%27 opacity=%270.6%27/></svg>")}' +
+    'body::after{content:"";position:fixed;left:0;top:0;height:2px;width:100%;background:linear-gradient(90deg,var(--a),var(--m));transform-origin:0 50%;transform:scaleX(0);z-index:9999;pointer-events:none;animation:progline linear both;animation-timeline:scroll(root)}@keyframes progline{to{transform:scaleX(1)}}@supports not (animation-timeline:scroll()){body::after{display:none}}';
   var baseCss = '*{box-sizing:border-box;margin:0;padding:0}' +
     'html{background:var(--g);color:var(--i);-webkit-font-smoothing:antialiased}' +
     'body{min-height:100vh;overflow-x:hidden}' +
@@ -141,17 +144,9 @@ function generate(opts) {
 
   function page(title, css, body, script) {
     return '<!doctype html><html lang="en"><head><meta charset="utf-8">' +
-      '<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="view-transition" content="same-origin"><meta name="view-transition" content="same-origin">' +
+      '<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin">' +
       '<meta name="color-scheme" content="' + (isLight(ground) ? 'light' : 'dark') + '">' +
       '<title>' + esc(title) + '</title><style>' +
-      '@property --g{syntax:"<color>";inherits:true;initial-value:#000}' +
-      '@property --a{syntax:"<color>";inherits:true;initial-value:#fff}' +
-      '@property --radius{syntax:"<length>";inherits:false;initial-value:4px}' +
-      '@property --drift{syntax:"<length>";inherits:false;initial-value:0px}' +
-      '@property --g{syntax:"<color>";inherits:true;initial-value:#000}' +
-      '@property --a{syntax:"<color>";inherits:true;initial-value:#fff}' +
-      '@property --radius{syntax:"<length>";inherits:false;initial-value:4px}' +
-      '@property --drift{syntax:"<length>";inherits:false;initial-value:0px}' +
       '@property --g{syntax:"<color>";inherits:true;initial-value:#000}' +
       '@property --a{syntax:"<color>";inherits:true;initial-value:#fff}' +
       '@property --radius{syntax:"<length>";inherits:false;initial-value:4px}' +
@@ -238,8 +233,18 @@ function generate(opts) {
     var css = 'body{font-family:' + sans + ';background:var(--g);color:var(--i)}' +
       '.landing{max-width:1080px;margin:0 auto;padding:24px 28px 90px}' +
       '.topline{display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid ' + border + ';font:10px ' + mono + ';letter-spacing:.15em;text-transform:uppercase;color:var(--m)}' +
-      '.hero{position:relative;padding:clamp(72px,12vw,150px) 0 100px;max-width:850px}' +
-      '.hero::before{content:"";position:absolute;width:440px;height:300px;left:calc(36% + var(--drift));top:12%;background:radial-gradient(ellipse,' + accent + '28,transparent 68%);pointer-events:none;filter:blur(48px)}.hero::after{content:"";position:absolute;inset:0;backdrop-filter:blur(80px);-webkit-backdrop-filter:blur(80px);mask:radial-gradient(ellipse 50% 40% at 40% 30%,black 30%,transparent 70%);pointer-events:none}' +
+      '.hero{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:clamp(32px,6vw,72px);align-items:center;padding:clamp(64px,10vw,130px) 0 90px}' +
+      '.hero-copy{position:relative;min-width:0;max-width:56ch}' +
+      '.hero-art{position:relative;aspect-ratio:1;border-radius:28px;overflow:hidden;border:1px solid ' + border + ';background:radial-gradient(120% 120% at 28% 22%,' + accent + '2e,transparent 58%),radial-gradient(120% 120% at 78% 82%,' + muted + '24,transparent 60%);transform:translateY(var(--drift)) rotate(' + variation.tilt + 'deg);box-shadow:0 30px 80px -30px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.08)}' +
+      '.hero-art::after{content:"";position:absolute;inset:0;border-radius:28px;box-shadow:inset 0 0 90px rgba(0,0,0,.35);pointer-events:none}' +
+      '.art-orbit{position:absolute;inset:14%;border:1px dashed ' + accent + '66;border-radius:50%;animation:art-spin 26s linear infinite}' +
+      '.art-dot{position:absolute;top:50%;left:50%;width:58%;height:58%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle at 32% 30%,' + tint(accent, .28) + ',transparent 68%),radial-gradient(circle at 68% 72%,' + shade(accent, .18) + ',transparent 70%);filter:blur(2px);animation:art-breathe 5s ease-in-out infinite}' +
+      '.art-chip{position:absolute;font:700 9px ' + mono + ';letter-spacing:.12em;text-transform:uppercase;color:var(--a);background:var(--g);border:1px solid ' + border + ';border-radius:999px;padding:7px 12px;backdrop-filter:blur(8px);box-shadow:0 10px 28px -12px rgba(0,0,0,.5)}' +
+      '.art-chip.c1{top:14%;left:8%}.art-chip.c2{top:24%;right:6%}.art-chip.c3{bottom:18%;left:12%}.art-chip.c4{bottom:8%;right:20%}' +
+      '@keyframes art-spin{to{transform:rotate(360deg)}}@keyframes art-breathe{50%{transform:translate(-50%,-50%) scale(1.08)}}' +
+      '.hero h1{max-width:8ch}' +
+      '@media(max-width:900px){.hero{grid-template-columns:1fr;gap:28px}.hero-art{display:none}}' +
+      '.hero::before{content:"";position:absolute;width:520px;height:360px;left:calc(30% + var(--drift));top:6%;background:radial-gradient(ellipse,' + accent + '22,transparent 68%);pointer-events:none;filter:blur(60px)}' +
       '.hero>*{position:relative}' +
       '.eyebrow{font:10px ' + mono + ';letter-spacing:.2em;text-transform:uppercase;color:var(--a)}' +
       'h1{font:400 clamp(52px,10vw,122px)/.88 ' + serif + ';letter-spacing:-.055em;max-width:10ch;margin-top:20px;text-wrap:balance}' +
@@ -264,9 +269,16 @@ function generate(opts) {
     '@supports not (animation-timeline:view()){.feature{animation:feat-in-fb .4s ease both;animation-delay:calc(var(--n,0)*.1s)}}' +
     '@keyframes feat-in-fb{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}' +
     '@supports not (animation-timeline:view()){.feature{animation:feat-in-fallback .4s ease both;animation-delay:calc(var(--n,0)*.1s)}}' +
-    '@keyframes feat-in-fallback{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}';
+    '@keyframes feat-in-fallback{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}' +
+      '.marquee{overflow:hidden;border-top:1px solid ' + border + ';border-bottom:1px solid ' + border + ';padding:14px 0;margin:0 0 18px}' +
+      '.marquee-track{display:flex;gap:40px;width:max-content;animation:marq 22s linear infinite;font:400 13px ' + serif + ';letter-spacing:.05em;color:var(--m)}' +
+      '.marquee-track span{display:inline-flex;align-items:center;gap:40px;white-space:nowrap}' +
+      '.marquee-track i{color:var(--a);font-style:normal}' +
+      '@keyframes marq{to{transform:translateX(-50%)}}' +
+      '@media(prefers-reduced-motion:reduce){.marquee-track{animation:none;flex-wrap:wrap}}';
     var links = content.links.length ? '<section class="links"><span class="eyebrow">Continue with the source</span><ul>' + linkList() + '</ul></section>' : '';
-    return page(content.title, css, '<main class="landing"><div class="topline"><span>' + esc(label) + '</span><span>' + anchors.length + ' source signals</span></div><header class="hero"><span class="eyebrow">' + esc(content.profile) + '</span><h1>' + esc(content.title) + '</h1><p class="lede">' + esc(paragraphAt(0, anchors[0])) + '</p><div class="actions"><a class="action" href="' + esc(primaryHref) + '">' + esc(primaryText) + ' →</a><a class="action secondary" href="#features">See the signals</a></div></header><section class="feature-grid" id="features" aria-label="Source features">' + features + '</section>' + links + '</main>');
+    var marqueeInner = anchors.slice(0, 6).map(function(a, i) { return '<span>' + esc(a) + ' <i>' + (i === 0 ? '✦' : '·') + '</i></span>'; }).join('');
+    return page(content.title, css, '<main class="landing"><div class="topline"><span>' + esc(label) + '</span><span>' + anchors.length + ' source signals</span></div><header class="hero"><div class="hero-copy"><span class="eyebrow">' + esc(content.profile) + '</span><h1>' + esc(content.title) + '</h1><p class="lede">' + esc(paragraphAt(0, anchors[0])) + '</p><div class="actions"><a class="action" href="' + esc(primaryHref) + '">' + esc(primaryText) + ' →</a><a class="action secondary" href="#features">See the signals</a></div></div><div class="hero-art" aria-hidden="true"><div class="art-dot"></div><div class="art-orbit"></div><span class="art-chip c1">' + esc(anchors[0] || 'start') + '</span><span class="art-chip c2">' + esc(anchors[1 % Math.max(anchors.length, 1)] || 'signal') + '</span><span class="art-chip c3">' + esc(anchors[2 % Math.max(anchors.length, 1)] || 'core') + '</span><span class="art-chip c4">' + esc(anchors[3 % Math.max(anchors.length, 1)] || 'detail') + '</span></div></header><div class="marquee"><div class="marquee-track">' + marqueeInner + '</div></div>' + '<section class="feature-grid" id="features" aria-label="Source features">' + features + '</section>' + links + '</main>');
   }
 
   function dashboard() {
@@ -279,19 +291,19 @@ function generate(opts) {
       return '<article class="metric kpi"><span class="metric-kind">' + esc(metric.kind) + '</span><strong>' + esc(metric.value) + '</strong><h2>' + esc(metric.label) + '</h2><div class="metric-foot">' + esc(metric.detail) + '<svg viewBox="0 0 120 28" aria-hidden="true"><path d="' + sparkPath(metric.label, index) + '"/></svg></div></article>';
     }).join('');
     var css = 'body{font-family:' + sans + ';background:var(--g);color:var(--i)}' +
-      '.console{max-width:1080px;margin:0 auto;padding:clamp(28px,6vw,72px) 28px 90px}' +
+      '.console{max-width:1080px;margin:0 auto;padding:clamp(28px,6vw,72px) 28px 90px;position:relative;z-index:1}body::before{content:"";position:fixed;inset:-25%;z-index:0;pointer-events:none;background:radial-gradient(640px 340px at 16% -8%,color-mix(in srgb,var(--a) 26%,transparent),transparent 62%)}' +
       '.console-head{display:flex;justify-content:space-between;align-items:end;gap:24px;border-bottom:1px solid rgba(255,255,255,.12);padding-bottom:24px;margin-bottom:24px}' +
       '.console-head h1{font:500 clamp(28px,5vw,54px)/1 ' + serif + ';letter-spacing:-.035em;color:var(--a)}' +
-      '.console-head p{font:11px ' + mono + ';color:var(--m);text-align:right;max-width:28ch}' +
+      '.console-head p{display:inline-flex;align-items:center;gap:9px;font:11px ' + mono + ';color:var(--m);text-align:right;max-width:30ch}.console-head p::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--a);box-shadow:0 0 12px var(--a);animation:live-pulse 2.2s ease-in-out infinite}@keyframes live-pulse{0%,100%{opacity:1}50%{opacity:.25}}' +
       '.metrics{container:metrics / inline-size;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}' +
-      '.metric{background:' + dSurface + ';border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:20px;min-height:190px;display:flex;flex-direction:column;transition:transform .25s ease,border-color .25s ease;animation:met-in linear both;animation-timeline:view();animation-range:entry 4% cover 24%}.metric:hover{transform:translateY(-3px);border-color:' + dAccent + '80}' +
+      '.metric{background:linear-gradient(180deg,rgba(255,255,255,.045),transparent 46%),' + dSurface + ';border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:20px;min-height:190px;display:flex;flex-direction:column;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;animation:met-in linear both;animation-timeline:view();animation-range:entry 4% cover 24%}.metric:hover{transform:translateY(-4px);border-color:' + dAccent + ';box-shadow:0 22px 46px -22px ' + dAccent + '}' +
       '.metric-kind{font:10px ' + mono + ';letter-spacing:.14em;text-transform:uppercase;color:var(--a);opacity:.8}' +
       '.metric strong{font:600 clamp(28px,4vw,48px)/1 ' + sans + ';letter-spacing:-.04em;margin-top:28px;color:#f1f5f9}' +
       '.metric h2{font:500 13px ' + sans + ';margin-top:8px;color:#cbd5e1}' +
       '.metric-foot{display:flex;align-items:end;justify-content:space-between;gap:8px;margin-top:auto;padding-top:22px;font:10px ' + mono + ';color:' + dMuted + '}' +
-      '.metric svg{width:120px;height:28px;overflow:visible}.metric path{fill:none;stroke:' + dAccent + ';stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.8}' +
+      '.metric svg{width:120px;height:28px;overflow:visible}.metric path{fill:none;stroke:' + dAccent + ';stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.85;filter:drop-shadow(0 0 5px color-mix(in srgb,var(--a) 55%,transparent))}.metric:hover path{opacity:1}' +
       '.provenance{font:11px ' + mono + ';color:' + dMuted + ';margin-top:18px}' +
-      '@media(max-width:820px){.metrics{grid-template-columns:repeat(2,1fr)}}@media(max-width:480px){.console-head{display:block}.console-head p{text-align:left;margin-top:12px}.metrics{grid-template-columns:1fr}}';
+      '@keyframes met-in{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}@media(max-width:820px){.metrics{grid-template-columns:repeat(2,1fr)}}@media(max-width:480px){.console-head{display:block}.console-head p{text-align:left;margin-top:12px}.metrics{grid-template-columns:1fr}}';
     var body = '<main class="console"><header class="console-head"><div><span class="metric-kind">' + esc(label) + '</span><h1>' + esc(content.title) + '</h1></div><p>Metrics drawn from the source page</p></header><section class="metrics" aria-label="Source metrics">' + cards + '</section><p class="provenance">Every number shown appears in the source; labels mirror how the page names them.</p></main>';
     return pageWithPalette(content.title, css, body, dGround, dAccent, dMuted, dSurface, '#e6edf3');
   }
