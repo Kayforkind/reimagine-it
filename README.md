@@ -16,7 +16,7 @@
 
 </div>
 
-[![A source page becomes several content-derived compositions](docs/hero.svg)](https://kayforkind.github.io/reimagine-it/#playground)
+[![A source page becomes several content-derived compositions](https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/hero.svg)](https://kayforkind.github.io/reimagine-it/#playground)
 
 ## The 60-second proof
 
@@ -123,10 +123,10 @@ The intended outcome is **fresh when requested, consistent when approved**—not
 - **[Live playground](https://kayforkind.github.io/reimagine-it/#playground)** — all 14 design tokens now selectable in-browser.
 
 <p align="center">
-  <img src="examples/end-users/orbitline/before-after.gif" width="260" alt="Release desk: plain source to dashboard">
-  <img src="examples/end-users/ember-table/before-after.gif" width="260" alt="Restaurant menu to warm landing page">
-  <img src="examples/end-users/tide-letter/before-after.gif" width="260" alt="Essay to editorial magazine page">
-  <img src="examples/end-users/teralyte/before-after.gif" width="260" alt="Infra docs to dashboard and gradient deck">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/orbitline/before-after.gif" width="260" alt="Release desk: plain source to dashboard">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/ember-table/before-after.gif" width="260" alt="Restaurant menu to warm landing page">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/tide-letter/before-after.gif" width="260" alt="Essay to editorial magazine page">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/teralyte/before-after.gif" width="260" alt="Infra docs to dashboard and gradient deck">
 </p>
 
 The committed examples are reproducible references, not promises about an unknown input. Run the command on your own page to see what its content produces.
@@ -149,6 +149,10 @@ The committed examples are reproducible references, not promises about an unknow
 | `editorial` | Long-form text and essays | Magazine layout with drop caps |
 | `motion` | Scroll-driven stories | Animated reveals and parallax |
 | `gradient` | Bold brand presentations | Gradient mesh cards and text |
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/tokens-board.png" alt="All 14 design tokens applied to the same source — real CLI output" width="720">
+</p>
 
 List the registry from the CLI:
 
@@ -226,7 +230,7 @@ Expose the same engine to an MCP-compatible host:
   "mcpServers": {
     "reimagine-it": {
       "command": "npx",
-      "args": ["reimagine-it-mcp"]
+      "args": ["-y", "--package", "reimagine-it", "reimagine-it-mcp"]
     }
   }
 }

@@ -9,201 +9,179 @@
 <link rel="canonical" href="https://kayforkind.github.io/reimagine-it/">
 <style>
 :root {
-  --paper: #f4ecd8; --ink: #1a2138; --dim: #6a624e; --hot: #b22234; --gold: #e8a63f;
-  --void: #0a1626; --panel: #0d1624;
-  --serif: "Iowan Old Style", Palatino, Georgia, serif;
+  --void: #0a0f1e; --ink: #f4efe4; --paper: #f4efe4; --dim: #8b93a7;
+  --hot: #e8a63f; --crimson: #b22234; --panel: #121a2e; --line: rgba(244,239,228,.1);
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   --sans: ui-sans-serif, system-ui, "Segoe UI", Inter, sans-serif;
   --mono: ui-monospace, "SF Mono", Consolas, Menlo, monospace;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body {
-  background: var(--paper); color: var(--ink); font-family: var(--sans);
-  line-height: 1.5; -webkit-font-smoothing: antialiased; scroll-behavior: smooth;
-}
+html { background: var(--void); }
+html, body { background: var(--void); color: var(--ink); font-family: var(--sans); line-height: 1.5; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; overflow-x: hidden; }
 a { color: var(--hot); text-decoration: none; }
 a:hover { color: var(--ink); }
-a:focus-visible, .btn:focus-visible, .card:focus-visible {
-  outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px;
-}
-::selection { background: var(--gold); color: var(--ink); }
-code { font-family: var(--mono); background: rgba(26,33,56,.06); padding: 2px 6px; border-radius: 4px; font-size: .88em; }
+a:focus-visible, .btn:focus-visible, .card:focus-visible { outline: 2px solid var(--hot); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--hot); color: var(--void); }
+code { font-family: var(--mono); background: rgba(244,239,228,.08); padding: 2px 6px; border-radius: 4px; font-size: .88em; color: var(--ink); }
 
-.wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+/* craft floor: grain + progress + scrollbar */
+body::before { content: ""; position: fixed; inset: 0; z-index: 9998; pointer-events: none; opacity: .05; mix-blend-mode: overlay; background-image: url("data:image/svg+xml;utf8,<svg xmlns=%27http://www.w3.org/2000/svg%27 width=%27160%27 height=%27160%27><filter id=%27n%27><feTurbulence type=%27fractalNoise%27 baseFrequency=%270.85%27 numOctaves=%272%27 stitchTiles=%27stitch%27/></filter><rect width=%27160%27 height=%27160%27 filter=%27url(%23n)%27 opacity=%270.6%27/></svg>"); }
+body::after { content: ""; position: fixed; left: 0; top: 0; height: 2px; width: 100%; background: linear-gradient(90deg, var(--crimson), var(--hot)); transform-origin: 0 50%; transform: scaleX(0); z-index: 9999; pointer-events: none; animation: progline linear both; animation-timeline: scroll(root); }
+@keyframes progline { to { transform: scaleX(1); } }
+html { scrollbar-color: var(--hot) var(--void); scrollbar-width: thin; }
+
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
 
 /* ---- NAV ---- */
-nav {
-  display: flex; justify-content: space-between; align-items: baseline;
-  padding: 22px 0 18px; font-family: var(--mono); font-size: 11px;
-  letter-spacing: .18em; text-transform: uppercase; color: var(--dim);
-  border-bottom: 1px solid rgba(26,33,56,.1);
-}
+nav { display: flex; justify-content: space-between; align-items: baseline; padding: 22px 0 18px; font-family: var(--mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--dim); border-bottom: 1px solid var(--line); }
 nav b { color: var(--hot); }
 nav .links { display: flex; gap: 20px; flex-wrap: wrap; }
-nav .links a { color: var(--dim); }
-nav .links a:hover { color: var(--ink); }
+nav .links a { color: var(--dim); transition: color .2s ease; }
+nav .links a:hover { color: var(--hot); }
 
 /* ---- HERO ---- */
-.hero {
-  display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px;
-  align-items: start; padding: 72px 0 64px;
-}
-.hero .kicker {
-  font-family: var(--mono); font-size: 10px; letter-spacing: .22em;
-  text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
-}
-h1 {
-  font-family: var(--serif); font-weight: 400;
-  font-size: clamp(38px, 5.5vw, 60px); line-height: 1.06;
-  letter-spacing: -.02em; max-width: 15ch;
-}
-h1 em { font-style: italic; color: var(--ink); }
-.hero .sub { margin-top: 20px; max-width: 44ch; font-size: 17px; color: #2c3a5a; line-height: 1.65; }
-.hero .sub strong { color: var(--ink); }
-.cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
-.btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--ink); color: var(--paper); font-family: var(--sans);
-  font-size: 14px; font-weight: 600; padding: 12px 20px; border: 0;
-  border-radius: 8px; cursor: pointer; transition: transform .15s ease-out, box-shadow .15s ease-out;
-}
-.btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px -12px rgba(26,33,56,.4); }
-.btn--ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px rgba(26,33,56,.22); }
-.btn--ghost:hover { background: var(--ink); color: var(--paper); }
-.btn--gold { background: var(--gold); color: var(--ink); }
-.btn--gold:hover { background: #d49530; }
-.proof {
-  background: var(--void); color: var(--paper); border-radius: 16px;
-  padding: 16px 16px 14px; box-shadow: 0 28px 56px -20px rgba(10,22,38,.5);
-}
-.proof img { width: 100%; height: auto; display: block; border-radius: 10px; }
-.proof .meta {
-  display: flex; justify-content: space-between; gap: 12px;
-  font-family: var(--mono); font-size: 10px; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--gold); margin-bottom: 10px;
-}
+.hero { position: relative; display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; padding: clamp(64px, 9vw, 120px) 0 clamp(56px, 7vw, 96px); min-height: 88vh; }
+.hero-aurora { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.hero-aurora i { position: absolute; border-radius: 50%; filter: blur(110px); opacity: .5; }
+.hero-aurora i:nth-child(1) { width: 52vmax; height: 52vmax; left: -14vmax; top: -18vmax; background: radial-gradient(circle, rgba(178,34,52,.34), transparent 66%); animation: aurora-a 24s ease-in-out infinite alternate; }
+.hero-aurora i:nth-child(2) { width: 44vmax; height: 44vmax; right: -12vmax; top: 6vmax; background: radial-gradient(circle, rgba(232,166,63,.22), transparent 66%); animation: aurora-b 30s ease-in-out infinite alternate; }
+.hero-aurora i:nth-child(3) { width: 40vmax; height: 40vmax; left: 22vmax; bottom: -16vmax; background: radial-gradient(circle, rgba(37,72,180,.26), transparent 66%); animation: aurora-a 36s ease-in-out infinite alternate-reverse; }
+@keyframes aurora-a { to { transform: translate(9vmax, 5vmax) scale(1.18); } }
+@keyframes aurora-b { to { transform: translate(-8vmax, 7vmax) scale(1.1); } }
+.hero .kicker { font-family: var(--mono); font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--hot); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.hero .kicker::before { content: ""; width: 34px; height: 1px; background: var(--hot); }
+h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(44px, 6.4vw, 96px); line-height: .99; letter-spacing: -.03em; }
+h1 em { font-style: italic; }
+h1 .grad { background: linear-gradient(100deg, var(--crimson), var(--hot) 55%, #f4c86b); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .sub { margin-top: 26px; max-width: 46ch; font-size: 17px; color: #b9c0d0; line-height: 1.7; }
+.hero .sub strong { color: var(--ink); font-weight: 600; }
+.hero .sub code { color: var(--hot); background: rgba(232,166,63,.12); }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 34px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: var(--void); font-family: var(--sans); font-size: 14px; font-weight: 600; padding: 13px 22px; border: 0; border-radius: 999px; cursor: pointer; transition: transform .18s ease-out, box-shadow .18s ease-out, background .18s ease; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 16px 34px -14px rgba(232,166,63,.45); background: #fff; }
+.btn--ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px rgba(244,239,228,.28); }
+.btn--ghost:hover { background: rgba(244,239,228,.08); color: var(--ink); }
+.btn--gold { background: var(--hot); color: var(--void); }
+.btn--gold:hover { background: #f2b655; }
+
+/* ---- TRANSFORMATION WINDOW ---- */
+.transform { position: relative; border: 1px solid rgba(244,239,228,.14); border-radius: 22px; background: rgba(18,26,46,.72); backdrop-filter: blur(18px); overflow: hidden; box-shadow: 0 40px 90px -34px rgba(0,0,0,.8); }
+.transform-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 18px; border-bottom: 1px solid rgba(244,239,228,.1); font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--dim); }
+.transform-head .dots { display: flex; gap: 6px; }
+.transform-head .dots i { width: 9px; height: 9px; border-radius: 50%; background: rgba(244,239,228,.16); }
+.transform-head .dots i:first-child { background: var(--crimson); }
+.transform-head .dots i:nth-child(2) { background: var(--hot); }
+.transform-stage { position: relative; aspect-ratio: 4 / 4.6; }
+.transform-stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .7s ease; }
+.transform-stage img.show { opacity: 1; }
+.transform-cap { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 20px 18px; background: linear-gradient(transparent, rgba(10,15,30,.92)); font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); }
+.transform-cap b { color: var(--hot); font-weight: 600; }
+.transform-nav { display: flex; gap: 8px; }
+.transform-nav button { width: 30px; height: 30px; border-radius: 50%; border: 1px solid rgba(244,239,228,.25); background: transparent; color: var(--ink); cursor: pointer; font-size: 14px; transition: background .18s ease; }
+.transform-nav button:hover { background: rgba(232,166,63,.2); border-color: var(--hot); }
+
+/* ---- TOKEN MARQUEE ---- */
+.marquee { overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 16px 0; margin: 0 0 8px; }
+.marquee-track { display: flex; gap: 0; width: max-content; animation: marquee 36s linear infinite; }
+.marquee-track span { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--dim); padding: 0 18px; white-space: nowrap; }
+.marquee-track span i { color: var(--hot); font-style: normal; margin-right: 36px; }
+@keyframes marquee { to { transform: translateX(-50%); } }
 
 /* ---- STATS ---- */
-.stats { display: flex; gap: 32px; margin-top: 20px; flex-wrap: wrap; }
-.stat { font-family: var(--mono); }
-.stat .val { font-size: 26px; font-weight: 600; color: var(--hot); }
-.stat .lab { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); display: block; }
+.stats { display: flex; gap: 44px; margin-top: 34px; flex-wrap: wrap; }
+.stat { font-family: var(--mono); position: relative; padding-left: 14px; }
+.stat::before { content: ""; position: absolute; left: 0; top: 4px; bottom: 4px; width: 2px; background: linear-gradient(var(--crimson), var(--hot)); }
+.stat .val { font-size: 34px; font-weight: 600; color: var(--ink); display: block; letter-spacing: -.02em; }
+.stat .val em { color: var(--hot); font-style: normal; }
+.stat .lab { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--dim); display: block; margin-top: 2px; }
 
-/* ---- METHOD ---- */
-.method { padding: 64px 0 56px; border-top: 1px solid rgba(26,33,56,.08); }
-.method h2, .case-section h2, .install-section h2, .playground-section h2 {
-  font-family: var(--serif); font-weight: 400; font-size: 30px; letter-spacing: -.01em; margin-bottom: 10px;
-}
-.method .sub, .case-section .sub, .install-section .sub, .playground-section .sub {
-  color: #2c3a5a; max-width: 52ch; margin-bottom: 28px; font-size: 15px;
-}
-.method-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
-.method-card {
-  background: #fff; border: 1px solid rgba(26,33,56,.08); border-radius: 12px;
-  padding: 24px; transition: transform .15s ease-out;
-}
-.method-card:hover { transform: translateY(-4px); box-shadow: 0 16px 36px -16px rgba(26,33,56,.2); }
-.method-card .step {
-  font-family: var(--mono); font-size: 10px; letter-spacing: .16em;
-  text-transform: uppercase; color: var(--gold); margin-bottom: 10px; display: block;
-}
-.method-card h3 { font-family: var(--serif); font-weight: 400; font-size: 20px; margin-bottom: 8px; }
-.method-card p { font-size: 14px; color: var(--dim); line-height: 1.6; }
+/* ---- SECTION FRAME ---- */
+.method, .case-section, .install-section, .playground-section { padding: 84px 0 76px; border-top: 1px solid var(--line); position: relative; }
+.method h2, .case-section h2, .install-section h2, .playground-section h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 4.6vw, 52px); letter-spacing: -.02em; margin-bottom: 14px; line-height: 1.05; }
+.method h2 em, .case-section h2 em { font-style: italic; color: var(--hot); }
+.method .sub, .case-section .sub, .install-section .sub, .playground-section .sub { color: #aeb6c8; max-width: 56ch; margin-bottom: 34px; font-size: 16px; line-height: 1.65; }
+.method .sub a, .case-section .sub a { border-bottom: 1px solid rgba(232,166,63,.4); }
+.method-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+.method-card { position: relative; background: rgba(18,26,46,.6); border: 1px solid rgba(244,239,228,.09); border-radius: 16px; padding: 30px 26px 26px; transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; overflow: hidden; }
+.method-card::before { content: attr(data-no); position: absolute; right: 16px; top: 8px; font-family: var(--serif); font-size: 64px; color: rgba(244,239,228,.05); line-height: 1; }
+.method-card:hover { transform: translateY(-5px); border-color: rgba(232,166,63,.5); box-shadow: 0 24px 50px -24px rgba(0,0,0,.7); }
+.method-card .step { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--hot); margin-bottom: 12px; display: block; }
+.method-card h3 { font-family: var(--serif); font-weight: 400; font-size: 22px; margin-bottom: 10px; }
+.method-card p { font-size: 14px; color: #9aa3b8; line-height: 1.66; }
 
 /* ---- CASE STUDIES ---- */
-.case-section { padding: 64px 0 56px; border-top: 1px solid rgba(26,33,56,.08); }
-.case-section h3.source-name { font-family: var(--serif); font-weight: 400; font-size: 22px; margin: 36px 0 8px; }
-.case-section .source-sub { color: var(--dim); margin-bottom: 16px; font-size: 14px; max-width: 48ch; }
-.case-section img { width: 100%; height: auto; display: block; border-radius: 12px; border: 1px solid rgba(26,33,56,.08); margin-bottom: 12px; }
-.case-section .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.case-section .before-after img { margin-bottom: 0; }
-.case-section .before-after .label {
-  font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
-  margin: 8px 0 0; text-align: center;
-}
+.case-section h3.source-name { font-family: var(--serif); font-weight: 400; font-size: 24px; margin: 44px 0 10px; }
+.case-section h3.source-name::before { content: "✦ "; color: var(--hot); }
+.case-section .source-sub { color: #9aa3b8; margin-bottom: 18px; font-size: 14px; max-width: 52ch; line-height: 1.65; }
+.case-section .source-sub a { border-bottom: 1px solid rgba(232,166,63,.4); }
+.case-section .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.case-section .before-after img { width: 100%; height: auto; display: block; border-radius: 16px; border: 1px solid rgba(244,239,228,.1); margin-bottom: 0; transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+.case-section .before-after > div { position: relative; overflow: hidden; border-radius: 16px; }
+.case-section .before-after > div:hover img { transform: scale(1.03); border-color: rgba(232,166,63,.45); box-shadow: 0 26px 54px -26px rgba(0,0,0,.8); }
+.case-section .before-after .label { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; margin: 12px 0 0; text-align: center; color: var(--dim); }
+.case-section .before-after .label::before { content: "→ "; color: var(--hot); }
 .case-table { width: 100%; border-collapse: collapse; margin: 24px 0 8px; }
-.case-table th { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); text-align: left; padding: 10px 12px; border-bottom: 2px solid rgba(26,33,56,.08); }
-.case-table td { font-size: 14px; padding: 10px 12px; border-bottom: 1px solid rgba(26,33,56,.06); vertical-align: top; }
-.case-table td a { white-space: nowrap; }
-.case-table .src { font-weight: 600; }
-.case-table .pal { font-family: var(--mono); font-size: 12px; }
-.case-table .pal span { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+.case-table th { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); text-align: left; padding: 12px 14px; border-bottom: 1px solid rgba(244,239,228,.14); }
+.case-table td { font-size: 14px; padding: 12px 14px; border-bottom: 1px solid rgba(244,239,228,.06); vertical-align: top; color: #c6ccda; }
+.case-table td a { border-bottom: 1px solid rgba(232,166,63,.4); }
+.case-table .src { font-weight: 600; color: var(--ink); }
+
+/* ---- TOKENS GALLERY ---- */
+.tokens-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.tokens-board-wrap { margin: 28px 0 8px; border: 1px solid rgba(244,239,228,.12); border-radius: 18px; overflow: hidden; box-shadow: 0 24px 60px -30px rgba(0,0,0,.8); }
+.tokens-board-wrap img { display: block; width: 100%; height: auto; }
+.token-card { position: relative; background: rgba(18,26,46,.55); border: 1px solid rgba(244,239,228,.09); border-radius: 16px; padding: 22px 20px 20px; transition: transform .2s ease, border-color .2s ease, background .2s ease; overflow: hidden; }
+.token-card::before { content: attr(data-no); position: absolute; right: 14px; bottom: 4px; font-family: var(--serif); font-size: 54px; color: rgba(244,239,228,.05); line-height: 1; }
+.token-card:hover { transform: translateY(-4px); border-color: rgba(232,166,63,.55); background: rgba(28,38,66,.75); }
+.token-card code { background: rgba(232,166,63,.12); color: var(--hot); font-size: 11px; letter-spacing: .1em; }
+.token-card h3 { font-family: var(--serif); font-weight: 400; font-size: 19px; margin: 12px 0 6px; }
+.token-card p { font-size: 13px; color: #9aa3b8; line-height: 1.6; }
 
 /* ---- INSTALL ---- */
-.install-section { padding: 64px 0 56px; border-top: 1px solid rgba(26,33,56,.08); }
 .install-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
-.install-card {
-  background: #fff; border: 1px solid rgba(26,33,56,.08); border-radius: 12px;
-  padding: 24px; transition: transform .15s ease-out;
-}
-.install-card:hover { transform: translateY(-3px); }
-.install-card .agent {
-  font-family: var(--mono); font-size: 10px; letter-spacing: .16em;
-  text-transform: uppercase; color: var(--gold); margin-bottom: 6px; display: block;
-}
-.install-card h3 { font-family: var(--serif); font-weight: 400; font-size: 18px; margin-bottom: 10px; }
-.install-card pre {
-  font-family: var(--mono); font-size: 12px; background: var(--panel); color: var(--gold);
-  padding: 14px 16px; border-radius: 8px; overflow-x: auto; white-space: pre-wrap; line-height: 1.5;
-}
-.install-card .alt { font-size: 12px; color: var(--dim); margin-top: 10px; }
-.install-card .alt code { font-size: 11px; }
+.install-card { background: rgba(18,26,46,.6); border: 1px solid rgba(244,239,228,.09); border-radius: 16px; padding: 26px; transition: transform .2s ease, border-color .2s ease; }
+.install-card:hover { transform: translateY(-3px); border-color: rgba(232,166,63,.4); }
+.install-card .agent { font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--hot); margin-bottom: 8px; display: block; }
+.install-card h3 { font-family: var(--serif); font-weight: 400; font-size: 19px; margin-bottom: 12px; }
+.install-card pre { font-family: var(--mono); font-size: 12px; background: #0a0f1e; color: #f4c86b; padding: 16px 18px; border-radius: 10px; overflow-x: auto; white-space: pre-wrap; line-height: 1.55; border: 1px solid rgba(244,239,228,.06); }
+.install-card .alt { font-size: 12px; color: #8b93a7; margin-top: 12px; }
+.install-card .alt code { font-size: 11px; color: var(--hot); }
 
 /* ---- PLAYGROUND ---- */
-.playground-section { padding: 64px 0 72px; border-top: 1px solid rgba(26,33,56,.08); }
+.playground-section { padding: 84px 0 88px; }
 .play-box { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .play-left, .play-right { display: flex; flex-direction: column; gap: 14px; }
-.play-label {
-  font-family: var(--mono); font-size: 10px; letter-spacing: .16em;
-  text-transform: uppercase; color: var(--hot);
-}
-.play-left textarea {
-  width: 100%; min-height: 180px; background: #fff; color: var(--ink);
-  border: 1px solid rgba(26,33,56,.14); border-radius: 10px; padding: 16px;
-  font-family: var(--mono); font-size: 13px; line-height: 1.6; resize: vertical;
-}
-.play-left textarea:focus { outline: 2px solid var(--gold); outline-offset: 2px; border-color: transparent; }
+.play-label { font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--hot); }
+.play-left textarea { width: 100%; min-height: 180px; background: #0a0f1e; color: var(--ink); border: 1px solid rgba(244,239,228,.14); border-radius: 12px; padding: 16px; font-family: var(--mono); font-size: 13px; line-height: 1.6; resize: vertical; }
+.play-left textarea:focus { outline: 2px solid var(--hot); outline-offset: 2px; border-color: transparent; }
 .token-row { display: flex; gap: 8px; flex-wrap: wrap; }
-.token-btn {
-  font-family: var(--mono); font-size: 11px; letter-spacing: .08em;
-  padding: 7px 14px; border-radius: 999px; border: 1px solid rgba(26,33,56,.18);
-  background: transparent; color: var(--dim); cursor: pointer; transition: background-color .15s ease-out, color .15s ease-out, border-color .15s ease-out;
-}
-.token-btn:hover, .token-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-.run-btn {
-  font-family: var(--sans); font-size: 14px; font-weight: 600;
-  padding: 12px 24px; border: 0; border-radius: 8px;
-  background: var(--ink); color: var(--paper); cursor: pointer;
-  transition: transform .15s ease-out;
-}
-.run-btn:hover { transform: translateY(-2px); }
-.play-right .iframe-wrap {
-  flex: 1; min-height: 340px; background: #fff; border-radius: 12px;
-  overflow: hidden; border: 1px solid rgba(26,33,56,.08);
-}
+.token-btn { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; padding: 7px 14px; border-radius: 999px; border: 1px solid rgba(244,239,228,.2); background: transparent; color: var(--dim); cursor: pointer; transition: background-color .15s ease, color .15s ease, border-color .15s ease; }
+.token-btn:hover, .token-btn.active { background: var(--hot); color: var(--void); border-color: var(--hot); }
+.run-btn { font-family: var(--sans); font-size: 14px; font-weight: 600; padding: 12px 24px; border: 0; border-radius: 999px; background: var(--ink); color: var(--void); cursor: pointer; transition: transform .15s ease, box-shadow .15s ease; }
+.run-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -12px rgba(232,166,63,.4); }
+.play-right .iframe-wrap { flex: 1; min-height: 340px; background: #0a0f1e; border-radius: 14px; overflow: hidden; border: 1px solid rgba(244,239,228,.1); }
 .play-right iframe { width: 100%; height: 100%; border: 0; min-height: 340px; }
 .play-notes { font-family: var(--mono); font-size: 11px; color: var(--dim); letter-spacing: .06em; margin-top: 8px; line-height: 1.7; }
 .play-notes span { color: var(--hot); }
 .play-share-row { display: flex; gap: 10px; flex-wrap: wrap; }
 
 /* ---- FOOTER ---- */
-footer {
-  border-top: 1px solid rgba(26,33,56,.12); padding: 26px 0 44px;
-  font-family: var(--mono); font-size: 11px; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--dim);
-  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-}
+footer { border-top: 1px solid rgba(244,239,228,.12); padding: 30px 0 48px; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 footer a { color: var(--hot); }
 
-@media (max-width: 820px) {
-  .hero { grid-template-columns: 1fr; padding: 40px 0 44px; gap: 28px; }
-  h1 { font-size: 34px; }
-  .hero .sub { font-size: 15px; }
+/* ---- REVEAL ---- */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding: 48px 0 56px; gap: 40px; min-height: 0; }
+  h1 { font-size: clamp(38px, 9vw, 58px); }
   .play-box { grid-template-columns: 1fr; }
   .play-right .iframe-wrap { min-height: 260px; }
   .before-after { grid-template-columns: 1fr !important; }
 }
 
-/* playground page styles */
+/* playground page styles (kept for engine-generated previews) */
 .pg-page { font-family: system-ui, sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased; min-height: 100vh; }
 .pg-page * { box-sizing: border-box; margin: 0; padding: 0; }
 .pg-hero { padding: 64px 28px 48px; max-width: 960px; margin: 0 auto; }
@@ -223,8 +201,10 @@ footer a { color: var(--hot); }
 
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation-duration: .001ms !important; }
-  .method-card:hover, .install-card:hover, .btn:hover { transform: none !important; }
+  .method-card:hover, .install-card:hover, .btn:hover, .token-card:hover, .transform-stage img { transform: none !important; }
+  .marquee-track { animation: none; }
 }
+
 </style>
 </head>
 <body>
@@ -239,12 +219,13 @@ footer a { color: var(--hot); }
       </div>
     </nav>
 
+    <div class="hero-aurora" aria-hidden="true"><i></i><i></i><i></i></div>
     <section class="hero" id="hero">
       <div>
         <p class="kicker">Content-Derived Design for AI Agents</p>
-        <h1>Your file <em>is</em> the brief. The AI reads it and redesigns from it.</h1>
+        <h1>Your file <em>is</em> the brief.<br>The AI reads it and <span class="grad">redesigns</span> it.</h1>
         <p class="sub">
-          <strong>Content-Derived Design</strong> — palette, motifs, and motion are extracted from concrete nouns, dates, and colors already in your source. Not a mood board. A real artifact. <code>/reimagine-it</code> ships one HTML file. Offline. No Figma. No CDN.
+          <strong>Content-Derived Design</strong> — palette, motifs, and motion are extracted from the concrete nouns, dates, and colors already in your source. Not a mood board. A real artifact. <code>/reimagine-it</code> ships one standalone HTML file. Offline. No Figma. No CDN.
         </p>
         <div class="cta">
           <a class="btn" href="#install">Install →</a>
@@ -252,17 +233,27 @@ footer a { color: var(--hot); }
           <a class="btn btn--ghost" href="https://github.com/Kayforkind/reimagine-it">GitHub</a>
         </div>
         <div class="stats">
-          <div class="stat"><span class="val">14</span><span class="lab">Design tokens</span></div>
-          <div class="stat"><span class="val">5</span><span class="lab">Diverse sources</span></div>
-          <div class="stat"><span class="val">32</span><span class="lab">Gold files</span></div>
+          <div class="stat"><span class="val">14<em>+</em></span><span class="lab">Design tokens</span></div>
+          <div class="stat"><span class="val">9<em>+</em></span><span class="lab">Agent hosts</span></div>
+          <div class="stat"><span class="val">4</span><span class="lab">Real case studies</span></div>
           <div class="stat"><span class="val">0</span><span class="lab">CDN deps</span></div>
         </div>
       </div>
-      <aside class="proof">
-        <div class="meta"><span>Same naive HTML · 5 outputs</span><span>No CDN</span></div>
-        <img src="hero.svg" width="960" height="560" alt="Source content becomes a designed artifact through palette, anchors, motif, and composition">
+      <aside class="transform" aria-label="Live examples">
+        <div class="transform-head"><span class="dots"><i></i><i></i><i></i></span><span>Same method · different DNA</span><span id="tfCount">01 / 04</span></div>
+        <div class="transform-stage" id="tfStage">
+          <img src="examples/end-users/orbitline/before-after.gif" alt="Release desk to dashboard" loading="eager">
+          <img src="examples/end-users/ember-table/before-after.gif" alt="Menu to landing" loading="lazy">
+          <img src="examples/end-users/tide-letter/before-after.gif" alt="Essay to editorial" loading="lazy">
+          <img src="examples/end-users/teralyte/before-after.gif" alt="Docs to dashboard" loading="lazy">
+        </div>
+        <div class="transform-cap"><span id="tfLabel"><b>Release desk</b> → dashboard</span><span class="transform-nav"><button id="tfPrev" aria-label="Previous">←</button><button id="tfNext" aria-label="Next">→</button></span></div>
       </aside>
     </section>
+  </div>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track" id="marqueeTrack"></div>
   </div>
 
   <div class="wrap">
@@ -270,22 +261,22 @@ footer a { color: var(--hot); }
       <h2>Content-Derived Design — how it works</h2>
       <p class="sub">The skill reads your file, extracts concrete nouns / dates / colors / proper nouns, and builds a design language from them. Nothing is hard-coded.</p>
       <div class="method-steps">
-        <div class="method-card">
+        <div class="method-card reveal">
           <span class="step">01 · Extract</span>
           <h3>Read the source</h3>
           <p>Find proper nouns, dates, color words, numbers, and anchor phrases in the HTML you point at. These are the raw material.</p>
         </div>
-        <div class="method-card">
+        <div class="method-card reveal">
           <span class="step">02 · Derive</span>
           <h3>Build the palette</h3>
           <p>A Texas notebook gets navy / red / gold from the Lone Star flag. A restaurant menu gets clay / saffron from the dish names. ≤ 5 colors, all from content.</p>
         </div>
-        <div class="method-card">
+        <div class="method-card reveal">
           <span class="step">03 · Motif</span>
           <h3>Pick the repeating mark</h3>
           <p>Lone Star, beam sweep, smoke tendril, pulse wave — one geometric motif from the source carried through every section.</p>
         </div>
-        <div class="method-card">
+        <div class="method-card reveal">
           <span class="step">04 · Ship</span>
           <h3>Produce one artifact</h3>
           <p>Single .html file. Inline CSS. Inline SVG. Inline WebGL. Compositor-only motion. Craft-floor checked. Opens offline. Double-clickable.</p>
@@ -299,7 +290,7 @@ footer a { color: var(--hot); }
 
       <h3 class="source-name">A better example: one source, three useful outcomes</h3>
       <p class="source-sub">This older Texas fixture is kept as a technical regression reference—not the main product story. Start with the fresh end-user journeys below to see realistic content become usable pages.</p>
-      <div class="before-after">
+      <div class="before-after reveal">
         <div><img src="examples/end-users/orbitline/before-after.gif" width="720" height="720" alt="Orbitline release desk: plain source to dashboard, infographic, and phone screens" loading="lazy"><p class="label">Release desk → console → infographic → mobile</p></div>
         <div><img src="examples/end-users/ember-table/before-after.gif" width="720" height="720" alt="Ember and Table moving from plain source to a warm hospitality page, photography folio, and phone screens" loading="lazy"><p class="label">Restaurant → service page → folio → mobile</p></div>
         <div><img src="examples/end-users/tide-letter/before-after.gif" width="720" height="720" alt="Night Tide essay moving from plain source to an editorial reading page, artistic treatment, and phone screens" loading="lazy"><p class="label">Essay → reading page → artistic → mobile</p></div>
@@ -327,41 +318,63 @@ footer a { color: var(--hot); }
       </table>
     </section>
 
+    <section class="case-section" id="tokens">
+      <h2>Fourteen directions. <em>One</em> honest method.</h2>
+      <p class="sub">Every token is a real generator in the engine — each one reads the same extracted content and builds a structurally different composition. No templates, no stock art, nothing invented.</p>
+<div class="tokens-board-wrap reveal"><img src="tokens-board.png" alt="All 14 design tokens applied to the same source — real CLI output"></div>
+      <div class="tokens-grid">
+          <div class="token-card reveal" data-no="01"><code>webpage</code><h3>Articles and source documents</h3><p>Measured reading hierarchy</p></div>
+          <div class="token-card reveal" data-no="02"><code>landing</code><h3>Products and services</h3><p>Hero and action rhythm</p></div>
+          <div class="token-card reveal" data-no="03"><code>dashboard</code><h3>Metrics and operations</h3><p>Console, KPIs, and status</p></div>
+          <div class="token-card reveal" data-no="04"><code>infographic</code><h3>Facts and comparisons</h3><p>Shared scales and timelines</p></div>
+          <div class="token-card reveal" data-no="05"><code>cinematic</code><h3>Narrative moments</h3><p>Depth and paced chapters</p></div>
+          <div class="token-card reveal" data-no="06"><code>artistic</code><h3>Posters and expressive pages</h3><p>Asymmetric type and layered fields</p></div>
+          <div class="token-card reveal" data-no="07"><code>photography</code><h3>Portfolios and collections</h3><p>Folio plates and captions</p></div>
+          <div class="token-card reveal" data-no="08"><code>svg</code><h3>Marks and diagrams</h3><p>Inline geometric illustration</p></div>
+          <div class="token-card reveal" data-no="09"><code>3js</code><h3>Spatial stories</h3><p>Offline orbitable canvas</p></div>
+          <div class="token-card reveal" data-no="10"><code>simulation</code><h3>Time and process</h3><p>Playable timeline and scrubber</p></div>
+          <div class="token-card reveal" data-no="11"><code>glass</code><h3>Modern panels and cards</h3><p>Frosted backdrop depth</p></div>
+          <div class="token-card reveal" data-no="12"><code>editorial</code><h3>Long-form text and essays</h3><p>Magazine layout with drop caps</p></div>
+          <div class="token-card reveal" data-no="13"><code>motion</code><h3>Scroll-driven stories</h3><p>Animated reveals and parallax</p></div>
+          <div class="token-card reveal" data-no="14"><code>gradient</code><h3>Bold brand presentations</h3><p>Gradient mesh cards and text</p></div>
+      </div>
+    </section>
+
     <section class="install-section" id="install">
       <h2>Install — one command</h2>
       <p class="sub">Works in Claude Code, Cursor, Codex, Copilot, Gemini CLI, Factory Droid, Windsurf, Pi, and any Agent Skills host. One chair: <code>skills/reimagine-it/</code>.</p>
       <div class="install-grid">
-        <div class="install-card">
+        <div class="install-card reveal">
           <span class="agent">Claude Code</span>
           <h3>Plugin marketplace</h3>
           <pre>/plugin marketplace add Kayforkind/reimagine-it
 /plugin install reimagine-it@reimagine-it</pre>
           <p class="alt">Then <code>/plugin → Marketplaces → Enable auto-update</code></p>
         </div>
-        <div class="install-card">
+        <div class="install-card reveal">
           <span class="agent">Cursor · Codex · Copilot · Gemini CLI</span>
           <h3>npx skills add</h3>
           <pre>npx skills add Kayforkind/reimagine-it</pre>
           <p class="alt">Global: <code>npx skills add Kayforkind/reimagine-it -g</code></p>
         </div>
-        <div class="install-card">
+        <div class="install-card reveal">
           <span class="agent">Codex CLI</span>
           <h3>Plugin marketplace</h3>
           <pre>codex plugin marketplace add Kayforkind/reimagine-it
 codex plugin add reimagine-it@reimagine-it</pre>
         </div>
-        <div class="install-card">
+        <div class="install-card reveal">
           <span class="agent">Factory Droid</span>
           <h3>droid plugin install</h3>
           <pre>droid plugin marketplace add https://github.com/Kayforkind/reimagine-it
 droid plugin install reimagine-it@reimagine-it --scope user</pre>
         </div>
-        <div class="install-card">
+        <div class="install-card reveal">
           <span class="agent">Pi</span>
           <h3>Single command</h3>
           <pre>pi install https://github.com/Kayforkind/reimagine-it</pre>
         </div>
-        <div class="install-card">
+        <div class="install-card reveal">
           <span class="agent">Gemini CLI (manual)</span>
           <h3>Direct install</h3>
           <pre>gemini skills install https://github.com/Kayforkind/reimagine-it.git --path skills/reimagine-it</pre>
@@ -372,7 +385,7 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
     <section class="playground-section" id="playground">
       <h2>Try it — no install required</h2>
       <p class="sub">Paste any HTML below. Pick a token. The content-derived design engine runs in your browser — extracts nouns, colors, dates, and numbers from your source, builds a palette, and generates a redesigned page. Same method the agent skill uses.</p>
-      <div class="play-box">
+      <div class="play-box reveal">
         <div class="play-left">
           <span class="play-label">Paste your HTML</span>
           <textarea id="playInput" placeholder="<h1>My startup pitch</h1><p>We make widgets for teams that ship fast.</p><h2>Features</h2><ul><li>Fast · 23ms render</li><li>Secure · SOC 2 compliant</li><li>Open source · MIT</li></ul><p>hello@widgets.dev</p>" spellcheck="false"></textarea>
@@ -416,6 +429,46 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
     </footer>
   </div>
 
+<script>
+(function(){
+  /* token marquee */
+  var tokens = ['webpage','landing','dashboard','infographic','cinematic','artistic','photography','svg','3js','simulation','glass','editorial','motion','gradient'];
+  var track = document.getElementById('marqueeTrack');
+  if (track) {
+    var half = tokens.map(function(t){ return '<span>'+t+' <i>&#10022;</i></span>'; }).join('');
+    track.innerHTML = half + half;
+  }
+  /* transformation window cycler */
+  var stage = document.getElementById('tfStage');
+  var caps = [['Release desk','dashboard'],['Menu','landing'],['Essay','editorial'],['Docs','dashboard']];
+  var label = document.getElementById('tfLabel');
+  var count = document.getElementById('tfCount');
+  var idx = 0, timer = null;
+  function show(i){
+    var imgs = stage.querySelectorAll('img');
+    imgs.forEach(function(im, k){ im.classList.toggle('show', k === i); });
+    label.innerHTML = '<b>'+caps[i][0]+'</b> &rarr; '+caps[i][1];
+    count.textContent = '0' + (i + 1) + ' / 0' + imgs.length;
+    idx = i;
+  }
+  function cycle(){ show((idx + 1) % 4); }
+  var next = document.getElementById('tfNext'), prev = document.getElementById('tfPrev');
+  if (stage && next && prev) {
+    next.addEventListener('click', function(){ cycle(); restart(); });
+    prev.addEventListener('click', function(){ show((idx + 3) % 4); restart(); });
+    function restart(){ if (timer) window.clearInterval(timer); timer = window.setInterval(cycle, 4200); }
+    show(0);
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) timer = window.setInterval(cycle, 4200);
+  }
+  /* scroll reveal */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  /* method card ghost numerals */
+  document.querySelectorAll('.method-card').forEach(function(card, i){ card.setAttribute('data-no', '0' + (i + 1)); });
+})();
+</script>
 <script src="engine.js"></script>
 <script>
 (function(){
