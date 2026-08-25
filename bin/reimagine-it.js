@@ -32,6 +32,7 @@ if (!autoMode && !TOKENS.includes(requestedToken)) {
 }
 
 const outputToStdout = args.output === '-' || args.stdout;
+const candidateCount = args.candidates === undefined ? (autoMode ? 3 : 1) : args.candidates;
 let source;
 let inputPath;
 
@@ -69,7 +70,7 @@ let token = requestedToken;
 let output;
 let autoResult;
 if (autoMode) {
-  autoResult = autoGenerate(content, { seed, brief: args.brief });
+  autoResult = autoGenerate(content, { seed, brief: args.brief, candidates: candidateCount });
   token = autoResult.token;
   output = autoResult.output;
 } else {
@@ -161,7 +162,8 @@ Options:
   --stdout                Write generated HTML to stdout
   --seed, -s <n>          Pin creative variation for reproducibility
   --brief, -b <text>      Creative lens for the redesign
-  --auto, -a              Choose the best direction, generate, and verify it
+  --auto, -a              Generate up to three verified directions and choose the strongest
+  --candidates <n>        Evaluate 1–3 directions in Auto mode (default: 3)
   --dry, -d               Show extracted signals; do not generate
   --json                  Output extraction results as JSON
   --list, -l              List all available design tokens
@@ -200,13 +202,14 @@ function fail(message, code) {
 
 function parseArgs(raw) {
   const opts = {};
-  const valueFlags = new Set(['-i', '--input', '-t', '--token', '-o', '--output', '-s', '--seed', '-b', '--brief']);
+  const valueFlags = new Set(['-i', '--input', '-t', '--token', '-o', '--output', '-s', '--seed', '-b', '--brief', '--candidates']);
   const aliases = {
     '-i': 'input', '--input': 'input',
     '-t': 'token', '--token': 'token',
     '-o': 'output', '--output': 'output',
     '-s': 'seed', '--seed': 'seed',
     '-b': 'brief', '--brief': 'brief',
+    '--candidates': 'candidates',
   };
   for (let i = 0; i < raw.length; i++) {
     const arg = raw[i];
@@ -233,5 +236,9 @@ function parseArgs(raw) {
   if (opts.seed !== undefined && (!/^-?\d+$/.test(String(opts.seed)) || !Number.isSafeInteger(Number(opts.seed)))) {
     return { error: '--seed must be a safe integer' };
   }
+  if (opts.candidates !== undefined && (!/^\d+$/.test(String(opts.candidates)) || Number(opts.candidates) < 1 || Number(opts.candidates) > 3)) {
+    return { error: '--candidates must be an integer from 1 to 3' };
+  }
+  if (opts.candidates !== undefined) opts.candidates = Number(opts.candidates);
   return opts;
 }

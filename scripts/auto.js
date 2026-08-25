@@ -25,7 +25,7 @@ Options:
   --report, -r <path>     Decision report (default: next to the artifact)
   --seed, -s <n>          Pin the creative draw with a safe integer
   --brief, -b <text>      Creative lens; it does not add source facts
-  --candidates <n>        Evaluate 1–3 directions (default: 3)
+  --candidates <n>        Evaluate 1–3 directions (default: 3); output includes all verified options
   --quiet, -q             Do not print the result summary
   --help, -h              Show this help
 `);
@@ -53,17 +53,22 @@ const content = extractContent(source, inputLabel);
 const result = autoGenerate(content, {
   seed: args.seed,
   brief: args.brief,
-  candidates: args.candidates,
+  candidates: args.candidates === undefined ? 3 : args.candidates,
 });
 
 const artifactIsStdout = args.output === '-';
 const outputPath = artifactIsStdout ? null : path.resolve(args.output || path.join('reimagined', 'auto.html'));
 const reportPath = path.resolve(args.report || (outputPath ? outputPath.replace(/\.html?$/i, '.json') : 'reimagined/auto.json'));
+const candidateDir = outputPath ? path.join(path.dirname(outputPath), path.basename(outputPath, path.extname(outputPath)) + '-options') : null;
 const fidelity = sourceFidelity(content, result.output);
 
 if (outputPath) {
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
   fs.writeFileSync(outputPath, result.output, 'utf8');
+  result.candidates.slice(1).forEach((candidate, index) => {
+    fs.mkdirSync(candidateDir, { recursive: true });
+    fs.writeFileSync(path.join(candidateDir, `${String(index + 2).padStart(2, '0')}-${candidate.token}.html`), generateCandidate(content, candidate, args.brief), 'utf8');
+  });
 } else {
   process.stdout.write(result.output);
 }
@@ -133,6 +138,11 @@ function parseArgs(raw) {
     options.candidates = Number(options.candidates);
   }
   return options;
+}
+
+function generateCandidate(content, candidate, brief) {
+  const { generate } = require('../src/generate');
+  return generate({ content, token: candidate.token, seed: candidate.seed, brief });
 }
 
 function fail(message, code) {

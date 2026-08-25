@@ -5,9 +5,15 @@
       "source": "examples/end-users/orbitline/source.html",
       "auto": "examples/end-users/orbitline/auto.html",
       "report": "examples/end-users/orbitline/auto.json",
-      "alternate": "examples/end-users/orbitline/alternate.html",
+      "alternates": [
+        "examples/end-users/orbitline/option-2-infographic.html",
+        "examples/end-users/orbitline/option-3-webpage.html"
+      ],
       "auto_token": "dashboard",
-      "alternate_token": "infographic",
+      "alternate_tokens": [
+        "infographic",
+        "webpage"
+      ],
       "seed": 11,
       "score": 226,
       "candidates": [
@@ -141,9 +147,15 @@
       "source": "examples/end-users/ember-table/source.html",
       "auto": "examples/end-users/ember-table/auto.html",
       "report": "examples/end-users/ember-table/auto.json",
-      "alternate": "examples/end-users/ember-table/alternate.html",
+      "alternates": [
+        "examples/end-users/ember-table/option-2-photography.html",
+        "examples/end-users/ember-table/option-3-landing.html"
+      ],
       "auto_token": "webpage",
-      "alternate_token": "photography",
+      "alternate_tokens": [
+        "photography",
+        "landing"
+      ],
       "seed": 23,
       "score": 150,
       "candidates": [
@@ -277,9 +289,15 @@
       "source": "examples/end-users/tide-letter/source.html",
       "auto": "examples/end-users/tide-letter/auto.html",
       "report": "examples/end-users/tide-letter/auto.json",
-      "alternate": "examples/end-users/tide-letter/alternate.html",
+      "alternates": [
+        "examples/end-users/tide-letter/option-2-artistic.html",
+        "examples/end-users/tide-letter/option-3-simulation.html"
+      ],
       "auto_token": "cinematic",
-      "alternate_token": "artistic",
+      "alternate_tokens": [
+        "artistic",
+        "simulation"
+      ],
       "seed": 37,
       "score": 188,
       "candidates": [

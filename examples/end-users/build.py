@@ -33,7 +33,7 @@ EXAMPLES: list[dict[str, Any]] = [
         "slug": "orbitline",
         "name": "Orbitline Release Desk",
         "source": "examples/end-users/orbitline/source.html",
-        "alternate": "infographic",
+        "alternates": ["infographic", "webpage"],
         "seed": "11",
         "brief": "quiet operational clarity",
     },
@@ -41,7 +41,7 @@ EXAMPLES: list[dict[str, Any]] = [
         "slug": "ember-table",
         "name": "Ember & Table",
         "source": "examples/end-users/ember-table/source.html",
-        "alternate": "photography",
+        "alternates": ["photography", "landing"],
         "seed": "23",
         "brief": "warm seasonal hospitality",
     },
@@ -49,7 +49,7 @@ EXAMPLES: list[dict[str, Any]] = [
         "slug": "tide-letter",
         "name": "A Letter to the Night Tide",
         "source": "examples/end-users/tide-letter/source.html",
-        "alternate": "artistic",
+        "alternates": ["artistic", "simulation"],
         "seed": "37",
         "brief": "quiet nocturnal essay",
     },
@@ -98,7 +98,7 @@ def build_artifacts(example: dict[str, Any]) -> dict[str, Any]:
     source = ROOT / example["source"]
     auto = folder / "auto.html"
     report = folder / "auto.json"
-    alternate = folder / "alternate.html"
+    alternates = [folder / f"option-{index + 2}-{token}.html" for index, token in enumerate(example["alternates"])]
     original = source.read_bytes()
 
     run([
@@ -111,14 +111,8 @@ def build_artifacts(example: dict[str, Any]) -> dict[str, Any]:
         "--candidates", "3",
         "--quiet",
     ])
-    run([
-        NODE, "bin/reimagine-it.js",
-        "--input", str(source),
-        "--token", example["alternate"],
-        "--output", str(alternate),
-        "--seed", example["seed"],
-        "--quiet",
-    ])
+    for token, alternate in zip(example["alternates"], alternates):
+        run([NODE, "bin/reimagine-it.js", "--input", str(source), "--token", token, "--output", str(alternate), "--seed", example["seed"], "--quiet"])
     if source.read_bytes() != original:
         raise SystemExit(f"source changed while building {source}")
 
@@ -128,9 +122,9 @@ def build_artifacts(example: dict[str, Any]) -> dict[str, Any]:
         "source": example["source"],
         "auto": str(auto.relative_to(ROOT)).replace("\\", "/"),
         "report": str(report.relative_to(ROOT)).replace("\\", "/"),
-        "alternate": str(alternate.relative_to(ROOT)).replace("\\", "/"),
+        "alternates": [str(path.relative_to(ROOT)).replace("\\", "/") for path in alternates],
         "auto_token": details["token"],
-        "alternate_token": example["alternate"],
+        "alternate_tokens": example["alternates"],
         "seed": int(example["seed"]),
         "score": details["score"],
         "candidates": details["candidates"],
@@ -189,20 +183,21 @@ def main() -> int:
             folder = HERE / example["slug"]
             before_png = scratch / f"{example['slug']}-before.png"
             auto_png = scratch / f"{example['slug']}-auto.png"
-            alternate_png = scratch / f"{example['slug']}-alternate.png"
+            alternate_pngs = [scratch / f"{example['slug']}-option-{index}.png" for index in range(2, 4)]
             screenshot(browser, ROOT / example["source"], before_png)
             screenshot(browser, folder / "auto.html", auto_png)
-            screenshot(browser, folder / "alternate.html", alternate_png)
+            for alternate, alternate_png in zip(details["alternates"], alternate_pngs):
+                screenshot(browser, ROOT / alternate, alternate_png)
 
             cards = [
                 (labelled(Image.open(before_png), "01 · source", example["name"]), 2.0),
                 (labelled(Image.open(auto_png), f"02 · auto → {details['auto_token']}", "strongest verified direction"), 2.2),
-                (labelled(Image.open(alternate_png), f"03 · compare → {details['alternate_token']}", "a deliberate second direction"), 2.0),
+                *[(labelled(Image.open(alternate_png), f"0{index + 3} · compare → {token}", "a deliberate second direction"), 1.8) for index, (alternate_png, token) in enumerate(zip(alternate_pngs, details["alternate_tokens"]))],
             ]
             write_gif(folder / "before-after.gif", cards)
             all_cards.extend(cards)
             manifest.append(details)
-            print(f"{example['slug']}: auto={details['auto_token']} alternate={details['alternate_token']}")
+            print(f"{example['slug']}: auto={details['auto_token']} alternates={','.join(details['alternate_tokens'])}")
 
         write_gif(HERE / "gallery.gif", all_cards)
 
