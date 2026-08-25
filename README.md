@@ -185,7 +185,7 @@ droid plugin install reimagine-it@reimagine-it --scope user
 
 ## Design Health in CI
 
-The repository also ships a public composite Action for deterministic HTML quality checks. It is a separate quality gate from the redesign engine:
+**Design Health now lives in its own repository: [Kayforkind/design-health-action](https://github.com/Kayforkind/design-health-action)** — [![CI](https://img.shields.io/github/actions/workflow/status/Kayforkind/design-health-action/audit.yml?branch=main&label=CI)](https://github.com/Kayforkind/design-health-action/actions/workflows/audit.yml). It is a public composite Action for deterministic HTML quality checks — a separate quality gate from the redesign engine:
 
 ```yaml
 - uses: Kayforkind/reimagine-it@v2.3.3
