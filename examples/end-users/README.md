@@ -1,55 +1,60 @@
-# End-user examples
+# See the transformation, not the template
 
-These are small, realistic pages you can copy, replace with your own content, and redesign immediately. Each source stays readable before the redesign; each generated artifact is a standalone HTML file that can be opened locally.
+These examples show three genuinely different jobs: operating a release, welcoming a dinner guest, and telling a quiet story. Each starts as plain HTML and becomes a standalone page whose layout, palette, and rhythm follow the source.
 
-![Three end-user journeys: observability desk, seasonal restaurant, reflective essay](gallery.gif)
+![Three end-user redesign journeys: release desk, restaurant menu, and night-tide essay](gallery.gif)
 
-## Start here
+## A fast way to judge the result
 
-```bash
-# From the repository root
-npm run examples
-```
+Open the source first, then open **Auto**, then open **Alternate**. Ask three questions:
 
-The builder runs Design Auto with a pinned seed, creates a report, renders an alternate direction, and assembles a before → Auto → alternate GIF for each source. It uses the local CLI only; no API key, CDN, or network asset is required.
+- Did the page keep the facts and useful links?
+- Does the composition fit the subject rather than merely change colors?
+- Would a real person know what to read or do next?
 
-| Source | Good first command | Auto usually finds | Alternate worth comparing |
+| Example | Source → Auto | Alternate | Why it is here |
 |---|---|---|---|
-| [Orbitline Release Desk](orbitline/source.html) | `npm run auto -- -i examples/end-users/orbitline/source.html -o examples/end-users/orbitline/auto.html --report examples/end-users/orbitline/auto.json --seed 11` | dashboard | infographic |
-| [Ember &amp; Table](ember-table/source.html) | `npm run auto -- -i examples/end-users/ember-table/source.html -o examples/end-users/ember-table/auto.html --report examples/end-users/ember-table/auto.json --seed 23` | a data-aware direction | photography |
-| [A Letter to the Night Tide](tide-letter/source.html) | `npm run auto -- -i examples/end-users/tide-letter/source.html -o examples/end-users/tide-letter/auto.html --report examples/end-users/tide-letter/auto.json --seed 37` | cinematic | artistic |
+| [Orbitline Release Desk](orbitline/) | operational notes → `dashboard` | `infographic` | dense status information gets hierarchy and scan paths |
+| [Ember &amp; Table](ember-table/) | seasonal menu → `webpage` | `photography` | food language gets warmth without fake food imagery |
+| [A Letter to the Night Tide](tide-letter/) | essay → `webpage` | `artistic` | narrative content gets pacing and room to breathe |
 
-Open each `auto.html` or `alternate.html` directly in a browser. The generated pages keep the source title, anchors, dates, numbers, and contact links; the `auto.json` file explains the selected direction and the candidates it rejected.
-
-## What the GIFs show
-
-Each GIF is a compact client handoff, not a fake animation:
-
-1. **Source** — the page before any design decision.
-2. **Auto** — the strongest verified direction chosen from the source signals.
-3. **Alternate** — a deliberate second medium, so a client can compare composition rather than argue about a color swatch.
-
-- [Orbitline GIF](orbitline/before-after.gif) — operational content → selected console → infographic alternative
-- [Ember &amp; Table GIF](ember-table/before-after.gif) — warm menu → selected direction → folio alternative
-- [Night Tide GIF](tide-letter/before-after.gif) — essay → selected narrative field → expressive alternative
-- [Combined gallery GIF](gallery.gif) — all three end-user journeys in one short loop
-
-The images are regenerated, not hand-edited. If you change a source, rerun `npm run examples` and inspect the reports before showing the result to a client.
-
-## Use your own page
+## Run one yourself
 
 ```bash
 npm run auto -- \
-  -i path/to/page.html \
-  -o reimagined/auto.html \
-  --report reimagined/auto.json \
-  --seed 42
+  -i examples/end-users/orbitline/source.html \
+  -o /tmp/orbitline.html \
+  --report /tmp/orbitline.json \
+  --seed 11
 ```
 
-To ask for a specific comparison, use the same source with a token:
+Open `/tmp/orbitline.html`, then inspect `/tmp/orbitline.json`. The report explains the selected direction and records the source-fidelity checks. Your source file is never overwritten.
+
+To compare a deliberate alternate:
 
 ```bash
-npx reimagine-it -i path/to/page.html -t photography -o reimagined/folio.html
+npx reimagine-it \
+  -i examples/end-users/orbitline/source.html \
+  -t infographic \
+  -o /tmp/orbitline-alternate.html \
+  --seed 11
 ```
 
-Auto never overwrites the source. Approve a direction, then keep the report and seed with the artifact so another person can reproduce the same review.
+## What each GIF means
+
+Every GIF uses the same three beats:
+
+1. **Source** — the original HTML as a browser renders it.
+2. **Auto** — the strongest verified direction selected from the source evidence.
+3. **Alternate** — a different composition, not a recolored duplicate.
+
+- [Orbitline](orbitline/before-after.gif) — release desk → operational console → statistical view
+- [Ember &amp; Table](ember-table/before-after.gif) — menu → readable service page → numbered folio
+- [Night Tide](tide-letter/before-after.gif) — essay → reading page → expressive editorial treatment
+- [All three](gallery.gif) — the complete short loop
+
+The GIFs are generated by `build.py`; they are proof of a reproducible transformation, not the final deliverable. For the usable result, open the linked `auto.html` file.
+
+## Change the source
+
+Replace any `source.html`, run `npm run examples`, and review both the artifact and its report before sharing it with a client. Keep the seed when you want an approved result to remain reproducible; change the token only when you intentionally want a different composition.

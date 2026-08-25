@@ -145,5 +145,111 @@
     "links": 1
   },
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\orbitline\\source.html",
-  "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\orbitline\\auto.html"
+  "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\orbitline\\auto.html",
+  "fidelity": {
+    "preserved": 16,
+    "detected": 21,
+    "percentage": 76,
+    "checks": {
+      "title": [
+        {
+          "value": "Orbitline Release Desk",
+          "preserved": true
+        }
+      ],
+      "headings": [
+        {
+          "value": "Orbitline Release Desk",
+          "preserved": true
+        },
+        {
+          "value": "Today",
+          "preserved": true
+        },
+        {
+          "value": "Release notes",
+          "preserved": false
+        },
+        {
+          "value": "Start a conversation",
+          "preserved": false
+        }
+      ],
+      "dates": [
+        {
+          "value": "2026",
+          "preserved": false
+        }
+      ],
+      "numbers": [
+        {
+          "value": "142 ms",
+          "preserved": true
+        },
+        {
+          "value": "27 users",
+          "preserved": true
+        },
+        {
+          "value": "142",
+          "preserved": true
+        },
+        {
+          "value": "98",
+          "preserved": true
+        },
+        {
+          "value": "27",
+          "preserved": true
+        },
+        {
+          "value": "08",
+          "preserved": true
+        },
+        {
+          "value": "14",
+          "preserved": true
+        },
+        {
+          "value": "21",
+          "preserved": true
+        }
+      ],
+      "emails": [
+        {
+          "value": "hello@orbitline.example",
+          "preserved": false
+        }
+      ],
+      "anchors": [
+        {
+          "value": "Orbitline Release Desk",
+          "preserved": true
+        },
+        {
+          "value": "Orbitline",
+          "preserved": true
+        },
+        {
+          "value": "Watch",
+          "preserved": true
+        },
+        {
+          "value": "Today Edge",
+          "preserved": true
+        },
+        {
+          "value": "Release",
+          "preserved": true
+        }
+      ],
+      "links": [
+        {
+          "value": "mailto:hello@orbitline.example",
+          "label": "hello@orbitline.example",
+          "preserved": false
+        }
+      ]
+    }
+  }
 }

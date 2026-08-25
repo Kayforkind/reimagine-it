@@ -145,5 +145,91 @@
     "links": 1
   },
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\ember-table\\source.html",
-  "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\ember-table\\auto.html"
+  "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\ember-table\\auto.html",
+  "fidelity": {
+    "preserved": 13,
+    "detected": 16,
+    "percentage": 81,
+    "checks": {
+      "title": [
+        {
+          "value": "Ember & Table",
+          "preserved": true
+        }
+      ],
+      "headings": [
+        {
+          "value": "Ember & Table",
+          "preserved": true
+        },
+        {
+          "value": "Tonight's table",
+          "preserved": false
+        },
+        {
+          "value": "Service",
+          "preserved": false
+        },
+        {
+          "value": "Reserve",
+          "preserved": false
+        }
+      ],
+      "dates": [
+        {
+          "value": "2026",
+          "preserved": true
+        }
+      ],
+      "numbers": [
+        {
+          "value": "18",
+          "preserved": true
+        },
+        {
+          "value": "09",
+          "preserved": true
+        },
+        {
+          "value": "01",
+          "preserved": true
+        }
+      ],
+      "emails": [
+        {
+          "value": "reserve@embertable.example",
+          "preserved": true
+        }
+      ],
+      "anchors": [
+        {
+          "value": "Ember",
+          "preserved": true
+        },
+        {
+          "value": "Table Ember",
+          "preserved": true
+        },
+        {
+          "value": "Table",
+          "preserved": true
+        },
+        {
+          "value": "Tonight",
+          "preserved": true
+        },
+        {
+          "value": "Saffron",
+          "preserved": true
+        }
+      ],
+      "links": [
+        {
+          "value": "mailto:reserve@embertable.example",
+          "label": "reserve@embertable.example",
+          "preserved": true
+        }
+      ]
+    }
+  }
 }

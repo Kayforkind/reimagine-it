@@ -145,5 +145,82 @@
     "links": 1
   },
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\tide-letter\\source.html",
-  "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\tide-letter\\auto.html"
+  "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\tide-letter\\auto.html",
+  "fidelity": {
+    "preserved": 10,
+    "detected": 14,
+    "percentage": 71,
+    "checks": {
+      "title": [
+        {
+          "value": "A Letter to the Night Tide",
+          "preserved": true
+        }
+      ],
+      "headings": [
+        {
+          "value": "A Letter to the Night Tide",
+          "preserved": true
+        },
+        {
+          "value": "The first light",
+          "preserved": false
+        },
+        {
+          "value": "A slower story",
+          "preserved": false
+        },
+        {
+          "value": "What remains",
+          "preserved": false
+        },
+        {
+          "value": "Write back",
+          "preserved": false
+        }
+      ],
+      "dates": [
+        {
+          "value": "2026",
+          "preserved": true
+        }
+      ],
+      "numbers": [],
+      "emails": [
+        {
+          "value": "hello@nighttide.example",
+          "preserved": true
+        }
+      ],
+      "anchors": [
+        {
+          "value": "Letter",
+          "preserved": true
+        },
+        {
+          "value": "Night Tide",
+          "preserved": true
+        },
+        {
+          "value": "Keep",
+          "preserved": true
+        },
+        {
+          "value": "Write",
+          "preserved": true
+        },
+        {
+          "value": "Notes",
+          "preserved": true
+        }
+      ],
+      "links": [
+        {
+          "value": "mailto:hello@nighttide.example",
+          "label": "hello@nighttide.example",
+          "preserved": true
+        }
+      ]
+    }
+  }
 }
