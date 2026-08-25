@@ -34,6 +34,8 @@ function scoreToken(token, content) {
   if (token === 'landing') score += links * 3 + (/product|service|startup|contact|signup|pricing|launch/.test(text) ? 15 : 0);
   if (token === 'photography') score += items * 2 + (/portfolio|gallery|studio|collection|visual|photo|image/.test(text) ? 13 : 0);
   if (token === 'cinematic') score += (/story|journey|chapter|film|cinema|night|dream|light/.test(text) ? 15 : 0) + (content.paragraphs || []).length;
+  if (token === 'cinematic' && (content.profile === 'essay' || content.profile === 'literary')) score += 24;
+  if (token === 'cinematic' && facts >= 2 && /compare|data|history|statistics|report|survey/.test(text)) score -= 24;
   if (token === 'artistic') score += (/poem|poetry|essay|memory|color|art|creative|voice|emotion/.test(text) ? 13 : 0) + Math.max(0, 8 - facts);
   if (token === 'webpage') score += 5 + (content.paragraphs || []).length * 2 + (content.headings || []).length;
   return score;

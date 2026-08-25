@@ -133,8 +133,8 @@
     "Orbitline Release Desk",
     "Orbitline",
     "Watch",
-    "Today Edge",
-    "Release"
+    "Today",
+    "Edge"
   ],
   "facts": {
     "headings": 4,
@@ -168,11 +168,11 @@
         },
         {
           "value": "Release notes",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "Start a conversation",
-          "preserved": false
+          "preserved": true
         }
       ],
       "dates": [
@@ -232,15 +232,15 @@
         },
         {
           "value": "Watch",
+          "preserved": false
+        },
+        {
+          "value": "Today",
           "preserved": true
         },
         {
-          "value": "Today Edge",
-          "preserved": true
-        },
-        {
-          "value": "Release",
-          "preserved": true
+          "value": "Edge",
+          "preserved": false
         }
       ],
       "links": [

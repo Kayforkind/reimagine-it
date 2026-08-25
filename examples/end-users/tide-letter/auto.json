@@ -1,16 +1,16 @@
 {
   "mode": "auto",
-  "token": "webpage",
-  "seed": 762163206,
-  "score": 172,
-  "rationale": "The source benefits from a measured reading hierarchy. Evidence: 5 anchors, 1 measurable facts.",
+  "token": "cinematic",
+  "seed": -1625725310,
+  "score": 188,
+  "rationale": "The source has narrative language that benefits from paced chapters. Evidence: 5 anchors, 1 measurable facts.",
   "candidates": [
     {
-      "token": "webpage",
-      "seed": 762163206,
-      "fit": 36,
+      "token": "cinematic",
+      "seed": -1625725310,
+      "fit": 44,
       "quality": 100,
-      "total": 172,
+      "total": 188,
       "checks": [
         {
           "name": "standalone HTML",
@@ -47,11 +47,11 @@
       ]
     },
     {
-      "token": "cinematic",
-      "seed": -1625717391,
-      "fit": 22,
+      "token": "webpage",
+      "seed": 762171125,
+      "fit": 30,
       "quality": 100,
-      "total": 144,
+      "total": 160,
       "checks": [
         {
           "name": "standalone HTML",
@@ -138,7 +138,7 @@
   ],
   "facts": {
     "headings": 5,
-    "paragraphs": 7,
+    "paragraphs": 5,
     "items": 0,
     "dates": 1,
     "numbers": 0,
@@ -147,9 +147,9 @@
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\tide-letter\\source.html",
   "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\tide-letter\\auto.html",
   "fidelity": {
-    "preserved": 10,
+    "preserved": 13,
     "detected": 14,
-    "percentage": 71,
+    "percentage": 93,
     "checks": {
       "title": [
         {
@@ -164,19 +164,19 @@
         },
         {
           "value": "The first light",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "A slower story",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "What remains",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "Write back",
-          "preserved": false
+          "preserved": true
         }
       ],
       "dates": [
@@ -218,7 +218,7 @@
         {
           "value": "mailto:hello@nighttide.example",
           "label": "hello@nighttide.example",
-          "preserved": true
+          "preserved": false
         }
       ]
     }

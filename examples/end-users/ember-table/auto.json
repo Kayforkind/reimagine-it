@@ -134,7 +134,7 @@
     "Table Ember",
     "Table",
     "Tonight",
-    "Saffron"
+    "Five"
   ],
   "facts": {
     "headings": 4,
@@ -147,9 +147,9 @@
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\ember-table\\source.html",
   "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\ember-table\\auto.html",
   "fidelity": {
-    "preserved": 13,
+    "preserved": 15,
     "detected": 16,
-    "percentage": 81,
+    "percentage": 94,
     "checks": {
       "title": [
         {
@@ -164,15 +164,15 @@
         },
         {
           "value": "Tonight's table",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "Service",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "Reserve",
-          "preserved": false
+          "preserved": true
         }
       ],
       "dates": [
@@ -208,7 +208,7 @@
         },
         {
           "value": "Table Ember",
-          "preserved": true
+          "preserved": false
         },
         {
           "value": "Table",
@@ -219,7 +219,7 @@
           "preserved": true
         },
         {
-          "value": "Saffron",
+          "value": "Five",
           "preserved": true
         }
       ],

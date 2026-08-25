@@ -278,17 +278,17 @@
       "auto": "examples/end-users/tide-letter/auto.html",
       "report": "examples/end-users/tide-letter/auto.json",
       "alternate": "examples/end-users/tide-letter/alternate.html",
-      "auto_token": "webpage",
+      "auto_token": "cinematic",
       "alternate_token": "artistic",
       "seed": 37,
-      "score": 172,
+      "score": 188,
       "candidates": [
         {
-          "token": "webpage",
-          "seed": 762163206,
-          "fit": 36,
+          "token": "cinematic",
+          "seed": -1625725310,
+          "fit": 44,
           "quality": 100,
-          "total": 172,
+          "total": 188,
           "checks": [
             {
               "name": "standalone HTML",
@@ -325,11 +325,11 @@
           ]
         },
         {
-          "token": "cinematic",
-          "seed": -1625717391,
-          "fit": 22,
+          "token": "webpage",
+          "seed": 762171125,
+          "fit": 30,
           "quality": 100,
-          "total": 144,
+          "total": 160,
           "checks": [
             {
               "name": "standalone HTML",

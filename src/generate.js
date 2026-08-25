@@ -82,10 +82,11 @@ function generate(opts) {
   var surface = p.surface;
   var ink = ensureContrast(ground, p.ink, 4.5);
   var rng = makeRNG(opts.seed !== undefined ? opts.seed : Math.floor(Math.random() * 0x7fffffff));
-  var anchors = shuffle(content.anchors.length ? content.anchors : ['Content', 'Design', 'Source'], rng);
-  var paragraphs = shuffle(content.paragraphs, rng);
-  var items = shuffle(content.items, rng);
-  var facts = factsFor(content);
+  var headings = content.headings.filter(function(heading) { return heading !== content.title; });
+  var anchors = headings.length ? headings.slice() : (content.anchors.length ? content.anchors.slice() : ['Content', 'Design', 'Source']);
+  var paragraphs = content.paragraphs.slice();
+  var items = content.items.slice();
+  var facts = factsFor(content, anchors);
   var profile = content.profile;
   var label = brief || profileLabel(profile);
   var variation = {
@@ -139,6 +140,10 @@ function generate(opts) {
     return paragraphs.length ? paragraphs[index % paragraphs.length] : 'Source anchor: ' + anchor + '.';
   }
 
+  function sectionParagraphAt(index, anchor) {
+    return paragraphs.length > index + 1 ? paragraphs[index + 1] : paragraphAt(index, anchor);
+  }
+
   function sectionId(value, index) {
     return 'section-' + index + '-' + String(value).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 28);
   }
@@ -163,7 +168,7 @@ function generate(opts) {
       var id = sectionId(anchor, index);
       return '<article class="section" id="' + id + '" style="--n:' + index + '">' +
         '<div class="section-index">' + String(index + 1).padStart(2, '0') + '</div>' +
-        '<div><h2>' + esc(anchor) + '</h2><p>' + esc(paragraphAt(index, anchor)) + '</p>' +
+        '<div><h2>' + esc(anchor) + '</h2><p>' + esc(sectionParagraphAt(index, anchor)) + '</p>' +
         (facts[index] && facts[index].value ? '<p class="fact"><span>' + esc(facts[index].kind) + '</span> ' + esc(facts[index].value) + '</p>' : '') +
         '</div></article>';
     }).join('');
@@ -322,7 +327,7 @@ function generate(opts) {
 
   function cinematic() {
     var chapters = anchors.map(function(anchor, index) {
-      return '<article class="chapter" id="chapter-' + index + '"><span class="chapter-no">' + String(index + 1).padStart(2, '0') + '</span><h2>' + esc(anchor) + '</h2><p>' + esc(paragraphAt(index, anchor)) + '</p></article>';
+      return '<article class="chapter" id="chapter-' + index + '"><span class="chapter-no">' + String(index + 1).padStart(2, '0') + '</span><h2>' + esc(anchor) + '</h2><p>' + esc(sectionParagraphAt(index, anchor)) + '</p></article>';
     }).join('');
     var css = 'body{font-family:' + sans + ';background:var(--g);color:var(--i)}' +
       '.scene{background:var(--g)}.opening{min-height:100svh;display:grid;place-items:center;position:relative;padding:48px 28px;text-align:center;isolation:isolate}.opening::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 50% 38%,var(--a),transparent 70%);opacity:.18;z-index:-1}.opening::after{content:"";position:absolute;width:1px;height:22vh;bottom:0;left:50%;background:linear-gradient(var(--a),transparent);opacity:.55}.opening-inner{max-width:900px}.eyebrow{font:10px ' + mono + ';letter-spacing:.2em;text-transform:uppercase;color:var(--a)}' +
@@ -398,13 +403,14 @@ function generate(opts) {
   }
 }
 
-function factsFor(content) {
+function factsFor(content, anchors) {
+  anchors = anchors || content.anchors;
   var facts = [];
   content.numbers.forEach(function(value, index) {
-    facts.push({ value: value, label: content.anchors[index % Math.max(content.anchors.length, 1)] || 'Source measure', kind: 'number' });
+    facts.push({ value: value, label: anchors[index % Math.max(anchors.length, 1)] || 'Source measure', kind: 'number' });
   });
   content.dates.forEach(function(value, index) {
-    facts.push({ value: value, label: content.anchors[index % Math.max(content.anchors.length, 1)] || 'Source date', kind: 'date' });
+    facts.push({ value: value, label: anchors[index % Math.max(anchors.length, 1)] || 'Source date', kind: 'date' });
   });
   return facts.slice(0, 10);
 }
