@@ -118,6 +118,7 @@ The intended outcome is **fresh when requested, consistent when approved**—not
 - **[Two Lights](gold/twolights/)** — a personal essay becomes a lighthouse-led narrative.
 - **[Saffron & Smoke](gold/saffron/)** — a menu becomes a warm food-specific composition.
 - **[End-user examples](examples/end-users/)** — four realistic sources (release console, restaurant menu, personal essay, infrastructure docs) with source HTML, Auto output, alternate options, reports, and GIF proof on desktop and phone.
+- **[Case studies](docs/CASE_STUDIES.md)** — four reproducible bundles: source, exact command, Auto output, two alternatives, report, and GIF proof.
 - **[Full showcase](docs/SHOWCASE.md)** — source, rationale, artifact, and regeneration notes.
 - **[Live playground](https://kayforkind.github.io/reimagine-it/#playground)** — all 14 design tokens now selectable in-browser.
 

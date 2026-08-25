@@ -6,6 +6,24 @@ All notable changes to reimagine-it.
 
 ## v2.3.3 (current)
 
+### New — the remaining generators close the gap
+
+- **webpage** — contents pills light up on hover; section rhythm unchanged and quiet.
+- **infographic** — fixed a real bug: the row-entrance animation referenced a `row-in` keyframe that was never defined, so rows never animated. Keyframe added; rows now rise in.
+- **photography** — fixed the same bug class: `plate-in` was referenced but undefined; plates now fade in.
+- **motion** — ghost step numerals float behind each reveal; the numbered dot pulses on hover.
+- **glass** — panels lift, brighten, and glow on hover; the sheen sweep is reactive.
+- **simulation** — the active step now gets a glowing ring; the title draws a rule beneath it.
+- **showcase** — capability icons scale and tilt on hover.
+
+### Case-study bundles
+
+- Every end-user example now ships a **CASE_STUDY.md** with the exact command, Auto rationale, score, fidelity %, alternatives, and GIF proof.
+- New **docs/CASE_STUDIES.md** index table links all four bundles; linked from the README and the Pages landing page.
+- The publish workflow's npm step was verified: it validates green but skips publication until `secrets.NPM_TOKEN` is configured in the repository.
+
+## v2.3.2
+
 ### New — Dribbble-grade design engine
 
 - **Premium shared shell for every token.** All nine generators now sit on one polished craft floor: a subtle film-grain overlay, a scroll-progress bar in the accent color, a tinted scrollbar, deduplicated `@property` tokens, and View Transitions — so every page feels finished, not templated.
