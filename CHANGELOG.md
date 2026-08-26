@@ -6,6 +6,12 @@ All notable changes to reimagine-it.
 
 ## v2.3.7 (unreleased)
 
+### Fix — token tiles show real examples; watermark overlap removed
+
+- **Every token tile now shows its actual output** — the 14 direction cards in the `#tokens` section were text-only. Each card now embeds a real screenshot of that token's generated page (`tokens/<name>-desktop.png`), with a numbered badge on the image corner, so visitors see what each direction produces before clicking.
+- **Ghost-numeral overlap removed** — the old cards used an absolutely-positioned 54px watermark (`::before` numeral) that sat on top of the card text and collided with titles on narrow cards. The number now lives in a small pill badge inside the image thumb, and the card body has its own padding.
+- **Tiles are clickable** — clicking a tile scrolls to the gallery above and selects that token's desktop + phone previews (and its animated GIF for 3js/motion).
+
 ### Fix — landing headline overlap at phone widths; full-bleed exhibit cards
 
 - **Landing token headline no longer collides** — the landing hero forced `h1{max-width:8ch}` with `line-height:.88`, so two-word titles like "Ember & Table" wrapped into two lines that visually overlapped when the phone screenshot was scaled down. Now `max-width:15ch` with `line-height:.96` and a slightly smaller clamp — titles stay on one line down to phone width, verified by pixel-band analysis of the 480px render.

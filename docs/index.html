@@ -164,11 +164,15 @@ h1 .grad { background: linear-gradient(100deg, var(--crimson), var(--hot) 55%, #
 .info-showcase figcaption code { color: #ceb27e; }
 @media(max-width:820px){ .info-showcase { grid-template-columns: 1fr; } }
 @media(max-width:760px){ .token-gallery-stage { grid-template-columns: 1fr; } .tg-phone { display: none; } }
-.token-card { position: relative; background: rgba(18,26,46,.55); border: 1px solid rgba(244,239,228,.09); border-radius: 16px; padding: 22px 20px 20px; transition: transform .2s ease, border-color .2s ease, background .2s ease; overflow: hidden; }
-.token-card::before { content: attr(data-no); position: absolute; right: 14px; bottom: 4px; font-family: var(--serif); font-size: 54px; color: rgba(244,239,228,.05); line-height: 1; }
-.token-card:hover { transform: translateY(-4px); border-color: rgba(232,166,63,.55); background: rgba(28,38,66,.75); }
+.token-card { position: relative; background: rgba(18,26,46,.55); border: 1px solid rgba(244,239,228,.09); border-radius: 16px; overflow: hidden; cursor: pointer; transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease; }
+.token-card:hover { transform: translateY(-4px); border-color: rgba(232,166,63,.55); background: rgba(28,38,66,.75); box-shadow: 0 22px 44px -22px rgba(0,0,0,.75); }
+.token-card .tc-thumb { position: relative; height: 152px; overflow: hidden; border-bottom: 1px solid rgba(244,239,228,.08); background: #0d1322; }
+.token-card .tc-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform .35s ease; }
+.token-card:hover .tc-thumb img { transform: scale(1.05); }
+.token-card .tc-no { position: absolute; top: 10px; left: 10px; font-family: var(--mono); font-size: 10px; letter-spacing: .14em; color: var(--hot); background: rgba(10,15,30,.78); border: 1px solid rgba(244,239,228,.16); border-radius: 999px; padding: 3px 9px; }
+.token-card .tc-body { padding: 16px 18px 18px; }
 .token-card code { background: rgba(232,166,63,.12); color: var(--hot); font-size: 11px; letter-spacing: .1em; }
-.token-card h3 { font-family: var(--serif); font-weight: 400; font-size: 19px; margin: 12px 0 6px; }
+.token-card h3 { font-family: var(--serif); font-weight: 400; font-size: 18px; margin: 10px 0 6px; }
 .token-card p { font-size: 13px; color: #9aa3b8; line-height: 1.6; }
 
 /* ---- INSTALL ---- */
@@ -381,20 +385,20 @@ footer a { color: var(--hot); }
         <p class="tg-note">Same source, 15 ways to compose it — 14 tokens plus <b>auto</b>, which scores three candidates and ships the strongest. Desktop <em>and</em> phone, real CLI output. Flip <b>◐ Before / After</b> to see the untouched source, or <b>▶ Live demo</b> to scroll and interact with the actual generated page.</p>
       </div>
       <div class="tokens-grid">
-          <div class="token-card reveal" data-no="01"><code>webpage</code><h3>Articles and source documents</h3><p>Measured reading hierarchy</p></div>
-          <div class="token-card reveal" data-no="02"><code>landing</code><h3>Products and services</h3><p>Hero and action rhythm</p></div>
-          <div class="token-card reveal" data-no="03"><code>dashboard</code><h3>Metrics and operations</h3><p>Console, KPIs, and status</p></div>
-          <div class="token-card reveal" data-no="04"><code>infographic</code><h3>Facts and comparisons</h3><p>Shared scales and timelines</p></div>
-          <div class="token-card reveal" data-no="05"><code>cinematic</code><h3>Narrative moments</h3><p>Depth and paced chapters</p></div>
-          <div class="token-card reveal" data-no="06"><code>artistic</code><h3>Posters and expressive pages</h3><p>Asymmetric type and layered fields</p></div>
-          <div class="token-card reveal" data-no="07"><code>photography</code><h3>Portfolios and collections</h3><p>Folio plates and captions</p></div>
-          <div class="token-card reveal" data-no="08"><code>svg</code><h3>Marks and diagrams</h3><p>Inline geometric illustration</p></div>
-          <div class="token-card reveal" data-no="09"><code>3js</code><h3>Spatial stories</h3><p>Offline orbitable canvas</p></div>
-          <div class="token-card reveal" data-no="10"><code>simulation</code><h3>Time and process</h3><p>Playable timeline and scrubber</p></div>
-          <div class="token-card reveal" data-no="11"><code>glass</code><h3>Modern panels and cards</h3><p>Frosted backdrop depth</p></div>
-          <div class="token-card reveal" data-no="12"><code>editorial</code><h3>Long-form text and essays</h3><p>Magazine layout with drop caps</p></div>
-          <div class="token-card reveal" data-no="13"><code>motion</code><h3>Scroll-driven stories</h3><p>Animated reveals and parallax</p></div>
-          <div class="token-card reveal" data-no="14"><code>gradient</code><h3>Bold brand presentations</h3><p>Gradient mesh cards and text</p></div>
+          <div class="token-card reveal" data-token="webpage" data-idx="1"><div class="tc-thumb"><img src="tokens/webpage-desktop.png" alt="webpage token output" loading="lazy"><span class="tc-no">01</span></div><div class="tc-body"><code>webpage</code><h3>Articles and source documents</h3><p>Measured reading hierarchy</p></div></div>
+          <div class="token-card reveal" data-token="landing" data-idx="2"><div class="tc-thumb"><img src="tokens/landing-desktop.png" alt="landing token output" loading="lazy"><span class="tc-no">02</span></div><div class="tc-body"><code>landing</code><h3>Products and services</h3><p>Hero and action rhythm</p></div></div>
+          <div class="token-card reveal" data-token="dashboard" data-idx="3"><div class="tc-thumb"><img src="tokens/dashboard-desktop.png" alt="dashboard token output" loading="lazy"><span class="tc-no">03</span></div><div class="tc-body"><code>dashboard</code><h3>Metrics and operations</h3><p>Console, KPIs, and status</p></div></div>
+          <div class="token-card reveal" data-token="infographic" data-idx="4"><div class="tc-thumb"><img src="tokens/infographic-desktop.png" alt="infographic token output" loading="lazy"><span class="tc-no">04</span></div><div class="tc-body"><code>infographic</code><h3>Facts and comparisons</h3><p>Shared scales and timelines</p></div></div>
+          <div class="token-card reveal" data-token="cinematic" data-idx="5"><div class="tc-thumb"><img src="tokens/cinematic-desktop.png" alt="cinematic token output" loading="lazy"><span class="tc-no">05</span></div><div class="tc-body"><code>cinematic</code><h3>Narrative moments</h3><p>Depth and paced chapters</p></div></div>
+          <div class="token-card reveal" data-token="artistic" data-idx="6"><div class="tc-thumb"><img src="tokens/artistic-desktop.png" alt="artistic token output" loading="lazy"><span class="tc-no">06</span></div><div class="tc-body"><code>artistic</code><h3>Posters and expressive pages</h3><p>Asymmetric type and layered fields</p></div></div>
+          <div class="token-card reveal" data-token="photography" data-idx="7"><div class="tc-thumb"><img src="tokens/photography-desktop.png" alt="photography token output" loading="lazy"><span class="tc-no">07</span></div><div class="tc-body"><code>photography</code><h3>Portfolios and collections</h3><p>Folio plates and captions</p></div></div>
+          <div class="token-card reveal" data-token="svg" data-idx="8"><div class="tc-thumb"><img src="tokens/svg-desktop.png" alt="svg token output" loading="lazy"><span class="tc-no">08</span></div><div class="tc-body"><code>svg</code><h3>Marks and diagrams</h3><p>Inline geometric illustration</p></div></div>
+          <div class="token-card reveal" data-token="3js" data-idx="9"><div class="tc-thumb"><img src="tokens/3js-desktop.png" alt="3js token output" loading="lazy"><span class="tc-no">09</span></div><div class="tc-body"><code>3js</code><h3>Spatial stories</h3><p>Offline orbitable canvas</p></div></div>
+          <div class="token-card reveal" data-token="simulation" data-idx="10"><div class="tc-thumb"><img src="tokens/simulation-desktop.png" alt="simulation token output" loading="lazy"><span class="tc-no">10</span></div><div class="tc-body"><code>simulation</code><h3>Time and process</h3><p>Playable timeline and scrubber</p></div></div>
+          <div class="token-card reveal" data-token="glass" data-idx="11"><div class="tc-thumb"><img src="tokens/glass-desktop.png" alt="glass token output" loading="lazy"><span class="tc-no">11</span></div><div class="tc-body"><code>glass</code><h3>Modern panels and cards</h3><p>Frosted backdrop depth</p></div></div>
+          <div class="token-card reveal" data-token="editorial" data-idx="12"><div class="tc-thumb"><img src="tokens/editorial-desktop.png" alt="editorial token output" loading="lazy"><span class="tc-no">12</span></div><div class="tc-body"><code>editorial</code><h3>Long-form text and essays</h3><p>Magazine layout with drop caps</p></div></div>
+          <div class="token-card reveal" data-token="motion" data-idx="13"><div class="tc-thumb"><img src="tokens/motion-desktop.png" alt="motion token output" loading="lazy"><span class="tc-no">13</span></div><div class="tc-body"><code>motion</code><h3>Scroll-driven stories</h3><p>Animated reveals and parallax</p></div></div>
+          <div class="token-card reveal" data-token="gradient" data-idx="14"><div class="tc-thumb"><img src="tokens/gradient-desktop.png" alt="gradient token output" loading="lazy"><span class="tc-no">14</span></div><div class="tc-body"><code>gradient</code><h3>Bold brand presentations</h3><p>Gradient mesh cards and text</p></div></div>
       </div>
     </section>
 
@@ -598,6 +602,15 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
     if (tgNext) tgNext.addEventListener('click', function(){ if (tgLiveOn) tgSetLive(false); tgShow(tgIdx + 1); });
     if (tgToggle) tgToggle.addEventListener('click', tgFlip);
     if (tgLive) tgLive.addEventListener('click', function(){ tgSetLive(!tgLiveOn); });
+    /* token cards: click a tile to open that token in the gallery above */
+    document.querySelectorAll('.token-card').forEach(function(card){
+      card.addEventListener('click', function(){
+        var i = tg.findIndex(function(x){ return x[0] === card.dataset.token; });
+        if (i >= 0) { if (tgLiveOn) tgSetLive(false); tgShow(i); }
+        var g = document.querySelector('.token-gallery');
+        if (g) g.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
   }
 })();
 </script>
