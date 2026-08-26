@@ -229,15 +229,29 @@ def compose_card(shot: Image.Image, meta: dict[str, Any], device: str = "browser
     return canvas
 
 
-def write_gif(path: Path, cards: list[tuple[Image.Image, float]]) -> None:
-    frames = [image for image, _duration in cards]
-    durations = [int(duration * 1000) for _image, duration in cards]
-    frames[0].save(
-        path, save_all=True, append_images=frames[1:],
-        duration=durations, loop=0, optimize=False, disposal=2,
-    )
-    if path.stat().st_size > 6 * 1024 * 1024:
-        raise SystemExit(f"GIF is unexpectedly large: {path}")
+def write_before_after(path: Path, cards: list[tuple[Image.Image, float]]) -> None:
+    """Static before/after composite: source card left, strongest redesign right.
+
+    A single WebP loads in one request instead of an animated GIF stream, and
+    the split layout makes the transformation visible at a glance.
+    """
+    before = cards[0][0]
+    after = cards[1][0]
+    gap = 56
+    canvas = Image.new("RGB", (before.width + gap + after.width, max(before.height, after.height)), CARD)
+    canvas.paste(before, (0, 0))
+    canvas.paste(after, (before.width + gap, 0))
+    draw = ImageDraw.Draw(canvas)
+    arrow_x = before.width + gap // 2
+    arrow_y = canvas.height // 2
+    # slim connector rule + arrow head between the two exhibits
+    draw.line((before.width + 8, arrow_y, before.width + gap - 8, arrow_y), fill=GOLD, width=2)
+    draw.polygon([(before.width + gap - 8, arrow_y), (before.width + gap - 20, arrow_y - 9), (before.width + gap - 20, arrow_y + 9)], fill=GOLD)
+    draw.text((arrow_x, arrow_y - 26), "BEFORE", font=font(10, bold=True), fill=MUTED, anchor="mm")
+    draw.text((arrow_x, arrow_y + 26), "AFTER", font=font(10, bold=True), fill=GOLD, anchor="mm")
+    canvas.save(path, "WEBP", quality=82, method=6)
+    if path.stat().st_size > 900 * 1024:
+        raise SystemExit(f"before/after image is unexpectedly large: {path}")
 
 
 # ---------------------------------------------------------------- main build
@@ -373,15 +387,26 @@ def main() -> int:
                 (compose_card(Image.open(phone_before), {**meta, "eyebrow": "on mobile", "label": "The source at phone width", "sub": "Same HTML, no edits — side by side mentally"}, "phone"), 2.2),
                 (compose_card(Image.open(phone_auto), {**meta, "eyebrow": f"mobile → {details['auto_token']}", "label": "responsive by default", "sub": "The redesign adapts to a phone screen"}, "phone"), 2.8),
             ]
-            write_gif(folder / "before-after.gif", cards)
+            write_before_after(folder / "before-after.webp", cards)
             all_cards.extend(cards)
             manifest.append(details)
             print(f"{example['slug']}: auto={details['auto_token']} alternates={','.join(details['alternate_tokens'])}")
 
-        write_gif(HERE / "gallery.gif", all_cards)
+        # Static gallery grid: every exhibit card tiled 3-up so the page
+        # never ships a multi-megabyte animation for a single scroll.
+        gallery = Image.new("RGB", (CARD_W * 3 + 32, CARD_H * 2 + 24), (14, 19, 27))
+        gdraw = ImageDraw.Draw(gallery)
+        cards_only = [image for image, _duration in all_cards]
+        for index, card in enumerate(cards_only):
+            col, row = index % 3, index // 3
+            x = 8 + col * (CARD_W + 8)
+            y = 8 + row * (CARD_H + 8)
+            if x + card.width <= gallery.width and y + card.height <= gallery.height:
+                gallery.paste(card, (x, y))
+        gallery.save(HERE / "gallery.webp", "WEBP", quality=80, method=6)
 
     (HERE / "manifest.json").write_text(json.dumps({"examples": manifest}, indent=2) + "\n", encoding="utf-8")
-    print(f"wrote {len(manifest)} end-user examples and {len(manifest) + 1} GIFs")
+    print(f"wrote {len(manifest)} end-user examples and {len(manifest) + 1} static before/after images")
     return 0
 
 

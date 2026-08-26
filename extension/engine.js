@@ -821,7 +821,7 @@ function generate(opts) {
       ';--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;--space-7:48px;--space-8:64px;--space-9:96px;--space-10:128px' +
       '}' +
       baseCss + css + craftFloor + fxCss + '</style></head><body>' + body +
-      '<scr' + 'ipt>' + fxScript + (script ? script : '') + '</scr' + 'ipt>' +
+      '<scr' + 'ipt>' + fxScript + ';' + (script ? script : '') + '</scr' + 'ipt>' +
       '</body></html>';
   }
 

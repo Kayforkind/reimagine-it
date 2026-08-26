@@ -438,6 +438,20 @@ test('design-QA battery scores art and motion', function() {
   assert.ok(motion.passed, 'showcase should pass motion presence');
 });
 
+test('shared fx layer and token script concatenate into valid JS', function() {
+  // Regression: page() used to join fxScript and token scripts with no
+  // separator, producing `})()(function(){...})()` which throws a TypeError
+  // and silently disables the 3js orbit and simulation timeline.
+  ['3js', 'simulation'].forEach(function(token) {
+    var out = generate({ content: sampleContent, token: token, seed: 5 });
+    var match = out.match(/<script>([\s\S]*?)<\/script>/);
+    assert.ok(match, token + ' should emit a script block');
+    var body = match[1];
+    assert.ok(body.indexOf('})();(function(){') >= 0, token + ' script should separate fx layer from token script');
+    assert.ok(body.indexOf('})()(function(){') < 0, token + ' script must not glue the two IIFEs together');
+  });
+});
+
 test('plan hook forces a token and auto re-rolls weak draws', function() {
   var plan = autoMod.buildPlan(sampleContent, { candidates: 3, plan: { token: 'landing', voice: 'grotesque' } });
   assert.strictEqual(plan.recommendation, 'landing', 'plan token should win even outside the heuristic top-N');

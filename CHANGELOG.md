@@ -6,6 +6,16 @@ All notable changes to reimagine-it.
 
 ## v2.4.0 (current)
 
+### Feature — static before/after composites, faster Pages load
+
+- **GIFs replaced with static before/after WebP images** — every end-user example now ships a single `before-after.webp` (source on the left, strongest redesign on the right, joined by a gold arrow) instead of a multi-frame animated GIF. The gallery became a static WebP grid. Typical savings: 460–610 KB GIF → 36–54 KB WebP, and the 3.7 MB gallery animation → 133 KB. The token gallery and the meridian suite (3js orbit, svg diagram) use static renders instead of animation loops.
+- **Fixed a script-concatenation bug that froze interactive tokens** — `page()` joined the shared micro-interaction layer and a token's own script (3js, simulation) with no separator, so the browser parsed `})()(function(){…})()` as a call on the first result and threw a TypeError. The orbit canvas and timeline never ran. The two IIFEs are now separated with a semicolon; a regression test locks in the fix.
+- **Web-fonts toggle in the playground** — "Use web fonts" upgrades the chosen voice with Google Fonts; the flag travels through share links (`w`) and hash decode.
+- **Currency and quantity extraction** — number extraction now captures `$49`, `$1,200`, `$2.1B`, `40 staff`, `12,000 cabinets`, and more, so pricing and counts survive into the redesign. 100-source stress test: 100% fidelity, 136/136 quality, 0 errors.
+- **`scripts/stress-test.js`** — drives the real auto entry point across 100 diverse sources and reports design-QA, fidelity, and errors.
+
+## v2.4.0 (current)
+
 ### Feature — the 10x builder upgrade (type, color, art, composition, self-critique)
 
 - **Typographic voices** — the engine now picks a display/body/mono voice from the source's profile and seed (editorial, grotesque, techno, serifClassic, highContrast, expressive, monoForward), replacing the single hard-coded system stack. A fluid type scale (`--text-xs … --text-4xl`) and 4/8 spacing scale (`--space-1 … --space-10`) now ship on every page. Default output stays 100% offline; `--web-fonts` opts into Google Fonts for the chosen voice (exempted from the offline quality check).

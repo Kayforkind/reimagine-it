@@ -33,13 +33,13 @@ npx reimagine-it --auto -i page.html -o redesign.html
 Real sources, real CLI output — four committed journeys, each with the plain source, the command, and the result on desktop and phone:
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/venator/before-after.gif" width="250" alt="Crypto battle royale to signal-yellow gradient arena">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/crimson-circuit/before-after.gif" width="250" alt="Music festival to magenta editorial poster">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/velocita/before-after.gif" width="250" alt="Skate brand to flame-orange gradient deck">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/maracuya/before-after.gif" width="250" alt="Juice bar to coral infographic menu">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/flick/before-after.gif" width="250" alt="Streetwear drop to electric-blue infographic">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/meridian/before-after.gif" width="250" alt="Living building to amber editorial suite with 3js and svg">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/horizon/before-after.gif" width="250" alt="Observability platform to navy mission-control dashboard">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/venator/before-after.webp" width="250" alt="Crypto battle royale to signal-yellow gradient arena">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/crimson-circuit/before-after.webp" width="250" alt="Music festival to magenta editorial poster">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/velocita/before-after.webp" width="250" alt="Skate brand to flame-orange gradient deck">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/maracuya/before-after.webp" width="250" alt="Juice bar to coral infographic menu">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/flick/before-after.webp" width="250" alt="Streetwear drop to electric-blue infographic">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/meridian/before-after.webp" width="250" alt="Living building to amber editorial suite with 3js and svg">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/horizon/before-after.webp" width="250" alt="Observability platform to navy mission-control dashboard">
 </p>
 
 <p align="center"><sub><code>venator</code> — crypto battle royale · <code>crimson-circuit</code> — festival · <code>velocita</code> — skateboards · <code>maracuya</code> — juice bar · <code>flick</code> — streetwear · <code>meridian</code> — living building · <code>horizon</code> — observability</sub></p>

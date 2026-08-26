@@ -4,7 +4,7 @@
 
 Same Texas notebook. BEFORE, then infographic / svg / 3js (each svg and 3js is two frames so the loops read), four LOOP close-ups (weenie breathe, river flow, pin ping, quiet tick), then simulation. 720×900.
 
-Local copy for attach tools: `before-after.gif` (written by `python gold/forms/make_gif.py`).
+Local copy for attach tools: `before-after.webp` (written by `python gold/forms/make_gif.py`).
 
 Do not use crop-through `08` / `17` / `18`. No video.
 

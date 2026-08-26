@@ -22,17 +22,17 @@ Re-shoot (writes form stills + `after-b.png` pairs, `loops/*.png`, `strip.png`, 
 python gold/forms/shot.py
 ```
 
-Legacy Texas montage GIF (`examples.gif` — before, then every full-page after; no cropped loop cards). For fresh end-user journeys, see [`examples/end-users/`](../../examples/end-users/) and its five source-specific GIFs:
+Legacy Texas montage GIF (`examples.gif` — before, then every full-page after; no cropped loop cards). For fresh end-user journeys, see [`examples/end-users/`](../../examples/end-users/) and its static before/after composites:
 
 ```powershell
 python gold/forms/make_gif.py
 ```
 
 ```text
-examples/end-users/gallery.gif
-examples/end-users/venator/before-after.gif
-examples/end-users/crimson-circuit/before-after.gif
-examples/end-users/velocita/before-after.gif
-examples/end-users/maracuya/before-after.gif
-examples/end-users/flick/before-after.gif
+examples/end-users/gallery.webp
+examples/end-users/venator/before-after.webp
+examples/end-users/crimson-circuit/before-after.webp
+examples/end-users/velocita/before-after.webp
+examples/end-users/maracuya/before-after.webp
+examples/end-users/flick/before-after.webp
 ```

@@ -16,6 +16,6 @@ Six loud end-user examples. Each bundle contains the plain-HTML source, the exac
 1. Open **source.html** — the plain page the client already has.
 2. Open **auto.html** — what Auto chose, and why (`auto.json` records the rationale and score).
 3. Open the **option-2/option-3** pages — two structurally different directions.
-4. Watch **before-after.gif** — the same transformation on a desktop window and a phone.
+4. Watch **before-after.webp** (static before/after composite) — the same transformation on a desktop window and a phone.
 
 Every number, date, and label in the output appears in the source. Nothing is invented. The hex colors in each source (signal yellow `#FFD400`, magenta `#FF2D78`, flame orange `#FF6B00`, mango coral `#FF5A3C`, electric blue `#2D6BFF`) become the page ground directly.
