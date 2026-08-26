@@ -4,7 +4,23 @@ All notable changes to reimagine-it.
 
 ---
 
-## v2.4.1 (current)
+## v2.4.2 (current)
+
+### Feature — source fidelity floor raised to 80% across every token
+
+- **Every source anchor now survives the redesign** — the engine previously let headings override real source anchors, dropping phrases like “Venator Become” or “Arcade Tee” from the output. Anchors are now headings + source anchors, deduplicated, so all 15 tokens keep every clickable phrase.
+
+- **Links and emails surface on every token** — a shared Source-index footer renders all `content.links` and emails on every page, not just the webpage/landing tokens.
+
+- **Simulation, cinematic, 3js, and dashboard render everything** — facts and anchors are no longer truncated to the first few; each token now shows the full source signal.
+
+- **Result: all 105 token×source fidelity cells ≥80%** (worst token 80%), all seven shipped examples report 100% fidelity in their auto.json reports. A regression test locks the floor (57/57 tests).
+
+- **Extension exposes all 15 tokens** — the popup now lists editorial, motion, gradient, glass, and showcase alongside the original ten; its bundled engine already supported them.
+
+- **Docs can no longer drift** — a `docs-drift` CI job regenerates the case tables and fails the build if they diverge from manifest/auto.json ground truth; benchmark diversity now 19.9% (was 15.6%, a side effect of higher fidelity).
+
+## v2.4.1## v2.4.1 (current)
 
 ### Feature — static before/after composites, faster Pages load
 
