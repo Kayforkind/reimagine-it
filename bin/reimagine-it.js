@@ -9,9 +9,9 @@
 
 const fs = require('fs');
 const path = require('path');
-const { extractContent } = require('../src/extract');
-const { generate, TOKENS, TOKEN_DESCRIPTIONS } = require('../src/generate');
-const { buildPlan, autoGenerate } = require('../src/auto');
+const { extractContent, paletteSystem } = require('../src/extract');
+const { generate, TOKENS, TOKEN_DESCRIPTIONS, voiceFor } = require('../src/generate');
+const { buildPlan, autoGenerate, qualityScore } = require('../src/auto');
 const { sourceFidelity } = require('../src/result');
 
 const MAX_INPUT_BYTES = 10 * 1024 * 1024;
@@ -70,14 +70,29 @@ let token = requestedToken;
 let output;
 let autoResult;
 if (autoMode) {
-  autoResult = autoGenerate(content, { seed, brief: args.brief, candidates: candidateCount });
+  autoResult = autoGenerate(content, { seed, brief: args.brief, candidates: candidateCount, webFonts: args.webFonts, plan: args.plan ? JSON.parse(args.plan) : undefined });
   token = autoResult.token;
   output = autoResult.output;
 } else {
-  output = generate({ content, token, seed, brief: args.brief });
+  output = generate({ content, token, seed, brief: args.brief, webFonts: args.webFonts, voice: args.voice });
 }
 
 const fidelity = sourceFidelity(content, output);
+
+// Design decision report: what the engine chose and why (the trust story).
+const designMeta = {
+  mode: autoMode ? 'auto' : 'manual',
+  title: content.title,
+  token,
+  seed: autoMode ? autoResult.seed : seed,
+  voice: autoMode ? autoResult.voice : voiceFor(content.profile, seed, args.brief),
+  palette: Object.assign({}, content.palette, paletteSystem(content.palette, autoMode ? autoResult.seed : seed)),
+  quality: autoMode
+    ? { score: autoResult.design.quality, checks: autoResult.design.checks }
+    : qualityScore(output, content, { webFonts: args.webFonts }),
+  fidelity: fidelity.percentage,
+  harmony: paletteSystem(content.palette, autoMode ? autoResult.seed : seed).harmony,
+};
 
 if (args.diff) {
   printDiff(content, output, token, inputPath, fidelity, autoResult);
@@ -95,6 +110,11 @@ const outputPath = path.resolve(args.output || path.join('reimagined', defaultOu
 try {
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
   fs.writeFileSync(outputPath, output, 'utf8');
+  if (args.emit) {
+    const dir = path.dirname(outputPath);
+    fs.writeFileSync(path.join(dir, 'design-token.json'), JSON.stringify(designMeta, null, 2), 'utf8');
+    fs.writeFileSync(path.join(dir, 'quality-report.json'), JSON.stringify({ quality: designMeta.quality, fidelity: fidelity.percentage, harmony: designMeta.harmony }, null, 2), 'utf8');
+  }
 } catch (error) {
   fail(`could not write output: ${error.message}`, 2);
 }
@@ -108,6 +128,8 @@ if (!args.quiet) {
     console.log(`  Draw:    ${autoResult.token} · seed ${autoResult.seed} · score ${autoResult.score}`);
     console.log(`  Reviewed: ${autoResult.candidates.length} candidate directions`);
   }
+  console.log(`  Voice:   ${designMeta.voice} · harmony ${designMeta.harmony}`);
+  console.log(`  Quality: ${designMeta.quality.score} · ${designMeta.quality.checks.filter((c) => !c.passed).map((c) => c.name).join(', ') || 'all checks passed'}`);
   console.log(`  Output:  ${outputPath}`);
   console.log(`  Size:    ${(output.length / 1024).toFixed(1)} KB`);
   console.log(`  Fidelity: ${fidelity.percentage}% of detected source facts preserved`);
@@ -118,11 +140,13 @@ function printDiff(content, output, token, inputPath, fidelity, autoResult) {
   const p = content.palette;
   const art = (output.match(/glyph-tile/g) || []).length + ' glyphs · ' +
     (output.match(/donut-chart|donut-keys/g) || []).length + ' donut · ' +
-    (output.match(/iso-prism/g) || []).length + ' prism';
+    (output.match(/iso-prism|iso-stack/g) || []).length + ' prism/stack · ' +
+    (output.match(/data-wash/g) || []).length + ' data-wash';
   const before = Math.round((content.paragraphs.join(' ').length + content.items.join(' ').length) / 4);
   const after = Math.round(output.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().length / 4);
   console.log(`\n  Before → After — ${path.basename(inputPath)}`);
   console.log(`  Direction:   ${token}${autoResult ? ` (Auto · seed ${autoResult.seed} · score ${autoResult.score})` : ''}`);
+  console.log(`  Voice:       ${autoResult ? autoResult.voice : voiceFor(content.profile, args.seed, args.brief)}`);
   console.log(`  Palette:     ${p.ground} → ${p.accent} → ${p.muted} (ground → accent → muted)`);
   console.log(`  Anchors:     ${content.anchors.slice(0, 3).join(' · ')}${content.anchors.length > 3 ? ' …' : ''}`);
   console.log(`  Numbers:     ${content.numbers.slice(0, 3).join(' · ') || '(none)'}${content.numbers.length > 3 ? ' …' : ''}`);
@@ -188,6 +212,12 @@ Options:
   --brief, -b <text>      Creative lens for the redesign
   --auto, -a              Generate up to three verified directions and choose the strongest
   --candidates <n>        Evaluate 1–3 directions in Auto mode (default: 3)
+  --web-fonts             Opt in to Google Fonts for the chosen typographic voice
+                          (default output is fully offline)
+  --voice <name>          Force a typographic voice: editorial, grotesque, techno,
+                          serifClassic, highContrast, expressive, monoForward
+  --plan <json>           Model-harness plan override: {"token":"landing","voice":"grotesque"}
+  --emit                  Also write design-token.json + quality-report.json next to output
   --dry, -d               Show extracted signals; do not generate
   --diff                  Generate and print a before/after summary (palette, art, fidelity)
   --json                  Output extraction results as JSON
@@ -228,7 +258,7 @@ function fail(message, code) {
 
 function parseArgs(raw) {
   const opts = {};
-  const valueFlags = new Set(['-i', '--input', '-t', '--token', '-o', '--output', '-s', '--seed', '-b', '--brief', '--candidates']);
+  const valueFlags = new Set(['-i', '--input', '-t', '--token', '-o', '--output', '-s', '--seed', '-b', '--brief', '--candidates', '--voice', '--plan']);
   const aliases = {
     '-i': 'input', '--input': 'input',
     '-t': 'token', '--token': 'token',
@@ -250,6 +280,8 @@ function parseArgs(raw) {
     switch (arg) {
       case '-d': case '--dry': opts.dry = true; break;
       case '--diff': opts.diff = true; break;
+      case '--web-fonts': opts.webFonts = true; break;
+      case '--emit': opts.emit = true; break;
       case '--json': opts.json = true; break;
       case '--stdout': opts.stdout = true; break;
       case '-q': case '--quiet': opts.quiet = true; break;

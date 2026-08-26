@@ -384,6 +384,69 @@ test('shade darkens a color', function() {
   assert.ok(result !== original, 'shade should change the color');
 });
 
+test('palette system derives harmonious role colors', function() {
+  var sys = extractMod.paletteSystem({ ground: '#0a1626', accent: '#38bdf8', muted: '#3b82f6', surface: '#111f38', ink: '#e2e8f0', profile: 'saas' }, 7);
+  assert.ok(/^#[0-9a-f]{6}$/i.test(sys.accent2), 'accent2 should be a hex color');
+  assert.ok(/^#[0-9a-f]{6}$/i.test(sys.accent3), 'accent3 should be a hex color');
+  assert.ok(sys.accent2 !== sys.accent3, 'roles should differ');
+  assert.ok(sys.ramps.accent.length === 7, 'accent ramp should have 7 steps');
+});
+
+test('content intelligence detects tone, images, and reading time', function() {
+  var c = extractContent('<html><head><title>Night Market</title></head><body><h1>Night Market</h1><p>Midnight shadows over the harbor. A wild, colorful celebration of light.</p><img src="market.jpg" alt="market at night"><ul><li>One</li><li>Two</li></ul></body></html>', 'm.html');
+  assert.ok(['playful', 'formal', 'dark', 'neutral'].indexOf(c.tone) >= 0, 'should have a tone');
+  assert.ok(c.images.length >= 1, 'should extract images');
+  assert.ok(c.readingTime >= 1, 'should have a reading time');
+});
+
+console.log('\ngenerate.js (upgraded engine):');
+
+test('typographic voice is deterministic and content-driven', function() {
+  var a = generate({ content: sampleContent, token: 'landing', seed: 11 });
+  var b = generate({ content: sampleContent, token: 'landing', seed: 11 });
+  assert.strictEqual(a, b, 'same seed should give same voice');
+  assert.ok(a.indexOf('font-family') > 0, 'should emit font stacks');
+});
+
+test('--brief maps to a typographic voice', function() {
+  var out = generate({ content: sampleContent, token: 'landing', seed: 3, brief: 'make it feel like a luxury magazine' });
+  assert.ok(out.indexOf('Fraunces') > 0 || out.indexOf('Playfair') > 0 || out.indexOf('Libre Caslon') > 0, 'luxury brief should pick a serif voice, got a stack without a display serif');
+});
+
+test('web-fonts mode injects Google Fonts links', function() {
+  var offline = generate({ content: sampleContent, token: 'landing', seed: 3 });
+  var online = generate({ content: sampleContent, token: 'landing', seed: 3, webFonts: true });
+  assert.ok(offline.indexOf('fonts.googleapis.com') < 0, 'offline mode must not fetch fonts');
+  assert.ok(online.indexOf('fonts.googleapis.com') > 0, 'web-fonts mode should link Google Fonts');
+  var q = autoMod.qualityScore(online, sampleContent, { webFonts: true });
+  var fetchCheck = q.checks.filter(function(c) { return c.name === 'no external asset fetch'; })[0];
+  assert.ok(fetchCheck.passed, 'web-fonts output should be exempt from the fetch check');
+});
+
+test('new art primitives and archetype bands are emitted', function() {
+  var out = generate({ content: sampleContent, token: 'landing', seed: 5 });
+  assert.ok(out.indexOf('mesh') > 0 || out.indexOf('data-wash') > 0 || out.indexOf('iso-stack') > 0, 'should carry generative art');
+  assert.ok(out.indexOf('countup') > 0 || out.indexOf('fx-tilt') > 0 || out.indexOf('spotlight') > 0, 'should carry micro-interactions');
+});
+
+test('design-QA battery scores art and motion', function() {
+  var out = generate({ content: sampleContent, token: 'showcase', seed: 5 });
+  var q = autoMod.qualityScore(out, sampleContent);
+  var art = q.checks.filter(function(c) { return c.name === 'art direction present'; })[0];
+  var motion = q.checks.filter(function(c) { return c.name === 'motion system present'; })[0];
+  assert.ok(art.passed, 'showcase should pass art presence');
+  assert.ok(motion.passed, 'showcase should pass motion presence');
+});
+
+test('plan hook forces a token and auto re-rolls weak draws', function() {
+  var plan = autoMod.buildPlan(sampleContent, { candidates: 3, plan: { token: 'landing', voice: 'grotesque' } });
+  assert.strictEqual(plan.recommendation, 'landing', 'plan token should win even outside the heuristic top-N');
+  assert.strictEqual(plan.voice, 'grotesque', 'plan voice should carry through');
+  var result = autoMod.autoGenerate(sampleContent, { seed: 9, plan: { token: 'landing' } });
+  assert.strictEqual(result.token, 'landing', 'auto should honor a forced direction that passes the craft gate');
+  assert.ok(result.design && result.design.quality > 0, 'should report a design score');
+});
+
 // ── Summary ─────────────────────────────────────────────────────────
 
 console.log('\n' + passed + ' passed, ' + failed + ' failed');

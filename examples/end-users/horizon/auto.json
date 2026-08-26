@@ -2,15 +2,15 @@
   "mode": "auto",
   "token": "dashboard",
   "seed": -457102533,
-  "score": 176,
+  "score": 212,
   "rationale": "The source contains enough measurable signals for an operational view. Evidence: 5 anchors, 4 measurable facts.",
   "candidates": [
     {
       "token": "dashboard",
       "seed": -457102533,
       "fit": 38,
-      "quality": 100,
-      "total": 176,
+      "quality": 136,
+      "total": 212,
       "checks": [
         {
           "name": "standalone HTML",
@@ -42,6 +42,30 @@
         },
         {
           "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
           "passed": true
         }
       ]
@@ -50,8 +74,8 @@
       "token": "infographic",
       "seed": -1088303942,
       "fit": 38,
-      "quality": 100,
-      "total": 176,
+      "quality": 136,
+      "total": 212,
       "checks": [
         {
           "name": "standalone HTML",
@@ -83,6 +107,30 @@
         },
         {
           "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
           "passed": true
         }
       ]
@@ -91,8 +139,8 @@
       "token": "gradient",
       "seed": -1661923357,
       "fit": 28,
-      "quality": 100,
-      "total": 156,
+      "quality": 136,
+      "total": 192,
       "checks": [
         {
           "name": "standalone HTML",
@@ -124,6 +172,30 @@
         },
         {
           "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
           "passed": true
         }
       ]

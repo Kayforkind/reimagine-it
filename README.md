@@ -142,6 +142,8 @@ npx reimagine-it --auto -i page.html -o reimagined/auto.html
 
 Auto reads the source, scores the directions that fit its evidence, generates candidates, rejects candidates that fail its craft checks, and writes the strongest result. It is deterministic when seeded and model-agnostic: a host agent may add judgment, but the artifact still comes from the source.
 
+Every run now carries a **design decision report**: a typographic voice picked from the source's profile (editorial, grotesque, techno, serif-classic, high-contrast, expressive, mono-forward), a harmonious OKLCH palette (the source accent rotated into two role colors), the art primitives used, and a 136-point design-QA score (type scale, art direction, motion system, palette constraint, source fidelity, landmarks). Auto re-rolls weak first draws for its top directions before shipping, and `--emit` writes `design-token.json` + `quality-report.json` beside the artifact so the "why this design" answer is inspectable.
+
 Use a specific direction when the medium is already clear:
 
 ```bash
@@ -243,6 +245,16 @@ npx reimagine-it -i page.html --auto --diff
 
 # Reproduce an approved draw
 npx reimagine-it -i page.html -t webpage --seed 42 -o approved.html
+
+# Opt in to Google Fonts for the chosen voice (default output is fully offline)
+npx reimagine-it -i page.html -t landing --web-fonts -o redesign.html
+
+# Force a voice or a direction from a harness plan
+npx reimagine-it -i page.html --voice expressive -o redesign.html
+npx reimagine-it -i page.html --auto --plan '{"token":"landing","voice":"grotesque"}' -o redesign.html
+
+# Also write the design decision report next to the output
+npx reimagine-it -i page.html --auto -o reimagined/auto.html --emit
 ```
 
 Use `-o -` when another tool should receive only generated HTML; progress stays on stderr.

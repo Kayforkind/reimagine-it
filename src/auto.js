@@ -11,6 +11,10 @@ var generateApi = typeof module !== 'undefined' && module.exports
   ? require('./generate')
   : (typeof window !== 'undefined' ? window.ReimagineGenerate : {});
 
+var resultApi = typeof module !== 'undefined' && module.exports
+  ? require('./result')
+  : (typeof window !== 'undefined' ? window.ReimagineResult : {});
+
 var DEFAULT_CANDIDATES = ['webpage', 'landing', 'dashboard', 'infographic', 'cinematic', 'artistic', 'photography', 'svg', '3js', 'simulation', 'glass', 'editorial', 'motion', 'gradient', 'showcase'];
 
 function normaliseCount(value) {
@@ -67,7 +71,20 @@ function chooseTokens(content, count) {
 
 function buildPlan(content, options) {
   options = options || {};
+  // A model harness can steer the same deterministic pipeline with a plan.
+  var plan = options.plan || {};
   var candidates = chooseTokens(content, options.candidates || 3);
+  if (plan.token && generateApi.TOKENS && generateApi.TOKENS.indexOf(plan.token) >= 0) {
+    // Force the harness-requested direction to the top of the recommendation,
+    // even when it did not make the heuristic top-N.
+    var forced = candidates.some(function(candidate) { return candidate.token === plan.token; });
+    candidates = candidates.map(function(candidate) {
+      if (candidate.token === plan.token) candidate = { token: candidate.token, score: candidate.score + 10000 };
+      return candidate;
+    });
+    if (!forced) candidates = [{ token: plan.token, score: 10000 + candidates[0].score }].concat(candidates);
+    candidates.sort(function(a, b) { return b.score - a.score; });
+  }
   var selected = candidates[0];
   return {
     mode: 'auto',
@@ -76,6 +93,7 @@ function buildPlan(content, options) {
     density: content.density,
     recommendation: selected.token,
     candidates: candidates,
+    voice: plan.voice || null,
     anchors: (content.anchors || []).slice(0, 5),
     facts: { headings: (content.headings || []).length, paragraphs: (content.paragraphs || []).length, items: (content.items || []).length, dates: (content.dates || []).length, numbers: (content.numbers || []).length, links: (content.links || []).length },
     rationale: rationale(selected.token, content),
@@ -111,7 +129,8 @@ function escapeHtml(value) {
   return String(value || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
-function qualityScore(output, content) {
+function qualityScore(output, content, options) {
+  options = options || {};
   var sourceTitle = escapeHtml(content.title);
   var anchors = (content.anchors || []).slice(0, 5);
   var score = 0;
@@ -127,7 +146,18 @@ function qualityScore(output, content) {
   check('reduced motion', output.indexOf('prefers-reduced-motion') >= 0, 10);
   check('selection styling', output.indexOf('::selection') >= 0, 8);
   check('no placeholder copy', !/(?:lorem ipsum|placeholder|title goes here|sample text|\bTBD\b)/i.test(output), 10);
-  check('no external asset fetch', !/(?:src|href)=["']https?:\/\/[^"']+\.(?:js|css|woff2?|png|jpe?g|gif|svg|webp)(?:["'\s])/i.test(output), 10);
+  check('no external asset fetch', options.webFonts || !/(?:src|href)=["']https?:\/\/[^"']+\.(?:js|css|woff2?|png|jpe?g|gif|svg|webp)(?:["'\s])/i.test(output), 10);
+  // ── design-QA battery (the art-director pass) ────────────────────────────
+  var keyframes = (output.match(/@keyframes/g) || []).length;
+  var distinctHexes = {};
+  (output.match(/#[0-9a-f]{6}\b/gi) || []).forEach(function(hex) { distinctHexes[hex] = 1; });
+  var fidelity = resultApi && resultApi.sourceFidelity ? resultApi.sourceFidelity(content, output).percentage : 100;
+  check('type scale present', /clamp\(/.test(output), 6);
+  check('art direction present', /(?:glyph-tile|donut|mini-bars|iso-prism|iso-stack|plate|mesh|data-wash|constellation|dot-grid|cap-card)/.test(output), 8);
+  check('motion system present', keyframes >= 3, 6);
+  check('palette constrained', Object.keys(distinctHexes).length <= 14, 4);
+  check('source fidelity ≥ 60%', fidelity >= 60, 8);
+  check('semantic landmarks', /<main/.test(output) && (/<nav|footer|aria-label/.test(output)), 4);
   return { score: score, checks: checks };
 }
 
@@ -137,15 +167,24 @@ function randomSeed() {
 
 function autoGenerate(content, options) {
   options = options || {};
-  var plan = buildPlan(content, { candidates: options.candidates || 3 });
+  var plan = buildPlan(content, { candidates: options.candidates || 3, plan: options.plan });
   var baseSeed = options.seed === undefined ? randomSeed() : Number(options.seed);
   if (!Number.isSafeInteger(baseSeed)) baseSeed = randomSeed();
+  var webFonts = !!options.webFonts;
+  // Evaluate every candidate, then re-roll the top two with fresh seeds so a
+  // weak first draw does not sink a good direction. Deterministic given the base seed.
   var evaluated = plan.candidates.map(function(candidate, index) {
-    var seed = (baseSeed + hashString(candidate.token) + (index + 1) * 7919) | 0;
-    var output = generateApi.generate({ content: content, token: candidate.token, seed: seed, brief: options.brief });
-    var quality = qualityScore(output, content);
-    var passed = quality.checks.every(function(check) { return check.passed; });
-    return { token: candidate.token, seed: seed, fit: candidate.score, quality: quality.score, total: candidate.score * 2 + quality.score, checks: quality.checks, output: output, passed: passed };
+    var draws = index < 2 ? [0, 1, 2] : [0];
+    var best = null;
+    draws.forEach(function(draw) {
+      var seed = (baseSeed + hashString(candidate.token) + (index + 1) * 7919 + draw * 104729) | 0;
+      var output = generateApi.generate({ content: content, token: candidate.token, seed: seed, brief: options.brief, voice: plan.voice || undefined, webFonts: webFonts });
+      var quality = qualityScore(output, content, { webFonts: webFonts });
+      var passed = quality.checks.every(function(check) { return check.passed; });
+      var total = candidate.score * 2 + quality.score;
+      if (!best || total > best.total) best = { token: candidate.token, seed: seed, fit: candidate.score, quality: quality.score, total: total, checks: quality.checks, output: output, passed: passed };
+    });
+    return best;
   });
   if (!evaluated.some(function(candidate) { return candidate.passed; })) {
     throw new Error('no Design Auto candidate passed the craft checks');
@@ -154,9 +193,11 @@ function autoGenerate(content, options) {
     return b.total - a.total || b.quality - a.quality || a.token.localeCompare(b.token);
   }).slice(0, plan.candidates.length);
   var selected = evaluated[0];
+  var voice = plan.voice || generateApi.voiceFor(content.profile, selected.seed, options.brief);
   return {
     mode: 'auto', token: selected.token, seed: selected.seed, output: selected.output,
-    score: selected.total, rationale: plan.rationale,
+    score: selected.total, rationale: plan.rationale, voice: voice,
+    design: { quality: selected.quality, checks: selected.checks, voice: voice, palette: content.palette },
     candidates: evaluated.map(function(candidate) {
       return { token: candidate.token, seed: candidate.seed, fit: candidate.fit, quality: candidate.quality, total: candidate.total, checks: candidate.checks };
     }), plan: plan,

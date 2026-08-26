@@ -26,4 +26,3 @@ python gold/reimagine.py --ship   # SHIP → gold/shipped.json
 
 Open `index.html` for the same two beats without Python.
 
-Smoke test from repo root: `./gold/test_reimagine.ps1`.

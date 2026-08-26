@@ -2,15 +2,15 @@
   "mode": "auto",
   "token": "gradient",
   "seed": -1661939251,
-  "score": 174,
+  "score": 210,
   "rationale": "The source has signals that benefit from bold color meshing. Evidence: 5 anchors, 2 measurable facts.",
   "candidates": [
     {
       "token": "gradient",
       "seed": -1661939251,
       "fit": 37,
-      "quality": 100,
-      "total": 174,
+      "quality": 136,
+      "total": 210,
       "checks": [
         {
           "name": "standalone HTML",
@@ -43,46 +43,29 @@
         {
           "name": "no external asset fetch",
           "passed": true
-        }
-      ]
-    },
-    {
-      "token": "dashboard",
-      "seed": -457094670,
-      "fit": 36,
-      "quality": 100,
-      "total": 172,
-      "checks": [
+        },
         {
-          "name": "standalone HTML",
+          "name": "type scale present",
           "passed": true
         },
         {
-          "name": "title preserved",
+          "name": "art direction present",
           "passed": true
         },
         {
-          "name": "source anchors retained",
+          "name": "motion system present",
           "passed": true
         },
         {
-          "name": "focus-visible",
+          "name": "palette constrained",
           "passed": true
         },
         {
-          "name": "reduced motion",
+          "name": "source fidelity ≥ 60%",
           "passed": true
         },
         {
-          "name": "selection styling",
-          "passed": true
-        },
-        {
-          "name": "no placeholder copy",
-          "passed": true
-        },
-        {
-          "name": "no external asset fetch",
+          "name": "semantic landmarks",
           "passed": true
         }
       ]
@@ -91,8 +74,8 @@
       "token": "landing",
       "seed": 995504226,
       "fit": 21,
-      "quality": 100,
-      "total": 142,
+      "quality": 136,
+      "total": 178,
       "checks": [
         {
           "name": "standalone HTML",
@@ -124,6 +107,30 @@
         },
         {
           "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
           "passed": true
         }
       ]

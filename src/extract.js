@@ -332,6 +332,24 @@ function extractContent(html, filePath) {
     .slice(0, 10)
     .map(function(noun) { return noun.charAt(0).toUpperCase() + noun.slice(1); });
 
+  var images = [];
+  var imgRe = /<img\b([^>]*)>/gi;
+  var imgMatch;
+  while ((imgMatch = imgRe.exec(sourceWithoutNoise)) !== null) {
+    var srcMatch = imgMatch[1].match(/\bsrc\s*=\s*["']([^"']+)["']/i);
+    var altMatch = imgMatch[1].match(/\balt\s*=\s*["']([^"']*)["']/i);
+    if (srcMatch) {
+      var src = srcMatch[1].trim();
+      var inline = /^data:/i.test(src);
+      var local = !/^(?:https?:|\/\/)/i.test(src);
+      if (inline || local) uniquePush(images, { src: src, alt: cleanFragment(altMatch ? altMatch[1] : '') });
+    }
+  }
+
+  var tables = 0;
+  var tableRe = /<table\b/gi;
+  while (tableRe.exec(sourceWithoutNoise) !== null) tables++;
+
   var anchors = [];
   properNouns.forEach(function(value) { if (anchors.length < 5) uniquePush(anchors, value); });
   nouns.forEach(function(value) { if (anchors.length < 5) uniquePush(anchors, value); });
@@ -350,6 +368,11 @@ function extractContent(html, filePath) {
     properNouns: properNouns.slice(0, 10),
     nouns: nouns,
     anchors: anchors.slice(0, 5),
+    images: images.slice(0, 8),
+    hasTable: tables > 0,
+    tone: detectTone(lower),
+    readingTime: readingTimeOf(text),
+    script: detectScript(lower),
     palette: derivePalette(lower, sourceHex, chromaticColors),
     foundColors: foundColors,
     sourceHex: sourceHex.slice(0, 10),
@@ -362,6 +385,130 @@ function extractContent(html, filePath) {
   };
 }
 
+// ── tone, reading time, script detection ────────────────────────────────
+
+function detectTone(lowerText) {
+  var playful = /(?:fun|playful|vibrant|bold|fresh|juicy|wild|epic|awesome|delight|colorful|celebrat)/.test(lowerText);
+  var formal = /(?:policy|terms?|compliance|regulatory|official|announcement|procedure|requirements?|guidelines?|pursuant|hereby)/.test(lowerText);
+  var dark = /(?:dark|shadow|void|nocturnal|abyss|midnight|haunt|grief|storm|thunder)/.test(lowerText);
+  if (playful && !formal) return 'playful';
+  if (formal) return 'formal';
+  if (dark) return 'dark';
+  return 'neutral';
+}
+
+function readingTimeOf(text) {
+  var words = String(text || '').trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.round(words / 200));
+}
+
+function detectScript(lowerText) {
+  if (/[\u0400-\u04ff]/.test(lowerText)) return 'cyrillic';
+  if (/[\u3040-\u30ff]/.test(lowerText)) return 'japanese';
+  if (/[\uac00-\ud7af]/.test(lowerText)) return 'korean';
+  if (/[\u4e00-\u9fff]/.test(lowerText)) return 'chinese';
+  if (/[\u0600-\u06ff]/.test(lowerText)) return 'arabic';
+  return 'latin';
+}
+
+// ── OKLCH palette system ────────────────────────────────────────────────
+// Perceptually uniform color math keeps derived roles harmonious: roles are
+// the source accent rotated in hue at a controlled chroma, then re-checked
+// for contrast against the ground. All deterministic from the source palette.
+
+function linearize(c) {
+  c /= 255;
+  return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+}
+
+function delinearize(c) {
+  c = Math.max(0, Math.min(1, c));
+  return Math.round((c <= 0.0031308 ? c * 12.92 : 1.055 * Math.pow(c, 1 / 2.4) - 0.055) * 255);
+}
+
+function hexToOklch(hex) {
+  var rgb = hexToRgb(hex);
+  var r = linearize(rgb.r), g = linearize(rgb.g), b = linearize(rgb.b);
+  var l = 0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b;
+  var m = 0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b;
+  var s = 0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b;
+  var l_ = Math.cbrt(l), m_ = Math.cbrt(m), s_ = Math.cbrt(s);
+  var L = 0.2104542553 * l_ + 0.7936177850 * m_ - 0.0040720468 * s_;
+  var a = 1.9779984951 * l_ - 2.4285922050 * m_ + 0.4505937099 * s_;
+  var b_ = 0.0259040371 * l_ + 0.7827717662 * m_ - 0.8086757660 * s_;
+  return { L: L, C: Math.sqrt(a * a + b_ * b_), H: Math.atan2(b_, a) * 180 / Math.PI };
+}
+
+function hexFromOklch(L, C, H) {
+  var h = H * Math.PI / 180;
+  var a = C * Math.cos(h), b_ = C * Math.sin(h);
+  var l_ = L + 0.3963377774 * a + 0.2158037573 * b_;
+  var m_ = L - 0.1055613458 * a - 0.0638541728 * b_;
+  var s_ = L - 0.0894841775 * a - 1.2914855480 * b_;
+  var l = l_ * l_ * l_, m = m_ * m_ * m_, s = s_ * s_ * s_;
+  var r = 4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s;
+  var g = -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s;
+  var bl = -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s;
+  return rgbToHex(delinearize(r), delinearize(g), delinearize(bl));
+}
+
+function rotateHue(hex, degrees) {
+  var oklch = hexToOklch(hex);
+  return hexFromOklch(oklch.L, oklch.C * 0.92, oklch.H + degrees);
+}
+
+function ramp(hex, steps) {
+  // Internal lightness ramp (light → dark) at controlled chroma. Used for
+  // charts and washes; only the handful of emitted hexes reach the page.
+  var oklch = hexToOklch(hex);
+  var out = [];
+  for (var i = 0; i < steps; i++) {
+    var t = i / (steps - 1);
+    var L = 0.9 - t * 0.62;
+    var C = oklch.C * (0.55 + 0.45 * (1 - t));
+    out.push(hexFromOklch(Math.max(0.06, Math.min(0.96, L)), Math.max(0.01, C), oklch.H));
+  }
+  return out;
+}
+
+var HARMONY = {
+  saas: [24, -16], tech: [24, -16],
+  essay: [-10, 22], literary: [-10, 22], editorial: [-10, 22],
+  restaurant: [32, -32], food: [32, -32], nature: [32, -32], outdoor: [32, -32], ocean: [32, -32],
+  night: [120, 240], artistic: [120, 240],
+  minimal: [8, -8],
+  default: [26, -14],
+};
+
+function paletteSystem(palette, seed) {
+  // Extends the readable palette with two harmonious role colors and a
+  // lightness ramp, all derived deterministically from the source palette.
+  palette = palette || {};
+  var ground = canonicalHex(palette.ground) || '#10131a';
+  var accent = canonicalHex(palette.accent) || '#e8a63f';
+  var profile = String(palette.profile || 'default');
+  var offsets = HARMONY[profile] || HARMONY.default;
+  var jitter = (hashOf(ground + accent + ':' + (seed === undefined ? 0 : seed)) % 9) - 4;
+  var accent2 = ensureContrast(ground, rotateHue(accent, offsets[0] + jitter), 3);
+  var accent3 = ensureContrast(ground, rotateHue(accent, offsets[1] - jitter), 3);
+  return {
+    accent2: accent2,
+    accent3: accent3,
+    harmony: offsets[0] + jitter + '° / ' + (offsets[1] - jitter) + '°',
+    ramps: { accent: ramp(accent, 7), accent2: ramp(accent2, 7), accent3: ramp(accent3, 7) },
+    ground: ground,
+  };
+}
+
+function hashOf(value) {
+  var hash = 2166136261;
+  String(value || '').split('').forEach(function(char) {
+    hash ^= char.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
+  });
+  return hash >>> 0;
+}
+
 var extractApi = {
   extractContent: extractContent,
   hexToRgb: hexToRgb,
@@ -372,6 +519,12 @@ var extractApi = {
   tint: tint,
   shade: shade,
   ensureContrast: ensureContrast,
+  paletteSystem: paletteSystem,
+  hexToOklch: hexToOklch,
+  hexFromOklch: hexFromOklch,
+  rotateHue: rotateHue,
+  ramp: ramp,
+  detectTone: detectTone,
   PROFILE_PALETTES: PROFILE_PALETTES,
   COLOR_NAMES: COLOR_NAMES,
 };

@@ -14,6 +14,102 @@ var tint = extractApi.tint;
 var shade = extractApi.shade;
 var isLight = extractApi.isLight;
 var ensureContrast = extractApi.ensureContrast;
+var paletteSystem = extractApi.paletteSystem;
+
+// ── Typographic voices ───────────────────────────────────────────────────
+// Each voice is a display/body/mono pairing with a character mood and the
+// profiles it fits. Faces are chosen to be distinctive yet free; none are in
+// the craft-audit banned list. Offline mode renders the system fallbacks;
+// --web-fonts upgrades the same stacks via Google Fonts.
+
+var FONT_VOICES = {
+  editorial: {
+    display: '"Fraunces","Iowan Old Style",Palatino,Georgia,serif',
+    body: '"Newsreader","Iowan Old Style",Georgia,serif',
+    mono: '"IBM Plex Mono",ui-monospace,Consolas,Menlo,monospace',
+    web: 'family=Fraunces:opsz,wght@9..144,300..700&family=Newsreader:opsz,wght@6..72,400..600&family=IBM+Plex+Mono:wght@400;500',
+    mood: 'considered',
+    fits: ['essay', 'literary', 'editorial', 'default'],
+  },
+  grotesque: {
+    display: '"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif',
+    body: '"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif',
+    mono: '"IBM Plex Mono",ui-monospace,Consolas,Menlo,monospace',
+    web: 'family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500',
+    mood: 'modern',
+    fits: ['saas', 'tech', 'default'],
+  },
+  techno: {
+    display: '"Unbounded",system-ui,"Segoe UI",sans-serif',
+    body: '"Sora",system-ui,-apple-system,"Segoe UI",sans-serif',
+    mono: '"JetBrains Mono",ui-monospace,Consolas,Menlo,monospace',
+    web: 'family=Unbounded:wght@400;500;600;700&family=Sora:wght@400;500;600&family=JetBrains+Mono:wght@400;600',
+    mood: 'energetic',
+    fits: ['default'],
+  },
+  serifClassic: {
+    display: '"Libre Caslon Text","Iowan Old Style",Palatino,Georgia,serif',
+    body: '"Karla",system-ui,-apple-system,"Segoe UI",sans-serif',
+    mono: '"IBM Plex Mono",ui-monospace,Consolas,Menlo,monospace',
+    web: 'family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Karla:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500',
+    mood: 'timeless',
+    fits: ['restaurant', 'food', 'nature', 'outdoor', 'ocean', 'default'],
+  },
+  highContrast: {
+    display: '"Playfair Display","Iowan Old Style",Palatino,Georgia,serif',
+    body: '"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif',
+    mono: '"IBM Plex Mono",ui-monospace,Consolas,Menlo,monospace',
+    web: 'family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Source+Sans+3:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500',
+    mood: 'dramatic',
+    fits: ['night', 'editorial', 'default'],
+  },
+  expressive: {
+    display: '"Syne",system-ui,"Segoe UI",sans-serif',
+    body: '"Karla",system-ui,-apple-system,"Segoe UI",sans-serif',
+    mono: '"JetBrains Mono",ui-monospace,Consolas,Menlo,monospace',
+    web: 'family=Syne:wght@400;500;600;700;800&family=Karla:wght@400;500;600&family=JetBrains+Mono:wght@400;600',
+    mood: 'expressive',
+    fits: ['artistic', 'minimal', 'default'],
+  },
+  monoForward: {
+    display: '"JetBrains Mono",ui-monospace,Consolas,Menlo,monospace',
+    body: '"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif',
+    mono: '"JetBrains Mono",ui-monospace,Consolas,Menlo,monospace',
+    web: 'family=JetBrains+Mono:wght@400;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500',
+    mood: 'technical',
+    fits: ['saas', 'tech', 'default'],
+  },
+};
+
+var VOICE_KEYS = ['editorial', 'grotesque', 'techno', 'serifClassic', 'highContrast', 'expressive', 'monoForward'];
+
+function voiceFor(profile, seed, brief) {
+  brief = String(brief || '').toLowerCase();
+  var byBrief = [
+    [/luxury|editorial|magazine|literary|considered/, 'editorial'],
+    [/modern|clean|minimal|startup|tech|software/, 'grotesque'],
+    [/game|play|arcade|esports|energetic|bold|fun/, 'techno'],
+    [/classic|timeless|heritage|warm|cozy|handmade/, 'serifClassic'],
+    [/dramatic|film|cinema|night|dark|epic/, 'highContrast'],
+    [/art|expressive|creative|poetic|poster/, 'expressive'],
+    [/data|ops|signal|monitor|technical/, 'monoForward'],
+  ];
+  for (var i = 0; i < byBrief.length; i++) {
+    if (byBrief[i][0].test(brief)) return byBrief[i][1];
+  }
+  var fits = VOICE_KEYS.filter(function(key) {
+    return FONT_VOICES[key].fits.indexOf(profile) >= 0;
+  });
+  var pool = fits.length ? fits : ['editorial', 'grotesque'];
+  var pick = hashString(profile + ':' + (seed === undefined ? 0 : seed)) % pool.length;
+  return pool[pick];
+}
+
+function webFontsLink(voice) {
+  return '<link rel="preconnect" href="https://fonts.googleapis.com">' +
+    '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' +
+    '<link href="https://fonts.googleapis.com/css2?' + voice.web + '&display=swap" rel="stylesheet">';
+}
 
 var TOKENS = [
   'webpage', 'landing', 'dashboard', 'infographic', 'cinematic',
@@ -102,6 +198,14 @@ function generate(opts) {
     offset: Math.round(rng() * 18 + 8),
   };
 
+  // Typographic voice + palette system (content-derived, seeded, deterministic).
+  var voiceKey = opts.voice && FONT_VOICES[opts.voice] ? opts.voice : voiceFor(profile, opts.seed, brief);
+  var voice = FONT_VOICES[voiceKey];
+  var webFonts = !!opts.webFonts;
+  var sys = paletteSystem({ ground: ground, accent: accent, muted: muted, surface: surface, ink: ink, profile: profile }, opts.seed);
+  var accent2 = sys.accent2;
+  var accent3 = sys.accent3;
+
   var craftFloor = '::selection{background:' + accent + ';color:' + ground + '}' +
     ':focus-visible{outline:2px solid ' + accent + ';outline-offset:4px;border-radius:3px}' +
     '@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}html{scroll-behavior:smooth}' +
@@ -113,6 +217,24 @@ function generate(opts) {
     'html{scrollbar-color:var(--a) var(--g);scrollbar-width:thin}' +
     'body::before{content:"";position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.045;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns=%27http://www.w3.org/2000/svg%27 width=%27160%27 height=%27160%27><filter id=%27n%27><feTurbulence type=%27fractalNoise%27 baseFrequency=%270.85%27 numOctaves=%272%27 stitchTiles=%27stitch%27/></filter><rect width=%27160%27 height=%27160%27 filter=%27url(%23n)%27 opacity=%270.6%27/></svg>")}' +
     'body::after{content:"";position:fixed;left:0;top:0;height:2px;width:100%;background:linear-gradient(90deg,var(--a),var(--m));transform-origin:0 50%;transform:scaleX(0);z-index:9999;pointer-events:none;animation:progline linear both;animation-timeline:scroll(root)}@keyframes progline{to{transform:scaleX(1)}}@supports not (animation-timeline:scroll()){body::after{display:none}}';
+
+  // Shared micro-interaction layer: cursor spotlight, tilt cards, count-up.
+  // Every behavior sits inside the reduced-motion kill switch; the spotlight
+  // only appears on fine pointers.
+  var fxCss =
+    '.spotlight{position:fixed;inset:0;z-index:9997;pointer-events:none;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--a) 9%,transparent),transparent 70%);opacity:0;transition:opacity .5s ease}@media(hover:hover) and (pointer:fine){.spotlight{opacity:1}}@media(prefers-reduced-motion:reduce){.spotlight{display:none}}' +
+    '.fx-tilt{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease,box-shadow .25s ease;will-change:transform}@media(prefers-reduced-motion:reduce){.fx-tilt{transform:none}}' +
+    '.countup{font-variant-numeric:tabular-nums}';
+  var fxScript = '(function(){' +
+    'var fine=window.matchMedia&&window.matchMedia("(hover:hover) and (pointer:fine)").matches,reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;' +
+    'var sp=document.createElement("div");sp.className="spotlight";sp.setAttribute("aria-hidden","true");document.body.appendChild(sp);' +
+    'if(fine&&!reduced){document.addEventListener("pointermove",function(e){sp.style.setProperty("--mx",e.clientX+"px");sp.style.setProperty("--my",e.clientY+"px")},{passive:true})}' +
+    'var nums=[].slice.call(document.querySelectorAll(".countup[data-n]"));' +
+    'function run(n){var target=parseFloat(n.getAttribute("data-n")||"0"),pre=n.getAttribute("data-pre")||"",suf=n.getAttribute("data-suf")||"",dec=(String(target).split(".")[1]||"").length,t0=null,dur=900;function step(t){if(!t0)t0=t;var p=Math.min((t-t0)/dur,1),e=1-Math.pow(1-p,3),v=target*e;n.textContent=pre+(dec?v.toFixed(dec):Math.round(v).toString())+suf;if(p<1)window.requestAnimationFrame(step)}window.requestAnimationFrame(step)}' +
+    'if(!reduced&&"IntersectionObserver"in window){var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){io.unobserve(en.target);run(en.target)}})},{threshold:.4});nums.forEach(function(n){io.observe(n)})}else{nums.forEach(run)}' +
+    'var tilts=[].slice.call(document.querySelectorAll(".fx-tilt"));if(fine&&!reduced){tilts.forEach(function(el){el.addEventListener("pointermove",function(e){var r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.setProperty("--ry",(x*6).toFixed(2)+"deg");el.style.setProperty("--rx",(-y*6).toFixed(2)+"deg")});el.addEventListener("pointerleave",function(){el.style.setProperty("--rx","0deg");el.style.setProperty("--ry","0deg")})})}' +
+    '})()';
+
   var baseCss = '*{box-sizing:border-box;margin:0;padding:0}' +
     'html{background:var(--g);color:var(--i);-webkit-font-smoothing:antialiased}' +
     'body{min-height:100vh;overflow-x:hidden}' +
@@ -120,9 +242,9 @@ function generate(opts) {
     'button,input,select{font:inherit}' +
     '.source-block,.section,.feature,.plate,.metric{content-visibility:auto;contain-intrinsic-size:0 180px}' +
     '@media(max-width:640px){body{overflow-wrap:anywhere}}';
-  var serif = '"Iowan Old Style","Hoefler Text",Palatino,Georgia,Cambria,serif';
-  var sans = 'ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif';
-  var mono = 'ui-monospace,"SF Mono","Cascadia Code",Consolas,Menlo,monospace';
+  var serif = voice.display;
+  var sans = voice.body;
+  var mono = voice.mono;
   var svgSans = sans.replace(/"/g, '');
 
   switch (token) {
@@ -148,14 +270,20 @@ function generate(opts) {
     return '<!doctype html><html lang="en"><head><meta charset="utf-8">' +
       '<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin">' +
       '<meta name="color-scheme" content="' + (isLight(ground) ? 'light' : 'dark') + '">' +
+      (webFonts ? webFontsLink(voice) : '') +
       '<title>' + esc(title) + '</title><style>' +
       '@property --g{syntax:"<color>";inherits:true;initial-value:#000}' +
       '@property --a{syntax:"<color>";inherits:true;initial-value:#fff}' +
+      '@property --a2{syntax:"<color>";inherits:true;initial-value:#fff}' +
+      '@property --a3{syntax:"<color>";inherits:true;initial-value:#fff}' +
       '@property --radius{syntax:"<length>";inherits:false;initial-value:4px}' +
       '@property --drift{syntax:"<length>";inherits:false;initial-value:0px}' +
-      ':root{--g:' + ground + ';--a:' + accent + ';--m:' + muted + ';--s:' + surface + ';--i:' + ink + ';--drift:' + variation.drift + 'px;--radius:' + variation.radius + 'px}' +
-      baseCss + css + craftFloor + '</style></head><body>' + body +
-      (script ? '<scr' + 'ipt>' + script + '</scr' + 'ipt>' : '') +
+      ':root{--g:' + ground + ';--a:' + accent + ';--a2:' + accent2 + ';--a3:' + accent3 + ';--m:' + muted + ';--s:' + surface + ';--i:' + ink + ';--focus-ring:' + accent + ';--drift:' + variation.drift + 'px;--radius:' + variation.radius + 'px' +
+      ';--text-xs:clamp(11px,.9vw,12px);--text-sm:clamp(13px,1.2vw,14px);--text-base:clamp(15px,1.5vw,17px);--text-lg:clamp(18px,2vw,20px);--text-xl:clamp(22px,2.6vw,28px);--text-2xl:clamp(28px,4vw,40px);--text-3xl:clamp(38px,6vw,58px);--text-4xl:clamp(52px,9vw,110px)' +
+      ';--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;--space-7:48px;--space-8:64px;--space-9:96px;--space-10:128px' +
+      '}' +
+      baseCss + css + craftFloor + fxCss + '</style></head><body>' + body +
+      '<scr' + 'ipt>' + fxScript + (script ? script : '') + '</scr' + 'ipt>' +
       '</body></html>';
   }
 
@@ -183,6 +311,134 @@ function generate(opts) {
       return '<li><a href="' + esc(link.href) + '">' + esc(link.label) + '</a></li>';
     }).join('');
   }
+
+  // ── generative art primitives ────────────────────────────────────────────
+  // Each primitive is seeded and content-derived. Colors reference CSS vars
+  // (color-mix/rgba) so the palette stays a system rather than a bag of hexes.
+
+  function meshBackdrop() {
+    // Layered aurora field for hero sections — the "$100k background".
+    return '<div class="mesh" aria-hidden="true"><i style="--mb:0"></i><i style="--mb:1"></i><i style="--mb:2"></i></div>';
+  }
+
+  function dataWash(values, count) {
+    // Giant faded source numbers as editorial texture behind a section.
+    var pool = (values && values.length ? values : facts.map(function(f) { return f.value; })).filter(Boolean);
+    if (!pool.length) return '';
+    var spans = pool.slice(0, count || 6).map(function(value) {
+      return '<span>' + esc(value) + '</span>';
+    }).join('');
+    return '<div class="data-wash" aria-hidden="true">' + spans + '</div>';
+  }
+
+  function dotGrid(seed, cells) {
+    // Halftone dot field, displaced by a seeded hash.
+    var count = cells || 36, dots = [];
+    for (var i = 0; i < count; i++) {
+      var h = hashString('dot:' + seed + ':' + i);
+      var x = (i % 9) * 12.5 + 6.25, y = Math.floor(i / 9) * 12.5 + 6.25;
+      var r = 1.2 + (h % 20) / 10;
+      var o = (0.12 + (h >>> 5) % 40 / 100).toFixed(2);
+      dots.push('<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + r.toFixed(1) + '" fill="currentColor" opacity="' + o + '"/>');
+    }
+    return '<svg class="dot-grid" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">' + dots.join('') + '</svg>';
+  }
+
+  function constellation(nodes) {
+    // Node network from source anchors: a living content map.
+    var list = nodes.slice(0, 5);
+    if (list.length < 2) return '';
+    var links = '', marks = '';
+    for (var i = 0; i < list.length; i++) {
+      var a = -Math.PI / 2 + (i / list.length) * Math.PI * 2;
+      var x = (50 + Math.cos(a) * 34).toFixed(1), y = (50 + Math.sin(a) * 34).toFixed(1);
+      links += '<line x1="50" y1="50" x2="' + x + '" y2="' + y + '"/>';
+      marks += '<circle class="cn" cx="' + x + '" cy="' + y + '" r="3"><title>' + esc(list[i]) + '</title></circle>';
+    }
+    return '<svg class="constellation" viewBox="0 0 100 100" role="img" aria-label="Anchor network for ' + esc(content.title) + '"><circle class="cn-core" cx="50" cy="50" r="6"/>' + links + marks + '</svg>';
+  }
+
+  function isometricStack(seed) {
+    // CSS 3D layered planes — no canvas, compositor-only, reduced-motion safe.
+    var layers = '';
+    for (var i = 0; i < 3; i++) {
+      layers += '<i style="--li:' + i + '"></i>';
+    }
+    return '<div class="iso-stack" aria-hidden="true" style="--is:' + seed + '">' + layers + '</div>';
+  }
+
+  // ── section archetypes (composition layer) ───────────────────────────────
+  // Tokens compose these bands instead of hard-coding one page each.
+
+  function statParts(value) {
+    var m = String(value || '').match(/^([^0-9]*)([0-9][0-9.,]*)(.*)$/);
+    if (!m) return null;
+    var num = parseFloat(m[2].replace(/,/g, ''));
+    if (!isFinite(num)) return null;
+    return { pre: m[1], num: num, suf: m[3] };
+  }
+
+  function statsBand(count) {
+    var metrics = metricCards(facts, anchors).slice(0, count || 3);
+    if (!metrics.length) return '';
+    var cells = metrics.map(function(metric, index) {
+      var parts = statParts(metric.value);
+      if (!parts) {
+        return '<div class="stat"><strong>' + esc(metric.value) + '</strong><span>' + esc(metric.kind) + '</span></div>';
+      }
+      return '<div class="stat fx-tilt"><strong class="countup" data-n="' + parts.num + '" data-pre="' + esc(parts.pre) + '" data-suf="' + esc(parts.suf) + '">' + esc(metric.value) + '</strong><span>' + esc(metric.kind) + '</span></div>';
+    }).join('');
+    return '<section class="stats" aria-label="Source measures"><div class="stats-grid">' + cells + '</div><p class="stats-note">Every measure appears in the source.</p></section>';
+  }
+
+  function bentoGrid(count) {
+    var tiles = anchors.slice(0, count || 5).map(function(anchor, index) {
+      var shape = index % 5 === 0 ? 't-wide' : index % 5 === 1 ? 't-tall' : '';
+      var item = items[index] || paragraphAt(index, anchor);
+      var fact = facts[index] && facts[index].value ? '<b>' + esc(facts[index].value) + '</b>' : '';
+      return '<article class="bento-tile ' + shape + ' fx-tilt"><span class="bento-no">' + String(index + 1).padStart(2, '0') + '</span><h3>' + esc(anchor) + '</h3><p>' + esc(item) + '</p>' + (fact ? '<span class="bento-fact">' + fact + '</span>' : '') + '</article>';
+    }).join('');
+    return '<section class="bento" aria-label="Source in brief"><div class="bento-grid">' + tiles + '</div></section>';
+  }
+
+  function quoteBand() {
+    var text = anchors.length > 1 ? anchors[1] : content.title;
+    return '<section class="quote-band"><span class="eyebrow">From the source</span><blockquote>' + esc(text) + '</blockquote></section>';
+  }
+
+  function ctaBand() {
+    var action = usefulLink();
+    var href = action ? action.href : '#';
+    var text = action ? (action.href.indexOf('mailto:') === 0 ? 'Contact the source' : 'Open the source ↗') : 'Back to top ↑';
+    return '<section class="cta"><div><h2>Built from ' + esc(content.title) + '</h2><p>Facts, names, and links came from the source. Nothing was invented.</p></div><a class="action" href="' + esc(href) + '">' + esc(text) + '</a></section>';
+  }
+
+  function marqueeBand() {
+    var inner = anchors.slice(0, 6).map(function(a, i) {
+      return '<span>' + esc(a) + ' <i>' + (i === 0 ? '✦' : '·') + '</i></span>';
+    }).join('');
+    return '<div class="band-marquee" aria-hidden="true"><div class="band-marquee-track">' + inner + '</div></div>';
+  }
+
+  function footerBand() {
+    var links = content.links.length ? '<ul>' + content.links.slice(0, 5).map(function(l) {
+      return '<li><a href="' + esc(l.href) + '">' + esc(l.label || l.href) + '</a></li>';
+    }).join('') + '</ul>' : '';
+    return '<footer class="band-footer"><div><span class="eyebrow">' + esc(label) + '</span><strong>' + esc(content.title) + '</strong></div>' + (links ? '<nav aria-label="Source links">' + links + '</nav>' : '') + '</footer>';
+  }
+
+  var bandCss =
+    '.mesh{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}.mesh i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;background:radial-gradient(circle at 35% 35%,color-mix(in srgb,var(--a2) 55%,transparent),transparent 70%);animation:mesh-drift 24s ease-in-out infinite alternate;animation-delay:calc(var(--mb,0)*-7s)}.mesh i:nth-child(2){background:radial-gradient(circle at 60% 40%,color-mix(in srgb,var(--a3) 45%,transparent),transparent 70%);width:46vmax;height:46vmax;right:-12vmax;top:-8vmax}.mesh i:nth-child(3){background:radial-gradient(circle at 70% 60%,color-mix(in srgb,var(--a) 38%,transparent),transparent 72%);width:40vmax;height:40vmax;left:-8vmax;bottom:-14vmax;animation-duration:30s}@keyframes mesh-drift{from{transform:translate(0,0) scale(1)}to{transform:translate(6vmax,4vmax) scale(1.18)}}' +
+    '.data-wash{position:absolute;inset:0;display:flex;align-items:center;gap:clamp(18px,4vw,64px);overflow:hidden;pointer-events:none;z-index:0;color:var(--a);opacity:.07}.data-wash span{font:700 clamp(70px,16vw,220px)/1 ' + serif + ';letter-spacing:-.05em;white-space:nowrap;user-select:none}' +
+    '.dot-grid{position:absolute;inset:0;width:100%;height:100%;color:var(--a);opacity:.5;pointer-events:none;z-index:0}' +
+    '.constellation{display:block;width:100%;height:auto;color:var(--a)}.constellation line{stroke:currentColor;stroke-width:.6;opacity:.5}.constellation circle{fill:currentColor;opacity:.85}.constellation .cn-core{fill:currentColor;opacity:.95}' +
+    '.iso-stack{position:relative;width:120px;height:120px;transform-style:preserve-3d;transform:rotateX(58deg) rotateZ(-34deg);animation:stack-float 7s ease-in-out infinite}.iso-stack i{position:absolute;inset:0;border:1px solid color-mix(in srgb,var(--a2) 55%,transparent);background:linear-gradient(135deg,color-mix(in srgb,var(--a2) 24%,transparent),color-mix(in srgb,var(--a3) 14%,transparent));border-radius:14px;transform:translateZ(calc(var(--li,0)*14px)) translateY(calc(var(--li,0)*-6px))}@keyframes stack-float{50%{transform:rotateX(58deg) rotateZ(-34deg) translateY(-10px)}}' +
+    '.stats{border-top:1px solid color-mix(in srgb,var(--i) 14%,transparent);border-bottom:1px solid color-mix(in srgb,var(--i) 14%,transparent);padding:clamp(32px,6vw,64px) 0;margin-top:64px}.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,4vw,48px)}.stat{border-left:2px solid color-mix(in srgb,var(--a2) 60%,transparent);padding-left:clamp(14px,2vw,24px)}.stat strong{display:block;font:600 clamp(30px,5vw,58px)/1 ' + sans + ';letter-spacing:-.045em;color:var(--a)}.stat span{display:block;margin-top:8px;font:10px ' + mono + ';letter-spacing:.16em;text-transform:uppercase;color:var(--m)}.stats-note{font:11px ' + mono + ';color:var(--m);margin-top:24px}@media(max-width:640px){.stats-grid{grid-template-columns:1fr;gap:26px}}' +
+    '.bento{border-top:1px solid color-mix(in srgb,var(--i) 14%,transparent);padding-top:clamp(36px,6vw,64px);margin-top:64px}.bento-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;grid-auto-rows:minmax(150px,auto)}.bento-tile{position:relative;background:color-mix(in srgb,var(--s) 70%,transparent);border:1px solid color-mix(in srgb,var(--i) 14%,transparent);border-radius:var(--radius);padding:22px;display:flex;flex-direction:column;overflow:hidden;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}.bento-tile:hover{border-color:color-mix(in srgb,var(--a2) 65%,transparent);box-shadow:0 20px 40px -24px color-mix(in srgb,var(--a2) 45%,transparent)}.bento-tile.t-wide{grid-column:span 2}.bento-tile.t-tall{grid-row:span 2}.bento-no{font:10px ' + mono + ';color:var(--a);opacity:.8}.bento-tile h3{font:400 clamp(20px,3vw,30px)/1.05 ' + serif + ';letter-spacing:-.02em;margin:auto 0 10px}.bento-tile p{font-size:13px;line-height:1.6;opacity:.66;max-width:40ch}.bento-fact{margin-top:12px;font:600 15px ' + mono + ';color:var(--a)}@media(max-width:820px){.bento-grid{grid-template-columns:repeat(2,1fr)}.bento-tile.t-wide{grid-column:span 2}}@media(max-width:480px){.bento-grid{grid-template-columns:1fr}.bento-tile.t-wide,.bento-tile.t-tall{grid-column:span 1;grid-row:span 1}}' +
+    '.quote-band{max-width:820px;margin:clamp(48px,8vw,88px) auto;padding:0 28px}.quote-band blockquote{font:400 clamp(26px,4.6vw,44px)/1.18 ' + serif + ';letter-spacing:-.03em;color:var(--a);border-left:3px solid color-mix(in srgb,var(--a3) 70%,transparent);padding-left:24px;text-wrap:balance}' +
+    '.cta{max-width:1080px;margin:clamp(48px,8vw,88px) auto 0;padding:clamp(36px,6vw,64px) 28px;display:flex;align-items:end;justify-content:space-between;gap:28px;flex-wrap:wrap;border-top:1px solid color-mix(in srgb,var(--i) 14%,transparent)}.cta h2{font:400 clamp(26px,4.6vw,46px)/1.05 ' + serif + ';letter-spacing:-.03em;max-width:16ch;text-wrap:balance}.cta p{font-size:14px;line-height:1.65;opacity:.6;max-width:44ch;margin-top:12px}.cta .action{display:inline-flex;align-items:center;gap:8px;padding:14px 20px;border-radius:999px;background:var(--a);color:var(--g);font-weight:700;text-decoration:none;transition:transform .18s ease,box-shadow .18s ease}.cta .action:hover{transform:translateY(-3px);box-shadow:0 18px 34px -16px var(--a)}' +
+    '.band-marquee{overflow:hidden;border-top:1px solid color-mix(in srgb,var(--i) 14%,transparent);border-bottom:1px solid color-mix(in srgb,var(--i) 14%,transparent);padding:14px 0;margin:24px 0 0}.band-marquee-track{display:flex;gap:40px;width:max-content;animation:band-marq 22s linear infinite;font:400 13px ' + serif + ';letter-spacing:.05em;color:var(--m)}.band-marquee-track span{display:inline-flex;align-items:center;gap:40px;white-space:nowrap}.band-marquee-track i{color:var(--a);font-style:normal}@keyframes band-marq{to{transform:translateX(-50%)}}@media(prefers-reduced-motion:reduce){.band-marquee-track{animation:none;flex-wrap:wrap}}' +
+    '.band-footer{max-width:1080px;margin:0 auto;padding:40px 28px 64px;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;border-top:1px solid color-mix(in srgb,var(--i) 14%,transparent)}.band-footer .eyebrow{display:block;font-size:10px}.band-footer strong{font:400 22px ' + serif + ';letter-spacing:-.02em;color:var(--a)}.band-footer ul{display:flex;gap:18px;flex-wrap:wrap;list-style:none}.band-footer a{color:var(--m);text-decoration:none;border-bottom:1px solid transparent}.band-footer a:hover{color:var(--a);border-color:var(--a)}@media(max-width:560px){.band-footer{display:block}.band-footer nav{margin-top:18px}}';
 
   function webpage() {
     var light = isLight(ground);
@@ -217,10 +473,12 @@ function generate(opts) {
       '.section .fact span{color:var(--m);margin-right:8px}' +
       '.source-block{margin-top:48px;padding:24px 0 6px;border-top:1px solid ' + border + '}.source-block ul{display:flex;gap:14px;flex-wrap:wrap;list-style:none;font-size:13px;margin-top:14px}.source-block a{color:var(--m);text-decoration:none;border-bottom:1px solid transparent}.source-block a:hover{color:var(--a);border-color:var(--a)}' +
       '@media(max-width:700px){.hero{grid-template-columns:1fr}.stamp{justify-self:start;transform:none}.section{grid-template-columns:42px 1fr;gap:12px}}' +
+      '.hero{position:relative;overflow:hidden}.hero>*{position:relative;z-index:1}' + bandCss +
     '@keyframes sec-in{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}' +
     '@supports not (animation-timeline:view()){.section{opacity:1;animation:none}}';
-    var linksAside = content.links.length ? '<aside class="source-block"><span class="eyebrow">Notes &amp; links</span><ul>' + content.links.slice(0, 6).map(function(l) { return '<li><a href="' + esc(l.href) + '">' + esc(l.label || l.href) + '</a></li>'; }).join('') + '</ul></aside>' : '';
-    return page(content.title, css, '<main class="page"><header class="hero"><div><span class="eyebrow" style="color:var(--a)">' + esc(label) + '</span><h1>' + esc(content.title) + '</h1><p class="lede">' + esc(paragraphAt(0, anchors[0])) + '</p></div><div class="stamp"><div class="hero-art-prism" aria-hidden="true">' + isoPrism(content.title, 22) + '</div><strong>' + anchors.length + '</strong><span>sections</span></div></header><nav class="contents" aria-label="On this page">' + contents + '</nav>' + sections + linksAside + '</main>');
+    var wash = dataWash(content.numbers, 6);
+    var stats = statsBand(3);
+    return page(content.title, css, '<main class="page"><header class="hero">' + wash + '<div><span class="eyebrow" style="color:var(--a)">' + esc(label) + '</span><h1>' + esc(content.title) + '</h1><p class="lede">' + esc(paragraphAt(0, anchors[0])) + '</p></div><div class="stamp"><div class="hero-art-prism" aria-hidden="true">' + isoPrism(content.title, 22) + '</div><strong>' + anchors.length + '</strong><span>sections</span></div></header><nav class="contents" aria-label="On this page">' + contents + '</nav>' + sections + (stats || '') + footerBand() + '</main>');
   }
 
   function landing() {
@@ -280,10 +538,9 @@ function generate(opts) {
       '.marquee-track span{display:inline-flex;align-items:center;gap:40px;white-space:nowrap}' +
       '.marquee-track i{color:var(--a);font-style:normal}' +
       '@keyframes marq{to{transform:translateX(-50%)}}' +
-      '@media(prefers-reduced-motion:reduce){.marquee-track{animation:none;flex-wrap:wrap}}';
-    var links = content.links.length ? '<section class="links"><span class="eyebrow">Continue with the source</span><ul>' + linkList() + '</ul></section>' : '';
-    var marqueeInner = anchors.slice(0, 6).map(function(a, i) { return '<span>' + esc(a) + ' <i>' + (i === 0 ? '✦' : '·') + '</i></span>'; }).join('');
-    return page(content.title, css, '<main class="landing"><div class="topline"><span>' + esc(label) + '</span><span>' + anchors.length + ' source signals</span></div><header class="hero"><div class="hero-copy"><span class="eyebrow">' + esc(content.profile) + '</span><h1>' + esc(content.title) + '</h1><p class="lede">' + esc(paragraphAt(0, anchors[0])) + '</p><div class="actions"><a class="action" href="' + esc(primaryHref) + '">' + esc(primaryText) + ' →</a><a class="action secondary" href="#features">See the signals</a></div></div><div class="hero-art" aria-hidden="true"><div class="art-dot"></div><div class="art-orbit"></div><div class="art-glyphs">' + glyphTiles(anchors, 3, 46) + '</div><div class="art-prism">' + isoPrism(content.title, 30) + '</div><span class="art-chip c1">' + esc(anchors[0] || 'start') + '</span><span class="art-chip c2">' + esc(anchors[1 % Math.max(anchors.length, 1)] || 'signal') + '</span><span class="art-chip c3">' + esc(anchors[2 % Math.max(anchors.length, 1)] || 'core') + '</span><span class="art-chip c4">' + esc(anchors[3 % Math.max(anchors.length, 1)] || 'detail') + '</span></div></header><div class="marquee"><div class="marquee-track">' + marqueeInner + '</div></div>' + '<section class="feature-grid" id="features" aria-label="Source features">' + features + '</section>' + links + '</main>');
+      '@media(prefers-reduced-motion:reduce){.marquee-track{animation:none;flex-wrap:wrap}}' + bandCss;
+    var stats = statsBand(3);
+    return page(content.title, css, '<main class="landing"><div class="topline"><span>' + esc(label) + '</span><span>' + anchors.length + ' source signals</span></div><header class="hero"><div class="hero-copy"><span class="eyebrow">' + esc(content.profile) + '</span><h1>' + esc(content.title) + '</h1><p class="lede">' + esc(paragraphAt(0, anchors[0])) + '</p><div class="actions"><a class="action" href="' + esc(primaryHref) + '">' + esc(primaryText) + ' →</a><a class="action secondary" href="#features">See the signals</a></div></div><div class="hero-art" aria-hidden="true">' + meshBackdrop() + '<div class="art-dot"></div><div class="art-orbit"></div><div class="art-glyphs">' + glyphTiles(anchors, 3, 46) + '</div><div class="art-prism">' + isoPrism(content.title, 30) + '</div><span class="art-chip c1">' + esc(anchors[0] || 'start') + '</span><span class="art-chip c2">' + esc(anchors[1 % Math.max(anchors.length, 1)] || 'signal') + '</span><span class="art-chip c3">' + esc(anchors[2 % Math.max(anchors.length, 1)] || 'core') + '</span><span class="art-chip c4">' + esc(anchors[3 % Math.max(anchors.length, 1)] || 'detail') + '</span></div></header>' + marqueeBand() + '<section class="feature-grid" id="features" aria-label="Source features">' + features + '</section>' + (stats || '') + ctaBand() + footerBand() + '</main>');
   }
 
   function dashboard() {
@@ -468,11 +725,11 @@ function generate(opts) {
       '.mix{padding:48px 0;border-bottom:1px solid ' + border + ';display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}' +
       '.mix .eyebrow{display:block;margin-bottom:20px}' +
       '@media(max-width:700px){.mix{grid-template-columns:1fr;gap:32px}}' +
-      '@keyframes row-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}' + artCss;
+      '@keyframes row-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}' + artCss + '.poster{position:relative;overflow:hidden}.poster>*{position:relative;z-index:1}' + bandCss;
     var mix = (facts.some(function(f) { return firstNumericValue([f.value]) > 0; })
       ? '<section class="mix" aria-label="Source mix"><div><span class="eyebrow">Share of source numbers</span>' + donutChart(facts) + '</div><div><span class="eyebrow">Source scale</span>' + miniBars(facts, 5) + '</div></section>'
       : '<section class="mix" aria-label="Source anchors"><div><span class="eyebrow">Anchors in source</span>' + glyphTiles(anchors, 6, 44) + '</div><div class="prism-wrap"><span class="eyebrow">Form</span>' + isoPrism(content.title, 34) + '</div></section>');
-    var body = '<main class="poster"><header class="poster-head"><span class="eyebrow">' + esc(label) + '</span><h1>' + esc(content.title) + '</h1><p class="deck">' + esc(paragraphAt(0, anchors[0])) + '</p></header><section class="chart" aria-label="Content signals"><table><tbody>' + rows + '</tbody></table><p class="note">' + (facts.some(function (f) { return f.value; }) ? 'Bars and numbers come only from the source.' : 'No usable numbers were found, so bars show relative section length instead.') + '</p></section>' + timeline + iso + mix + (factualRows ? '<section class="data"><span class="eyebrow">Lossless source facts</span><table><thead><tr><th>Label</th><th>Value</th><th>Kind</th></tr></thead><tbody>' + factualRows + '</tbody></table></section>' : '') + '</main>';
+    var body = '<main class="poster">' + dataWash(content.numbers, 8) + '<header class="poster-head"><span class="eyebrow">' + esc(label) + '</span><h1>' + esc(content.title) + '</h1><p class="deck">' + esc(paragraphAt(0, anchors[0])) + '</p></header><section class="chart" aria-label="Content signals"><table><tbody>' + rows + '</tbody></table><p class="note">' + (facts.some(function (f) { return f.value; }) ? 'Bars and numbers come only from the source.' : 'No usable numbers were found, so bars show relative section length instead.') + '</p></section>' + timeline + iso + mix + (factualRows ? '<section class="data"><span class="eyebrow">Lossless source facts</span><table><thead><tr><th>Label</th><th>Value</th><th>Kind</th></tr></thead><tbody>' + factualRows + '</tbody></table></section>' : '') + '</main>';
     return page(content.title + ' — poster', css, body);
   }
 
@@ -802,11 +1059,13 @@ function glass() {
       "@supports not (animation-timeline:view()){.cap-sec h2{animation:slide-left-fb .5s ease both}.cap-card{animation:cap-in-fb .4s ease both;animation-delay:calc(var(--ci,0)*.1s)}.tl-item{animation:tl-in-fb .4s ease both;animation-delay:calc(var(--ti,0)*.1s)}.stat-card{animation:stat-in-fb .35s ease both;animation-delay:calc(var(--sc,0)*.08s)}}" +
       "@keyframes slide-left-fb{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:none}}@keyframes cap-in-fb{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}@keyframes tl-in-fb{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}@keyframes stat-in-fb{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}" +
       "@media(max-width:680px){.stats-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:400px){.stats-grid{grid-template-columns:1fr}.cap-grid{grid-template-columns:1fr}}" +
-      artCss;
+      artCss + bandCss;
     var body = "<main class=show-scene><section class=show-hero><div class=show-hero-inner><span class=eyebrow>" + esc(label) + "</span><h1>" + esc(content.title) + "</h1><p class=deck>" + esc(paragraphAt(0, anchors[0])) + "</p><span class=show-hint aria-hidden=true>Scroll to explore &darr;</span></div></section>" +
       "<section class=cap-sec><h2>Source capabilities</h2><div class=cap-grid>" + caps + "</div></section>" +
+      bentoGrid(5) +
       "<section class=tl-sec><h2>Content timeline</h2><ul class=tl-list>" + tl + "</ul></section>" +
       "<section class=stats-sec><h2>Measured signals</h2><div class=stats-grid>" + stats + "</div></section>" +
+      ctaBand() +
       "<footer class=show-foot><div class=badge-row><span class=badge>@property " + anchors.length + " vars</span><span class=badge>scroll-driven</span><span class=badge>@container</span><span class=badge>view-transition</span><span class=badge>offline</span></div><p>Every animation is source content. No invented facts. Works in any browser that supports modern CSS.</p></footer></main>";
     return page(content.title + " — showcase", css, body);
   }
@@ -918,6 +1177,6 @@ function shuffle(values, rng) {
   return result;
 }
 
-var generateApi = { generate: generate, TOKENS: TOKENS, TOKEN_DESCRIPTIONS: TOKEN_DESCRIPTIONS };
+var generateApi = { generate: generate, TOKENS: TOKENS, TOKEN_DESCRIPTIONS: TOKEN_DESCRIPTIONS, FONT_VOICES: FONT_VOICES, voiceFor: voiceFor, webFontsLink: webFontsLink };
 if (typeof module !== 'undefined' && module.exports) module.exports = generateApi;
 if (typeof window !== 'undefined') window.ReimagineGenerate = generateApi;

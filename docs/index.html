@@ -214,6 +214,10 @@ h1 .grad { background: linear-gradient(100deg, var(--crimson), var(--hot) 55%, #
 .sample-btn { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; padding: 7px 14px; border-radius: 8px; border: 1px dashed rgba(244,239,228,.28); background: transparent; color: var(--dim); cursor: pointer; transition: background-color .15s ease, color .15s ease, border-color .15s ease; }
 .sample-btn:hover, .sample-btn.active { background: rgba(244,239,228,.1); color: var(--ink); border-color: var(--hot); }
 .token-btn { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; padding: 7px 14px; border-radius: 999px; border: 1px solid rgba(244,239,228,.2); background: transparent; color: var(--dim); cursor: pointer; transition: background-color .15s ease, color .15s ease, border-color .15s ease; }
+  .design-strip { margin-top: 14px; }
+  .design-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .design-btn { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(244,239,228,.2); background: transparent; color: var(--dim); cursor: pointer; transition: background-color .15s ease, color .15s ease, border-color .15s ease; }
+  .design-btn:hover, .design-btn.active { background: var(--hot); color: var(--void); border-color: var(--hot); }
 .token-btn:hover, .token-btn.active { background: var(--hot); color: var(--void); border-color: var(--hot); }
 .run-btn { font-family: var(--sans); font-size: 14px; font-weight: 600; padding: 12px 24px; border: 0; border-radius: 999px; background: var(--ink); color: var(--void); cursor: pointer; transition: transform .15s ease, box-shadow .15s ease; }
 .run-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -12px rgba(232,166,63,.4); }
@@ -515,8 +519,9 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
     </section>
 
     <section class="playground-section" id="playground">
+      <div class="marquee" style="border-top:0"><div class="marquee-track" style="font:400 13px 'Iowan Old Style',Palatino,Georgia,serif;letter-spacing:.05em;color:var(--dim)"><span>7 typographic voices <i style="color:var(--hot);font-style:normal">✦</i> OKLCH palette system <i style="color:var(--hot);font-style:normal">✦</i> generative art primitives <i style="color:var(--hot);font-style:normal">✦</i> composition bands <i style="color:var(--hot);font-style:normal">✦</i> self-critique design score</span></div></div>
       <h2>Try it — no install required</h2>
-      <p class="sub">Paste any HTML below. Pick a token. The content-derived design engine runs in your browser — extracts nouns, colors, dates, and numbers from your source, builds a palette, and generates a redesigned page. Same method the agent skill uses.</p>
+      <p class="sub">Paste any HTML below. Pick a token — or let Auto draw three directions with a typographic voice, a harmonious palette, and a 136-point design score. The engine runs entirely in your browser. Same method the agent skill uses.</p>
       <div class="play-box reveal">
         <div class="play-left">
           <span class="play-label">Paste your HTML</span>
@@ -560,6 +565,10 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
           <span class="play-label">Result</span>
           <div class="iframe-wrap">
             <iframe id="playFrame" title="Playground output"></iframe>
+          </div>
+          <div class="design-strip" id="designStrip" hidden>
+            <span class="play-label">Auto drew 3 directions — pick one, or recreate</span>
+            <div class="design-btns" id="designBtns"></div>
           </div>
         </div>
       </div>
@@ -814,7 +823,9 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
   var seedInput=document.getElementById('playSeed'),currentSeed=null;
   seedInput.addEventListener('change',function(){var v=seedInput.value.trim();currentSeed=/^-?\d+$/.test(v)?Number(v):null});
   document.getElementById('playSeedClear').addEventListener('click',function(){seedInput.value='';currentSeed=null});
-  function run(){var html=input.value.trim();if(!html){var ph=input.getAttribute('placeholder');if(ph)html=ph;else{lastOutput='';frame.srcdoc='';notes.textContent='Paste HTML to preview a redesign.';return}}var c=window.ReimagineExtract.extractContent(html,'playground.html');var seed=currentSeed!==null?currentSeed:hashSeed(html);var n=[];n.push('Palette: '+[c.palette.ground,c.palette.accent,c.palette.muted].join(' / '));if(c.dates.length>0)n.push('Dates: '+c.dates.slice(0,4).join(', '));if(c.numbers.length>0)n.push('Numbers: '+c.numbers.slice(0,4).join(', '));if(c.anchors.length>0)n.push('Anchors: '+c.anchors.slice(0,3).join(', '));var tokenLabel=currentToken;if(currentToken==='auto'){var auto=window.ReimagineAuto.autoGenerate(c,{seed:seed});tokenLabel=auto.token;n.push('Auto chose: '+auto.token+' · '+auto.candidates.length+' candidates');lastOutput=auto.output}else{lastOutput=window.ReimagineGenerate.generate({content:c,token:currentToken,seed:seed})}var fidelity=window.ReimagineResult.sourceFidelity(c,lastOutput);notes.textContent='Extracted — '+n.join(' · ')+'. Direction: '+tokenLabel+' · Fidelity: '+fidelity.percentage+'% of detected source facts preserved.';frame.srcdoc=lastOutput}
+  var designStrip=document.getElementById('designStrip'),designBtns=document.getElementById('designBtns');
+  function renderStrip(auto){designStrip.hidden=false;designBtns.textContent='';auto.candidates.forEach(function(cand,i){var b=document.createElement('button');b.className='design-btn'+(i===0?' active':'');b.textContent=cand.token+' · '+cand.total;b.title='seed '+cand.seed;b.addEventListener('click',function(){designBtns.querySelectorAll('.design-btn').forEach(function(x){x.classList.remove('active')});b.classList.add('active');var html=input.value.trim()||input.getAttribute('placeholder')||'';var c=window.ReimagineExtract.extractContent(html,'playground.html');lastOutput=window.ReimagineGenerate.generate({content:c,token:cand.token,seed:cand.seed});frame.srcdoc=lastOutput;var fid=window.ReimagineResult.sourceFidelity(c,lastOutput);notes.textContent='Direction: '+cand.token+' · seed '+cand.seed+' · design score '+cand.total+' · fidelity '+fid.percentage+'%'});designBtns.appendChild(b)});var rec=document.createElement('button');rec.className='design-btn';rec.textContent='↻ Recreate';rec.addEventListener('click',function(){currentSeed=((hashSeed(input.value.trim()||'')+Math.floor(Math.random()*0x7fffffff))|0)>>>0;seedInput.value=String(currentSeed);run()});designBtns.appendChild(rec)}
+  function run(){var html=input.value.trim();if(!html){var ph=input.getAttribute('placeholder');if(ph)html=ph;else{lastOutput='';frame.srcdoc='';notes.textContent='Paste HTML to preview a redesign.';if(designStrip)designStrip.hidden=true;return}}var c=window.ReimagineExtract.extractContent(html,'playground.html');var seed=currentSeed!==null?currentSeed:hashSeed(html);var n=[];n.push('Palette: '+[c.palette.ground,c.palette.accent,c.palette.muted].join(' / '));if(c.dates.length>0)n.push('Dates: '+c.dates.slice(0,4).join(', '));if(c.numbers.length>0)n.push('Numbers: '+c.numbers.slice(0,4).join(', '));if(c.anchors.length>0)n.push('Anchors: '+c.anchors.slice(0,3).join(', '));var tokenLabel=currentToken;if(currentToken==='auto'){var auto=window.ReimagineAuto.autoGenerate(c,{seed:seed});tokenLabel=auto.token;n.push('Auto chose: '+auto.token+' · voice '+auto.voice);n.push('Design: '+auto.design.quality+'/136');lastOutput=auto.output;renderStrip(auto)}else{lastOutput=window.ReimagineGenerate.generate({content:c,token:currentToken,seed:seed});if(designStrip)designStrip.hidden=true}var fidelity=window.ReimagineResult.sourceFidelity(c,lastOutput);notes.textContent='Extracted — '+n.join(' · ')+'. Direction: '+tokenLabel+' · Fidelity: '+fidelity.percentage+'% of detected source facts preserved.';frame.srcdoc=lastOutput}
   function currentSeedValue(){return currentSeed!==null?currentSeed:hashSeed(input.value.trim()||input.getAttribute('placeholder')||'')}
   runBtn.addEventListener('click',run);
   input.addEventListener('input',function(){if(input.value.trim())run()});

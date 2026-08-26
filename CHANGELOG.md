@@ -4,7 +4,22 @@ All notable changes to reimagine-it.
 
 ---
 
-## v2.3.8 (unreleased)
+## v2.4.0 (current)
+
+### Feature — the 10x builder upgrade (type, color, art, composition, self-critique)
+
+- **Typographic voices** — the engine now picks a display/body/mono voice from the source's profile and seed (editorial, grotesque, techno, serifClassic, highContrast, expressive, monoForward), replacing the single hard-coded system stack. A fluid type scale (`--text-xs … --text-4xl`) and 4/8 spacing scale (`--space-1 … --space-10`) now ship on every page. Default output stays 100% offline; `--web-fonts` opts into Google Fonts for the chosen voice (exempted from the offline quality check).
+- **OKLCH palette system** — `extract.js` now converts colors through OKLCH and derives two harmonious role colors (`accent2`, `accent3`) from the source accent by hue rotation at controlled chroma, plus internal lightness ramps. `--a2`/`--a3`/`--focus-ring` ship on `:root`; art layers reference them via `color-mix` so pages stay palette-constrained.
+- **Composition bands** — a shared archetype library (`statsBand` count-up metrics, `bentoGrid`, `quoteBand`, `ctaBand`, `marqueeBand`, `footerBand`) lets tokens compose instead of hard-coding one page. `webpage`, `landing`, `infographic`, and `showcase` now assemble these bands from source facts.
+- **Generative art primitives** — seeded `meshBackdrop` aurora fields, giant `dataWash` numbers, `dotGrid` halftones, `constellation` anchor networks, and CSS 3D `isometricStack` layers, all compositor-only and reduced-motion safe. A shared micro-interaction layer (cursor spotlight, tilt cards, count-up numbers) now runs on every token.
+- **Content intelligence** — extraction adds `images`, `tables`, `tone`, `readingTime`, and script detection. A model-harness `plan` hook (`--plan '{"token":"landing","voice":"grotesque"}'`) forces a direction and voice through the same deterministic pipeline; `--brief` maps plain-language lenses to voices.
+- **Self-critique (design-QA)** — `qualityScore` gains a 36-point design battery (type scale, art direction, motion system, palette constraint, fidelity ≥ 60%, landmarks). Auto re-rolls weak first draws for its top two directions before shipping, and reports `design.quality`/`voice`. `--emit` writes `design-token.json` + `quality-report.json` beside the artifact.
+- **Playground 3-design loop** — Auto mode now shows three drawn directions with scores; pick one to load it, or hit **↻ Recreate** for a fresh draw.
+- **Housekeeping** — removed superseded legacy artifacts (`RELEASE_v2.3.2.md`, `test/pipeline/`, `scripts/test.sh`, `scripts/scale_benchmark.py`, `gold/test_reimagine.ps1`). 8 new unit tests; 55 total.
+
+---
+
+## v2.3.8
 
 ### Feature — shareable playground links, benchmark, --diff
 

@@ -1,57 +1,16 @@
 {
   "mode": "auto",
-  "token": "gradient",
-  "seed": -1661931316,
-  "score": 142,
+  "token": "infographic",
+  "seed": -1088311901,
+  "score": 178,
   "rationale": "The source contains facts or lists that benefit from a shared visual scale.  Evidence: 5 anchors, 5 measurable facts.",
   "candidates": [
-    {
-      "token": "gradient",
-      "seed": -1661931316,
-      "fit": 21,
-      "quality": 100,
-      "total": 142,
-      "checks": [
-        {
-          "name": "standalone HTML",
-          "passed": true
-        },
-        {
-          "name": "title preserved",
-          "passed": true
-        },
-        {
-          "name": "source anchors retained",
-          "passed": true
-        },
-        {
-          "name": "focus-visible",
-          "passed": true
-        },
-        {
-          "name": "reduced motion",
-          "passed": true
-        },
-        {
-          "name": "selection styling",
-          "passed": true
-        },
-        {
-          "name": "no placeholder copy",
-          "passed": true
-        },
-        {
-          "name": "no external asset fetch",
-          "passed": true
-        }
-      ]
-    },
     {
       "token": "infographic",
       "seed": -1088311901,
       "fit": 21,
-      "quality": 100,
-      "total": 142,
+      "quality": 136,
+      "total": 178,
       "checks": [
         {
           "name": "standalone HTML",
@@ -83,6 +42,30 @@
         },
         {
           "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
           "passed": true
         }
       ]
@@ -91,8 +74,8 @@
       "token": "editorial",
       "seed": -522440460,
       "fit": 20,
-      "quality": 100,
-      "total": 140,
+      "quality": 136,
+      "total": 176,
       "checks": [
         {
           "name": "standalone HTML",
@@ -124,6 +107,30 @@
         },
         {
           "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
           "passed": true
         }
       ]
@@ -147,9 +154,9 @@
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\velocita\\source.html",
   "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\velocita\\auto.html",
   "fidelity": {
-    "preserved": 10,
+    "preserved": 12,
     "detected": 18,
-    "percentage": 56,
+    "percentage": 67,
     "checks": {
       "title": [
         {
@@ -192,21 +199,21 @@
       "numbers": [
         {
           "value": "89 dollars",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "45 dollars",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "38 dollars",
-          "preserved": false
+          "preserved": true
         }
       ],
       "emails": [
         {
           "value": "team@velocita.skate",
-          "preserved": true
+          "preserved": false
         }
       ],
       "anchors": [

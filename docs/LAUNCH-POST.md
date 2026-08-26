@@ -1,18 +1,22 @@
 # reimagine-it — the source file is the design brief
 
-**One command turns an existing HTML page into a beautiful, usable redesign — without inventing filler.**
+**One command turns an existing HTML page into a $100k-look redesign — with a typographic voice, a harmonious palette system, generative art, and a self-critiquing engine. Nothing invented.**
 
-Every redesign tool you've used does the same thing: you describe what you *want*, and it invents a new page from scratch. reimagine-it does the opposite. It reads the page you already have, extracts the real headings, facts, links, names, dates, numbers, and even the hex colors already in your markup, and rebuilds a stronger visual system *around* that content.
+Every redesign tool you've used does the same thing: you describe what you *want*, and it invents a new page from scratch. reimagine-it does the opposite. It reads the page you already have, extracts the real headings, facts, links, names, dates, numbers, images, and even the hex colors already in your markup, and rebuilds a stronger visual system *around* that content.
 
 ```bash
 npx reimagine-it --auto -i page.html -o redesign.html
 ```
 
-## Why this is different
+## What the v2.4 engine ships
 
-- **The source is the brief.** The palette comes from hex colors already in your HTML. The motif comes from your concrete nouns. The motion from your dates and numbers. Nothing is hallucinated — 100% source-backed.
-- **One standalone HTML file out.** No CDN, no Figma, no build step, no dependency. The result works offline and in a browser extension.
-- **15 design directions + Auto.** Webpage, landing, dashboard, infographic, cinematic, artistic, photography, SVG, 3js, simulation, glass, editorial, motion, gradient, showcase. Auto evaluates up to three, scores them against 8 craft checks, and picks the strongest.
+- **Typographic voices.** The engine reads the source's profile and picks a display/body/mono voice — editorial (Fraunces/Newsreader), modern grotesque, techno (Unbounded/Sora), classic serif, high-contrast, expressive (Syne), or mono-forward — with a fluid type scale and a 4/8 spacing rhythm. `--web-fonts` upgrades the voice with Google Fonts; default output stays fully offline.
+- **An OKLCH palette system.** Colors are converted through perceptually-uniform OKLCH; the source accent is rotated into two harmonious role colors with lightness ramps, enforced for contrast, and referenced through CSS variables so every page stays palette-constrained.
+- **Generative art direction.** Seeded aurora mesh fields, giant data-wash numbers, halftone dot grids, anchor constellations, and CSS-3D isometric stacks — plus a shared micro-interaction layer (cursor spotlight, tilt cards, count-up stats) on every page.
+- **Composition, not templates.** A shared archetype library — stats bands, bento grids, quote bands, CTAs, marquees, footers — lets each of the 15 directions compose a page from source facts instead of hard-coding one layout.
+- **A self-critiquing Auto.** Auto draws three directions, scores each against a 136-point design battery (type scale, art direction, motion system, palette constraint, source fidelity, landmarks), re-rolls weak first draws, and ships the strongest — with a `design-token.json` + `quality-report.json` that explain *why*.
+- **A harness plan hook.** An agent can steer the same deterministic pipeline with a structured plan: `--plan '{"token":"landing","voice":"grotesque"}'`.
+- **15 design directions + Auto.** Webpage, landing, dashboard, infographic, cinematic, artistic, photography, SVG, 3js, simulation, glass, editorial, motion, gradient, showcase.
 - **It audits itself.** Every direction is measured for fidelity (facts preserved), usability (standalone, focus-visible, reduced-motion, no placeholder copy), and diversity (no two tokens produce the same page).
 
 ## Measured, not claimed

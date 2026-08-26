@@ -1,57 +1,16 @@
 {
   "mode": "auto",
-  "token": "infographic",
-  "seed": -1088311877,
-  "score": 190,
+  "token": "editorial",
+  "seed": -522448355,
+  "score": 176,
   "rationale": "The source is data-heavy (7 measurable facts) and reads best on shared scales.  Evidence: 5 anchors, 7 measurable facts.",
   "candidates": [
-    {
-      "token": "infographic",
-      "seed": -1088311877,
-      "fit": 45,
-      "quality": 100,
-      "total": 190,
-      "checks": [
-        {
-          "name": "standalone HTML",
-          "passed": true
-        },
-        {
-          "name": "title preserved",
-          "passed": true
-        },
-        {
-          "name": "source anchors retained",
-          "passed": true
-        },
-        {
-          "name": "focus-visible",
-          "passed": true
-        },
-        {
-          "name": "reduced motion",
-          "passed": true
-        },
-        {
-          "name": "selection styling",
-          "passed": true
-        },
-        {
-          "name": "no placeholder copy",
-          "passed": true
-        },
-        {
-          "name": "no external asset fetch",
-          "passed": true
-        }
-      ]
-    },
     {
       "token": "editorial",
       "seed": -522448355,
       "fit": 20,
-      "quality": 100,
-      "total": 140,
+      "quality": 136,
+      "total": 176,
       "checks": [
         {
           "name": "standalone HTML",
@@ -84,46 +43,29 @@
         {
           "name": "no external asset fetch",
           "passed": true
-        }
-      ]
-    },
-    {
-      "token": "cinematic",
-      "seed": -1625709412,
-      "fit": 19,
-      "quality": 100,
-      "total": 138,
-      "checks": [
+        },
         {
-          "name": "standalone HTML",
+          "name": "type scale present",
           "passed": true
         },
         {
-          "name": "title preserved",
+          "name": "art direction present",
           "passed": true
         },
         {
-          "name": "source anchors retained",
+          "name": "motion system present",
           "passed": true
         },
         {
-          "name": "focus-visible",
+          "name": "palette constrained",
           "passed": true
         },
         {
-          "name": "reduced motion",
+          "name": "source fidelity ≥ 60%",
           "passed": true
         },
         {
-          "name": "selection styling",
-          "passed": true
-        },
-        {
-          "name": "no placeholder copy",
-          "passed": true
-        },
-        {
-          "name": "no external asset fetch",
+          "name": "semantic landmarks",
           "passed": true
         }
       ]
@@ -147,9 +89,9 @@
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\flick\\source.html",
   "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\flick\\auto.html",
   "fidelity": {
-    "preserved": 15,
+    "preserved": 14,
     "detected": 20,
-    "percentage": 75,
+    "percentage": 70,
     "checks": {
       "title": [
         {
@@ -204,17 +146,17 @@
         },
         {
           "value": "7 days",
-          "preserved": true
+          "preserved": false
         },
         {
           "value": "2 hours",
-          "preserved": true
+          "preserved": false
         }
       ],
       "emails": [
         {
           "value": "crew@flickfits.co",
-          "preserved": false
+          "preserved": true
         }
       ],
       "anchors": [
