@@ -11,9 +11,6 @@ on:
       - "src/generate.js"
       - "scripts/audit-tokens.js"
       - "scripts/render-audit.js"
-      - "scripts/benchmark-tokens.js"
-      - "src/extract.js"
-      - "bin/reimagine-it.js"
   pull_request:
     paths:
       - "gold/**/*.html"
@@ -23,11 +20,6 @@ on:
       - "src/generate.js"
       - "scripts/audit-tokens.js"
       - "scripts/render-audit.js"
-      - "scripts/benchmark-tokens.js"
-      - "src/extract.js"
-      - "bin/reimagine-it.js"
-  schedule:
-    - cron: "0 6 * * 1"  # every Monday 06:00 UTC — enforce the 100/100 bar over time
   workflow_dispatch:
 
 jobs:
@@ -129,20 +121,3 @@ jobs:
           node scripts/render-audit.js 2>&1 | tee /tmp/render-audit.log
           echo '```' >> $GITHUB_STEP_SUMMARY
           tail -1 /tmp/render-audit.log
-
-  token-benchmark-gate:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-
-      - uses: actions/setup-node@v6
-        with:
-          node-version: "22"
-
-      - name: Benchmark 15 tokens (100/100 quality gate)
-        run: |
-          echo "## Token benchmark gate (15 directions × 4 sources)" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          node scripts/benchmark-tokens.js --gate 2>&1 | tee /tmp/benchmark-gate.log
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          tail -2 /tmp/benchmark-gate.log

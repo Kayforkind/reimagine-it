@@ -1,8 +1,14 @@
 name: Release Benchmark
 
-# On every published release, run the 15-token benchmark through the real
-# CLI and append the measured quality table to the release notes, so each
-# tag carries reproducible proof of fidelity, usability, and diversity.
+# The engine/CLI release pipeline. On every published release it:
+#   1. runs the 15-token benchmark and appends the measured-quality table
+#      to the release notes;
+#   2. regenerates the token-board PNGs/GIFs from the current engine and
+#      commits them back (only when they actually changed);
+#   3. publishes the npm package.
+#
+# No push loop: this workflow triggers on `release: published`, not on push,
+# and the commit-back only touches docs/ assets that no other workflow keys on.
 
 on:
   release:
@@ -58,3 +64,69 @@ jobs:
           print("Release notes updated with benchmark table")
           PYEOF
           echo "::endgroup::"
+
+  token-board:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Regenerate token boards
+        env:
+          REIMAGINE_BROWSER: /usr/bin/google-chrome
+        run: |
+          echo "::group::Regenerating token boards from current engine"
+          python -m pip install --quiet pillow
+          python scripts/build-token-board.py
+          echo "::endgroup::"
+
+      - name: Commit token boards only when changed
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          echo "::group::Checking for token-board changes"
+          # Guard: skip the commit entirely when the engine output is unchanged.
+          if git diff --quiet -- docs/tokens-board.png docs/tokens-phone.png docs/tokens/; then
+            echo "No token-board changes — nothing to commit"
+          else
+            git add docs/tokens-board.png docs/tokens-phone.png docs/tokens/
+            git -c user.name="github-actions[bot]" \
+                -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+                commit -m "docs: regenerate token boards for ${TAG}"
+            git push origin HEAD:"$GITHUB_REF_NAME"
+            echo "Token boards committed and pushed"
+          fi
+          echo "::endgroup::"
+
+  publish-npm:
+    # The npm package publishes from this workflow; publish-action.yml now
+    # handles only the Design Health marketplace action, so there is exactly
+    # one npm publisher per release.
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'release' && !github.event.release.prerelease)
+    runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Publish to npm
+        if: env.NPM_TOKEN != ''
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ env.NPM_TOKEN }}
+
+      - name: Report skipped npm publication
+        if: env.NPM_TOKEN == ''
+        run: echo "::warning::NPM_TOKEN is not configured; npm publication was skipped."

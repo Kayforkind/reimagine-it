@@ -1,0 +1,47 @@
+name: Token Benchmark
+
+# Enforces the 100/100 usability bar over time. Runs on engine/CLI changes
+# and weekly; exits non-zero if any of the 15 directions drops below the
+# established quality bar. Its own workflow so the README can badge it.
+
+on:
+  push:
+    paths:
+      - "src/generate.js"
+      - "src/extract.js"
+      - "src/auto.js"
+      - "bin/reimagine-it.js"
+      - "scripts/benchmark-tokens.js"
+      - ".github/workflows/benchmark.yml"
+  pull_request:
+    paths:
+      - "src/generate.js"
+      - "src/extract.js"
+      - "src/auto.js"
+      - "bin/reimagine-it.js"
+      - "scripts/benchmark-tokens.js"
+      - ".github/workflows/benchmark.yml"
+  schedule:
+    - cron: "0 6 * * 1"  # every Monday 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - name: Benchmark 15 tokens (100/100 quality gate)
+        run: |
+          echo "## Token benchmark gate (15 directions × 4 sources)" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          node scripts/benchmark-tokens.js --gate 2>&1 | tee /tmp/benchmark-gate.log
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          tail -2 /tmp/benchmark-gate.log

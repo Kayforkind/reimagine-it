@@ -113,27 +113,3 @@ jobs:
           print("Release notes updated with marketplace metadata")
           PYEOF
           echo "::endgroup::"
-
-  publish-npm:
-    needs: validate-and-publish
-    if: (github.event_name == 'release' && !github.event.release.prerelease) || (github.event_name == 'workflow_dispatch' && inputs.tag != '')
-    runs-on: ubuntu-latest
-    env:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-    steps:
-      - uses: actions/checkout@v5
-
-      - uses: actions/setup-node@v6
-        with:
-          node-version: "22"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Publish to npm
-        if: env.NPM_TOKEN != ''
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ env.NPM_TOKEN }}
-
-      - name: Report skipped npm publication
-        if: env.NPM_TOKEN == ''
-        run: echo "::warning::NPM_TOKEN is not configured; npm publication was skipped."
