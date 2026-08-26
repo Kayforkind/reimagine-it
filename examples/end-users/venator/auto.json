@@ -219,9 +219,9 @@
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\venator\\source.html",
   "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\venator\\auto.html",
   "fidelity": {
-    "preserved": 13,
+    "preserved": 17,
     "detected": 17,
-    "percentage": 76,
+    "percentage": 100,
     "checks": {
       "title": [
         {
@@ -274,7 +274,7 @@
       "emails": [
         {
           "value": "hello@venator.game",
-          "preserved": false
+          "preserved": true
         }
       ],
       "anchors": [
@@ -288,11 +288,11 @@
         },
         {
           "value": "Venator Become",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "Online",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "Game",
@@ -303,7 +303,7 @@
         {
           "value": "mailto:hello@venator.game",
           "label": "hello@venator.game",
-          "preserved": false
+          "preserved": true
         }
       ]
     }

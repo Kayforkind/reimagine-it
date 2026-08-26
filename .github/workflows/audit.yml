@@ -23,6 +23,27 @@ on:
   workflow_dispatch:
 
 jobs:
+  docs-drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Assert case tables match manifest ground truth
+        run: |
+          echo "## Docs-drift check (case tables vs manifest.json)" >> $GITHUB_STEP_SUMMARY
+          python scripts/sync-case-docs.py
+          if ! git diff --exit-code -- examples/end-users/README.md docs/CASE_STUDIES.md; then
+            echo "::error::Case tables drifted from manifest.json + auto.json — run \`python scripts/sync-case-docs.py\` and commit the result"
+            git diff -- examples/end-users/README.md docs/CASE_STUDIES.md >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+          echo "✅ Case tables match manifest ground truth" >> $GITHUB_STEP_SUMMARY
+
   audit-gold:
     runs-on: ubuntu-latest
     steps:

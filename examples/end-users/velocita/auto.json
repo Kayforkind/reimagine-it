@@ -219,9 +219,9 @@
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\velocita\\source.html",
   "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\velocita\\auto.html",
   "fidelity": {
-    "preserved": 14,
+    "preserved": 20,
     "detected": 20,
-    "percentage": 70,
+    "percentage": 100,
     "checks": {
       "title": [
         {
@@ -286,7 +286,7 @@
       "emails": [
         {
           "value": "team@velocita.skate",
-          "preserved": false
+          "preserved": true
         }
       ],
       "anchors": [
@@ -296,26 +296,26 @@
         },
         {
           "value": "Skateboards Velocita Skate",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "Stinger Deck",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "Volt Wheels",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "Haze Trucks",
-          "preserved": false
+          "preserved": true
         }
       ],
       "links": [
         {
           "value": "mailto:team@velocita.skate",
           "label": "team@velocita.skate",
-          "preserved": false
+          "preserved": true
         }
       ]
     }

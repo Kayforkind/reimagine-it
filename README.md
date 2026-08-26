@@ -289,7 +289,7 @@ Tools:
 
 ## Measured quality
 
-Every direction is benchmarked against the same bar Auto itself applies — standalone HTML, source title and anchors retained, focus-visible, reduced-motion, `::selection`, no placeholder copy, no external asset fetch. All 15 tokens × 4 representative sources score **100/100 usability and full fidelity**, with **15.6% mean pairwise output diversity** between directions on the same source (no two tokens produce the same page).
+Every direction is benchmarked against the same bar Auto itself applies — standalone HTML, source title and anchors retained, focus-visible, reduced-motion, `::selection`, no placeholder copy, no external asset fetch. All 15 tokens × 4 representative sources score **100/100 usability and full fidelity**, with **19.9% mean pairwise output diversity** between directions on the same source (no two tokens produce the same page).
 
 | Direction | Fidelity (title kept) | Usability (quality /100) | Content art |
 |---|---|---|---|

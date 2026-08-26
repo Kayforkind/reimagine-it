@@ -69,6 +69,71 @@
           "passed": true
         }
       ]
+    },
+    {
+      "token": "cinematic",
+      "seed": -1625709448,
+      "fit": 19,
+      "quality": 136,
+      "total": 174,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
+          "passed": true
+        }
+      ]
     }
   ],
   "anchors": [
@@ -89,9 +154,9 @@
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\crimson-circuit\\source.html",
   "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\crimson-circuit\\auto.html",
   "fidelity": {
-    "preserved": 14,
+    "preserved": 18,
     "detected": 18,
-    "percentage": 78,
+    "percentage": 100,
     "checks": {
       "title": [
         {
@@ -158,7 +223,7 @@
         },
         {
           "value": "Music Festival Crimson",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "Circuit",
@@ -166,18 +231,18 @@
         },
         {
           "value": "Lineup Main Stage",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "Friday",
-          "preserved": false
+          "preserved": true
         }
       ],
       "links": [
         {
           "value": "mailto:press@crimsoncircuit.fm",
           "label": "press@crimsoncircuit.fm",
-          "preserved": false
+          "preserved": true
         }
       ]
     }

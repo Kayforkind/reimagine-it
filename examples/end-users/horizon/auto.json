@@ -219,9 +219,9 @@
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\horizon\\source.html",
   "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\horizon\\auto.html",
   "fidelity": {
-    "preserved": 18,
+    "preserved": 20,
     "detected": 20,
-    "percentage": 90,
+    "percentage": 100,
     "checks": {
       "title": [
         {
@@ -289,7 +289,7 @@
       "emails": [
         {
           "value": "hello@horizon.example",
-          "preserved": false
+          "preserved": true
         }
       ],
       "anchors": [
@@ -303,7 +303,7 @@
         },
         {
           "value": "Horizon Horizon",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "Ship",

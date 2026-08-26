@@ -219,9 +219,9 @@
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\maracuya\\source.html",
   "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\maracuya\\auto.html",
   "fidelity": {
-    "preserved": 15,
+    "preserved": 19,
     "detected": 19,
-    "percentage": 79,
+    "percentage": 100,
     "checks": {
       "title": [
         {
@@ -282,7 +282,7 @@
       "emails": [
         {
           "value": "hola@maracuya.bar",
-          "preserved": false
+          "preserved": true
         }
       ],
       "anchors": [
@@ -300,18 +300,18 @@
         },
         {
           "value": "Mango Blaze",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "Lagoon Cooler",
-          "preserved": false
+          "preserved": true
         }
       ],
       "links": [
         {
           "value": "mailto:hola@maracuya.bar",
           "label": "hola@maracuya.bar",
-          "preserved": false
+          "preserved": true
         }
       ]
     }

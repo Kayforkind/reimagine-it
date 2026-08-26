@@ -71,6 +71,71 @@
       ]
     },
     {
+      "token": "cinematic",
+      "seed": -1625709408,
+      "fit": 20,
+      "quality": 136,
+      "total": 176,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
+          "passed": true
+        }
+      ]
+    },
+    {
       "token": "infographic",
       "seed": -1088303954,
       "fit": 20,
@@ -154,9 +219,9 @@
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\meridian\\source.html",
   "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\meridian\\auto.html",
   "fidelity": {
-    "preserved": 15,
+    "preserved": 18,
     "detected": 18,
-    "percentage": 83,
+    "percentage": 100,
     "checks": {
       "title": [
         {
@@ -223,7 +288,7 @@
         },
         {
           "value": "Living Building Meridian",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "Tower",
@@ -235,14 +300,14 @@
         },
         {
           "value": "LEED Gold",
-          "preserved": false
+          "preserved": true
         }
       ],
       "links": [
         {
           "value": "mailto:hello@meridiantower.city",
           "label": "hello@meridiantower.city",
-          "preserved": false
+          "preserved": true
         }
       ]
     }

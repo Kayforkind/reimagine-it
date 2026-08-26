@@ -295,6 +295,71 @@
               "passed": true
             }
           ]
+        },
+        {
+          "token": "cinematic",
+          "seed": -1625709448,
+          "fit": 19,
+          "quality": 136,
+          "total": 174,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            },
+            {
+              "name": "type scale present",
+              "passed": true
+            },
+            {
+              "name": "art direction present",
+              "passed": true
+            },
+            {
+              "name": "motion system present",
+              "passed": true
+            },
+            {
+              "name": "palette constrained",
+              "passed": true
+            },
+            {
+              "name": "source fidelity \u2265 60%",
+              "passed": true
+            },
+            {
+              "name": "semantic landmarks",
+              "passed": true
+            }
+          ]
         }
       ]
     },
@@ -807,6 +872,71 @@
               "passed": true
             }
           ]
+        },
+        {
+          "token": "cinematic",
+          "seed": -1625709412,
+          "fit": 19,
+          "quality": 136,
+          "total": 174,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            },
+            {
+              "name": "type scale present",
+              "passed": true
+            },
+            {
+              "name": "art direction present",
+              "passed": true
+            },
+            {
+              "name": "motion system present",
+              "passed": true
+            },
+            {
+              "name": "palette constrained",
+              "passed": true
+            },
+            {
+              "name": "source fidelity \u2265 60%",
+              "passed": true
+            },
+            {
+              "name": "semantic landmarks",
+              "passed": true
+            }
+          ]
         }
       ]
     },
@@ -833,6 +963,71 @@
           "fit": 25,
           "quality": 136,
           "total": 186,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            },
+            {
+              "name": "type scale present",
+              "passed": true
+            },
+            {
+              "name": "art direction present",
+              "passed": true
+            },
+            {
+              "name": "motion system present",
+              "passed": true
+            },
+            {
+              "name": "palette constrained",
+              "passed": true
+            },
+            {
+              "name": "source fidelity \u2265 60%",
+              "passed": true
+            },
+            {
+              "name": "semantic landmarks",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "cinematic",
+          "seed": -1625709408,
+          "fit": 20,
+          "quality": 136,
+          "total": 176,
           "checks": [
             {
               "name": "standalone HTML",

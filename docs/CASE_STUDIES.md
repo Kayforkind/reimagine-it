@@ -4,13 +4,13 @@ Seven loud end-user examples. Each bundle contains the plain-HTML source, the ex
 
 | Example | Source → Auto | Two more options | Fidelity | Bundle |
 |---|---|---|---|---|
-| [Venator](../examples/end-users/venator/) | crypto battle royale → `dashboard` | `landing`, `artistic` | 76% | [case study](../examples/end-users/venator/) |
-| [Crimson Circuit](../examples/end-users/crimson-circuit/) | music festival → `editorial` | `gradient`, `landing` | 78% | [case study](../examples/end-users/crimson-circuit/) |
-| [Velocita](../examples/end-users/velocita/) | skate brand → `infographic` | `artistic`, `landing` | 70% | [case study](../examples/end-users/velocita/) |
-| [Maracuyá](../examples/end-users/maracuya/) | juice bar → `infographic` | `landing`, `gradient` | 79% | [case study](../examples/end-users/maracuya/) |
-| [Flick Fits](../examples/end-users/flick/) | streetwear → `editorial` | `landing`, `gradient` | 67% | [case study](../examples/end-users/flick/) |
-| [Meridian Tower](../examples/end-users/meridian/) | living building → `editorial` | `3js`, `svg` | 83% | [case study](../examples/end-users/meridian/) |
-| [Horizon](../examples/end-users/horizon/) | observability → `infographic` | `gradient`, `landing` | 90% | [case study](../examples/end-users/horizon/) |
+| [Venator](../examples/end-users/venator/) | crypto battle royale → `dashboard` | `landing`, `artistic` | 100% | [case study](../examples/end-users/venator/) |
+| [Crimson Circuit](../examples/end-users/crimson-circuit/) | music festival → `editorial` | `gradient`, `landing` | 100% | [case study](../examples/end-users/crimson-circuit/) |
+| [Velocita](../examples/end-users/velocita/) | skate brand → `infographic` | `artistic`, `landing` | 100% | [case study](../examples/end-users/velocita/) |
+| [Maracuyá](../examples/end-users/maracuya/) | juice bar → `infographic` | `landing`, `gradient` | 100% | [case study](../examples/end-users/maracuya/) |
+| [Flick Fits](../examples/end-users/flick/) | streetwear → `editorial` | `landing`, `gradient` | 100% | [case study](../examples/end-users/flick/) |
+| [Meridian Tower](../examples/end-users/meridian/) | living building → `editorial` | `3js`, `svg` | 100% | [case study](../examples/end-users/meridian/) |
+| [Horizon](../examples/end-users/horizon/) | observability → `infographic` | `gradient`, `landing` | 100% | [case study](../examples/end-users/horizon/) |
 
 ## How to read a bundle
 

@@ -452,6 +452,27 @@ test('shared fx layer and token script concatenate into valid JS', function() {
   });
 });
 
+test('every token preserves source anchors, links, and numbers (fidelity floor)', function() {
+  // Regression: anchors preferred headings and dropped real source anchor
+  // phrases, and most tokens never rendered links/emails, so fidelity fell
+  // below 80% on real sources. Every token x source cell must now hold >= 80%.
+  var sources = ['venator', 'crimson-circuit', 'velocita', 'maracuya', 'flick', 'meridian', 'horizon'];
+  var floor = 80;
+  var worst = 100;
+  var tokens = require('../../src/generate').TOKENS;
+  sources.forEach(function(slug) {
+    var src = fs.readFileSync(path.join(__dirname, '../../examples/end-users', slug, 'source.html'), 'utf8');
+    var content = extractMod.extractContent(src, slug + '.html');
+    tokens.forEach(function(token) {
+      var out = generate({ content: content, token: token, seed: 5 });
+      var fid = resultMod.sourceFidelity(content, out).percentage;
+      worst = Math.min(worst, fid);
+      assert.ok(fid >= floor, slug + ' / ' + token + ' fidelity ' + fid + '% below floor ' + floor + '%');
+    });
+  });
+  console.log('  fidelity floor held: worst cell ' + worst + '% >= ' + floor + '%');
+});
+
 test('plan hook forces a token and auto re-rolls weak draws', function() {
   var plan = autoMod.buildPlan(sampleContent, { candidates: 3, plan: { token: 'landing', voice: 'grotesque' } });
   assert.strictEqual(plan.recommendation, 'landing', 'plan token should win even outside the heuristic top-N');

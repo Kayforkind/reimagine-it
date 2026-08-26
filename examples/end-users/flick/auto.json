@@ -69,6 +69,71 @@
           "passed": true
         }
       ]
+    },
+    {
+      "token": "cinematic",
+      "seed": -1625709412,
+      "fit": 19,
+      "quality": 136,
+      "total": 174,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
+          "passed": true
+        }
+      ]
     }
   ],
   "anchors": [
@@ -89,9 +154,9 @@
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\flick\\source.html",
   "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\flick\\auto.html",
   "fidelity": {
-    "preserved": 14,
+    "preserved": 21,
     "detected": 21,
-    "percentage": 67,
+    "percentage": 100,
     "checks": {
       "title": [
         {
@@ -146,15 +211,15 @@
         },
         {
           "value": "14 days",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "7 days",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "2 hours",
-          "preserved": false
+          "preserved": true
         }
       ],
       "emails": [
@@ -170,7 +235,7 @@
         },
         {
           "value": "Streetwear Drop Flick",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "Fits",
@@ -178,18 +243,18 @@
         },
         {
           "value": "Arcade Tee",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "Cargo",
-          "preserved": false
+          "preserved": true
         }
       ],
       "links": [
         {
           "value": "mailto:crew@flickfits.co",
           "label": "crew@flickfits.co",
-          "preserved": false
+          "preserved": true
         }
       ]
     }
