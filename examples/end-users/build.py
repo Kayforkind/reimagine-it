@@ -321,6 +321,19 @@ EXAMPLES: list[dict[str, Any]] = [
         "mutual": "Real estate",
         "avatar": (255, 179, 0),
     },
+    {
+        "slug": "horizon",
+        "name": "Horizon — Observability Platform",
+        "source": "examples/end-users/horizon/source.html",
+        "alternates": ["gradient", "landing"],
+        "seed": "113",
+        "brief": "modern observability platform, deep navy and signal cyan",
+        "author": "Horizon · observability",
+        "views": "74k",
+        "stats": [("heart", "421"), ("view", "74k")],
+        "mutual": "Dev tools",
+        "avatar": (56, 189, 248),
+    },
 ]
 
 

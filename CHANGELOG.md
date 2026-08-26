@@ -6,6 +6,13 @@ All notable changes to reimagine-it.
 
 ## v2.3.7 (unreleased)
 
+### Feature — playground presets, horizon journey, richer token upgrades
+
+- **"Try it — no install" playground upgrade** — the in-page playground now lists all 16 directions (auto + 15 tokens, including the previously missing `showcase` button and marquee entry) and adds four one-click sample sources (game, café, observability, travel) so visitors can reimagine a real page instantly.
+- **New horizon example journey** — `examples/end-users/horizon/` turns a plain observability/SLO page into a navy mission-control dashboard (auto picks `dashboard`): KPI cards with sparklines, donut chart, and scaled bars, plus `gradient` (kinetic headline) and `landing` alternates. It is the 7th entry in the hero cycler and case grid.
+- **Token upgrades from the design audit** — photography plates get monogram glyphs; the svg token gets a data strip (donut/bars) when the source has numbers; glass panels get prism accents; the gradient headline gets kinetic gradient-text reveal. Glyph tiles gained a staggered idle float.
+- **Fix — percentage metrics now extract** — `99.99%` and `42%`-style numbers never matched the number regex (a trailing `\b` after the non-word `%` char). Switched to a negative lookahead; regression test added. Data-heavy sources now show their real percentages in charts.
+
 ### Feature — content-derived art layer in every builder
 
 - **Shared art layer** — the engine now ships inline content-derived graphics in every token: anchor initials become monogram glyph tiles, source numbers become SVG donut charts and horizontal bars, and the palette shades isometric 3D prisms. All SVG, all offline, all deterministic per seed.

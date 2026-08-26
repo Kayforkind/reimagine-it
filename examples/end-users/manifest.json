@@ -851,6 +851,148 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Horizon \u2014 Observability Platform",
+      "source": "examples/end-users/horizon/source.html",
+      "auto": "examples/end-users/horizon/auto.html",
+      "report": "examples/end-users/horizon/auto.json",
+      "alternates": [
+        "examples/end-users/horizon/option-2-gradient.html",
+        "examples/end-users/horizon/option-3-landing.html"
+      ],
+      "auto_token": "dashboard",
+      "alternate_tokens": [
+        "gradient",
+        "landing"
+      ],
+      "seed": 113,
+      "score": 176,
+      "candidates": [
+        {
+          "token": "dashboard",
+          "seed": -457102533,
+          "fit": 38,
+          "quality": 100,
+          "total": 176,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "infographic",
+          "seed": -1088303942,
+          "fit": 38,
+          "quality": 100,
+          "total": 176,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "gradient",
+          "seed": -1661923357,
+          "fit": 28,
+          "quality": 100,
+          "total": 156,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        }
+      ]
     }
   ]
 }

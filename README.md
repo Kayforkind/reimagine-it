@@ -172,7 +172,8 @@ The intended outcome is **fresh when requested, consistent when approved** — n
 - **[Pulsewave](gold/pulsewave/)** — observability language becomes a signal-oriented system.
 - **[Two Lights](gold/twolights/)** — a personal essay becomes a lighthouse-led narrative.
 - **[Saffron & Smoke](gold/saffron/)** — a menu becomes a warm food-specific composition.
-- **[End-user examples](examples/end-users/)** — six loud sources (crypto battle royale, music festival, skate brand, juice bar, streetwear drop, living building) with source HTML, Auto output, alternate options, reports, and GIF proof on desktop and phone. Every palette comes from hex colors already in the source.
+- **[End-user examples](examples/end-users/)** — seven loud sources (crypto battle royale, music festival, skate brand, juice bar, streetwear drop, living building, observability platform) with source HTML, Auto output, alternate options, reports, and GIF proof on desktop and phone. Every palette comes from hex colors already in the source.
+- **[Horizon observability showcase](https://kayforkind.github.io/reimagine-it/#horizon)** — a plain SLO/uptime page becomes a navy mission-control dashboard with donut chart, sparkline KPIs, and scaled bars; Auto picks `dashboard`, alternates `gradient` + `landing`.
 - **[Full-suite showcase](https://kayforkind.github.io/reimagine-it/#suite)** — one `/reimagine-it --auto` on a building produces three furnished designs: the editorial feature, an orbitable 3D object (`3js`), and a living SVG diagram — with animated GIFs of the orbit and spin.
 - **[Case studies](docs/CASE_STUDIES.md)** — four reproducible bundles: source, exact command, Auto output, two alternatives, report, and GIF proof.
 - **[Infographic showcase](https://kayforkind.github.io/reimagine-it/#infographic)** — a data-heavy field report rendered wide (desktop) and tall (phone), every number source-backed.

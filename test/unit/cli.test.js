@@ -57,6 +57,20 @@ test('extracts emails', function() {
   assert.ok(c.emails.indexOf('hello@example.com') >= 0, 'should find hello@example.com');
 });
 
+test('extracts percent-qualified numbers', function() {
+  var html = '<h1>Report</h1><p>Uptime hit 99.99% and conversions rose 42% this quarter.</p>';
+  var c = extractContent(html, 'report.html');
+  assert.ok(c.numbers.indexOf('99.99%') >= 0, 'should extract 99.99%');
+  assert.ok(c.numbers.indexOf('42%') >= 0, 'should extract 42%');
+});
+
+test('excludes bare digits without units', function() {
+  var html = '<h1>Story</h1><p>We met in 2026 and 42 people came. Version 2.1 ships next.</p>';
+  var c = extractContent(html, 'story.html');
+  assert.ok(c.numbers.indexOf('42 people') >= 0, 'should keep unit-qualified 42 people');
+  assert.ok(c.numbers.indexOf('2026') < 0, 'bare year 2026 should be excluded');
+});
+
 test('extracts dates (4-digit years)', function() {
   var html = '<p>Founded in 1836 and revived in 2026.</p>';
   var c = extractContent(html, 'test.html');

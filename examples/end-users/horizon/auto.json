@@ -1,16 +1,16 @@
 {
   "mode": "auto",
-  "token": "editorial",
-  "seed": -522456310,
-  "score": 140,
-  "rationale": "The source has enough text for a magazine-grade treatment. Evidence: 5 anchors, 4 measurable facts.",
+  "token": "dashboard",
+  "seed": -457102533,
+  "score": 176,
+  "rationale": "The source contains enough measurable signals for an operational view. Evidence: 5 anchors, 4 measurable facts.",
   "candidates": [
     {
-      "token": "editorial",
-      "seed": -522456310,
-      "fit": 20,
+      "token": "dashboard",
+      "seed": -457102533,
+      "fit": 38,
       "quality": 100,
-      "total": 140,
+      "total": 176,
       "checks": [
         {
           "name": "standalone HTML",
@@ -47,11 +47,11 @@
       ]
     },
     {
-      "token": "cinematic",
-      "seed": -1625717367,
-      "fit": 19,
+      "token": "infographic",
+      "seed": -1088303942,
+      "fit": 38,
       "quality": 100,
-      "total": 138,
+      "total": 176,
       "checks": [
         {
           "name": "standalone HTML",
@@ -88,11 +88,11 @@
       ]
     },
     {
-      "token": "landing",
-      "seed": 995504230,
-      "fit": 18,
+      "token": "gradient",
+      "seed": -1661923357,
+      "fit": 28,
       "quality": 100,
-      "total": 136,
+      "total": 156,
       "checks": [
         {
           "name": "standalone HTML",
@@ -130,110 +130,107 @@
     }
   ],
   "anchors": [
-    "Crimson Circuit",
-    "Music Festival Crimson",
-    "Circuit",
-    "Lineup Main Stage",
-    "Friday"
+    "Horizon",
+    "Observability",
+    "Horizon Horizon",
+    "Ship",
+    "Why"
   ],
   "facts": {
-    "headings": 5,
-    "paragraphs": 4,
-    "items": 3,
-    "dates": 1,
-    "numbers": 3,
-    "links": 1
+    "headings": 6,
+    "paragraphs": 5,
+    "items": 6,
+    "dates": 0,
+    "numbers": 4,
+    "links": 0
   },
-  "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\crimson-circuit\\source.html",
-  "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\crimson-circuit\\auto.html",
+  "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\horizon\\source.html",
+  "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\horizon\\auto.html",
   "fidelity": {
-    "preserved": 13,
+    "preserved": 12,
     "detected": 17,
-    "percentage": 76,
+    "percentage": 71,
     "checks": {
       "title": [
         {
-          "value": "Crimson Circuit — Music Festival",
+          "value": "Horizon — Observability for modern teams",
           "preserved": true
         }
       ],
       "headings": [
         {
-          "value": "Crimson Circuit",
+          "value": "Horizon",
           "preserved": true
         },
         {
-          "value": "Lineup",
+          "value": "Why teams switch",
           "preserved": true
         },
         {
-          "value": "Tickets",
+          "value": "Metrics that matter",
           "preserved": true
         },
         {
-          "value": "Getting there",
+          "value": "How it works",
           "preserved": true
+        },
+        {
+          "value": "Pricing",
+          "preserved": false
         },
         {
           "value": "Contact",
-          "preserved": true
+          "preserved": false
         }
       ],
-      "dates": [
-        {
-          "value": "June 20, 2026",
-          "preserved": true
-        }
-      ],
+      "dates": [],
       "numbers": [
         {
-          "value": "149 dollars",
+          "value": "99.99%",
           "preserved": true
         },
         {
-          "value": "20%",
+          "value": "2.1B",
           "preserved": true
         },
         {
-          "value": "5 miles",
+          "value": "180ms",
+          "preserved": true
+        },
+        {
+          "value": "42%",
           "preserved": true
         }
       ],
       "emails": [
         {
-          "value": "press@crimsoncircuit.fm",
-          "preserved": true
+          "value": "hello@horizon.example",
+          "preserved": false
         }
       ],
       "anchors": [
         {
-          "value": "Crimson Circuit",
+          "value": "Horizon",
           "preserved": true
         },
         {
-          "value": "Music Festival Crimson",
-          "preserved": false
-        },
-        {
-          "value": "Circuit",
+          "value": "Observability",
           "preserved": true
         },
         {
-          "value": "Lineup Main Stage",
+          "value": "Horizon Horizon",
           "preserved": false
         },
         {
-          "value": "Friday",
+          "value": "Ship",
           "preserved": false
+        },
+        {
+          "value": "Why",
+          "preserved": true
         }
       ],
-      "links": [
-        {
-          "value": "mailto:press@crimsoncircuit.fm",
-          "label": "press@crimsoncircuit.fm",
-          "preserved": false
-        }
-      ]
+      "links": []
     }
   }
 }

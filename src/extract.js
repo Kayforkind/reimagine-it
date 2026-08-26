@@ -283,7 +283,7 @@ function extractContent(html, filePath) {
   while ((dateMatch = dateRe.exec(text)) !== null) uniquePush(dates, dateMatch[0]);
 
   var numbers = [];
-  var numberRe = /\b\d+(?:[,.]\d+)?\s*(?:ms|s|min|hr|hours?|days?|weeks?|months?|years?|seats?|users?|people|persons?|dollars?|usd|eur|gbp|gb|mb|kb|px|em|rem|rpm|acres|miles|km|metres|meters|feet|ft|pounds?|kg|g|oz|%|x|k|m|b)\b/gi;
+  var numberRe = /\b\d+(?:[,.]\d+)?\s*(?:ms|s|min|hr|hours?|days?|weeks?|months?|years?|seats?|users?|people|persons?|dollars?|usd|eur|gbp|gb|mb|kb|px|em|rem|rpm|acres|miles|km|metres|meters|feet|ft|pounds?|kg|g|oz|%|x|k|m|b)(?![\w])/gi;
   var numberMatch;
   while ((numberMatch = numberRe.exec(text)) !== null) uniquePush(numbers, numberMatch[0]);
   // Only unit-qualified numbers are kept. Bare digits (ids, hours, phone
