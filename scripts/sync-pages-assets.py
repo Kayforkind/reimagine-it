@@ -28,6 +28,10 @@ ASSETS = (
 # WebP, source HTML, and desktop/phone screenshots of the auto output.
 CASES = ("venator", "crimson-circuit", "velocita", "maracuya", "flick", "meridian", "horizon")
 CASE_FILES = ("before-after.webp", "source.html", "auto-desktop.png", "auto-phone.png")
+# Meridian's suite also ships static renders of the 3js orbit and svg diagram.
+CASE_EXTRA = {
+    "meridian": ("3js-desktop.webp", "svg-desktop.webp"),
+}
 
 
 def copy_if_changed(source: Path, destination: Path) -> bool:
@@ -47,7 +51,8 @@ def main() -> int:
         if copy_if_changed(ROOT / relative, DOCS / relative):
             copied += 1
     for case in CASES:
-        for filename in CASE_FILES:
+        files = CASE_FILES + CASE_EXTRA.get(case, ())
+        for filename in files:
             relative = Path("examples") / "end-users" / case / filename
             if copy_if_changed(ROOT / relative, DOCS / relative):
                 copied += 1

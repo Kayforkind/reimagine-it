@@ -1,8 +1,8 @@
 # See the transformation, not the template
 
-These examples show six genuinely different jobs: running a crypto battle royale, throwing a music festival, selling skateboards, pouring juice, dropping streetwear, and building a living tower. Each starts as plain HTML and becomes a standalone page whose layout, palette, and rhythm follow the source — on a desktop window and on a phone. The palettes are loud on purpose: each source carries its own hex colors (signal yellow, magenta, flame orange, mango coral, electric blue), and the engine uses them directly.
+These examples show seven genuinely different jobs: running a crypto battle royale, throwing a music festival, selling skateboards, pouring juice, dropping streetwear, building a living tower, and running an observability platform. Each starts as plain HTML and becomes a standalone page whose layout, palette, and rhythm follow the source — on a desktop window and on a phone. The palettes are loud on purpose: each source carries its own hex colors (signal yellow, magenta, flame orange, mango coral, electric blue, amber, signal cyan), and the engine uses them directly.
 
-![Five loud redesign journeys with phone frames: gaming arena, festival poster, skate deck, juice menu, and streetwear drop](gallery.webp)
+![Seven redesign journeys: gaming arena, festival poster, skate deck, juice menu, streetwear drop, building suite, and observability dashboard](gallery.webp)
 
 ## A fast way to judge the result
 
@@ -14,12 +14,13 @@ Open the source first, then open **Auto**, then open the two generated options. 
 
 | Example | Source → Auto | Two more options | Why it is here |
 |---|---|---|---|
-| [Venator](venator/) | crypto battle royale → `gradient` | `landing`, `artistic` | gaming language gets a signal-yellow arena instead of a timeline scrubber |
+| [Venator](venator/) | crypto battle royale → `dashboard` | `landing`, `artistic` | gaming language gets a signal-yellow arena instead of a timeline scrubber |
 | [Crimson Circuit](crimson-circuit/) | music festival → `editorial` | `gradient`, `landing` | poster-ready lineup copy gets a magenta magazine treatment |
-| [Velocita](velocita/) | skate brand → `gradient` | `artistic`, `landing` | drop-date urgency gets a flame-orange gradient deck |
+| [Velocita](velocita/) | skate brand → `infographic` | `artistic`, `landing` | drop-date urgency gets a flame-orange gradient deck |
 | [Maracuyá](maracuya/) | juice bar → `infographic` | `landing`, `gradient` | menu facts get shared scales on mango coral |
-| [Flick Fits](flick/) | streetwear → `infographic` | `landing`, `gradient` | drop counts get a blue signal wall |
+| [Flick Fits](flick/) | streetwear → `editorial` | `landing`, `gradient` | drop counts get a blue signal wall |
 | [Meridian Tower](meridian/) | living building → `editorial` | `3js`, `svg` | one command ships three furnished designs: a feature, an orbitable 3D object, and a living diagram |
+| [Horizon](horizon/) | observability → `infographic` | `gradient`, `landing` | SLOs and latency numbers become a data wall on navy |
 
 **One command, three furnished designs** — on a building page, `npx reimagine-it --auto -i meridian.html` produces the Auto-selected editorial feature **plus** an orbitable 3D object (`3js`) and a living SVG diagram (`svg`) from the same source. Static renders of the orbit and the diagram live in `meridian/3js-desktop.webp` and `meridian/svg-desktop.webp`.
 
@@ -53,24 +54,20 @@ npx reimagine-it \
   --seed 57
 ```
 
-## What each GIF means
+## What each before/after image shows
 
-Every GIF is an exhibit card with an author row and engagement stats, playing six beats:
+Each `before-after.webp` is a single static composite — the source on the left, the strongest verified redesign on the right, joined by a gold arrow. It loads in one request and makes the transformation visible at a glance:
 
-1. **Source** — the original HTML as a browser renders it.
-2. **Auto** — the strongest verified direction selected from the source evidence.
-3. **Option A / Option B** — two further compositions, not recolored duplicates.
-4. **Phone source** — the same unchanged HTML at phone width.
-5. **Phone Auto** — the redesign, responsive by default.
-
-- [Venator](venator/before-after.webp) — battle royale → signal-yellow gradient arena + two alternatives, desktop and phone
+- [Venator](venator/before-after.webp) — battle royale → signal-yellow arena + two alternatives, desktop and phone
 - [Crimson Circuit](crimson-circuit/before-after.webp) — festival → magenta editorial poster + two alternatives, desktop and phone
-- [Velocita](velocita/before-after.webp) — skate brand → flame-orange gradient deck + two alternatives, desktop and phone
+- [Velocita](velocita/before-after.webp) — skate brand → flame-orange infographic deck + two alternatives, desktop and phone
 - [Maracuyá](maracuya/before-after.webp) — juice bar → coral infographic menu + two alternatives, desktop and phone
-- [Flick Fits](flick/before-after.webp) — streetwear → electric-blue drop + two alternatives, desktop and phone
-- [All five](gallery.webp) — the complete short loop
+- [Flick Fits](flick/before-after.webp) — streetwear → electric-blue editorial drop + two alternatives, desktop and phone
+- [Meridian Tower](meridian/before-after.webp) — building → amber editorial feature + 3js orbit and svg diagram
+- [Horizon](horizon/before-after.webp) — observability → navy infographic dashboard + two alternatives
+- [All seven](gallery.webp) — the complete grid
 
-The GIFs are generated by `build.py`; they are proof of a reproducible transformation, not the final deliverable. For the usable result, open the linked `auto.html` file.
+The images are generated by `build.py`; they are proof of a reproducible transformation, not the final deliverable. For the usable result, open the linked `auto.html` file.
 
 ## Change the source
 
