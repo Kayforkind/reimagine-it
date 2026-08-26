@@ -12,8 +12,8 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const BIN = path.join(ROOT, 'bin', 'reimagine-it.js');
-const SOURCE = path.join(ROOT, 'examples', 'end-users', 'tide-letter', 'source.html');
-const TOKENS = ['webpage','landing','dashboard','infographic','cinematic','artistic','photography','svg','3js','simulation','glass','editorial','motion','gradient'];
+const SOURCE = path.join(ROOT, 'examples', 'end-users', 'venator', 'source.html');
+const TOKENS = ['webpage','landing','dashboard','infographic','cinematic','artistic','photography','svg','3js','simulation','glass','editorial','motion','gradient','showcase'];
 
 const CHROME = [
   '/usr/bin/google-chrome', '/usr/bin/google-chrome-stable', '/usr/bin/chromium', '/usr/bin/chromium-browser',
@@ -65,5 +65,5 @@ for (const token of TOKENS) {
 }
 
 fs.rmSync(WORK, { recursive: true, force: true });
-console.log(failures ? `${failures} render failure(s)` : 'all 14 tokens render clean');
+console.log(failures ? `${failures} render failure(s)` : `all ${TOKENS.length} tokens render clean`);
 process.exit(failures ? 1 : 0);

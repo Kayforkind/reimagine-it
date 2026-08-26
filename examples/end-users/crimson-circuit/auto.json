@@ -147,9 +147,9 @@
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\crimson-circuit\\source.html",
   "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\crimson-circuit\\auto.html",
   "fidelity": {
-    "preserved": 11,
+    "preserved": 12,
     "detected": 16,
-    "percentage": 69,
+    "percentage": 75,
     "checks": {
       "title": [
         {
@@ -192,7 +192,7 @@
         },
         {
           "value": "5 miles",
-          "preserved": false
+          "preserved": true
         }
       ],
       "emails": [

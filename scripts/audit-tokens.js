@@ -9,8 +9,8 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const BIN = path.join(ROOT, 'bin', 'reimagine-it.js');
-const SOURCE = path.join(ROOT, 'examples', 'end-users', 'tide-letter', 'source.html');
-const TOKENS = ['webpage','landing','dashboard','infographic','cinematic','artistic','photography','svg','3js','simulation','glass','editorial','motion','gradient'];
+const SOURCE = path.join(ROOT, 'examples', 'end-users', 'venator', 'source.html');
+const TOKENS = ['webpage','landing','dashboard','infographic','cinematic','artistic','photography','svg','3js','simulation','glass','editorial','motion','gradient','showcase'];
 
 const BAD = /\b(undefined|NaN|\[object Object\]|null)\b/i;
 
@@ -65,5 +65,5 @@ for (const token of TOKENS) {
     console.log(`ok   ${token}`);
   }
 }
-console.log(failures ? `\n${failures} token(s) failed` : '\nall 14 tokens pass');
+console.log(failures ? `\n${failures} token(s) failed` : `\nall ${TOKENS.length} tokens pass`);
 process.exit(failures ? 1 : 0);

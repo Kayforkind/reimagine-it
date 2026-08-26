@@ -79,9 +79,9 @@ npm run auto -- \
 
 The report records the selected direction, candidate scores, seed, rationale, source anchors, and source-fidelity checks. The input file is never overwritten.
 
-## Fourteen design builders
+## Fifteen design builders
 
-Every token is a real generator in the engine — each one reads the same extracted content and builds a structurally different composition. No templates, no stock art, nothing invented.
+Every token is a real generator in the engine — each one reads the same extracted content and builds a structurally different composition. No templates, no stock art, nothing invented. Every builder also ships with a content-derived art layer: anchor initials become monogram tiles, source numbers become donut and bar charts, and the palette shades isometric 3D prisms — all inline SVG, all offline.
 
 | Builder | Real output (same source) | Best for | Character |
 |---|---|---|---|
@@ -99,6 +99,7 @@ Every token is a real generator in the engine — each one reads the same extrac
 | `editorial` | <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/tokens/editorial-desktop.png" width="120" alt=""> | Long-form text and essays | Magazine layout with drop caps |
 | `motion` | <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/tokens/motion-desktop.png" width="120" alt=""> | Scroll-driven stories | Animated reveals and parallax |
 | `gradient` | <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/tokens/gradient-desktop.png" width="120" alt=""> | Bold brand presentations | Gradient mesh cards and text |
+| `showcase` | <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/tokens/showcase-desktop.png" width="120" alt=""> | Capability demonstrations | Motion-forward capability cards, timeline, and stats |
 
 List the registry from the CLI:
 

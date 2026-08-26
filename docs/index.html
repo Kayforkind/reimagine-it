@@ -398,7 +398,7 @@ footer a { color: var(--hot); }
             <button class="tg-nav" id="tgNext" aria-label="Next token">→</button>
           </div>
         </div>
-        <p class="tg-note">Same source, 15 ways to compose it — 14 tokens plus <b>auto</b>, which scores three candidates and ships the strongest. Desktop <em>and</em> phone, real CLI output. Flip <b>◐ Before / After</b> to see the untouched source, or <b>▶ Live demo</b> to scroll and interact with the actual generated page.</p>
+        <p class="tg-note">Same source, 16 ways to compose it — 15 tokens plus <b>auto</b>, which scores three candidates and ships the strongest. Desktop <em>and</em> phone, real CLI output. Flip <b>◐ Before / After</b> to see the untouched source, or <b>▶ Live demo</b> to scroll and interact with the actual generated page.</p>
       </div>
       <div class="tokens-grid">
           <div class="token-card reveal" data-token="webpage" data-idx="1"><div class="tc-thumb"><img src="tokens/webpage-desktop.png" alt="webpage token output" loading="lazy"><span class="tc-no">01</span></div><div class="tc-body"><code>webpage</code><h3>Articles and source documents</h3><p>Measured reading hierarchy</p></div></div>
@@ -415,6 +415,7 @@ footer a { color: var(--hot); }
           <div class="token-card reveal" data-token="editorial" data-idx="12"><div class="tc-thumb"><img src="tokens/editorial-desktop.png" alt="editorial token output" loading="lazy"><span class="tc-no">12</span></div><div class="tc-body"><code>editorial</code><h3>Long-form text and essays</h3><p>Magazine layout with drop caps</p></div></div>
           <div class="token-card reveal" data-token="motion" data-idx="13"><div class="tc-thumb"><img src="tokens/motion-desktop.png" alt="motion token output" loading="lazy"><span class="tc-no">13</span></div><div class="tc-body"><code>motion</code><h3>Scroll-driven stories</h3><p>Animated reveals and parallax</p></div></div>
           <div class="token-card reveal" data-token="gradient" data-idx="14"><div class="tc-thumb"><img src="tokens/gradient-desktop.png" alt="gradient token output" loading="lazy"><span class="tc-no">14</span></div><div class="tc-body"><code>gradient</code><h3>Bold brand presentations</h3><p>Gradient mesh cards and text</p></div></div>
+          <div class="token-card reveal" data-token="showcase" data-idx="15"><div class="tc-thumb"><img src="tokens/showcase-desktop.png" alt="showcase token output" loading="lazy"><span class="tc-no">15</span></div><div class="tc-body"><code>showcase</code><h3>Capability demonstrations</h3><p>Motion-forward capability cards and stats</p></div></div>
       </div>
     </section>
 
@@ -583,13 +584,14 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
   /* method card ghost numerals */
   document.querySelectorAll('.method-card').forEach(function(card, i){ card.setAttribute('data-no', '0' + (i + 1)); });
-  /* token gallery: auto + 14 tokens, desktop + phone side by side, before/after toggle */
+  /* token gallery: auto + 15 tokens, desktop + phone side by side, before/after toggle */
   var tg = [
     ['auto','Auto — chose editorial (score 182)'],['webpage','Measured reading hierarchy'],['landing','Hero and action rhythm'],['dashboard','Console, KPIs, and status'],
     ['infographic','Shared scales and timelines'],['cinematic','Depth and paced chapters'],['artistic','Asymmetric type and layered fields'],
     ['photography','Folio plates and captions'],['svg','Inline geometric illustration'],['3js','Offline orbitable canvas',1],
     ['simulation','Playable timeline and scrubber'],['glass','Frosted backdrop depth'],['editorial','Magazine layout with drop caps'],
-    ['motion','Animated reveals and parallax',1],['gradient','Gradient mesh cards and text']
+    ['motion','Animated reveals and parallax',1],['gradient','Gradient mesh cards and text'],
+    ['showcase','Capability cards, timeline, and stats']
   ];
   var tgDesk = document.getElementById('tgDesk'), tgPhone = document.getElementById('tgPhone');
   var tgToken = document.getElementById('tgToken'), tgBlurb = document.getElementById('tgBlurb');

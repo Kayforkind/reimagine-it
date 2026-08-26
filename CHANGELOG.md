@@ -6,6 +6,13 @@ All notable changes to reimagine-it.
 
 ## v2.3.7 (unreleased)
 
+### Feature — content-derived art layer in every builder
+
+- **Shared art layer** — the engine now ships inline content-derived graphics in every token: anchor initials become monogram glyph tiles, source numbers become SVG donut charts and horizontal bars, and the palette shades isometric 3D prisms. All SVG, all offline, all deterministic per seed.
+- **Wired across all 15 builders** — landing hero art (glyph tiles + floating prism), dashboard signal panels (donut + bars), infographic mix section, gradient card watermarks, glass panel prisms, artistic field glyphs, cinematic opening constellation, motion floating tiles, editorial data pullout, simulation glyph row, webpage hero prism, and showcase capability cards.
+- **`showcase` token activated** — it was a half-wired direction: Auto could recommend it, but the engine never registered it, and its implementation sat as dead code inside `gradient()`. It is now a first-class 15th builder (capability cards, timeline, stat counters) with content glyphs replacing the old `#` placeholder icons, and it appears in the token board, gallery chips, README, and audits.
+- **Stale audit references fixed** — `audit-tokens.js`, `render-audit.js`, and `build-token-board.py` pointed at the removed `tide-letter` example and capped at 14 tokens; they now use a current example and audit all 15.
+
 ### Fix — token tiles show real examples; watermark overlap removed
 
 - **Every token tile now shows its actual output** — the 14 direction cards in the `#tokens` section were text-only. Each card now embeds a real screenshot of that token's generated page (`tokens/<name>-desktop.png`), with a numbered badge on the image corner, so visitors see what each direction produces before clicking.

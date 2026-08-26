@@ -34,9 +34,10 @@ TOKENS = [
     ("editorial", "Magazine layout"),
     ("motion", "Scroll reveals"),
     ("gradient", "Bold mesh"),
+    ("showcase", "Motion demo"),
 ]
 
-SOURCE = ROOT / "examples" / "end-users" / "tide-letter" / "source.html"
+SOURCE = ROOT / "examples" / "end-users" / "venator" / "source.html"
 SEED = "7"
 
 # tile sizes
@@ -139,7 +140,7 @@ def build_board(kind: str) -> None:
             draw.text((x + 34, y + th - 34), blurb, font=font(20), fill=MUTED)
             print(f"  {token} {kind} OK")
 
-    draw.text((gap, bh - 52), f"14 directions · one source · real CLI output · {kind} view", font=font(22, bold=True), fill=GOLD)
+    draw.text((gap, bh - 52), f"15 directions · one source · real CLI output · {kind} view", font=font(22, bold=True), fill=GOLD)
     board.save(out, optimize=True)
     print(f"wrote {out} ({bw}x{bh})")
 
