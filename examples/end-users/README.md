@@ -1,6 +1,6 @@
 # See the transformation, not the template
 
-These examples show five genuinely different jobs: running a crypto battle royale, throwing a music festival, selling skateboards, pouring juice, and dropping streetwear. Each starts as plain HTML and becomes a standalone page whose layout, palette, and rhythm follow the source — on a desktop window and on a phone. The palettes are loud on purpose: each source carries its own hex colors (signal yellow, magenta, flame orange, mango coral, electric blue), and the engine uses them directly.
+These examples show six genuinely different jobs: running a crypto battle royale, throwing a music festival, selling skateboards, pouring juice, dropping streetwear, and building a living tower. Each starts as plain HTML and becomes a standalone page whose layout, palette, and rhythm follow the source — on a desktop window and on a phone. The palettes are loud on purpose: each source carries its own hex colors (signal yellow, magenta, flame orange, mango coral, electric blue), and the engine uses them directly.
 
 ![Five loud redesign journeys with phone frames: gaming arena, festival poster, skate deck, juice menu, and streetwear drop](gallery.gif)
 
@@ -19,6 +19,9 @@ Open the source first, then open **Auto**, then open the two generated options. 
 | [Velocita](velocita/) | skate brand → `gradient` | `artistic`, `landing` | drop-date urgency gets a flame-orange gradient deck |
 | [Maracuyá](maracuya/) | juice bar → `infographic` | `landing`, `gradient` | menu facts get shared scales on mango coral |
 | [Flick Fits](flick/) | streetwear → `infographic` | `landing`, `gradient` | drop counts get a blue signal wall |
+| [Meridian Tower](meridian/) | living building → `editorial` | `3js`, `svg` | one command ships three furnished designs: a feature, an orbitable 3D object, and a living diagram |
+
+**One command, three furnished designs** — on a building page, `npx reimagine-it --auto -i meridian.html` produces the Auto-selected editorial feature **plus** an orbitable 3D object (`3js`) and a living SVG diagram (`svg`) from the same source. Animated GIFs of the orbit and the spin live in `meridian/3js-anim.gif` and `meridian/svg-anim.gif`.
 
 ## Run one yourself
 

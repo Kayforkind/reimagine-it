@@ -1,0 +1,235 @@
+{
+  "mode": "auto",
+  "token": "editorial",
+  "seed": -522456270,
+  "score": 150,
+  "rationale": "The source has enough text for a magazine-grade treatment. Evidence: 5 anchors, 2 measurable facts.",
+  "candidates": [
+    {
+      "token": "editorial",
+      "seed": -522456270,
+      "fit": 25,
+      "quality": 100,
+      "total": 150,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "cinematic",
+      "seed": -1625717327,
+      "fit": 20,
+      "quality": 100,
+      "total": 140,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "landing",
+      "seed": 995504270,
+      "fit": 18,
+      "quality": 100,
+      "total": 136,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "anchors": [
+    "Meridian Tower",
+    "Living Building Meridian",
+    "Tower",
+    "Architecture",
+    "LEED Gold"
+  ],
+  "facts": {
+    "headings": 6,
+    "paragraphs": 5,
+    "items": 4,
+    "dates": 1,
+    "numbers": 1,
+    "links": 1
+  },
+  "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\meridian\\source.html",
+  "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\meridian\\auto.html",
+  "fidelity": {
+    "preserved": 13,
+    "detected": 16,
+    "percentage": 81,
+    "checks": {
+      "title": [
+        {
+          "value": "Meridian Tower — A Living Building",
+          "preserved": true
+        }
+      ],
+      "headings": [
+        {
+          "value": "Meridian Tower",
+          "preserved": true
+        },
+        {
+          "value": "Architecture",
+          "preserved": true
+        },
+        {
+          "value": "Residences",
+          "preserved": true
+        },
+        {
+          "value": "Amenities",
+          "preserved": true
+        },
+        {
+          "value": "Location",
+          "preserved": true
+        },
+        {
+          "value": "Contact",
+          "preserved": true
+        }
+      ],
+      "dates": [
+        {
+          "value": "June 8, 2026",
+          "preserved": true
+        }
+      ],
+      "numbers": [
+        {
+          "value": "218 meters",
+          "preserved": true
+        }
+      ],
+      "emails": [
+        {
+          "value": "hello@meridiantower.city",
+          "preserved": true
+        }
+      ],
+      "anchors": [
+        {
+          "value": "Meridian Tower",
+          "preserved": true
+        },
+        {
+          "value": "Living Building Meridian",
+          "preserved": false
+        },
+        {
+          "value": "Tower",
+          "preserved": true
+        },
+        {
+          "value": "Architecture",
+          "preserved": true
+        },
+        {
+          "value": "LEED Gold",
+          "preserved": false
+        }
+      ],
+      "links": [
+        {
+          "value": "mailto:hello@meridiantower.city",
+          "label": "hello@meridiantower.city",
+          "preserved": false
+        }
+      ]
+    }
+  }
+}

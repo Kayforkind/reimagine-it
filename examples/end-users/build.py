@@ -308,6 +308,19 @@ EXAMPLES: list[dict[str, Any]] = [
         "mutual": "Fashion",
         "avatar": (45, 107, 255),
     },
+    {
+        "slug": "meridian",
+        "name": "Meridian Tower — A Living Building",
+        "source": "examples/end-users/meridian/source.html",
+        "alternates": ["3js", "svg"],
+        "seed": "101",
+        "brief": "bold architecture, amber cladding and steel frames",
+        "author": "Meridian Tower · architecture",
+        "views": "62k",
+        "stats": [("heart", "309"), ("view", "62k")],
+        "mutual": "Real estate",
+        "avatar": (255, 179, 0),
+    },
 ]
 
 

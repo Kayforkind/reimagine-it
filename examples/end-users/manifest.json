@@ -709,6 +709,148 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Meridian Tower \u2014 A Living Building",
+      "source": "examples/end-users/meridian/source.html",
+      "auto": "examples/end-users/meridian/auto.html",
+      "report": "examples/end-users/meridian/auto.json",
+      "alternates": [
+        "examples/end-users/meridian/option-2-3js.html",
+        "examples/end-users/meridian/option-3-svg.html"
+      ],
+      "auto_token": "editorial",
+      "alternate_tokens": [
+        "3js",
+        "svg"
+      ],
+      "seed": 101,
+      "score": 150,
+      "candidates": [
+        {
+          "token": "editorial",
+          "seed": -522456270,
+          "fit": 25,
+          "quality": 100,
+          "total": 150,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "cinematic",
+          "seed": -1625717327,
+          "fit": 20,
+          "quality": 100,
+          "total": 140,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "landing",
+          "seed": 995504270,
+          "fit": 18,
+          "quality": 100,
+          "total": 136,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -166,6 +166,19 @@ h1 .grad { background: linear-gradient(100deg, var(--crimson), var(--hot) 55%, #
 .info-showcase img { display: block; width: 100%; height: auto; }
 .info-showcase figcaption { padding: 10px 14px; font: 700 11px ui-monospace,monospace; letter-spacing: .08em; text-transform: uppercase; color: #8b93a6; border-top: 1px solid rgba(244,239,228,.1); }
 .info-showcase figcaption code { color: #ceb27e; }
+.suite-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 18px; align-items: start; }
+.suite-card { margin: 0; border: 1px solid rgba(244,239,228,.12); border-radius: 16px; overflow: hidden; background: #0d1322; box-shadow: 0 24px 60px -30px rgba(0,0,0,.8); }
+.suite-card img { display: block; width: 100%; height: auto; }
+.suite-card .cap { padding: 10px 14px; font: 700 11px ui-monospace,monospace; letter-spacing: .08em; text-transform: uppercase; color: #8b93a6; border-top: 1px solid rgba(244,239,228,.1); display: flex; justify-content: space-between; gap: 10px; }
+.suite-card .cap code { color: #ceb27e; }
+.suite-card .cap .anim-tag { color: #7fd0a5; }
+.suite-stack { display: flex; flex-direction: column; gap: 18px; }
+.suite-wide figure { margin: 0; border: 1px solid rgba(244,239,228,.12); border-radius: 16px; overflow: hidden; background: #0d1322; box-shadow: 0 24px 60px -30px rgba(0,0,0,.8); }
+.suite-wide img { display: block; width: 100%; height: auto; }
+.suite-wide figcaption { padding: 10px 14px; font: 700 11px ui-monospace,monospace; letter-spacing: .08em; text-transform: uppercase; color: #8b93a6; border-top: 1px solid rgba(244,239,228,.1); }
+@media(max-width:900px){ .suite-grid { grid-template-columns: 1fr; } }
+.suite-cmd { margin: 22px 0 6px; }
+.suite-cmd pre { font-family: var(--mono); font-size: 13px; background: #0a0f1e; color: #f4c86b; padding: 16px 18px; border-radius: 12px; overflow-x: auto; border: 1px solid rgba(244,239,228,.08); display: inline-block; }
 @media(max-width:820px){ .info-showcase { grid-template-columns: 1fr; } }
 @media(max-width:760px){ .token-gallery-stage { grid-template-columns: 1fr; } .tg-phone { display: none; } }
 .token-card { position: relative; background: rgba(18,26,46,.55); border: 1px solid rgba(244,239,228,.09); border-radius: 16px; overflow: hidden; cursor: pointer; transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease; }
@@ -256,7 +269,7 @@ footer a { color: var(--hot); }
       <div>01 <b>Kayforkind</b> / reimagine-it</div>
       <div class="links">
         <a href="#method">How</a><a href="#cases">Proof</a>
-        <a href="#gaming">Gaming</a><a href="#install">Install</a><a href="#playground">Try</a>
+        <a href="#suite">Suite</a><a href="#gaming">Gaming</a><a href="#install">Install</a><a href="#playground">Try</a>
         <a href="https://github.com/Kayforkind/reimagine-it">GitHub</a>
       </div>
     </nav>
@@ -289,6 +302,7 @@ footer a { color: var(--hot); }
           <img src="examples/end-users/velocita/before-after.gif" alt="Skate brand to flame-orange gradient deck" loading="lazy">
           <img src="examples/end-users/maracuya/before-after.gif" alt="Juice bar to coral infographic menu" loading="lazy">
           <img src="examples/end-users/flick/before-after.gif" alt="Streetwear drop to electric-blue infographic" loading="lazy">
+          <img src="examples/end-users/meridian/before-after.gif" alt="Living building to amber editorial suite with 3js and svg" loading="lazy">
         </div>
         <div class="transform-cap"><span id="tfLabel"><b>Release desk</b> → dashboard</span><span class="transform-nav"><button id="tfPrev" aria-label="Previous">←</button><button id="tfNext" aria-label="Next">→</button></span></div>
       </aside>
@@ -328,19 +342,20 @@ footer a { color: var(--hot); }
     </section>
 
     <section class="case-section" id="cases">
-      <h2>Five sources. Same method. <em>Loud</em> DNA.</h2>
+      <h2>Six sources. Same method. <em>Loud</em> DNA.</h2>
       <p class="sub">Every design below is derived from the content of the source file — not from a template. The yellow, magenta, orange, coral, and electric blue all come from hex colors already written into each source. <a href="https://github.com/Kayforkind/reimagine-it/blob/main/docs/SHOWCASE.md">Full case studies →</a></p>
 
-      <h3 class="source-name" id="end-user-proof">Five loud jobs, five different answers</h3>
-      <p class="source-sub">A crypto battle royale, a music festival, a skate brand, a juice bar, and a streetwear drop — each starts as plain HTML and gets a composition that fits its content, on desktop and on a phone. The loud palettes come from the hex colors already written into each source, not from a style prompt. <a href="https://github.com/Kayforkind/reimagine-it/tree/main/examples/end-users">Read every source, result, and report →</a> · <a href="https://github.com/Kayforkind/reimagine-it/blob/main/docs/CASE_STUDIES.md">Step-by-step case studies →</a> · <a href="https://github.com/Kayforkind/design-health-action">Design Health — CI quality gate →</a></p>
+      <h3 class="source-name" id="end-user-proof">Six real jobs, six different answers</h3>
+      <p class="source-sub">A crypto battle royale, a music festival, a skate brand, a juice bar, a streetwear drop, and a living building — each starts as plain HTML and gets a composition that fits its content, on desktop and on a phone. The loud palettes come from the hex colors already written into each source, not from a style prompt. <a href="https://github.com/Kayforkind/reimagine-it/tree/main/examples/end-users">Read every source, result, and report →</a> · <a href="https://github.com/Kayforkind/reimagine-it/blob/main/docs/CASE_STUDIES.md">Step-by-step case studies →</a> · <a href="https://github.com/Kayforkind/design-health-action">Design Health — CI quality gate →</a></p>
       <div class="before-after reveal">
         <div><img src="examples/end-users/venator/before-after.gif" width="720" height="720" alt="Venator crypto battle royale: plain source to signal-yellow gradient arena, landing, and phone screens" loading="lazy"><p class="label">Game → signal-yellow arena → landing → mobile</p></div>
         <div><img src="examples/end-users/crimson-circuit/before-after.gif" width="720" height="720" alt="Crimson Circuit music festival: plain source to magenta editorial poster, gradient, and phone screens" loading="lazy"><p class="label">Festival → magenta poster → gradient → mobile</p></div>
         <div><img src="examples/end-users/velocita/before-after.gif" width="720" height="720" alt="Velocita skateboards: plain source to flame-orange gradient deck, artistic, and phone screens" loading="lazy"><p class="label">Skate brand → orange deck → artistic → mobile</p></div>
         <div><img src="examples/end-users/maracuya/before-after.gif" width="720" height="720" alt="Maracuyá juice bar: plain source to coral infographic menu, landing, and phone screens" loading="lazy"><p class="label">Juice bar → coral menu → landing → mobile</p></div>
         <div><img src="examples/end-users/flick/before-after.gif" width="720" height="720" alt="Flick Fits streetwear: plain source to electric-blue infographic drop, landing, and phone screens" loading="lazy"><p class="label">Streetwear → blue drop → landing → mobile</p></div>
+        <div><img src="examples/end-users/meridian/before-after.gif" width="720" height="720" alt="Meridian Tower building: plain source to amber editorial feature, 3js object, svg diagram, and phone screens" loading="lazy"><p class="label">Building → amber feature → 3js → svg → mobile</p></div>
       </div>
-      <img src="examples/end-users/gallery.gif" width="720" height="720" alt="Five loud redesign journeys with phone frames: gaming arena, festival poster, skate deck, juice menu, and streetwear drop" loading="lazy">
+      <img src="examples/end-users/gallery.gif" width="720" height="720" alt="Six redesign journeys with phone frames: gaming arena, festival poster, skate deck, juice menu, streetwear drop, and building suite" loading="lazy">
       <p class="source-sub"><strong>How to judge it:</strong> check the facts, the reading path, and whether the composition belongs to the subject—not just whether the colors changed.</p>
 
     </section>
@@ -421,6 +436,24 @@ footer a { color: var(--hot); }
         <figure class="info-tall"><img src="examples/end-users/venator/auto-phone.png" alt="Venator gaming page at tall phone width"><figcaption>tall — mobile</figcaption></figure>
       </div>
       <p class="tg-note">Source: <a href="https://github.com/Kayforkind/reimagine-it/blob/main/examples/end-users/venator/source.html">Venator — Crypto Battle Royale</a> · command: <code>npx reimagine-it -i source.html -t gradient -o arena.html</code> · Auto scored <b>gradient</b> first for gaming sources: bold color meshing beats a timeline scrubber when the content is an arena, not a process.</p>
+    </section>
+
+    <section class="case-section" id="suite">
+      <h2>One command. Three <em>furnished</em> designs.</h2>
+      <p class="sub">Point <code>/reimagine-it</code> at a building page and it does the visual heavy lifting: the editorial feature, an orbitable 3D object, and a living SVG diagram — every one derived from the same source, no direction from you needed.</p>
+      <div class="suite-cmd"><pre>npx reimagine-it --auto -i meridian.html   # reads the page, ships 3 designs</pre></div>
+      <div class="suite-grid reveal">
+        <div class="suite-wide">
+          <figure><img src="examples/end-users/meridian/auto-desktop.png" alt="Meridian Tower editorial feature at desktop width"><figcaption>01 · auto — editorial feature</figcaption></figure>
+        </div>
+        <div class="suite-stack">
+          <div class="suite-card"><img src="examples/end-users/meridian/3js-anim.gif" alt="Animated orbitable 3D object of Meridian Tower"><div class="cap"><span>02 · 3js</span><span class="anim-tag">● animated</span></div></div>
+        </div>
+        <div class="suite-stack">
+          <div class="suite-card"><img src="examples/end-users/meridian/svg-anim.gif" alt="Animated living SVG diagram of Meridian Tower anchors"><div class="cap"><span>03 · svg</span><span class="anim-tag">● animated</span></div></div>
+        </div>
+      </div>
+      <p class="tg-note">Source: <a href="https://github.com/Kayforkind/reimagine-it/blob/main/examples/end-users/meridian/source.html">Meridian Tower — A Living Building</a> · the amber, steel, copper, and sky palette comes from the hex colors in the source · the 3D object orbits (drag or arrow keys) and the diagram spins and breathes — real engine output, not mockups. <a href="#cases">See all six journeys ↓</a></p>
     </section>
 
     <section class="install-section" id="install">
@@ -523,7 +556,7 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
   }
   /* transformation window cycler */
   var stage = document.getElementById('tfStage');
-  var caps = [['Venator','gradient'],['Crimson Circuit','editorial'],['Velocita','gradient'],['Maracuyá','infographic'],['Flick Fits','infographic']];
+  var caps = [['Venator','gradient'],['Crimson Circuit','editorial'],['Velocita','gradient'],['Maracuyá','infographic'],['Flick Fits','infographic'],['Meridian','editorial + 3js + svg']];
   var label = document.getElementById('tfLabel');
   var count = document.getElementById('tfCount');
   var idx = 0, timer = null;

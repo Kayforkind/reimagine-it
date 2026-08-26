@@ -36,9 +36,12 @@ Real sources, real CLI output — four committed journeys, each with the plain s
   <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/velocita/before-after.gif" width="250" alt="Skate brand to flame-orange gradient deck">
   <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/maracuya/before-after.gif" width="250" alt="Juice bar to coral infographic menu">
   <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/flick/before-after.gif" width="250" alt="Streetwear drop to electric-blue infographic">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/meridian/before-after.gif" width="250" alt="Living building to amber editorial suite with 3js and svg">
 </p>
 
-<p align="center"><sub><code>venator</code> — crypto battle royale · <code>crimson-circuit</code> — festival · <code>velocita</code> — skateboards · <code>maracuya</code> — juice bar · <code>flick</code> — streetwear</sub></p>
+<p align="center"><sub><code>venator</code> — crypto battle royale · <code>crimson-circuit</code> — festival · <code>velocita</code> — skateboards · <code>maracuya</code> — juice bar · <code>flick</code> — streetwear · <code>meridian</code> — living building</sub></p>
+
+**One command, three furnished designs** — point `/reimagine-it` at a building page and it ships an editorial feature, an orbitable 3D object, and a living SVG diagram from the same source: `npx reimagine-it --auto -i meridian.html`. [Watch them animate →](https://kayforkind.github.io/reimagine-it/#suite)
 
 ## The 60-second proof
 
@@ -168,7 +171,8 @@ The intended outcome is **fresh when requested, consistent when approved** — n
 - **[Pulsewave](gold/pulsewave/)** — observability language becomes a signal-oriented system.
 - **[Two Lights](gold/twolights/)** — a personal essay becomes a lighthouse-led narrative.
 - **[Saffron & Smoke](gold/saffron/)** — a menu becomes a warm food-specific composition.
-- **[End-user examples](examples/end-users/)** — five loud sources (crypto battle royale, music festival, skate brand, juice bar, streetwear drop) with source HTML, Auto output, alternate options, reports, and GIF proof on desktop and phone. Every palette comes from hex colors already in the source.
+- **[End-user examples](examples/end-users/)** — six loud sources (crypto battle royale, music festival, skate brand, juice bar, streetwear drop, living building) with source HTML, Auto output, alternate options, reports, and GIF proof on desktop and phone. Every palette comes from hex colors already in the source.
+- **[Full-suite showcase](https://kayforkind.github.io/reimagine-it/#suite)** — one `/reimagine-it --auto` on a building produces three furnished designs: the editorial feature, an orbitable 3D object (`3js`), and a living SVG diagram — with animated GIFs of the orbit and spin.
 - **[Case studies](docs/CASE_STUDIES.md)** — four reproducible bundles: source, exact command, Auto output, two alternatives, report, and GIF proof.
 - **[Infographic showcase](https://kayforkind.github.io/reimagine-it/#infographic)** — a data-heavy field report rendered wide (desktop) and tall (phone), every number source-backed.
 - **[Gaming showcase](https://kayforkind.github.io/reimagine-it/#gaming)** — a crypto battle-royale page becomes a signal-yellow arena; Auto routes gaming sources to bold `gradient` first.

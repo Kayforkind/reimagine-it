@@ -1,6 +1,6 @@
 # Case studies
 
-Five loud end-user examples. Each bundle contains the plain-HTML source, the exact command that produced the output, the Auto-selected page, two verified alternatives, a full Auto report (`auto.json`), and a before/after GIF proving the result on desktop and phone. Every palette comes from hex colors already written into the source.
+Six loud end-user examples. Each bundle contains the plain-HTML source, the exact command that produced the output, the Auto-selected page, two verified alternatives, a full Auto report (`auto.json`), and a before/after GIF proving the result on desktop and phone. Every palette comes from hex colors already written into the source. The Meridian bundle is the full visual suite: the Auto feature, an orbitable 3D object, and a living SVG diagram — all from one command.
 
 | Example | Source → Auto | Two more options | Fidelity | Bundle |
 |---|---|---|---|---|
@@ -9,6 +9,7 @@ Five loud end-user examples. Each bundle contains the plain-HTML source, the exa
 | [Velocita](../examples/end-users/velocita/) | skate brand → `gradient` | `artistic`, `landing` | 56% | [case study](../examples/end-users/velocita/) |
 | [Maracuyá](../examples/end-users/maracuya/) | juice bar → `infographic` | `landing`, `gradient` | 78% | [case study](../examples/end-users/maracuya/) |
 | [Flick Fits](../examples/end-users/flick/) | streetwear → `infographic` | `landing`, `gradient` | 75% | [case study](../examples/end-users/flick/) |
+| [Meridian Tower](../examples/end-users/meridian/) | living building → `editorial` | `3js`, `svg` | 81% | [case study](../examples/end-users/meridian/) |
 
 ## How to read a bundle
 
