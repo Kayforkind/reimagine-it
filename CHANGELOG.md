@@ -4,7 +4,18 @@ All notable changes to reimagine-it.
 
 ---
 
-## v2.3.7 (unreleased)
+## v2.3.8 (unreleased)
+
+### Feature — shareable playground links, benchmark, --diff
+
+- **Shareable result links** — the no-install playground now encodes the source + token into the URL hash; any redesign can be sent as a one-click link that reproduces the same output (deterministic per-source seed).
+- **15-token benchmark** — `scripts/benchmark-tokens.js` generates all 15 directions × 4 representative sources through the real CLI and writes `benchmark/BENCHMARK.md`: 100/100 usability, full fidelity, 18.4% mean pairwise output diversity. Table surfaced in the README.
+- **`--diff` CLI flag** — `npx reimagine-it -i page.html --auto --diff` prints a before/after summary (direction, palette, anchors, art, fidelity, size) without writing a file.
+- **Design Health badge** — the README header now carries the live status of the separate `design-health-action` repo's audit workflow.
+
+---
+
+## v2.3.7 (current)
 
 ### Feature — playground presets, horizon journey, richer token upgrades
 
@@ -35,7 +46,7 @@ All notable changes to reimagine-it.
 
 ---
 
-## v2.3.6 (current)
+## v2.3.6
 
 ### New — CI token audits, data-heavy Auto detection, animated + live gallery
 

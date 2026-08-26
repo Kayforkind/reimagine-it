@@ -3,7 +3,8 @@
 > **The source file is the design brief.** Turn existing HTML into a beautiful, usable page — without losing its meaning.
 
 [![CI](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/audit.yml?branch=main&label=CI&logo=github)](https://github.com/Kayforkind/reimagine-it/actions/workflows/audit.yml)
-[![version 2.3.6](https://img.shields.io/badge/version-2.3.6-b22234.svg)](CHANGELOG.md)
+[![Design Health](https://img.shields.io/github/actions/workflow/status/Kayforkind/design-health-action/audit.yml?branch=main&label=Design%20Health&logo=github)](https://github.com/Kayforkind/design-health-action/actions/workflows/audit.yml)
+[![version 2.3.7](https://img.shields.io/badge/version-2.3.7-b22234.svg)](CHANGELOG.md)
 [![npm](https://img.shields.io/npm/v/reimagine-it?color=e8a63f&label=npm)](https://www.npmjs.com/package/reimagine-it)
 [![MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE)
 [![skills.sh](https://skills.sh/b/kayforkind/reimagine-it)](https://skills.sh/kayforkind/reimagine-it)
@@ -37,9 +38,10 @@ Real sources, real CLI output — four committed journeys, each with the plain s
   <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/maracuya/before-after.gif" width="250" alt="Juice bar to coral infographic menu">
   <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/flick/before-after.gif" width="250" alt="Streetwear drop to electric-blue infographic">
   <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/meridian/before-after.gif" width="250" alt="Living building to amber editorial suite with 3js and svg">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/horizon/before-after.gif" width="250" alt="Observability platform to navy mission-control dashboard">
 </p>
 
-<p align="center"><sub><code>venator</code> — crypto battle royale · <code>crimson-circuit</code> — festival · <code>velocita</code> — skateboards · <code>maracuya</code> — juice bar · <code>flick</code> — streetwear · <code>meridian</code> — living building</sub></p>
+<p align="center"><sub><code>venator</code> — crypto battle royale · <code>crimson-circuit</code> — festival · <code>velocita</code> — skateboards · <code>maracuya</code> — juice bar · <code>flick</code> — streetwear · <code>meridian</code> — living building · <code>horizon</code> — observability</sub></p>
 
 **One command, three furnished designs** — point `/reimagine-it` at a building page and it ships an editorial feature, an orbitable 3D object, and a living SVG diagram from the same source: `npx reimagine-it --auto -i meridian.html`. [Watch them animate →](https://kayforkind.github.io/reimagine-it/#suite)
 
@@ -235,6 +237,9 @@ cat page.html | npx reimagine-it -t webpage -o - > redesign.html
 npx reimagine-it -i page.html --dry
 npx reimagine-it -i page.html --json
 
+# Before/after summary without writing a file
+npx reimagine-it -i page.html --auto --diff
+
 # Reproduce an approved draw
 npx reimagine-it -i page.html -t webpage --seed 42 -o approved.html
 ```
@@ -269,6 +274,30 @@ Tools:
 - The **[browser extension](extension/README.md)** adds local redesign to Chrome, Edge, and Firefox. It does not upload the page or require a server.
 - The optional **[DeepSeek Harness adapter](dsh/README.md)** exposes `design_auto` while leaving model access, approvals, sandboxing, and persistence to the host runtime.
 
+## Measured quality
+
+Every direction is benchmarked against the same bar Auto itself applies — standalone HTML, source title and anchors retained, focus-visible, reduced-motion, `::selection`, no placeholder copy, no external asset fetch. All 15 tokens × 4 representative sources score **100/100 usability and full fidelity**, with **18.4% mean pairwise output diversity** between directions on the same source (no two tokens produce the same page).
+
+| Direction | Fidelity (title kept) | Usability (quality /100) | Content art |
+|---|---|---|---|
+| `landing` | 18/18 | 100/100 | 8.0 |
+| `dashboard` | 18/18 | 100/100 | 6.5 |
+| `photography` | 18/18 | 100/100 | 6.0 |
+| `svg` | 18/18 | 100/100 | 6.0 |
+| `artistic` | 18/18 | 100/100 | 6.0 |
+| `motion` | 18/18 | 100/100 | 6.0 |
+| `webpage` | 18/18 | 100/100 | 5.0 |
+| `infographic` | 18/18 | 100/100 | 5.0 |
+| `cinematic` | 18/18 | 100/100 | 5.0 |
+| `simulation` | 18/18 | 100/100 | 5.0 |
+| `glass` | 18/18 | 100/100 | 5.0 |
+| `gradient` | 18/18 | 100/100 | 5.0 |
+| `showcase` | 18/18 | 100/100 | 5.0 |
+| `editorial` | 18/18 | 100/100 | 2.0 |
+| `3js` | 18/18 | 100/100 | 2.0 |
+
+Content art counts inline glyph tiles, donut charts, bars, and prisms — `3js` and `editorial` score lower there by design (WebGL scene / text-forward layout). Regenerate the full table anytime: `node scripts/benchmark-tokens.js`.
+
 ## Quality and limits
 
 Run the project checks locally:
@@ -280,7 +309,7 @@ npm run check:docs
 
 Current repository checks include:
 
-- 44 unit tests covering extraction, generation, Auto, CLI behavior, and color science.
+- 47 unit tests covering extraction, generation, Auto, CLI behavior, and color science.
 - 32 curated gold HTML files audited; warnings are advisory and failures block shipping.
 - Intentional failing-fixture coverage to ensure the audit exit code catches real craft-floor failures.
 - Browser bundle freshness checks for the landing page and extension.

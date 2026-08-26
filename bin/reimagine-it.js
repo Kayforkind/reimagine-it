@@ -79,6 +79,11 @@ if (autoMode) {
 
 const fidelity = sourceFidelity(content, output);
 
+if (args.diff) {
+  printDiff(content, output, token, inputPath, fidelity, autoResult);
+  process.exit(0);
+}
+
 if (outputToStdout) {
   process.stderr.write(`reimagine-it → ${token} · ${path.basename(inputPath)}\n`);
   process.stdout.write(output);
@@ -107,6 +112,25 @@ if (!args.quiet) {
   console.log(`  Size:    ${(output.length / 1024).toFixed(1)} KB`);
   console.log(`  Fidelity: ${fidelity.percentage}% of detected source facts preserved`);
   console.log('\n  REIMAGINED: shipped ✓\n');
+}
+
+function printDiff(content, output, token, inputPath, fidelity, autoResult) {
+  const p = content.palette;
+  const art = (output.match(/glyph-tile/g) || []).length + ' glyphs · ' +
+    (output.match(/donut-chart|donut-keys/g) || []).length + ' donut · ' +
+    (output.match(/iso-prism/g) || []).length + ' prism';
+  const before = Math.round((content.paragraphs.join(' ').length + content.items.join(' ').length) / 4);
+  const after = Math.round(output.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().length / 4);
+  console.log(`\n  Before → After — ${path.basename(inputPath)}`);
+  console.log(`  Direction:   ${token}${autoResult ? ` (Auto · seed ${autoResult.seed} · score ${autoResult.score})` : ''}`);
+  console.log(`  Palette:     ${p.ground} → ${p.accent} → ${p.muted} (ground → accent → muted)`);
+  console.log(`  Anchors:     ${content.anchors.slice(0, 3).join(' · ')}${content.anchors.length > 3 ? ' …' : ''}`);
+  console.log(`  Numbers:     ${content.numbers.slice(0, 3).join(' · ') || '(none)'}${content.numbers.length > 3 ? ' …' : ''}`);
+  console.log(`  Art:         ${art}`);
+  console.log(`  Fidelity:    ${fidelity.percentage}% of ${fidelity.detected} detected source facts preserved`);
+  console.log(`  Size:        ${before} words source → ${after} words rendered · ${(output.length / 1024).toFixed(1)} KB HTML`);
+  console.log(`  Reduced:     ${output.indexOf('prefers-reduced-motion') >= 0 ? 'yes' : 'no'} · Focus-visible: ${output.indexOf('focus-visible') >= 0 ? 'yes' : 'no'}`);
+  console.log('  No source file was modified.\n');
 }
 
 function printDryRun(content, inputPath, auto) {
@@ -165,6 +189,7 @@ Options:
   --auto, -a              Generate up to three verified directions and choose the strongest
   --candidates <n>        Evaluate 1–3 directions in Auto mode (default: 3)
   --dry, -d               Show extracted signals; do not generate
+  --diff                  Generate and print a before/after summary (palette, art, fidelity)
   --json                  Output extraction results as JSON
   --list, -l              List all available design tokens
   --quiet, -q             Suppress progress output when writing a file
@@ -179,6 +204,7 @@ Examples:
   npx reimagine-it -i before.html -t webpage -o redesign.html
   npx reimagine-it -i menu.html -t landing -b "quiet evening service"
   npx reimagine-it -i source.html -t dashboard --dry
+  npx reimagine-it -i source.html --auto --diff
   cat page.html | npx reimagine-it -t svg -o - > mark.html
   npx reimagine-it --list
 
@@ -223,6 +249,7 @@ function parseArgs(raw) {
     }
     switch (arg) {
       case '-d': case '--dry': opts.dry = true; break;
+      case '--diff': opts.diff = true; break;
       case '--json': opts.json = true; break;
       case '--stdout': opts.stdout = true; break;
       case '-q': case '--quiet': opts.quiet = true; break;

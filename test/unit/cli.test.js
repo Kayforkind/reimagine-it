@@ -328,6 +328,19 @@ test('CLI accepts negative safe integer seeds', function() {
   assert.ok(result.stdout.indexOf('<!doctype html>') === 0);
 });
 
+test('CLI --diff prints a before/after summary to stdout', function() {
+  var result = childProcess.spawnSync(process.execPath, [path.join(__dirname, '../../bin/reimagine-it.js'), '--auto', '--diff', '--seed', '7'], {
+    input: '<h1>Ocean Atlas</h1><p>Wave data from 2026.</p><p>12 miles offshore, 42% growth.</p>', encoding: 'utf8'
+  });
+  assert.strictEqual(result.status, 0, result.stderr);
+  assert.ok(result.stdout.indexOf('Before → After') >= 0, 'diff header present');
+  assert.ok(result.stdout.indexOf('Direction:') >= 0, 'direction line present');
+  assert.ok(result.stdout.indexOf('Palette:') >= 0, 'palette line present');
+  assert.ok(result.stdout.indexOf('Fidelity:') >= 0, 'fidelity line present');
+  assert.ok(result.stdout.indexOf('42%') >= 0, 'percent metric preserved in summary');
+  assert.ok(result.stdout.indexOf('<!doctype html>') < 0, 'diff must not emit HTML');
+});
+
 test('CLI rejects unknown options instead of silently falling back', function() {
   var result = childProcess.spawnSync(process.execPath, [path.join(__dirname, '../../bin/reimagine-it.js'), '--not-a-real-flag'], { encoding: 'utf8' });
   assert.strictEqual(result.status, 2);
