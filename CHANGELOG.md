@@ -4,7 +4,7 @@ All notable changes to reimagine-it.
 
 ---
 
-## v2.4.0 (current)
+## v2.4.1 (current)
 
 ### Feature — static before/after composites, faster Pages load
 
@@ -14,7 +14,7 @@ All notable changes to reimagine-it.
 - **Currency and quantity extraction** — number extraction now captures `$49`, `$1,200`, `$2.1B`, `40 staff`, `12,000 cabinets`, and more, so pricing and counts survive into the redesign. 100-source stress test: 100% fidelity, 136/136 quality, 0 errors.
 - **`scripts/stress-test.js`** — drives the real auto entry point across 100 diverse sources and reports design-QA, fidelity, and errors.
 
-## v2.4.0 (current)
+## v2.4.0
 
 ### Feature — the 10x builder upgrade (type, color, art, composition, self-critique)
 
