@@ -186,10 +186,46 @@ def build_extras() -> None:
         print("  infographic wide+tall showcase OK")
 
 
+def build_anim_gifs() -> None:
+    """Animated GIFs for the 3js (orbit) and motion (entrance) tokens."""
+    browser = find_browser()
+    gifs = {
+        "3js": [600, 1200, 2000, 3000, 4200, 5600, 7200, 9000],
+        "motion": [300, 500, 700, 900, 1100, 1300, 1600, 2600],
+    }
+    with tempfile.TemporaryDirectory(prefix="token-anim-") as tmp:
+        scratch = Path(tmp)
+        for token, budgets in gifs.items():
+            html = scratch / f"{token}.html"
+            subprocess.run(
+                [NODE, "bin/reimagine-it.js", "--input", str(SOURCE), "--token", token,
+                 "--output", str(html), "--seed", SEED, "--quiet"],
+                cwd=ROOT, check=True, capture_output=True,
+            )
+            frames: list[Image.Image] = []
+            for budget in budgets:
+                png = scratch / f"{token}-{budget}.png"
+                subprocess.run(
+                    [browser, "--headless", "--hide-scrollbars", "--no-sandbox",
+                     "--disable-extensions", "--disable-background-networking",
+                     "--window-size=1480,1100", f"--virtual-time-budget={budget}",
+                     f"--screenshot={png}", html.as_uri()],
+                    check=True, capture_output=True,
+                )
+                im = Image.open(png).convert("RGB")
+                im.thumbnail((740, 600), Image.Resampling.LANCZOS)
+                frames.append(im)
+            out = SCREEN_OUT / f"{token}-anim.gif"
+            durations = [240] * (len(frames) - 1) + [1800]
+            frames[0].save(out, save_all=True, append_images=frames[1:], duration=durations, loop=0, optimize=True)
+            print(f"  {token} anim GIF ({len(frames)} frames) -> {out.name}")
+
+
 def main() -> int:
     build_board("desktop")
     build_board("phone")
     build_extras()
+    build_anim_gifs()
     return 0
 
 

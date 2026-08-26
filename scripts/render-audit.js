@@ -1,32 +1,32 @@
 #!/usr/bin/env node
 /* Headless render audit: for each token, render the generated page in Chrome
    and verify (a) the body has visible text, (b) no horizontal overflow, (c) a
-   heading exists. Uses the local dev server (127.0.0.1:4191) so the probe
-   iframe is same-origin. */
+   heading exists. Self-contained: each token's HTML is inlined into a probe via
+   an <iframe srcdoc> (same-origin by construction), so no server is needed —
+   works locally on Windows and in CI on Ubuntu. */
 'use strict';
 const { execFileSync, spawnSync } = require('child_process');
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const BIN = path.join(ROOT, 'bin', 'reimagine-it.js');
 const SOURCE = path.join(ROOT, 'examples', 'end-users', 'tide-letter', 'source.html');
 const TOKENS = ['webpage','landing','dashboard','infographic','cinematic','artistic','photography','svg','3js','simulation','glass','editorial','motion','gradient'];
-const AUDIT_DIR = path.join(ROOT, 'docs', '_audit');
-const BASE = 'http://127.0.0.1:4191/docs/_audit/';
 
-const CHROME = ['C:/Program Files/Google/Chrome/Application/chrome.exe',
-  'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe'].find(p => fs.existsSync(p));
-if (!CHROME) { console.error('no chrome'); process.exit(2); }
+const CHROME = [
+  '/usr/bin/google-chrome', '/usr/bin/google-chrome-stable', '/usr/bin/chromium', '/usr/bin/chromium-browser',
+  'C:/Program Files/Google/Chrome/Application/chrome.exe',
+  'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
+].find(p => fs.existsSync(p));
+if (!CHROME) { console.error('no chrome found'); process.exit(2); }
 
-fs.mkdirSync(AUDIT_DIR, { recursive: true });
-let failures = 0;
-
-for (const token of TOKENS) {
-  const htmlPath = path.join(AUDIT_DIR, `${token}.html`);
-  execFileSync(process.execPath, [BIN, '--input', SOURCE, '--token', token, '--output', htmlPath, '--seed', '7', '--quiet'], { cwd: ROOT, stdio: 'pipe' });
+function srcdocEscape(html) {
+  return html.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
-fs.writeFileSync(path.join(AUDIT_DIR, 'probe.html'), `<!doctype html><html><head><meta charset="utf-8"><script>
+
+const PROBE = (inner) => `<!doctype html><html><head><meta charset="utf-8"><script>
 window.addEventListener('load', function(){
   var f = document.getElementById('f');
   var report;
@@ -40,20 +40,23 @@ window.addEventListener('load', function(){
   } catch (e) { report = 'REPORT error=' + String(e).slice(0, 80); }
   document.body.textContent = report;
 });
-<\/script><\/head><body style="margin:0"><iframe id="f" src="__TOKEN__.html" style="width:1200px;height:900px;border:0"></iframe><p>REPORT timeout</p></body></html>`);
+<\/script><\/head><body style="margin:0"><iframe id="f" srcdoc="${srcdocEscape(inner)}" style="width:1200px;height:900px;border:0"></iframe><p>REPORT timeout</p></body></html>`;
+
+const WORK = fs.mkdtempSync(path.join(os.tmpdir(), 'render-audit-'));
+let failures = 0;
 
 for (const token of TOKENS) {
-  const probeSrc = fs.readFileSync(path.join(AUDIT_DIR, 'probe.html'), 'utf8').replace('__TOKEN__', token);
-  fs.writeFileSync(path.join(AUDIT_DIR, 'probe.html'), probeSrc);
+  const htmlPath = path.join(WORK, `${token}.html`);
+  execFileSync(process.execPath, [BIN, '--input', SOURCE, '--token', token, '--output', htmlPath, '--seed', '7', '--quiet'], { cwd: ROOT, stdio: 'pipe' });
+  const inner = fs.readFileSync(htmlPath, 'utf8');
+  const probePath = path.join(WORK, 'probe.html');
+  fs.writeFileSync(probePath, PROBE(inner));
+
   const out = spawnSync(CHROME, ['--headless', '--no-sandbox', '--disable-extensions', '--disable-background-networking',
-    '--virtual-time-budget=4000', '--dump-dom', BASE + 'probe.html'], { encoding: 'utf8', timeout: 30000 });
-  const dom = out.stdout || '';
-  const ms = dom.match(/REPORT[^<]*/g);
-  const report = ms ? ms[ms.length - 1] : 'no report';
-  if (/error/i.test(report)) {
-    failures++;
-    console.log(`FAIL ${token}: ${report}`);
-  } else if (/text=0|overflow=1|h1=0/.test(report)) {
+    '--virtual-time-budget=4000', '--dump-dom', `file:///${probePath.replace(/\\/g, '/')}`], { encoding: 'utf8', timeout: 45000 });
+  const ms = (out.stdout || '').match(/REPORT[^<]*/g);
+  const report = ms ? ms[ms.length - 1] : (out.status === null ? 'chrome timeout' : 'no report');
+  if (/error/i.test(report) || /text=0|overflow=1|h1=0/.test(report)) {
     failures++;
     console.log(`FAIL ${token}: ${report}`);
   } else {
@@ -61,6 +64,6 @@ for (const token of TOKENS) {
   }
 }
 
-fs.rmSync(AUDIT_DIR, { recursive: true, force: true });
+fs.rmSync(WORK, { recursive: true, force: true });
 console.log(failures ? `${failures} render failure(s)` : 'all 14 tokens render clean');
 process.exit(failures ? 1 : 0);

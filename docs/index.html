@@ -138,7 +138,15 @@ h1 .grad { background: linear-gradient(100deg, var(--crimson), var(--hot) 55%, #
 .tg-phone { position: relative; border: 1px solid rgba(244,239,228,.12); border-radius: 16px; overflow: hidden; background: #0d1322; }
 .tg-phone img { display: block; width: 100%; height: auto; }
 .tg-phone span { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); font: 700 10px ui-monospace,monospace; letter-spacing: .14em; text-transform: uppercase; color: #ceb27e; background: rgba(10,15,30,.8); border: 1px solid rgba(244,239,228,.14); border-radius: 999px; padding: 4px 10px; }
+.tg-live-desk { display: none; }
+.tg-live-phone { display: none; }
+.tg-main.live .tg-live-desk { display: block; height: 560px; overflow: auto; background: #fff; }
+.tg-main.live > img { display: none; }
+.tg-phone.live .tg-live-phone { display: block; height: 640px; overflow: auto; background: #fff; }
+.tg-phone.live > img { display: none; }
+.tg-live-desk iframe, .tg-live-phone iframe { width: 100%; height: 100%; border: 0; }
 .tg-bar { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 14px; flex-wrap: wrap; }
+.tg-toggles { display: flex; gap: 8px; flex-wrap: wrap; }
 .tg-toggle { font: 700 11px ui-monospace,monospace; letter-spacing: .08em; text-transform: uppercase; color: #f4efe4; background: rgba(206,178,126,.12); border: 1px solid rgba(206,178,126,.4); border-radius: 999px; padding: 9px 16px; cursor: pointer; transition: all .2s ease; white-space: nowrap; }
 .tg-toggle:hover { border-color: #ceb27e; }
 .tg-toggle.on { color: #0a0f1e; background: #ceb27e; border-color: #ceb27e; }
@@ -351,19 +359,26 @@ footer a { color: var(--hot); }
         <div class="token-gallery-stage">
           <div class="tg-main">
             <img id="tgDesk" src="tokens/webpage-desktop.png" alt="Token desktop preview">
+            <div class="tg-live-desk"><iframe id="tgDeskFrame" title="Live token output"></iframe></div>
             <div class="tg-caption"><code id="tgToken">webpage</code><span id="tgBlurb">Measured reading hierarchy</span></div>
           </div>
-          <div class="tg-phone"><img id="tgPhone" src="tokens/webpage-phone.png" alt="Token phone preview"><span>mobile</span></div>
+          <div class="tg-phone">
+            <img id="tgPhone" src="tokens/webpage-phone.png" alt="Token phone preview"><span>mobile</span>
+            <div class="tg-live-phone"><iframe id="tgPhoneFrame" title="Live token output on phone"></iframe></div>
+          </div>
         </div>
         <div class="tg-bar">
-          <button id="tgToggle" class="tg-toggle" title="Flip between the original source and the redesigned output">◐ Before / After</button>
+          <div class="tg-toggles">
+            <button id="tgToggle" class="tg-toggle" title="Flip between the original source and the redesigned output">◐ Before / After</button>
+            <button id="tgLive" class="tg-toggle" title="Render the token output live in the browser — scroll and interact">▶ Live demo</button>
+          </div>
           <div class="tg-controls">
             <button id="tgPrev" aria-label="Previous token">←</button>
             <div class="tg-chips" id="tgChips"></div>
             <button id="tgNext" aria-label="Next token">→</button>
           </div>
         </div>
-        <p class="tg-note">Same source, 15 ways to compose it — 14 tokens plus <b>auto</b>, which scores three candidates and ships the strongest. Desktop <em>and</em> phone, real CLI output. Flip <b>◐ Before / After</b> to see the untouched source.</p>
+        <p class="tg-note">Same source, 15 ways to compose it — 14 tokens plus <b>auto</b>, which scores three candidates and ships the strongest. Desktop <em>and</em> phone, real CLI output. Flip <b>◐ Before / After</b> to see the untouched source, or <b>▶ Live demo</b> to scroll and interact with the actual generated page.</p>
       </div>
       <div class="tokens-grid">
           <div class="token-card reveal" data-no="01"><code>webpage</code><h3>Articles and source documents</h3><p>Measured reading hierarchy</p></div>
@@ -524,21 +539,25 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
   var tg = [
     ['auto','Auto — chose editorial (score 182)'],['webpage','Measured reading hierarchy'],['landing','Hero and action rhythm'],['dashboard','Console, KPIs, and status'],
     ['infographic','Shared scales and timelines'],['cinematic','Depth and paced chapters'],['artistic','Asymmetric type and layered fields'],
-    ['photography','Folio plates and captions'],['svg','Inline geometric illustration'],['3js','Offline orbitable canvas'],
+    ['photography','Folio plates and captions'],['svg','Inline geometric illustration'],['3js','Offline orbitable canvas',1],
     ['simulation','Playable timeline and scrubber'],['glass','Frosted backdrop depth'],['editorial','Magazine layout with drop caps'],
-    ['motion','Animated reveals and parallax'],['gradient','Gradient mesh cards and text']
+    ['motion','Animated reveals and parallax',1],['gradient','Gradient mesh cards and text']
   ];
   var tgDesk = document.getElementById('tgDesk'), tgPhone = document.getElementById('tgPhone');
   var tgToken = document.getElementById('tgToken'), tgBlurb = document.getElementById('tgBlurb');
   var tgChips = document.getElementById('tgChips');
   var tgPrev = document.getElementById('tgPrev'), tgNext = document.getElementById('tgNext');
   var tgToggle = document.getElementById('tgToggle');
-  var tgIdx = 0, tgAfter = true;
+  var tgLive = document.getElementById('tgLive');
+  var tgDeskFrame = document.getElementById('tgDeskFrame'), tgPhoneFrame = document.getElementById('tgPhoneFrame');
+  var tgMain = document.querySelector('.tg-main'), tgPhoneBox = document.querySelector('.tg-phone');
+  var tgIdx = 0, tgAfter = true, tgLiveOn = false;
+  var TG_SOURCE = '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>A Letter to the Night Tide</title></head><body><h1>A Letter to the Night Tide</h1><p>At the edge of the harbor, the night keeps a different kind of time. The water remembers every light that has crossed it.</p><h2>The first light</h2><p>I came for the lighthouse, but the journey began in the dark between two familiar streets. A small blue lamp made the shore feel briefly possible.</p><h2>A slower story</h2><p>By midnight the tide had turned. The sound was not dramatic; it was a patient sentence, repeated until the body understood it. There was a chapter in the wet sand where the moon had left a silver edge. I followed it past the jetty and found the old signal tower still dreaming above the water.</p><h2>What remains</h2><p>In the morning, the harbor was ordinary again. That is the gift of the night: it lets a small light become a map without asking it to become a sun. I wrote this letter in 2026, after the long walk home. Keep the lamp on for the next traveler.</p><h2>Write back</h2><p>Notes may find me at <a href="mailto:hello@nighttide.example">hello@nighttide.example</a>.</p></body></html>';
   function tgShow(i){
     tgIdx = (i + tg.length) % tg.length;
     var t = tg[tgIdx];
     tgAfter = true;
-    tgDesk.src = 'tokens/' + t[0] + '-desktop.png';
+    tgDesk.src = 'tokens/' + t[0] + (t[2] ? '-anim.gif' : '-desktop.png');
     tgPhone.src = 'tokens/' + t[0] + '-phone.png';
     tgToken.textContent = t[0];
     tgBlurb.textContent = t[1];
@@ -548,23 +567,37 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
   function tgFlip(){
     tgAfter = !tgAfter;
     var t = tg[tgIdx];
-    tgDesk.src = (tgAfter ? 'tokens/' + t[0] : 'tokens/before') + '-desktop.png';
+    tgDesk.src = (tgAfter ? 'tokens/' + t[0] + (t[2] ? '-anim.gif' : '-desktop.png') : 'tokens/before-desktop.png');
     tgPhone.src = (tgAfter ? 'tokens/' + t[0] : 'tokens/before') + '-phone.png';
     tgToken.textContent = tgAfter ? t[0] : 'source';
     tgBlurb.textContent = tgAfter ? t[1] : 'the untouched input — no edits';
     tgToggle.classList.toggle('on', !tgAfter);
+  }
+  function tgSetLive(on){
+    tgLiveOn = on;
+    tgMain.classList.toggle('live', on);
+    tgPhoneBox.classList.toggle('live', on);
+    tgLive.classList.toggle('on', on);
+    if (on && tgDeskFrame && window.ReimagineGenerate && window.ReimagineExtract) {
+      var t = tg[tgIdx];
+      var content = window.ReimagineExtract.extractContent(TG_SOURCE, 'showcase.html');
+      var output = t[0] === 'auto' ? window.ReimagineAuto.autoGenerate(content).output : window.ReimagineGenerate.generate({ content: content, token: t[0] });
+      tgDeskFrame.srcdoc = output;
+      tgPhoneFrame.srcdoc = output;
+    }
   }
   if (tgChips && tgDesk && tgPhone) {
     tg.forEach(function(t, i){
       var b = document.createElement('button');
       b.className = 'tg-chip' + (i === 0 ? ' active' : '');
       b.textContent = t[0];
-      b.addEventListener('click', function(){ tgShow(i); });
+      b.addEventListener('click', function(){ if (tgLiveOn) tgSetLive(false); tgShow(i); });
       tgChips.appendChild(b);
     });
-    if (tgPrev) tgPrev.addEventListener('click', function(){ tgShow(tgIdx - 1); });
-    if (tgNext) tgNext.addEventListener('click', function(){ tgShow(tgIdx + 1); });
+    if (tgPrev) tgPrev.addEventListener('click', function(){ if (tgLiveOn) tgSetLive(false); tgShow(tgIdx - 1); });
+    if (tgNext) tgNext.addEventListener('click', function(){ if (tgLiveOn) tgSetLive(false); tgShow(tgIdx + 1); });
     if (tgToggle) tgToggle.addEventListener('click', tgFlip);
+    if (tgLive) tgLive.addEventListener('click', function(){ tgSetLive(!tgLiveOn); });
   }
 })();
 </script>

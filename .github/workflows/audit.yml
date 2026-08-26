@@ -8,12 +8,18 @@ on:
       - "scripts/audit_all.py"
       - "test/fixtures/**"
       - ".github/workflows/audit.yml"
+      - "src/generate.js"
+      - "scripts/audit-tokens.js"
+      - "scripts/render-audit.js"
   pull_request:
     paths:
       - "gold/**/*.html"
       - "scripts/audit.py"
       - "scripts/audit_all.py"
       - "test/fixtures/**"
+      - "src/generate.js"
+      - "scripts/audit-tokens.js"
+      - "scripts/render-audit.js"
   workflow_dispatch:
 
 jobs:
@@ -89,3 +95,29 @@ jobs:
           echo '```' >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "✅ audit.py correctly exits 2 on failing fixture" >> $GITHUB_STEP_SUMMARY
+
+  token-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - name: Structural token audit
+        run: |
+          echo "## Token structural audit (14 tokens)" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          node scripts/audit-tokens.js 2>&1 | tee /tmp/token-audit.log
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          tail -1 /tmp/token-audit.log
+
+      - name: Headless render audit
+        run: |
+          echo "## Token render audit (14 tokens, Chrome headless)" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          node scripts/render-audit.js 2>&1 | tee /tmp/render-audit.log
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          tail -1 /tmp/render-audit.log

@@ -4,7 +4,16 @@ All notable changes to reimagine-it.
 
 ---
 
-## v2.3.5 (current)
+## v2.3.6 (current)
+
+### New — CI token audits, data-heavy Auto detection, animated + live gallery
+
+- **CI token audits** — `scripts/audit-tokens.js` (structural: undefined/NaN/empty body/misplaced markup) and `scripts/render-audit.js` (headless Chrome render: visible text, no horizontal overflow, heading) now run as a `token-audit` job in `.github/workflows/audit.yml` on every push touching the engine. `render-audit.js` is self-contained (srcdoc iframes, no server) so it runs on Ubuntu runners and Windows alike.
+- **Data-heavy Auto detection** — the infographic token now gets a strong boost when the source has ≥6 measurable facts or is density-`rich`, and the Auto rationale says so explicitly ("The source is data-heavy (N measurable facts)…"). Verified: the field-report source picks infographic; the tide essay still picks editorial.
+- **Animated gallery** — the `3js` and `motion` tokens now show looping capture GIFs (`tokens/3js-anim.gif`, `motion-anim.gif`) in the gallery instead of static shots.
+- **Live demo** — a "▶ Live demo" toggle renders the current token's output in the browser via the in-page engine, in a scrollable desktop frame and a scrollable phone frame; flip it off to return to the static previews.
+
+## v2.3.5
 
 ### New — token gallery upgrades
 

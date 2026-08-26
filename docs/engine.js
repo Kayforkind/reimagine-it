@@ -1192,7 +1192,7 @@ function scoreToken(token, content) {
   var links = (content.links || []).length;
   var items = (content.items || []).length;
   if (token === 'dashboard') score += (/metric|status|uptime|latency|observability|operations|analytics|performance|deploy|traffic|infrastructure|console|monitor|signal/.test(text) ? facts * 5 + 18 : 0);
-  if (token === 'infographic') score += facts * 3 + items * 2 + (/compare|timeline|history|statistics|data|report|survey/.test(text) ? 14 : 0);
+  if (token === 'infographic') score += facts * 3 + items * 2 + (/compare|timeline|history|statistics|data|report|survey/.test(text) ? 14 : 0) + (facts >= 6 || content.density === 'rich' ? 18 : 0);
   if (token === 'webpage') score += (content.paragraphs || []).length + (content.headings || []).length;
   if (token === 'simulation') score += (content.dates || []).length * 6 + (/process|sequence|steps?|timeline|round|version|flow/.test(text) ? 16 : 0);
   if (token === 'simulation' && (content.dates || []).length < 2) score -= 12;
@@ -1250,7 +1250,7 @@ function rationale(token, content) {
     webpage: 'The source benefits from a measured reading hierarchy.',
     landing: 'The source has an outward-facing action or product-like structure.',
     dashboard: 'The source contains enough measurable signals for an operational view.',
-    infographic: 'The source contains facts or lists that benefit from a shared visual scale.',
+    infographic: (facts >= 6 || content.density === 'rich' ? 'The source is data-heavy (' + facts + ' measurable facts) and reads best on shared scales. ' : 'The source contains facts or lists that benefit from a shared visual scale. '),
     cinematic: 'The source has narrative language that benefits from paced chapters.',
     artistic: 'The source is sparse or expressive enough for a poster-like composition.',
     photography: 'The source has a collection of items that can become visual studies.',
