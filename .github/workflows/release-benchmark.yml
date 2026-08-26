@@ -35,6 +35,7 @@ jobs:
           echo "::endgroup::"
 
       - name: Append benchmark table to release notes
+        if: github.event.release != ''
         env:
           GH_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
@@ -68,7 +69,11 @@ jobs:
   token-board:
     runs-on: ubuntu-latest
     steps:
+      # A `release` event checks out the tag (detached HEAD), but the commit-back
+      # must land on the default branch — never on the immutable tag.
       - uses: actions/checkout@v5
+        with:
+          ref: main
 
       - uses: actions/setup-node@v6
         with:
@@ -89,7 +94,7 @@ jobs:
 
       - name: Commit token boards only when changed
         env:
-          TAG: ${{ github.event.release.tag_name }}
+          TAG: ${{ github.event.release.tag_name || github.sha }}
         run: |
           echo "::group::Checking for token-board changes"
           # Guard: skip the commit entirely when the engine output is unchanged.
@@ -100,7 +105,7 @@ jobs:
             git -c user.name="github-actions[bot]" \
                 -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
                 commit -m "docs: regenerate token boards for ${TAG}"
-            git push origin HEAD:"$GITHUB_REF_NAME"
+            git push origin HEAD:main
             echo "Token boards committed and pushed"
           fi
           echo "::endgroup::"
@@ -123,7 +128,13 @@ jobs:
 
       - name: Publish to npm
         if: env.NPM_TOKEN != ''
-        run: npm publish --access public
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if npm view "reimagine-it@${VERSION}" version >/dev/null 2>&1; then
+            echo "reimagine-it@${VERSION} already published — skipping."
+          else
+            npm publish --access public
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ env.NPM_TOKEN }}
 
