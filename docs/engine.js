@@ -1212,6 +1212,14 @@ function scoreToken(token, content) {
   if (token === 'gradient') score += items * 2 + (/brand|modern|color|vibrant|bold|fresh/.test(text) ? 10 : 0) + (content.headings || []).length;
   if (token === 'showcase') score += (/demo|showcase|motion|catalog|capability|feature|lab/.test(text) ? 12 : 0) + (content.anchors || []).length * 2;
   if (token === 'showcase' && (content.anchors || []).length < 4) score -= 8;
+  // gaming sources read best as bold, energetic brand pages rather than process timelines
+  var isGame = /game|gaming|arena|battle|shooter|loot|player|tournament|esports|loadout|skin|stake|wager|kill/.test(text);
+  if (isGame) {
+    if (token === 'gradient') score += 24;
+    if (token === 'landing') score += 18;
+    if (token === 'dashboard') score += 8;
+    if (token === 'simulation') score -= 12;
+  }
   return score;
 }
 

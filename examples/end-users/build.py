@@ -292,6 +292,19 @@ EXAMPLES: list[dict[str, Any]] = [
         "mutual": "Infrastructure",
         "avatar": (98, 140, 220),
     },
+    {
+        "slug": "venator",
+        "name": "Venator — Crypto Battle Royale",
+        "source": "examples/end-users/venator/source.html",
+        "alternates": ["landing", "artistic"],
+        "seed": "57",
+        "brief": "bold gaming arena, gold and black",
+        "author": "Venator · crypto game",
+        "views": "336k",
+        "stats": [("heart", "1284"), ("view", "336k")],
+        "mutual": "Gaming",
+        "avatar": (232, 166, 63),
+    },
 ]
 
 

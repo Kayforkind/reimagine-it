@@ -35,9 +35,10 @@ Real sources, real CLI output — four committed journeys, each with the plain s
   <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/ember-table/before-after.gif" width="250" alt="Restaurant menu to warm landing page">
   <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/tide-letter/before-after.gif" width="250" alt="Essay to editorial magazine page">
   <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/teralyte/before-after.gif" width="250" alt="Infra docs to dashboard and gradient deck">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/venator/before-after.gif" width="250" alt="Crypto battle royale to bold gold-and-black gradient arena">
 </p>
 
-<p align="center"><sub><code>orbitline</code> — release desk · <code>ember-table</code> — restaurant · <code>tide-letter</code> — essay · <code>teralyte</code> — infrastructure docs</sub></p>
+<p align="center"><sub><code>orbitline</code> — release desk · <code>ember-table</code> — restaurant · <code>tide-letter</code> — essay · <code>teralyte</code> — infrastructure docs · <code>venator</code> — crypto battle royale</sub></p>
 
 ## The 60-second proof
 
@@ -167,9 +168,10 @@ The intended outcome is **fresh when requested, consistent when approved** — n
 - **[Pulsewave](gold/pulsewave/)** — observability language becomes a signal-oriented system.
 - **[Two Lights](gold/twolights/)** — a personal essay becomes a lighthouse-led narrative.
 - **[Saffron & Smoke](gold/saffron/)** — a menu becomes a warm food-specific composition.
-- **[End-user examples](examples/end-users/)** — four realistic sources (release console, restaurant menu, personal essay, infrastructure docs) with source HTML, Auto output, alternate options, reports, and GIF proof on desktop and phone.
+- **[End-user examples](examples/end-users/)** — five realistic sources (release console, restaurant menu, personal essay, infrastructure docs, crypto battle royale) with source HTML, Auto output, alternate options, reports, and GIF proof on desktop and phone.
 - **[Case studies](docs/CASE_STUDIES.md)** — four reproducible bundles: source, exact command, Auto output, two alternatives, report, and GIF proof.
 - **[Infographic showcase](https://kayforkind.github.io/reimagine-it/#infographic)** — a data-heavy field report rendered wide (desktop) and tall (phone), every number source-backed.
+- **[Gaming showcase](https://kayforkind.github.io/reimagine-it/#gaming)** — a crypto battle-royale page becomes a gold-and-black arena; Auto routes gaming sources to bold `gradient` first.
 - **[Full showcase](docs/SHOWCASE.md)** — source, rationale, artifact, and regeneration notes.
 
 ## Install

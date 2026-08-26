@@ -343,11 +343,11 @@
           ]
         },
         {
-          "token": "cinematic",
-          "seed": -1625717391,
-          "fit": 30,
+          "token": "dashboard",
+          "seed": -457094690,
+          "fit": 31,
           "quality": 100,
-          "total": 160,
+          "total": 162,
           "checks": [
             {
               "name": "standalone HTML",
@@ -384,11 +384,11 @@
           ]
         },
         {
-          "token": "dashboard",
-          "seed": -457086771,
-          "fit": 23,
+          "token": "cinematic",
+          "seed": -1625709472,
+          "fit": 30,
           "quality": 100,
-          "total": 146,
+          "total": 160,
           "checks": [
             {
               "name": "standalone HTML",
@@ -531,6 +531,148 @@
           "fit": 22,
           "quality": 100,
           "total": 144,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Venator \u2014 Crypto Battle Royale",
+      "source": "examples/end-users/venator/source.html",
+      "auto": "examples/end-users/venator/auto.html",
+      "report": "examples/end-users/venator/auto.json",
+      "alternates": [
+        "examples/end-users/venator/option-2-landing.html",
+        "examples/end-users/venator/option-3-artistic.html"
+      ],
+      "auto_token": "gradient",
+      "alternate_tokens": [
+        "landing",
+        "artistic"
+      ],
+      "seed": 57,
+      "score": 174,
+      "candidates": [
+        {
+          "token": "gradient",
+          "seed": -1661939251,
+          "fit": 37,
+          "quality": 100,
+          "total": 174,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "landing",
+          "seed": 995496307,
+          "fit": 21,
+          "quality": 100,
+          "total": 142,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "editorial",
+          "seed": -522440476,
+          "fit": 20,
+          "quality": 100,
+          "total": 140,
           "checks": [
             {
               "name": "standalone HTML",
