@@ -33,18 +33,18 @@ npx reimagine-it --auto -i page.html -o redesign.html
 Real sources, real CLI output — four committed journeys, each with the plain source, the command, and the result on desktop and phone:
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/venator/before-after.webp" width="250" alt="Crypto battle royale to signal-yellow gradient arena">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/venator/before-after.webp" width="250" alt="Crypto battle royale to signal-yellow mission dashboard">
   <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/crimson-circuit/before-after.webp" width="250" alt="Music festival to magenta editorial poster">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/velocita/before-after.webp" width="250" alt="Skate brand to flame-orange gradient deck">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/velocita/before-after.webp" width="250" alt="Skate brand to flame-orange infographic deck">
   <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/maracuya/before-after.webp" width="250" alt="Juice bar to coral infographic menu">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/flick/before-after.webp" width="250" alt="Streetwear drop to electric-blue infographic">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/flick/before-after.webp" width="250" alt="Streetwear drop to electric-blue editorial poster">
   <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/meridian/before-after.webp" width="250" alt="Living building to amber editorial suite with 3js and svg">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/horizon/before-after.webp" width="250" alt="Observability platform to navy mission-control dashboard">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/horizon/before-after.webp" width="250" alt="Observability platform to navy infographic dashboard">
 </p>
 
 <p align="center"><sub><code>venator</code> — crypto battle royale · <code>crimson-circuit</code> — festival · <code>velocita</code> — skateboards · <code>maracuya</code> — juice bar · <code>flick</code> — streetwear · <code>meridian</code> — living building · <code>horizon</code> — observability</sub></p>
 
-**One command, three furnished designs** — point `/reimagine-it` at a building page and it ships an editorial feature, an orbitable 3D object, and a living SVG diagram from the same source: `npx reimagine-it --auto -i meridian.html`. [Watch them animate →](https://kayforkind.github.io/reimagine-it/#suite)
+**One command, three furnished designs** — point `/reimagine-it` at a building page and it ships an editorial feature, an orbitable 3D object, and a living SVG diagram from the same source: `npx reimagine-it --auto -i meridian.html`. [See the suite →](https://kayforkind.github.io/reimagine-it/#suite)
 
 ## The 60-second proof
 
@@ -177,12 +177,12 @@ The intended outcome is **fresh when requested, consistent when approved** — n
 - **[Pulsewave](gold/pulsewave/)** — observability language becomes a signal-oriented system.
 - **[Two Lights](gold/twolights/)** — a personal essay becomes a lighthouse-led narrative.
 - **[Saffron & Smoke](gold/saffron/)** — a menu becomes a warm food-specific composition.
-- **[End-user examples](examples/end-users/)** — seven loud sources (crypto battle royale, music festival, skate brand, juice bar, streetwear drop, living building, observability platform) with source HTML, Auto output, alternate options, reports, and GIF proof on desktop and phone. Every palette comes from hex colors already in the source.
+- **[End-user examples](examples/end-users/)** — seven loud sources (crypto battle royale, music festival, skate brand, juice bar, streetwear drop, living building, observability platform) with source HTML, Auto output, alternate options, reports, and static before/after WebP proof on desktop and phone. Every palette comes from hex colors already in the source.
 - **[Horizon observability showcase](https://kayforkind.github.io/reimagine-it/#horizon)** — a plain SLO/uptime page becomes a navy mission-control dashboard with donut chart, sparkline KPIs, and scaled bars; Auto picks `dashboard`, alternates `gradient` + `landing`.
-- **[Full-suite showcase](https://kayforkind.github.io/reimagine-it/#suite)** — one `/reimagine-it --auto` on a building produces three furnished designs: the editorial feature, an orbitable 3D object (`3js`), and a living SVG diagram — with animated GIFs of the orbit and spin.
-- **[Case studies](docs/CASE_STUDIES.md)** — four reproducible bundles: source, exact command, Auto output, two alternatives, report, and GIF proof.
+- **[Full-suite showcase](https://kayforkind.github.io/reimagine-it/#suite)** — one `/reimagine-it --auto` on a building produces three furnished designs: the editorial feature, an orbitable 3D object (`3js`), and a living SVG diagram — with static renders of the orbit and the diagram.
+- **[Case studies](docs/CASE_STUDIES.md)** — seven reproducible bundles: source, exact command, Auto output, two alternatives, report, and before/after WebP proof.
 - **[Infographic showcase](https://kayforkind.github.io/reimagine-it/#infographic)** — a data-heavy field report rendered wide (desktop) and tall (phone), every number source-backed.
-- **[Gaming showcase](https://kayforkind.github.io/reimagine-it/#gaming)** — a crypto battle-royale page becomes a signal-yellow arena; Auto routes gaming sources to bold `gradient` first.
+- **[Gaming showcase](https://kayforkind.github.io/reimagine-it/#gaming)** — a crypto battle-royale page becomes a signal-yellow-accented mission dashboard; Auto routes gaming sources to `dashboard` first, with `landing` and `artistic` as alternates.
 - **[Full showcase](docs/SHOWCASE.md)** — source, rationale, artifact, and regeneration notes.
 
 ## Install
@@ -289,12 +289,12 @@ Tools:
 
 ## Measured quality
 
-Every direction is benchmarked against the same bar Auto itself applies — standalone HTML, source title and anchors retained, focus-visible, reduced-motion, `::selection`, no placeholder copy, no external asset fetch. All 15 tokens × 4 representative sources score **100/100 usability and full fidelity**, with **18.4% mean pairwise output diversity** between directions on the same source (no two tokens produce the same page).
+Every direction is benchmarked against the same bar Auto itself applies — standalone HTML, source title and anchors retained, focus-visible, reduced-motion, `::selection`, no placeholder copy, no external asset fetch. All 15 tokens × 4 representative sources score **100/100 usability and full fidelity**, with **15.6% mean pairwise output diversity** between directions on the same source (no two tokens produce the same page).
 
 | Direction | Fidelity (title kept) | Usability (quality /100) | Content art |
 |---|---|---|---|
 | `landing` | 18/18 | 100/100 | 8.0 |
-| `dashboard` | 18/18 | 100/100 | 6.5 |
+| `dashboard` | 18/18 | 100/100 | 6.8 |
 | `photography` | 18/18 | 100/100 | 6.0 |
 | `svg` | 18/18 | 100/100 | 6.0 |
 | `artistic` | 18/18 | 100/100 | 6.0 |

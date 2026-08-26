@@ -224,7 +224,7 @@ designs, keep or recreate" loop (their long-standing request) must be real.
 **Concrete changes:**
 - **Playground** (`docs/index.html`): run Auto with `candidates: 3` → show three cards (each with its designScore + the plan summary). Buttons: **Keep this** (opens the design) and **Recreate** (re-roll seeds for that token). The share link already encodes source+seed+token — extend it to encode voice/palette overrides.
 - **Deliverables**: default single-file HTML stays; `--emit artifacts` adds token JSON + quality report + (CI-only) preview PNG via the existing headless renderer.
-- **Examples**: regenerate all end-user examples and GIFs through the new engine (`examples/end-users/build.py` already pipelines this); refresh `docs/index.html` showcase copy to name the new layers (typographic voice, palette system, generative art, self-critique).
+- **Examples**: regenerate all end-user examples and static before/after WebP composites through the new engine (`examples/end-users/build.py` already pipelines this); refresh `docs/index.html` showcase copy to name the new layers (typographic voice, palette system, generative art, self-critique).
 - **Benchmark**: add a *craft* dimension to `benchmark-tokens.js` (type presence, palette harmony, motion coverage, rhythm consistency) while keeping the 100/100 gate honest.
 - **README/docs**: document `--web-fonts`, `--brief`, `--emit`, the design-score report, and the plan doc (this file) in a "How it decides" section.
 

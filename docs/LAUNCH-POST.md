@@ -21,7 +21,7 @@ npx reimagine-it --auto -i page.html -o redesign.html
 
 ## Measured, not claimed
 
-All 15 directions × 4 representative sources score **100/100 usability and full fidelity**, with **18.4% mean pairwise output diversity**. The benchmark is reproducible: `node scripts/benchmark-tokens.js`.
+All 15 directions × 4 representative sources score **100/100 usability and full fidelity**, with **15.6% mean pairwise output diversity**. The benchmark is reproducible: `node scripts/benchmark-tokens.js`.
 
 ## Try it without installing anything
 
