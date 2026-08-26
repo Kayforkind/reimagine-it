@@ -1,0 +1,60 @@
+name: Release Benchmark
+
+# On every published release, run the 15-token benchmark through the real
+# CLI and append the measured quality table to the release notes, so each
+# tag carries reproducible proof of fidelity, usability, and diversity.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - name: Run 15-token benchmark
+        run: |
+          echo "::group::Benchmarking all 15 directions × 4 sources"
+          node scripts/benchmark-tokens.js 2>&1 | tee /tmp/benchmark.log
+          echo "::endgroup::"
+
+      - name: Append benchmark table to release notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          echo "::group::Appending benchmark results to release notes"
+          python - <<'PYEOF'
+          import os, subprocess
+
+          repo = os.environ["GITHUB_REPOSITORY"]
+          tag = os.environ["TAG"]
+
+          table = open("benchmark/BENCHMARK.md", encoding="utf-8").read()
+          # Keep only the table + diversity/coverage lines (drop the intro/regenerate line).
+          lines = [l for l in table.splitlines() if l.startswith("|") or l.startswith("**")]
+          appendix = "\n\n---\n\n## 📊 Measured quality (auto-generated)\n\n" + "\n".join(lines) + "\n"
+
+          current = subprocess.run(
+              ["gh", "api", "repos/" + repo + "/releases/tags/" + tag, "--jq", ".body"],
+              capture_output=True, text=True, check=True,
+          ).stdout.strip()
+
+          subprocess.run(
+              ["gh", "release", "edit", tag, "--notes", current + appendix],
+              check=True,
+          )
+          print("Release notes updated with benchmark table")
+          PYEOF
+          echo "::endgroup::"

@@ -118,7 +118,19 @@ fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, md, 'utf8');
 console.log(`wrote ${OUT}`);
 console.log(`rows=${rows.length} diversity=${diversity}%`);
+
+let belowBar = 0;
 for (const token of TOKENS) {
   const a = avg(token);
-  console.log(`${token.padEnd(12)} fidelity=${a.fidelity}/18 usability=${a.usability}/100 art=${a.art}`);
+  const ok = Number(a.usability) === 100 && Number(a.fidelity) === 18;
+  if (!ok) belowBar++;
+  console.log(`${token.padEnd(12)} fidelity=${a.fidelity}/18 usability=${a.usability}/100 art=${a.art} ${ok ? 'PASS' : 'FAIL'}`);
 }
+
+// Gate mode: exit 1 when any token drops below the established 100/100 bar.
+const gate = process.argv.indexOf('--gate') >= 0;
+if (gate && belowBar > 0) {
+  console.error(`\n${belowBar} token(s) dropped below 100/100 usability — see table above`);
+  process.exit(1);
+}
+if (gate) console.log('\nall tokens hold the 100/100 usability bar');

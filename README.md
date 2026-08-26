@@ -296,7 +296,7 @@ Every direction is benchmarked against the same bar Auto itself applies — stan
 | `editorial` | 18/18 | 100/100 | 2.0 |
 | `3js` | 18/18 | 100/100 | 2.0 |
 
-Content art counts inline glyph tiles, donut charts, bars, and prisms — `3js` and `editorial` score lower there by design (WebGL scene / text-forward layout). Regenerate the full table anytime: `node scripts/benchmark-tokens.js`.
+Content art counts inline glyph tiles, donut charts, bars, and prisms — `3js` and `editorial` score lower there by design (WebGL scene / text-forward layout). Regenerate the full table anytime: `node scripts/benchmark-tokens.js`. The `--gate` flag makes it exit non-zero if any token drops below 100/100, and CI enforces it weekly (and on engine changes).
 
 ## Quality and limits
 
