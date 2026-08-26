@@ -1,13 +1,14 @@
 # Case studies
 
-Four reproducible end-user examples. Each bundle contains the plain-HTML source, the exact command that produced the output, the Auto-selected page, two verified alternatives, a full Auto report (`auto.json`), and a before/after GIF proving the result on desktop and phone.
+Five loud end-user examples. Each bundle contains the plain-HTML source, the exact command that produced the output, the Auto-selected page, two verified alternatives, a full Auto report (`auto.json`), and a before/after GIF proving the result on desktop and phone. Every palette comes from hex colors already written into the source.
 
 | Example | Source → Auto | Two more options | Fidelity | Bundle |
 |---|---|---|---|---|
-| [Orbitline Release Desk](../examples/end-users/orbitline/) | operational notes → `dashboard` | `infographic`, `webpage` | 67% | [case study](../examples/end-users/orbitline/CASE_STUDY.md) |
-| [Ember & Table](../examples/end-users/ember-table/) | seasonal menu → `landing` | `photography`, `cinematic` | 77% | [case study](../examples/end-users/ember-table/CASE_STUDY.md) |
-| [A Letter to the Night Tide](../examples/end-users/tide-letter/) | essay → `editorial` | `artistic`, `simulation` | 86% | [case study](../examples/end-users/tide-letter/CASE_STUDY.md) |
-| [Teralyte](../examples/end-users/teralyte/) | plain docs → `dashboard` | `landing`, `gradient` | 64% | [case study](../examples/end-users/teralyte/CASE_STUDY.md) |
+| [Venator](../examples/end-users/venator/) | crypto battle royale → `gradient` | `landing`, `artistic` | 87% | [case study](../examples/end-users/venator/) |
+| [Crimson Circuit](../examples/end-users/crimson-circuit/) | music festival → `editorial` | `gradient`, `landing` | 69% | [case study](../examples/end-users/crimson-circuit/) |
+| [Velocita](../examples/end-users/velocita/) | skate brand → `gradient` | `artistic`, `landing` | 56% | [case study](../examples/end-users/velocita/) |
+| [Maracuyá](../examples/end-users/maracuya/) | juice bar → `infographic` | `landing`, `gradient` | 78% | [case study](../examples/end-users/maracuya/) |
+| [Flick Fits](../examples/end-users/flick/) | streetwear → `infographic` | `landing`, `gradient` | 75% | [case study](../examples/end-users/flick/) |
 
 ## How to read a bundle
 
@@ -16,4 +17,4 @@ Four reproducible end-user examples. Each bundle contains the plain-HTML source,
 3. Open the **option-2/option-3** pages — two structurally different directions.
 4. Watch **before-after.gif** — the same transformation on a desktop window and a phone.
 
-Every number, date, and label in the output appears in the source. Nothing is invented.
+Every number, date, and label in the output appears in the source. Nothing is invented. The hex colors in each source (signal yellow `#FFD400`, magenta `#FF2D78`, flame orange `#FF6B00`, mango coral `#FF5A3C`, electric blue `#2D6BFF`) become the page ground directly.

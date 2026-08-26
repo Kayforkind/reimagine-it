@@ -1,95 +1,13 @@
 {
   "mode": "auto",
   "token": "gradient",
-  "seed": -1661939251,
-  "score": 174,
-  "rationale": "The source has signals that benefit from bold color meshing. Evidence: 5 anchors, 2 measurable facts.",
+  "seed": -1661931316,
+  "score": 142,
+  "rationale": "The source contains facts or lists that benefit from a shared visual scale.  Evidence: 5 anchors, 5 measurable facts.",
   "candidates": [
     {
       "token": "gradient",
-      "seed": -1661939251,
-      "fit": 37,
-      "quality": 100,
-      "total": 174,
-      "checks": [
-        {
-          "name": "standalone HTML",
-          "passed": true
-        },
-        {
-          "name": "title preserved",
-          "passed": true
-        },
-        {
-          "name": "source anchors retained",
-          "passed": true
-        },
-        {
-          "name": "focus-visible",
-          "passed": true
-        },
-        {
-          "name": "reduced motion",
-          "passed": true
-        },
-        {
-          "name": "selection styling",
-          "passed": true
-        },
-        {
-          "name": "no placeholder copy",
-          "passed": true
-        },
-        {
-          "name": "no external asset fetch",
-          "passed": true
-        }
-      ]
-    },
-    {
-      "token": "dashboard",
-      "seed": -457094670,
-      "fit": 36,
-      "quality": 100,
-      "total": 172,
-      "checks": [
-        {
-          "name": "standalone HTML",
-          "passed": true
-        },
-        {
-          "name": "title preserved",
-          "passed": true
-        },
-        {
-          "name": "source anchors retained",
-          "passed": true
-        },
-        {
-          "name": "focus-visible",
-          "passed": true
-        },
-        {
-          "name": "reduced motion",
-          "passed": true
-        },
-        {
-          "name": "selection styling",
-          "passed": true
-        },
-        {
-          "name": "no placeholder copy",
-          "passed": true
-        },
-        {
-          "name": "no external asset fetch",
-          "passed": true
-        }
-      ]
-    },
-    {
-      "token": "landing",
-      "seed": 995504226,
+      "seed": -1661931316,
       "fit": 21,
       "quality": 100,
       "total": 142,
@@ -127,101 +45,196 @@
           "passed": true
         }
       ]
+    },
+    {
+      "token": "infographic",
+      "seed": -1088311901,
+      "fit": 21,
+      "quality": 100,
+      "total": 142,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "editorial",
+      "seed": -522440460,
+      "fit": 20,
+      "quality": 100,
+      "total": 140,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
     }
   ],
   "anchors": [
-    "Venator",
-    "Crypto Battle Royale",
-    "Venator Become",
-    "Online",
-    "Game"
+    "Velocita",
+    "Skateboards Velocita Skate",
+    "Stinger Deck",
+    "Volt Wheels",
+    "Haze Trucks"
   ],
   "facts": {
     "headings": 5,
     "paragraphs": 4,
-    "items": 4,
+    "items": 3,
     "dates": 2,
-    "numbers": 0,
+    "numbers": 3,
     "links": 1
   },
-  "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\venator\\source.html",
-  "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\venator\\auto.html",
+  "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\velocita\\source.html",
+  "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\velocita\\auto.html",
   "fidelity": {
-    "preserved": 13,
-    "detected": 15,
-    "percentage": 87,
+    "preserved": 10,
+    "detected": 18,
+    "percentage": 56,
     "checks": {
       "title": [
         {
-          "value": "Venator — Crypto Battle Royale",
+          "value": "Velocita — Skateboards",
           "preserved": true
         }
       ],
       "headings": [
         {
-          "value": "Venator",
+          "value": "Velocita",
           "preserved": true
         },
         {
-          "value": "Game overview",
+          "value": "The lineup",
           "preserved": true
         },
         {
-          "value": "Season 2026",
+          "value": "Drop dates",
           "preserved": true
         },
         {
-          "value": "Loadout",
+          "value": "Riders",
           "preserved": true
         },
         {
-          "value": "Join the hunt",
+          "value": "Shop talk",
           "preserved": true
         }
       ],
       "dates": [
         {
-          "value": "2026",
+          "value": "March 14, 2026",
           "preserved": true
         },
         {
-          "value": "July 4, 2026",
+          "value": "May 1, 2026",
           "preserved": true
         }
       ],
-      "numbers": [],
+      "numbers": [
+        {
+          "value": "89 dollars",
+          "preserved": false
+        },
+        {
+          "value": "45 dollars",
+          "preserved": false
+        },
+        {
+          "value": "38 dollars",
+          "preserved": false
+        }
+      ],
       "emails": [
         {
-          "value": "hello@venator.game",
+          "value": "team@velocita.skate",
           "preserved": true
         }
       ],
       "anchors": [
         {
-          "value": "Venator",
+          "value": "Velocita",
           "preserved": true
         },
         {
-          "value": "Crypto Battle Royale",
-          "preserved": true
-        },
-        {
-          "value": "Venator Become",
+          "value": "Skateboards Velocita Skate",
           "preserved": false
         },
         {
-          "value": "Online",
-          "preserved": true
+          "value": "Stinger Deck",
+          "preserved": false
         },
         {
-          "value": "Game",
-          "preserved": true
+          "value": "Volt Wheels",
+          "preserved": false
+        },
+        {
+          "value": "Haze Trucks",
+          "preserved": false
         }
       ],
       "links": [
         {
-          "value": "mailto:hello@venator.game",
-          "label": "hello@venator.game",
+          "value": "mailto:team@velocita.skate",
+          "label": "team@velocita.skate",
           "preserved": false
         }
       ]

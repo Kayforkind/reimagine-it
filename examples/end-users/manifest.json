@@ -1,574 +1,6 @@
 {
   "examples": [
     {
-      "name": "Orbitline Release Desk",
-      "source": "examples/end-users/orbitline/source.html",
-      "auto": "examples/end-users/orbitline/auto.html",
-      "report": "examples/end-users/orbitline/auto.json",
-      "alternates": [
-        "examples/end-users/orbitline/option-2-infographic.html",
-        "examples/end-users/orbitline/option-3-webpage.html"
-      ],
-      "auto_token": "dashboard",
-      "alternate_tokens": [
-        "infographic",
-        "webpage"
-      ],
-      "seed": 11,
-      "score": 166,
-      "candidates": [
-        {
-          "token": "dashboard",
-          "seed": -457102635,
-          "fit": 33,
-          "quality": 100,
-          "total": 166,
-          "checks": [
-            {
-              "name": "standalone HTML",
-              "passed": true
-            },
-            {
-              "name": "title preserved",
-              "passed": true
-            },
-            {
-              "name": "source anchors retained",
-              "passed": true
-            },
-            {
-              "name": "focus-visible",
-              "passed": true
-            },
-            {
-              "name": "reduced motion",
-              "passed": true
-            },
-            {
-              "name": "selection styling",
-              "passed": true
-            },
-            {
-              "name": "no placeholder copy",
-              "passed": true
-            },
-            {
-              "name": "no external asset fetch",
-              "passed": true
-            }
-          ]
-        },
-        {
-          "token": "infographic",
-          "seed": -1088304044,
-          "fit": 29,
-          "quality": 100,
-          "total": 158,
-          "checks": [
-            {
-              "name": "standalone HTML",
-              "passed": true
-            },
-            {
-              "name": "title preserved",
-              "passed": true
-            },
-            {
-              "name": "source anchors retained",
-              "passed": true
-            },
-            {
-              "name": "focus-visible",
-              "passed": true
-            },
-            {
-              "name": "reduced motion",
-              "passed": true
-            },
-            {
-              "name": "selection styling",
-              "passed": true
-            },
-            {
-              "name": "no placeholder copy",
-              "passed": true
-            },
-            {
-              "name": "no external asset fetch",
-              "passed": true
-            }
-          ]
-        },
-        {
-          "token": "editorial",
-          "seed": -522440522,
-          "fit": 20,
-          "quality": 100,
-          "total": 140,
-          "checks": [
-            {
-              "name": "standalone HTML",
-              "passed": true
-            },
-            {
-              "name": "title preserved",
-              "passed": true
-            },
-            {
-              "name": "source anchors retained",
-              "passed": true
-            },
-            {
-              "name": "focus-visible",
-              "passed": true
-            },
-            {
-              "name": "reduced motion",
-              "passed": true
-            },
-            {
-              "name": "selection styling",
-              "passed": true
-            },
-            {
-              "name": "no placeholder copy",
-              "passed": true
-            },
-            {
-              "name": "no external asset fetch",
-              "passed": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Ember & Table",
-      "source": "examples/end-users/ember-table/source.html",
-      "auto": "examples/end-users/ember-table/auto.html",
-      "report": "examples/end-users/ember-table/auto.json",
-      "alternates": [
-        "examples/end-users/ember-table/option-2-photography.html",
-        "examples/end-users/ember-table/option-3-cinematic.html"
-      ],
-      "auto_token": "landing",
-      "alternate_tokens": [
-        "photography",
-        "cinematic"
-      ],
-      "seed": 23,
-      "score": 160,
-      "candidates": [
-        {
-          "token": "landing",
-          "seed": 995488354,
-          "fit": 30,
-          "quality": 100,
-          "total": 160,
-          "checks": [
-            {
-              "name": "standalone HTML",
-              "passed": true
-            },
-            {
-              "name": "title preserved",
-              "passed": true
-            },
-            {
-              "name": "source anchors retained",
-              "passed": true
-            },
-            {
-              "name": "focus-visible",
-              "passed": true
-            },
-            {
-              "name": "reduced motion",
-              "passed": true
-            },
-            {
-              "name": "selection styling",
-              "passed": true
-            },
-            {
-              "name": "no placeholder copy",
-              "passed": true
-            },
-            {
-              "name": "no external asset fetch",
-              "passed": true
-            }
-          ]
-        },
-        {
-          "token": "editorial",
-          "seed": -522448429,
-          "fit": 20,
-          "quality": 100,
-          "total": 140,
-          "checks": [
-            {
-              "name": "standalone HTML",
-              "passed": true
-            },
-            {
-              "name": "title preserved",
-              "passed": true
-            },
-            {
-              "name": "source anchors retained",
-              "passed": true
-            },
-            {
-              "name": "focus-visible",
-              "passed": true
-            },
-            {
-              "name": "reduced motion",
-              "passed": true
-            },
-            {
-              "name": "selection styling",
-              "passed": true
-            },
-            {
-              "name": "no placeholder copy",
-              "passed": true
-            },
-            {
-              "name": "no external asset fetch",
-              "passed": true
-            }
-          ]
-        },
-        {
-          "token": "cinematic",
-          "seed": -1625709486,
-          "fit": 19,
-          "quality": 100,
-          "total": 138,
-          "checks": [
-            {
-              "name": "standalone HTML",
-              "passed": true
-            },
-            {
-              "name": "title preserved",
-              "passed": true
-            },
-            {
-              "name": "source anchors retained",
-              "passed": true
-            },
-            {
-              "name": "focus-visible",
-              "passed": true
-            },
-            {
-              "name": "reduced motion",
-              "passed": true
-            },
-            {
-              "name": "selection styling",
-              "passed": true
-            },
-            {
-              "name": "no placeholder copy",
-              "passed": true
-            },
-            {
-              "name": "no external asset fetch",
-              "passed": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "A Letter to the Night Tide",
-      "source": "examples/end-users/tide-letter/source.html",
-      "auto": "examples/end-users/tide-letter/auto.html",
-      "report": "examples/end-users/tide-letter/auto.json",
-      "alternates": [
-        "examples/end-users/tide-letter/option-2-artistic.html",
-        "examples/end-users/tide-letter/option-3-simulation.html"
-      ],
-      "auto_token": "editorial",
-      "alternate_tokens": [
-        "artistic",
-        "simulation"
-      ],
-      "seed": 37,
-      "score": 182,
-      "candidates": [
-        {
-          "token": "editorial",
-          "seed": -522456334,
-          "fit": 41,
-          "quality": 100,
-          "total": 182,
-          "checks": [
-            {
-              "name": "standalone HTML",
-              "passed": true
-            },
-            {
-              "name": "title preserved",
-              "passed": true
-            },
-            {
-              "name": "source anchors retained",
-              "passed": true
-            },
-            {
-              "name": "focus-visible",
-              "passed": true
-            },
-            {
-              "name": "reduced motion",
-              "passed": true
-            },
-            {
-              "name": "selection styling",
-              "passed": true
-            },
-            {
-              "name": "no placeholder copy",
-              "passed": true
-            },
-            {
-              "name": "no external asset fetch",
-              "passed": true
-            }
-          ]
-        },
-        {
-          "token": "dashboard",
-          "seed": -457094690,
-          "fit": 31,
-          "quality": 100,
-          "total": 162,
-          "checks": [
-            {
-              "name": "standalone HTML",
-              "passed": true
-            },
-            {
-              "name": "title preserved",
-              "passed": true
-            },
-            {
-              "name": "source anchors retained",
-              "passed": true
-            },
-            {
-              "name": "focus-visible",
-              "passed": true
-            },
-            {
-              "name": "reduced motion",
-              "passed": true
-            },
-            {
-              "name": "selection styling",
-              "passed": true
-            },
-            {
-              "name": "no placeholder copy",
-              "passed": true
-            },
-            {
-              "name": "no external asset fetch",
-              "passed": true
-            }
-          ]
-        },
-        {
-          "token": "cinematic",
-          "seed": -1625709472,
-          "fit": 30,
-          "quality": 100,
-          "total": 160,
-          "checks": [
-            {
-              "name": "standalone HTML",
-              "passed": true
-            },
-            {
-              "name": "title preserved",
-              "passed": true
-            },
-            {
-              "name": "source anchors retained",
-              "passed": true
-            },
-            {
-              "name": "focus-visible",
-              "passed": true
-            },
-            {
-              "name": "reduced motion",
-              "passed": true
-            },
-            {
-              "name": "selection styling",
-              "passed": true
-            },
-            {
-              "name": "no placeholder copy",
-              "passed": true
-            },
-            {
-              "name": "no external asset fetch",
-              "passed": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Teralyte \u2014 Infrastructure that answers back",
-      "source": "examples/end-users/teralyte/source.html",
-      "auto": "examples/end-users/teralyte/auto.html",
-      "report": "examples/end-users/teralyte/auto.json",
-      "alternates": [
-        "examples/end-users/teralyte/option-2-landing.html",
-        "examples/end-users/teralyte/option-3-gradient.html"
-      ],
-      "auto_token": "dashboard",
-      "alternate_tokens": [
-        "landing",
-        "gradient"
-      ],
-      "seed": 43,
-      "score": 156,
-      "candidates": [
-        {
-          "token": "dashboard",
-          "seed": -457102603,
-          "fit": 28,
-          "quality": 100,
-          "total": 156,
-          "checks": [
-            {
-              "name": "standalone HTML",
-              "passed": true
-            },
-            {
-              "name": "title preserved",
-              "passed": true
-            },
-            {
-              "name": "source anchors retained",
-              "passed": true
-            },
-            {
-              "name": "focus-visible",
-              "passed": true
-            },
-            {
-              "name": "reduced motion",
-              "passed": true
-            },
-            {
-              "name": "selection styling",
-              "passed": true
-            },
-            {
-              "name": "no placeholder copy",
-              "passed": true
-            },
-            {
-              "name": "no external asset fetch",
-              "passed": true
-            }
-          ]
-        },
-        {
-          "token": "simulation",
-          "seed": 42996767,
-          "fit": 28,
-          "quality": 100,
-          "total": 156,
-          "checks": [
-            {
-              "name": "standalone HTML",
-              "passed": true
-            },
-            {
-              "name": "title preserved",
-              "passed": true
-            },
-            {
-              "name": "source anchors retained",
-              "passed": true
-            },
-            {
-              "name": "focus-visible",
-              "passed": true
-            },
-            {
-              "name": "reduced motion",
-              "passed": true
-            },
-            {
-              "name": "selection styling",
-              "passed": true
-            },
-            {
-              "name": "no placeholder copy",
-              "passed": true
-            },
-            {
-              "name": "no external asset fetch",
-              "passed": true
-            }
-          ]
-        },
-        {
-          "token": "infographic",
-          "seed": -1088296093,
-          "fit": 22,
-          "quality": 100,
-          "total": 144,
-          "checks": [
-            {
-              "name": "standalone HTML",
-              "passed": true
-            },
-            {
-              "name": "title preserved",
-              "passed": true
-            },
-            {
-              "name": "source anchors retained",
-              "passed": true
-            },
-            {
-              "name": "focus-visible",
-              "passed": true
-            },
-            {
-              "name": "reduced motion",
-              "passed": true
-            },
-            {
-              "name": "selection styling",
-              "passed": true
-            },
-            {
-              "name": "no placeholder copy",
-              "passed": true
-            },
-            {
-              "name": "no external asset fetch",
-              "passed": true
-            }
-          ]
-        }
-      ]
-    },
-    {
       "name": "Venator \u2014 Crypto Battle Royale",
       "source": "examples/end-users/venator/source.html",
       "auto": "examples/end-users/venator/auto.html",
@@ -627,8 +59,292 @@
           ]
         },
         {
+          "token": "dashboard",
+          "seed": -457094670,
+          "fit": 36,
+          "quality": 100,
+          "total": 172,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
           "token": "landing",
-          "seed": 995496307,
+          "seed": 995504226,
+          "fit": 21,
+          "quality": 100,
+          "total": 142,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Crimson Circuit \u2014 Music Festival",
+      "source": "examples/end-users/crimson-circuit/source.html",
+      "auto": "examples/end-users/crimson-circuit/auto.html",
+      "report": "examples/end-users/crimson-circuit/auto.json",
+      "alternates": [
+        "examples/end-users/crimson-circuit/option-2-gradient.html",
+        "examples/end-users/crimson-circuit/option-3-landing.html"
+      ],
+      "auto_token": "editorial",
+      "alternate_tokens": [
+        "gradient",
+        "landing"
+      ],
+      "seed": 61,
+      "score": 140,
+      "candidates": [
+        {
+          "token": "editorial",
+          "seed": -522456310,
+          "fit": 20,
+          "quality": 100,
+          "total": 140,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "cinematic",
+          "seed": -1625717367,
+          "fit": 19,
+          "quality": 100,
+          "total": 138,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "landing",
+          "seed": 995504230,
+          "fit": 18,
+          "quality": 100,
+          "total": 136,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Velocita \u2014 Skateboards",
+      "source": "examples/end-users/velocita/source.html",
+      "auto": "examples/end-users/velocita/auto.html",
+      "report": "examples/end-users/velocita/auto.json",
+      "alternates": [
+        "examples/end-users/velocita/option-2-artistic.html",
+        "examples/end-users/velocita/option-3-landing.html"
+      ],
+      "auto_token": "gradient",
+      "alternate_tokens": [
+        "artistic",
+        "landing"
+      ],
+      "seed": 73,
+      "score": 142,
+      "candidates": [
+        {
+          "token": "gradient",
+          "seed": -1661931316,
+          "fit": 21,
+          "quality": 100,
+          "total": 142,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "infographic",
+          "seed": -1088311901,
           "fit": 21,
           "quality": 100,
           "total": 142,
@@ -669,10 +385,294 @@
         },
         {
           "token": "editorial",
-          "seed": -522440476,
+          "seed": -522440460,
           "fit": 20,
           "quality": 100,
           "total": 140,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Maracuy\u00e1 \u2014 Tropical Juice Bar",
+      "source": "examples/end-users/maracuya/source.html",
+      "auto": "examples/end-users/maracuya/auto.html",
+      "report": "examples/end-users/maracuya/auto.json",
+      "alternates": [
+        "examples/end-users/maracuya/option-2-landing.html",
+        "examples/end-users/maracuya/option-3-gradient.html"
+      ],
+      "auto_token": "infographic",
+      "alternate_tokens": [
+        "landing",
+        "gradient"
+      ],
+      "seed": 89,
+      "score": 142,
+      "candidates": [
+        {
+          "token": "infographic",
+          "seed": -1088311885,
+          "fit": 21,
+          "quality": 100,
+          "total": 142,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "editorial",
+          "seed": -522448363,
+          "fit": 20,
+          "quality": 100,
+          "total": 140,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "landing",
+          "seed": 995504258,
+          "fit": 15,
+          "quality": 100,
+          "total": 130,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Flick Fits \u2014 Streetwear Drop",
+      "source": "examples/end-users/flick/source.html",
+      "auto": "examples/end-users/flick/auto.html",
+      "report": "examples/end-users/flick/auto.json",
+      "alternates": [
+        "examples/end-users/flick/option-2-landing.html",
+        "examples/end-users/flick/option-3-gradient.html"
+      ],
+      "auto_token": "infographic",
+      "alternate_tokens": [
+        "landing",
+        "gradient"
+      ],
+      "seed": 97,
+      "score": 190,
+      "candidates": [
+        {
+          "token": "infographic",
+          "seed": -1088311877,
+          "fit": 45,
+          "quality": 100,
+          "total": 190,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "editorial",
+          "seed": -522448355,
+          "fit": 20,
+          "quality": 100,
+          "total": 140,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "cinematic",
+          "seed": -1625709412,
+          "fit": 19,
+          "quality": 100,
+          "total": 138,
           "checks": [
             {
               "name": "standalone HTML",

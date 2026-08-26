@@ -31,14 +31,14 @@ npx reimagine-it --auto -i page.html -o redesign.html
 Real sources, real CLI output — four committed journeys, each with the plain source, the command, and the result on desktop and phone:
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/orbitline/before-after.gif" width="250" alt="Release desk: plain source to dashboard">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/ember-table/before-after.gif" width="250" alt="Restaurant menu to warm landing page">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/tide-letter/before-after.gif" width="250" alt="Essay to editorial magazine page">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/teralyte/before-after.gif" width="250" alt="Infra docs to dashboard and gradient deck">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/venator/before-after.gif" width="250" alt="Crypto battle royale to bold gold-and-black gradient arena">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/venator/before-after.gif" width="250" alt="Crypto battle royale to signal-yellow gradient arena">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/crimson-circuit/before-after.gif" width="250" alt="Music festival to magenta editorial poster">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/velocita/before-after.gif" width="250" alt="Skate brand to flame-orange gradient deck">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/maracuya/before-after.gif" width="250" alt="Juice bar to coral infographic menu">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/flick/before-after.gif" width="250" alt="Streetwear drop to electric-blue infographic">
 </p>
 
-<p align="center"><sub><code>orbitline</code> — release desk · <code>ember-table</code> — restaurant · <code>tide-letter</code> — essay · <code>teralyte</code> — infrastructure docs · <code>venator</code> — crypto battle royale</sub></p>
+<p align="center"><sub><code>venator</code> — crypto battle royale · <code>crimson-circuit</code> — festival · <code>velocita</code> — skateboards · <code>maracuya</code> — juice bar · <code>flick</code> — streetwear</sub></p>
 
 ## The 60-second proof
 
@@ -168,10 +168,10 @@ The intended outcome is **fresh when requested, consistent when approved** — n
 - **[Pulsewave](gold/pulsewave/)** — observability language becomes a signal-oriented system.
 - **[Two Lights](gold/twolights/)** — a personal essay becomes a lighthouse-led narrative.
 - **[Saffron & Smoke](gold/saffron/)** — a menu becomes a warm food-specific composition.
-- **[End-user examples](examples/end-users/)** — five realistic sources (release console, restaurant menu, personal essay, infrastructure docs, crypto battle royale) with source HTML, Auto output, alternate options, reports, and GIF proof on desktop and phone.
+- **[End-user examples](examples/end-users/)** — five loud sources (crypto battle royale, music festival, skate brand, juice bar, streetwear drop) with source HTML, Auto output, alternate options, reports, and GIF proof on desktop and phone. Every palette comes from hex colors already in the source.
 - **[Case studies](docs/CASE_STUDIES.md)** — four reproducible bundles: source, exact command, Auto output, two alternatives, report, and GIF proof.
 - **[Infographic showcase](https://kayforkind.github.io/reimagine-it/#infographic)** — a data-heavy field report rendered wide (desktop) and tall (phone), every number source-backed.
-- **[Gaming showcase](https://kayforkind.github.io/reimagine-it/#gaming)** — a crypto battle-royale page becomes a gold-and-black arena; Auto routes gaming sources to bold `gradient` first.
+- **[Gaming showcase](https://kayforkind.github.io/reimagine-it/#gaming)** — a crypto battle-royale page becomes a signal-yellow arena; Auto routes gaming sources to bold `gradient` first.
 - **[Full showcase](docs/SHOWCASE.md)** — source, rationale, artifact, and regeneration notes.
 
 ## Install

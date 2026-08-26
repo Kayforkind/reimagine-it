@@ -1,16 +1,16 @@
 {
   "mode": "auto",
-  "token": "gradient",
-  "seed": -1661939251,
-  "score": 174,
-  "rationale": "The source has signals that benefit from bold color meshing. Evidence: 5 anchors, 2 measurable facts.",
+  "token": "editorial",
+  "seed": -522456310,
+  "score": 140,
+  "rationale": "The source has enough text for a magazine-grade treatment. Evidence: 5 anchors, 3 measurable facts.",
   "candidates": [
     {
-      "token": "gradient",
-      "seed": -1661939251,
-      "fit": 37,
+      "token": "editorial",
+      "seed": -522456310,
+      "fit": 20,
       "quality": 100,
-      "total": 174,
+      "total": 140,
       "checks": [
         {
           "name": "standalone HTML",
@@ -47,11 +47,11 @@
       ]
     },
     {
-      "token": "dashboard",
-      "seed": -457094670,
-      "fit": 36,
+      "token": "cinematic",
+      "seed": -1625717367,
+      "fit": 19,
       "quality": 100,
-      "total": 172,
+      "total": 138,
       "checks": [
         {
           "name": "standalone HTML",
@@ -89,10 +89,10 @@
     },
     {
       "token": "landing",
-      "seed": 995504226,
-      "fit": 21,
+      "seed": 995504230,
+      "fit": 18,
       "quality": 100,
-      "total": 142,
+      "total": 136,
       "checks": [
         {
           "name": "standalone HTML",
@@ -130,98 +130,103 @@
     }
   ],
   "anchors": [
-    "Venator",
-    "Crypto Battle Royale",
-    "Venator Become",
-    "Online",
-    "Game"
+    "Crimson Circuit",
+    "Music Festival Crimson",
+    "Circuit",
+    "Lineup Main Stage",
+    "Friday"
   ],
   "facts": {
     "headings": 5,
     "paragraphs": 4,
-    "items": 4,
-    "dates": 2,
-    "numbers": 0,
+    "items": 3,
+    "dates": 1,
+    "numbers": 2,
     "links": 1
   },
-  "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\venator\\source.html",
-  "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\venator\\auto.html",
+  "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\crimson-circuit\\source.html",
+  "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\crimson-circuit\\auto.html",
   "fidelity": {
-    "preserved": 13,
-    "detected": 15,
-    "percentage": 87,
+    "preserved": 11,
+    "detected": 16,
+    "percentage": 69,
     "checks": {
       "title": [
         {
-          "value": "Venator — Crypto Battle Royale",
+          "value": "Crimson Circuit — Music Festival",
           "preserved": true
         }
       ],
       "headings": [
         {
-          "value": "Venator",
+          "value": "Crimson Circuit",
           "preserved": true
         },
         {
-          "value": "Game overview",
+          "value": "Lineup",
           "preserved": true
         },
         {
-          "value": "Season 2026",
+          "value": "Tickets",
           "preserved": true
         },
         {
-          "value": "Loadout",
+          "value": "Getting there",
           "preserved": true
         },
         {
-          "value": "Join the hunt",
+          "value": "Contact",
           "preserved": true
         }
       ],
       "dates": [
         {
-          "value": "2026",
-          "preserved": true
-        },
-        {
-          "value": "July 4, 2026",
+          "value": "June 20, 2026",
           "preserved": true
         }
       ],
-      "numbers": [],
+      "numbers": [
+        {
+          "value": "149 dollars",
+          "preserved": true
+        },
+        {
+          "value": "5 miles",
+          "preserved": false
+        }
+      ],
       "emails": [
         {
-          "value": "hello@venator.game",
+          "value": "press@crimsoncircuit.fm",
           "preserved": true
         }
       ],
       "anchors": [
         {
-          "value": "Venator",
+          "value": "Crimson Circuit",
           "preserved": true
         },
         {
-          "value": "Crypto Battle Royale",
-          "preserved": true
-        },
-        {
-          "value": "Venator Become",
+          "value": "Music Festival Crimson",
           "preserved": false
         },
         {
-          "value": "Online",
+          "value": "Circuit",
           "preserved": true
         },
         {
-          "value": "Game",
-          "preserved": true
+          "value": "Lineup Main Stage",
+          "preserved": false
+        },
+        {
+          "value": "Friday",
+          "preserved": false
         }
       ],
       "links": [
         {
-          "value": "mailto:hello@venator.game",
-          "label": "hello@venator.game",
+          "value": "mailto:press@crimsoncircuit.fm",
+          "label": "press@crimsoncircuit.fm",
           "preserved": false
         }
       ]

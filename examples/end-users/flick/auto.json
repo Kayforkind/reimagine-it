@@ -1,16 +1,16 @@
 {
   "mode": "auto",
-  "token": "gradient",
-  "seed": -1661939251,
-  "score": 174,
-  "rationale": "The source has signals that benefit from bold color meshing. Evidence: 5 anchors, 2 measurable facts.",
+  "token": "infographic",
+  "seed": -1088311877,
+  "score": 190,
+  "rationale": "The source is data-heavy (7 measurable facts) and reads best on shared scales.  Evidence: 5 anchors, 7 measurable facts.",
   "candidates": [
     {
-      "token": "gradient",
-      "seed": -1661939251,
-      "fit": 37,
+      "token": "infographic",
+      "seed": -1088311877,
+      "fit": 45,
       "quality": 100,
-      "total": 174,
+      "total": 190,
       "checks": [
         {
           "name": "standalone HTML",
@@ -47,11 +47,11 @@
       ]
     },
     {
-      "token": "dashboard",
-      "seed": -457094670,
-      "fit": 36,
+      "token": "editorial",
+      "seed": -522448355,
+      "fit": 20,
       "quality": 100,
-      "total": 172,
+      "total": 140,
       "checks": [
         {
           "name": "standalone HTML",
@@ -88,11 +88,11 @@
       ]
     },
     {
-      "token": "landing",
-      "seed": 995504226,
-      "fit": 21,
+      "token": "cinematic",
+      "seed": -1625709412,
+      "fit": 19,
       "quality": 100,
-      "total": 142,
+      "total": 138,
       "checks": [
         {
           "name": "standalone HTML",
@@ -130,98 +130,119 @@
     }
   ],
   "anchors": [
-    "Venator",
-    "Crypto Battle Royale",
-    "Venator Become",
-    "Online",
-    "Game"
+    "Flick Fits",
+    "Streetwear Drop Flick",
+    "Fits",
+    "Arcade Tee",
+    "Cargo"
   ],
   "facts": {
     "headings": 5,
     "paragraphs": 4,
-    "items": 4,
-    "dates": 2,
-    "numbers": 0,
+    "items": 3,
+    "dates": 1,
+    "numbers": 6,
     "links": 1
   },
-  "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\venator\\source.html",
-  "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\venator\\auto.html",
+  "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\flick\\source.html",
+  "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\flick\\auto.html",
   "fidelity": {
-    "preserved": 13,
-    "detected": 15,
-    "percentage": 87,
+    "preserved": 15,
+    "detected": 20,
+    "percentage": 75,
     "checks": {
       "title": [
         {
-          "value": "Venator — Crypto Battle Royale",
+          "value": "Flick Fits — Streetwear Drop",
           "preserved": true
         }
       ],
       "headings": [
         {
-          "value": "Venator",
+          "value": "Flick Fits",
           "preserved": true
         },
         {
-          "value": "Game overview",
+          "value": "The drop",
           "preserved": true
         },
         {
-          "value": "Season 2026",
+          "value": "When",
           "preserved": true
         },
         {
-          "value": "Loadout",
+          "value": "Returns",
           "preserved": true
         },
         {
-          "value": "Join the hunt",
+          "value": "Stay on the list",
           "preserved": true
         }
       ],
       "dates": [
         {
-          "value": "2026",
-          "preserved": true
-        },
-        {
-          "value": "July 4, 2026",
+          "value": "August 14, 2026",
           "preserved": true
         }
       ],
-      "numbers": [],
+      "numbers": [
+        {
+          "value": "45 dollars",
+          "preserved": true
+        },
+        {
+          "value": "78 dollars",
+          "preserved": true
+        },
+        {
+          "value": "120 dollars",
+          "preserved": true
+        },
+        {
+          "value": "14 days",
+          "preserved": true
+        },
+        {
+          "value": "7 days",
+          "preserved": true
+        },
+        {
+          "value": "2 hours",
+          "preserved": true
+        }
+      ],
       "emails": [
         {
-          "value": "hello@venator.game",
-          "preserved": true
+          "value": "crew@flickfits.co",
+          "preserved": false
         }
       ],
       "anchors": [
         {
-          "value": "Venator",
+          "value": "Flick Fits",
           "preserved": true
         },
         {
-          "value": "Crypto Battle Royale",
-          "preserved": true
-        },
-        {
-          "value": "Venator Become",
+          "value": "Streetwear Drop Flick",
           "preserved": false
         },
         {
-          "value": "Online",
+          "value": "Fits",
           "preserved": true
         },
         {
-          "value": "Game",
-          "preserved": true
+          "value": "Arcade Tee",
+          "preserved": false
+        },
+        {
+          "value": "Cargo",
+          "preserved": false
         }
       ],
       "links": [
         {
-          "value": "mailto:hello@venator.game",
-          "label": "hello@venator.game",
+          "value": "mailto:crew@flickfits.co",
+          "label": "crew@flickfits.co",
           "preserved": false
         }
       ]

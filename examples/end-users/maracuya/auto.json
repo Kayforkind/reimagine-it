@@ -1,95 +1,13 @@
 {
   "mode": "auto",
-  "token": "gradient",
-  "seed": -1661939251,
-  "score": 174,
-  "rationale": "The source has signals that benefit from bold color meshing. Evidence: 5 anchors, 2 measurable facts.",
+  "token": "infographic",
+  "seed": -1088311885,
+  "score": 142,
+  "rationale": "The source contains facts or lists that benefit from a shared visual scale.  Evidence: 5 anchors, 5 measurable facts.",
   "candidates": [
     {
-      "token": "gradient",
-      "seed": -1661939251,
-      "fit": 37,
-      "quality": 100,
-      "total": 174,
-      "checks": [
-        {
-          "name": "standalone HTML",
-          "passed": true
-        },
-        {
-          "name": "title preserved",
-          "passed": true
-        },
-        {
-          "name": "source anchors retained",
-          "passed": true
-        },
-        {
-          "name": "focus-visible",
-          "passed": true
-        },
-        {
-          "name": "reduced motion",
-          "passed": true
-        },
-        {
-          "name": "selection styling",
-          "passed": true
-        },
-        {
-          "name": "no placeholder copy",
-          "passed": true
-        },
-        {
-          "name": "no external asset fetch",
-          "passed": true
-        }
-      ]
-    },
-    {
-      "token": "dashboard",
-      "seed": -457094670,
-      "fit": 36,
-      "quality": 100,
-      "total": 172,
-      "checks": [
-        {
-          "name": "standalone HTML",
-          "passed": true
-        },
-        {
-          "name": "title preserved",
-          "passed": true
-        },
-        {
-          "name": "source anchors retained",
-          "passed": true
-        },
-        {
-          "name": "focus-visible",
-          "passed": true
-        },
-        {
-          "name": "reduced motion",
-          "passed": true
-        },
-        {
-          "name": "selection styling",
-          "passed": true
-        },
-        {
-          "name": "no placeholder copy",
-          "passed": true
-        },
-        {
-          "name": "no external asset fetch",
-          "passed": true
-        }
-      ]
-    },
-    {
-      "token": "landing",
-      "seed": 995504226,
+      "token": "infographic",
+      "seed": -1088311885,
       "fit": 21,
       "quality": 100,
       "total": 142,
@@ -127,101 +45,196 @@
           "passed": true
         }
       ]
+    },
+    {
+      "token": "editorial",
+      "seed": -522448363,
+      "fit": 20,
+      "quality": 100,
+      "total": 140,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "landing",
+      "seed": 995504258,
+      "fit": 15,
+      "quality": 100,
+      "total": 130,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        }
+      ]
     }
   ],
   "anchors": [
-    "Venator",
-    "Crypto Battle Royale",
-    "Venator Become",
-    "Online",
-    "Game"
+    "Maracuy",
+    "Tropical Juice Bar",
+    "Pressed",
+    "Mango Blaze",
+    "Lagoon Cooler"
   ],
   "facts": {
     "headings": 5,
     "paragraphs": 4,
-    "items": 4,
-    "dates": 2,
-    "numbers": 0,
+    "items": 3,
+    "dates": 1,
+    "numbers": 4,
     "links": 1
   },
-  "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\venator\\source.html",
-  "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\venator\\auto.html",
+  "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\maracuya\\source.html",
+  "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\maracuya\\auto.html",
   "fidelity": {
-    "preserved": 13,
-    "detected": 15,
-    "percentage": 87,
+    "preserved": 14,
+    "detected": 18,
+    "percentage": 78,
     "checks": {
       "title": [
         {
-          "value": "Venator — Crypto Battle Royale",
+          "value": "Maracuyá — Tropical Juice Bar",
           "preserved": true
         }
       ],
       "headings": [
         {
-          "value": "Venator",
+          "value": "Maracuyá",
           "preserved": true
         },
         {
-          "value": "Game overview",
+          "value": "The menu",
           "preserved": true
         },
         {
-          "value": "Season 2026",
+          "value": "Hours",
           "preserved": true
         },
         {
-          "value": "Loadout",
+          "value": "Locations",
           "preserved": true
         },
         {
-          "value": "Join the hunt",
+          "value": "Catering",
           "preserved": true
         }
       ],
       "dates": [
         {
-          "value": "2026",
-          "preserved": true
-        },
-        {
-          "value": "July 4, 2026",
+          "value": "December 25, 2026",
           "preserved": true
         }
       ],
-      "numbers": [],
+      "numbers": [
+        {
+          "value": "6 dollars",
+          "preserved": true
+        },
+        {
+          "value": "5 dollars",
+          "preserved": true
+        },
+        {
+          "value": "7 dollars",
+          "preserved": true
+        },
+        {
+          "value": "16 oz",
+          "preserved": true
+        }
+      ],
       "emails": [
         {
-          "value": "hello@venator.game",
-          "preserved": true
+          "value": "hola@maracuya.bar",
+          "preserved": false
         }
       ],
       "anchors": [
         {
-          "value": "Venator",
+          "value": "Maracuy",
           "preserved": true
         },
         {
-          "value": "Crypto Battle Royale",
+          "value": "Tropical Juice Bar",
           "preserved": true
         },
         {
-          "value": "Venator Become",
+          "value": "Pressed",
+          "preserved": true
+        },
+        {
+          "value": "Mango Blaze",
           "preserved": false
         },
         {
-          "value": "Online",
-          "preserved": true
-        },
-        {
-          "value": "Game",
-          "preserved": true
+          "value": "Lagoon Cooler",
+          "preserved": false
         }
       ],
       "links": [
         {
-          "value": "mailto:hello@venator.game",
-          "label": "hello@venator.game",
+          "value": "mailto:hola@maracuya.bar",
+          "label": "hola@maracuya.bar",
           "preserved": false
         }
       ]
