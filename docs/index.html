@@ -33,7 +33,9 @@ html { scrollbar-color: var(--hot) var(--void); scrollbar-width: thin; }
 .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
 
 /* ---- NAV ---- */
-nav { display: flex; justify-content: space-between; align-items: baseline; padding: 22px 0 18px; font-family: var(--mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--dim); border-bottom: 1px solid var(--line); }
+nav { position: sticky; top: 0; z-index: 60; display: flex; justify-content: space-between; align-items: center; padding: 16px 0 14px; font-family: var(--mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--dim); border-bottom: 1px solid var(--line); background: rgba(10,15,30,.82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+section[id] { scroll-margin-top: 84px; }
+.hero-aurora { top: 0; }
 nav b { color: var(--hot); }
 nav .links { display: flex; gap: 20px; flex-wrap: wrap; }
 nav .links a { color: var(--dim); transition: color .2s ease; }
@@ -66,6 +68,8 @@ h1 .grad { background: linear-gradient(100deg, var(--crimson), var(--hot) 55%, #
 
 /* ---- TRANSFORMATION WINDOW ---- */
 .transform { position: relative; border: 1px solid rgba(244,239,228,.14); border-radius: 22px; background: rgba(18,26,46,.72); backdrop-filter: blur(18px); overflow: hidden; box-shadow: 0 40px 90px -34px rgba(0,0,0,.8); }
+.transform::before { content: ""; position: absolute; inset: -1px; z-index: 0; border-radius: 22px; padding: 1px; background: linear-gradient(135deg, rgba(232,166,63,.5), rgba(178,34,52,.12) 40%, rgba(37,72,180,.35)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+.transform-head, .transform-stage, .transform-cap { position: relative; z-index: 1; }
 .transform-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 18px; border-bottom: 1px solid rgba(244,239,228,.1); font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--dim); }
 .transform-head .dots { display: flex; gap: 6px; }
 .transform-head .dots i { width: 9px; height: 9px; border-radius: 50%; background: rgba(244,239,228,.16); }
@@ -151,10 +155,10 @@ h1 .grad { background: linear-gradient(100deg, var(--crimson), var(--hot) 55%, #
 .tg-toggle:hover { border-color: #ceb27e; }
 .tg-toggle.on { color: #0a0f1e; background: #ceb27e; border-color: #ceb27e; }
 .tg-controls { display: flex; align-items: center; gap: 10px; }
-.tg-controls button { width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(244,239,228,.18); background: transparent; color: #f4efe4; font-size: 15px; cursor: pointer; transition: all .2s ease; }
-.tg-controls button:hover { border-color: #ceb27e; color: #ceb27e; }
+.tg-controls .tg-nav { width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(244,239,228,.18); background: transparent; color: #f4efe4; font-size: 15px; cursor: pointer; transition: all .2s ease; }
+.tg-controls .tg-nav:hover { border-color: #ceb27e; color: #ceb27e; }
 .tg-chips { display: flex; gap: 6px; flex-wrap: wrap; flex: 1; }
-.tg-chip { font: 700 11px ui-monospace,monospace; color: #8b93a6; background: transparent; border: 1px solid rgba(244,239,228,.14); border-radius: 999px; padding: 6px 12px; cursor: pointer; transition: all .2s ease; }
+.tg-chip { font: 700 11px ui-monospace,monospace; color: #8b93a6; background: transparent; border: 1px solid rgba(244,239,228,.14); border-radius: 999px; padding: 6px 12px; cursor: pointer; transition: all .2s ease; white-space: nowrap; }
 .tg-chip.active { color: #0a0f1e; background: #ceb27e; border-color: #ceb27e; }
 .tg-note { margin-top: 12px; font: 12px/1.5 ui-sans-serif,system-ui,sans-serif; color: #8b93a6; }
 .info-showcase { display: grid; grid-template-columns: minmax(0,1fr) 300px; gap: 18px; align-items: start; }
@@ -377,9 +381,9 @@ footer a { color: var(--hot); }
             <button id="tgLive" class="tg-toggle" title="Render the token output live in the browser — scroll and interact">▶ Live demo</button>
           </div>
           <div class="tg-controls">
-            <button id="tgPrev" aria-label="Previous token">←</button>
+            <button class="tg-nav" id="tgPrev" aria-label="Previous token">←</button>
             <div class="tg-chips" id="tgChips"></div>
-            <button id="tgNext" aria-label="Next token">→</button>
+            <button class="tg-nav" id="tgNext" aria-label="Next token">→</button>
           </div>
         </div>
         <p class="tg-note">Same source, 15 ways to compose it — 14 tokens plus <b>auto</b>, which scores three candidates and ships the strongest. Desktop <em>and</em> phone, real CLI output. Flip <b>◐ Before / After</b> to see the untouched source, or <b>▶ Live demo</b> to scroll and interact with the actual generated page.</p>

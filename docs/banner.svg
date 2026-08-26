@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="btitle bdesc">
+  <title id="btitle">reimagine-it — the source file is the design brief</title>
+  <desc id="bdesc">A plain source card transforms through an arrow into three designed direction tiles, with the headline "Your file is the brief" and the fourteen design builder tokens listed below.</desc>
+  <defs>
+    <linearGradient id="bgg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0f1e"/>
+      <stop offset=".55" stop-color="#0d1428"/>
+      <stop offset="1" stop-color="#0a1122"/>
+    </linearGradient>
+    <linearGradient id="goldLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#b22234"/>
+      <stop offset=".55" stop-color="#e8a63f"/>
+      <stop offset="1" stop-color="#f4c86b"/>
+    </linearGradient>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="34"/>
+    </filter>
+    <filter id="chipGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#e8a63f" flood-opacity=".35"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="620" rx="28" fill="url(#bgg)"/>
+  <circle cx="150" cy="110" r="250" fill="#b22234" opacity=".18" filter="url(#soft)"/>
+  <circle cx="1010" cy="150" r="280" fill="#e8a63f" opacity=".14" filter="url(#soft)"/>
+  <circle cx="620" cy="560" r="300" fill="#2548b4" opacity=".16" filter="url(#soft)"/>
+
+  <!-- LEFT: copy -->
+  <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="12" letter-spacing="3" fill="#e8a63f">
+    <text x="64" y="84">CONTENT-DERIVED DESIGN FOR AI AGENTS</text>
+  </g>
+
+  <g font-family="Georgia, 'Iowan Old Style', 'Palatino Linotype', serif" font-size="36" letter-spacing="-1" fill="#f4efe4">
+    <text x="64" y="150">Your file is the brief.</text>
+    <text x="64" y="196">Fourteen design builders.</text>
+    <text x="64" y="242">One <tspan fill="#e8a63f" font-style="italic">honest</tspan> method.</text>
+  </g>
+
+  <g font-family="ui-sans-serif, system-ui, 'Segoe UI', sans-serif" font-size="16" fill="#aeb6c8">
+    <text x="64" y="296">Palette, motifs, and motion come from the nouns,</text>
+    <text x="64" y="322">dates, and colors already in your source.</text>
+    <text x="64" y="348">No templates. No stock art.</text>
+  </g>
+
+  <rect x="64" y="376" width="488" height="54" rx="13" fill="#0d1322" stroke="rgba(244,239,228,.16)"/>
+  <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13.5" fill="#f4c86b">
+    <text x="84" y="410">npx reimagine-it --auto -i page.html -o redesign.html</text>
+  </g>
+
+  <!-- BEFORE card -->
+  <rect x="604" y="96" width="192" height="332" rx="14" fill="#111827" stroke="rgba(244,239,228,.12)"/>
+  <circle cx="622" cy="118" r="4" fill="#b22234"/>
+  <circle cx="638" cy="118" r="4" fill="#e8a63f"/>
+  <circle cx="654" cy="118" r="4" fill="#3b82f6"/>
+  <rect x="624" y="144" width="152" height="11" rx="4" fill="#1f2937"/>
+  <rect x="624" y="166" width="108" height="9" rx="4" fill="#1f2937"/>
+  <rect x="624" y="184" width="124" height="9" rx="4" fill="#1f2937"/>
+  <rect x="624" y="208" width="152" height="88" rx="8" fill="#1f2937"/>
+  <rect x="624" y="308" width="90" height="9" rx="4" fill="#1f2937"/>
+  <rect x="624" y="326" width="130" height="9" rx="4" fill="#1f2937"/>
+  <text x="700" y="414" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="11" fill="#6b7280">plain source.html</text>
+
+  <!-- ARROW -->
+  <g stroke="#e8a63f" stroke-width="3" fill="none">
+    <line x1="812" y1="262" x2="862" y2="262"/>
+    <polygon points="856,252 872,262 856,272" fill="#e8a63f" stroke="none"/>
+  </g>
+
+  <!-- AFTER tiles -->
+  <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace">
+    <g>
+      <rect x="884" y="96" width="232" height="106" rx="12" fill="#121a2e" stroke="rgba(244,239,228,.12)"/>
+      <rect x="894" y="106" width="212" height="58" rx="8" fill="#f4efe4"/>
+      <rect x="906" y="120" width="96" height="9" rx="4" fill="#c9c2b0"/>
+      <rect x="906" y="138" width="70" height="7" rx="3" fill="#d8d2c4"/>
+      <circle cx="1084" cy="136" r="7" fill="#e8a63f"/>
+      <text x="904" y="186" font-size="11" fill="#e8a63f">landing</text>
+      <text x="1100" y="186" font-size="10" fill="#6b7280" text-anchor="end">products &amp; services</text>
+    </g>
+    <g>
+      <rect x="884" y="212" width="232" height="106" rx="12" fill="#121a2e" stroke="rgba(244,239,228,.12)"/>
+      <rect x="894" y="222" width="212" height="58" rx="8" fill="#0d1624"/>
+      <rect x="906" y="234" width="40" height="24" rx="5" fill="#1c2d46"/>
+      <rect x="954" y="234" width="40" height="24" rx="5" fill="#1c2d46"/>
+      <rect x="1002" y="234" width="40" height="24" rx="5" fill="#1c2d46"/>
+      <text x="904" y="302" font-size="11" fill="#e8a63f">dashboard</text>
+      <text x="1100" y="302" font-size="10" fill="#6b7280" text-anchor="end">metrics &amp; ops</text>
+    </g>
+    <g>
+      <rect x="884" y="328" width="232" height="106" rx="12" fill="#121a2e" stroke="rgba(244,239,228,.12)"/>
+      <rect x="894" y="338" width="212" height="58" rx="8" fill="#f4efe4"/>
+      <rect x="906" y="352" width="110" height="9" rx="4" fill="#c9c2b0"/>
+      <rect x="906" y="370" width="150" height="7" rx="3" fill="#d8d2c4"/>
+      <rect x="906" y="384" width="120" height="7" rx="3" fill="#d8d2c4"/>
+      <text x="904" y="418" font-size="11" fill="#e8a63f">editorial</text>
+      <text x="1100" y="418" font-size="10" fill="#6b7280" text-anchor="end">long-form essays</text>
+    </g>
+  </g>
+  <text x="1000" y="452" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="11" fill="#6b7280">three of fourteen builders · same source, real CLI output</text>
+
+  <!-- TOKEN CHIPS row 1 -->
+  <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="11">
+    <g>
+      <rect x="64" y="492" width="52" height="30" rx="15" fill="#e8a63f" filter="url(#chipGlow)"/>
+      <text x="90" y="511" text-anchor="middle" font-weight="700" fill="#0a0f1e">auto</text>
+    </g>
+    <g>
+      <rect x="126" y="492" width="72" height="30" rx="15" fill="#121a2e" stroke="rgba(244,239,228,.16)"/>
+      <text x="162" y="511" text-anchor="middle" fill="#aeb6c8">webpage</text>
+    </g>
+    <g>
+      <rect x="208" y="492" width="72" height="30" rx="15" fill="#121a2e" stroke="rgba(244,239,228,.16)"/>
+      <text x="244" y="511" text-anchor="middle" fill="#aeb6c8">landing</text>
+    </g>
+    <g>
+      <rect x="290" y="492" width="85" height="30" rx="15" fill="#121a2e" stroke="rgba(244,239,228,.16)"/>
+      <text x="332" y="511" text-anchor="middle" fill="#aeb6c8">dashboard</text>
+    </g>
+    <g>
+      <rect x="385" y="492" width="99" height="30" rx="15" fill="#121a2e" stroke="rgba(244,239,228,.16)"/>
+      <text x="434" y="511" text-anchor="middle" fill="#aeb6c8">infographic</text>
+    </g>
+    <g>
+      <rect x="494" y="492" width="85" height="30" rx="15" fill="#121a2e" stroke="rgba(244,239,228,.16)"/>
+      <text x="536" y="511" text-anchor="middle" fill="#aeb6c8">cinematic</text>
+    </g>
+    <g>
+      <rect x="589" y="492" width="79" height="30" rx="15" fill="#121a2e" stroke="rgba(244,239,228,.16)"/>
+      <text x="628" y="511" text-anchor="middle" fill="#aeb6c8">artistic</text>
+    </g>
+    <g>
+      <rect x="678" y="492" width="99" height="30" rx="15" fill="#121a2e" stroke="rgba(244,239,228,.16)"/>
+      <text x="727" y="511" text-anchor="middle" fill="#aeb6c8">photography</text>
+    </g>
+  </g>
+
+  <!-- TOKEN CHIPS row 2 -->
+  <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="11">
+    <g>
+      <rect x="64" y="534" width="46" height="30" rx="15" fill="#121a2e" stroke="rgba(244,239,228,.16)"/>
+      <text x="87" y="553" text-anchor="middle" fill="#aeb6c8">svg</text>
+    </g>
+    <g>
+      <rect x="120" y="534" width="46" height="30" rx="15" fill="#121a2e" stroke="rgba(244,239,228,.16)"/>
+      <text x="143" y="553" text-anchor="middle" fill="#aeb6c8">3js</text>
+    </g>
+    <g>
+      <rect x="176" y="534" width="92" height="30" rx="15" fill="#121a2e" stroke="rgba(244,239,228,.16)"/>
+      <text x="222" y="553" text-anchor="middle" fill="#aeb6c8">simulation</text>
+    </g>
+    <g>
+      <rect x="278" y="534" width="59" height="30" rx="15" fill="#121a2e" stroke="rgba(244,239,228,.16)"/>
+      <text x="307" y="553" text-anchor="middle" fill="#aeb6c8">glass</text>
+    </g>
+    <g>
+      <rect x="347" y="534" width="85" height="30" rx="15" fill="#121a2e" stroke="rgba(244,239,228,.16)"/>
+      <text x="389" y="553" text-anchor="middle" fill="#aeb6c8">editorial</text>
+    </g>
+    <g>
+      <rect x="442" y="534" width="66" height="30" rx="15" fill="#121a2e" stroke="rgba(244,239,228,.16)"/>
+      <text x="475" y="553" text-anchor="middle" fill="#aeb6c8">motion</text>
+    </g>
+    <g>
+      <rect x="518" y="534" width="79" height="30" rx="15" fill="#121a2e" stroke="rgba(244,239,228,.16)"/>
+      <text x="557" y="553" text-anchor="middle" fill="#aeb6c8">gradient</text>
+    </g>
+    <text x="660" y="553" fill="#6b7280">one standalone HTML file · offline · no CDN · no Figma</text>
+  </g>
+</svg>
