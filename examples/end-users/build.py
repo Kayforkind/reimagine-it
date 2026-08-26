@@ -164,10 +164,8 @@ def _device_frame(draw, x, y, w, h, device, canvas, img):
         # bezel + rounded screen + punch hole + gesture bar
         draw.rounded_rectangle((x, y, x + w, y + h), radius=38, fill=(10, 13, 18))
         screen = (x + 12, y + 12, x + w - 12, y + h - 12)
-        shot = ImageOps.contain(img.convert("RGB"), (screen[2] - screen[0], screen[3] - screen[1]), Image.Resampling.LANCZOS)
-        sx = screen[0] + (screen[2] - screen[0] - shot.width) // 2
-        sy = screen[1] + (screen[3] - screen[1] - shot.height) // 2
-        canvas.paste(shot, (sx, sy))
+        shot = ImageOps.fit(img.convert("RGB"), (screen[2] - screen[0], screen[3] - screen[1]), Image.Resampling.LANCZOS)
+        canvas.paste(shot, (screen[0], screen[1]))
         draw.ellipse((x + w // 2 - 11, y + 26, x + w // 2 + 11, y + 48), fill=(10, 13, 18))
         draw.rounded_rectangle((x + w // 2 - 42, y + h - 12, x + w // 2 + 42, y + h - 6), radius=3, fill=(60, 68, 82))
     else:
@@ -177,10 +175,8 @@ def _device_frame(draw, x, y, w, h, device, canvas, img):
         draw.ellipse((x + 14, y + 11, x + 26, y + 23), fill=(232, 84, 110))
         draw.ellipse((x + 30, y + 11, x + 42, y + 23), fill=(232, 166, 63))
         draw.ellipse((x + 46, y + 11, x + 58, y + 23), fill=(64, 190, 145))
-        shot = ImageOps.contain(img.convert("RGB"), (w - 4, h - 40), Image.Resampling.LANCZOS)
-        sx = x + 2 + (w - 4 - shot.width) // 2
-        sy = y + 36 + (h - 40 - shot.height) // 2
-        canvas.paste(shot, (sx, sy))
+        shot = ImageOps.fit(img.convert("RGB"), (w - 4, h - 40), Image.Resampling.LANCZOS)
+        canvas.paste(shot, (x + 2, y + 36))
 
 
 def _icon(draw: ImageDraw.ImageDraw, x: int, y: int, kind: str, color: tuple[int, int, int], size: int = 16) -> None:
@@ -199,21 +195,21 @@ def _icon(draw: ImageDraw.ImageDraw, x: int, y: int, kind: str, color: tuple[int
 
 
 def compose_card(shot: Image.Image, meta: dict[str, Any], device: str = "browser") -> Image.Image:
-    """Compose one Dribbble-style exhibit: eyebrow + device + caption + action footer."""
+    """Compose one full-bleed exhibit: slim eyebrow + device filling the card + caption strip."""
     canvas = Image.new("RGB", (CARD_W, CARD_H), CARD)
     draw = ImageDraw.Draw(canvas)
-    # stage top eyebrow
-    draw.text((CARD_W // 2, 22), meta["eyebrow"], font=font(13, bold=True), fill=GOLD, anchor="ma")
-    # device area
+    # slim eyebrow strip at the very top
+    draw.text((CARD_W // 2, 20), meta["eyebrow"], font=font(12, bold=True), fill=GOLD, anchor="ma")
+    # device fills the card width; tall enough to dominate the frame
     if device == "browser":
-        dw, dh = CHROME_W, CHROME_H
+        dw, dh = 664, 559
     else:
-        dw, dh = PHONE_W, PHONE_H
+        dw, dh = 312, 570
     x = (CARD_W - dw) // 2
-    y = 54
+    y = 44
     _device_frame(draw, x, y, dw, dh, device, canvas, shot)
-    cap_y = y + dh + 22
-    # caption
+    cap_y = y + dh + 16
+    # caption: label + sub on one compact strip
     draw.text((CARD_W // 2, cap_y), meta["label"], font=font(15, bold=True), fill=PAPER, anchor="mm")
     draw.text((CARD_W // 2, cap_y + 22), meta["sub"], font=font(11), fill=MUTED, anchor="mm")
     # footer: avatar + author + PRO pill + engagement stats

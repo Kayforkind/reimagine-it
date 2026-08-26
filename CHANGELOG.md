@@ -4,6 +4,17 @@ All notable changes to reimagine-it.
 
 ---
 
+## v2.3.7 (unreleased)
+
+### Fix — landing headline overlap at phone widths; full-bleed exhibit cards
+
+- **Landing token headline no longer collides** — the landing hero forced `h1{max-width:8ch}` with `line-height:.88`, so two-word titles like "Ember & Table" wrapped into two lines that visually overlapped when the phone screenshot was scaled down. Now `max-width:15ch` with `line-height:.96` and a slightly smaller clamp — titles stay on one line down to phone width, verified by pixel-band analysis of the 480px render.
+- **Exhibit cards are full-bleed** — the Dribbble-style cards in `examples/end-users/build.py` reserved only a 396×296 browser window (55% × 41% of the 720×720 card) inside thick chrome. The browser window is now 664×559 (92% × 78%) and phone frames 312×570, with `ImageOps.fit` (crop-to-fill) instead of `contain` (letterbox) so the design fills the frame edge-to-edge — no more tiny preview inside a big block. Caption and footer strips verified non-overlapping.
+- **Hero cycler shows the full card** — the transform stage was `aspect-ratio:4/4.6` with `object-fit:cover`, cropping the square GIF's sides. Now `1/1` so the complete card is visible.
+- Regenerated all four `before-after.gif`, `gallery.gif`, the token board, and the 3js/motion animated GIFs from the fixed engine.
+
+---
+
 ## v2.3.6 (current)
 
 ### New — CI token audits, data-heavy Auto detection, animated + live gallery
