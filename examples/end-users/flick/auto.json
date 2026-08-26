@@ -3,7 +3,7 @@
   "token": "editorial",
   "seed": -522448355,
   "score": 176,
-  "rationale": "The source is data-heavy (7 measurable facts) and reads best on shared scales.  Evidence: 5 anchors, 7 measurable facts.",
+  "rationale": "The source is data-heavy (8 measurable facts) and reads best on shared scales.  Evidence: 5 anchors, 8 measurable facts.",
   "candidates": [
     {
       "token": "editorial",
@@ -83,15 +83,15 @@
     "paragraphs": 4,
     "items": 3,
     "dates": 1,
-    "numbers": 6,
+    "numbers": 7,
     "links": 1
   },
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\flick\\source.html",
   "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\flick\\auto.html",
   "fidelity": {
     "preserved": 14,
-    "detected": 20,
-    "percentage": 70,
+    "detected": 21,
+    "percentage": 67,
     "checks": {
       "title": [
         {
@@ -141,8 +141,12 @@
           "preserved": true
         },
         {
-          "value": "14 days",
+          "value": "3,000",
           "preserved": true
+        },
+        {
+          "value": "14 days",
+          "preserved": false
         },
         {
           "value": "7 days",

@@ -1,13 +1,78 @@
 {
   "mode": "auto",
-  "token": "gradient",
-  "seed": -1661939251,
-  "score": 210,
-  "rationale": "The source has signals that benefit from bold color meshing. Evidence: 5 anchors, 2 measurable facts.",
+  "token": "dashboard",
+  "seed": -457102589,
+  "score": 228,
+  "rationale": "The source contains enough measurable signals for an operational view. Evidence: 5 anchors, 4 measurable facts.",
   "candidates": [
     {
+      "token": "dashboard",
+      "seed": -457102589,
+      "fit": 46,
+      "quality": 136,
+      "total": 228,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
+          "passed": true
+        }
+      ]
+    },
+    {
       "token": "gradient",
-      "seed": -1661939251,
+      "seed": -1661931332,
       "fit": 37,
       "quality": 136,
       "total": 210,
@@ -148,15 +213,15 @@
     "paragraphs": 4,
     "items": 4,
     "dates": 2,
-    "numbers": 0,
+    "numbers": 2,
     "links": 1
   },
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\venator\\source.html",
   "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\venator\\auto.html",
   "fidelity": {
     "preserved": 13,
-    "detected": 15,
-    "percentage": 87,
+    "detected": 17,
+    "percentage": 76,
     "checks": {
       "title": [
         {
@@ -196,11 +261,20 @@
           "preserved": true
         }
       ],
-      "numbers": [],
+      "numbers": [
+        {
+          "value": "336,000",
+          "preserved": true
+        },
+        {
+          "value": "40,000",
+          "preserved": true
+        }
+      ],
       "emails": [
         {
           "value": "hello@venator.game",
-          "preserved": true
+          "preserved": false
         }
       ],
       "anchors": [
@@ -218,7 +292,7 @@
         },
         {
           "value": "Online",
-          "preserved": true
+          "preserved": false
         },
         {
           "value": "Game",

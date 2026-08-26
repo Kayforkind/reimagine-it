@@ -1,16 +1,16 @@
 {
   "mode": "auto",
-  "token": "dashboard",
-  "seed": -457102533,
-  "score": 212,
-  "rationale": "The source contains enough measurable signals for an operational view. Evidence: 5 anchors, 4 measurable facts.",
+  "token": "infographic",
+  "seed": -1088311861,
+  "score": 266,
+  "rationale": "The source is data-heavy (7 measurable facts) and reads best on shared scales.  Evidence: 5 anchors, 7 measurable facts.",
   "candidates": [
     {
-      "token": "dashboard",
-      "seed": -457102533,
-      "fit": 38,
+      "token": "infographic",
+      "seed": -1088311861,
+      "fit": 65,
       "quality": 136,
-      "total": 212,
+      "total": 266,
       "checks": [
         {
           "name": "standalone HTML",
@@ -71,11 +71,11 @@
       ]
     },
     {
-      "token": "infographic",
-      "seed": -1088303942,
-      "fit": 38,
+      "token": "dashboard",
+      "seed": -457094614,
+      "fit": 53,
       "quality": 136,
-      "total": 212,
+      "total": 242,
       "checks": [
         {
           "name": "standalone HTML",
@@ -213,15 +213,15 @@
     "paragraphs": 5,
     "items": 6,
     "dates": 0,
-    "numbers": 4,
+    "numbers": 7,
     "links": 0
   },
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\horizon\\source.html",
   "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\horizon\\auto.html",
   "fidelity": {
-    "preserved": 12,
-    "detected": 17,
-    "percentage": 71,
+    "preserved": 18,
+    "detected": 20,
+    "percentage": 90,
     "checks": {
       "title": [
         {
@@ -248,11 +248,11 @@
         },
         {
           "value": "Pricing",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "Contact",
-          "preserved": false
+          "preserved": true
         }
       ],
       "dates": [],
@@ -266,11 +266,23 @@
           "preserved": true
         },
         {
+          "value": "34 regions",
+          "preserved": true
+        },
+        {
           "value": "180ms",
           "preserved": true
         },
         {
+          "value": "1,200",
+          "preserved": true
+        },
+        {
           "value": "42%",
+          "preserved": true
+        },
+        {
+          "value": "$49",
           "preserved": true
         }
       ],
@@ -295,7 +307,7 @@
         },
         {
           "value": "Ship",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "Why",

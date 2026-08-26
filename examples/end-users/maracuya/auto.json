@@ -2,15 +2,15 @@
   "mode": "auto",
   "token": "infographic",
   "seed": -1088311885,
-  "score": 178,
-  "rationale": "The source contains facts or lists that benefit from a shared visual scale.  Evidence: 5 anchors, 5 measurable facts.",
+  "score": 220,
+  "rationale": "The source is data-heavy (6 measurable facts) and reads best on shared scales.  Evidence: 5 anchors, 6 measurable facts.",
   "candidates": [
     {
       "token": "infographic",
       "seed": -1088311885,
-      "fit": 21,
+      "fit": 42,
       "quality": 136,
-      "total": 178,
+      "total": 220,
       "checks": [
         {
           "name": "standalone HTML",
@@ -213,15 +213,15 @@
     "paragraphs": 4,
     "items": 3,
     "dates": 1,
-    "numbers": 4,
+    "numbers": 5,
     "links": 1
   },
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\maracuya\\source.html",
   "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\maracuya\\auto.html",
   "fidelity": {
-    "preserved": 14,
-    "detected": 18,
-    "percentage": 78,
+    "preserved": 15,
+    "detected": 19,
+    "percentage": 79,
     "checks": {
       "title": [
         {
@@ -272,6 +272,10 @@
         },
         {
           "value": "16 oz",
+          "preserved": true
+        },
+        {
+          "value": "1,200",
           "preserved": true
         }
       ],

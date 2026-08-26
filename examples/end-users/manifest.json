@@ -9,17 +9,82 @@
         "examples/end-users/venator/option-2-landing.html",
         "examples/end-users/venator/option-3-artistic.html"
       ],
-      "auto_token": "gradient",
+      "auto_token": "dashboard",
       "alternate_tokens": [
         "landing",
         "artistic"
       ],
       "seed": 57,
-      "score": 210,
+      "score": 228,
       "candidates": [
         {
+          "token": "dashboard",
+          "seed": -457102589,
+          "fit": 46,
+          "quality": 136,
+          "total": 228,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            },
+            {
+              "name": "type scale present",
+              "passed": true
+            },
+            {
+              "name": "art direction present",
+              "passed": true
+            },
+            {
+              "name": "motion system present",
+              "passed": true
+            },
+            {
+              "name": "palette constrained",
+              "passed": true
+            },
+            {
+              "name": "source fidelity \u2265 60%",
+              "passed": true
+            },
+            {
+              "name": "semantic landmarks",
+              "passed": true
+            }
+          ]
+        },
+        {
           "token": "gradient",
-          "seed": -1661939251,
+          "seed": -1661931332,
           "fit": 37,
           "quality": 136,
           "total": 210,
@@ -168,7 +233,7 @@
       "candidates": [
         {
           "token": "editorial",
-          "seed": -522456310,
+          "seed": -522448391,
           "fit": 20,
           "quality": 136,
           "total": 176,
@@ -248,11 +313,76 @@
         "landing"
       ],
       "seed": 73,
-      "score": 178,
+      "score": 226,
       "candidates": [
         {
           "token": "infographic",
           "seed": -1088311901,
+          "fit": 45,
+          "quality": 136,
+          "total": 226,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            },
+            {
+              "name": "type scale present",
+              "passed": true
+            },
+            {
+              "name": "art direction present",
+              "passed": true
+            },
+            {
+              "name": "motion system present",
+              "passed": true
+            },
+            {
+              "name": "palette constrained",
+              "passed": true
+            },
+            {
+              "name": "source fidelity \u2265 60%",
+              "passed": true
+            },
+            {
+              "name": "semantic landmarks",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "gradient",
+          "seed": -1661931316,
           "fit": 21,
           "quality": 136,
           "total": 178,
@@ -397,14 +527,14 @@
         "gradient"
       ],
       "seed": 89,
-      "score": 178,
+      "score": 220,
       "candidates": [
         {
           "token": "infographic",
           "seed": -1088311885,
-          "fit": 21,
+          "fit": 42,
           "quality": 136,
-          "total": 178,
+          "total": 220,
           "checks": [
             {
               "name": "standalone HTML",
@@ -761,6 +891,71 @@
               "passed": true
             }
           ]
+        },
+        {
+          "token": "infographic",
+          "seed": -1088303954,
+          "fit": 20,
+          "quality": 136,
+          "total": 176,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            },
+            {
+              "name": "type scale present",
+              "passed": true
+            },
+            {
+              "name": "art direction present",
+              "passed": true
+            },
+            {
+              "name": "motion system present",
+              "passed": true
+            },
+            {
+              "name": "palette constrained",
+              "passed": true
+            },
+            {
+              "name": "source fidelity \u2265 60%",
+              "passed": true
+            },
+            {
+              "name": "semantic landmarks",
+              "passed": true
+            }
+          ]
         }
       ]
     },
@@ -773,20 +968,20 @@
         "examples/end-users/horizon/option-2-gradient.html",
         "examples/end-users/horizon/option-3-landing.html"
       ],
-      "auto_token": "dashboard",
+      "auto_token": "infographic",
       "alternate_tokens": [
         "gradient",
         "landing"
       ],
       "seed": 113,
-      "score": 212,
+      "score": 266,
       "candidates": [
         {
-          "token": "dashboard",
-          "seed": -457102533,
-          "fit": 38,
+          "token": "infographic",
+          "seed": -1088311861,
+          "fit": 65,
           "quality": 136,
-          "total": 212,
+          "total": 266,
           "checks": [
             {
               "name": "standalone HTML",
@@ -847,11 +1042,11 @@
           ]
         },
         {
-          "token": "infographic",
-          "seed": -1088303942,
-          "fit": 38,
+          "token": "dashboard",
+          "seed": -457094614,
+          "fit": 53,
           "quality": 136,
-          "total": 212,
+          "total": 242,
           "checks": [
             {
               "name": "standalone HTML",

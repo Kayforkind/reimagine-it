@@ -1,13 +1,13 @@
 {
   "mode": "auto",
   "token": "editorial",
-  "seed": -522456310,
+  "seed": -522448391,
   "score": 176,
-  "rationale": "The source has enough text for a magazine-grade treatment. Evidence: 5 anchors, 4 measurable facts.",
+  "rationale": "The source contains facts or lists that benefit from a shared visual scale.  Evidence: 5 anchors, 5 measurable facts.",
   "candidates": [
     {
       "token": "editorial",
-      "seed": -522456310,
+      "seed": -522448391,
       "fit": 20,
       "quality": 136,
       "total": 176,
@@ -83,15 +83,15 @@
     "paragraphs": 4,
     "items": 3,
     "dates": 1,
-    "numbers": 3,
+    "numbers": 4,
     "links": 1
   },
   "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\crimson-circuit\\source.html",
   "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\crimson-circuit\\auto.html",
   "fidelity": {
-    "preserved": 13,
-    "detected": 17,
-    "percentage": 76,
+    "preserved": 14,
+    "detected": 18,
+    "percentage": 78,
     "checks": {
       "title": [
         {
@@ -130,6 +130,10 @@
       "numbers": [
         {
           "value": "149 dollars",
+          "preserved": true
+        },
+        {
+          "value": "12,000",
           "preserved": true
         },
         {

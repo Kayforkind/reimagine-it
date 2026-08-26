@@ -283,11 +283,12 @@ function extractContent(html, filePath) {
   while ((dateMatch = dateRe.exec(text)) !== null) uniquePush(dates, dateMatch[0]);
 
   var numbers = [];
-  var numberRe = /\b\d+(?:[,.]\d+)?\s*(?:ms|s|min|hr|hours?|days?|weeks?|months?|years?|seats?|users?|people|persons?|dollars?|usd|eur|gbp|gb|mb|kb|px|em|rem|rpm|acres|miles|km|metres|meters|feet|ft|pounds?|kg|g|oz|%|x|k|m|b)(?![\w])/gi;
+  // Currency amounts are always meaningful ($49, $1,200, $2.1B). Thousand-
+  // grouped digits and unit-qualified numbers carry context; bare digits
+  // (ids, hours, phone fragments) would surface as fake metrics in output.
+  var numberRe = /\$[\d,]+(?:\.\d+)?[kmb]?\b|\b\d{1,3}(?:,\d{3})+(?:\.\d+)?\b|\b\d+(?:\.\d+)?\s*(?:\/\s*)?(?:ms|s|min|hr|hours?|days?|weeks?|months?|years?|seats?|users?|people|persons?|dollars?|usd|eur|gbp|gb|mb|kb|px|em|rem|rpm|acres|miles|km|metres|meters|feet|ft|pounds?|kg|g|oz|%|x|k|m|b|mo|staff|customers?|members|donors|graduates|students|teachers|instructors|physicians|doctors|patients|homes|cabins?|apartments?|properties|units|rooms|reviews|stars|sellers|buyers|downloads|cities|states|regions|countries|players|pilots|teams|devices|tokens|calls|games|levels|biomes|seasons|ships|systems|plans|tracks|freelancers|listings|prints|editions|origins|riders|rides|buses|stations|visits|classes|lessons|courses|warranty|trims|patches|fine-tunes?)(?![\w])/gi;
   var numberMatch;
   while ((numberMatch = numberRe.exec(text)) !== null) uniquePush(numbers, numberMatch[0]);
-  // Only unit-qualified numbers are kept. Bare digits (ids, hours, phone
-  // fragments) have no context and would surface as fake metrics in output.
 
   var properNouns = [];
   var properRe = /\b[A-Z][a-zA-Z]{2,}(?:\s+[A-Z][a-zA-Z]{2,}){0,2}\b/g;
