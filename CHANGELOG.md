@@ -6,6 +6,13 @@ All notable changes to reimagine-it.
 
 ## v2.3.5 (current)
 
+### New — token gallery upgrades
+
+- **Auto chip** — the gallery now leads with `auto`, showing the scored best-of-three direction (for the showcase source: editorial, score 182), then all 14 tokens.
+- **Before / After toggle** — each preview flips to the untouched source with one click (shared `tokens/before-desktop.png` / `before-phone.png`).
+- **Infographic showcase section** — a new data-heavy source (`examples/infographic/source.html`, a field-season report with 14 species, 320 miles, 1,180 hours, 42% jump) rendered at wide desktop width and tall phone width, with the source and command documented.
+- **Token audit tooling** — `scripts/audit-tokens.js` (structural: undefined/NaN/empty-body/misplaced-markup) and `scripts/render-audit.js` (headless render: visible text, no horizontal overflow, heading present). All 14 tokens pass both.
+
 ### Fix — the `webpage` token again (patch over 2.3.4)
 
 2.3.4 shipped a broken `webpage` generator (empty body), fixed in this release. Token gallery added; examples sharpened. See v2.3.4 notes below for the full list.

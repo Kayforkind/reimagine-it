@@ -144,9 +144,52 @@ def build_board(kind: str) -> None:
     print(f"wrote {out} ({bw}x{bh})")
 
 
+def build_extras() -> None:
+    """Before/after source shots, Auto output, and the infographic wide+tall showcase."""
+    browser = find_browser()
+    shot_w, shot_h = 1480, 1250
+    with tempfile.TemporaryDirectory(prefix="token-extra-") as tmp:
+        scratch = Path(tmp)
+        SCREEN_OUT.mkdir(parents=True, exist_ok=True)
+
+        # before (the source, untouched) + after (Auto-chosen direction)
+        before = scratch / "before.html"
+        before.write_text(SOURCE.read_text(encoding="utf-8"), encoding="utf-8")
+        screenshot(browser, before, SCREEN_OUT / "before-desktop.png", shot_w, shot_h)
+        screenshot(browser, before, SCREEN_OUT / "before-phone.png", 480, 960)
+
+        auto = scratch / "auto.html"
+        subprocess.run(
+            [NODE, "scripts/auto.js", "--input", str(SOURCE), "--output", str(auto),
+             "--seed", SEED, "--quiet"],
+            cwd=ROOT, check=True, capture_output=True,
+        )
+        screenshot(browser, auto, SCREEN_OUT / "auto-desktop.png", shot_w, shot_h)
+        screenshot(browser, auto, SCREEN_OUT / "auto-phone.png", 480, 960)
+        print("  before/auto shots OK")
+
+        # infographic showcase from a data-heavy source
+        info_src = ROOT / "examples" / "infographic" / "source.html"
+        info = scratch / "infographic.html"
+        subprocess.run(
+            [NODE, "bin/reimagine-it.js", "--input", str(info_src), "--token", "infographic",
+             "--output", str(info), "--seed", SEED, "--quiet"],
+            cwd=ROOT, check=True, capture_output=True,
+        )
+        info_out = ROOT / "docs" / "infographic"
+        info_out.mkdir(parents=True, exist_ok=True)
+        info_out.joinpath("wide.html").write_bytes(info.read_bytes())
+        screenshot(browser, info, info_out / "wide.png", shot_w, shot_h)
+        screenshot(browser, info, info_out / "tall.png", 480, 960)
+        screenshot(browser, info_src, info_out / "source-wide.png", shot_w, shot_h)
+        screenshot(browser, info_src, info_out / "source-tall.png", 480, 960)
+        print("  infographic wide+tall showcase OK")
+
+
 def main() -> int:
     build_board("desktop")
     build_board("phone")
+    build_extras()
     return 0
 
 

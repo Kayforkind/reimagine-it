@@ -138,13 +138,23 @@ h1 .grad { background: linear-gradient(100deg, var(--crimson), var(--hot) 55%, #
 .tg-phone { position: relative; border: 1px solid rgba(244,239,228,.12); border-radius: 16px; overflow: hidden; background: #0d1322; }
 .tg-phone img { display: block; width: 100%; height: auto; }
 .tg-phone span { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); font: 700 10px ui-monospace,monospace; letter-spacing: .14em; text-transform: uppercase; color: #ceb27e; background: rgba(10,15,30,.8); border: 1px solid rgba(244,239,228,.14); border-radius: 999px; padding: 4px 10px; }
-.tg-controls { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
+.tg-bar { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 14px; flex-wrap: wrap; }
+.tg-toggle { font: 700 11px ui-monospace,monospace; letter-spacing: .08em; text-transform: uppercase; color: #f4efe4; background: rgba(206,178,126,.12); border: 1px solid rgba(206,178,126,.4); border-radius: 999px; padding: 9px 16px; cursor: pointer; transition: all .2s ease; white-space: nowrap; }
+.tg-toggle:hover { border-color: #ceb27e; }
+.tg-toggle.on { color: #0a0f1e; background: #ceb27e; border-color: #ceb27e; }
+.tg-controls { display: flex; align-items: center; gap: 10px; }
 .tg-controls button { width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(244,239,228,.18); background: transparent; color: #f4efe4; font-size: 15px; cursor: pointer; transition: all .2s ease; }
 .tg-controls button:hover { border-color: #ceb27e; color: #ceb27e; }
 .tg-chips { display: flex; gap: 6px; flex-wrap: wrap; flex: 1; }
 .tg-chip { font: 700 11px ui-monospace,monospace; color: #8b93a6; background: transparent; border: 1px solid rgba(244,239,228,.14); border-radius: 999px; padding: 6px 12px; cursor: pointer; transition: all .2s ease; }
 .tg-chip.active { color: #0a0f1e; background: #ceb27e; border-color: #ceb27e; }
 .tg-note { margin-top: 12px; font: 12px/1.5 ui-sans-serif,system-ui,sans-serif; color: #8b93a6; }
+.info-showcase { display: grid; grid-template-columns: minmax(0,1fr) 300px; gap: 18px; align-items: start; }
+.info-showcase figure { margin: 0; border: 1px solid rgba(244,239,228,.12); border-radius: 16px; overflow: hidden; background: #0d1322; box-shadow: 0 24px 60px -30px rgba(0,0,0,.8); }
+.info-showcase img { display: block; width: 100%; height: auto; }
+.info-showcase figcaption { padding: 10px 14px; font: 700 11px ui-monospace,monospace; letter-spacing: .08em; text-transform: uppercase; color: #8b93a6; border-top: 1px solid rgba(244,239,228,.1); }
+.info-showcase figcaption code { color: #ceb27e; }
+@media(max-width:820px){ .info-showcase { grid-template-columns: 1fr; } }
 @media(max-width:760px){ .token-gallery-stage { grid-template-columns: 1fr; } .tg-phone { display: none; } }
 .token-card { position: relative; background: rgba(18,26,46,.55); border: 1px solid rgba(244,239,228,.09); border-radius: 16px; padding: 22px 20px 20px; transition: transform .2s ease, border-color .2s ease, background .2s ease; overflow: hidden; }
 .token-card::before { content: attr(data-no); position: absolute; right: 14px; bottom: 4px; font-family: var(--serif); font-size: 54px; color: rgba(244,239,228,.05); line-height: 1; }
@@ -345,12 +355,15 @@ footer a { color: var(--hot); }
           </div>
           <div class="tg-phone"><img id="tgPhone" src="tokens/webpage-phone.png" alt="Token phone preview"><span>mobile</span></div>
         </div>
-        <div class="tg-controls">
-          <button id="tgPrev" aria-label="Previous token">←</button>
-          <div class="tg-chips" id="tgChips"></div>
-          <button id="tgNext" aria-label="Next token">→</button>
+        <div class="tg-bar">
+          <button id="tgToggle" class="tg-toggle" title="Flip between the original source and the redesigned output">◐ Before / After</button>
+          <div class="tg-controls">
+            <button id="tgPrev" aria-label="Previous token">←</button>
+            <div class="tg-chips" id="tgChips"></div>
+            <button id="tgNext" aria-label="Next token">→</button>
+          </div>
         </div>
-        <p class="tg-note">Same source, 14 structurally different compositions — desktop <em>and</em> phone, real CLI output.</p>
+        <p class="tg-note">Same source, 15 ways to compose it — 14 tokens plus <b>auto</b>, which scores three candidates and ships the strongest. Desktop <em>and</em> phone, real CLI output. Flip <b>◐ Before / After</b> to see the untouched source.</p>
       </div>
       <div class="tokens-grid">
           <div class="token-card reveal" data-no="01"><code>webpage</code><h3>Articles and source documents</h3><p>Measured reading hierarchy</p></div>
@@ -368,6 +381,16 @@ footer a { color: var(--hot); }
           <div class="token-card reveal" data-no="13"><code>motion</code><h3>Scroll-driven stories</h3><p>Animated reveals and parallax</p></div>
           <div class="token-card reveal" data-no="14"><code>gradient</code><h3>Bold brand presentations</h3><p>Gradient mesh cards and text</p></div>
       </div>
+    </section>
+
+    <section class="case-section" id="infographic">
+      <h2>Infographics — wide <em>and</em> tall.</h2>
+      <p class="sub">A data-heavy source — 14 species, 320 miles, 1,180 volunteer hours, a 42% jump — rendered as a dense infographic at desktop width and phone width. Same command, two aspect ratios.</p>
+      <div class="info-showcase reveal">
+        <figure class="info-wide"><img src="infographic/wide.png" alt="Infographic at wide desktop width"><figcaption>wide — desktop <code>--token infographic</code></figcaption></figure>
+        <figure class="info-tall"><img src="infographic/tall.png" alt="Infographic at tall phone width"><figcaption>tall — mobile</figcaption></figure>
+      </div>
+      <p class="tg-note">Source: <a href="https://github.com/Kayforkind/reimagine-it/blob/main/examples/infographic/source.html">Cedar &amp; Ash — 2026 Season Field Report</a> · command: <code>npx reimagine-it -i source.html -t infographic -o report.html</code> · every number below appears in the source.</p>
     </section>
 
     <section class="install-section" id="install">
@@ -497,9 +520,9 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
   /* method card ghost numerals */
   document.querySelectorAll('.method-card').forEach(function(card, i){ card.setAttribute('data-no', '0' + (i + 1)); });
-  /* token gallery: 14 tokens, desktop + phone side by side */
+  /* token gallery: auto + 14 tokens, desktop + phone side by side, before/after toggle */
   var tg = [
-    ['webpage','Measured reading hierarchy'],['landing','Hero and action rhythm'],['dashboard','Console, KPIs, and status'],
+    ['auto','Auto — chose editorial (score 182)'],['webpage','Measured reading hierarchy'],['landing','Hero and action rhythm'],['dashboard','Console, KPIs, and status'],
     ['infographic','Shared scales and timelines'],['cinematic','Depth and paced chapters'],['artistic','Asymmetric type and layered fields'],
     ['photography','Folio plates and captions'],['svg','Inline geometric illustration'],['3js','Offline orbitable canvas'],
     ['simulation','Playable timeline and scrubber'],['glass','Frosted backdrop depth'],['editorial','Magazine layout with drop caps'],
@@ -509,15 +532,27 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
   var tgToken = document.getElementById('tgToken'), tgBlurb = document.getElementById('tgBlurb');
   var tgChips = document.getElementById('tgChips');
   var tgPrev = document.getElementById('tgPrev'), tgNext = document.getElementById('tgNext');
-  var tgIdx = 0;
+  var tgToggle = document.getElementById('tgToggle');
+  var tgIdx = 0, tgAfter = true;
   function tgShow(i){
     tgIdx = (i + tg.length) % tg.length;
     var t = tg[tgIdx];
+    tgAfter = true;
     tgDesk.src = 'tokens/' + t[0] + '-desktop.png';
     tgPhone.src = 'tokens/' + t[0] + '-phone.png';
     tgToken.textContent = t[0];
     tgBlurb.textContent = t[1];
     tgChips.querySelectorAll('.tg-chip').forEach(function(c, k){ c.classList.toggle('active', k === tgIdx); });
+    tgToggle.classList.remove('on');
+  }
+  function tgFlip(){
+    tgAfter = !tgAfter;
+    var t = tg[tgIdx];
+    tgDesk.src = (tgAfter ? 'tokens/' + t[0] : 'tokens/before') + '-desktop.png';
+    tgPhone.src = (tgAfter ? 'tokens/' + t[0] : 'tokens/before') + '-phone.png';
+    tgToken.textContent = tgAfter ? t[0] : 'source';
+    tgBlurb.textContent = tgAfter ? t[1] : 'the untouched input — no edits';
+    tgToggle.classList.toggle('on', !tgAfter);
   }
   if (tgChips && tgDesk && tgPhone) {
     tg.forEach(function(t, i){
@@ -529,6 +564,7 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
     });
     if (tgPrev) tgPrev.addEventListener('click', function(){ tgShow(tgIdx - 1); });
     if (tgNext) tgNext.addEventListener('click', function(){ tgShow(tgIdx + 1); });
+    if (tgToggle) tgToggle.addEventListener('click', tgFlip);
   }
 })();
 </script>
