@@ -235,6 +235,45 @@ test('all tokens include craft-floor CSS', function() {
   });
 });
 
+test('no token embeds a literal undefined or drops shared CSS systems', function() {
+  // Regression: the token dispatch switch used to run above the
+  // `var bandCss` / `var artCss` assignments inside generate(), so every
+  // page shipped those entire CSS systems as a literal `undefined` while
+  // still passing the craft audit (which inspects body markup, not CSS).
+  var all = ['webpage','landing','dashboard','infographic','cinematic','artistic','photography','svg','3js','simulation','glass','editorial','motion','gradient','showcase'];
+  // 3js and glass are self-contained (canvas / glass-panel systems) and
+  // never embed the shared band/art CSS; every other token must carry at
+  // least one marker from those shared systems.
+  var shared = ['.mesh{', '.glyph-tile{', '.iso-prism{', '.donut-chart{', '.band-footer{'];
+  var contents = [
+    sampleContent,
+    { title: 'Numbers heavy', palette: {ground:'#0b0f19',accent:'#ffd400',muted:'#8896a8',surface:'#141a26',ink:'#fff'}, headings: ['Season 2026', 'Loadout', 'Join the hunt'], paragraphs: ['Become a real venator. Online crypto-shooter where you trade, earn, and profit.'], items: [], links: [{href:'https://example.com',label:'Play now'}], emails: [], dates: ['2026', 'July 4, 2026'], numbers: ['336,000', '40,000'], properNouns: [], nouns: [], anchors: ['Venator', 'Game overview', 'Join the hunt', 'Crypto battle royale'], profile: 'default', density: 'medium' },
+  ];
+  contents.forEach(function(content) {
+    all.forEach(function(token) {
+      var out = generate({content: content, token: token, seed: 7});
+      assert.ok(out.indexOf('undefined') === -1, token + ': output embeds a literal undefined');
+      if (shared.some(function(marker) { return out.indexOf(marker) >= 0; })) return; // system present
+      assert.ok(token === '3js' || token === 'glass', token + ': missing every shared CSS system marker');
+    });
+  });
+});
+
+test('palette-constrained check counts hexes case-insensitively and tolerates brand-color sources', function() {
+  // A source that declares 3 brand hexes must not trip the palette gate:
+  // the engine preserves the brand colors (verbatim in body text + lowercased
+  // in CSS vars) and adds its accent tint family. The check used to count
+  // #FF3366 and #ff3366 as two colors, pushing such sources over the cap.
+  var colored = '<h1>Colored</h1><p>Brand colors: primary #FF3366, secondary #00C2FF, background #0A0A0F. We love bold red and cyan.</p>';
+  var content = extractMod.extractContent(colored, 'Colored.html');
+  ['landing', 'infographic'].forEach(function(token) {
+    var out = generate({content: content, token: token, seed: 42});
+    var audit = autoMod.qualityScore(out, content, {});
+    var palette = audit.checks.filter(function(check) { return check.name === 'palette constrained'; })[0];
+    assert.ok(palette && palette.passed, token + ': brand-color source must stay palette-constrained');
+  });
+});
+
 test('same seed produces identical output', function() {
   var a = generate({content: sampleContent, token: 'webpage', seed: 42});
   var b = generate({content: sampleContent, token: 'webpage', seed: 42});

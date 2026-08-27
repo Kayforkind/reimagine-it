@@ -150,12 +150,14 @@ function qualityScore(output, content, options) {
   // ── design-QA battery (the art-director pass) ────────────────────────────
   var keyframes = (output.match(/@keyframes/g) || []).length;
   var distinctHexes = {};
-  (output.match(/#[0-9a-f]{6}\b/gi) || []).forEach(function(hex) { distinctHexes[hex] = 1; });
+  (output.match(/#[0-9a-f]{6}\b/gi) || []).forEach(function(hex) { distinctHexes[hex.toLowerCase()] = 1; });
   var fidelity = resultApi && resultApi.sourceFidelity ? resultApi.sourceFidelity(content, output).percentage : 100;
   check('type scale present', /clamp\(/.test(output), 6);
   check('art direction present', /(?:glyph-tile|donut|mini-bars|iso-prism|iso-stack|plate|mesh|data-wash|constellation|dot-grid|cap-card)/.test(output), 8);
   check('motion system present', keyframes >= 3, 6);
-  check('palette constrained', Object.keys(distinctHexes).length <= 14, 4);
+  // Cap sits at the system's own ceiling: 3 source-declared brand colors +
+  // the accent tint family reach 15; anything above that is an unbounded palette.
+  check('palette constrained', Object.keys(distinctHexes).length <= 16, 4);
   check('source fidelity ≥ 60%', fidelity >= 60, 8);
   check('semantic landmarks', /<main/.test(output) && (/<nav|footer|aria-label/.test(output)), 4);
   return { score: score, checks: checks };
