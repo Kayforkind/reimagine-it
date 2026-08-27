@@ -4,7 +4,21 @@ All notable changes to reimagine-it.
 
 ---
 
-## v2.4.2 (current)
+## v2.4.3 (current)
+
+### Fix — token dispatch ran before shared CSS systems were built
+
+- **Root cause: every generated page embedded `undefined` where its shared CSS should be.** The token `switch` (which calls `webpage()`, `landing()`, `dashboard()`, …) sat *above* the `var bandCss` / `var artCss` assignments inside `generate()`. Function declarations hoist, but the CSS strings they embed are assigned in order — so when the switch ran, both were still `undefined`. Every page shipped without its mesh aurora fields, giant data-wash numbers, dot grids, constellations, iso-stacks, glyph tiles, donut charts, mini bars, stats bands, bento grids, and band marquees/footers. Pages still *passed* the craft audit because the checks look at body markup, not the missing CSS.
+
+- **Fix: the dispatch switch now runs after every shared CSS system is assigned.** Output for every token grows by the full band/art CSS (e.g. the venator webpage render 15 KB → 24 KB) and no longer contains a literal `undefined`.
+
+- **Data-wash numbers no longer glue together.** The giant faded source numbers behind heroes used `white-space:nowrap` with no width cap, so `336,000` + `40,000` rendered as one clipped blob (`336,00040,00`). The wash is now `space-evenly` with `gap`, a `32vw` per-span cap, and `text-overflow:ellipsis` at narrow widths — numbers stay separate and legible on desktop and phone.
+
+- **The webpage token's isometric stamp now floats.** `artCss` (prism float, drop shadow, glyph tiles) was never included in the webpage token's stylesheet; the hero stamp now carries it like every other token.
+
+- **All seven end-user examples regenerated through the fixed engine** — `auto.html`, alternates, `before-after.webp`, `gallery.webp`, and the showcase desktop/phone shots are rebuilt, and `docs/engine.js` + `extension/engine.js` are rebuilt so the live playground shares the fix. 57/57 tests pass; browser-bundle freshness green.
+
+## v2.4.2
 
 ### Feature — source fidelity floor raised to 80% across every token
 

@@ -797,25 +797,6 @@ function generate(opts) {
   var srcIndexCss = '.src-index{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;max-width:1080px;margin:0 auto;padding:18px 28px 26px;font:11px ' + mono + ';color:var(--m)}.src-index>span{letter-spacing:.16em;text-transform:uppercase;color:var(--a);margin-right:4px}.src-index a{color:var(--m);text-decoration:none;border-bottom:1px dashed color-mix(in srgb,var(--m) 40%,transparent);transition:color .2s ease,border-color .2s ease}.src-index a:hover{color:var(--a);border-color:var(--a)}';
   var svgSans = sans.replace(/"/g, '');
 
-  switch (token) {
-    case 'webpage': return webpage();
-    case 'landing': return landing();
-    case 'dashboard': return dashboard();
-    case 'infographic': return infographic();
-    case 'cinematic': return cinematic();
-    case 'artistic': return artistic();
-    case 'photography': return photography();
-    case 'svg': return svg();
-    case '3js': return threejs();
-    case 'simulation': return simulation();
-    case 'glass': return glass();
-    case 'editorial': return editorial();
-    case 'motion': return motion();
-    case 'gradient': return gradient();
-    case 'showcase': return showcase();
-    default: return webpage();
-  }
-
   function sourceIndex() {
     var seen = {}, items = [];
     (content.links || []).forEach(function(link) {
@@ -993,7 +974,7 @@ function generate(opts) {
 
   var bandCss =
     '.mesh{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}.mesh i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;background:radial-gradient(circle at 35% 35%,color-mix(in srgb,var(--a2) 55%,transparent),transparent 70%);animation:mesh-drift 24s ease-in-out infinite alternate;animation-delay:calc(var(--mb,0)*-7s)}.mesh i:nth-child(2){background:radial-gradient(circle at 60% 40%,color-mix(in srgb,var(--a3) 45%,transparent),transparent 70%);width:46vmax;height:46vmax;right:-12vmax;top:-8vmax}.mesh i:nth-child(3){background:radial-gradient(circle at 70% 60%,color-mix(in srgb,var(--a) 38%,transparent),transparent 72%);width:40vmax;height:40vmax;left:-8vmax;bottom:-14vmax;animation-duration:30s}@keyframes mesh-drift{from{transform:translate(0,0) scale(1)}to{transform:translate(6vmax,4vmax) scale(1.18)}}' +
-    '.data-wash{position:absolute;inset:0;display:flex;align-items:center;gap:clamp(18px,4vw,64px);overflow:hidden;pointer-events:none;z-index:0;color:var(--a);opacity:.07}.data-wash span{font:700 clamp(70px,16vw,220px)/1 ' + serif + ';letter-spacing:-.05em;white-space:nowrap;user-select:none}' +
+    '.data-wash{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-evenly;gap:clamp(24px,6vw,96px);overflow:hidden;pointer-events:none;z-index:0;color:var(--a);opacity:.08}.data-wash span{font:700 clamp(28px,7.5vw,150px)/1 ' + serif + ';letter-spacing:-.03em;white-space:nowrap;user-select:none;max-width:32vw;overflow:hidden;text-overflow:ellipsis}.data-wash span:last-child{max-width:none}@media(max-width:640px){.data-wash span{max-width:40vw}}' +
     '.dot-grid{position:absolute;inset:0;width:100%;height:100%;color:var(--a);opacity:.5;pointer-events:none;z-index:0}' +
     '.constellation{display:block;width:100%;height:auto;color:var(--a)}.constellation line{stroke:currentColor;stroke-width:.6;opacity:.5}.constellation circle{fill:currentColor;opacity:.85}.constellation .cn-core{fill:currentColor;opacity:.95}' +
     '.iso-stack{position:relative;width:120px;height:120px;transform-style:preserve-3d;transform:rotateX(58deg) rotateZ(-34deg);animation:stack-float 7s ease-in-out infinite}.iso-stack i{position:absolute;inset:0;border:1px solid color-mix(in srgb,var(--a2) 55%,transparent);background:linear-gradient(135deg,color-mix(in srgb,var(--a2) 24%,transparent),color-mix(in srgb,var(--a3) 14%,transparent));border-radius:14px;transform:translateZ(calc(var(--li,0)*14px)) translateY(calc(var(--li,0)*-6px))}@keyframes stack-float{50%{transform:rotateX(58deg) rotateZ(-34deg) translateY(-10px)}}' +
@@ -1037,7 +1018,7 @@ function generate(opts) {
       '.section .fact span{color:var(--m);margin-right:8px}' +
       '.source-block{margin-top:48px;padding:24px 0 6px;border-top:1px solid ' + border + '}.source-block ul{display:flex;gap:14px;flex-wrap:wrap;list-style:none;font-size:13px;margin-top:14px}.source-block a{color:var(--m);text-decoration:none;border-bottom:1px solid transparent}.source-block a:hover{color:var(--a);border-color:var(--a)}' +
       '@media(max-width:700px){.hero{grid-template-columns:1fr}.stamp{justify-self:start;transform:none}.section{grid-template-columns:42px 1fr;gap:12px}}' +
-      '.hero{position:relative;overflow:hidden}.hero>*{position:relative;z-index:1}' + bandCss +
+      '.hero{position:relative;overflow:hidden}.hero>*{position:relative;z-index:1}' + artCss + bandCss +
     '@keyframes sec-in{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}' +
     '@supports not (animation-timeline:view()){.section{opacity:1;animation:none}}';
     var wash = dataWash(content.numbers, 6);
@@ -1187,6 +1168,28 @@ function generate(opts) {
     '.iso-prism{display:block;width:100%;height:auto;filter:drop-shadow(0 10px 22px rgba(0,0,0,.25));animation:prism-float 6s ease-in-out infinite}' +
     '@keyframes prism-float{50%{transform:translateY(-8px) rotate(.6deg)}}' +
     '@media(max-width:560px){.donut-chart{flex-direction:column;align-items:flex-start}.mbar{grid-template-columns:1fr 1.4fr 34px}}';
+
+  // Dispatch after every shared CSS system (bandCss, artCss) is assigned.
+  // The token functions are hoisted, but the var-assigned CSS they embed is
+  // not — running this switch earlier would inject literal `undefined`.
+  switch (token) {
+    case 'webpage': return webpage();
+    case 'landing': return landing();
+    case 'dashboard': return dashboard();
+    case 'infographic': return infographic();
+    case 'cinematic': return cinematic();
+    case 'artistic': return artistic();
+    case 'photography': return photography();
+    case 'svg': return svg();
+    case '3js': return threejs();
+    case 'simulation': return simulation();
+    case 'glass': return glass();
+    case 'editorial': return editorial();
+    case 'motion': return motion();
+    case 'gradient': return gradient();
+    case 'showcase': return showcase();
+    default: return webpage();
+  }
 
   function glyphTiles(anchors, count, size) {
     // Monogram plates: the first letter of each anchor on a tinted tile.
