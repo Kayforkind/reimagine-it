@@ -4,7 +4,10 @@
   "description": "Content-Derived Design CLI and agent skill. Reads existing HTML and writes a stronger standalone page from the nouns, dates, numbers, and colors already in the file.",
   "license": "MIT",
   "author": "Kayforkind",
-  "repository": "github:Kayforkind/reimagine-it",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kayforkind/reimagine-it.git"
+  },
   "homepage": "https://kayforkind.github.io/reimagine-it/",
   "keywords": [
     "agent-skills",
@@ -77,8 +80,8 @@
     "@modelcontextprotocol/sdk": "^1.0.0"
   },
   "bin": {
-    "reimagine-it": "./bin/reimagine-it.js",
-    "reimagine-it-mcp": "./mcp/server.js"
+    "reimagine-it": "bin/reimagine-it.js",
+    "reimagine-it-mcp": "mcp/server.js"
   },
   "publishConfig": {
     "access": "public"

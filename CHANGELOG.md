@@ -19,6 +19,7 @@ All notable changes to reimagine-it.
 - `docs/SHOWCASE.md` no longer sells a 13-page Texas gallery as the product proof.
 - Landing page no longer advertises gold/five CLI/protocol fixtures as engine output.
 - Gold audit sweep skips gitignored local shot files so `npm test` matches CI.
+- **npm:** `reimagine-it@2.4.4` is published. Tagged GitHub releases auto-publish through `NPM_TOKEN`.
 
 ## v2.4.3
 

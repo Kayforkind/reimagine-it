@@ -181,6 +181,21 @@ The intended outcome is **fresh when requested, consistent when approved** — n
 
 ## Install
 
+### CLI (npm)
+
+```bash
+npx reimagine-it --auto -i page.html -o redesign.html
+```
+
+Or install once:
+
+```bash
+npm install -g reimagine-it
+reimagine-it --auto -i page.html -o redesign.html
+```
+
+Package: [npmjs.com/package/reimagine-it](https://www.npmjs.com/package/reimagine-it) · current release **2.4.4**.
+
 ### Agent Skill
 
 ```bash
