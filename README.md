@@ -5,7 +5,7 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/audit.yml?branch=main&label=CI&logo=github)](https://github.com/Kayforkind/reimagine-it/actions/workflows/audit.yml)
 [![Benchmark](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/benchmark.yml?branch=main&label=benchmark%20100%2F100)](https://github.com/Kayforkind/reimagine-it/actions/workflows/benchmark.yml)
 [![Design Health](https://img.shields.io/github/actions/workflow/status/Kayforkind/design-health-action/audit.yml?branch=main&label=Design%20Health&logo=github)](https://github.com/Kayforkind/design-health-action/actions/workflows/audit.yml)
-[![version 2.3.7](https://img.shields.io/badge/version-2.3.7-b22234.svg)](CHANGELOG.md)
+[![version 2.4.4](https://img.shields.io/badge/version-2.4.4-b22234.svg)](CHANGELOG.md)
 [![npm](https://img.shields.io/npm/v/reimagine-it?color=e8a63f&label=npm)](https://www.npmjs.com/package/reimagine-it)
 [![MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE)
 [![skills.sh](https://skills.sh/b/kayforkind/reimagine-it)](https://skills.sh/kayforkind/reimagine-it)
@@ -30,7 +30,7 @@ npx reimagine-it --auto -i page.html -o redesign.html
 
 ## See it work
 
-Real sources, real CLI output — four committed journeys, each with the plain source, the command, and the result on desktop and phone:
+Real sources, real CLI output — seven committed journeys, each with the plain source, the command, and the result on desktop and phone:
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/venator/before-after.webp" width="250" alt="Crypto battle royale to signal-yellow mission dashboard">
@@ -84,7 +84,7 @@ The report records the selected direction, candidate scores, seed, rationale, so
 
 ## Fifteen design builders
 
-Every token is a real generator in the engine — each one reads the same extracted content and builds a structurally different composition. No templates, no stock art, nothing invented. Every builder also ships with a content-derived art layer: anchor initials become monogram tiles, source numbers become donut and bar charts, and the palette shades isometric 3D prisms — all inline SVG, all offline.
+Every token is a real generator in the engine — each one reads the same extracted content and builds a structurally different composition. Layouts are generated, not pasted from a design kit; source facts are not invented. Every builder also ships with a content-derived art layer: anchor initials become monogram tiles, source numbers become donut and bar charts, and the palette shades isometric 3D prisms — all inline SVG, all offline.
 
 | Builder | Real output (same source) | Best for | Character |
 |---|---|---|---|
@@ -173,17 +173,11 @@ The intended outcome is **fresh when requested, consistent when approved** — n
 ## Case studies
 
 - **[Live playground](https://kayforkind.github.io/reimagine-it/#playground)** — paste HTML, select a direction, preview the result, and share the input.
-- **[Texas notebook case study](gold/webpage/)** — the original content becomes several reader registers.
-- **[Pulsewave](gold/pulsewave/)** — observability language becomes a signal-oriented system.
-- **[Two Lights](gold/twolights/)** — a personal essay becomes a lighthouse-led narrative.
-- **[Saffron & Smoke](gold/saffron/)** — a menu becomes a warm food-specific composition.
-- **[End-user examples](examples/end-users/)** — seven loud sources (crypto battle royale, music festival, skate brand, juice bar, streetwear drop, living building, observability platform) with source HTML, Auto output, alternate options, reports, and static before/after WebP proof on desktop and phone. Every palette comes from hex colors already in the source.
-- **[Horizon observability showcase](https://kayforkind.github.io/reimagine-it/#horizon)** — a plain SLO/uptime page becomes a navy mission-control dashboard with donut chart, sparkline KPIs, and scaled bars; Auto picks `dashboard`, alternates `gradient` + `landing`.
-- **[Full-suite showcase](https://kayforkind.github.io/reimagine-it/#suite)** — one `/reimagine-it --auto` on a building produces three furnished designs: the editorial feature, an orbitable 3D object (`3js`), and a living SVG diagram — with static renders of the orbit and the diagram.
-- **[Case studies](docs/CASE_STUDIES.md)** — seven reproducible bundles: source, exact command, Auto output, two alternatives, report, and before/after WebP proof.
-- **[Infographic showcase](https://kayforkind.github.io/reimagine-it/#infographic)** — a data-heavy field report rendered wide (desktop) and tall (phone), every number source-backed.
-- **[Gaming showcase](https://kayforkind.github.io/reimagine-it/#gaming)** — a crypto battle-royale page becomes a signal-yellow-accented mission dashboard; Auto routes gaming sources to `dashboard` first, with `landing` and `artistic` as alternates.
-- **[Full showcase](docs/SHOWCASE.md)** — source, rationale, artifact, and regeneration notes.
+- **[Seven journeys](examples/end-users/)** — crypto battle royale, music festival, skate brand, juice bar, streetwear drop, living building, observability platform. Each bundle has source HTML, Auto output, two alternatives, a report, and a before/after WebP. Palettes come from hex colors already in the source.
+- **[Case study index](docs/CASE_STUDIES.md)** — commands, fidelity, and how to read a bundle.
+- **[Horizon](https://kayforkind.github.io/reimagine-it/#horizon)** — SLO/uptime page → navy dashboard.
+- **[Full suite](https://kayforkind.github.io/reimagine-it/#suite)** — one building source → editorial feature, orbitable `3js` object, and living SVG.
+- **[Infographic](https://kayforkind.github.io/reimagine-it/#infographic)** · **[Gaming](https://kayforkind.github.io/reimagine-it/#gaming)**
 
 ## Install
 
@@ -322,7 +316,7 @@ npm run check:docs
 
 Current repository checks include:
 
-- 47 unit tests covering extraction, generation, Auto, CLI behavior, and color science.
+- 59 unit tests covering extraction, generation, Auto, CLI behavior, and color science.
 - 32 curated gold HTML files audited; warnings are advisory and failures block shipping.
 - Intentional failing-fixture coverage to ensure the audit exit code catches real craft-floor failures.
 - Browser bundle freshness checks for the landing page and extension.

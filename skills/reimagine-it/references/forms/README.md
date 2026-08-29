@@ -1,5 +1,9 @@
 # Non-webpage form packs
 
+`svg` / `3js` / `simulation` are **HTML engine tokens** (inline SVG, canvas, timeline).
+
+`pdf` / `document` / `slides` / `universal` are **optional host-conversion playbooks**. They are not CLI flags. `npx reimagine-it` reads and writes HTML only. Use those packs only when the user asked for that format and the local toolchain exists: wrap as HTML → run the engine → export.
+
 Gold files are **one draw of one Texas notebook**. Live runs start from **this** source plus leftover brief — not that scenery **or that composition**. Palette, weenie, meshes, clock unit, field object, and layout chrome are derived. Cloning Texas gold onto a different source is a fail. A second gold (`gold/jules/`) proves a parlor is a room / cone / board, not a state notebook with ice-cream labels.
 
 | Token | Pack | Regeneration tool |

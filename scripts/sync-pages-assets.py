@@ -15,10 +15,6 @@ DOCS = ROOT / "docs"
 
 # Static proof assets referenced directly by docs/index.html.
 ASSETS = (
-    "gold/webpage/quartet.png",
-    "gold/webpage/compare.png",
-    "gold/domains/strip.png",
-    "gold/jules/before.png",
     "examples/end-users/gallery.webp",
     "examples/end-users/meridian/3js-desktop.webp",
     "examples/end-users/meridian/svg-desktop.webp",

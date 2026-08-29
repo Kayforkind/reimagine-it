@@ -1,8 +1,9 @@
 ---
 description: >-
-  Redesign any file from its own content — webpage, SVG, Three.js, simulation, PDF, slides, infographic.
-  Invent a leap they did not know to ask for. Not a mood board. Not Mermaid slop.
-argument-hint: "[webpage|infographic|svg|3js|simulation|pdf|slides] [tokens] [open brief]"
+  Redesign existing HTML from its own content — webpage, SVG, Three.js,
+  simulation, infographic, and other visual directions. Invent a leap they
+  did not know to ask for. Not a mood board. The CLI does not ingest PDF or PPTX.
+argument-hint: "[webpage|infographic|svg|3js|simulation|auto] [tokens] [open brief]"
 ---
 
 # /reimagine-it

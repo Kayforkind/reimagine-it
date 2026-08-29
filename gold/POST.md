@@ -19,7 +19,7 @@ landing — one job, one CTA
 Same file, other forms:
 
 svg — a living mark (the animation is on the drawing)
-3js — a room you can orbit
+3js — an orbitable canvas object from facts already in the file
 simulation — a playable model of facts already in the file
 
 Looking forward to your support. Happy to fix anything that breaks. Looking for feedback — the next version is coming soon.

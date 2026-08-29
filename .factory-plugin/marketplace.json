@@ -1,6 +1,6 @@
 {
   "name": "reimagine-it",
-  "description": "Factory Droid plugin marketplace for /reimagine-it. Redesign any file from its own content — webpage, PDF, slides, infographic. Offline HTML. No CDN. No Mermaid slop.",
+  "description": "Factory Droid plugin marketplace for /reimagine-it. Redesigns existing HTML from its own content. 15 visual directions, standalone offline pages.",
   "owner": {
     "name": "Kayforkind",
     "url": "https://github.com/Kayforkind"
@@ -9,7 +9,7 @@
     {
       "name": "reimagine-it",
       "source": "./",
-      "description": "Content-aware redesign: webpage, HTML, landing page, PDF, slides, infographic, SVG. Not a mood board. Not Mermaid slop.",
+      "description": "Redesigns existing HTML from its own content. 15 visual directions, standalone offline pages. Not a mood board.",
       "category": "design",
       "homepage": "https://github.com/Kayforkind/reimagine-it"
     }

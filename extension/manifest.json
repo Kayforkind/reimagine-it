@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Reimagine This Page",
-  "version": "2.3.6",
-  "description": "Content-Derived Design \u2014 reads the current page and redesigns it from its own content. Palette, motifs, and motion derived from nouns, dates, and colors already in your source.",
+  "version": "2.4.4",
+  "description": "Content-Derived Design \u2014 reads the current HTML page and redesigns it from its own content. Palette, motifs, and motion derived from nouns, dates, and colors already in the source.",
   "permissions": [
     "activeTab",
     "scripting"

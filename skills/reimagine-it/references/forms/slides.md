@@ -1,6 +1,8 @@
 # /reimagine-it slides (pptx / reveal.js)
 
-Load when the user forces `slides`, `pptx`, `deck`, or when the target is a `.pptx` / reveal.js folder.
+> **Not a CLI feature.** `npx reimagine-it` reads and writes HTML only. Prefer reveal.js (HTML) or, if the user asked for `.pptx` and `python-pptx` is installed, export after the HTML artifact exists.
+
+Load when the user forces `slides`, `pptx`, `deck`, or when the target is a `.pptx` / reveal.js folder **and they asked to keep that format**.
 
 ## Two paths
 

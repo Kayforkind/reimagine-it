@@ -1,6 +1,6 @@
 # Content-Derived Design (CDD)
 
-> *The source file is the brief. Palette, motifs, and motion are derived from concrete nouns, dates, and colors already in the content. Nothing is hard-coded. Change the source, change the design.*
+> *The source file is the brief. Palette, motifs, and motion are derived from concrete nouns, dates, and colors already in the content. Source facts are not invented. Change the source, change the design.*
 
 ---
 
@@ -47,9 +47,9 @@ One geometric mark from the source carried through every section. Not an icon. A
 
 **Texas motif:** The Lone Star — a five-point star used as a bullet, a section divider, a hover indicator, and a weenie (the SVG mark that breathes).
 
-**Saffron & Smoke motif:** A smoke tendril — used as a section divider, a card background, and a hero decoration.
+**Maracuyá motif:** Fruit-slice geometry from a juice-bar menu — used as a section divider, a card background, and a hero mark.
 
-**Pulsewave motif:** A pulse ring — concentric circles growing outward, used as a logo animation, a card decoration, and a hero SVG.
+**Horizon motif:** A pulse ring from an observability page — concentric circles growing outward, used as a logo animation, a card decoration, and a hero SVG.
 
 ### Step 4: Budget motion
 Three moving elements at any moment: one persistent (drift, sway, breathe), one active on state (hover tilt, focus pulse), one narrative (bar rising, path drawing). All compositor-only (`transform` + `opacity`). Timing 100–300ms `ease-out`.
@@ -80,17 +80,9 @@ A coffee roaster's site that pulls warm browns and burlap textures from the word
 
 ## Proof
 
-Five diverse sources prove the method travels:
+Seven HTML sources in [`examples/end-users/`](../examples/end-users/) prove the method travels: gaming, festival, skate, juice bar, streetwear, building, observability. Each bundle is source → Auto HTML → two alternatives, with palettes taken from hex colors already in the file.
 
-| Source | Genre | Palette from content | Motif | Files |
-|--------|-------|---------------------|-------|-------|
-| Texas notebook | Historical notes | Navy / cream / red / gold | Lone Star | [before](../gold/webpage/before.html) · [after](../gold/webpage/after-3.html) |
-| Jules Ice Cream | Small business | Parlor pastels / cone brown | Scoop + cone | [before](../gold/jules/before.html) · [after](../gold/jules/webpage/after.html) |
-| Pulsewave | SaaS startup | Dark teal / electric green | Pulse wave | [before](../gold/pulsewave/before.html) · [after](../gold/pulsewave/after.html) |
-| Two Lights | Personal essay | Slate / cream / beam amber | Lighthouse beam | [before](../gold/twolights/before.html) · [after](../gold/twolights/after.html) |
-| Saffron & Smoke | Restaurant menu | Warm clay / saffron / herb green | Smoke tendril | [before](../gold/saffron/before.html) · [after](../gold/saffron/after.html) |
-
-Four additional non-webpage proofs: [CLI redesign](../gold/five/01-cli), [protocol redesign](../gold/five/02-door), [data ledger](../gold/five/03-ledger), [code architecture](../gold/five/04-layers).
+Texas / Jules under `gold/` remain skill fixtures for clone-scan, not a second public gallery.
 
 ---
 
@@ -115,7 +107,7 @@ If you use Content-Derived Design in your work:
   author = {Kayforkind},
   year = {2026},
   howpublished = {\url{https://github.com/Kayforkind/reimagine-it}},
-  note = {reimagine-it v2.3. See gold/ for verified outputs.}
+  note = {reimagine-it v2.4.4. See examples/end-users/ for verified outputs.}
 }
 ```
 

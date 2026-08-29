@@ -1,20 +1,20 @@
 ---
 name: reimagine-it
 description: >-
-  Content-Derived Design — reads the source file and derives palette, motifs,
-  and motion from concrete nouns, dates, and colors already in the content.
+  Content-Derived Design — reads existing HTML and writes a stronger standalone
+  page from headings, facts, names, dates, numbers, links, emails, and colors
+  already in that file. CLI: npx reimagine-it --auto -i page.html -o out.html.
   Use when the user says /reimagine-it, "reimagine it", "reinvent this",
   "redesign this page", "make an infographic", wants a content-aware redesign
   or a visual leap instead of a mood board. Tokens: webpage, infographic,
   svg, 3js, simulation, artistic, cinematic, dashboard, photography, landing,
-  portfolio, ecommerce, glassmorphism, bento, neon, brutalism, neumorphism,
-  handdrawn. Also /reimagine-it audit to run deterministic quality checks.
+  plus leftover words as a brief. Also /reimagine-it audit for quality checks.
   Installed via npx skills add Kayforkind/reimagine-it or plugin marketplace.
-  Not /better. Not a mood board.
+  Not /better. Not a mood board. Does not ingest PDF, PPTX, or DOCX.
 license: MIT
 metadata:
   author: Kayforkind
-  version: "2.3.6"
+  version: "2.4.4"
   hosts:
     - claude-code
     - cursor
@@ -70,7 +70,9 @@ trigger_phrases:
 
 **Banks:** [references/notes.md](references/notes.md) · [references/forms.md](references/forms.md) · [references/webpage-craft.md](references/webpage-craft.md) *(only for the webpage form)* · **[references/craft-floor.md](references/craft-floor.md)** *(the interaction contract every webpage output must clear; read every run)* · **[references/review.md](references/review.md)** *(§5.d named-object accuracy + clone scan; load on every verify)* · [references/forms/](references/forms/) *(non-webpage form packs: pdf, document, slides, universal)* · [references/domains/](references/domains/) *(only when the user gave a domain token: `artistic` / `dashboard` / `photography` / `cinematic` (aka `3d`, `webgl`) / `ecommerce` / `landing` / `portfolio` / `infographic`)* · [references/modifiers/](references/modifiers/) *(only when the user gave a modifier: `glassmorphism` / `bento` / `neon` / `brutalism` / `neumorphism` / `handdrawn`)* · [references/locks/](references/locks/) *(loaded on `--ref <name>`)* · **[references/research/web-craft-2025.md](references/research/web-craft-2025.md)** *(deep source pack — Awwwards SOTY stack scan, Rauno/Emil craft floor, Lupi/Fragapane data humanism, Feixen/Weingart/Troxler print grammar, Apple AIDA cinematic, view-transitions, scroll-driven animations, kinetic type, sound, neubrutalism — read once, cite in reports)* · **[references/research/infographic-craft.md](references/research/infographic-craft.md)** *(15-source infographic pack — Cleveland–McGill, Tufte, Bertin, ISOTYPE, Minard/Snow, Cairo, Lupi, FT Visual Vocabulary, USWDS, WCAG charts, InfoAlign layouts — load when the form or domain is `infographic`)* · [examples.md](examples.md)
 
-`/reimagine-it` is not a graphics mode. It opens a creative mind on **whatever the user points at** and ships a leap that specific thing can hold: a page, a document, a deck, a CLI, a protocol, an experiment, a piece of prose. Visuals are one form among many.
+`/reimagine-it` is a **Content-Derived Design** engine. The shipped product reads **HTML** and writes **HTML**: extract the headings, facts, names, dates, numbers, links, emails, and colors already in the file, then generate a standalone page in one of 15 tokens (or `--auto`). Default output is offline.
+
+Do **not** claim the CLI redesigns PDF, PPTX, DOCX, MOBI, or “any file.” If the user pointed at another format, convert or wrap it as HTML first, run the engine, and only then — if they asked and the toolchain exists — export with a host tool. Report that extra step as host conversion, not as an engine feature.
 
 If `local.md` exists beside this file, Read it after this skill (host chairs, org, paths). Public installs have no `local.md`.
 
@@ -87,7 +89,7 @@ Optional tokens. **Combine freely.** You pick tokens; the agent picks questions,
 | `interview` | Talk before build. | Which questions, recommended answers, when to stop. |
 | **Form family** — `code` `cli` `protocol` `demo` `prose` `product` `architecture` `experiment` | Force that form family. | How the notes land in it. |
 | **Visual form** — `svg` `3js` `infographic` `canvas` `html` `webpage` `simulation` | Force a visual form. | Craft inside that medium. Token `infographic` also loads [references/domains/infographic.md](references/domains/infographic.md) (poster of an argument, not a dashboard). Token `svg` / `3js` ship **alive-micro** by default (2–4 fact-tied loops that beautify; brief `still` freezes). Token `simulation` ships a playable model of facts already in **this** source — default paused on the first fact; nested short spans are inspectable; type in the gutter. None of these are a Texas skin; leftover words are a lens. |
-| **Non-webpage document forms** — `pdf` `document` (docx / markdown) `slides` (pptx / reveal.js) `universal` (any input file) | Force a document/media form. Loads [references/forms/<form>.md](references/forms/). | Which regeneration tool to reach for (ReportLab, Weasyprint, python-docx, python-pptx, LaTeX). |
+| **Host conversion (not CLI tokens)** — `pdf` `document` `slides` | Only if the user asked **and** local tools exist. | Convert/wrap as HTML → run the engine → optional export (Weasyprint, python-docx, python-pptx). The CLI does not read or write these formats. |
 | **Domain aesthetic** — second word after `webpage`: `artistic` `dashboard` `photography` `cinematic` (`3d`, `webgl`) `ecommerce` `landing` `portfolio` `infographic` | Force a webpage aesthetic. | Load [references/domains/<domain>.md](references/domains/) and extend the [webpage-craft](references/webpage-craft.md) spine. `cinematic` upgrades the 3D floor to inline WebGL2. `infographic` is a statistical poster (common-scale encodings + ISOTYPE + data table) — not an ops dashboard. |
 | **Modifier** — third word or `--style <name>`: `glassmorphism` `bento` `neon` `brutalism` `neumorphism` `handdrawn` | Layer a UI/UX modifier on top of the domain. | Load [references/modifiers/<name>.md](references/modifiers/); modifiers waive matching cut-list entries and add their own non-negotiables. |
 | **Font override** — `--font "Family, Fallback, generic"` | Pin the display / body font family. | Build a full font stack; degrade gracefully when the family is not on the reader's box. Never fetch a webfont at run time unless you also pass `--allow-fetch`. |
@@ -116,7 +118,6 @@ Combine freely. Known form / domain / modifier tokens load packs. **Every other 
 /reimagine-it 3js
 /reimagine-it simulation
 /reimagine-it webpage artistic glassmorphism --font "Playfair Display, serif"
-/reimagine-it pdf document
 /reimagine-it lock gold/domains/cinematic/after.html as house-cinema
 /reimagine-it webpage --ref house-cinema
 /reimagine-it webpage bento --variants 3
@@ -151,7 +152,7 @@ REIMAGINED Progress:
 - [ ] 2. Hero form routed (unless user forced one)
 - [ ] 2.4. Variation sample picked (avoid previous draw; pin if --seed / --variant)
 - [ ] 2.5. Modifiers / font override / --ref loaded if present
-- [ ] 2.6. Output format(s) resolved (same-format twin default when input == viable output)
+- [ ] 2.6. Output is standalone HTML (host conversion only if the user asked and the toolchain exists)
 - [ ] 2.7. Craft floor loaded (references/craft-floor.md) — every rule enforceable before render
 - [ ] 3. Hero artifact written (or N variants if --variants)
 - [ ] 4. Stretch named (and built if cheap)
@@ -186,7 +187,7 @@ In parallel, cheaply:
 - Open / recently viewed files if known
 - User text after the slash
 - Domain files the repo already points at (CONTRIBUTING, protocol docs, failing tests)
-- The **target file** if the user pointed at one (`before.html`, `report.pdf`, `deck.pptx`, `notes.docx`, …)
+- The **target file** if the user pointed at one (prefer `.html`; if they pointed at PDF/PPTX/DOCX, wrap or extract into HTML before calling the engine)
 
 One-sentence lock: **what this is**, **what happens to them**.
 
@@ -237,11 +238,11 @@ Follow [references/forms.md](references/forms.md) unless a category forced the f
 
 **simulation** → load [references/forms/simulation.md](references/forms/simulation.md). Playable model of **this** source's sequence (years, days, handshake steps — whatever it times with). Type in the gutter. Marks on the field. Nested short spans are inspectable. Default paused on the first fact. Leftover words are a lens. **Do not clone the Texas 1836–1995 clock onto a different source.**
 
-**PDF / document / slides / universal** → load the matching form pack in [references/forms/](references/forms/). These packs specify the regeneration tool (ReportLab, Weasyprint, python-docx, python-pptx, LaTeX) and the "reimagine" bar for that medium.
+**PDF / document / slides** → **host conversion only.** Prefer: extract or wrap as HTML, run `npx reimagine-it`, ship HTML. Load [references/forms/](references/forms/) only if the user explicitly asked for that format **and** Weasyprint / python-docx / python-pptx (etc.) is on the machine. Do not present those packs as CLI tokens.
 
 **Any webpage output** — with or without a domain / modifier / lock — must land **hero-scale inline SVG doing real work, three moving elements at any moment, and 3D that reads in a still** (rotation ≥ 12° + shadow blur ≥ 24px, or `translateZ` ≥ 30px + real shadow, or inline WebGL2). If a screenshot cannot prove all three, the redesign did not earn the form. **Exception — `infographic`:** the poster stays orthographic (paper drop-shadow only; no `rotateX` on the board).
 
-**Non-webpage output** — the equivalent bar lives in the form pack (e.g. PDF: at least one full-bleed spread with a data-driven diagram; slides: at least one animated shape via reveal.js fragments or LibreOffice smart animations; document: at least one pull-quote block + one figure).
+**Non-HTML export** — optional, never the default claim. If the user asked for PDF/PPTX/DOCX and the toolchain exists, follow the matching form pack. Otherwise ship HTML and name the missing tool.
 
 **Form follows the leap:**
 
@@ -287,23 +288,16 @@ Gold forms (`gold/forms/`): **one** Texas-notebook draw each. Live `svg` / `3js`
 - **Font override** (`--font "..."`) replaces the display or body family. Build a full CSS stack with sensible fallbacks (a serif family gets `serif` at the end, a mono family gets `monospace`). Never fetch a webfont; if the user wants one, they must pass `--allow-fetch` and understand it breaks the offline promise.
 - **Lock**: on `/reimagine-it lock <path> [as <name>]`, read `<path>` (HTML/CSS/JSON/PDF metadata/etc.) and extract palette + type stack + motifs + motion + 3D signatures + section structure. Write [references/locks/<name>.md](references/locks/) as a full pack. Later `/reimagine-it <target> --ref <name>` loads that pack as if it were a domain, so the same design DNA can be applied to a different target (or a different medium — a `webpage` lock can inform a `slides` pack).
 
-### 2.6 Output format(s) — same-format twin by default
+### 2.6 Output format(s) — HTML is the engine product
 
-If the user pointed at a file whose **native format is itself a viable output medium** (`.pdf`, `.docx`, `.pptx`, `.mobi`, `.epub`, `.md`, `.html`), you **must** decide the output format(s) before writing:
+The CLI and playground **always** ship standalone HTML. That is the valid product claim.
 
-1. **If the user forced a form token** (`pdf` / `slides` / `document` / `webpage` / `mobi` / `epub` / …), honor it. Ship in that form. Do not ship extras unless asked.
-2. **If they did not force a form**, default to **two artifacts**:
-   - a **same-format twin** in the source's native format (source is `.mobi` → ship a new `.mobi`; source is `.pdf` → ship a new `.pdf`; source is `.pptx` → ship a new `.pptx`), *and*
-   - a **companion HTML** for on-screen reading + review.
-   Both live in `<yyyy-mm-dd>-<slug>-reimagined/` next to the source.
-3. **If the same-format twin regenerator is not available** on the current machine (e.g. `mobi` / `kindlegen` toolchain missing, no `docx`-writer, LibreOffice not installed), do **not** silently drop it. Ship the HTML, then in the report explicitly:
-   - name the missing tool,
-   - name the exact next command that would produce the same-format twin,
-   - offer to install/run it.
-4. **Never assume HTML is enough** when the input was a distributable ebook / document / deck. The user picked that format for a reason.
-5. `--ask-format` flips this into a one-shot question with three options and a default (Enter accepts default). Example: `Ship as: (1) HTML + same-format twin [default]  (2) HTML only  (3) same-format twin only`. Wait for the answer, then build. No follow-up questions.
+1. **Default:** run `npx reimagine-it` (or `--auto`) on HTML and write `.html`. Do not invent a PDF/PPTX/DOCX twin.
+2. **If the source was not HTML:** convert or wrap it as HTML first (extract text into a simple page). Then run the engine. Say so in the report `Formats:` line.
+3. **If the user explicitly asked for PDF / slides / docx** and the local toolchain exists, follow the matching pack in [references/forms/](references/forms/) *after* the HTML artifact exists. If the toolchain is missing, ship HTML and name the exact next command — do not claim the engine wrote that format.
+4. `--ask-format` is only for that optional export step, not for choosing whether the engine works. Default remains HTML.
 
-Log the decision on the report `Formats:` line so the user sees what was shipped and what was skipped.
+Log the decision on the report `Formats:` line (usually `html`).
 
 ### 3. Build
 
@@ -316,7 +310,7 @@ Include a 5-line `README.md` next to one-shot folders: what it is, how to run/op
 - Effect before method: they should be able to say what happened, not only how you did it
 - Withhold the label until the artifact has done work
 
-**Stretch (required in the report):** one thing they did not know was in bounds. Build when it is one extra file or a small sibling; otherwise give the exact next slash (`/reimagine-it auto`, `/reimagine-it webpage cinematic`, `/reimagine-it slides`, `/reimagine-it lock <path>`, …).
+**Stretch (required in the report):** one thing they did not know was in bounds. Build when it is one extra file or a small sibling; otherwise give the exact next slash (`/reimagine-it auto`, `/reimagine-it webpage cinematic`, `/reimagine-it lock <path>`, …).
 
 ### 4. `--full` plus-pass
 
@@ -388,7 +382,7 @@ Anchors: <3–5 nouns/proper nouns/dates from the source that every plate mapped
 Draw: <reader-register> · <ground> · <hero-move> · <plate-style> · <motion> · <type-accent> · <3D-signature>
       (svg / 3js: motion is `alive-micro` unless the brief was `still`)
 Seed: <n if pinned, else "fresh">
-Formats: <shipped list, e.g. "html + mobi twin" | "html only (kindlegen missing — next: <cmd>)">
+Formats: <usually "html"; name any optional host export>
 Sound: <off | ambient | feedback | full — with tier + mute-control + no-autoplay confirmed>
 Stretch: <what they didn't know was possible>
 Notes: <only if --notes>
@@ -408,7 +402,8 @@ Lead the user-facing reply with the artifact and the stretch, not the protocol.
 - **Report `shipped` without the visual verification pass** (5.b) — no exceptions
 - **Paint a plate that literally reads `blank`, `placeholder`, `TBD`, `TODO`, `lorem`, `sample`, `caption`, `…`, `[…]`, `Title goes here`, or any alt-text stand-in.** Empty slot → delete the slot. Real content only.
 - **Ship a render with clipped or overlapped text** (e.g. a foreground shape covering half a label). Fix z-index / padding / `overflow` before reporting `shipped`.
-- **Silently drop the same-format output** when the source's native format is a viable output (e.g. `.mobi` in, HTML-only out with no mention). Ship the twin, or name the missing tool and the exact next command in the report.
+- **Claim the CLI redesigns PDF, PPTX, DOCX, MOBI, or “any file.”** HTML in, HTML out. Host conversion is extra and optional.
+- **Silently pretend a missing export toolchain ran.** If the user asked for PDF/PPTX and the tool is missing, ship HTML and name the next command.
 - **Ship a webpage output that fails the craft floor (§5.c) on any of: `::selection` styled, `:focus-visible` styled, `prefers-reduced-motion` block present and decomposed correctly, compositor-only motion, no `transition: all`, no `outline: 0` without a real replacement, no autoplay sound unless `--sound` was passed.** Patch in one pass or downgrade to `partial`.
 - **Animate `top` / `left` / `right` / `bottom` / `width` / `height` / `margin` / `padding` / `font-size` / `letter-spacing` / `line-height` / `word-spacing` / `color` / `background-color`** for anything that runs during scroll or interaction. Use `transform`, `opacity`, or `filter` only — anything else forces layout recalc every frame and fails visual verify.
 - **Use `transition: all`** — explicit properties always. `all` thrashes on any parent change.

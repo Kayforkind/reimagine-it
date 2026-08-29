@@ -27,4 +27,5 @@ gold/jules/gif-frames/
 __pycache__/
 *.pyc
 
+gold/x-ads/
 examples/end-users/*/auto-options/

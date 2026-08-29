@@ -1,7 +1,7 @@
 {
   "name": "reimagine-it",
-  "description": "Plugin wrapping the /reimagine-it Agent Skill. Redesign any file from its own content \u2014 webpage, HTML, landing page, PDF, slides, infographic, SVG, dashboard. Not a mood board. Not Mermaid slop.",
-  "version": "2.3.3",
+  "description": "Redesigns existing HTML from its own content. 15 visual directions, standalone offline pages. CLI + agent skill.",
+  "version": "2.4.4",
   "author": {
     "name": "Kayforkind",
     "url": "https://github.com/Kayforkind"

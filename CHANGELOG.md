@@ -4,7 +4,23 @@ All notable changes to reimagine-it.
 
 ---
 
-## v2.4.3 (current)
+## v2.4.4 (current)
+
+### Docs — one valid product claim
+
+- Public copy matches the engine: **HTML in, standalone HTML out**, derived from headings, facts, names, dates, numbers, links, emails, and colors already in the source.
+- Removed the leftover claim that the tool redesigns PDF / PPTX / DOCX / “any file.” Those packs remain optional **host-agent conversion playbooks**, not CLI tokens.
+- Version badges, plugin manifests, and skill frontmatter aligned to **2.4.4**. Changelog no longer marks old releases as `(current)`.
+
+### Docs — one public example set
+
+- Public case studies are the seven HTML journeys in `examples/end-users/`.
+- Removed superseded Pulsewave / Two Lights / Saffron gold folders and the unused `docs/gold/` Texas/Jules stills.
+- `docs/SHOWCASE.md` no longer sells a 13-page Texas gallery as the product proof.
+- Landing page no longer advertises gold/five CLI/protocol fixtures as engine output.
+- Gold audit sweep skips gitignored local shot files so `npm test` matches CI.
+
+## v2.4.3
 
 ### Fix — token dispatch ran before shared CSS systems were built
 
@@ -34,7 +50,7 @@ All notable changes to reimagine-it.
 
 - **Docs can no longer drift** — a `docs-drift` CI job regenerates the case tables and fails the build if they diverge from manifest/auto.json ground truth; benchmark diversity now 19.9% (was 15.6%, a side effect of higher fidelity).
 
-## v2.4.1## v2.4.1 (current)
+## v2.4.1
 
 ### Feature — static before/after composites, faster Pages load
 
@@ -70,7 +86,7 @@ All notable changes to reimagine-it.
 
 ---
 
-## v2.3.7 (current)
+## v2.3.7
 
 ### Feature — playground presets, horizon journey, richer token upgrades
 
@@ -186,12 +202,10 @@ Also: `reimagine-it@2.3.3` is now live on npm, and `NPM_TOKEN` is configured as 
 - Removed stale tracked `auto-options/` build artifacts no script produces.
 - Version bumped to 2.3.3 across package, extension manifest, plugin manifests, skill frontmatter, and README badge/pin.
 
-## v2.3.2
-
-### New
+### MCP and extension (also shipped in this line)
 
 - **MCP server** (`mcp/server.js`): exposes reimagine-it as Model Context Protocol tools — `reimagine`, `extract_content`, `list_tokens`, `audit_html`. Any MCP-compatible agent can call reimagine-it without installing the full skill. Run with `npx reimagine-it-mcp`.
-- **Browser extension** (`extension/`): Chrome/Edge/Firefox extension that adds a toolbar button to reimagine any web page. Extracts content in-browser, generates a redesigned page, opens it in a new tab. No server, no API. 8 tokens supported.
+- **Browser extension** (`extension/`): Chrome/Edge/Firefox extension that adds a toolbar button to reimagine the current HTML page. Extracts content in-browser, generates a redesigned page, opens it in a new tab. No server, no API. 8 tokens supported.
 
 ## v2.3.1
 

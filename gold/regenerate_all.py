@@ -76,18 +76,6 @@ REGERATIONS = [
      ["python", "gold/domains/motion-run.py"],
      requires_chrome=True),
 
-    ("Pulsewave gold",
-     ["python", "gold/pulsewave/shot.py"],
-     requires_chrome=True),
-
-    ("Two Lights gold",
-     ["python", "gold/twolights/shot.py"],
-     requires_chrome=True),
-
-    ("Saffron & Smoke gold",
-     ["python", "gold/saffron/shot.py"],
-     requires_chrome=True),
-
     # Non-Chrome — always run
     ("Gold review (flag cloth, clone scan, after.png pairs)",
      ["python", "scripts/review_gold.py"],

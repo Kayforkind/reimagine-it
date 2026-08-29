@@ -1,6 +1,8 @@
 # /reimagine-it pdf
 
-Load when the user forces `pdf`, or when the target is a `.pdf` and the router picked this form.
+> **Not a CLI feature.** `npx reimagine-it` reads and writes HTML only. Use this pack when the user asked for a PDF *and* Weasyprint or ReportLab is on the machine: wrap or extract as HTML, run the engine, then print.
+
+Load when the user forces `pdf`, or when the target is a `.pdf` and they asked to keep PDF as the handoff format.
 
 ## Two paths
 

@@ -129,7 +129,7 @@ jobs:
 
       - name: Structural token audit
         run: |
-          echo "## Token structural audit (14 tokens)" >> $GITHUB_STEP_SUMMARY
+          echo "## Token structural audit (15 tokens)" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           node scripts/audit-tokens.js 2>&1 | tee /tmp/token-audit.log
           echo '```' >> $GITHUB_STEP_SUMMARY
@@ -137,7 +137,7 @@ jobs:
 
       - name: Headless render audit
         run: |
-          echo "## Token render audit (14 tokens, Chrome headless)" >> $GITHUB_STEP_SUMMARY
+          echo "## Token render audit (15 tokens, Chrome headless)" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           node scripts/render-audit.js 2>&1 | tee /tmp/render-audit.log
           echo '```' >> $GITHUB_STEP_SUMMARY

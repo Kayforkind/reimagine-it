@@ -1,4 +1,6 @@
-# /reimagine-it universal — reimagine any file
+# /reimagine-it universal — wrap unknown files as HTML
+
+> **Not a CLI feature.** The engine still needs HTML. This pack is a detect-and-wrap playbook: extract what you can, build a simple HTML shell, then run `npx reimagine-it`.
 
 Load when the user forces `universal`, or when they pointed at a file the router does not recognize.
 
@@ -30,26 +32,15 @@ Two ways to ship:
 
 Default to companion overlay. Ask before overwriting a source file.
 
-## Same-format twin default (do not silently drop)
+## Optional host conversion (not the engine default)
 
-If the source's native format is itself a viable output medium (`.pdf`, `.docx`, `.pptx`, `.mobi`, `.azw3`, `.epub`, `.md`, `.html`), the default shipment is **two artifacts**:
+The engine ships **standalone HTML**. If the user asked to keep PDF / DOCX / PPTX / MOBI **and** the local toolchain exists, convert after that HTML exists. Do not present the extra step as a CLI feature.
 
-1. a **companion HTML** reading room in `<slug>-reimagined/index.html` — on-screen review, screenshot target, visual verification bed;
-2. a **same-format twin** in the source's native format (`.pdf` in → `.pdf` out; `.mobi` in → `.mobi` out; `.pptx` in → `.pptx` out), also inside `<slug>-reimagined/`.
+If the toolchain is missing, ship the HTML and name the missing tool in the report. Never invent a PDF/PPTX that was not requested.
 
-Never ship the HTML alone when the input was a distributable ebook / document / deck. The user picked that format because they want to hand it around in that format.
+## Host conversion toolchains (quick reference)
 
-If the same-format twin toolchain is not present on the current machine, do **not** silently drop it. Ship the HTML, then in the report:
-
-- name the missing tool (e.g. `kindlegen` / `Calibre CLI` for `.mobi`; `LibreOffice --headless` for `.pptx` / `.docx`; `weasyprint` for HTML → PDF);
-- name the exact next command that would produce the twin (e.g. `calibre ebook-convert <slug>-reimagined/index.html <slug>-reimagined/<slug>.mobi --no-default-epub-cover`);
-- offer to install/run it.
-
-`--ask-format` flips this default into a one-shot question: `Ship as: (1) HTML + same-format twin [default]  (2) HTML only  (3) same-format twin only`.
-
-## Same-format toolchains (quick reference)
-
-| Source | Same-format twin regenerator |
+| Source | Optional regenerator after HTML exists |
 |--------|-------------------------------|
 | `.pdf` | `weasyprint <index.html> <out.pdf>` — or headless Chrome `--print-to-pdf` for animated pages |
 | `.docx` | `python-docx` for programmatic build; `pandoc index.html -o out.docx` for HTML → docx |

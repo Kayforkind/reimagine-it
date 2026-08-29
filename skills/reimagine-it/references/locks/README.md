@@ -1,6 +1,6 @@
 # Design-DNA lock system
 
-A lock captures the design language of a **specific shipped output** and saves it as a reusable pack. Later runs of `/reimagine-it` can apply that pack to a new target — the same medium (webpage → webpage) or a different medium (webpage → slides, PDF → document).
+A lock captures the design language of a **specific shipped HTML output** and saves it as a reusable pack. Later runs of `/reimagine-it` apply that pack to a new HTML target (webpage → infographic, landing → dashboard, and so on). Host conversion to PDF / PPTX is optional and separate.
 
 ## Syntax
 
@@ -12,7 +12,7 @@ A lock captures the design language of a **specific shipped output** and saves i
 /reimagine-it forget <name>                # remove a lock
 ```
 
-`<path>` can be a local `.html`, `.pdf`, `.pptx`, `.docx`, `.svg`, or `.md` file. The skill parses what it can and asks about what it cannot (e.g. font stack from a rendered PDF).
+`<path>` is a local `.html` file. If the user pointed at another format, convert or wrap it as HTML first, then lock the shipped HTML.
 
 ## What a lock file contains
 

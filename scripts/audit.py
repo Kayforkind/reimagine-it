@@ -7,8 +7,8 @@ skills/reimagine-it/references/craft-floor.md.
 
 Usage:
     python scripts/audit.py gold/webpage/after.html
-    python scripts/audit.py gold/pulsewave/after.html --verbose
-    python scripts/audit.py gold/webpage/after.html --json
+    python scripts/audit.py gold/webpage/after.html --verbose
+    python scripts/audit.py examples/end-users/horizon/auto.html --json
 
 Exit code: 0 = clean, 1 = warnings, 2 = failures (must block shipping).
 

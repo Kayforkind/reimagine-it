@@ -1,6 +1,6 @@
 # reimagine-it — Content-Derived Design
 
-**Content-Derived Design:** reads the source file and derives palette, motifs, and motion from concrete nouns, dates, and colors already in the content. Not a mood board. A real artifact.
+**Content-Derived Design:** reads existing HTML and derives palette, motifs, and motion from concrete nouns, dates, numbers, and colors already in the content. Writes a standalone HTML page. Not a mood board.
 
 You are loading **reimagine-it**, one Agent Skill. Progressive disclosure. Do not ingest extra files until the procedure says so.
 
@@ -8,9 +8,9 @@ You are loading **reimagine-it**, one Agent Skill. Progressive disclosure. Do no
 
 1. This file only.
 2. Install **one** folder: `skills/reimagine-it/` (directory name must stay `reimagine-it`).
-3. Read `skills/reimagine-it/SKILL.md` in full when the user says `/reimagine-it`, "reimagine it", "reinvent this", "reimagine this page/doc/deck", or points at a file and asks to redesign it.
+3. Read `skills/reimagine-it/SKILL.md` in full when the user says `/reimagine-it`, "reimagine it", "reinvent this", "reimagine this page", or points at **HTML** and asks to redesign it.
 4. Load `references/notes.md` and `references/forms.md` when the skill says to.
-5. Load `references/webpage-craft.md` (for the webpage form) or the matching pack in `references/forms/` (for pdf / document / slides / universal).
+5. Load `references/webpage-craft.md` for HTML output. Packs in `references/forms/` for pdf / document / slides are **host-conversion playbooks**, not CLI features — use them only if the user asked and the toolchain exists.
 6. Load `references/domains/<domain>.md` and/or `references/modifiers/<name>.md` if the user gave those tokens.
 7. Load `references/locks/<name>.md` if the user passed `--ref <name>`.
 8. Load `examples.md` if the form is still unclear.
@@ -44,7 +44,7 @@ Fallback: copy `skills/reimagine-it/` into the host skills root. Never into `~/.
 
 ## Job
 
-Open a creative mind on **this** context — webpage, PDF, document, deck, code, CLI, protocol, prose. Ship a leap the user did not know to ask for. Reimagining is not graphics-only. Lists of vibes are a fail.
+Open a creative mind on **this HTML** — webpage, infographic, SVG, Three.js canvas, or playable simulation. Ship a leap the user did not know to ask for. Lists of vibes are a fail. Do not claim the engine redesigns PDF, PPTX, or DOCX.
 
 Interview only if the user passed `interview`.
 

@@ -1,6 +1,8 @@
 # /reimagine-it document (docx / markdown)
 
-Load when the user forces `document`, `docx`, `md`, or when the target is a `.docx` / `.md` file.
+> **Not a CLI feature.** `npx reimagine-it` reads and writes HTML only. Markdown can be wrapped as HTML and run through the engine. `.docx` export needs python-docx or pandoc on the host.
+
+Load when the user forces `document`, `docx`, `md`, or when the target is a `.docx` / `.md` file **and they asked to keep that format**.
 
 ## Two paths
 

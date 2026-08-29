@@ -2,7 +2,7 @@
 
 > Based on competitive analysis of Anthropic frontend-design (277k installs), Impeccable (23 commands, 59 detector rules, product website), Superpowers (243k stars), gstack (118k stars), and the broader agent-skills ecosystem.
 >
-> **Last updated:** v2.3.3 — see [CHANGELOG.md](CHANGELOG.md) for completed items.
+> Last updated: v2.4.4 — see [CHANGELOG.md](CHANGELOG.md) for completed items.
 
 ---
 
@@ -37,7 +37,7 @@
 | Featured in "best skills" roundups | **Yes (all of them)** | **Yes (most)** | No |
 | Clear install for all agents | **Yes** | **Yes (12+ agents)** | Partial |
 | Community contributions | Few | Growing | None |
-| Case study page | No | **Yes (Neo Mirai)** | SHOWCASE.md (Texas-only) |
+| Case study page | No | **Yes (Neo Mirai)** | Seven HTML journeys in `examples/end-users/` |
 | Weekly downloads / installs | 277k | Fast-growing | Unknown |
 
 ---
@@ -54,7 +54,7 @@ These fix basic product gaps that make the repo look like a weekend project.
 
 #### ✅ 1.2 Proper CLI installer — DONE
 
-`npx reimagine-it` ships as a standalone npm package. Reads HTML, extracts content, generates all 10 tokens. Supports `--seed`, `--json`, `--dry`, `--list`, stdin piping. No agent required.
+`npx reimagine-it` ships as a standalone npm package. Reads HTML, extracts content, generates all 15 tokens. Supports `--seed`, `--json`, `--dry`, `--list`, stdin piping. No agent required.
 
 #### 1.3 Get featured in skills roundups — IN PROGRESS
 
@@ -64,9 +64,9 @@ These fix basic product gaps that make the repo look like a weekend project.
 
 CI status badge, version badge, license badge, and 5 platform badges on README.
 
-#### ✅ 1.5 Diverse case studies in SHOWCASE.md — DONE
+#### ✅ 1.5 Diverse case studies — DONE
 
-Three new gold sources (Pulsewave SaaS, Two Lights essay, Saffron & Smoke restaurant) prove the method travels beyond Texas.
+Seven HTML journeys in `examples/end-users/` (Venator, Crimson Circuit, Velocita, Maracuyá, Flick, Meridian, Horizon). Texas / Jules under `gold/` remain skill fixtures, not a second public gallery.
 
 #### ✅ 1.6 CI pipeline — DONE
 
@@ -77,7 +77,7 @@ GitHub Actions workflow with 18-check audit, 0 failures, and regression test pro
 **Fix:** Ship a polished `docs/` microsite with:
 - Static source → signal → artifact illustration with live playground link
 - One-command install for every agent tool (Claude Code, Cursor, Codex, Copilot, Gemini, Pi)
-- 3 diverse case studies front-loaded (not buried in SHOWCASE.md)
+- 7 diverse case studies front-loaded (`examples/end-users/`)
 - Embedded playground (already built)
 - "How it works" section showing content→palette→motif→motion pipeline
 - Link to GitHub Discussions for feedback
@@ -116,11 +116,9 @@ GitHub Actions workflow with 18-check audit, 0 failures, and regression test pro
 - Version number (already there)
 - "Featured in" if any roundups pick it up
 
-#### 1.5 Diverse case studies in SHOWCASE.md
+#### ✅ 1.5 Diverse case studies — DONE
 
-**Problem:** SHOWCASE.md is 377 lines of Texas notebook case studies. The 3 new sources (Pulsewave, Two Lights, Saffron) are relegated to a table.
-
-**Fix:** Expand SHOWCASE.md with full case studies for Pulsewave, Two Lights, and Saffron & Smoke — with the same before/after images, palette/motif/motion/3D notes, and design rationale as the Texas studies. The page should prove the method travels.
+Public proof is `docs/CASE_STUDIES.md` plus `examples/end-users/`. `docs/SHOWCASE.md` is a short pointer, not a Texas gallery.
 
 ---
 
@@ -146,7 +144,7 @@ Three focused sub-skills shipped: `audit`, `lock`, `infographic`. Each has its o
 
 #### ✅ 3.2 `npx reimagine-it` standalone CLI (no agent required) — DONE
 
-All 10 tokens, seeded variation, stdin support, `--list`, `--json`, `--dry`. 26 unit tests. Published to npm.
+All 15 tokens, seeded variation, stdin support, `--list`, `--json`, `--dry`. Unit tests. Published to npm.
 
 #### Original Tier 2 items still open:
 
@@ -225,7 +223,7 @@ These create an actual moat and make reimagine-it the default design skill.
 
 **Fix:** Name the methodology and publish it:
 
-> **Content-Derived Design (CDD):** The source file is the brief. Palette, motif, motion, and 3D are derived from concrete nouns, dates, proper nouns, and color words already in the content. Nothing is hard-coded. Change the source, change the design.
+> **Content-Derived Design (CDD):** The source file is the brief. Palette, motif, motion, and 3D are derived from concrete nouns, dates, proper nouns, and color words already in the content. Source facts are not invented. Change the source, change the design.
 
 Write a manifesto (`docs/MANIFESTO.md`) explaining CDD with:
 - The problem (agents ship mood boards, not designs)
@@ -343,7 +341,7 @@ This is the ultimate viral growth loop: someone sees a boring page, clicks "Reim
 1. **Name the methodology**: "Content-Derived Design" — add it to the README tagline and SKILL.md
 2. **Get listed**: Submit to composio.dev top design skills, awesome-agent-skills, and skills.sh
 3. **Metrics badge**: Add a "277k installs → be the first 100" badge or similar social proof
-4. **Expand SHOWCASE.md**: Full case studies for Pulsewave, Two Lights, Saffron
+4. **Keep case studies current**: public proof is the seven journeys in `examples/end-users/`
 5. **Add `/reimagine-it audit` command**: The single highest-value sub-command — checks any page against the craft floor
 
 ---

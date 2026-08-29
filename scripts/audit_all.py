@@ -22,17 +22,32 @@ os.chdir(REPO)
 AUDIT_SCRIPT = os.path.join(REPO, "scripts", "audit.py")
 
 
+def _git_ignored(rel):
+    """True when git would ignore this path. Untracked local shots must not fail CI locally."""
+    result = subprocess.run(
+        ["git", "check-ignore", "-q", rel],
+        cwd=REPO,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    return result.returncode == 0
+
+
 def find_gold_html():
-    """Find all gold HTML files, excluding before.html, see.html, and vendors."""
+    """Find tracked gold HTML files, excluding before.html, see.html, and vendors."""
     files = []
     gold_dir = os.path.join(REPO, "gold")
+    skip_dirs = {"vendor", "loops", "_preview_b21", "x-ads", "pulsewave", "twolights", "saffron"}
     for root, dirs, filenames in os.walk(gold_dir):
-        dirs[:] = [d for d in dirs if d not in ("vendor", "loops", "_preview_b21")]
+        dirs[:] = [d for d in dirs if d not in skip_dirs]
         for fn in filenames:
             fp = os.path.join(root, fn)
             rel = os.path.relpath(fp, REPO)
-            if fn.endswith(".html") and fn not in ("before.html", "see.html"):
-                files.append(rel)
+            if not (fn.endswith(".html") and fn not in ("before.html", "see.html")):
+                continue
+            if _git_ignored(rel.replace("\\", "/")):
+                continue
+            files.append(rel)
     return sorted(files)
 
 

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>reimagine-it — Content-Derived Design for AI Agents</title>
-<meta name="description" content="An AI agent skill that reads your file and redesigns it from its own content. Palette, motifs, and motion derived from nouns, dates, and colors already in your source. Offline HTML. No CDN. No Figma.">
+<meta name="description" content="Content-Derived Design: existing HTML in, a stronger standalone page out — from the nouns, dates, numbers, and colors already in the file. CLI + agent skill. Offline. No CDN. No Figma.">
 <meta name="keywords" content="claude-code, cursor, codex, copilot, gemini-cli, agent-skills, content-derived design, infographic, webpage, html, svg, threejs, simulation, redesign">
 <link rel="canonical" href="https://kayforkind.github.io/reimagine-it/">
 <style>
@@ -288,9 +288,9 @@ footer a { color: var(--hot); }
     <section class="hero" id="hero">
       <div>
         <p class="kicker">Content-Derived Design for AI Agents</p>
-        <h1>Your file <em>is</em> the brief.<br>The AI reads it and <span class="grad">redesigns</span> it.</h1>
+        <h1>Your HTML <em>is</em> the brief.<br>The engine reads it and <span class="grad">redesigns</span> it.</h1>
         <p class="sub">
-          <strong>Content-Derived Design</strong> — palette, motifs, and motion are extracted from the concrete nouns, dates, and colors already in your source. Not a mood board. A real artifact. <code>/reimagine-it</code> ships one standalone HTML file. Offline. No Figma. No CDN.
+          <strong>Content-Derived Design</strong> — palette, motifs, and motion are extracted from the concrete nouns, dates, and colors already in the source HTML. Not a mood board. A real artifact. <code>npx reimagine-it</code> ships one standalone HTML file. Offline. No Figma. No CDN.
         </p>
         <div class="cta">
           <a class="btn" href="#install">Install →</a>
@@ -298,14 +298,14 @@ footer a { color: var(--hot); }
           <a class="btn btn--ghost" href="https://github.com/Kayforkind/reimagine-it">GitHub</a>
         </div>
         <div class="stats">
-          <div class="stat"><span class="val">14<em>+</em></span><span class="lab">Design tokens</span></div>
-          <div class="stat"><span class="val">9<em>+</em></span><span class="lab">Agent hosts</span></div>
-          <div class="stat"><span class="val">4</span><span class="lab">Real case studies</span></div>
+          <div class="stat"><span class="val">15</span><span class="lab">Design tokens</span></div>
+          <div class="stat"><span class="val">9</span><span class="lab">Agent hosts</span></div>
+          <div class="stat"><span class="val">7</span><span class="lab">Committed journeys</span></div>
           <div class="stat"><span class="val">0</span><span class="lab">CDN deps</span></div>
         </div>
       </div>
       <aside class="transform" aria-label="Live examples">
-        <div class="transform-head"><span class="dots"><i></i><i></i><i></i></span><span>Same method · different DNA</span><span id="tfCount">01 / 04</span></div>
+        <div class="transform-head"><span class="dots"><i></i><i></i><i></i></span><span>Same method · different DNA</span><span id="tfCount">01 / 07</span></div>
         <div class="transform-stage" id="tfStage">
           <img src="examples/end-users/venator/before-after.webp" alt="Crypto battle royale to signal-yellow gradient arena" loading="eager">
           <img src="examples/end-users/crimson-circuit/before-after.webp" alt="Music festival to magenta editorial poster" loading="lazy">
@@ -327,7 +327,7 @@ footer a { color: var(--hot); }
   <div class="wrap">
     <section class="method" id="method">
       <h2>Content-Derived Design — how it works</h2>
-      <p class="sub">The skill reads your file, extracts concrete nouns / dates / colors / proper nouns, and builds a design language from them. Nothing is hard-coded.</p>
+      <p class="sub">The engine reads the HTML you point at, extracts concrete nouns / dates / colors / proper nouns, and builds a design language from them. Source facts are not invented.</p>
       <div class="method-steps">
         <div class="method-card reveal">
           <span class="step">01 · Extract</span>
@@ -354,7 +354,7 @@ footer a { color: var(--hot); }
 
     <section class="case-section" id="cases">
       <h2>Seven sources. Same method. <em>Loud</em> DNA.</h2>
-      <p class="sub">Every design below is derived from the content of the source file — not from a template. The yellow, magenta, orange, coral, and electric blue all come from hex colors already written into each source. <a href="https://github.com/Kayforkind/reimagine-it/blob/main/docs/SHOWCASE.md">Full case studies →</a></p>
+      <p class="sub">Every design below is derived from the content of the source file — not from a template. The yellow, magenta, orange, coral, and electric blue all come from hex colors already written into each source. <a href="https://github.com/Kayforkind/reimagine-it/blob/main/docs/CASE_STUDIES.md">Full case studies →</a></p>
 
       <h3 class="source-name" id="end-user-proof">Seven real jobs, seven different answers</h3>
       <p class="source-sub">A crypto battle royale, a music festival, a skate brand, a juice bar, a streetwear drop, a living building, and an observability platform — each starts as plain HTML and gets a composition that fits its content, on desktop and on a phone. The loud palettes come from the hex colors already written into each source, not from a style prompt. <a href="https://github.com/Kayforkind/reimagine-it/tree/main/examples/end-users">Read every source, result, and report →</a> · <a href="https://github.com/Kayforkind/reimagine-it/blob/main/docs/CASE_STUDIES.md">Step-by-step case studies →</a> · <a href="https://github.com/Kayforkind/design-health-action">Design Health — CI quality gate →</a></p>
@@ -372,21 +372,9 @@ footer a { color: var(--hot); }
 
     </section>
 
-    <section class="method" id="non-webpage">
-      <h2>Not just webpages — also CLI, protocol, code architecture</h2>
-      <p class="sub">The five golds above are webpages. The same Content-Derived Design method works on non-visual artifacts too. <a href="https://github.com/Kayforkind/reimagine-it/blob/main/gold/five/RESULTS.md">Full tested results →</a></p>
-      <table class="case-table">
-        <tr><th>Fixture</th><th>Form</th><th>What /reimagine-it did</th><th>Proof</th></tr>
-        <tr><td class="src">01-cli</td><td><code>cli</code></td><td>Before: reads one positional arg, exits 2 with no stdin. After: <code>--stdin</code> flag, JSON output, exit 0 on piped data</td><td><code>python gold/five/run.py</code></td></tr>
-        <tr><td class="src">02-door</td><td><code>protocol</code></td><td>Before: first-run exits 1 with a wall of text. After: copies one command to clipboard, exits 0</td><td><code>python gold/five/run.py</code></td></tr>
-        <tr><td class="src">03-ledger</td><td><code>html</code> + data</td><td>Before: 30 lines of naive JSONL. After: filterable index.html with SVG timeline</td><td><a href="https://github.com/Kayforkind/reimagine-it/blob/main/gold/five/03-ledger/index.html">index.html</a> · <a href="https://github.com/Kayforkind/reimagine-it/blob/main/gold/five/RUN.svg">RUN.svg</a></td></tr>
-        <tr><td class="src">04-layers</td><td><code>code</code> architecture</td><td>Two Python packages with tangled internal imports → clean public-internal split with layer-check script</td><td><code>python gold/five/run.py</code></td></tr>
-      </table>
-    </section>
-
     <section class="case-section" id="tokens">
-      <h2>Fourteen directions. <em>One</em> honest method.</h2>
-      <p class="sub">Every token is a real generator in the engine — each one reads the same extracted content and builds a structurally different composition. No templates, no stock art, nothing invented.</p>
+      <h2>Fifteen directions. <em>One</em> honest method.</h2>
+      <p class="sub">Every token is a real generator in the engine — each one reads the same extracted content and builds a structurally different composition. Layouts are generated; source facts are not invented.</p>
 <div class="token-gallery reveal">
         <div class="token-gallery-stage">
           <div class="tg-main">

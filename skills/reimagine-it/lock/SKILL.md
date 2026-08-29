@@ -5,8 +5,8 @@ description: >-
   signatures from a shipped HTML file and saves them as a reusable reference pack.
   Use when the user says /reimagine-it lock, "lock this design", "save design DNA",
   "capture this look", or wants to reuse a shipped design on a different target.
-  Locks include a cross-medium translation table for moving between webpage, slides,
-  PDF, and infographic. Part of the reimagine-it Content-Derived Design suite.
+  Locks capture palette, type, motif, and motion from a shipped HTML file.
+  Part of the reimagine-it Content-Derived Design suite.
 license: MIT
 metadata:
   author: Kayforkind
@@ -51,7 +51,7 @@ Captures a shipped design's full identity into a portable markdown pack so it ca
 
 ```
 /reimagine-it lock gold/domains/cinematic/after.html as house-cinema
-/reimagine-it lock gold/pulsewave/after.html as tech-wave
+/reimagine-it lock examples/end-users/horizon/auto.html as ops-console
 ```
 
 ## What gets captured
@@ -65,14 +65,14 @@ Captures a shipped design's full identity into a portable markdown pack so it ca
 | **3D signature** | 3D approach for the medium | `matcap-hero`, `card-fan` |
 | **Section structure** | Page anatomy grid | Hero → Cards → Footer |
 
-## Cross-medium translation
+## Token translation
 
-Locks include a translation table so a webpage lock can inform a slides deck or a PDF:
+Locks include a translation table so a webpage lock can inform another HTML token:
 
 ```
-/reimagine-it webpage --ref house-cinema  # webpage in that style
-/reimagine-it slides  --ref house-cinema  # slide deck in that style
-/reimagine-it pdf     --ref house-cinema  # PDF in that style
+/reimagine-it webpage --ref house-cinema
+/reimagine-it infographic --ref house-cinema
+/reimagine-it dashboard --ref house-cinema
 ```
 
 ## Procedure
@@ -92,4 +92,4 @@ Locks include a translation table so a webpage lock can inform a slides deck or 
 - Save outside `references/locks/` (or the host's configured locks path)
 - Capture invented colors not actually in the source CSS
 - Overwrite an existing lock without asking
-- Skip the cross-medium translation table
+- Skip the token translation table
