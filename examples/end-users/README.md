@@ -15,10 +15,10 @@ Open the source first, then open **Auto**, then open the two generated options. 
 | Example | Source → Auto | Two more options | Why it is here |
 |---|---|---|---|
 | [Venator](venator/) | crypto battle royale → `dashboard` | `landing`, `artistic` | gaming language gets a signal-yellow arena instead of a timeline scrubber |
-| [Crimson Circuit](crimson-circuit/) | music festival → `editorial` | `gradient`, `landing` | poster-ready lineup copy gets a magenta magazine treatment |
+| [Crimson Circuit](crimson-circuit/) | music festival → `infographic` | `gradient`, `landing` | lineup counts and set times become a magenta statistical poster |
 | [Velocita](velocita/) | skate brand → `infographic` | `artistic`, `landing` | drop-date urgency gets a flame-orange gradient deck |
 | [Maracuyá](maracuya/) | juice bar → `infographic` | `landing`, `gradient` | menu facts get shared scales on mango coral |
-| [Flick Fits](flick/) | streetwear → `editorial` | `landing`, `gradient` | drop counts get a blue signal wall |
+| [Flick Fits](flick/) | streetwear → `infographic` | `landing`, `gradient` | drop counts and SKUs become a blue unit-count wall |
 | [Meridian Tower](meridian/) | living building → `editorial` | `3js`, `svg` | one command ships three furnished designs: a feature, an orbitable 3D object, and a living diagram |
 | [Horizon](horizon/) | observability → `infographic` | `gradient`, `landing` | SLOs and latency numbers become a data wall on navy |
 
@@ -59,10 +59,10 @@ npx reimagine-it \
 Each `before-after.webp` is a single static composite — the source on the left, the strongest verified redesign on the right, joined by a gold arrow. It loads in one request and makes the transformation visible at a glance:
 
 - [Venator](venator/before-after.webp) — battle royale → signal-yellow arena + two alternatives, desktop and phone
-- [Crimson Circuit](crimson-circuit/before-after.webp) — festival → magenta editorial poster + two alternatives, desktop and phone
+- [Crimson Circuit](crimson-circuit/before-after.webp) — festival → magenta infographic poster + two alternatives, desktop and phone
 - [Velocita](velocita/before-after.webp) — skate brand → flame-orange infographic deck + two alternatives, desktop and phone
 - [Maracuyá](maracuya/before-after.webp) — juice bar → coral infographic menu + two alternatives, desktop and phone
-- [Flick Fits](flick/before-after.webp) — streetwear → electric-blue editorial drop + two alternatives, desktop and phone
+- [Flick Fits](flick/before-after.webp) — streetwear → electric-blue infographic drop + two alternatives, desktop and phone
 - [Meridian Tower](meridian/before-after.webp) — building → amber editorial feature + 3js orbit and svg diagram
 - [Horizon](horizon/before-after.webp) — observability → navy infographic dashboard + two alternatives
 - [All seven](gallery.webp) — the complete grid

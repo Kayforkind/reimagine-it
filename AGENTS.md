@@ -50,7 +50,7 @@ Interview only if the user passed `interview`.
 
 ## Quality
 
-Run `python scripts/audit.py <output-file.html>` on any shipped webpage to validate 18 deterministic checks (no LLM, no API key). Zero failures must pass. Run `python gold/five/run.py` for non-webpage gold fixture smoke tests.
+Run `npx reimagine-it audit <output-file.html>` on any shipped webpage to validate 19 deterministic checks (no LLM, no API key). Zero failures must pass. Run `python gold/five/run.py` for non-webpage gold fixture smoke tests.
 
 **[CHANGELOG.md](CHANGELOG.md)** — version history. **[ROADMAP.md](ROADMAP.md)** — improvement plan.
 

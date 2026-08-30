@@ -223,14 +223,79 @@
         "examples/end-users/crimson-circuit/option-2-gradient.html",
         "examples/end-users/crimson-circuit/option-3-landing.html"
       ],
-      "auto_token": "editorial",
+      "auto_token": "infographic",
       "alternate_tokens": [
         "gradient",
         "landing"
       ],
       "seed": 61,
-      "score": 176,
+      "score": 178,
       "candidates": [
+        {
+          "token": "infographic",
+          "seed": -1088311913,
+          "fit": 21,
+          "quality": 136,
+          "total": 178,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            },
+            {
+              "name": "type scale present",
+              "passed": true
+            },
+            {
+              "name": "art direction present",
+              "passed": true
+            },
+            {
+              "name": "motion system present",
+              "passed": true
+            },
+            {
+              "name": "palette constrained",
+              "passed": true
+            },
+            {
+              "name": "source fidelity \u2265 60%",
+              "passed": true
+            },
+            {
+              "name": "semantic landmarks",
+              "passed": true
+            }
+          ]
+        },
         {
           "token": "editorial",
           "seed": -522448391,
@@ -800,14 +865,79 @@
         "examples/end-users/flick/option-2-landing.html",
         "examples/end-users/flick/option-3-gradient.html"
       ],
-      "auto_token": "editorial",
+      "auto_token": "infographic",
       "alternate_tokens": [
         "landing",
         "gradient"
       ],
       "seed": 97,
-      "score": 176,
+      "score": 232,
       "candidates": [
+        {
+          "token": "infographic",
+          "seed": -1088311877,
+          "fit": 48,
+          "quality": 136,
+          "total": 232,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            },
+            {
+              "name": "type scale present",
+              "passed": true
+            },
+            {
+              "name": "art direction present",
+              "passed": true
+            },
+            {
+              "name": "motion system present",
+              "passed": true
+            },
+            {
+              "name": "palette constrained",
+              "passed": true
+            },
+            {
+              "name": "source fidelity \u2265 60%",
+              "passed": true
+            },
+            {
+              "name": "semantic landmarks",
+              "passed": true
+            }
+          ]
+        },
         {
           "token": "editorial",
           "seed": -522448355,

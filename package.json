@@ -52,7 +52,8 @@
     "build:docs": "node scripts/build-docs-engine.js",
     "check:docs": "node scripts/build-docs-engine.js --check",
     "sync:pages-assets": "python scripts/sync-pages-assets.py",
-    "examples": "python examples/end-users/build.py && python scripts/sync-case-docs.py && npm run sync:pages-assets"
+    "examples": "python examples/end-users/build.py && python scripts/render-example-shots.py && python scripts/sync-case-docs.py && npm run sync:pages-assets",
+    "examples:tokens": "python scripts/build-token-board.py"
   },
   "files": [
     "skills/reimagine-it/",

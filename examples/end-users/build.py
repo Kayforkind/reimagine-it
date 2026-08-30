@@ -4,8 +4,9 @@ Usage from the repository root:
     npm run examples
 
 The builder keeps browser screenshots in a temporary directory.
-Only the source pages, generated HTML/reports, GIFs, composed cards, and
-manifest are shipped.
+Shipped artifacts are the source pages, generated HTML/reports, before/after
+WebP composites, the gallery grid, and the manifest. Desktop/phone PNGs for
+the Pages site are rendered by `scripts/render-example-shots.py`.
 """
 from __future__ import annotations
 

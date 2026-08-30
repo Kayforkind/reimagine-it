@@ -6,6 +6,12 @@ All notable changes to reimagine-it.
 
 ## v2.5.0 (current)
 
+### Examples — regenerated through the current engine
+
+- All seven end-user journeys (`examples/end-users/`) rebuilt with the v2.5.0 CLI: `auto.html`, alternates, `auto.json`, `before-after.webp`, and `gallery.webp`.
+- Pages stills (`docs/examples/end-users/*/auto-desktop.png`, phone shots, Meridian 3js/svg WebP) and the 15-token board (`docs/tokens/`) regenerated from the same engine.
+- Removed leftover scale-contract files, the implemented `docs/UPGRADE-PLAN.md`, and the tracked `gold/x-ads/` campaign tree (already gitignored; it was not product proof).
+
 ### Feature — four commands, one engine
 
 The CLI is no longer a single generate path with a skill-only lock/audit story. Generate, Auto, variations, lock, and audit share `src/` and are covered by end-to-end tests.

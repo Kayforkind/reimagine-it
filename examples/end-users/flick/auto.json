@@ -1,10 +1,75 @@
 {
   "mode": "auto",
-  "token": "editorial",
-  "seed": -522448355,
-  "score": 176,
+  "token": "infographic",
+  "seed": -1088311877,
+  "score": 232,
   "rationale": "The source is data-heavy (8 measurable facts) and reads best on shared scales.  Evidence: 5 anchors, 8 measurable facts.",
   "candidates": [
+    {
+      "token": "infographic",
+      "seed": -1088311877,
+      "fit": 48,
+      "quality": 136,
+      "total": 232,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
+          "passed": true
+        }
+      ]
+    },
     {
       "token": "editorial",
       "seed": -522448355,
@@ -151,8 +216,8 @@
     "numbers": 7,
     "links": 1
   },
-  "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\flick\\source.html",
-  "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\flick\\auto.html",
+  "source": "D:\\Projects\\awe-me\\examples\\end-users\\flick\\source.html",
+  "artifact": "D:\\Projects\\awe-me\\examples\\end-users\\flick\\auto.html",
   "fidelity": {
     "preserved": 21,
     "detected": 21,

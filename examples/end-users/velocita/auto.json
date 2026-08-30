@@ -216,8 +216,8 @@
     "numbers": 5,
     "links": 1
   },
-  "source": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\velocita\\source.html",
-  "artifact": "D:\\scratch\\temp\\reimagine-it\\examples\\end-users\\velocita\\auto.html",
+  "source": "D:\\Projects\\awe-me\\examples\\end-users\\velocita\\source.html",
+  "artifact": "D:\\Projects\\awe-me\\examples\\end-users\\velocita\\auto.html",
   "fidelity": {
     "preserved": 20,
     "detected": 20,
