@@ -1,4 +1,4 @@
-# Show HN Draft — reimagine-it v2.4.4
+# Show HN Draft — reimagine-it v2.5.0
 
 **Title:** Show HN: reimagine-it — redesign existing HTML from its own content (CLI + agent skill)
 

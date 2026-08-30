@@ -299,7 +299,7 @@ footer a { color: var(--hot); }
         </div>
         <div class="stats">
           <div class="stat"><span class="val">15</span><span class="lab">Design tokens</span></div>
-          <div class="stat"><span class="val">9</span><span class="lab">Agent hosts</span></div>
+          <div class="stat"><span class="val">19</span><span class="lab">Health rules</span></div>
           <div class="stat"><span class="val">7</span><span class="lab">Committed journeys</span></div>
           <div class="stat"><span class="val">0</span><span class="lab">CDN deps</span></div>
         </div>
@@ -471,6 +471,15 @@ footer a { color: var(--hot); }
       <h2>Install — one command</h2>
       <p class="sub">Works in Claude Code, Cursor, Codex, Copilot, Gemini CLI, Factory Droid, Windsurf, Pi, and any Agent Skills host. One chair: <code>skills/reimagine-it/</code>.</p>
       <div class="install-grid">
+        <div class="install-card reveal">
+          <span class="agent">CLI · no agent required</span>
+          <h3>npx reimagine-it</h3>
+          <pre>npx reimagine-it --auto -i page.html -o redesign.html
+npx reimagine-it variations -i page.html -n 4
+npx reimagine-it lock -i brand.html -o house.lock.json
+npx reimagine-it audit redesign.html</pre>
+          <p class="alt">Brand-lock with <code>--ref house.lock.json</code>. Reverse-lock from any HTML.</p>
+        </div>
         <div class="install-card reveal">
           <span class="agent">Claude Code</span>
           <h3>Plugin marketplace</h3>

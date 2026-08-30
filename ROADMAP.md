@@ -2,7 +2,7 @@
 
 > Based on competitive analysis of Anthropic frontend-design (277k installs), Impeccable (23 commands, 59 detector rules, product website), Superpowers (243k stars), gstack (118k stars), and the broader agent-skills ecosystem.
 >
-> Last updated: v2.4.4 — see [CHANGELOG.md](CHANGELOG.md) for completed items.
+> Last updated: v2.5.0 — see [CHANGELOG.md](CHANGELOG.md) for completed items.
 
 ---
 
@@ -70,7 +70,7 @@ Seven HTML journeys in `examples/end-users/` (Venator, Crimson Circuit, Velocita
 
 #### ✅ 1.6 CI pipeline — DONE
 
-GitHub Actions workflow with 18-check audit, 0 failures, and regression test proving failures are caught.
+GitHub Actions workflow with 19-rule audit (Node reference + Python mirror, parity-tested), 0 failures, and regression test proving failures are caught.
 
 **Problem:** The repo README is the only entry point. Impeccable has `impeccable.style` — a dedicated product site with documentation, install guide, and case studies.
 
@@ -126,17 +126,17 @@ Public proof is `docs/CASE_STUDIES.md` plus `examples/end-users/`. `docs/SHOWCAS
 
 These add capabilities that close the gap with Impeccable and frontend-design.
 
-#### ✅ 2.1 Multiple commands — DONE (focused sub-skills)
+#### ✅ 2.1 Multiple commands — DONE (CLI + focused sub-skills)
 
-Three focused sub-skills shipped: `audit`, `lock`, `infographic`. Each has its own SKILL.md with frontmatter. Monolithic SKILL.md split per SkillsBench research (+18.6 pts accuracy).
+CLI: `generate` / `--auto`, `variations`, `lock`, `audit`. Agent sub-skills: `audit`, `lock`, `infographic`. Each has its own SKILL.md. Monolithic SKILL.md split per SkillsBench research (+18.6 pts accuracy).
 
 #### ✅ 2.2 Deterministic quality checker (like Impeccable's 59 rules) — DONE
 
-`scripts/audit.py` — 18 deterministic checks across typography, palette, motion, content, structure, and performance. `scripts/audit_all.py` runs the full sweep. CI-ready with `--json` output. Exit codes: 0=clean, 1=warnings, 2=failures.
+`src/audit.js` — 19 deterministic checks across typography, palette, motion, content, structure, and performance. `scripts/audit.py` is the Python mirror. `npx reimagine-it audit` needs no Python. CI-ready with `--json` output. Exit codes: 0=clean, 1=warnings, 2=failures (generate `--audit` exits 3).
 
-#### ✅ 2.3 Content-derived vs brand-locked modes — DONE (via `--ref` lock system)
+#### ✅ 2.3 Content-derived vs brand-locked modes — DONE (`lock` + `--ref`, including reverse-lock)
 
-`/reimagine-it lock <path> as <name>` captures design DNA. `--ref <name>` reuses it. Cross-medium translation table included.
+`npx reimagine-it lock -i brand.html -o house.lock.json` captures design DNA as JSON. `--ref house.lock.json` (or `--ref any.html`) reuses it. Agent path still writes markdown packs under `references/locks/`.
 
 #### ✅ 3.1 Named methodology: Content-Derived Design (CDD) — DONE
 
@@ -329,7 +329,7 @@ This is the ultimate viral growth loop: someone sees a boring page, clicks "Reim
 | 2.5 | Community contribution pipeline | Medium | Medium | Solid→Great |
 | 3.1 | Named methodology (CDD) + manifesto | Low | Very High | Great→Legendary |
 | 3.2 | Standalone CLI (no agent required) | Very High | Very High | Great→Legendary |
-| 3.3 | MCP server for real-time feedback | High | High | Great→Legendary |
+| 3.3 | MCP server — **DONE** (8 tools: generate, auto, variations, lock, extract, audit, list tokens/rules) | High | High | Great→Legendary |
 | 3.4 | Content→design fine-tuning dataset | Medium | High | Great→Legendary |
 | 3.5 | Gold per domain partner program | Low | High | Great→Legendary |
 | 3.6 | Browser extension | High | Very High | Great→Legendary |
@@ -396,8 +396,8 @@ The risk is that the moat is invisible because:
 | 18 | Skills.sh metadata optimization — add trigger_phrases, capabilities, category to SKILL.md frontmatter for 1.17M-skill catalog discoverability | Low | High | Distribution |
 | 19 | Create SkillsBench Self-Score badge — evaluate against 12-point academic quality criteria, display on README | Low | Medium | Trust |
 | 20 | Design Health GitHub Action — marketplace action running audit.py on committed HTML/PRs | Medium | High | Infrastructure |
-| 21 | `/reimagine-it variations N` — show 2–4 content-derived palette/motif alternatives before committing | Medium | Medium | UX |
-| 22 | `/reimagine-it reverse-lock <url>` — extract any public site's design DNA into a lock file, then reimagine your content through it | Medium | High | Feature |
+| 21 | `/reimagine-it variations N` — **DONE** (`npx reimagine-it variations -n 4`) | Medium | Medium | UX |
+| 22 | `/reimagine-it reverse-lock` — **DONE** (`--ref any.html` or `--ref house.lock.json`) | Medium | High | Feature |
 | 23 | Live Preview mode in playground — click element, choose bolder/quieter/typeset, see 3 variations, accept one (Impeccable parity) | High | High | UX |
 | 24 | "Content Extraction" standalone skill — `/reimagine-it extract` returns palette + motif + anchors without building full redesign (for non-designers: marketers, writers, docs teams) | Low | Medium | Audience |
 | 25 | YouTube/tutorial content program — "reimagine-it in 60 seconds" screen capture for distribution to AI coding YouTubers | Low | High | Distribution |

@@ -10,7 +10,7 @@ description: >-
 license: MIT
 metadata:
   author: Kayforkind
-  version: "2.3.0"
+  version: "2.5.0"
   parent: reimagine-it
   hosts:
     - claude-code
@@ -74,6 +74,18 @@ Locks include a translation table so a webpage lock can inform another HTML toke
 /reimagine-it infographic --ref house-cinema
 /reimagine-it dashboard --ref house-cinema
 ```
+
+## CLI (machine-readable)
+
+The agent pack is markdown for the LLM. The CLI writes JSON the engine can apply without an agent:
+
+```bash
+npx reimagine-it lock -i house-style.html -o house.lock.json
+npx reimagine-it -i my-page.html --ref house.lock.json -t landing -o on-brand.html
+npx reimagine-it -i my-page.html --ref competitor.html --auto -o study.html
+```
+
+`--ref` accepts a `.lock.json` file **or** raw HTML (reverse-lock). Structure stays content-derived; only palette, type, and voice are pinned.
 
 ## Procedure
 

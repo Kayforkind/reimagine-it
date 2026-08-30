@@ -19,6 +19,9 @@ Copy this file to `~/.cursor/commands/reimagine-it.md` if you want the slash in 
 |---------|----------|
 | `/reimagine-it` | Sniff → adjacent possible → four notes → hero artifact + stretch. **No interview.** |
 | `/reimagine-it auto` / `/reimagine-it Auto` | Hands-free mode: infer the form, generate candidates, verify, and return the strongest artifact. Never overwrite the source. |
+| `/reimagine-it variations` | Several content-derived directions plus a contrast sheet (`npx reimagine-it variations`) |
+| `/reimagine-it lock` | Capture a brand surface; `--ref` applies it or reverse-locks from HTML |
+| `/reimagine-it audit` | Design Health — 19 deterministic rules, no LLM |
 | `/reimagine-it interview` | Optional talk. Agent decides questions (one at a time + recommended answer), then builds |
 | `/reimagine-it code` / `cli` / `protocol` / `demo` / `prose` / `product` / `architecture` / `experiment` | Force form family |
 | `/reimagine-it svg` / `3js` / `infographic` / `canvas` / `html` / `simulation` | Force visual. `infographic` also loads the infographic domain pack (poster, not dashboard). `simulation` is a playable model of source facts. |

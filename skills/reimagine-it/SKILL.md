@@ -3,8 +3,8 @@ name: reimagine-it
 description: >-
   Content-Derived Design — reads existing HTML and writes a stronger standalone
   page from headings, facts, names, dates, numbers, links, emails, and colors
-  already in that file. CLI: npx reimagine-it --auto -i page.html -o out.html.
-  Use when the user says /reimagine-it, "reimagine it", "reinvent this",
+  already in that file. CLI: npx reimagine-it --auto -i page.html -o out.html;
+  also variations, lock, and audit. Use when the user says /reimagine-it, "reimagine it", "reinvent this",
   "redesign this page", "make an infographic", wants a content-aware redesign
   or a visual leap instead of a mood board. Tokens: webpage, infographic,
   svg, 3js, simulation, artistic, cinematic, dashboard, photography, landing,
@@ -14,7 +14,7 @@ description: >-
 license: MIT
 metadata:
   author: Kayforkind
-  version: "2.4.4"
+  version: "2.5.0"
   hosts:
     - claude-code
     - cursor
@@ -102,7 +102,7 @@ Optional tokens. **Combine freely.** You pick tokens; the agent picks questions,
 | `--seed <n>` | Pin the creative variation sample so two runs produce **the same** draw. Default is fresh every run. | Use the seed to deterministically pick one option per variation axis. |
 | `--variant a\|b\|c\|...` | Shorthand for a named seed (`a` = first canonical draw, `b` = second, …). | Reproduce a specific shipped draw; useful for locks (`--variant b --lock`). |
 | `<brief>` | Any leftover words after known tokens. Open vocabulary — not a theme catalog. | Treat as a creative lens on register, ground, motif, pattern, type, motion. Still sniff context; brief does not replace source facts. |
-| **Audit** — `audit` | Run deterministic quality checks on an HTML file. | Runs `scripts/audit.py` — 18 checks across typography, palette, motion, content, structure, and performance with no LLM and no API key. Zero failures must pass. Supports `--verbose` and `--json`. |
+| **Audit** — `audit` | Run deterministic quality checks on an HTML file. | Runs `npx reimagine-it audit` — 19 checks (`src/audit.js`) across typography, palette, motion, content, structure, and performance with no LLM and no API key. Python `scripts/audit.py` is the CI mirror. Zero failures must pass. Supports `--verbose` and `--json`. |
 
 Combine freely. Known form / domain / modifier tokens load packs. **Every other word is kept** and followed. There is no list of allowed leftover words.
 
@@ -347,7 +347,7 @@ Render the hero into an image (headless Chrome for HTML → PNG at ≥ 1400 px w
 - **Motion proof.** If the pack claims motion (svg/3js default is `alive-micro`), capture two frames (~600 ms apart) and compare hashes; identical hashes = motion did not run. Brief `still` is the exception.
 
 **5.c Craft-floor pass** (webpage only) — grep the produced HTML/CSS and confirm the [craft-floor](references/craft-floor.md) contract holds:
-**Run the deterministic audit:** `python scripts/audit.py <output-file.html>` (or `/reimagine-it audit` as a standalone command). This runs 18 checks across typography, palette, motion, content, structure, and performance with no LLM and no API key. Zero failures must pass; warnings are advisory. Supports `--verbose` and `--json` for CI.
+**Run the deterministic audit:** `npx reimagine-it audit <output-file.html>` (or `/reimagine-it audit`). This runs 19 checks across typography, palette, motion, content, structure, and performance with no LLM and no API key. Python `scripts/audit.py` is the GitHub Action mirror and must agree. Zero failures must pass; warnings are advisory. Supports `--verbose` and `--json` for CI.
 
 - **Focus & selection**: at least one `::selection` rule; at least one `:focus-visible` rule; **no** `outline: 0` / `outline: none` without a real replacement.
 - **Reduced motion**: a `@media (prefers-reduced-motion: reduce)` block is present and decomposes correctly (transitions off, focus indicators still visible, essential state feedback preserved).

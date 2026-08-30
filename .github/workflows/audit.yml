@@ -9,6 +9,10 @@ on:
       - "test/fixtures/**"
       - ".github/workflows/audit.yml"
       - "src/generate.js"
+      - "src/audit.js"
+      - "src/lock.js"
+      - "src/variations.js"
+      - "bin/reimagine-it.js"
       - "scripts/audit-tokens.js"
       - "scripts/render-audit.js"
   pull_request:
@@ -18,6 +22,10 @@ on:
       - "scripts/audit_all.py"
       - "test/fixtures/**"
       - "src/generate.js"
+      - "src/audit.js"
+      - "src/lock.js"
+      - "src/variations.js"
+      - "bin/reimagine-it.js"
       - "scripts/audit-tokens.js"
       - "scripts/render-audit.js"
   workflow_dispatch:

@@ -521,6 +521,21 @@ test('plan hook forces a token and auto re-rolls weak draws', function() {
   assert.ok(result.design && result.design.quality > 0, 'should report a design score');
 });
 
+test('npm package files include MCP tools and the lock/variations/audit engine', function () {
+  var pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '../../package.json'), 'utf8'));
+  var files = pkg.files || [];
+  function shipped(entry) {
+    return files.some(function (item) {
+      return item === entry || item === entry + '/' || (item.endsWith('/') && entry.indexOf(item) === 0);
+    });
+  }
+  assert.ok(shipped('mcp/') || shipped('mcp/tools.js'), 'package.files must include mcp/tools.js');
+  assert.ok(shipped('src/'), 'package.files must include src/');
+  ['src/audit.js', 'src/lock.js', 'src/variations.js', 'mcp/tools.js', 'mcp/server.js'].forEach(function (rel) {
+    assert.ok(fs.existsSync(path.join(__dirname, '../../', rel)), rel + ' must exist on disk');
+  });
+});
+
 // ── Summary ─────────────────────────────────────────────────────────
 
 console.log('\n' + passed + ' passed, ' + failed + ' failed');

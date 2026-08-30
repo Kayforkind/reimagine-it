@@ -60,9 +60,9 @@ Three moving elements at any moment: one persistent (drift, sway, breathe), one 
 At least one element with rotation ≥ 12° + shadow blur ≥ 24px, or `translateZ` ≥ 30px with a real box-shadow. The 3D must read in a still — a PNG should make depth relationships obvious.
 
 ### Step 6: Clear the craft floor
-Every output passes 18 deterministic checks before shipping: typography, palette, motion, content, structure, and performance. No lorem, no `transition: all`, no `outline: 0` without replacement, `:focus-visible` styled, `::selection` on-palette, `prefers-reduced-motion` respected, compositor-only animation, hero SVG ≥ 400px, no CDN, no external font fetch.
+Every output passes 19 deterministic checks before shipping: typography, palette, motion, content, structure, and performance. No lorem, no `transition: all`, no `outline: 0` without replacement, `:focus-visible` styled, `::selection` on-palette, `prefers-reduced-motion` respected, compositor-only animation, hero SVG ≥ 400px, no CDN, no external font fetch.
 
-**Run:** `python scripts/audit.py output.html`
+**Run:** `npx reimagine-it audit output.html`
 
 ---
 
@@ -107,7 +107,7 @@ If you use Content-Derived Design in your work:
   author = {Kayforkind},
   year = {2026},
   howpublished = {\url{https://github.com/Kayforkind/reimagine-it}},
-  note = {reimagine-it v2.4.4. See examples/end-users/ for verified outputs.}
+  note = {reimagine-it v2.5.0. See examples/end-users/ for verified outputs.}
 }
 ```
 

@@ -1,5 +1,5 @@
 name: "reimagine-it Design Health"
-description: "18 deterministic design-quality checks for HTML. No LLM, no API key. Catches blank plates, missing focus rings, non-compositor motion, un-styled selection, palette drift, and more. Use in CI to gate deploys on design quality."
+description: "19 deterministic design-quality checks for HTML. No LLM, no API key. Catches blank plates, missing focus rings, non-compositor motion, un-styled selection, palette drift, and more. Use in CI to gate deploys on design quality."
 author: "Kayforkind"
 branding:
   icon: "check-circle"
@@ -113,7 +113,7 @@ runs:
         SUMMARY+="\n**Design Health:** $PASS clean · $WARN warnings · $FAIL failures  \n"
         SUMMARY+="[reimagine-it](https://github.com/${{ github.action_repository }}) | "
         SUMMARY+="[Content-Derived Design](https://kayforkind.github.io/reimagine-it/) | "
-        SUMMARY+="[18 rules](https://github.com/${{ github.action_repository }}/blob/main/scripts/audit.py)"
+        SUMMARY+="[19 rules](https://github.com/${{ github.action_repository }}/blob/main/scripts/audit.py)"
 
         if [ "$TOTAL" -eq 0 ]; then OVERALL="WARNINGS"; fi
         echo "verdict=$OVERALL" >> $GITHUB_OUTPUT

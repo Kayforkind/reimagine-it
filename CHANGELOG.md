@@ -4,7 +4,21 @@ All notable changes to reimagine-it.
 
 ---
 
-## v2.4.4 (current)
+## v2.5.0 (current)
+
+### Feature — four commands, one engine
+
+The CLI is no longer a single generate path with a skill-only lock/audit story. Generate, Auto, variations, lock, and audit share `src/` and are covered by end-to-end tests.
+
+- **`variations`** — `npx reimagine-it variations -i page.html -n 4 -o review/` writes ranked directions plus a contrast sheet. Same source evidence, different compositions, reproducible with `--seed`.
+- **`lock` / `--ref`** — `npx reimagine-it lock -i brand.html -o house.lock.json` captures palette, type stack, and voice. `--ref` applies that surface to new content. `--ref` also accepts raw HTML (reverse-lock). Structure stays content-derived; only the surface is pinned.
+- **`audit`** — `npx reimagine-it audit page.html` runs Design Health in Node. **19 rules** (registry-derived, not restated in prose). Python `scripts/audit.py` remains the GitHub Action mirror; `test/unit/audit-parity.test.js` fails if they disagree on any file in the repo.
+- **`--audit` on generate** — a page that fails its own craft floor exits **3**, not 0 with a warning.
+- **MCP** — eight tools: `reimagine`, `design_auto`, `design_variations`, `design_lock`, `extract_content`, `list_tokens`, `audit_html`, `list_rules`. Tool handlers live in `mcp/tools.js` with no SDK import, so they unit-test without `@modelcontextprotocol/sdk`.
+- **npm pack** now ships `mcp/` (including `tools.js`). Publishing `mcp/server.js` alone would crash `npx reimagine-it-mcp`.
+- End-to-end CLI tests cover generate, stdin/stdout, audit exit codes, lock/ref, reverse-lock, and variations.
+
+## v2.4.4
 
 ### Docs — one valid product claim
 

@@ -32,7 +32,26 @@ jobs:
           node --check bin/reimagine-it.js
           node --check src/extract.js
           node --check src/generate.js
+          node --check src/audit.js
+          node --check src/lock.js
+          node --check src/variations.js
           node --check mcp/server.js
+          node --check mcp/tools.js
           node --check extension/popup.js
       - name: Validate package contents
-        run: npm pack --dry-run --json > package-preview.json
+        run: |
+          node -e "
+          const { execSync } = require('child_process');
+          const raw = execSync('npm pack --dry-run --json', { encoding: 'utf8' });
+          const parsed = JSON.parse(raw);
+          const entry = Array.isArray(parsed) ? parsed[0] : parsed;
+          const files = (entry.files || []).map((f) => String(f.path || f).replace(/\\\\/g, '/'));
+          const need = ['mcp/tools.js', 'mcp/server.js', 'src/lock.js', 'src/variations.js', 'src/audit.js', 'bin/reimagine-it.js'];
+          const missing = need.filter((n) => !files.includes(n));
+          if (missing.length) {
+            console.error('npm pack is missing:', missing.join(', '));
+            process.exit(1);
+          }
+          console.log('npm pack includes engine + MCP tools (' + files.length + ' files)');
+          "
+

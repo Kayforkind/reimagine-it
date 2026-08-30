@@ -1,29 +1,42 @@
 #!/usr/bin/env python3
 """
-Audit all gold HTML files in the repository.
+Audit many HTML files with Design Health.
 
 Usage:
-    python scripts/audit_all.py          # audit all gold HTML
-    python scripts/audit_all.py --json   # JSON output
+    python scripts/audit_all.py                      # sweep tracked gold HTML
+    python scripts/audit_all.py --json               # verdict summary as JSON
+    python scripts/audit_all.py --reports a.html b.html
+                                                     # full reports as JSON
+    python scripts/audit_all.py path/to/page.html    # audit explicit paths
 
-Exit code 0 = all files pass or warn, non-zero = at least one failure.
+Exit code 0 = all clean, 1 = warnings only, 2 = at least one failure.
+
+`--reports` is what `test/unit/audit-parity.test.js` consumes to prove the
+Python mirror and `src/audit.js` agree file by file.
 """
 
-import sys
+import json
 import os
 import subprocess
-import json
+import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 
+sys.path.insert(0, HERE)
 os.chdir(REPO)
 
-AUDIT_SCRIPT = os.path.join(REPO, "scripts", "audit.py")
+from audit import audit_html, exit_code_for  # noqa: E402  (path set above)
+
+SKIP_DIRS = {
+    "vendor", "loops", "_preview_b21", "x-ads", "pulsewave",
+    "twolights", "saffron", "node_modules",
+}
+SKIP_FILES = {"before.html", "see.html"}
 
 
 def _git_ignored(rel):
-    """True when git would ignore this path. Untracked local shots must not fail CI locally."""
+    """True when git would ignore this path. Untracked local shots must not fail CI."""
     result = subprocess.run(
         ["git", "check-ignore", "-q", rel],
         cwd=REPO,
@@ -34,72 +47,74 @@ def _git_ignored(rel):
 
 
 def find_gold_html():
-    """Find tracked gold HTML files, excluding before.html, see.html, and vendors."""
+    """Tracked gold HTML files, excluding sources, previews, and vendored copies."""
     files = []
-    gold_dir = os.path.join(REPO, "gold")
-    skip_dirs = {"vendor", "loops", "_preview_b21", "x-ads", "pulsewave", "twolights", "saffron"}
-    for root, dirs, filenames in os.walk(gold_dir):
-        dirs[:] = [d for d in dirs if d not in skip_dirs]
-        for fn in filenames:
-            fp = os.path.join(root, fn)
-            rel = os.path.relpath(fp, REPO)
-            if not (fn.endswith(".html") and fn not in ("before.html", "see.html")):
+    for root, dirs, filenames in os.walk(os.path.join(REPO, "gold")):
+        dirs[:] = [d for d in dirs if d not in SKIP_DIRS]
+        for name in filenames:
+            if not name.endswith(".html") or name in SKIP_FILES:
                 continue
+            rel = os.path.relpath(os.path.join(root, name), REPO)
             if _git_ignored(rel.replace("\\", "/")):
                 continue
             files.append(rel)
     return sorted(files)
 
 
-def main():
-    json_out = "--json" in sys.argv
-    files = find_gold_html()
+def report_for(path):
+    with open(path, "r", encoding="utf-8") as handle:
+        return audit_html(handle.read(), path.replace("\\", "/"))
 
+
+def main():
+    args = [arg for arg in sys.argv[1:] if not arg.startswith("--")]
+    flags = {arg for arg in sys.argv[1:] if arg.startswith("--")}
+    json_out = "--json" in flags
+    reports_out = "--reports" in flags
+
+    files = args if args else find_gold_html()
     if not files:
-        print("No gold HTML files found.")
+        print("No HTML files found.")
         sys.exit(0)
 
-    results = {"files": {}, "summary": {"total": 0, "clean": 0, "warnings": 0, "failures": 0}}
+    reports = {}
+    worst = 0
+    summary = {"total": 0, "clean": 0, "warnings": 0, "failures": 0}
 
-    for fpath in files:
-        try:
-            result = subprocess.run(
-                [sys.executable, AUDIT_SCRIPT, fpath, "--json"],
-                capture_output=True, text=True, timeout=15
-            )
-            if result.returncode == 0:
-                results["summary"]["clean"] += 1
-            elif result.returncode == 1:
-                results["summary"]["warnings"] += 1
-            else:
-                results["summary"]["failures"] += 1
+    for path in files:
+        if not os.path.isfile(path):
+            print("File not found: %s" % path, file=sys.stderr)
+            sys.exit(2)
+        report = report_for(path)
+        reports[path.replace("\\", "/")] = report
+        code = exit_code_for(report)
+        worst = max(worst, code)
+        summary["total"] += 1
+        summary["clean" if code == 0 else "warnings" if code == 1 else "failures"] += 1
 
-            results["summary"]["total"] += 1
-            data = json.loads(result.stdout) if result.stdout.strip() else {"verdict": "ERROR"}
-            results["files"][fpath] = data.get("verdict", "ERROR")
-        except (subprocess.TimeoutExpired, json.JSONDecodeError) as e:
-            results["files"][fpath] = "ERROR"
-            results["summary"]["failures"] += 1
-            results["summary"]["total"] += 1
-
-    if json_out:
-        json.dump(results, sys.stdout, indent=2)
+    if reports_out:
+        json.dump(reports, sys.stdout, indent=2, sort_keys=True)
+        print()
+    elif json_out:
+        json.dump({
+            "files": {path: report["verdict"] for path, report in reports.items()},
+            "summary": summary,
+        }, sys.stdout, indent=2, sort_keys=True)
         print()
     else:
-        for fpath in sorted(results["files"]):
-            verdict = results["files"][fpath]
-            icons = {"CLEAN": "✓", "WARNINGS": "⚠", "FAIL": "✗", "ERROR": "?"}
-            print(f"  {icons.get(verdict, '?')} {verdict:8s}  {fpath}")
+        icons = {"CLEAN": "OK  ", "WARNINGS": "WARN", "FAIL": "FAIL"}
+        for path in sorted(reports):
+            report = reports[path]
+            print("  %s %-9s %d/%d rules  %s" % (
+                icons.get(report["verdict"], "?"), report["verdict"],
+                report["passed"], report["rules"], path,
+            ))
+        print("\n%d files: %d clean, %d warnings, %d failures  (%d rules each)" % (
+            summary["total"], summary["clean"], summary["warnings"],
+            summary["failures"], len(reports[sorted(reports)[0]]["checks"]),
+        ))
 
-        s = results["summary"]
-        print(f"\n{s['total']} files: {s['clean']} clean, {s['warnings']} warnings, {s['failures']} failures")
-
-    if results["summary"]["failures"] > 0:
-        sys.exit(2)
-    elif results["summary"]["warnings"] > 0:
-        sys.exit(1)
-    else:
-        sys.exit(0)
+    sys.exit(worst)
 
 
 if __name__ == "__main__":

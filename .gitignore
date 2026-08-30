@@ -29,3 +29,4 @@ __pycache__/
 
 gold/x-ads/
 examples/end-users/*/auto-options/
+.tmp-verify/

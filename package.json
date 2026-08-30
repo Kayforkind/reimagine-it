@@ -1,6 +1,6 @@
 {
   "name": "reimagine-it",
-  "version": "2.4.4",
+  "version": "2.5.0",
   "description": "Content-Derived Design CLI and agent skill. Reads existing HTML and writes a stronger standalone page from the nouns, dates, numbers, and colors already in the file.",
   "license": "MIT",
   "author": "Kayforkind",
@@ -44,6 +44,8 @@
     "cli:help": "node bin/reimagine-it.js --help",
     "cli:example": "node bin/reimagine-it.js -i gold/webpage/before.html -t webpage -d",
     "test:unit": "node test/unit/cli.test.js",
+    "test:mcp": "node test/unit/mcp.test.js",
+    "test:e2e": "node test/e2e/cli.e2e.test.js",
     "prepublishOnly": "node scripts/test.js",
     "mcp": "node mcp/server.js",
     "auto": "node scripts/auto.js",
@@ -66,7 +68,7 @@
     "dsh/README.md",
     "dsh/auto.mjs",
     "dsh/cordis.patch.yml",
-    "mcp/server.js"
+    "mcp/"
   ],
   "dsh": {
     "bundle": {

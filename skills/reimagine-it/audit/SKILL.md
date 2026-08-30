@@ -1,7 +1,7 @@
 ---
 name: reimagine-it-audit
 description: >-
-  Design Health — runs 18 deterministic quality checks on HTML output.
+  Design Health — runs 19 deterministic quality checks on HTML output.
   Use when the user says /reimagine-it audit, "audit this page", "check design quality",
   or wants to verify craft-floor compliance before shipping. Catches blank plates,
   missing focus rings, non-compositor motion, off-palette accents, dead motion,
@@ -10,7 +10,7 @@ description: >-
 license: MIT
 metadata:
   author: Kayforkind
-  version: "2.3.0"
+  version: "2.5.0"
   parent: reimagine-it
   hosts:
     - claude-code
@@ -44,16 +44,16 @@ trigger_phrases:
 
 **Parent:** [../SKILL.md](../SKILL.md) — the full Content-Derived Design engine. This sub-skill handles only the deterministic quality check.
 
-Runs `scripts/audit.py` — 18 checks across 6 categories:
+Runs `npx reimagine-it audit` — 19 checks across 6 categories (`src/audit.js`; Python `scripts/audit.py` is the CI mirror):
 
 | Category | Checks | What it catches |
 |----------|--------|-----------------|
-| Typography | 3 | Missing hierarchy levels, text measure > 65ch |
-| Palette | 3 | Off-palette accents, un-styled ::selection, > 5 non-neutral colors |
-| Motion | 3 | Missing prefers-reduced-motion, missing :focus-visible, non-compositor animation |
-| Content | 3 | Blank plates, placeholder labels, fabricated content |
-| Structure | 3 | No hero SVG, missing semantic landmarks, broken images |
-| Performance | 3 | No content-visibility, long page, excessive DOM depth |
+| Typography | 3 | Banned default fonts, type-scale range, measure > 65ch |
+| Palette | 3 | Palette drift, `transition: all`, un-styled `::selection` |
+| Motion | 4 | Outline removal, missing `prefers-reduced-motion`, missing `:focus-visible`, non-compositor animation |
+| Content | 4 | Placeholder copy, vibe adjectives, emoji farm, `<br><br>` spacing |
+| Structure | 3 | CDN, external font fetch, figure system doing no work |
+| Performance | 2 | Images without dimensions, long pages without `content-visibility` |
 
 ## Usage
 
@@ -61,12 +61,12 @@ Runs `scripts/audit.py` — 18 checks across 6 categories:
 # Agent
 /reimagine-it audit path/to/page.html
 
-# CLI
-python scripts/audit.py gold/webpage/after.html
-python scripts/audit.py gold/webpage/after.html --verbose
-python scripts/audit.py gold/webpage/after.html --json
+# CLI (Node — no Python required)
+npx reimagine-it audit gold/webpage/after.html
+npx reimagine-it audit gold/webpage/after.html --verbose
+npx reimagine-it audit gold/webpage/after.html --json
 
-# CI
+# CI mirror
 python scripts/audit_all.py
 ```
 

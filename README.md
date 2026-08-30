@@ -5,7 +5,7 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/audit.yml?branch=main&label=CI&logo=github)](https://github.com/Kayforkind/reimagine-it/actions/workflows/audit.yml)
 [![Benchmark](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/benchmark.yml?branch=main&label=benchmark%20100%2F100)](https://github.com/Kayforkind/reimagine-it/actions/workflows/benchmark.yml)
 [![Design Health](https://img.shields.io/github/actions/workflow/status/Kayforkind/design-health-action/audit.yml?branch=main&label=Design%20Health&logo=github)](https://github.com/Kayforkind/design-health-action/actions/workflows/audit.yml)
-[![version 2.4.4](https://img.shields.io/badge/version-2.4.4-b22234.svg)](CHANGELOG.md)
+[![version 2.5.0](https://img.shields.io/badge/version-2.5.0-b22234.svg)](CHANGELOG.md)
 [![npm](https://img.shields.io/npm/v/reimagine-it?color=e8a63f&label=npm)](https://www.npmjs.com/package/reimagine-it)
 [![MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE)
 [![skills.sh](https://skills.sh/b/kayforkind/reimagine-it)](https://skills.sh/kayforkind/reimagine-it)
@@ -24,9 +24,12 @@
 
 ```bash
 npx reimagine-it --auto -i page.html -o redesign.html
+npx reimagine-it variations -i page.html -n 4 -o review/
+npx reimagine-it lock -i brand.html -o house.lock.json
+npx reimagine-it audit redesign.html
 ```
 
-**Source in. Beautiful, usable HTML out. The source stays untouched.** The result is one standalone HTML file — offline, no CDN, no Figma, no build step.
+**Source in. Beautiful, usable HTML out. The source stays untouched.** The result is one standalone HTML file — offline, no CDN, no Figma, no build step. Four commands share that engine: generate (or `--auto`), `variations`, `lock`, and `audit`.
 
 ## See it work
 
@@ -130,7 +133,9 @@ A restaurant menu can become a warm typographic folio. An observability page can
 - **The artifact is usable.** Generated pages are standalone HTML with inline CSS/SVG/canvas where needed.
 - **The choice is inspectable.** Auto ranks up to three directions and reports why it selected one.
 - **Variation is controlled.** No seed explores; `--seed 42` reproduces an approved direction.
-- **The craft floor is explicit.** Every token includes reduced-motion, focus-visible, and selection styling.
+- **The craft floor is explicit.** `npx reimagine-it audit` runs **19 rules** in Node (no Python required). Python `scripts/audit.py` is a parity-tested CI mirror.
+- **Several directions on demand.** `variations` writes ranked pages plus a contrast sheet from the same evidence.
+- **Brand surface is reusable.** `lock` captures palette, type, and voice as JSON; `--ref` applies it — including reverse-lock from any HTML page.
 
 ## Design Auto
 
@@ -194,7 +199,7 @@ npm install -g reimagine-it
 reimagine-it --auto -i page.html -o redesign.html
 ```
 
-Package: [npmjs.com/package/reimagine-it](https://www.npmjs.com/package/reimagine-it) · current release **2.4.4**.
+Package: [npmjs.com/package/reimagine-it](https://www.npmjs.com/package/reimagine-it) · current release **2.5.0**.
 
 ### Agent Skill
 
@@ -264,6 +269,20 @@ npx reimagine-it -i page.html --auto --plan '{"token":"landing","voice":"grotesq
 
 # Also write the design decision report next to the output
 npx reimagine-it -i page.html --auto -o reimagined/auto.html --emit
+
+# Several directions + a contrast sheet
+npx reimagine-it variations -i page.html -n 4 -o review/ --seed 42
+
+# Capture a brand surface, then put new content on it
+npx reimagine-it lock -i house-style.html -o house.lock.json
+npx reimagine-it -i my-page.html --ref house.lock.json -t landing -o on-brand.html
+
+# Reverse-lock: steal a surface from any HTML, keep this source's facts
+npx reimagine-it -i my-page.html --ref competitor.html --auto -o study.html
+
+# Design Health on a generated page (exit 3 if it fails its own floor)
+npx reimagine-it -i page.html --auto --audit -o checked.html
+npx reimagine-it audit redesign.html --verbose
 ```
 
 Use `-o -` when another tool should receive only generated HTML; progress stays on stderr.
@@ -285,11 +304,14 @@ Expose the same engine to an MCP-compatible host:
 
 Tools:
 
-- `reimagine` — generate a selected direction from raw HTML
+- `reimagine` — generate a selected direction from raw HTML (`ref` brand-locks the surface)
 - `design_auto` — choose, generate, verify, and explain a direction
+- `design_variations` — several ranked directions plus a contrast sheet
+- `design_lock` — capture a page's surface as reusable JSON
 - `extract_content` — inspect source evidence
 - `list_tokens` — discover directions
-- `audit_html` — run the craft-floor audit
+- `audit_html` — run Design Health (19 rules, native, no Python)
+- `list_rules` — the Design Health rule registry
 
 ## Browser extension and DeepSeek Harness
 
@@ -331,11 +353,14 @@ npm run check:docs
 
 Current repository checks include:
 
-- 59 unit tests covering extraction, generation, Auto, CLI behavior, and color science.
+- 60 engine unit tests covering extraction, generation, Auto, CLI behavior, color science, and npm pack contents.
+- 20 MCP tool tests (no SDK required) plus 25 end-to-end CLI tests for generate, audit, lock, and variations.
+- JS/Python Design Health parity across the HTML corpus (19 rules; a drift fails CI).
 - 32 curated gold HTML files audited; warnings are advisory and failures block shipping.
 - Intentional failing-fixture coverage to ensure the audit exit code catches real craft-floor failures.
 - Browser bundle freshness checks for the landing page and extension.
 - Token audits in CI: every generated direction is structurally checked and headless-rendered for visible text, overflow, and headings.
+- `npm pack` must include `mcp/tools.js` and the engine modules — the published CLI and MCP bin share one package.
 
 The audit is deterministic and heuristic. It is not a claim of full WCAG conformance, visual taste, or universal browser compatibility. Review the generated page before shipping it to a client.
 
