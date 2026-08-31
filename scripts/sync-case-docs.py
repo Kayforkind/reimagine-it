@@ -53,6 +53,7 @@ def load_examples():
             "source": source_desc,
             "auto": ex["auto_token"],
             "alternates": ex["alternate_tokens"],
+            "score": ex["score"],
             "fidelity": fidelity,
             "why": why,
         })
@@ -62,14 +63,14 @@ def load_examples():
 def readme_row(r):
     alts = ", ".join(f"`{a}`" for a in r["alternates"])
     return (f"| [{r['name']}]({r['slug']}/) | {r['source']} → `{r['auto']}` | "
-            f"{alts} | {r['why']} |")
+            f"{r['score']} | {alts} | {r['why']} |")
 
 
 def case_row(r):
     alts = ", ".join(f"`{a}`" for a in r["alternates"])
     return (f"| [{r['name']}](../examples/end-users/{r['slug']}/) | "
-            f"{r['source']} → `{r['auto']}` | {alts} | {r['fidelity']}% | "
-            f"[case study](../examples/end-users/{r['slug']}/) |")
+            f"{r['source']} → `{r['auto']}` | {alts} | {r['score']} | "
+            f"{r['fidelity']}% | [case study](../examples/end-users/{r['slug']}/) |")
 
 
 def replace_table(doc: Path, header_re: str, make_row):

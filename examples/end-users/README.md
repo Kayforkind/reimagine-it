@@ -1,8 +1,22 @@
 # See the transformation, not the template
 
-These examples show seven genuinely different jobs: running a crypto battle royale, throwing a music festival, selling skateboards, pouring juice, dropping streetwear, building a living tower, and running an observability platform. Each starts as plain HTML and becomes a standalone page whose layout, palette, and rhythm follow the source — on a desktop window and on a phone. The palettes are loud on purpose: each source carries its own hex colors (signal yellow, magenta, flame orange, mango coral, electric blue, amber, signal cyan), and the engine uses them directly.
+These examples show seven genuinely different jobs: running a crypto battle royale, throwing a music festival, selling skateboards, pouring juice, dropping streetwear, building a living tower, and running an observability platform. Auto picked **seven distinct tokens** — `gradient`, `cinematic`, `artistic`, `landing`, `photography`, `3js`, `dashboard` — so a juice bar, a skate deck, and a streetwear drop cannot collapse onto one poster. Each starts as plain HTML and becomes a standalone page whose layout, palette, and rhythm follow the source. The palettes are loud on purpose: each source carries its own hex colors (signal yellow, magenta, flame orange, mango coral, electric blue, amber, signal cyan), and the engine uses them directly.
 
 ![Seven redesign journeys: gaming arena, festival poster, skate deck, juice menu, streetwear drop, building suite, and observability dashboard](gallery.webp)
+
+## Auto results — seven tokens, seven silhouettes
+
+These are the Auto desktops GitHub Pages ships. Same engine, seed-locked in each `auto.json`.
+
+<p align="center">
+  <img src="../../docs/examples/end-users/venator/auto-desktop.png" width="240" alt="Venator Auto → gradient">
+  <img src="../../docs/examples/end-users/crimson-circuit/auto-desktop.png" width="240" alt="Crimson Circuit Auto → cinematic">
+  <img src="../../docs/examples/end-users/velocita/auto-desktop.png" width="240" alt="Velocita Auto → artistic">
+  <img src="../../docs/examples/end-users/maracuya/auto-desktop.png" width="240" alt="Maracuyá Auto → landing">
+  <img src="../../docs/examples/end-users/flick/auto-desktop.png" width="240" alt="Flick Fits Auto → photography">
+  <img src="../../docs/examples/end-users/meridian/auto-desktop.png" width="240" alt="Meridian Auto → 3js">
+  <img src="../../docs/examples/end-users/horizon/auto-desktop.png" width="240" alt="Horizon Auto → dashboard">
+</p>
 
 ## A fast way to judge the result
 
@@ -12,15 +26,15 @@ Open the source first, then open **Auto**, then open the two generated options. 
 - Does the composition fit the subject rather than merely change colors?
 - Would a real person know what to read or do next?
 
-| Example | Source → Auto | Two more options | Why it is here |
-|---|---|---|---|
-| [Venator](venator/) | crypto battle royale → `gradient` | `landing`, `artistic` | gaming language gets a signal-yellow gradient arena instead of a timeline scrubber |
-| [Crimson Circuit](crimson-circuit/) | music festival → `cinematic` | `gradient`, `landing` | three nights become a magenta cinematic scroll, not a bar chart |
-| [Velocita](velocita/) | skate brand → `artistic` | `gradient`, `landing` | decks and riders become an expressive type poster |
-| [Maracuyá](maracuya/) | juice bar → `landing` | `photography`, `gradient` | the menu becomes a product landing with a real source action |
-| [Flick Fits](flick/) | streetwear → `photography` | `showcase`, `landing` | the drop becomes a photography folio of garment studies |
-| [Meridian Tower](meridian/) | living building → `3js` | `editorial`, `svg` | one command ships three furnished designs: an orbitable 3D object, a magazine feature, and a living diagram |
-| [Horizon](horizon/) | observability → `dashboard` | `gradient`, `landing` | SLOs and latency numbers become an ops dashboard |
+| Example | Source → Auto | Score | Two more options | Why it is here |
+|---|---|---|---|---|
+| [Venator](venator/) | crypto battle royale → `gradient` | 246 | `landing`, `artistic` | gaming language gets a signal-yellow gradient arena instead of a timeline scrubber |
+| [Crimson Circuit](crimson-circuit/) | music festival → `cinematic` | 258 | `gradient`, `landing` | three nights become a magenta cinematic scroll, not a bar chart |
+| [Velocita](velocita/) | skate brand → `artistic` | 240 | `gradient`, `landing` | decks and riders become an expressive type poster |
+| [Maracuyá](maracuya/) | juice bar → `landing` | 246 | `photography`, `gradient` | the menu becomes a product landing with a real source action |
+| [Flick Fits](flick/) | streetwear → `photography` | 250 | `showcase`, `landing` | the drop becomes a photography folio of garment studies |
+| [Meridian Tower](meridian/) | living building → `3js` | 260 | `editorial`, `svg` | one command ships three furnished designs: an orbitable 3D object, a magazine feature, and a living diagram |
+| [Horizon](horizon/) | observability → `dashboard` | 330 | `gradient`, `landing` | SLOs and latency numbers become an ops dashboard |
 
 **One command, three furnished designs** — on a building page, `npx reimagine-it --auto -i meridian.html` produces the Auto-selected 3D object **plus** a magazine feature (`editorial`) and a living SVG diagram (`svg`) from the same source. Static renders of the orbit, the feature, and the diagram live in `meridian/3js-desktop.webp`, `meridian/editorial-desktop.webp`, and `meridian/svg-desktop.webp`.
 

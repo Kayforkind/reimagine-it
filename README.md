@@ -14,7 +14,7 @@
 
 <div align="center">
 
-**[Try the live playground](https://kayforkind.github.io/reimagine-it/#playground)** · **[See the proof](https://kayforkind.github.io/reimagine-it/#cases)** · **[Run it locally](#the-60-second-proof)** · **[Install it](#install)**
+**[Try the live playground](https://kayforkind.github.io/reimagine-it/#playground)** · **[See the results](https://kayforkind.github.io/reimagine-it/#results)** · **[Run it locally](#the-60-second-proof)** · **[Install it](#install)**
 
 </div>
 
@@ -33,19 +33,29 @@ npx reimagine-it audit redesign.html
 
 ## See it work
 
-Real sources, real CLI output — seven committed journeys, each with the plain source, the command, and the result on desktop and phone:
+Real sources, real CLI output — seven committed journeys, **seven distinct Auto tokens**. A juice bar, a skate deck, and a streetwear drop do not share a silhouette.
+
+| Source | Auto | Score | Fidelity | Alternates |
+|---|---|---|---|---|
+| [Venator](examples/end-users/venator/) | `gradient` | 246 | 100% | `landing`, `artistic` |
+| [Crimson Circuit](examples/end-users/crimson-circuit/) | `cinematic` | 258 | 100% | `gradient`, `landing` |
+| [Velocita](examples/end-users/velocita/) | `artistic` | 240 | 85% | `gradient`, `landing` |
+| [Maracuyá](examples/end-users/maracuya/) | `landing` | 246 | 89% | `photography`, `gradient` |
+| [Flick Fits](examples/end-users/flick/) | `photography` | 250 | 100% | `showcase`, `landing` |
+| [Meridian Tower](examples/end-users/meridian/) | `3js` | 260 | 100% | `editorial`, `svg` |
+| [Horizon](examples/end-users/horizon/) | `dashboard` | 330 | 95% | `gradient`, `landing` |
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/venator/before-after.webp" width="250" alt="Crypto battle royale to signal-yellow gradient arena">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/crimson-circuit/before-after.webp" width="250" alt="Music festival to magenta cinematic chapters">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/velocita/before-after.webp" width="250" alt="Skate brand to flame-orange artistic poster">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/maracuya/before-after.webp" width="250" alt="Juice bar to coral product landing">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/flick/before-after.webp" width="250" alt="Streetwear drop to electric-blue photography folio">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/meridian/before-after.webp" width="250" alt="Living building to amber 3D object with editorial and svg">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/horizon/before-after.webp" width="250" alt="Observability platform to navy ops dashboard">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/examples/end-users/venator/auto-desktop.png" width="280" alt="Venator Auto → signal-yellow gradient arena">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/examples/end-users/crimson-circuit/auto-desktop.png" width="280" alt="Crimson Circuit Auto → magenta cinematic chapters">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/examples/end-users/velocita/auto-desktop.png" width="280" alt="Velocita Auto → flame-orange artistic poster">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/examples/end-users/maracuya/auto-desktop.png" width="280" alt="Maracuyá Auto → coral product landing">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/examples/end-users/flick/auto-desktop.png" width="280" alt="Flick Fits Auto → electric-blue photography folio">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/examples/end-users/meridian/auto-desktop.png" width="280" alt="Meridian Auto → amber 3D object">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/examples/end-users/horizon/auto-desktop.png" width="280" alt="Horizon Auto → navy ops dashboard">
 </p>
 
-<p align="center"><sub><code>venator</code> — crypto battle royale · <code>crimson-circuit</code> — festival · <code>velocita</code> — skateboards · <code>maracuya</code> — juice bar · <code>flick</code> — streetwear · <code>meridian</code> — living building · <code>horizon</code> — observability</sub></p>
+<p align="center"><sub>Auto desktops from the committed engine. Before/after composites and two alternatives live in each <a href="examples/end-users/">bundle</a>.</sub></p>
 
 **One command, three furnished designs** — point `/reimagine-it` at a building page and it ships an orbitable 3D object, a magazine feature, and a living SVG diagram from the same source: `npx reimagine-it --auto -i meridian.html`. [See the suite →](https://kayforkind.github.io/reimagine-it/#suite)
 
@@ -178,7 +188,7 @@ The intended outcome is **fresh when requested, consistent when approved** — n
 ## Case studies
 
 - **[Live playground](https://kayforkind.github.io/reimagine-it/#playground)** — paste HTML, select a direction, preview the result, and share the input.
-- **[Seven journeys](examples/end-users/)** — crypto battle royale, music festival, skate brand, juice bar, streetwear drop, living building, observability platform. Each bundle has source HTML, Auto output, two alternatives, a report, and a before/after WebP. Palettes come from hex colors already in the source.
+- **[Seven journeys](examples/end-users/)** — crypto battle royale, music festival, skate brand, juice bar, streetwear drop, living building, observability platform. Auto picked seven distinct tokens. Each bundle has source HTML, Auto output, two alternatives, a report, Auto desktop stills, and a before/after WebP.
 - **[Case study index](docs/CASE_STUDIES.md)** — commands, fidelity, and how to read a bundle.
 - **[Horizon](https://kayforkind.github.io/reimagine-it/#horizon)** — SLO/uptime page → navy dashboard.
 - **[Full suite](https://kayforkind.github.io/reimagine-it/#suite)** — one building source → orbitable `3js` object, editorial feature, and living SVG.
@@ -353,7 +363,7 @@ npm run check:docs
 
 Current repository checks include:
 
-- 60 engine unit tests covering extraction, generation, Auto, CLI behavior, color science, and npm pack contents.
+- 63 engine unit tests covering extraction, generation, Auto, CLI behavior, color science, and npm pack contents.
 - 20 MCP tool tests (no SDK required) plus 25 end-to-end CLI tests for generate, audit, lock, and variations.
 - JS/Python Design Health parity across the HTML corpus (19 rules; a drift fails CI).
 - 32 curated gold HTML files audited; warnings are advisory and failures block shipping.

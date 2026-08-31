@@ -129,6 +129,13 @@ h1 .grad { background: linear-gradient(100deg, var(--crimson), var(--hot) 55%, #
 .case-table td { font-size: 14px; padding: 12px 14px; border-bottom: 1px solid rgba(244,239,228,.06); vertical-align: top; color: #c6ccda; }
 .case-table td a { border-bottom: 1px solid rgba(232,166,63,.4); }
 .case-table .src { font-weight: 600; color: var(--ink); }
+.results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin: 8px 0 32px; }
+.results-grid figure { margin: 0; border: 1px solid rgba(244,239,228,.12); border-radius: 16px; overflow: hidden; background: #0d1322; box-shadow: 0 22px 44px -24px rgba(0,0,0,.75); }
+.results-grid img { display: block; width: 100%; height: 168px; object-fit: cover; object-position: top center; }
+.results-grid figcaption { padding: 12px 14px 14px; border-top: 1px solid rgba(244,239,228,.1); }
+.results-grid figcaption b { display: block; font-family: var(--serif); font-size: 16px; font-weight: 400; color: var(--ink); letter-spacing: 0; text-transform: none; margin-bottom: 4px; }
+.results-grid figcaption span { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
+.results-grid figcaption code { color: var(--hot); }
 
 /* ---- TOKENS GALLERY ---- */
 .tokens-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
@@ -278,7 +285,7 @@ footer a { color: var(--hot); }
     <nav>
       <div>01 <b>Kayforkind</b> / reimagine-it</div>
       <div class="links">
-        <a href="#method">How</a><a href="#cases">Proof</a>
+        <a href="#method">How</a><a href="#results">Results</a>
         <a href="#suite">Suite</a><a href="#gaming">Gaming</a><a href="#install">Install</a><a href="#playground">Try</a>
         <a href="https://github.com/Kayforkind/reimagine-it">GitHub</a>
       </div>
@@ -307,13 +314,13 @@ footer a { color: var(--hot); }
       <aside class="transform" aria-label="Live examples">
         <div class="transform-head"><span class="dots"><i></i><i></i><i></i></span><span>Same method · different DNA</span><span id="tfCount">01 / 07</span></div>
         <div class="transform-stage" id="tfStage">
-          <img src="examples/end-users/venator/before-after.webp" alt="Crypto battle royale to signal-yellow gradient arena" loading="eager">
-          <img src="examples/end-users/crimson-circuit/before-after.webp" alt="Music festival to magenta cinematic chapters" loading="lazy">
-          <img src="examples/end-users/velocita/before-after.webp" alt="Skate brand to flame-orange artistic poster" loading="lazy">
-          <img src="examples/end-users/maracuya/before-after.webp" alt="Juice bar to coral product landing" loading="lazy">
-          <img src="examples/end-users/flick/before-after.webp" alt="Streetwear drop to electric-blue photography folio" loading="lazy">
-          <img src="examples/end-users/meridian/before-after.webp" alt="Living building to amber 3D object with editorial and svg" loading="lazy">
-          <img src="examples/end-users/horizon/before-after.webp" alt="Observability platform to navy ops dashboard" loading="lazy">
+          <img src="examples/end-users/venator/auto-desktop.png" alt="Venator Auto — signal-yellow gradient arena" loading="eager">
+          <img src="examples/end-users/crimson-circuit/auto-desktop.png" alt="Crimson Circuit Auto — magenta cinematic chapters" loading="lazy">
+          <img src="examples/end-users/velocita/auto-desktop.png" alt="Velocita Auto — flame-orange artistic poster" loading="lazy">
+          <img src="examples/end-users/maracuya/auto-desktop.png" alt="Maracuyá Auto — coral product landing" loading="lazy">
+          <img src="examples/end-users/flick/auto-desktop.png" alt="Flick Fits Auto — electric-blue photography folio" loading="lazy">
+          <img src="examples/end-users/meridian/auto-desktop.png" alt="Meridian Auto — amber 3D object" loading="lazy">
+          <img src="examples/end-users/horizon/auto-desktop.png" alt="Horizon Auto — navy ops dashboard" loading="lazy">
         </div>
         <div class="transform-cap"><span id="tfLabel"><b>Venator</b> → gradient</span><span class="transform-nav"><button id="tfPrev" aria-label="Previous">←</button><button id="tfNext" aria-label="Next">→</button></span></div>
       </aside>
@@ -353,11 +360,35 @@ footer a { color: var(--hot); }
     </section>
 
     <section class="case-section" id="cases">
-      <h2>Seven sources. Same method. <em>Loud</em> DNA.</h2>
-      <p class="sub">Every design below is derived from the content of the source file — not from a template. The yellow, magenta, orange, coral, and electric blue all come from hex colors already written into each source. <a href="https://github.com/Kayforkind/reimagine-it/blob/main/docs/CASE_STUDIES.md">Full case studies →</a></p>
+      <h2>Seven sources. Seven <em>tokens</em>.</h2>
+      <p class="sub">Auto scored each source into a subject lane and forbade the same silhouette twice. A juice bar, a skate deck, and a streetwear drop cannot all become one bar-chart poster. Palettes come from hex colors already written into each source. <a href="https://github.com/Kayforkind/reimagine-it/blob/main/docs/CASE_STUDIES.md">Full case studies →</a></p>
 
-      <h3 class="source-name" id="end-user-proof">Seven real jobs, seven different answers</h3>
-      <p class="source-sub">A crypto battle royale, a music festival, a skate brand, a juice bar, a streetwear drop, a living building, and an observability platform — each starts as plain HTML and gets a composition that fits its content, on desktop and on a phone. The loud palettes come from the hex colors already written into each source, not from a style prompt. <a href="https://github.com/Kayforkind/reimagine-it/tree/main/examples/end-users">Read every source, result, and report →</a> · <a href="https://github.com/Kayforkind/reimagine-it/blob/main/docs/CASE_STUDIES.md">Step-by-step case studies →</a> · <a href="https://github.com/Kayforkind/design-health-action">Design Health — CI quality gate →</a></p>
+      <h3 class="source-name" id="results">Auto results — seven distinct compositions</h3>
+      <p class="source-sub">These are the committed Auto desktops. Same command, seven silhouettes. Scores and fidelity come from each bundle’s <code>auto.json</code>. <a href="https://github.com/Kayforkind/reimagine-it/tree/main/examples/end-users">Read every source, result, and report →</a> · <a href="https://github.com/Kayforkind/reimagine-it/blob/main/docs/CASE_STUDIES.md">Step-by-step case studies →</a></p>
+      <div class="results-grid reveal">
+        <figure><img src="examples/end-users/venator/auto-desktop.png" alt="Venator Auto desktop" loading="lazy"><figcaption><b>Venator</b><span><code>gradient</code> · 246 · 100%</span></figcaption></figure>
+        <figure><img src="examples/end-users/crimson-circuit/auto-desktop.png" alt="Crimson Circuit Auto desktop" loading="lazy"><figcaption><b>Crimson Circuit</b><span><code>cinematic</code> · 258 · 100%</span></figcaption></figure>
+        <figure><img src="examples/end-users/velocita/auto-desktop.png" alt="Velocita Auto desktop" loading="lazy"><figcaption><b>Velocita</b><span><code>artistic</code> · 240 · 85%</span></figcaption></figure>
+        <figure><img src="examples/end-users/maracuya/auto-desktop.png" alt="Maracuyá Auto desktop" loading="lazy"><figcaption><b>Maracuyá</b><span><code>landing</code> · 246 · 89%</span></figcaption></figure>
+        <figure><img src="examples/end-users/flick/auto-desktop.png" alt="Flick Fits Auto desktop" loading="lazy"><figcaption><b>Flick Fits</b><span><code>photography</code> · 250 · 100%</span></figcaption></figure>
+        <figure><img src="examples/end-users/meridian/auto-desktop.png" alt="Meridian Auto desktop" loading="lazy"><figcaption><b>Meridian</b><span><code>3js</code> · 260 · 100%</span></figcaption></figure>
+        <figure><img src="examples/end-users/horizon/auto-desktop.png" alt="Horizon Auto desktop" loading="lazy"><figcaption><b>Horizon</b><span><code>dashboard</code> · 330 · 95%</span></figcaption></figure>
+      </div>
+      <table class="case-table">
+        <thead><tr><th>Source</th><th>Auto</th><th>Score</th><th>Fidelity</th><th>Alternates</th></tr></thead>
+        <tbody>
+          <tr><td class="src">Venator</td><td><code>gradient</code></td><td>246</td><td>100%</td><td><code>landing</code>, <code>artistic</code></td></tr>
+          <tr><td class="src">Crimson Circuit</td><td><code>cinematic</code></td><td>258</td><td>100%</td><td><code>gradient</code>, <code>landing</code></td></tr>
+          <tr><td class="src">Velocita</td><td><code>artistic</code></td><td>240</td><td>85%</td><td><code>gradient</code>, <code>landing</code></td></tr>
+          <tr><td class="src">Maracuyá</td><td><code>landing</code></td><td>246</td><td>89%</td><td><code>photography</code>, <code>gradient</code></td></tr>
+          <tr><td class="src">Flick Fits</td><td><code>photography</code></td><td>250</td><td>100%</td><td><code>showcase</code>, <code>landing</code></td></tr>
+          <tr><td class="src">Meridian Tower</td><td><code>3js</code></td><td>260</td><td>100%</td><td><code>editorial</code>, <code>svg</code></td></tr>
+          <tr><td class="src">Horizon</td><td><code>dashboard</code></td><td>330</td><td>95%</td><td><code>gradient</code>, <code>landing</code></td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="source-name" id="end-user-proof">Source → Auto, on desktop and phone</h3>
+      <p class="source-sub">Each composite is the plain source on the left and the Auto page on the right, with a phone frame. Use it to check facts and reading path, not just color. <a href="https://github.com/Kayforkind/design-health-action">Design Health — CI quality gate →</a></p>
       <div class="before-after reveal">
         <div><img src="examples/end-users/venator/before-after.webp" width="720" height="720" alt="Venator crypto battle royale: plain source to signal-yellow gradient arena, landing, and phone screens" loading="lazy"><p class="label">Game → signal-yellow gradient → landing → mobile</p></div>
         <div><img src="examples/end-users/crimson-circuit/before-after.webp" width="720" height="720" alt="Crimson Circuit music festival: plain source to magenta cinematic chapters, gradient, and phone screens" loading="lazy"><p class="label">Festival → magenta cinematic → gradient → mobile</p></div>
@@ -621,7 +652,7 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
   document.querySelectorAll('.method-card').forEach(function(card, i){ card.setAttribute('data-no', '0' + (i + 1)); });
   /* token gallery: auto + 15 tokens, desktop + phone side by side, before/after toggle */
   var tg = [
-    ['auto','Auto — chose editorial (score 182)'],['webpage','Measured reading hierarchy'],['landing','Hero and action rhythm'],['dashboard','Console, KPIs, and status'],
+    ['auto','Auto — Venator scored gradient (246)'],['webpage','Measured reading hierarchy'],['landing','Hero and action rhythm'],['dashboard','Console, KPIs, and status'],
     ['infographic','Shared scales and timelines'],['cinematic','Depth and paced chapters'],['artistic','Asymmetric type and layered fields'],
     ['photography','Folio plates and captions'],['svg','Inline geometric illustration'],['3js','Offline orbitable canvas',1],
     ['simulation','Playable timeline and scrubber'],['glass','Frosted backdrop depth'],['editorial','Magazine layout with drop caps'],
