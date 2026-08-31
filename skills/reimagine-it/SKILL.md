@@ -55,9 +55,11 @@ trigger_phrases:
   - design from content
   - redesign from source
   - palette from content
-  - content-derived design
-  - simulation
-  - webpage
+  - variations
+  - lock brand
+  - design health
+  - audit this page
+  - auto redesign
   - frontend
   - html
   - css

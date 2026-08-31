@@ -17,6 +17,7 @@ When the infographic token *is* the right answer, its first fold follows the sou
 - All seven end-user journeys (`examples/end-users/`) rebuilt with the v2.5.0 CLI: `auto.html`, alternates, `auto.json`, `before-after.webp`, and `gallery.webp`.
 - Pages stills (`docs/examples/end-users/*/auto-desktop.png`, phone shots, Meridian 3js/svg WebP) and the 15-token board (`docs/tokens/`) regenerated from the same engine.
 - README, case tables, and GitHub Pages lead with those Auto desktops and the score/fidelity from each `auto.json` — seven tokens, seven silhouettes.
+- Social card (`docs/og.png`) and Auto-result reel (`docs/demo.gif`) generated from the same stills. Cite via `CITATION.cff`.
 - Removed leftover scale-contract files, the implemented `docs/UPGRADE-PLAN.md`, and the tracked `gold/x-ads/` campaign tree (already gitignored; it was not product proof).
 
 ### Feature — four commands, one engine

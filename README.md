@@ -9,8 +9,11 @@
 [![npm](https://img.shields.io/npm/v/reimagine-it?color=e8a63f&label=npm)](https://www.npmjs.com/package/reimagine-it)
 [![MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE)
 [![skills.sh](https://skills.sh/b/kayforkind/reimagine-it)](https://skills.sh/kayforkind/reimagine-it)
+[![GitHub stars](https://img.shields.io/github/stars/Kayforkind/reimagine-it?style=flat&color=b22234)](https://github.com/Kayforkind/reimagine-it/stargazers)
 
-[![reimagine-it — the source file is the design brief](https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/banner.svg)](https://kayforkind.github.io/reimagine-it/#playground)
+[![reimagine-it — seven sources, seven Auto tokens](https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/og.png)](https://kayforkind.github.io/reimagine-it/#results)
+
+[![Auto result reel](https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/demo.gif)](https://kayforkind.github.io/reimagine-it/#playground)
 
 <div align="center">
 

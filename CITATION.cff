@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+title: "reimagine-it: Content-Derived Design"
+message: If you use this software or the Content-Derived Design method, please cite it.
+type: software
+authors:
+  - name: Kayforkind
+repository-code: "https://github.com/Kayforkind/reimagine-it"
+url: "https://kayforkind.github.io/reimagine-it/"
+license: MIT
+version: 2.5.0
+date-released: "2026-08-30"
+abstract: >-
+  Content-Derived Design CLI and agent skill. Reads existing HTML and writes a
+  stronger standalone page from the headings, facts, names, dates, numbers,
+  links, emails, and colors already in the file. Auto scores each source into a
+  subject lane so seven committed journeys ship seven distinct tokens.
+keywords:
+  - content-derived-design
+  - html
+  - cli
+  - agent-skills
+  - design
+preferred-citation:
+  type: software
+  title: "Content-Derived Design: A Methodology for Content-Aware Automated Design"
+  authors:
+    - name: Kayforkind
+  year: 2026
+  url: "https://github.com/Kayforkind/reimagine-it"
+  notes: "reimagine-it v2.5.0. See examples/end-users/ for verified outputs."

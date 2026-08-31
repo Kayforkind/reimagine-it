@@ -1,25 +1,33 @@
-# Show HN Draft — reimagine-it v2.5.0
+# Show HN — reimagine-it v2.5.0
 
-**Title:** Show HN: reimagine-it — redesign existing HTML from its own content (CLI + agent skill)
+Paste this on https://news.ycombinator.com/submit (your HN account). Do not edit the title down to a slogan.
 
----
+**Title:** Show HN: reimagine-it – redesign existing HTML from its own content (CLI)
 
-Paste HTML. Run one command. Ship a standalone page — not a mood board.
+**URL:** https://github.com/Kayforkind/reimagine-it
 
-```bash
-npx reimagine-it --auto -i your-page.html -o redesign.html
-npx reimagine-it -i source.html -t dashboard
-npx reimagine-it -i menu.html --dry
-```
-
-The engine reads headings, facts, names, dates, numbers, links, emails, and colors already in the file, then writes a new HTML page in one of 15 directions. Source facts stay source facts.
-
-**Seven journeys:** [`examples/end-users/`](examples/end-users/) — Venator, Crimson Circuit, Velocita, Maracuyá, Flick, Meridian, Horizon.
+**Text:**
 
 ```
-npx skills add Kayforkind/reimagine-it
 npx reimagine-it --auto -i page.html -o redesign.html
 ```
 
-**Live demo:** [kayforkind.github.io/reimagine-it](https://kayforkind.github.io/reimagine-it/)
-**Repo:** [github.com/Kayforkind/reimagine-it](https://github.com/Kayforkind/reimagine-it)
+Paste HTML. Get one standalone page — offline, no CDN, no Figma. The engine reads headings, facts, names, dates, numbers, links, emails, and hex colors already in the file. It does not invent a SaaS landing page.
+
+Auto scores the source into a subject lane (game, festival, skate, food, fashion, architecture, ops, …) and will not put two tokens from the same silhouette on the shortlist. Seven committed journeys ship seven tokens:
+
+- crypto battle royale → gradient
+- music festival → cinematic
+- skate brand → artistic
+- juice bar → landing
+- streetwear drop → photography
+- living building → 3js (+ editorial + svg)
+- observability → dashboard
+
+Live playground (no install): https://kayforkind.github.io/reimagine-it/#playground
+Results: https://kayforkind.github.io/reimagine-it/#results
+
+Also: `variations`, `lock` / `--ref`, and `audit` (19 Design Health rules). MCP: `npx -y --package reimagine-it reimagine-it-mcp`.
+```
+
+Post after `v2.5.0` is on npm (`npm view reimagine-it version` → 2.5.0). HN punishes a demo that `npx` cannot reproduce.

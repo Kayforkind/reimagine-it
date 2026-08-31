@@ -1,0 +1,32 @@
+name: Example source
+description: Add a real HTML source that Auto should treat as a new job (20-minute first PR).
+title: "example: "
+labels: ["good first issue", "help wanted"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Fastest contribution: a real `source.html` for a job we do not already cover (the seven journeys are gaming, festival, skate, juice, streetwear, building, observability).
+
+        You do **not** need to ship a domain pack or gold after-file. A source plus a screenshot of `npx reimagine-it --auto` is enough to open the PR.
+  - type: input
+    id: job
+    attributes:
+      label: What is the job?
+      placeholder: bakery menu, clinic hours, city budget, album liner notes…
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why Auto should pick a different silhouette
+      placeholder: What would be wrong if this landed on the same token as Venator or Horizon?
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Source HTML (paste or link)
+      placeholder: Headings, facts, hex colors, and links already in the page.
+    validations:
+      required: true

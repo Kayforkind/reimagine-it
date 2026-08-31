@@ -2,7 +2,17 @@
 
 By participating you agree to the [Code of Conduct](CODE_OF_CONDUCT.md).
 
-Real content beats a spec. The fastest way to improve `/reimagine-it` is to add a real domain, a real modifier, a real form pack, or a real lock — with a shipped `.html` that proves the design language works on a real source.
+Real content beats a spec. The fastest way to improve `/reimagine-it` is to add a real source, then a real domain/modifier/form/lock if you have time.
+
+## First contribution (about 20 minutes)
+
+You do not need a domain pack. Open one of the [good first issues](https://github.com/Kayforkind/reimagine-it/labels/good%20first%20issue), or send a PR with any of:
+
+1. **A new `source.html`** for a job the seven journeys do not cover (bakery, clinic, city budget, album notes). Put it under `examples/end-users/<slug>/source.html` and run `npx reimagine-it --auto -i source.html -o auto.html --report auto.json --seed 1`. Attach the Auto token Auto picked.
+2. **A docs fix** — a stale token name, a broken still, a score that no longer matches `auto.json`.
+3. **A screenshot** of Auto on *your* page (desktop PNG, 1400×1100 is enough).
+
+Use the **Example source** or **Docs or screenshot** issue forms. Pack PRs (table below) are welcome after that.
 
 ## What we accept
 

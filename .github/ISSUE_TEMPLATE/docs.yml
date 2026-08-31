@@ -1,0 +1,28 @@
+name: Docs or screenshot
+description: A typo, a stale token name, or a missing still — 20-minute first PR.
+title: "docs: "
+labels: ["documentation", "good first issue"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Public proof lives in `README.md`, `examples/end-users/`, and `docs/index.html`. If a token name, score, or still is wrong, this is the right form.
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where
+      options:
+        - README
+        - examples/end-users
+        - GitHub Pages (docs/index.html)
+        - CASE_STUDIES.md
+        - Skill / plugin copy
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What is wrong or missing
+    validations:
+      required: true
