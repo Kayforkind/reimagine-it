@@ -79,7 +79,8 @@ def render_case(browser: str, slug: str) -> None:
     if slug != "meridian":
         return
     suite = (
-        ("option-2-3js.html", "3js-desktop.webp"),
+        ("auto.html", "3js-desktop.webp"),
+        ("option-2-editorial.html", "editorial-desktop.webp"),
         ("option-3-svg.html", "svg-desktop.webp"),
     )
     scratch = out_dir / "_suite-scratch.png"

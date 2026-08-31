@@ -14,15 +14,15 @@ Open the source first, then open **Auto**, then open the two generated options. 
 
 | Example | Source → Auto | Two more options | Why it is here |
 |---|---|---|---|
-| [Venator](venator/) | crypto battle royale → `dashboard` | `landing`, `artistic` | gaming language gets a signal-yellow arena instead of a timeline scrubber |
-| [Crimson Circuit](crimson-circuit/) | music festival → `infographic` | `gradient`, `landing` | lineup counts and set times become a magenta statistical poster |
-| [Velocita](velocita/) | skate brand → `infographic` | `artistic`, `landing` | drop-date urgency gets a flame-orange gradient deck |
-| [Maracuyá](maracuya/) | juice bar → `infographic` | `landing`, `gradient` | menu facts get shared scales on mango coral |
-| [Flick Fits](flick/) | streetwear → `infographic` | `landing`, `gradient` | drop counts and SKUs become a blue unit-count wall |
-| [Meridian Tower](meridian/) | living building → `editorial` | `3js`, `svg` | one command ships three furnished designs: a feature, an orbitable 3D object, and a living diagram |
-| [Horizon](horizon/) | observability → `infographic` | `gradient`, `landing` | SLOs and latency numbers become a data wall on navy |
+| [Venator](venator/) | crypto battle royale → `gradient` | `landing`, `artistic` | gaming language gets a signal-yellow gradient arena instead of a timeline scrubber |
+| [Crimson Circuit](crimson-circuit/) | music festival → `cinematic` | `gradient`, `landing` | three nights become a magenta cinematic scroll, not a bar chart |
+| [Velocita](velocita/) | skate brand → `artistic` | `gradient`, `landing` | decks and riders become an expressive type poster |
+| [Maracuyá](maracuya/) | juice bar → `landing` | `photography`, `gradient` | the menu becomes a product landing with a real source action |
+| [Flick Fits](flick/) | streetwear → `photography` | `showcase`, `landing` | the drop becomes a photography folio of garment studies |
+| [Meridian Tower](meridian/) | living building → `3js` | `editorial`, `svg` | one command ships three furnished designs: an orbitable 3D object, a magazine feature, and a living diagram |
+| [Horizon](horizon/) | observability → `dashboard` | `gradient`, `landing` | SLOs and latency numbers become an ops dashboard |
 
-**One command, three furnished designs** — on a building page, `npx reimagine-it --auto -i meridian.html` produces the Auto-selected editorial feature **plus** an orbitable 3D object (`3js`) and a living SVG diagram (`svg`) from the same source. Static renders of the orbit and the diagram live in `meridian/3js-desktop.webp` and `meridian/svg-desktop.webp`.
+**One command, three furnished designs** — on a building page, `npx reimagine-it --auto -i meridian.html` produces the Auto-selected 3D object **plus** a magazine feature (`editorial`) and a living SVG diagram (`svg`) from the same source. Static renders of the orbit, the feature, and the diagram live in `meridian/3js-desktop.webp`, `meridian/editorial-desktop.webp`, and `meridian/svg-desktop.webp`.
 
 ## Run one yourself
 
@@ -58,13 +58,13 @@ npx reimagine-it \
 
 Each `before-after.webp` is a single static composite — the source on the left, the strongest verified redesign on the right, joined by a gold arrow. It loads in one request and makes the transformation visible at a glance:
 
-- [Venator](venator/before-after.webp) — battle royale → signal-yellow arena + two alternatives, desktop and phone
-- [Crimson Circuit](crimson-circuit/before-after.webp) — festival → magenta infographic poster + two alternatives, desktop and phone
-- [Velocita](velocita/before-after.webp) — skate brand → flame-orange infographic deck + two alternatives, desktop and phone
-- [Maracuyá](maracuya/before-after.webp) — juice bar → coral infographic menu + two alternatives, desktop and phone
-- [Flick Fits](flick/before-after.webp) — streetwear → electric-blue infographic drop + two alternatives, desktop and phone
-- [Meridian Tower](meridian/before-after.webp) — building → amber editorial feature + 3js orbit and svg diagram
-- [Horizon](horizon/before-after.webp) — observability → navy infographic dashboard + two alternatives
+- [Venator](venator/before-after.webp) — battle royale → signal-yellow gradient arena + two alternatives, desktop and phone
+- [Crimson Circuit](crimson-circuit/before-after.webp) — festival → magenta cinematic chapters + two alternatives, desktop and phone
+- [Velocita](velocita/before-after.webp) — skate brand → flame-orange artistic poster + two alternatives, desktop and phone
+- [Maracuyá](maracuya/before-after.webp) — juice bar → coral product landing + two alternatives, desktop and phone
+- [Flick Fits](flick/before-after.webp) — streetwear → electric-blue photography folio + two alternatives, desktop and phone
+- [Meridian Tower](meridian/before-after.webp) — building → amber 3D object + editorial feature and svg diagram
+- [Horizon](horizon/before-after.webp) — observability → navy ops dashboard + two alternatives
 - [All seven](gallery.webp) — the complete grid
 
 The images are generated by `build.py`; they are proof of a reproducible transformation, not the final deliverable. For the usable result, open the linked `auto.html` file.

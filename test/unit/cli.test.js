@@ -199,7 +199,7 @@ test('webpage token produces valid HTML', function() {
 test('infographic token produces valid HTML', function() {
   var out = generate({content: sampleContent, token: 'infographic', seed: 42});
   assert.ok(out.indexOf('<!doctype html>') === 0);
-  assert.ok(out.indexOf('chart') > 0 || out.indexOf('bar') > 0, 'should have chart/bar elements');
+  assert.ok(/data-structure="(?:sequence|compare|values|relation|list)"/.test(out), 'should declare a content-derived structure');
 });
 
 test('dashboard token produces valid HTML', function() {
@@ -303,9 +303,51 @@ test('auto ranks data-rich content toward infographic', function() {
   assert.ok(plan.candidates.length <= 3);
 });
 
+test('auto picks a distinct token for each committed end-user source', function() {
+  var slugs = ['venator', 'crimson-circuit', 'velocita', 'maracuya', 'flick', 'meridian', 'horizon'];
+  var recs = slugs.map(function(slug) {
+    var html = fs.readFileSync(path.join(__dirname, '../../examples/end-users', slug, 'source.html'), 'utf8');
+    var content = extractContent(html, slug + '.html');
+    return autoMod.autoGenerate(content, { seed: 1 }).token;
+  });
+  var seen = {};
+  recs.forEach(function(token, index) {
+    assert.ok(!seen[token], slugs[index] + ' collided on ' + token + ' (' + slugs.map(function(slug, i) {
+      return slug + '=' + recs[i];
+    }).join(', ') + ')');
+    seen[token] = slugs[index];
+  });
+});
+
+test('auto candidate shortlist uses distinct silhouettes', function() {
+  var html = fs.readFileSync(path.join(__dirname, '../../examples/end-users/venator/source.html'), 'utf8');
+  var plan = autoMod.buildPlan(extractContent(html, 'venator.html'), { candidates: 3 });
+  var families = plan.candidates.map(function(candidate) { return autoMod.TOKEN_FAMILY[candidate.token]; });
+  var unique = {};
+  families.forEach(function(family, index) {
+    assert.ok(!unique[family], 'candidate family collision: ' + plan.candidates.map(function(c) { return c.token; }).join(', '));
+    unique[family] = plan.candidates[index].token;
+  });
+});
+
+test('infographic first fold follows source structure', function() {
+  var generateApi = require('../../src/generate');
+  var seq = extractContent('<h1>Season</h1><p>The timeline runs 1836 then 2026.</p>', 'season.html');
+  assert.strictEqual(generateApi.sniffInfographicStructure(seq), 'sequence');
+  var seqOut = generate({ content: seq, token: 'infographic', seed: 1 });
+  assert.ok(seqOut.indexOf('data-structure="sequence"') >= 0);
+  assert.ok(seqOut.indexOf('class="timeline"') >= 0);
+
+  var list = extractContent('<h1>Menu</h1><ul><li>Mango six dollars</li><li>Lime five dollars</li><li>Orange seven dollars</li></ul>', 'menu.html');
+  assert.strictEqual(generateApi.sniffInfographicStructure(list), 'list');
+  var listOut = generate({ content: list, token: 'infographic', seed: 1 });
+  assert.ok(listOut.indexOf('data-structure="list"') >= 0);
+  assert.ok(listOut.indexOf('ranking-row') >= 0);
+});
+
 test('auto generation returns a verified standalone artifact', function() {
   var result = autoMod.autoGenerate(sampleContent, { seed: 42 });
-  assert.ok(['webpage', 'landing', 'dashboard', 'infographic', 'cinematic', 'artistic', 'photography', 'svg', '3js', 'simulation'].indexOf(result.token) >= 0);
+  assert.ok(autoMod.DEFAULT_CANDIDATES.indexOf(result.token) >= 0, 'unexpected token ' + result.token);
   assert.ok(result.output.indexOf('<!doctype html>') === 0);
   assert.ok(result.candidates.length >= 1);
   assert.ok(result.candidates[0].quality >= 0);

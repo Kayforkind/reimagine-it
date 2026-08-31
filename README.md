@@ -36,18 +36,18 @@ npx reimagine-it audit redesign.html
 Real sources, real CLI output — seven committed journeys, each with the plain source, the command, and the result on desktop and phone:
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/venator/before-after.webp" width="250" alt="Crypto battle royale to signal-yellow mission dashboard">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/crimson-circuit/before-after.webp" width="250" alt="Music festival to magenta infographic poster">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/velocita/before-after.webp" width="250" alt="Skate brand to flame-orange infographic deck">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/maracuya/before-after.webp" width="250" alt="Juice bar to coral infographic menu">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/flick/before-after.webp" width="250" alt="Streetwear drop to electric-blue infographic">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/meridian/before-after.webp" width="250" alt="Living building to amber editorial suite with 3js and svg">
-  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/horizon/before-after.webp" width="250" alt="Observability platform to navy infographic dashboard">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/venator/before-after.webp" width="250" alt="Crypto battle royale to signal-yellow gradient arena">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/crimson-circuit/before-after.webp" width="250" alt="Music festival to magenta cinematic chapters">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/velocita/before-after.webp" width="250" alt="Skate brand to flame-orange artistic poster">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/maracuya/before-after.webp" width="250" alt="Juice bar to coral product landing">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/flick/before-after.webp" width="250" alt="Streetwear drop to electric-blue photography folio">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/meridian/before-after.webp" width="250" alt="Living building to amber 3D object with editorial and svg">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/examples/end-users/horizon/before-after.webp" width="250" alt="Observability platform to navy ops dashboard">
 </p>
 
 <p align="center"><sub><code>venator</code> — crypto battle royale · <code>crimson-circuit</code> — festival · <code>velocita</code> — skateboards · <code>maracuya</code> — juice bar · <code>flick</code> — streetwear · <code>meridian</code> — living building · <code>horizon</code> — observability</sub></p>
 
-**One command, three furnished designs** — point `/reimagine-it` at a building page and it ships an editorial feature, an orbitable 3D object, and a living SVG diagram from the same source: `npx reimagine-it --auto -i meridian.html`. [See the suite →](https://kayforkind.github.io/reimagine-it/#suite)
+**One command, three furnished designs** — point `/reimagine-it` at a building page and it ships an orbitable 3D object, a magazine feature, and a living SVG diagram from the same source: `npx reimagine-it --auto -i meridian.html`. [See the suite →](https://kayforkind.github.io/reimagine-it/#suite)
 
 ## The 60-second proof
 
@@ -180,8 +180,8 @@ The intended outcome is **fresh when requested, consistent when approved** — n
 - **[Live playground](https://kayforkind.github.io/reimagine-it/#playground)** — paste HTML, select a direction, preview the result, and share the input.
 - **[Seven journeys](examples/end-users/)** — crypto battle royale, music festival, skate brand, juice bar, streetwear drop, living building, observability platform. Each bundle has source HTML, Auto output, two alternatives, a report, and a before/after WebP. Palettes come from hex colors already in the source.
 - **[Case study index](docs/CASE_STUDIES.md)** — commands, fidelity, and how to read a bundle.
-- **[Horizon](https://kayforkind.github.io/reimagine-it/#horizon)** — SLO/uptime page → navy infographic.
-- **[Full suite](https://kayforkind.github.io/reimagine-it/#suite)** — one building source → editorial feature, orbitable `3js` object, and living SVG.
+- **[Horizon](https://kayforkind.github.io/reimagine-it/#horizon)** — SLO/uptime page → navy dashboard.
+- **[Full suite](https://kayforkind.github.io/reimagine-it/#suite)** — one building source → orbitable `3js` object, editorial feature, and living SVG.
 - **[Infographic](https://kayforkind.github.io/reimagine-it/#infographic)** · **[Gaming](https://kayforkind.github.io/reimagine-it/#gaming)**
 
 ## Install

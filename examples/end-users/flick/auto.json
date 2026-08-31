@@ -1,16 +1,81 @@
 {
   "mode": "auto",
-  "token": "infographic",
-  "seed": -1088311877,
-  "score": 232,
-  "rationale": "The source is data-heavy (8 measurable facts) and reads best on shared scales.  Evidence: 5 anchors, 8 measurable facts.",
+  "token": "photography",
+  "seed": 376638952,
+  "score": 250,
+  "rationale": "The source has a collection of items that can become visual studies. Evidence: 5 anchors, 8 measurable facts.",
   "candidates": [
     {
-      "token": "infographic",
-      "seed": -1088311877,
-      "fit": 48,
+      "token": "photography",
+      "seed": 376638952,
+      "fit": 57,
       "quality": 136,
-      "total": 232,
+      "total": 250,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "showcase",
+      "seed": -863440049,
+      "fit": 28,
+      "quality": 136,
+      "total": 192,
       "checks": [
         {
           "name": "standalone HTML",
@@ -72,75 +137,10 @@
     },
     {
       "token": "editorial",
-      "seed": -522448355,
+      "seed": -522440436,
       "fit": 20,
       "quality": 136,
       "total": 176,
-      "checks": [
-        {
-          "name": "standalone HTML",
-          "passed": true
-        },
-        {
-          "name": "title preserved",
-          "passed": true
-        },
-        {
-          "name": "source anchors retained",
-          "passed": true
-        },
-        {
-          "name": "focus-visible",
-          "passed": true
-        },
-        {
-          "name": "reduced motion",
-          "passed": true
-        },
-        {
-          "name": "selection styling",
-          "passed": true
-        },
-        {
-          "name": "no placeholder copy",
-          "passed": true
-        },
-        {
-          "name": "no external asset fetch",
-          "passed": true
-        },
-        {
-          "name": "type scale present",
-          "passed": true
-        },
-        {
-          "name": "art direction present",
-          "passed": true
-        },
-        {
-          "name": "motion system present",
-          "passed": true
-        },
-        {
-          "name": "palette constrained",
-          "passed": true
-        },
-        {
-          "name": "source fidelity ≥ 60%",
-          "passed": true
-        },
-        {
-          "name": "semantic landmarks",
-          "passed": true
-        }
-      ]
-    },
-    {
-      "token": "cinematic",
-      "seed": -1625709412,
-      "fit": 19,
-      "quality": 136,
-      "total": 174,
       "checks": [
         {
           "name": "standalone HTML",

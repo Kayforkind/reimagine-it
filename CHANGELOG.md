@@ -6,6 +6,12 @@ All notable changes to reimagine-it.
 
 ## v2.5.0 (current)
 
+### Auto — unique composition per source
+
+Auto no longer treats “has numbers” as a reason to ship the same infographic bar-chart poster. Each source is scored into a subject lane (game, festival, skate, food, fashion, architecture, ops, data, reading). Tokens in the same silhouette family cannot occupy the same shortlist, so a juice bar, a skate deck, and a streetwear drop cannot all land on one poster.
+
+When the infographic token *is* the right answer, its first fold follows the source structure (sequence, compare, values, relation, list) instead of a default bar chart.
+
 ### Examples — regenerated through the current engine
 
 - All seven end-user journeys (`examples/end-users/`) rebuilt with the v2.5.0 CLI: `auto.html`, alternates, `auto.json`, `before-after.webp`, and `gallery.webp`.

@@ -17,30 +17,92 @@ var resultApi = typeof module !== 'undefined' && module.exports
 
 var DEFAULT_CANDIDATES = ['webpage', 'landing', 'dashboard', 'infographic', 'cinematic', 'artistic', 'photography', 'svg', '3js', 'simulation', 'glass', 'editorial', 'motion', 'gradient', 'showcase'];
 
+// Tokens in the same family share a silhouette. Auto and variations must not
+// return three recolors of one family — that is how a gallery of skate,
+// juice, and streetwear pages all become the same bar-chart poster.
+var TOKEN_FAMILY = {
+  webpage: 'reading',
+  editorial: 'reading',
+  landing: 'product',
+  dashboard: 'ops',
+  infographic: 'poster-data',
+  cinematic: 'narrative',
+  motion: 'kinetic',
+  artistic: 'expressive',
+  gradient: 'mesh',
+  photography: 'folio',
+  svg: 'diagram',
+  '3js': 'object',
+  simulation: 'clock',
+  glass: 'depth',
+  showcase: 'capability',
+};
+
+var LANE_BIAS = {
+  game: { gradient: 42, landing: 22, artistic: 10, dashboard: 6, infographic: -24, simulation: -12 },
+  festival: { cinematic: 42, motion: 16, gradient: 12, infographic: -22 },
+  skate: { artistic: 38, gradient: 18, photography: 10, infographic: -22 },
+  food: { landing: 40, photography: 14, editorial: 6, infographic: -22 },
+  fashion: { photography: 38, showcase: 18, artistic: 12, infographic: -22 },
+  architecture: { '3js': 44, svg: 16, editorial: 10, infographic: -22 },
+  ops: { dashboard: 44, simulation: 8, infographic: -10 },
+  data: { infographic: 36, dashboard: 8 },
+  reading: { editorial: 36, cinematic: 14, webpage: 10, infographic: -16 },
+};
+
 function normaliseCount(value) {
   value = Number(value);
   return Number.isFinite(value) ? Math.max(1, Math.min(3, Math.floor(value))) : 1;
 }
 
+function joinedText(content) {
+  return [content.title].concat(content.headings || [], content.paragraphs || [], content.anchors || []).join(' ').toLowerCase();
+}
+
+function subjectLane(content) {
+  var text = joinedText(content);
+  var profile = String(content.profile || 'default');
+  var facts = (content.numbers || []).length + (content.dates || []).length;
+  if (/game|gaming|arena|battle|shooter|loot|player|tournament|esports|loadout|skin|stake|wager|kill/.test(text)) return 'game';
+  if (/festival|set times?|after-hours|\bstages?\b.*tickets?|tickets?.*\bstages?\b/.test(text)) return 'festival';
+  if (/skate|skateboard|\bdecks?\b|\briders?\b/.test(text)) return 'skate';
+  if (profile === 'restaurant' || profile === 'food' || /juice|menu|catering|\bpours?\b/.test(text)) return 'food';
+  if (/streetwear|street wear|\bdrop\b|lookbook|oversized|cargo/.test(text)) return 'fashion';
+  if (/architecture|living building|residences?|sky gardens?|leed|cladding/.test(text)) return 'architecture';
+  if (profile === 'saas' || profile === 'tech' || /observability|telemetry|uptime|incident|collector/.test(text)) return 'ops';
+  if (/compare|timeline|history|statistics|\bdata\b|report|survey/.test(text) && facts >= 2) return 'data';
+  if (profile === 'essay' || profile === 'literary' || profile === 'editorial') return 'reading';
+  return 'generic';
+}
+
 function scoreToken(token, content) {
   var score = 0;
-  var text = [content.title].concat(content.headings || [], content.paragraphs || [], content.anchors || []).join(' ').toLowerCase();
+  var text = joinedText(content);
   var facts = (content.numbers || []).length + (content.dates || []).length;
   var links = (content.links || []).length;
   var items = (content.items || []).length;
-  if (token === 'dashboard') score += (/metric|status|uptime|latency|observability|operations|analytics|performance|deploy|traffic|infrastructure|console|monitor|signal/.test(text) ? facts * 5 + 18 : 0);
-  if (token === 'infographic') score += facts * 3 + items * 2 + (/compare|timeline|history|statistics|data|report|survey/.test(text) ? 14 : 0) + (facts >= 6 || content.density === 'rich' ? 18 : 0);
+  var dataPoster = /compare|timeline|history|statistics|\bdata\b|report|survey/.test(text);
+  // Bare "signal" matches brand copy like "signal yellow" and used to shove
+  // every loud palette into an ops dashboard. Ops language must be operational.
+  if (token === 'dashboard') score += (/metric|status|uptime|latency|observability|operations|analytics|performance|deploy|traffic|infrastructure|console|monitor|telemetry/.test(text) ? facts * 5 + 18 : 0);
+  // Numbers on a menu or a drop are not a statistical poster. Infographic
+  // wins when the source is actually arguing with comparisons or a timeline.
+  if (token === 'infographic') {
+    score += items + Math.min(facts, 4);
+    if (dataPoster) score += 14 + facts * 2;
+    if (dataPoster && (facts >= 4 || content.density === 'rich')) score += 18;
+  }
   if (token === 'webpage') score += (content.paragraphs || []).length + (content.headings || []).length;
   if (token === 'simulation') score += (content.dates || []).length * 6 + (/process|sequence|steps?|timeline|round|version|flow/.test(text) ? 16 : 0);
   if (token === 'simulation' && (content.dates || []).length < 2) score -= 12;
   if (token === '3js') score += (/space|orbit|planet|map|landscape|architecture|room|journey|explore/.test(text) ? 13 : 0) + (content.anchors || []).length;
-  if (token === 'svg') score += (/diagram|system|network|map|relationship|brand|identity|signal/.test(text) ? 13 : 0) + links;
+  if (token === 'svg') score += (/diagram|system|network|map|relationship|brand|identity/.test(text) ? 13 : 0) + links;
   if (token === 'landing') score += links * 3 + (/product|service|startup|contact|signup|pricing|launch|reserve|book|order|visit/.test(text) ? 15 : 0);
   if (token === 'landing' && (content.profile === 'restaurant' || content.profile === 'food' || content.profile === 'retail')) score += 12;
-  if (token === 'photography') score += items * 2 + (/portfolio|gallery|studio|collection|visual|photo|image/.test(text) ? 13 : 0);
+  if (token === 'photography') score += items * 2 + (/portfolio|gallery|studio|collection|visual|photo|image|lookbook/.test(text) ? 13 : 0);
   if (token === 'cinematic') score += (/story|journey|chapter|film|cinema|night|dream|light/.test(text) ? 15 : 0) + (content.paragraphs || []).length;
   if (token === 'cinematic' && (content.profile === 'essay' || content.profile === 'literary')) score += 10;
-  if (token === 'cinematic' && facts >= 2 && /compare|data|history|statistics|report|survey/.test(text)) score -= 24;
+  if (token === 'cinematic' && facts >= 2 && dataPoster) score -= 24;
   if (token === 'artistic') score += (/poem|poetry|essay|memory|color|art|creative|voice|emotion/.test(text) ? 13 : 0) + Math.max(0, 8 - facts);
   if (token === 'glass') score += (/glass|frosted|transparent|layer|panel|depth/.test(text) ? 12 : 0) + links * 2;
   if (token === 'editorial') score += (content.paragraphs || []).length * 5 + (/essay|article|magazine|editorial|journal|publish/.test(text) ? 14 : 0);
@@ -49,24 +111,36 @@ function scoreToken(token, content) {
   if (token === 'gradient') score += items * 2 + (/brand|modern|color|vibrant|bold|fresh/.test(text) ? 10 : 0) + (content.headings || []).length;
   if (token === 'showcase') score += (/demo|showcase|motion|catalog|capability|feature|lab/.test(text) ? 12 : 0) + (content.anchors || []).length * 2;
   if (token === 'showcase' && (content.anchors || []).length < 4) score -= 8;
-  // gaming sources read best as bold, energetic brand pages rather than process timelines
-  var isGame = /game|gaming|arena|battle|shooter|loot|player|tournament|esports|loadout|skin|stake|wager|kill/.test(text);
-  if (isGame) {
-    if (token === 'gradient') score += 24;
-    if (token === 'landing') score += 18;
-    if (token === 'dashboard') score += 8;
-    if (token === 'simulation') score -= 12;
-  }
+  var bias = LANE_BIAS[subjectLane(content)] || {};
+  if (bias[token]) score += bias[token];
   return score;
 }
 
-function chooseTokens(content, count) {
-  count = normaliseCount(count || 3);
-  return DEFAULT_CANDIDATES.map(function(token) {
-    return { token: token, score: scoreToken(token, content) };
+function rankTokens(content, count) {
+  count = Math.max(1, Math.min(DEFAULT_CANDIDATES.length, Number(count) || 3));
+  var ranked = DEFAULT_CANDIDATES.map(function(token) {
+    return { token: token, score: scoreToken(token, content), family: TOKEN_FAMILY[token] || token };
   }).sort(function(a, b) {
     return b.score - a.score || DEFAULT_CANDIDATES.indexOf(a.token) - DEFAULT_CANDIDATES.indexOf(b.token);
-  }).slice(0, count);
+  });
+  var picked = [];
+  var usedFamily = {};
+  ranked.forEach(function(entry) {
+    if (picked.length >= count) return;
+    if (usedFamily[entry.family]) return;
+    usedFamily[entry.family] = 1;
+    picked.push(entry);
+  });
+  ranked.forEach(function(entry) {
+    if (picked.length >= count) return;
+    if (picked.some(function(item) { return item.token === entry.token; })) return;
+    picked.push(entry);
+  });
+  return picked.slice(0, count);
+}
+
+function chooseTokens(content, count) {
+  return rankTokens(content, normaliseCount(count || 3));
 }
 
 function buildPlan(content, options) {
@@ -153,7 +227,7 @@ function qualityScore(output, content, options) {
   (output.match(/#[0-9a-f]{6}\b/gi) || []).forEach(function(hex) { distinctHexes[hex.toLowerCase()] = 1; });
   var fidelity = resultApi && resultApi.sourceFidelity ? resultApi.sourceFidelity(content, output).percentage : 100;
   check('type scale present', /clamp\(/.test(output), 6);
-  check('art direction present', /(?:glyph-tile|donut|mini-bars|iso-prism|iso-stack|plate|mesh|data-wash|constellation|dot-grid|cap-card)/.test(output), 8);
+  check('art direction present', /(?:glyph-tile|donut|mini-bars|iso-prism|iso-stack|plate|mesh|data-wash|constellation|dot-grid|cap-card|orbit-canvas|glass-panel|isotype|ranking-row)/.test(output), 8);
   check('motion system present', keyframes >= 3, 6);
   // Cap sits at the system's own ceiling: 3 source-declared brand colors +
   // the accent tint family reach 15; anything above that is an unbounded palette.
@@ -215,6 +289,16 @@ function hashString(value) {
   return hash >>> 0;
 }
 
-var autoApi = { DEFAULT_CANDIDATES: DEFAULT_CANDIDATES, scoreToken: scoreToken, chooseTokens: chooseTokens, buildPlan: buildPlan, qualityScore: qualityScore, autoGenerate: autoGenerate };
+var autoApi = {
+  DEFAULT_CANDIDATES: DEFAULT_CANDIDATES,
+  TOKEN_FAMILY: TOKEN_FAMILY,
+  subjectLane: subjectLane,
+  scoreToken: scoreToken,
+  rankTokens: rankTokens,
+  chooseTokens: chooseTokens,
+  buildPlan: buildPlan,
+  qualityScore: qualityScore,
+  autoGenerate: autoGenerate,
+};
 if (typeof module !== 'undefined' && module.exports) module.exports = autoApi;
 if (typeof window !== 'undefined') window.ReimagineAuto = autoApi;

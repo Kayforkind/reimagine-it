@@ -17,6 +17,7 @@ DOCS = ROOT / "docs"
 ASSETS = (
     "examples/end-users/gallery.webp",
     "examples/end-users/meridian/3js-desktop.webp",
+    "examples/end-users/meridian/editorial-desktop.webp",
     "examples/end-users/meridian/svg-desktop.webp",
 )
 
@@ -26,7 +27,7 @@ CASES = ("venator", "crimson-circuit", "velocita", "maracuya", "flick", "meridia
 CASE_FILES = ("before-after.webp", "source.html", "auto-desktop.png", "auto-phone.png")
 # Meridian's suite also ships static renders of the 3js orbit and svg diagram.
 CASE_EXTRA = {
-    "meridian": ("3js-desktop.webp", "svg-desktop.webp"),
+    "meridian": ("3js-desktop.webp", "editorial-desktop.webp", "svg-desktop.webp"),
 }
 
 

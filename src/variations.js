@@ -116,6 +116,9 @@ function buildVariations(content, options) {
 }
 
 function rankedTokens(content, count) {
+  if (variationsAuto.rankTokens) {
+    return variationsAuto.rankTokens(content, count).map(function (entry) { return entry.token; });
+  }
   var all = (variationsAuto.DEFAULT_CANDIDATES || []).slice();
   if (!all.length) return ['webpage'];
   return all.map(function (token) {

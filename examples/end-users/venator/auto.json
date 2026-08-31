@@ -1,16 +1,16 @@
 {
   "mode": "auto",
-  "token": "dashboard",
-  "seed": -457102589,
-  "score": 228,
-  "rationale": "The source contains enough measurable signals for an operational view. Evidence: 5 anchors, 4 measurable facts.",
+  "token": "gradient",
+  "seed": -1661939251,
+  "score": 246,
+  "rationale": "The source has signals that benefit from bold color meshing. Evidence: 5 anchors, 4 measurable facts.",
   "candidates": [
     {
-      "token": "dashboard",
-      "seed": -457102589,
-      "fit": 46,
+      "token": "gradient",
+      "seed": -1661939251,
+      "fit": 55,
       "quality": 136,
-      "total": 228,
+      "total": 246,
       "checks": [
         {
           "name": "standalone HTML",
@@ -71,11 +71,11 @@
       ]
     },
     {
-      "token": "gradient",
-      "seed": -1661931332,
-      "fit": 37,
+      "token": "artistic",
+      "seed": 1910604761,
+      "fit": 27,
       "quality": 136,
-      "total": 210,
+      "total": 190,
       "checks": [
         {
           "name": "standalone HTML",
@@ -138,9 +138,9 @@
     {
       "token": "landing",
       "seed": 995504226,
-      "fit": 21,
+      "fit": 25,
       "quality": 136,
-      "total": 178,
+      "total": 186,
       "checks": [
         {
           "name": "standalone HTML",

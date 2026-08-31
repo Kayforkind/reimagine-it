@@ -172,6 +172,22 @@ function normaliseContent(input) {
   };
 }
 
+function sniffInfographicStructure(content) {
+  content = content || {};
+  var text = [content.title].concat(content.headings || [], content.paragraphs || [], content.anchors || []).join(' ').toLowerCase();
+  var dates = (content.dates || []).length;
+  var numbers = (content.numbers || []).length;
+  var items = (content.items || []).length;
+  var anchors = (content.anchors || []).length;
+  var links = (content.links || []).length;
+  if (dates >= 2 || /timeline|sequence|schedule|season|drop dates?/.test(text)) return 'sequence';
+  if (/compare|versus|\bvs\.?\b|difference|before and after/.test(text)) return 'compare';
+  if ((/network|system|map|relationship|connected/.test(text) && anchors >= 4) || links >= 3) return 'relation';
+  if (numbers >= 4) return 'values';
+  if (items >= 3) return 'list';
+  return 'values';
+}
+
 function generate(opts) {
   opts = opts || {};
   var content = normaliseContent(opts.content);
@@ -722,52 +738,58 @@ function generate(opts) {
   }
 
   function infographic() {
-    var light = isLight(ground);
-    var border = light ? 'rgba(15,18,24,.14)' : 'rgba(255,255,255,.14)';
-    var rowData = anchors.map(function(anchor, index) {
-      var fact = facts[index] && facts[index].value ? facts[index] : null;
-      var text = sectionParagraphAt(index, anchor);
-      var value = '';
-      if (fact && text) {
-        var n = String(fact.value).replace(/[^0-9]/g, '');
-        value = (n && text.indexOf(n) >= 0) ? String(fact.value) : '';
-      }
-      var width = value ? factBarWidth(fact, facts) : 24 + ((anchor.length * 7) % 58);
-      return { anchor: anchor, width: width, value: value };
-    });
-    var rows = rowData.map(function(row) {
-      var cell = row.value ? '<td>' + esc(row.value) + '</td>' : '<td class="no-value" aria-hidden="true"></td>';
-      return '<tr><th scope="row">' + esc(row.anchor) + '</th><td><span class="bar" style="width:' + row.width + '%"></span></td>' + cell + '</tr>';
-    }).join('');
+    var border = isLight(ground) ? 'rgba(15,18,24,.14)' : 'rgba(255,255,255,.14)';
+    var structure = sniffInfographicStructure(content);
     var factualRows = facts.filter(function(fact) { return fact.value; }).map(function(fact) {
       return '<tr><th scope="row">' + esc(fact.label) + '</th><td>' + esc(fact.value) + '</td><td>' + esc(fact.kind) + '</td></tr>';
     }).join('');
-    var timeline = content.dates.length >= 2 ? '<section class="timeline"><span class="eyebrow">Sequence in source</span><div>' + content.dates.slice(0, 8).map(function(date, index) {
+    var dateBeats = (content.dates.length ? content.dates : anchors).slice(0, 8);
+    var timeline = '<section class="timeline" aria-label="Sequence in source"><span class="eyebrow">Sequence in source</span><div>' + dateBeats.map(function(date, index) {
       return '<span><b>' + esc(date) + '</b><small>' + esc(anchors[index % anchors.length]) + '</small></span>';
-    }).join('') + '</div></section>' : '';
+    }).join('') + '</div></section>';
     var numeric = firstNumericValue(content.numbers);
-    var iso = numeric ? '<section class="isotype"><span class="eyebrow">One unit = one source count</span><div>' + repeat('<i aria-hidden="true"></i>', Math.min(Math.max(numeric, 1), 24)) + '</div></section>' : '';
+    var isoCount = Math.min(Math.max(numeric || anchors.length, 1), 24);
+    var iso = '<section class="isotype" aria-label="Unit count from source"><span class="eyebrow">One unit = one source count</span><div>' + repeat('<i aria-hidden="true"></i>', isoCount) + '</div></section>';
+    var ranking = '<section class="ranking" aria-label="Source list"><span class="eyebrow">From the source</span><ol>' + (items.length ? items : anchors).slice(0, 8).map(function(item, index) {
+      var fact = facts[index] && facts[index].value ? '<b>' + esc(facts[index].value) + '</b>' : '';
+      return '<li class="ranking-row"><span class="rank-no">' + String(index + 1).padStart(2, '0') + '</span><div><strong>' + esc(item) + '</strong>' + fact + '</div></li>';
+    }).join('') + '</ol></section>';
+    var compare = '<section class="compare" aria-label="Source comparison"><div><span class="eyebrow">Set one</span><h2>' + esc(anchors[0]) + '</h2><p>' + esc(sectionParagraphAt(0, anchors[0])) + '</p></div><div><span class="eyebrow">Set two</span><h2>' + esc(anchors[1] || anchors[0]) + '</h2><p>' + esc(sectionParagraphAt(1, anchors[1] || anchors[0])) + '</p></div></section>';
+    var network = '<section class="network" aria-label="Source relations"><span class="eyebrow">How the source connects</span>' + constellation(anchors) + glyphTiles(anchors, 6, 52) + '</section>';
+    var fold = {
+      sequence: timeline,
+      compare: compare,
+      values: iso,
+      relation: network,
+      list: ranking,
+    }[structure] || iso;
     var css = 'body{font-family:' + sans + ';background:var(--g);color:var(--i)}' +
       '.poster{max-width:980px;margin:0 auto;padding:clamp(28px,6vw,76px) 28px 90px}' +
       '.poster-head{border-top:8px solid var(--a);padding-top:18px;max-width:760px}' +
       '.eyebrow{font:10px ' + mono + ';letter-spacing:.18em;text-transform:uppercase;color:var(--a)}' +
       'h1{font:400 clamp(42px,8vw,86px)/.9 ' + serif + ';letter-spacing:-.05em;margin-top:16px;max-width:10ch}' +
-      '.deck{font:17px/1.65 ' + sans + ';max-width:58ch;opacity:.72;margin:22px 0 56px}' +
-      '.chart{border-top:1px solid ' + border + ';border-bottom:1px solid ' + border + ';padding:18px 0 22px}.chart table,.data table{border-collapse:collapse;width:100%}.chart tbody tr{animation:row-in linear both;animation-timeline:view();animation-range:entry 3% cover 18%}.chart tbody tr{animation:row-in linear both;animation-timeline:view();animation-range:entry 3% cover 18%}' +
-      '.chart th{font:500 14px ' + sans + ';text-align:left;width:30%;padding:11px 14px 11px 0}.chart td{padding:11px 0;vertical-align:middle}.chart td:nth-child(2){width:55%;padding-right:18px}.chart td:last-child{font:12px ' + mono + ';color:var(--m);text-align:right;white-space:nowrap}' +
-      '.bar{display:block;height:22px;background:linear-gradient(90deg,var(--a),' + tint(accent, .12) + ');border-radius:2px;transform-origin:left center;animation:grow .9s cubic-bezier(.2,.8,.2,1) both;transition:filter .25s ease}.chart tr:hover .bar{filter:brightness(1.2)}.chart tr:nth-child(2) .bar{animation-delay:.08s}.chart tr:nth-child(3) .bar{animation-delay:.16s}@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}' +
-      '.timeline{padding:48px 0;border-bottom:1px solid ' + border + '}.timeline>div{display:flex;gap:0;margin-top:20px;overflow-x:auto;padding-bottom:8px}.timeline span{min-width:120px;padding:12px 14px 0 0;border-top:2px solid var(--a);margin-right:14px}.timeline b{display:block;font:600 15px ' + mono + ';color:var(--a)}.timeline small{display:block;margin-top:6px;font-size:12px;opacity:.62}' +
-      '.isotype{padding:48px 0;border-bottom:1px solid ' + border + '}.isotype>div{display:flex;gap:5px;flex-wrap:wrap;margin-top:18px}.isotype i{display:block;width:18px;height:28px;background:var(--m);border-radius:2px;transition:background .25s ease,transform .25s ease}.isotype i:hover{background:var(--a);transform:translateY(-3px)}' +
-      '.data{padding-top:42px}.data table{font:12px ' + mono + '}.data th,.data td{text-align:left;padding:10px 12px 10px 0;border-bottom:1px solid ' + border + '}.data th{color:var(--m);font-weight:400}' +
-      '.note{font:11px/1.6 ' + mono + ';color:var(--m);margin-top:18px}' +
+      '.deck{font:17px/1.65 ' + sans + ';max-width:58ch;opacity:.72;margin:22px 0 36px}' +
+      '.timeline{padding:12px 0 48px;border-bottom:1px solid ' + border + '}.timeline>div{display:flex;gap:0;margin-top:28px;overflow-x:auto;padding-bottom:8px}.timeline span{min-width:160px;padding:18px 18px 0 0;border-top:4px solid var(--a);margin-right:22px}.timeline b{display:block;font:600 clamp(22px,4vw,40px)/1 ' + mono + ';color:var(--a)}.timeline small{display:block;margin-top:10px;font-size:13px;opacity:.62}' +
+      '.isotype{padding:12px 0 48px;border-bottom:1px solid ' + border + '}.isotype>div{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}.isotype i{display:block;width:22px;height:42px;background:var(--a);border-radius:3px;transition:background .25s ease,transform .25s ease}.isotype i:hover{background:var(--m);transform:translateY(-4px)}' +
+      '.ranking{padding:8px 0 36px}.ranking ol{list-style:none;margin-top:18px}.ranking-row{display:grid;grid-template-columns:64px 1fr;gap:18px;align-items:baseline;padding:16px 0;border-bottom:1px solid ' + border + '}.rank-no{font:600 clamp(22px,3vw,32px)/1 ' + mono + ';color:var(--a)}.ranking-row strong{display:block;font:400 clamp(18px,2.4vw,26px)/1.25 ' + serif + '}.ranking-row b{display:block;margin-top:6px;font:12px ' + mono + ';color:var(--m)}' +
+      '.compare{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid ' + border + ';border-bottom:1px solid ' + border + '}.compare>div{padding:28px 28px 32px 0}.compare>div+div{padding-left:28px;border-left:1px solid ' + border + '}.compare h2{font:400 clamp(28px,5vw,48px)/.95 ' + serif + ';letter-spacing:-.04em;margin:12px 0 16px;max-width:10ch}.compare p{font-size:15px;line-height:1.65;opacity:.7;max-width:36ch}@media(max-width:700px){.compare{grid-template-columns:1fr}.compare>div+div{padding-left:0;border-left:0;border-top:1px solid ' + border + '}}' +
+      '.network{padding:8px 0 48px;border-bottom:1px solid ' + border + '}.network .constellation{max-width:420px;margin:18px 0 24px}.network .glyph-row{justify-content:flex-start}' +
+      '.data{padding-top:42px}.data table{font:12px ' + mono + ';border-collapse:collapse;width:100%}.data th,.data td{text-align:left;padding:10px 12px 10px 0;border-bottom:1px solid ' + border + '}.data th{color:var(--m);font-weight:400}' +
       '.mix{padding:48px 0;border-bottom:1px solid ' + border + ';display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}' +
       '.mix .eyebrow{display:block;margin-bottom:20px}' +
+      '.poster-ledger{padding-top:42px}.poster-ledger .eyebrow{display:block;margin:18px 0 10px}.poster-ledger ul{list-style:none}.poster-ledger li{font:14px ' + sans + ';padding:8px 0;border-bottom:1px solid ' + border + '}' +
       '@media(max-width:700px){.mix{grid-template-columns:1fr;gap:32px}}' +
-      '@keyframes row-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}' + artCss + '.poster{position:relative;overflow:hidden}.poster>*{position:relative;z-index:1}' + bandCss;
+      artCss + '.poster{position:relative;overflow:hidden}.poster>*{position:relative;z-index:1}' + bandCss;
     var mix = (facts.some(function(f) { return firstNumericValue([f.value]) > 0; })
       ? '<section class="mix" aria-label="Source mix"><div><span class="eyebrow">Share of source numbers</span>' + donutChart(facts) + '</div><div><span class="eyebrow">Source scale</span>' + miniBars(facts, 5) + '</div></section>'
       : '<section class="mix" aria-label="Source anchors"><div><span class="eyebrow">Anchors in source</span>' + glyphTiles(anchors, 6, 44) + '</div><div class="prism-wrap"><span class="eyebrow">Form</span>' + isoPrism(content.title, 34) + '</div></section>');
-    var body = '<main class="poster">' + dataWash(content.numbers, 8) + '<header class="poster-head"><span class="eyebrow">' + esc(label) + '</span><h1>' + esc(content.title) + '</h1><p class="deck">' + esc(paragraphAt(0, anchors[0])) + '</p></header><section class="chart" aria-label="Content signals"><table><tbody>' + rows + '</tbody></table><p class="note">' + (facts.some(function (f) { return f.value; }) ? 'Bars and numbers come only from the source.' : 'No usable numbers were found, so bars show relative section length instead.') + '</p></section>' + timeline + iso + mix + (factualRows ? '<section class="data"><span class="eyebrow">Lossless source facts</span><table><thead><tr><th>Label</th><th>Value</th><th>Kind</th></tr></thead><tbody>' + factualRows + '</tbody></table></section>' : '') + '</main>';
+    var ledger = '<section class="poster-ledger" aria-label="Source ledger"><span class="eyebrow">Every source heading</span><ul>' +
+      anchors.map(function(anchor) { return '<li>' + esc(anchor) + '</li>'; }).join('') + '</ul>' +
+      (items.length ? '<span class="eyebrow">Source list</span><ul>' + items.map(function(item) { return '<li>' + esc(item) + '</li>'; }).join('') + '</ul>' : '') +
+      '</section>';
+    var body = '<main class="poster" data-structure="' + structure + '">' + dataWash(content.numbers, 8) +
+      '<header class="poster-head"><span class="eyebrow">' + esc(label) + ' · ' + structure + '</span><h1>' + esc(content.title) + '</h1><p class="deck">' + esc(paragraphAt(0, anchors[0])) + '</p></header>' +
+      fold + mix + ledger + (factualRows ? '<section class="data"><span class="eyebrow">Lossless source facts</span><table><thead><tr><th>Label</th><th>Value</th><th>Kind</th></tr></thead><tbody>' + factualRows + '</tbody></table></section>' : '') + '</main>';
     return page(content.title + ' — poster', css, body);
   }
 
@@ -1228,6 +1250,6 @@ function shuffle(values, rng) {
   return result;
 }
 
-var generateApi = { generate: generate, TOKENS: TOKENS, TOKEN_DESCRIPTIONS: TOKEN_DESCRIPTIONS, FONT_VOICES: FONT_VOICES, voiceFor: voiceFor, webFontsLink: webFontsLink };
+var generateApi = { generate: generate, TOKENS: TOKENS, TOKEN_DESCRIPTIONS: TOKEN_DESCRIPTIONS, FONT_VOICES: FONT_VOICES, voiceFor: voiceFor, webFontsLink: webFontsLink, sniffInfographicStructure: sniffInfographicStructure };
 if (typeof module !== 'undefined' && module.exports) module.exports = generateApi;
 if (typeof window !== 'undefined') window.ReimagineGenerate = generateApi;

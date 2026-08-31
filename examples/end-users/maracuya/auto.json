@@ -1,16 +1,16 @@
 {
   "mode": "auto",
-  "token": "infographic",
-  "seed": -1088311885,
-  "score": 220,
-  "rationale": "The source is data-heavy (6 measurable facts) and reads best on shared scales.  Evidence: 5 anchors, 6 measurable facts.",
+  "token": "landing",
+  "seed": 995488420,
+  "score": 246,
+  "rationale": "The source has an outward-facing action or product-like structure. Evidence: 5 anchors, 6 measurable facts.",
   "candidates": [
     {
-      "token": "infographic",
-      "seed": -1088311885,
-      "fit": 42,
+      "token": "landing",
+      "seed": 995488420,
+      "fit": 55,
       "quality": 136,
-      "total": 220,
+      "total": 246,
       "checks": [
         {
           "name": "standalone HTML",
@@ -73,9 +73,9 @@
     {
       "token": "editorial",
       "seed": -522448363,
-      "fit": 20,
+      "fit": 26,
       "quality": 136,
-      "total": 176,
+      "total": 188,
       "checks": [
         {
           "name": "standalone HTML",
@@ -136,11 +136,11 @@
       ]
     },
     {
-      "token": "landing",
-      "seed": 995504258,
-      "fit": 15,
+      "token": "photography",
+      "seed": 376654782,
+      "fit": 20,
       "quality": 136,
-      "total": 166,
+      "total": 176,
       "checks": [
         {
           "name": "standalone HTML",
@@ -219,9 +219,9 @@
   "source": "D:\\Projects\\awe-me\\examples\\end-users\\maracuya\\source.html",
   "artifact": "D:\\Projects\\awe-me\\examples\\end-users\\maracuya\\auto.html",
   "fidelity": {
-    "preserved": 19,
+    "preserved": 17,
     "detected": 19,
-    "percentage": 100,
+    "percentage": 89,
     "checks": {
       "title": [
         {
@@ -254,7 +254,7 @@
       "dates": [
         {
           "value": "December 25, 2026",
-          "preserved": true
+          "preserved": false
         }
       ],
       "numbers": [
@@ -276,7 +276,7 @@
         },
         {
           "value": "1,200",
-          "preserved": true
+          "preserved": false
         }
       ],
       "emails": [

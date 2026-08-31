@@ -21,19 +21,19 @@ CASE_STUDIES = ROOT / "docs" / "CASE_STUDIES.md"
 # slug -> (source description, why it is here)
 WHY = {
     "venator": ("crypto battle royale",
-                "gaming language gets a signal-yellow arena instead of a timeline scrubber"),
+                "gaming language gets a signal-yellow gradient arena instead of a timeline scrubber"),
     "crimson-circuit": ("music festival",
-                        "lineup counts and set times become a magenta statistical poster"),
+                        "three nights become a magenta cinematic scroll, not a bar chart"),
     "velocita": ("skate brand",
-                 "drop-date urgency gets a flame-orange gradient deck"),
+                 "decks and riders become an expressive type poster"),
     "maracuya": ("juice bar",
-                 "menu facts get shared scales on mango coral"),
+                 "the menu becomes a product landing with a real source action"),
     "flick": ("streetwear",
-              "drop counts and SKUs become a blue unit-count wall"),
+              "the drop becomes a photography folio of garment studies"),
     "meridian": ("living building",
-                 "one command ships three furnished designs: a feature, an orbitable 3D object, and a living diagram"),
+                 "one command ships three furnished designs: an orbitable 3D object, a magazine feature, and a living diagram"),
     "horizon": ("observability",
-                "SLOs and latency numbers become a data wall on navy"),
+                "SLOs and latency numbers become an ops dashboard"),
 }
 
 

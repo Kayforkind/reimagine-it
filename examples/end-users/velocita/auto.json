@@ -1,16 +1,16 @@
 {
   "mode": "auto",
-  "token": "infographic",
-  "seed": -1088311901,
-  "score": 226,
-  "rationale": "The source is data-heavy (7 measurable facts) and reads best on shared scales.  Evidence: 5 anchors, 7 measurable facts.",
+  "token": "artistic",
+  "seed": 1910596858,
+  "score": 240,
+  "rationale": "The source is sparse or expressive enough for a poster-like composition. Evidence: 5 anchors, 7 measurable facts.",
   "candidates": [
     {
-      "token": "infographic",
-      "seed": -1088311901,
-      "fit": 45,
+      "token": "artistic",
+      "seed": 1910596858,
+      "fit": 52,
       "quality": 136,
-      "total": 226,
+      "total": 240,
       "checks": [
         {
           "name": "standalone HTML",
@@ -73,9 +73,9 @@
     {
       "token": "gradient",
       "seed": -1661931316,
-      "fit": 21,
+      "fit": 39,
       "quality": 136,
-      "total": 178,
+      "total": 214,
       "checks": [
         {
           "name": "standalone HTML",
@@ -219,9 +219,9 @@
   "source": "D:\\Projects\\awe-me\\examples\\end-users\\velocita\\source.html",
   "artifact": "D:\\Projects\\awe-me\\examples\\end-users\\velocita\\auto.html",
   "fidelity": {
-    "preserved": 20,
+    "preserved": 17,
     "detected": 20,
-    "percentage": 100,
+    "percentage": 85,
     "checks": {
       "title": [
         {
@@ -254,11 +254,11 @@
       "dates": [
         {
           "value": "March 14, 2026",
-          "preserved": true
+          "preserved": false
         },
         {
           "value": "May 1, 2026",
-          "preserved": true
+          "preserved": false
         }
       ],
       "numbers": [
@@ -280,7 +280,7 @@
         },
         {
           "value": "14 riders",
-          "preserved": true
+          "preserved": false
         }
       ],
       "emails": [

@@ -1,16 +1,16 @@
 {
   "mode": "auto",
-  "token": "infographic",
-  "seed": -1088311861,
-  "score": 266,
-  "rationale": "The source is data-heavy (7 measurable facts) and reads best on shared scales.  Evidence: 5 anchors, 7 measurable facts.",
+  "token": "dashboard",
+  "seed": -457102533,
+  "score": 330,
+  "rationale": "The source contains enough measurable signals for an operational view. Evidence: 5 anchors, 7 measurable facts.",
   "candidates": [
     {
-      "token": "infographic",
-      "seed": -1088311861,
-      "fit": 65,
+      "token": "dashboard",
+      "seed": -457102533,
+      "fit": 97,
       "quality": 136,
-      "total": 266,
+      "total": 330,
       "checks": [
         {
           "name": "standalone HTML",
@@ -71,11 +71,11 @@
       ]
     },
     {
-      "token": "dashboard",
-      "seed": -457094614,
-      "fit": 53,
+      "token": "infographic",
+      "seed": -1088303942,
+      "fit": 46,
       "quality": 136,
-      "total": 242,
+      "total": 228,
       "checks": [
         {
           "name": "standalone HTML",
@@ -219,9 +219,9 @@
   "source": "D:\\Projects\\awe-me\\examples\\end-users\\horizon\\source.html",
   "artifact": "D:\\Projects\\awe-me\\examples\\end-users\\horizon\\auto.html",
   "fidelity": {
-    "preserved": 20,
+    "preserved": 19,
     "detected": 20,
-    "percentage": 100,
+    "percentage": 95,
     "checks": {
       "title": [
         {
@@ -283,7 +283,7 @@
         },
         {
           "value": "$49",
-          "preserved": true
+          "preserved": false
         }
       ],
       "emails": [
