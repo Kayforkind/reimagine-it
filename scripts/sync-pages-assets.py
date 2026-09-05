@@ -30,6 +30,11 @@ CASE_EXTRA = {
     "meridian": ("3js-desktop.webp", "editorial-desktop.webp", "svg-desktop.webp"),
 }
 
+# Community proof case (issue #10): lives outside examples/end-users/ and has
+# no before/after composite — just the regenerable source and Auto stills.
+COMMUNITY_CASES = ("riverside-clinic",)
+COMMUNITY_CASE_FILES = ("source.html", "auto-desktop.png", "auto-phone.png")
+
 
 def copy_if_changed(source: Path, destination: Path) -> bool:
     if not source.is_file():
@@ -51,6 +56,11 @@ def main() -> int:
         files = CASE_FILES + CASE_EXTRA.get(case, ())
         for filename in files:
             relative = Path("examples") / "end-users" / case / filename
+            if copy_if_changed(ROOT / relative, DOCS / relative):
+                copied += 1
+    for case in COMMUNITY_CASES:
+        for filename in COMMUNITY_CASE_FILES:
+            relative = Path("examples") / "community" / case / filename
             if copy_if_changed(ROOT / relative, DOCS / relative):
                 copied += 1
     print(f"verified Pages assets ({copied} updated)")
