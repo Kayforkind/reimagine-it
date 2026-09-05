@@ -28,8 +28,10 @@ jobs:
         with:
           python-version: "3.x"
 
+      # --ignore-scripts: a PR can edit package.json, so never let its
+      # lifecycle scripts execute on our runners. Tests do not need them.
       - name: Install dev dependencies
-        run: npm install --no-audit --no-fund
+        run: npm install --no-audit --no-fund --ignore-scripts
 
       - name: Full suite (audit, units, fuzz, e2e, all guards)
         run: npm test
