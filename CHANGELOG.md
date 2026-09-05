@@ -4,7 +4,38 @@ All notable changes to reimagine-it.
 
 ---
 
-## v2.7.0 (current)
+## v2.8.0 (current)
+
+### Two new design directions — the roster is 17
+
+- **`lookbook`** — a photoshoot/editorial spread: oversized display masthead, numbered looks from source anchors, hover-develop plates, anchor marquee, tabular fact chips. Auto earns it via photoshoot/runway/collection vocabulary (deliberately narrow — "flu shots" is a real false positive the reproduction guard caught).
+- **`particles`** — a living constellation: seeded canvas field where anchors ride as text particles and facts glow as nodes, with pointer-reactive drift, link webbing, and a full reduced-motion freeze.
+- Both wired everywhere: Auto candidates + family map (folio/field), lane bias (fashion → lookbook), rationale strings, craft-floor art-direction check, benchmark, gallery cards + stage buttons, README table, llms.txt, extension README, skills.
+- Benchmark rerun: **17/17 tokens at 100/100 usability and full fidelity**; roster mean pairwise diversity **improved 19.9% → 22.7%**.
+
+### Motion system upgrade — AAA micro-interaction pack, on every token
+
+- **Kinetic type**: h1 words rise out of clipped masks with a staggered cascade (DOM-API only — never `innerHTML` — so source text can never re-parse as markup).
+- **Magnetic buttons**: actions lean toward the cursor inside a proximity field and spring back (`.magnet`), now applied across CTAs.
+- **Glow-follow cards**: a radial accent light tracks the pointer across panels (`.glow-card`).
+- **Sheen sweep** on hover for actions (`.fx-sheen`) and a shared **easing token system** (`--ease-out`, `--ease-spring`, `--ease-inout`) replacing ad-hoc curves.
+- All new motion is GPU-friendly (transform/opacity), pointer-aware, and inside the existing reduced-motion kill switch.
+
+### 3js — from spinning cube to scene
+
+- Inertia orbit (drag flings, damped velocity settles), depth fog on far faces, breathing ground shadow, twinkling seeded starfield, and **orbiting fact billboards** — source anchors ride three rails around the object with fog-aware opacity.
+- Fluid `clamp()` display type (clears the TYPO-02 range warning).
+
+### SVG — the diagram now draws itself
+
+- Staggered node pulse and flowing connector dashes; existing ring/core breathing preserved.
+
+### Verification
+
+- All 10 proof artifacts regenerated through the real pipeline and byte-identical under `check-repro`.
+- Browser bundles rebuilt; full suite (gold audit, unit, fuzz, e2e, guards) green.
+
+## v2.7.0
 
 ### New commands — the honesty layer becomes a product surface
 

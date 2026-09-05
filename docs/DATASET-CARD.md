@@ -78,7 +78,7 @@ npm install && npm test          # reproduction guard must pass
 node scripts/build-dataset.js -o dataset.jsonl --gold
 ```
 
-Engine version at build: **v2.7.0**. Rows are deterministic given the repo
+Engine version at build: **v2.8.0**. Rows are deterministic given the repo
 state; the reproduction guard in CI keeps `dataset.jsonl` and the examples in
 lockstep.
 

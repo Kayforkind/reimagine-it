@@ -13,15 +13,15 @@ npx reimagine-it --auto -i page.html -o redesign.html
 - **Typographic voices.** The engine reads the source's profile and picks a display/body/mono voice — editorial (Fraunces/Newsreader), modern grotesque, techno (Unbounded/Sora), classic serif, high-contrast, expressive (Syne), or mono-forward — with a fluid type scale and a 4/8 spacing rhythm. `--web-fonts` upgrades the voice with Google Fonts; default output stays fully offline.
 - **An OKLCH palette system.** Colors are converted through perceptually-uniform OKLCH; the source accent is rotated into two harmonious role colors with lightness ramps, enforced for contrast, and referenced through CSS variables so every page stays palette-constrained.
 - **Generative art direction.** Seeded aurora mesh fields, giant data-wash numbers, halftone dot grids, anchor constellations, and CSS-3D isometric stacks — plus a shared micro-interaction layer (cursor spotlight, tilt cards, count-up stats) on every page.
-- **Composition, not templates.** A shared archetype library — stats bands, bento grids, quote bands, CTAs, marquees, footers — lets each of the 15 directions compose a page from source facts instead of hard-coding one layout.
+- **Composition, not templates.** A shared archetype library — stats bands, bento grids, quote bands, CTAs, marquees, footers — lets each of the 17 directions compose a page from source facts instead of hard-coding one layout.
 - **A self-critiquing Auto.** Auto draws three directions, scores each against a 136-point design battery (type scale, art direction, motion system, palette constraint, source fidelity, landmarks), re-rolls weak first draws, and ships the strongest — with a `design-token.json` + `quality-report.json` that explain *why*.
 - **A harness plan hook.** An agent can steer the same deterministic pipeline with a structured plan: `--plan '{"token":"landing","voice":"grotesque"}'`.
-- **15 design directions + Auto.** Webpage, landing, dashboard, infographic, cinematic, artistic, photography, SVG, 3js, simulation, glass, editorial, motion, gradient, showcase.
+- **15 design directions + Auto.** Webpage, landing, dashboard, infographic, cinematic, artistic, photography, SVG, 3js, simulation, glass, editorial, motion, gradient, showcase, lookbook, particles.
 - **It audits itself.** Every direction is measured for fidelity (facts preserved), usability (standalone, focus-visible, reduced-motion, no placeholder copy), and diversity (no two tokens produce the same page).
 
 ## Measured, not claimed
 
-All 15 directions × 4 representative sources score **100/100 usability and full fidelity**, with **19.9% mean pairwise output diversity**. The benchmark is reproducible: `node scripts/benchmark-tokens.js`.
+All 17 directions × 4 representative sources score **100/100 usability and full fidelity**, with **22.7% mean pairwise output diversity**. The benchmark is reproducible: `node scripts/benchmark-tokens.js`.
 
 ## Try it without installing anything
 

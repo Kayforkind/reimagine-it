@@ -5,7 +5,7 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/audit.yml?branch=main&label=CI&logo=github)](https://github.com/Kayforkind/reimagine-it/actions/workflows/audit.yml)
 [![Benchmark](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/benchmark.yml?branch=main&label=benchmark%20100%2F100)](https://github.com/Kayforkind/reimagine-it/actions/workflows/benchmark.yml)
 [![Design Health](https://img.shields.io/github/actions/workflow/status/Kayforkind/design-health-action/audit.yml?branch=main&label=Design%20Health&logo=github)](https://github.com/Kayforkind/design-health-action/actions/workflows/audit.yml)
-[![version 2.7.0](https://img.shields.io/badge/version-2.7.0-b22234.svg)](CHANGELOG.md)
+[![version 2.8.0](https://img.shields.io/badge/version-2.8.0-b22234.svg)](CHANGELOG.md)
 [![npm](https://img.shields.io/npm/v/reimagine-it?color=e8a63f&label=npm)](https://www.npmjs.com/package/reimagine-it)
 [![MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE)
 [![skills.sh](https://skills.sh/b/kayforkind/reimagine-it)](https://skills.sh/kayforkind/reimagine-it)
@@ -104,7 +104,7 @@ npm run auto -- \
 
 The report records the selected direction, candidate scores, seed, rationale, source anchors, and source-fidelity checks. The input file is never overwritten.
 
-## Fifteen design builders
+## Seventeen design builders
 
 Every token is a real generator in the engine — each one reads the same extracted content and builds a structurally different composition. Layouts are generated, not pasted from a design kit; source facts are not invented. Every builder also ships with a content-derived art layer: anchor initials become monogram tiles, source numbers become donut and bar charts, and the palette shades isometric 3D prisms — all inline SVG, all offline.
 
@@ -125,6 +125,8 @@ Every token is a real generator in the engine — each one reads the same extrac
 | `motion` | <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/tokens/motion-desktop.png" width="120" alt=""> | Scroll-driven stories | Animated reveals and parallax |
 | `gradient` | <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/tokens/gradient-desktop.png" width="120" alt=""> | Bold brand presentations | Gradient mesh cards and text |
 | `showcase` | <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/tokens/showcase-desktop.png" width="120" alt=""> | Capability demonstrations | Motion-forward capability cards, timeline, and stats |
+| `lookbook` | <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/tokens/lookbook-desktop.png" width="120" alt=""> | Photoshoots and collections | Editorial spread with numbered looks and hover develop |
+| `particles` | <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/tokens/particles-desktop.png" width="120" alt=""> | Living networks and signals | Interactive constellation of the source anchors |
 
 List the registry from the CLI:
 
@@ -221,7 +223,7 @@ npm install -g reimagine-it
 reimagine-it --auto -i page.html -o redesign.html
 ```
 
-Package: [npmjs.com/package/reimagine-it](https://www.npmjs.com/package/reimagine-it) · current release **2.7.0**.
+Package: [npmjs.com/package/reimagine-it](https://www.npmjs.com/package/reimagine-it) · current release **2.8.0**.
 
 More commands:
 
@@ -352,7 +354,7 @@ Tools:
 
 ## Measured quality
 
-Every direction is benchmarked against the same bar Auto itself applies — standalone HTML, source title and anchors retained, focus-visible, reduced-motion, `::selection`, no placeholder copy, no external asset fetch. All 15 tokens × 4 representative sources score **100/100 usability and full fidelity**, with **19.9% mean pairwise output diversity** between directions on the same source (no two tokens produce the same page).
+Every direction is benchmarked against the same bar Auto itself applies — standalone HTML, source title and anchors retained, focus-visible, reduced-motion, `::selection`, no placeholder copy, no external asset fetch. All 17 tokens × 4 representative sources score **100/100 usability and full fidelity**, with **22.7% mean pairwise output diversity** between directions on the same source (no two tokens produce the same page).
 
 | Direction | Fidelity (title kept) | Usability (quality /100) | Content art |
 |---|---|---|---|

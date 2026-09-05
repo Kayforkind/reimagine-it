@@ -1,65 +1,58 @@
-# v2.7.0 announcement — paste-ready
+# v2.8.0 announcement — paste-ready
 
 Short form for the GitHub release notes; long form for X/Reddit/HN follow-ups.
-Do not post until `npm view reimagine-it version` returns 2.7.0.
+Do not post until `npm view reimagine-it version` returns 2.8.0.
 
 ---
 
-## GitHub release (v2.7.0)
+## GitHub release (v2.8.0)
 
-**reimagine-it v2.7.0 — the honesty layer becomes a product surface**
+**reimagine-it v2.8.0 — 17 directions, and a AAA motion system on every one**
 
-v2.6.0 made the engine render every source fact. v2.7.0 enforces that promise
-with CI, exposes it as a command, and opens the community lane.
+v2.7.0 made the honesty layer a product surface. v2.8.0 makes the output move
+like it costs six figures.
 
-**New commands**
+**Two new directions — the roster is 17**
 
-- **`npx reimagine-it extract`** — the content signals as JSON: anchors, dates,
-  numbers, emails, links, palette, source hex colors. `--full` adds prose;
-  pipes cleanly (`cat page.html | npx reimagine-it extract -o - | jq .anchors`).
-  Every extracted fact exists in the source — now property-tested against
-  hostile and malformed input.
-- **`npx reimagine-it mcp`** — the 8-tool MCP server over stdio. No separate
-  package; verified with a live protocol handshake.
+- **`lookbook`** — a photoshoot/editorial spread: oversized masthead, numbered
+  looks from source anchors, hover-develop plates, anchor marquee. Auto awards
+  it on real photoshoot/runway/collection vocabulary (deliberately narrow —
+  "flu shots" is a genuine false positive the reproduction guard caught).
+- **`particles`** — a living constellation: a seeded canvas field where source
+  anchors ride as text particles and facts glow as nodes; pointer-reactive,
+  fully frozen under reduced motion.
+- Benchmark rerun: **17/17 tokens at 100/100 usability and full fidelity**, and
+  roster mean pairwise diversity *improved* 19.9% → **22.7%**.
 
-**Skills — the split is complete**
+**Motion system — every token, every page**
 
-Three focused sub-skills (**generate**, **variations**, **extract**) join
-audit/lock/infographic — the SkillsBench-aligned structure (focused skills
-beat monolithic by ~18.6 points), each with `trigger_phrases` and
-`capabilities` for catalog discovery.
+- **Kinetic type**: h1 words rise out of clipped masks, staggered (DOM-API only,
+  never `innerHTML`, so source text can never re-parse as markup).
+- **Magnetic buttons** that lean toward the cursor and spring back, **glow-follow
+  cards**, **sheen sweeps**, and a shared easing token system
+  (`--ease-out`, `--ease-spring`, `--ease-inout`).
+- All transform/opacity (GPU-composited), pointer-aware, and inside the
+  reduced-motion kill switch.
 
-**Trust — proof assets are now CI-enforced**
+**3js — from spinning cube to scene**
 
-- **Reproduction guard** — committed artifacts must regenerate byte-identically
-  from the committed engine. The repo cannot ship stale proof anymore.
-- **Stills guard** — every screenshot at canonical dimensions, in sync with
-  its docs/ copy; optional frozen-motion pixel regression.
-- **Extractor fuzz tests** — 10 property tests: no invented facts, purity,
-  crash-freedom on hostile input.
-- **Weekly fidelity stress** — 250 seeds × 15 tokens × 9 sources, scheduled.
-- **Tarball guard + npm provenance** — the shipped surface is explicit and
-  signed.
-- **Sandboxed playground** — pasted HTML runs in an opaque-origin iframe; it
-  can no longer touch the parent page.
+Inertia orbit (drag flings, damped velocity settles), depth fog on far faces,
+breathing ground shadow, twinkling seeded starfield, and **orbiting fact
+billboards** — source anchors ride three rails around the object.
 
-**Community**
+**SVG — the diagram draws itself**
 
-- **Submission lane open**: copy `examples/community/TEMPLATE/`, ship real
-  copy, pass the validator (`scripts/validate-submission.js`), get merged with
-  the `community-gold` label. The Content Signals bot comments the extracted
-  palette on every PR that touches HTML.
-- **Dataset builder**: `scripts/build-dataset.js` emits HuggingFace-ready JSONL
-  `{source_html, signals, token, seed, fidelity, output_html}` tuples —
-  21 engine-verified pairs today, growing with every community proof.
+Staggered node pulse and flowing connector dashes join the breathing core.
 
-**Also**: the playground fetches URLs (same-origin examples out of the box)
-and switches between Result and Source views; `action.yml` is injection-hardened
-(community PR #13); the docs site links its own 39-second walkthrough.
+**Still provable**
+
+All 10 proof artifacts regenerate byte-identically under the reproduction
+guard; browser bundles rebuilt; the full suite (gold audit, unit, fuzz, e2e,
+guards) is green.
 
 ```bash
 npx reimagine-it --auto -i page.html -o redesign.html
-npx reimagine-it extract -i page.html -o signals.json
+npx reimagine-it lookbook -i collection.html -o spread.html
 npx reimagine-it audit redesign.html
 ```
 
@@ -67,21 +60,16 @@ npx reimagine-it audit redesign.html
 
 ## Social (X/Bluesky, ~280 chars)
 
-v2.7.0 of reimagine-it: `extract` shows you every fact the design engine reads from your HTML (as JSON), `mcp` serves 8 tools over stdio, and CI now proves every committed example regenerates byte-identically. `npx reimagine-it --auto -i page.html`
+reimagine-it v2.8.0: 17 design directions now (lookbook + particle field), and a AAA motion pack on every token — kinetic type, magnetic buttons, glow-follow cards, inertia-orbit 3D with fact billboards. Still zero invented facts, still one offline HTML file.
 
 ---
 
 ## Reddit (r/ClaudeCode et al., body under the existing title)
 
-We just cut v2.7.0. Three things worth your time:
+We just cut v2.8.0. Three things worth your time:
 
-1. **`npx reimagine-it extract`** — before redesigning anything, see exactly what the engine reads from your page: anchors, dates, numbers, emails, palette (derived + hex colors actually in the source). JSON, pipes to `jq`, and property-tested so it never invents a fact. It's the honesty layer of content-derived design, now a standalone command.
-2. **Proof is CI-enforced now.** Every committed example must regenerate byte-identically from the committed engine; every screenshot must exist at canonical dimensions; the fidelity floor runs weekly at 250 seeds across all token × source combinations. If a future change silently drops facts or stale-fies proof, CI fails.
-3. **The community lane is open.** Copy `examples/community/TEMPLATE/`, paste your real page, pass the validator, and your redesign ships with the next release — credited. A new bot also comments the content-derived palette on any PR that touches HTML.
+1. **Two new directions.** `lookbook` turns any photoshoot/campaign/collection page into an editorial spread with numbered looks; `particles` turns any anchor list into a living, pointer-reactive constellation. Auto earns both from the source's own vocabulary — a clinic bulletin does not get a lookbook because it says "shots."
+2. **Every token got a motion upgrade.** Kinetic headline reveals, magnetic buttons, glow-follow cards, sheen sweeps — plus a real scene in the 3D token (inertia orbit, depth fog, starfield, orbiting fact billboards) and self-drawing SVG diagrams. All compositor-friendly, all disabled under reduced motion.
+3. **Still the honest engine.** 17/17 tokens benchmark at 100/100 usability and full fidelity with record output diversity (22.7%); every committed proof still regenerates byte-identically in CI.
 
-Plus: an MCP server (`npx reimagine-it mcp`), three new focused sub-skills completing the SkillsBench-backed split, and a dataset builder that emits `{source, signals, output}` tuples for anyone training design-capable models.
-
-Everything runs offline from a single HTML file. Audit any result: `npx reimagine-it audit redesign.html`.
-
-Repo: https://github.com/Kayforkind/reimagine-it
-Playground: https://kayforkind.github.io/reimagine-it/#playground
+`npx reimagine-it --auto -i page.html` — no keys, no build, one offline file.

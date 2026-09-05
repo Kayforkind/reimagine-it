@@ -11,7 +11,7 @@ description: >-
 license: MIT
 metadata:
   author: Kayforkind
-  version: "2.7.0"
+  version: "2.8.0"
   parent: reimagine-it
   hosts:
     - claude-code
@@ -70,10 +70,11 @@ npx reimagine-it lock -i house-style.html -o house.lock.json
 npx reimagine-it -i page.html --ref house.lock.json -t landing -o on-brand.html
 ```
 
-## The 15 tokens
+## The 17 tokens
 
 webpage · infographic · svg · 3js · simulation · artistic · cinematic ·
-dashboard · photography · landing · editorial · gradient · showcase · motion · glass
+dashboard · photography · landing · editorial · gradient · showcase · motion ·
+glass · lookbook (photoshoots/collections) · particles (living networks)
 
 `npx reimagine-it --list` describes each. **Auto** scores every lane against
 the content and forbids the same silhouette twice.

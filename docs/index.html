@@ -436,7 +436,7 @@ footer a { color: var(--hot); }
     </section>
 
     <section class="case-section" id="tokens">
-      <h2>Fifteen directions. <em>One</em> honest method.</h2>
+      <h2>Seventeen directions. <em>One</em> honest method.</h2>
       <p class="sub">Every token is a real generator in the engine — each one reads the same extracted content and builds a structurally different composition. Layouts are generated; source facts are not invented.</p>
 <div class="token-gallery reveal">
         <div class="token-gallery-stage">
@@ -461,7 +461,7 @@ footer a { color: var(--hot); }
             <button class="tg-nav" id="tgNext" aria-label="Next token">→</button>
           </div>
         </div>
-        <p class="tg-note">Same source, 16 ways to compose it — 15 tokens plus <b>auto</b>, which scores three candidates and ships the strongest. Desktop <em>and</em> phone, real CLI output. Flip <b>◐ Before / After</b> to see the untouched source, or <b>▶ Live demo</b> to scroll and interact with the actual generated page.</p>
+        <p class="tg-note">Same source, 18 ways to compose it — 17 tokens plus <b>auto</b>, which scores three candidates and ships the strongest. Desktop <em>and</em> phone, real CLI output. Flip <b>◐ Before / After</b> to see the untouched source, or <b>▶ Live demo</b> to scroll and interact with the actual generated page.</p>
       </div>
       <div class="tokens-grid">
           <div class="token-card reveal" data-token="webpage" data-idx="1"><div class="tc-thumb"><img src="tokens/webpage-desktop.png" alt="webpage token output" loading="lazy"><span class="tc-no">01</span></div><div class="tc-body"><code>webpage</code><h3>Articles and source documents</h3><p>Measured reading hierarchy</p></div></div>
@@ -479,6 +479,8 @@ footer a { color: var(--hot); }
           <div class="token-card reveal" data-token="motion" data-idx="13"><div class="tc-thumb"><img src="tokens/motion-desktop.png" alt="motion token output" loading="lazy"><span class="tc-no">13</span></div><div class="tc-body"><code>motion</code><h3>Scroll-driven stories</h3><p>Animated reveals and parallax</p></div></div>
           <div class="token-card reveal" data-token="gradient" data-idx="14"><div class="tc-thumb"><img src="tokens/gradient-desktop.png" alt="gradient token output" loading="lazy"><span class="tc-no">14</span></div><div class="tc-body"><code>gradient</code><h3>Bold brand presentations</h3><p>Gradient mesh cards and text</p></div></div>
           <div class="token-card reveal" data-token="showcase" data-idx="15"><div class="tc-thumb"><img src="tokens/showcase-desktop.png" alt="showcase token output" loading="lazy"><span class="tc-no">15</span></div><div class="tc-body"><code>showcase</code><h3>Capability demonstrations</h3><p>Motion-forward capability cards and stats</p></div></div>
+          <div class="token-card reveal" data-token="lookbook" data-idx="16"><div class="tc-thumb"><img src="tokens/lookbook-desktop.png" alt="lookbook token output" loading="lazy"><span class="tc-no">16</span></div><div class="tc-body"><code>lookbook</code><h3>Photoshoots and collections</h3><p>Editorial spread with numbered looks</p></div></div>
+          <div class="token-card reveal" data-token="particles" data-idx="17"><div class="tc-thumb"><img src="tokens/particles-desktop.png" alt="particles token output" loading="lazy"><span class="tc-no">17</span></div><div class="tc-body"><code>particles</code><h3>Living networks and signals</h3><p>Interactive constellation of the anchors</p></div></div>
       </div>
     </section>
 
@@ -618,6 +620,8 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
             <button class="token-btn" data-token="motion">motion</button>
             <button class="token-btn" data-token="gradient">gradient</button>
             <button class="token-btn" data-token="showcase">showcase</button>
+            <button class="token-btn" data-token="lookbook">lookbook</button>
+            <button class="token-btn" data-token="particles">particles</button>
             <button class="token-btn" data-token="auto">auto</button>
           </div>
           <span class="play-label">Seed (optional)</span>
@@ -691,7 +695,7 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
   /* method card ghost numerals */
   document.querySelectorAll('.method-card').forEach(function(card, i){ card.setAttribute('data-no', '0' + (i + 1)); });
-  /* token gallery: auto + 15 tokens, desktop + phone side by side, before/after toggle */
+  /* token gallery: auto + 17 tokens, desktop + phone side by side, before/after toggle */
   var tg = [
     ['auto','Auto — Venator scored gradient (246)'],['webpage','Measured reading hierarchy'],['landing','Hero and action rhythm'],['dashboard','Console, KPIs, and status'],
     ['infographic','Shared scales and timelines'],['cinematic','Depth and paced chapters'],['artistic','Asymmetric type and layered fields'],

@@ -2,7 +2,7 @@
 
 > Content-Derived Design: an engine that reads an HTML file and redesigns it from its own content — palette, motif, and motion derived from the nouns, dates, numbers, emails, and hex colors already in the source. Source facts are never invented; only the composition changes. Ships one offline HTML file.
 
-The source file is the brief. A bakery cannot come out marine-teal. Fifteen design directions (tokens) exist: webpage, infographic, svg, 3js, simulation, artistic, cinematic, dashboard, photography, landing, editorial, gradient, showcase, motion, glass. **Auto** scores every lane against the content and picks the strongest.
+The source file is the brief. A bakery cannot come out marine-teal. Seventeen design directions (tokens) exist: webpage, infographic, svg, 3js, simulation, artistic, cinematic, dashboard, photography, landing, editorial, gradient, showcase, motion, glass, lookbook, particles. **Auto** scores every lane against the content and picks the strongest.
 
 ## Install
 

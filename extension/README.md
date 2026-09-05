@@ -23,7 +23,7 @@ A Chrome/Edge/Firefox extension that adds a "Reimagine this page" button to your
 1. Navigate to any web page
 2. Click the extension icon
 3. The popup shows what was extracted (title, colors, dates, numbers, nouns)
-4. Pick one of the fifteen design tokens (webpage, landing, dashboard, infographic, cinematic, artistic, photography, svg, 3js, simulation, glass, editorial, motion, gradient, showcase)
+4. Pick one of the seventeen design tokens (webpage, landing, dashboard, infographic, cinematic, artistic, photography, svg, 3js, simulation, glass, editorial, motion, gradient, showcase, lookbook, particles)
 5. Click **Reimagine →** — the redesigned page opens in a new tab
 
 Everything runs locally in your browser. No server, API key, page upload, or external asset fetch is required. The extension intentionally uses a lightweight local renderer; the CLI is the highest-fidelity path for batch and production work.

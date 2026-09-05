@@ -14,7 +14,7 @@ description: >-
 license: MIT
 metadata:
   author: Kayforkind
-  version: "2.7.0"
+  version: "2.8.0"
   hosts:
     - claude-code
     - cursor
@@ -72,7 +72,7 @@ trigger_phrases:
 
 **Banks:** [references/notes.md](references/notes.md) · [references/forms.md](references/forms.md) · [references/webpage-craft.md](references/webpage-craft.md) *(only for the webpage form)* · **[references/craft-floor.md](references/craft-floor.md)** *(the interaction contract every webpage output must clear; read every run)* · **[references/review.md](references/review.md)** *(§5.d named-object accuracy + clone scan; load on every verify)* · [references/forms/](references/forms/) *(non-webpage form packs: pdf, document, slides, universal)* · [references/domains/](references/domains/) *(only when the user gave a domain token: `artistic` / `dashboard` / `photography` / `cinematic` (aka `3d`, `webgl`) / `ecommerce` / `landing` / `portfolio` / `infographic`)* · [references/modifiers/](references/modifiers/) *(only when the user gave a modifier: `glassmorphism` / `bento` / `neon` / `brutalism` / `neumorphism` / `handdrawn`)* · [references/locks/](references/locks/) *(loaded on `--ref <name>`)* · **[references/research/web-craft-2025.md](references/research/web-craft-2025.md)** *(deep source pack — Awwwards SOTY stack scan, Rauno/Emil craft floor, Lupi/Fragapane data humanism, Feixen/Weingart/Troxler print grammar, Apple AIDA cinematic, view-transitions, scroll-driven animations, kinetic type, sound, neubrutalism — read once, cite in reports)* · **[references/research/infographic-craft.md](references/research/infographic-craft.md)** *(15-source infographic pack — Cleveland–McGill, Tufte, Bertin, ISOTYPE, Minard/Snow, Cairo, Lupi, FT Visual Vocabulary, USWDS, WCAG charts, InfoAlign layouts — load when the form or domain is `infographic`)* · [examples.md](examples.md)
 
-`/reimagine-it` is a **Content-Derived Design** engine. The shipped product reads **HTML** and writes **HTML**: extract the headings, facts, names, dates, numbers, links, emails, and colors already in the file, then generate a standalone page in one of 15 tokens (or `--auto`). Default output is offline.
+`/reimagine-it` is a **Content-Derived Design** engine. The shipped product reads **HTML** and writes **HTML**: extract the headings, facts, names, dates, numbers, links, emails, and colors already in the file, then generate a standalone page in one of 17 tokens (or `--auto`). Default output is offline.
 
 Do **not** claim the CLI redesigns PDF, PPTX, DOCX, MOBI, or “any file.” If the user pointed at another format, convert or wrap it as HTML first, run the engine, and only then — if they asked and the toolchain exists — export with a host tool. Report that extra step as host conversion, not as an engine feature.
 

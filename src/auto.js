@@ -15,7 +15,7 @@ var resultApi = typeof module !== 'undefined' && module.exports
   ? require('./result')
   : (typeof window !== 'undefined' ? window.ReimagineResult : {});
 
-var DEFAULT_CANDIDATES = ['webpage', 'landing', 'dashboard', 'infographic', 'cinematic', 'artistic', 'photography', 'svg', '3js', 'simulation', 'glass', 'editorial', 'motion', 'gradient', 'showcase'];
+var DEFAULT_CANDIDATES = ['webpage', 'landing', 'dashboard', 'infographic', 'cinematic', 'artistic', 'photography', 'svg', '3js', 'simulation', 'glass', 'editorial', 'motion', 'gradient', 'showcase', 'lookbook', 'particles'];
 
 // Tokens in the same family share a silhouette. Auto and variations must not
 // return three recolors of one family — that is how a gallery of skate,
@@ -36,6 +36,8 @@ var TOKEN_FAMILY = {
   simulation: 'clock',
   glass: 'depth',
   showcase: 'capability',
+  lookbook: 'folio',
+  particles: 'field',
 };
 
 var LANE_BIAS = {
@@ -43,7 +45,7 @@ var LANE_BIAS = {
   festival: { cinematic: 42, motion: 16, gradient: 12, infographic: -22 },
   skate: { artistic: 38, gradient: 18, photography: 10, infographic: -22 },
   food: { landing: 40, photography: 14, editorial: 6, infographic: -22 },
-  fashion: { photography: 38, showcase: 18, artistic: 12, infographic: -22 },
+  fashion: { photography: 38, lookbook: 30, showcase: 18, artistic: 12, infographic: -22 },
   architecture: { '3js': 44, svg: 16, editorial: 10, infographic: -22 },
   ops: { dashboard: 44, simulation: 8, infographic: -10 },
   data: { infographic: 36, dashboard: 8 },
@@ -111,6 +113,15 @@ function scoreToken(token, content) {
   if (token === 'gradient') score += items * 2 + (/brand|modern|color|vibrant|bold|fresh/.test(text) ? 10 : 0) + (content.headings || []).length;
   if (token === 'showcase') score += (/demo|showcase|motion|catalog|capability|feature|lab/.test(text) ? 12 : 0) + (content.anchors || []).length * 2;
   if (token === 'showcase' && (content.anchors || []).length < 4) score -= 8;
+  // Photoshoot/editorial vocabulary earns the lookbook. Deliberately narrow:
+  // "shots" alone matches "flu shots" (a real clinic-bulletin false positive
+  // the reproduction guard caught), so it must ride with photo vocabulary.
+  if (token === 'lookbook') score += (/\bphotoshoots?\b|photo shoots?|\blookbook\b|\brunway\b|editorial spread|\boutfits?\b|\bcollection\b/.test(text) ? 20 : 0) + items;
+  if (token === 'lookbook' && (content.anchors || []).length < 3) score -= 10;
+  // Living-system language earns the particle field. "Community" alone is
+  // too common in civic copy to mean a living constellation.
+  if (token === 'particles') score += (/\bparticles?\b|\bconstellation\b|\bnetwork\b|\bconnections?\b|\becosystem\b|\bsignals\b|\binteractive\b|\bambient\b/.test(text) ? 18 : 0) + (content.anchors || []).length * 2;
+  if (token === 'particles' && (content.anchors || []).length < 2) score -= 10;
   var bias = LANE_BIAS[subjectLane(content)] || {};
   if (bias[token]) score += bias[token];
   return score;
@@ -195,6 +206,8 @@ function rationale(token, content) {
     motion: 'The source structure supports a scroll-reveal narrative.',
     gradient: 'The source has signals that benefit from bold color meshing.',
     showcase: 'The source has enough anchors for a full CSS motion demonstration.',
+    lookbook: 'The source reads as a collection or campaign suited to an editorial spread.',
+    particles: 'The source has enough anchors to render as a living constellation field.',
   };
   return reasons[token] + ' Evidence: ' + anchors + ' anchors, ' + facts + ' measurable facts.';
 }
@@ -227,7 +240,7 @@ function qualityScore(output, content, options) {
   (output.match(/#[0-9a-f]{6}\b/gi) || []).forEach(function(hex) { distinctHexes[hex.toLowerCase()] = 1; });
   var fidelity = resultApi && resultApi.sourceFidelity ? resultApi.sourceFidelity(content, output).percentage : 100;
   check('type scale present', /clamp\(/.test(output), 6);
-  check('art direction present', /(?:glyph-tile|donut|mini-bars|iso-prism|iso-stack|plate|mesh|data-wash|constellation|dot-grid|cap-card|orbit-canvas|glass-panel|isotype|ranking-row)/.test(output), 8);
+  check('art direction present', /(?:glyph-tile|donut|mini-bars|iso-prism|iso-stack|plate|mesh|data-wash|constellation|dot-grid|cap-card|orbit-canvas|glass-panel|isotype|ranking-row|field-canvas)/.test(output), 8);
   check('motion system present', keyframes >= 3, 6);
   // Cap sits at the system's own ceiling: 3 source-declared brand colors +
   // the accent tint family reach 15; anything above that is an unbounded palette.
