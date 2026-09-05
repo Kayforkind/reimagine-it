@@ -104,6 +104,9 @@ h1 .grad { background: linear-gradient(100deg, var(--crimson), var(--hot) 55%, #
 
 /* ---- STATS ---- */
 .stats { display: flex; gap: 44px; margin-top: 34px; flex-wrap: wrap; }
+.hero-badges { display: flex; gap: 8px; margin-top: 22px; flex-wrap: wrap; align-items: center; }
+.hero-badges img { height: 20px; display: block; border-radius: 3px; }
+.hero-badges a:focus-visible { outline: 2px solid var(--hot); outline-offset: 3px; border-radius: 4px; }
 .stat { font-family: var(--mono); position: relative; padding-left: 14px; }
 .stat::before { content: ""; position: absolute; left: 0; top: 4px; bottom: 4px; width: 2px; background: linear-gradient(var(--crimson), var(--hot)); }
 .stat .val { font-size: 34px; font-weight: 600; color: var(--ink); display: block; letter-spacing: -.02em; }
@@ -311,7 +314,7 @@ footer a { color: var(--hot); }
     <div class="hero-aurora" aria-hidden="true"><i></i><i></i><i></i></div>
     <section class="hero" id="hero">
       <div>
-        <p class="kicker">Content-Derived Design for AI Agents <span class="ver-chip" title="matches package.json and the npm release — kept in sync by CI">v2.8.0</span></p>
+        <p class="kicker">Content-Derived Design for AI Agents <span class="ver-chip" title="matches package.json and the npm release — kept in sync by CI">v2.9.0</span></p>
         <h1>Your HTML <em>is</em> the brief.<br>The engine reads it and <span class="grad">redesigns</span> it.</h1>
         <p class="sub">
           <strong>Content-Derived Design</strong> — palette, motifs, and motion are extracted from the concrete nouns, dates, and colors already in the source HTML. Not a mood board. A real artifact. <code>npx reimagine-it</code> ships one standalone HTML file — in <strong>17 directions</strong> (including a photoshoot <code>lookbook</code> and a living <code>particles</code> field), each carrying a AAA motion pack: kinetic type, magnetic buttons, glow-follow cards, inertia-orbit 3D with fact billboards. Offline. No Figma. No CDN.
@@ -322,10 +325,17 @@ footer a { color: var(--hot); }
           <a class="btn btn--ghost" href="https://github.com/Kayforkind/reimagine-it">GitHub</a>
         </div>
         <div class="stats">
-          <div class="stat"><span class="val">15</span><span class="lab">Design tokens</span></div>
+          <div class="stat"><span class="val">17</span><span class="lab">Design tokens</span></div>
           <div class="stat"><span class="val">19</span><span class="lab">Health rules</span></div>
-          <div class="stat"><span class="val">7</span><span class="lab">Committed journeys</span></div>
+          <div class="stat"><span class="val">9</span><span class="lab">Committed journeys</span></div>
           <div class="stat"><span class="val">0</span><span class="lab">CDN deps</span></div>
+        </div>
+        <div class="hero-badges">
+          <a href="https://github.com/Kayforkind/reimagine-it/actions/workflows/gate.yml"><img src="https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/gate.yml?branch=main&label=CI%20Gate" alt="CI Gate" loading="lazy"></a>
+          <a href="https://github.com/Kayforkind/reimagine-it/blob/main/.github/SECURITY.md"><img src="https://img.shields.io/badge/main-protected%20%2B%20codeowners-2ea043" alt="main protected + codeowners" loading="lazy"></a>
+          <a href="https://github.com/Kayforkind/reimagine-it/security"><img src="https://img.shields.io/badge/secret%20scanning-push%20protection%20on-2ea043" alt="secret scanning + push protection" loading="lazy"></a>
+          <a href="https://docs.npmjs.com/generating-provenance-statements"><img src="https://img.shields.io/badge/npm%20releases-SLSA%20provenance-2ea043" alt="SLSA provenance" loading="lazy"></a>
+          <a href="https://securityscorecards.dev/viewer/?uri=github.com/Kayforkind/reimagine-it"><img src="https://api.securityscorecards.dev/projects/github.com/Kayforkind/reimagine-it/badge" alt="OpenSSF Scorecard" loading="lazy"></a>
         </div>
       </div>
       <aside class="transform" aria-label="Live examples">
@@ -537,6 +547,73 @@ footer a { color: var(--hot); }
       <p class="tg-note">Source: <a href="https://github.com/Kayforkind/reimagine-it/blob/main/examples/end-users/meridian/source.html">Meridian Tower — A Living Building</a> · the amber, steel, copper, and sky palette comes from the hex colors in the source · the 3D object orbits (drag or arrow keys) and the diagram spins and breathes — real engine output, not mockups. <a href="#cases">See all nine journeys ↓</a></p>
     </section>
 
+    <section class="install-section" id="mcp">
+      <h2>For agents — MCP server &amp; one-file skill</h2>
+      <p class="sub">The same engine, exposed to any MCP-compatible host (Claude Code, Codex, Copilot, Gemini CLI, and friends) or used as a single-file agent skill. Deterministic, offline, no API keys — an agent can generate, self-audit its own output with 19 rules, and explain the design decision.</p>
+      <div class="install-grid">
+        <div class="install-card reveal">
+          <span class="agent">MCP · any host</span>
+          <h3>One JSON stanza</h3>
+          <pre>{ "mcpServers": { "reimagine-it": {
+  "command": "npx",
+  "args": ["-y", "--package", "reimagine-it",
+           "reimagine-it-mcp"] } } }</pre>
+          <p class="alt">Node native HTTP/streamable transport; no Python required.</p>
+        </div>
+        <div class="install-card reveal">
+          <span class="agent">8 tools</span>
+          <h3>Generate, rank, verify</h3>
+          <pre>reimagine        one direction from raw HTML
+design_auto      choose · generate · verify · explain
+design_variations  ranked directions + contrast sheet
+design_lock      capture a brand surface as JSON
+extract_content  inspect the source evidence
+list_tokens      discover the 17 directions
+audit_html       19-rule Design Health check
+list_rules       the full rule registry</pre>
+          <p class="alt">An agent can prove its own output before shipping it.</p>
+        </div>
+        <div class="install-card reveal">
+          <span class="agent">Design decision report</span>
+          <h3>Inspectable &quot;why&quot;</h3>
+          <pre>voice      editorial | grotesque | techno | …
+palette    OKLCH, source accent rotated
+art        primitives actually used
+score      136-point design-QA
+fidelity   every source fact present</pre>
+          <p class="alt">Written beside the artifact with <code>--emit</code>; Auto explains its pick from real evidence.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="install-section" id="quality">
+      <h2>Measured quality — every direction benchmarked</h2>
+      <p class="sub">All 17 tokens × 4 representative sources score <strong>100/100 usability and full fidelity</strong>, with 22.7% mean pairwise output diversity (no two directions produce the same page). Benchmarked against the same bar Auto itself applies: standalone HTML, source title and anchors retained, focus-visible, reduced-motion, no placeholder copy, no external fetch.</p>
+      <div class="method-steps">
+        <div class="method-card reveal">
+          <span class="step">CI-enforced</span>
+          <h3>Proof regenerates — or CI fails</h3>
+          <p>Every committed example artifact must regenerate byte-identically from the committed engine. Every screenshot stays in sync. <code>npm pack</code> must match the intentional file list exactly.</p>
+        </div>
+        <div class="method-card reveal">
+          <span class="step">Property-tested</span>
+          <h3>Honesty is fuzzed</h3>
+          <p>The extractor's "no invented facts" contract runs against hostile and malformed input; a 250-seed weekly stress harness holds the fidelity floor across every token × source cell. The audit linter itself is fuzzed too.</p>
+        </div>
+        <div class="method-card reveal">
+          <span class="step">Supply-chain</span>
+          <h3>Hardened end to end</h3>
+          <p>Actions SHA-pinned + Dependabot-bumped; CI installs with <code>--ignore-scripts</code> and hash-verified PyPI pins; releases carry cosign signatures + SLSA provenance; CodeQL and Semgrep scan every push.</p>
+        </div>
+        <div class="method-card reveal">
+          <span class="step">Guarantee</span>
+          <h3>Offline &amp; deterministic</h3>
+          <p>Output is one standalone HTML file — no CDN, no API keys, no telemetry. Same input + seed → byte-identical output: clients can re-derive any published artifact themselves.</p>
+        </div>
+      </div>
+      <p class="tg-note">The audit is deterministic and heuristic — not a claim of full WCAG conformance or visual taste. Review a generated page before shipping it to a client. Full details: <a href="https://github.com/Kayforkind/reimagine-it#audit-posture-for-clients-and-security-review">README audit posture →</a></p>
+    </section>
+
     <section class="install-section" id="install">
       <h2>Install — one command</h2>
       <p class="sub">Works in Claude Code, Cursor, Codex, Copilot, Gemini CLI, Factory Droid, Windsurf, Pi, and any Agent Skills host. One chair: <code>skills/reimagine-it/</code>.</p>
@@ -657,7 +734,7 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
     </section>
 
     <footer>
-      <span>v2.8.0 · <a href="https://github.com/Kayforkind/reimagine-it/blob/main/CHANGELOG.md">Changelog</a> · MIT · Content-Derived Design · <a href="https://github.com/Kayforkind/reimagine-it">GitHub</a> · <a href="https://github.com/sponsors/Kayforkind">Sponsor</a></span>
+      <span>v2.9.0 · <a href="https://github.com/Kayforkind/reimagine-it/blob/main/CHANGELOG.md">Changelog</a> · MIT · Content-Derived Design · <a href="https://github.com/Kayforkind/reimagine-it">GitHub</a> · <a href="https://github.com/Kayforkind/reimagine-it#mcp-server">MCP</a> · <a href="https://github.com/Kayforkind/reimagine-it#audit-posture-for-clients-and-security-review">Audit posture</a> · <a href="https://github.com/Kayforkind/reimagine-it/blob/main/.github/SECURITY.md">Security</a> · <a href="https://github.com/sponsors/Kayforkind">Sponsor</a></span>
       <a href="https://kayforkind.github.io/reimagine-it/discussions">Feedback &amp; roadmap →</a>
     </footer>
   </div>
@@ -665,7 +742,7 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
 <script>
 (function(){
   /* token marquee */
-  var tokens = ['webpage','landing','dashboard','infographic','cinematic','artistic','photography','svg','3js','simulation','glass','editorial','motion','gradient','showcase'];
+  var tokens = ['webpage','landing','dashboard','infographic','cinematic','artistic','photography','svg','3js','simulation','glass','editorial','motion','gradient','showcase','lookbook','particles'];
   var track = document.getElementById('marqueeTrack');
   if (track) {
     var half = tokens.map(function(t){ return '<span>'+t+' <i>&#10022;</i></span>'; }).join('');

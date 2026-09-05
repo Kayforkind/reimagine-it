@@ -1,75 +1,28 @@
-# v2.8.0 announcement — paste-ready
+# v2.9.0 announcement — paste-ready
 
-Short form for the GitHub release notes; long form for X/Reddit/HN follow-ups.
-Do not post until `npm view reimagine-it version` returns 2.8.0.
-
----
-
-## GitHub release (v2.8.0)
-
-**reimagine-it v2.8.0 — 17 directions, and a AAA motion system on every one**
-
-v2.7.0 made the honesty layer a product surface. v2.8.0 makes the output move
-like it costs six figures.
-
-**Two new directions — the roster is 17**
-
-- **`lookbook`** — a photoshoot/editorial spread: oversized masthead, numbered
-  looks from source anchors, hover-develop plates, anchor marquee. Auto awards
-  it on real photoshoot/runway/collection vocabulary (deliberately narrow —
-  "flu shots" is a genuine false positive the reproduction guard caught).
-- **`particles`** — a living constellation: a seeded canvas field where source
-  anchors ride as text particles and facts glow as nodes; pointer-reactive,
-  fully frozen under reduced motion.
-- Benchmark rerun: **17/17 tokens at 100/100 usability and full fidelity**, and
-  roster mean pairwise diversity *improved* 19.9% → **22.7%**.
-
-**Motion system — every token, every page**
-
-- **Kinetic type**: h1 words rise out of clipped masks, staggered (DOM-API only,
-  never `innerHTML`, so source text can never re-parse as markup).
-- **Magnetic buttons** that lean toward the cursor and spring back, **glow-follow
-  cards**, **sheen sweeps**, and a shared easing token system
-  (`--ease-out`, `--ease-spring`, `--ease-inout`).
-- All transform/opacity (GPU-composited), pointer-aware, and inside the
-  reduced-motion kill switch.
-
-**3js — from spinning cube to scene**
-
-Inertia orbit (drag flings, damped velocity settles), depth fog on far faces,
-breathing ground shadow, twinkling seeded starfield, and **orbiting fact
-billboards** — source anchors ride three rails around the object.
-
-**SVG — the diagram draws itself**
-
-Staggered node pulse and flowing connector dashes join the breathing core.
-
-**Still provable**
-
-All 10 proof artifacts regenerate byte-identically under the reproduction
-guard; browser bundles rebuilt; the full suite (gold audit, unit, fuzz, e2e,
-guards) is green.
-
-```bash
-npx reimagine-it --auto -i page.html -o redesign.html
-npx reimagine-it lookbook -i collection.html -o spread.html
-npx reimagine-it audit redesign.html
-```
+*Paste-ready for X/LinkedIn/dev.to. Cover: `docs/og.png`. Tags: `ai`, `webdev`, `security`, `opensource`.*
 
 ---
 
-## Social (X/Bluesky, ~280 chars)
+**reimagine-it v2.9.0 — an engine that proves it, then shows you the proof**
 
-reimagine-it v2.8.0: 17 design directions now (lookbook + particle field), and a AAA motion pack on every token — kinetic type, magnetic buttons, glow-follow cards, inertia-orbit 3D with fact billboards. Still zero invented facts, still one offline HTML file.
+We just cut v2.9.0. Where v2.8.0 made the output move, v2.9.0 makes the repo *auditable at a glance*: everything the CI enforces is now visible on the project page and the live site.
 
----
+Three things worth your time:
 
-## Reddit (r/ClaudeCode et al., body under the existing title)
+**1. The site now shows the receipts.** The docs site carries the same security badge row as the README (CI Gate, protected main, secret scanning, SLSA provenance, live OpenSSF Scorecard), a new **agents section** (the 8 MCP tools — an agent can generate, self-audit with 19 rules, and explain its design decision), and a **measured-quality section**: 17/17 tokens at 100/100 usability, byte-identical regeneration enforced by CI, fuzzed honesty contract, offline-by-construction. Hero stats and the token marquee now tell the truth: 17 directions, 9 committed journeys.
 
-We just cut v2.8.0. Three things worth your time:
+**2. The Scorecard sweep is done.** Every fixable OpenSSF check is at 10/10 — token permissions, SHA-pinned actions, complete PyPI hash-set pins (106 hashes for Pillow alone, after partial pins broke on a third-platform wheel), CodeQL + Semgrep on every push, a structural workflow lint in the required gate (negative-tested against the exact parse-time outage it prevents), cosign-signed release artifacts, SLSA provenance on npm. Weekly automated trend tracking opens a regression issue if the aggregate ever drops.
 
-1. **Two new directions.** `lookbook` turns any photoshoot/campaign/collection page into an editorial spread with numbered looks; `particles` turns any anchor list into a living, pointer-reactive constellation. Auto earns both from the source's own vocabulary — a clinic bulletin does not get a lookbook because it says "shots."
-2. **Every token got a motion upgrade.** Kinetic headline reveals, magnetic buttons, glow-follow cards, sheen sweeps — plus a real scene in the 3D token (inertia orbit, depth fog, starfield, orbiting fact billboards) and self-drawing SVG diagrams. All compositor-friendly, all disabled under reduced motion.
-3. **Still the honest engine.** 17/17 tokens benchmark at 100/100 usability and full fidelity with record output diversity (22.7%); every committed proof still regenerates byte-identically in CI.
+**3. Branch protection at maximum.** `enforce_admins` is on: every change — including the owner's — lands through a reviewed PR with the full battery green. For client audits, "who can change this code" now has a one-word answer: *nobody without a green gate and a review*.
 
-`npx reimagine-it --auto -i page.html` — no keys, no build, one offline file.
+Try it: `npx reimagine-it --auto -i page.html -o redesign.html` — or paste HTML into the in-browser playground: https://kayforkind.github.io/reimagine-it/
+
+MIT · offline · deterministic · no API keys.
+
+## Verification checklist (filled at release)
+
+- `npm view reimagine-it version` returns 2.9.0
+- `npm view reimagine-it dist.attestations` shows provenance
+- Release assets carry cosign signatures (verify with `cosign verify-blob`)
+- Docs site version chip reads v2.9.0, identical to README and npm

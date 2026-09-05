@@ -13,7 +13,7 @@ on:
       tag:
         description: "Release tag to validate and document"
         required: false
-        default: "v2.8.0"
+        default: "v2.9.0"
 
 permissions:
   contents: read
