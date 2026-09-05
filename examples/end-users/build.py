@@ -349,6 +349,32 @@ EXAMPLES: list[dict[str, Any]] = [
         "mutual": "Dev tools",
         "avatar": (56, 189, 248),
     },
+    {
+        "slug": "hearth-grain",
+        "name": "Hearth & Grain — Neighborhood Bakery",
+        "source": "examples/end-users/hearth-grain/source.html",
+        "alternates": ["landing", "editorial"],
+        "seed": "1",
+        "brief": "warm neighborhood bakery, crust brown and butter gold",
+        "author": "Hearth & Grain · bakery",
+        "views": "12k",
+        "stats": [("heart", "84"), ("view", "12k")],
+        "mutual": "Food",
+        "avatar": (232, 169, 60),
+    },
+    {
+        "slug": "millbrook-budget",
+        "name": "Millbrook — 2026 City Budget Report",
+        "source": "examples/end-users/millbrook-budget/source.html",
+        "alternates": ["simulation", "editorial"],
+        "seed": "1",
+        "brief": "civic budget report, navy and brass",
+        "author": "Millbrook · city budget",
+        "views": "8k",
+        "stats": [("heart", "57"), ("view", "8k")],
+        "mutual": "Civic",
+        "avatar": (31, 58, 95),
+    },
 ]
 
 
@@ -393,17 +419,25 @@ def main() -> int:
             manifest.append(details)
             print(f"{example['slug']}: auto={details['auto_token']} alternates={','.join(details['alternate_tokens'])}")
 
-        # Static gallery grid: every exhibit card tiled 3-up so the page
-        # never ships a multi-megabyte animation for a single scroll.
-        gallery = Image.new("RGB", (CARD_W * 3 + 32, CARD_H * 2 + 24), (14, 19, 27))
-        gdraw = ImageDraw.Draw(gallery)
+        # Static gallery grid: every exhibit card tiled so the page never
+        # ships a multi-megabyte animation for a single scroll. Column count
+        # adapts to the card count — a fixed 3-up grid used to both drop
+        # cards (hardcoded height) and, with nine journeys, stretch into an
+        # eighteen-row scroll. Aim near a 16:9 sheet; pad any leftover slots.
         cards_only = [image for image, _duration in all_cards]
+        total = len(cards_only)
+        cols = max(3, round((total * 16 / 9) ** 0.5))
+        rows = (total + cols - 1) // cols
+        gallery = Image.new("RGB", (cols * CARD_W + (cols + 1) * 8, rows * CARD_H + (rows + 1) * 8), (14, 19, 27))
+        gdraw = ImageDraw.Draw(gallery)
         for index, card in enumerate(cards_only):
-            col, row = index % 3, index // 3
+            col, row = index % cols, index // cols
             x = 8 + col * (CARD_W + 8)
             y = 8 + row * (CARD_H + 8)
             if x + card.width <= gallery.width and y + card.height <= gallery.height:
                 gallery.paste(card, (x, y))
+            else:
+                raise SystemExit(f"gallery grid too small for card {index}")
         gallery.save(HERE / "gallery.webp", "WEBP", quality=80, method=6)
 
     (HERE / "manifest.json").write_text(json.dumps({"examples": manifest}, indent=2) + "\n", encoding="utf-8")

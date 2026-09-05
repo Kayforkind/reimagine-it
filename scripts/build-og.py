@@ -24,6 +24,8 @@ CASES = (
     ("flick", "Flick Fits", "photography"),
     ("meridian", "Meridian", "3js"),
     ("horizon", "Horizon", "dashboard"),
+    ("hearth-grain", "Hearth & Grain", "photography"),
+    ("millbrook-budget", "Millbrook", "infographic"),
 )
 VOID = (10, 15, 30)
 INK = (244, 239, 228)
@@ -63,13 +65,19 @@ def crop_top(image: Image.Image, width: int, height: int) -> Image.Image:
 def build_og() -> Image.Image:
     canvas = Image.new("RGB", (1200, 630), VOID)
     draw = ImageDraw.Draw(canvas)
+    count = len(CASES)
     draw.text((48, 36), "reimagine-it", font=font(22, True), fill=GOLD)
-    draw.text((48, 72), "Seven sources. Seven tokens.", font=font(42, True), fill=INK)
+    number_word = {7: "Seven", 8: "Eight", 9: "Nine", 10: "Ten"}.get(count, str(count))
+    draw.text((48, 72), f"{number_word} sources. No shared silhouette.", font=font(42, True), fill=INK)
     draw.text((48, 128), "Auto picks a distinct silhouette per page — not one infographic recast.", font=font(20), fill=DIM)
 
-    tile_w, tile_h = 152, 400
     gap = 10
-    total = 7 * tile_w + 6 * gap
+    margin = 48
+    # Tile width adapts to the case count so a ninth journey cannot
+    # overflow the card edges.
+    tile_w = min(152, (1200 - 2 * margin - (count - 1) * gap) // count)
+    tile_h = 400
+    total = count * tile_w + (count - 1) * gap
     x0 = (1200 - total) // 2
     y0 = 186
     for index, (slug, name, token) in enumerate(CASES):

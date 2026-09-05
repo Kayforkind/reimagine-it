@@ -1,16 +1,18 @@
 # Case studies
 
-Seven loud end-user examples. Each bundle contains the plain-HTML source, the exact command that produced the output, the Auto-selected page, two verified alternatives, a full Auto report (`auto.json`), Auto desktop/phone stills on [GitHub Pages](https://kayforkind.github.io/reimagine-it/#results), and a static before/after composite (`before-after.webp`). Every palette comes from hex colors already written into the source. The Meridian bundle is the full visual suite: an orbitable 3D object, a magazine feature, and a living SVG diagram — all from one command.
+Nine loud end-user examples. Each bundle contains the plain-HTML source, the exact command that produced the output, the Auto-selected page, two verified alternatives, a full Auto report (`auto.json`), Auto desktop/phone stills on [GitHub Pages](https://kayforkind.github.io/reimagine-it/#results), and a static before/after composite (`before-after.webp`). Every palette comes from hex colors already written into the source. The Meridian bundle is the full visual suite: an orbitable 3D object, a magazine feature, and a living SVG diagram — all from one command.
 
 | Example | Source → Auto | Two more options | Score | Fidelity | Bundle |
 |---|---|---|---|---|---|
 | [Venator](../examples/end-users/venator/) | crypto battle royale → `gradient` | `landing`, `artistic` | 246 | 100% | [case study](../examples/end-users/venator/) |
 | [Crimson Circuit](../examples/end-users/crimson-circuit/) | music festival → `cinematic` | `gradient`, `landing` | 258 | 100% | [case study](../examples/end-users/crimson-circuit/) |
-| [Velocita](../examples/end-users/velocita/) | skate brand → `artistic` | `gradient`, `landing` | 240 | 85% | [case study](../examples/end-users/velocita/) |
-| [Maracuyá](../examples/end-users/maracuya/) | juice bar → `landing` | `photography`, `gradient` | 246 | 89% | [case study](../examples/end-users/maracuya/) |
+| [Velocita](../examples/end-users/velocita/) | skate brand → `artistic` | `gradient`, `landing` | 240 | 100% | [case study](../examples/end-users/velocita/) |
+| [Maracuyá](../examples/end-users/maracuya/) | juice bar → `landing` | `photography`, `gradient` | 246 | 100% | [case study](../examples/end-users/maracuya/) |
 | [Flick Fits](../examples/end-users/flick/) | streetwear → `photography` | `showcase`, `landing` | 250 | 100% | [case study](../examples/end-users/flick/) |
 | [Meridian Tower](../examples/end-users/meridian/) | living building → `3js` | `editorial`, `svg` | 260 | 100% | [case study](../examples/end-users/meridian/) |
-| [Horizon](../examples/end-users/horizon/) | observability → `dashboard` | `gradient`, `landing` | 330 | 95% | [case study](../examples/end-users/horizon/) |
+| [Horizon](../examples/end-users/horizon/) | observability → `dashboard` | `gradient`, `landing` | 330 | 100% | [case study](../examples/end-users/horizon/) |
+| [Hearth & Grain](../examples/end-users/hearth-grain/) | bakery → `photography` | `landing`, `editorial` | 226 | 100% | [case study](../examples/end-users/hearth-grain/) |
+| [Millbrook](../examples/end-users/millbrook-budget/) | city budget → `infographic` | `simulation`, `editorial` | 278 | 100% | [case study](../examples/end-users/millbrook-budget/) |
 
 ## How to read a bundle
 
@@ -19,4 +21,4 @@ Seven loud end-user examples. Each bundle contains the plain-HTML source, the ex
 3. Open the **option-2/option-3** pages — two structurally different directions.
 4. Open **before-after.webp** (static before/after composite) — the same transformation on a desktop window and a phone.
 
-Every number, date, and label in the output appears in the source. Nothing is invented. The hex colors in each source (signal yellow `#FFD400`, magenta `#FF2D78`, flame orange `#FF6B00`, mango coral `#FF5A3C`, electric blue `#2D6BFF`, amber `#FFB300`, signal cyan `#38BDF8`) become the page ground directly.
+Every number, date, and label in the output appears in the source. Nothing is invented. The hex colors in each source (signal yellow `#FFD400`, magenta `#FF2D78`, flame orange `#FF6B00`, mango coral `#FF5A3C`, electric blue `#2D6BFF`, amber `#FFB300`, signal cyan `#38BDF8`, crust brown `#6B3A2A` and butter gold `#E8A93C`, civic navy `#1F3A5F` and brass `#C9A227`) become the page ground directly.

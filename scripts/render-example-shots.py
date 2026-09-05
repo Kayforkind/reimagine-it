@@ -18,7 +18,7 @@ from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
-CASES = ("venator", "crimson-circuit", "velocita", "maracuya", "flick", "meridian", "horizon")
+CASES = ("venator", "crimson-circuit", "velocita", "maracuya", "flick", "meridian", "horizon", "hearth-grain", "millbrook-budget")
 
 
 def find_browser() -> str:

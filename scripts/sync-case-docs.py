@@ -34,6 +34,10 @@ WHY = {
                  "one command ships three furnished designs: an orbitable 3D object, a magazine feature, and a living diagram"),
     "horizon": ("observability",
                 "SLOs and latency numbers become an ops dashboard"),
+    "hearth-grain": ("bakery",
+                     "sixteen loaves become a photography folio of the morning bake, not a data poster"),
+    "millbrook-budget": ("city budget",
+                         "comparison, timeline, and survey language becomes an infographic whose first fold is the budget timeline"),
 }
 
 

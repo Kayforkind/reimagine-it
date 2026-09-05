@@ -5,15 +5,17 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/audit.yml?branch=main&label=CI&logo=github)](https://github.com/Kayforkind/reimagine-it/actions/workflows/audit.yml)
 [![Benchmark](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/benchmark.yml?branch=main&label=benchmark%20100%2F100)](https://github.com/Kayforkind/reimagine-it/actions/workflows/benchmark.yml)
 [![Design Health](https://img.shields.io/github/actions/workflow/status/Kayforkind/design-health-action/audit.yml?branch=main&label=Design%20Health&logo=github)](https://github.com/Kayforkind/design-health-action/actions/workflows/audit.yml)
-[![version 2.5.0](https://img.shields.io/badge/version-2.5.0-b22234.svg)](CHANGELOG.md)
+[![version 2.6.0](https://img.shields.io/badge/version-2.6.0-b22234.svg)](CHANGELOG.md)
 [![npm](https://img.shields.io/npm/v/reimagine-it?color=e8a63f&label=npm)](https://www.npmjs.com/package/reimagine-it)
 [![MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE)
 [![skills.sh](https://skills.sh/b/kayforkind/reimagine-it)](https://skills.sh/kayforkind/reimagine-it)
 [![GitHub stars](https://img.shields.io/github/stars/Kayforkind/reimagine-it?style=flat&color=b22234)](https://github.com/Kayforkind/reimagine-it/stargazers)
 
-[![reimagine-it — seven sources, seven Auto tokens](https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/og.png)](https://kayforkind.github.io/reimagine-it/#results)
+[![reimagine-it — nine sources, no shared silhouette](https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/og.png)](https://kayforkind.github.io/reimagine-it/#results)
 
 [![Auto result reel](https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/demo.gif)](https://kayforkind.github.io/reimagine-it/#playground)
+
+**[▶ 39-second walkthrough](docs/playground-walkthrough.mp4)** — silent screen capture of the playground: paste HTML → Auto draws three directions → pick one → download the standalone artifact.
 
 <div align="center">
 
@@ -36,17 +38,19 @@ npx reimagine-it audit redesign.html
 
 ## See it work
 
-Real sources, real CLI output — seven committed journeys, **seven distinct Auto tokens**. A juice bar, a skate deck, and a streetwear drop do not share a silhouette.
+Real sources, real CLI output — nine committed journeys. The seven launch journeys own seven distinct Auto tokens, so a juice bar, a skate deck, and a streetwear drop do not share a silhouette; the two newest prove the v2.6.0 guarantees — a bakery collection becomes a photography folio (not a data poster), and a city budget becomes an infographic whose first fold is the source's own timeline.
 
 | Source | Auto | Score | Fidelity | Alternates |
 |---|---|---|---|---|
 | [Venator](examples/end-users/venator/) | `gradient` | 246 | 100% | `landing`, `artistic` |
 | [Crimson Circuit](examples/end-users/crimson-circuit/) | `cinematic` | 258 | 100% | `gradient`, `landing` |
-| [Velocita](examples/end-users/velocita/) | `artistic` | 240 | 85% | `gradient`, `landing` |
-| [Maracuyá](examples/end-users/maracuya/) | `landing` | 246 | 89% | `photography`, `gradient` |
+| [Velocita](examples/end-users/velocita/) | `artistic` | 240 | 100% | `gradient`, `landing` |
+| [Maracuyá](examples/end-users/maracuya/) | `landing` | 246 | 100% | `photography`, `gradient` |
 | [Flick Fits](examples/end-users/flick/) | `photography` | 250 | 100% | `showcase`, `landing` |
 | [Meridian Tower](examples/end-users/meridian/) | `3js` | 260 | 100% | `editorial`, `svg` |
-| [Horizon](examples/end-users/horizon/) | `dashboard` | 330 | 95% | `gradient`, `landing` |
+| [Horizon](examples/end-users/horizon/) | `dashboard` | 330 | 100% | `gradient`, `landing` |
+| [Hearth & Grain](examples/end-users/hearth-grain/) | `photography` | 226 | 100% | `landing`, `editorial` |
+| [Millbrook](examples/end-users/millbrook-budget/) | `infographic` | 278 | 100% | `simulation`, `editorial` |
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/examples/end-users/venator/auto-desktop.png" width="280" alt="Venator Auto → signal-yellow gradient arena">
@@ -56,6 +60,8 @@ Real sources, real CLI output — seven committed journeys, **seven distinct Aut
   <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/examples/end-users/flick/auto-desktop.png" width="280" alt="Flick Fits Auto → electric-blue photography folio">
   <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/examples/end-users/meridian/auto-desktop.png" width="280" alt="Meridian Auto → amber 3D object">
   <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/examples/end-users/horizon/auto-desktop.png" width="280" alt="Horizon Auto → navy ops dashboard">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/examples/end-users/hearth-grain/auto-desktop.png" width="280" alt="Hearth & Grain Auto → crust-brown bakery folio">
+  <img src="https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/docs/examples/end-users/millbrook-budget/auto-desktop.png" width="280" alt="Millbrook Auto → navy-and-brass budget infographic">
 </p>
 
 <p align="center"><sub>Auto desktops from the committed engine. Before/after composites and two alternatives live in each <a href="examples/end-users/">bundle</a>.</sub></p>
@@ -191,7 +197,8 @@ The intended outcome is **fresh when requested, consistent when approved** — n
 ## Case studies
 
 - **[Live playground](https://kayforkind.github.io/reimagine-it/#playground)** — paste HTML, select a direction, preview the result, and share the input.
-- **[Seven journeys](examples/end-users/)** — crypto battle royale, music festival, skate brand, juice bar, streetwear drop, living building, observability platform. Auto picked seven distinct tokens. Each bundle has source HTML, Auto output, two alternatives, a report, Auto desktop stills, and a before/after WebP.
+- **[Playground walkthrough (39s, silent)](docs/playground-walkthrough.mp4)** — the full paste → Auto → pick → download loop captured against the live page.
+- **[Nine journeys](examples/end-users/)** — crypto battle royale, music festival, skate brand, juice bar, streetwear drop, living building, observability platform, neighborhood bakery, city budget report. Auto picked nine distinct tokens. Each bundle has source HTML, Auto output, two alternatives, a report, Auto desktop stills, and a before/after WebP.
 - **[Case study index](docs/CASE_STUDIES.md)** — commands, fidelity, and how to read a bundle.
 - **[Horizon](https://kayforkind.github.io/reimagine-it/#horizon)** — SLO/uptime page → navy dashboard.
 - **[Full suite](https://kayforkind.github.io/reimagine-it/#suite)** — one building source → orbitable `3js` object, editorial feature, and living SVG.
@@ -212,7 +219,7 @@ npm install -g reimagine-it
 reimagine-it --auto -i page.html -o redesign.html
 ```
 
-Package: [npmjs.com/package/reimagine-it](https://www.npmjs.com/package/reimagine-it) · current release **2.5.0**.
+Package: [npmjs.com/package/reimagine-it](https://www.npmjs.com/package/reimagine-it) · current release **2.6.0**.
 
 ### Agent Skill
 

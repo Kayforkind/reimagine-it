@@ -35,4 +35,8 @@ examples/end-users/crimson-circuit/before-after.webp
 examples/end-users/velocita/before-after.webp
 examples/end-users/maracuya/before-after.webp
 examples/end-users/flick/before-after.webp
+examples/end-users/meridian/before-after.webp
+examples/end-users/horizon/before-after.webp
+examples/end-users/hearth-grain/before-after.webp
+examples/end-users/millbrook-budget/before-after.webp
 ```

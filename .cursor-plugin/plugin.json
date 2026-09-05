@@ -1,7 +1,7 @@
 {
   "name": "reimagine-it",
   "displayName": "reimagine-it",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "description": "Redesigns existing HTML from its own content. 15 visual directions, standalone offline pages. CLI + agent skill.",
   "author": {
     "name": "Kayforkind"

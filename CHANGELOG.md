@@ -4,7 +4,33 @@ All notable changes to reimagine-it.
 
 ---
 
-## v2.5.0 (current)
+## v2.6.0 (current)
+
+### Examples — two new journeys close the good-first-issue set
+
+- **Hearth & Grain** (`examples/end-users/hearth-grain/`) — a neighborhood bakery whose 16-item bake gallery Auto sends to the **photography** folio at seed 1 (score 226, fidelity 100%). Proves the collection lane without touching the seven launch journeys or their uniqueness test.
+- **Millbrook City Budget** (`examples/end-users/millbrook-budget/`) — a civic budget whose compare/timeline/survey language Auto sends to the **infographic** at seed 1 (score 278, fidelity 100%), with the source's own timeline as the first fold (`data-structure="sequence"`).
+- Both bundles ship the full kit: `source.html`, `auto.html`, `auto.json`, two alternates, desktop/phone stills, and `before-after.webp`; gallery, manifest, case tables, og card, and demo reel regenerated for nine journeys.
+- **Riverside Community Clinic** (`examples/community/riverside-clinic/`) — a ninth-source proof on a job none of the journeys cover, with its committed Auto desktop still (`auto-desktop.png`, 1400×1100) and a written collision check.
+
+### Engine — fidelity floor now holds on fact-rich sources
+
+- The **landing** token renders every measurable fact: a "Every source measure" ledger follows the four KPI cards whenever the source carries more. A hidden 4-fact cap used to silently drop the rest (source fidelity fell to 67% on fact-heavy pages).
+- **dashboard**, **artistic**, **svg**, and **3js** tokens likewise render every fact instead of truncating at 4–10. All 135 token × source cells across the nine committed sources now hold the ≥80% floor — and the worst cell is 80%.
+- Maracuyá, Velocita, and Horizon previously reported 85–95% fidelity in their committed `auto.json` reports; after the fix every committed example reports 100%. Still, tables, and og/reel assets regenerated from the fixed engine.
+
+### Build — gallery and social scales with the example count
+
+- `examples/end-users/build.py` no longer hardcodes a 2-row gallery height that silently dropped every card past row two; the grid adapts to the card count (ten columns for the current 54 cards, near a 16:9 sheet) and hard-fails if any card does not fit.
+- `scripts/build-og.py` adapts its tile width to the case count instead of overflowing the 1200px card; headline counts derive from the list.
+- Case lists in `render-example-shots.py`, `sync-pages-assets.py`, and `sync-case-docs.py` extended to nine journeys; docs tables regenerate byte-identically.
+
+### Docs — nine journeys everywhere
+
+- README, GitHub Pages, SHOW-HN, SHOWCASE, CITATION, CONTRIBUTING, ROADMAP, MARKET-GAPS, and the example issue template now say nine journeys and name the two new lanes. A 39-second silent playground walkthrough (`docs/playground-walkthrough.mp4`, 1.1 MB) links beside the live playground; its regenerator lives at `scripts/record-playground.cjs`.
+- Version sweep: `2.4.4` appears only as CHANGELOG history; every plugin manifest, skill frontmatter, and badge reads 2.5.0.
+
+## v2.5.0
 
 ### Auto — unique composition per source
 

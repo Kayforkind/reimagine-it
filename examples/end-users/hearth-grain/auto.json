@@ -1,0 +1,330 @@
+{
+  "mode": "auto",
+  "token": "photography",
+  "seed": 376638856,
+  "score": 226,
+  "rationale": "The source has a collection of items that can become visual studies. Evidence: 5 anchors, 8 measurable facts.",
+  "candidates": [
+    {
+      "token": "photography",
+      "seed": 376638856,
+      "fit": 45,
+      "quality": 136,
+      "total": 226,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "dashboard",
+      "seed": -457094726,
+      "fit": 44,
+      "quality": 136,
+      "total": 224,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "gradient",
+      "seed": -1661923469,
+      "fit": 38,
+      "quality": 136,
+      "total": 212,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "anchors": [
+    "Hearth",
+    "Grain",
+    "Neighborhood Bakery Hearth",
+    "Alder Street",
+    "Every"
+  ],
+  "facts": {
+    "headings": 6,
+    "paragraphs": 5,
+    "items": 16,
+    "dates": 0,
+    "numbers": 8,
+    "links": 1
+  },
+  "source": "D:\\FreeBuff\\GoalDigger\\reimagine-it\\examples\\end-users\\hearth-grain\\source.html",
+  "artifact": "D:\\FreeBuff\\GoalDigger\\reimagine-it\\examples\\end-users\\hearth-grain\\auto.html",
+  "fidelity": {
+    "preserved": 22,
+    "detected": 22,
+    "percentage": 100,
+    "checks": {
+      "title": [
+        {
+          "value": "Hearth & Grain — Neighborhood Bakery",
+          "preserved": true
+        }
+      ],
+      "headings": [
+        {
+          "value": "Hearth & Grain",
+          "preserved": true
+        },
+        {
+          "value": "The morning bake gallery",
+          "preserved": true
+        },
+        {
+          "value": "Today's bread",
+          "preserved": true
+        },
+        {
+          "value": "Getting your bread",
+          "preserved": true
+        },
+        {
+          "value": "Hours",
+          "preserved": true
+        },
+        {
+          "value": "Wholesale",
+          "preserved": true
+        }
+      ],
+      "dates": [],
+      "numbers": [
+        {
+          "value": "8 dollars",
+          "preserved": true
+        },
+        {
+          "value": "7 dollars",
+          "preserved": true
+        },
+        {
+          "value": "9 dollars",
+          "preserved": true
+        },
+        {
+          "value": "10 dollars",
+          "preserved": true
+        },
+        {
+          "value": "6 dollars",
+          "preserved": true
+        },
+        {
+          "value": "5 dollars",
+          "preserved": true
+        },
+        {
+          "value": "42 dollars",
+          "preserved": true
+        },
+        {
+          "value": "11 dollars",
+          "preserved": true
+        }
+      ],
+      "emails": [
+        {
+          "value": "hello@hearthandgrain.example",
+          "preserved": true
+        }
+      ],
+      "anchors": [
+        {
+          "value": "Hearth",
+          "preserved": true
+        },
+        {
+          "value": "Grain",
+          "preserved": true
+        },
+        {
+          "value": "Neighborhood Bakery Hearth",
+          "preserved": true
+        },
+        {
+          "value": "Alder Street",
+          "preserved": true
+        },
+        {
+          "value": "Every",
+          "preserved": true
+        }
+      ],
+      "links": [
+        {
+          "value": "mailto:hello@hearthandgrain.example",
+          "label": "hello@hearthandgrain.example",
+          "preserved": true
+        }
+      ]
+    }
+  }
+}

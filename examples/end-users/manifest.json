@@ -1497,6 +1497,434 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Hearth & Grain \u2014 Neighborhood Bakery",
+      "source": "examples/end-users/hearth-grain/source.html",
+      "auto": "examples/end-users/hearth-grain/auto.html",
+      "report": "examples/end-users/hearth-grain/auto.json",
+      "alternates": [
+        "examples/end-users/hearth-grain/option-2-landing.html",
+        "examples/end-users/hearth-grain/option-3-editorial.html"
+      ],
+      "auto_token": "photography",
+      "alternate_tokens": [
+        "landing",
+        "editorial"
+      ],
+      "seed": 1,
+      "score": 226,
+      "candidates": [
+        {
+          "token": "photography",
+          "seed": 376638856,
+          "fit": 45,
+          "quality": 136,
+          "total": 226,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            },
+            {
+              "name": "type scale present",
+              "passed": true
+            },
+            {
+              "name": "art direction present",
+              "passed": true
+            },
+            {
+              "name": "motion system present",
+              "passed": true
+            },
+            {
+              "name": "palette constrained",
+              "passed": true
+            },
+            {
+              "name": "source fidelity \u2265 60%",
+              "passed": true
+            },
+            {
+              "name": "semantic landmarks",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "dashboard",
+          "seed": -457094726,
+          "fit": 44,
+          "quality": 136,
+          "total": 224,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            },
+            {
+              "name": "type scale present",
+              "passed": true
+            },
+            {
+              "name": "art direction present",
+              "passed": true
+            },
+            {
+              "name": "motion system present",
+              "passed": true
+            },
+            {
+              "name": "palette constrained",
+              "passed": true
+            },
+            {
+              "name": "source fidelity \u2265 60%",
+              "passed": true
+            },
+            {
+              "name": "semantic landmarks",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "gradient",
+          "seed": -1661923469,
+          "fit": 38,
+          "quality": 136,
+          "total": 212,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            },
+            {
+              "name": "type scale present",
+              "passed": true
+            },
+            {
+              "name": "art direction present",
+              "passed": true
+            },
+            {
+              "name": "motion system present",
+              "passed": true
+            },
+            {
+              "name": "palette constrained",
+              "passed": true
+            },
+            {
+              "name": "source fidelity \u2265 60%",
+              "passed": true
+            },
+            {
+              "name": "semantic landmarks",
+              "passed": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Millbrook \u2014 2026 City Budget Report",
+      "source": "examples/end-users/millbrook-budget/source.html",
+      "auto": "examples/end-users/millbrook-budget/auto.html",
+      "report": "examples/end-users/millbrook-budget/auto.json",
+      "alternates": [
+        "examples/end-users/millbrook-budget/option-2-simulation.html",
+        "examples/end-users/millbrook-budget/option-3-editorial.html"
+      ],
+      "auto_token": "infographic",
+      "alternate_tokens": [
+        "simulation",
+        "editorial"
+      ],
+      "seed": 1,
+      "score": 278,
+      "candidates": [
+        {
+          "token": "infographic",
+          "seed": -1088311973,
+          "fit": 71,
+          "quality": 136,
+          "total": 278,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            },
+            {
+              "name": "type scale present",
+              "passed": true
+            },
+            {
+              "name": "art direction present",
+              "passed": true
+            },
+            {
+              "name": "motion system present",
+              "passed": true
+            },
+            {
+              "name": "palette constrained",
+              "passed": true
+            },
+            {
+              "name": "source fidelity \u2265 60%",
+              "passed": true
+            },
+            {
+              "name": "semantic landmarks",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "simulation",
+          "seed": 42996725,
+          "fit": 66,
+          "quality": 136,
+          "total": 268,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            },
+            {
+              "name": "type scale present",
+              "passed": true
+            },
+            {
+              "name": "art direction present",
+              "passed": true
+            },
+            {
+              "name": "motion system present",
+              "passed": true
+            },
+            {
+              "name": "palette constrained",
+              "passed": true
+            },
+            {
+              "name": "source fidelity \u2265 60%",
+              "passed": true
+            },
+            {
+              "name": "semantic landmarks",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "token": "dashboard",
+          "seed": -457086807,
+          "fit": 44,
+          "quality": 136,
+          "total": 224,
+          "checks": [
+            {
+              "name": "standalone HTML",
+              "passed": true
+            },
+            {
+              "name": "title preserved",
+              "passed": true
+            },
+            {
+              "name": "source anchors retained",
+              "passed": true
+            },
+            {
+              "name": "focus-visible",
+              "passed": true
+            },
+            {
+              "name": "reduced motion",
+              "passed": true
+            },
+            {
+              "name": "selection styling",
+              "passed": true
+            },
+            {
+              "name": "no placeholder copy",
+              "passed": true
+            },
+            {
+              "name": "no external asset fetch",
+              "passed": true
+            },
+            {
+              "name": "type scale present",
+              "passed": true
+            },
+            {
+              "name": "art direction present",
+              "passed": true
+            },
+            {
+              "name": "motion system present",
+              "passed": true
+            },
+            {
+              "name": "palette constrained",
+              "passed": true
+            },
+            {
+              "name": "source fidelity \u2265 60%",
+              "passed": true
+            },
+            {
+              "name": "semantic landmarks",
+              "passed": true
+            }
+          ]
+        }
+      ]
     }
   ]
 }

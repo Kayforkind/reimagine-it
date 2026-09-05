@@ -144,7 +144,7 @@ From the top-performing Medium article on agent skills (Aug 2026):
 **How reimagine-it can grow (not how they grew):**
 - The web playground is the single best differentiator — no other design skill has one
 - The Content-Derived Design methodology is citable — write a manifesto, get it cited
-- The seven HTML journeys in `examples/end-users/` show the method on real sources — no competitor ships that as the public proof
+- The nine HTML journeys in `examples/end-users/` show the method on real sources — no competitor ships that as the public proof
 - Community gold submissions would create network effects — each new domain pack multiplies value
 - The GitHub Actions CI pipeline (coming) would make it the only design skill with verifiable quality
 

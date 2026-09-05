@@ -369,6 +369,27 @@ test('auto generation is reproducible when seeded', function() {
   assert.strictEqual(a.output, b.output);
 });
 
+test('auto sends a bakery collection page to a photography folio, not a poster (issue #7)', function() {
+  var html = fs.readFileSync(path.join(__dirname, '../../examples/end-users/hearth-grain/source.html'), 'utf8');
+  var content = extractContent(html, 'hearth-grain.html');
+  var result = autoMod.autoGenerate(content, { seed: 1 });
+  assert.strictEqual(result.token, 'photography', 'bakery should folio, got ' + result.token);
+});
+
+test('auto sends compare/timeline language to infographic with the timeline first (issue #8)', function() {
+  var generateApi = require('../../src/generate');
+  var html = fs.readFileSync(path.join(__dirname, '../../examples/end-users/millbrook-budget/source.html'), 'utf8');
+  var content = extractContent(html, 'millbrook-budget.html');
+  var result = autoMod.autoGenerate(content, { seed: 1 });
+  assert.strictEqual(result.token, 'infographic', 'budget should poster, got ' + result.token);
+  assert.ok(content.dates.length >= 4, 'source must carry a real timeline');
+  assert.strictEqual(generateApi.sniffInfographicStructure(content), 'sequence');
+  var fold = result.output.match(/<main class="poster" data-structure="([a-z]+)">/);
+  assert.ok(fold, 'infographic output must declare its structure');
+  assert.ok(['sequence', 'list'].indexOf(fold[1]) >= 0, 'first fold must follow a sequence/list source, got ' + fold[1]);
+  assert.ok(result.output.indexOf('class="timeline"') < result.output.indexOf('class="mix"'), 'timeline must render before any chart');
+});
+
 test('default token falls back to webpage', function() {
   var out = generate({content: sampleContent, token: 'unknown', seed: 42});
   assert.ok(out.indexOf('<!doctype html>') === 0);

@@ -7,13 +7,13 @@ authors:
 repository-code: "https://github.com/Kayforkind/reimagine-it"
 url: "https://kayforkind.github.io/reimagine-it/"
 license: MIT
-version: 2.5.0
+version: 2.6.0
 date-released: "2026-08-30"
 abstract: >-
   Content-Derived Design CLI and agent skill. Reads existing HTML and writes a
   stronger standalone page from the headings, facts, names, dates, numbers,
   links, emails, and colors already in the file. Auto scores each source into a
-  subject lane so seven committed journeys ship seven distinct tokens.
+  subject lane so nine committed journeys ship nine distinct silhouettes.
 keywords:
   - content-derived-design
   - html
@@ -27,4 +27,4 @@ preferred-citation:
     - name: Kayforkind
   year: 2026
   url: "https://github.com/Kayforkind/reimagine-it"
-  notes: "reimagine-it v2.5.0. See examples/end-users/ for verified outputs."
+  notes: "reimagine-it v2.6.0. See examples/end-users/ for verified outputs."

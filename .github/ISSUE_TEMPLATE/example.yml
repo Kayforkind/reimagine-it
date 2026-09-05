@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Fastest contribution: a real `source.html` for a job we do not already cover (the seven journeys are gaming, festival, skate, juice, streetwear, building, observability).
+        Fastest contribution: a real `source.html` for a job we do not already cover (the nine journeys are gaming, festival, skate, juice, streetwear, building, observability, bakery, city budget).
 
         You do **not** need to ship a domain pack or gold after-file. A source plus a screenshot of `npx reimagine-it --auto` is enough to open the PR.
   - type: input

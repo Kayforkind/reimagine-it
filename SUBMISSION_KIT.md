@@ -17,7 +17,7 @@ It starts from source evidence instead of a generic style prompt. The output is 
 - Repository: https://github.com/Kayforkind/reimagine-it
 - Playground: https://kayforkind.github.io/reimagine-it/#playground
 - Benchmark: https://github.com/Kayforkind/reimagine-it/tree/main/benchmark
-- Release: https://github.com/Kayforkind/reimagine-it/releases/tag/v2.3.2
+- Release: https://github.com/Kayforkind/reimagine-it/releases/tag/v2.6.0
 - Action: https://github.com/Kayforkind/reimagine-it/blob/main/action.yml
 
 ## Launch post

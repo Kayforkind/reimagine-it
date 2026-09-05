@@ -216,12 +216,12 @@
     "numbers": 7,
     "links": 0
   },
-  "source": "D:\\Projects\\awe-me\\examples\\end-users\\horizon\\source.html",
-  "artifact": "D:\\Projects\\awe-me\\examples\\end-users\\horizon\\auto.html",
+  "source": "D:\\FreeBuff\\GoalDigger\\reimagine-it\\examples\\end-users\\horizon\\source.html",
+  "artifact": "D:\\FreeBuff\\GoalDigger\\reimagine-it\\examples\\end-users\\horizon\\auto.html",
   "fidelity": {
-    "preserved": 19,
+    "preserved": 20,
     "detected": 20,
-    "percentage": 95,
+    "percentage": 100,
     "checks": {
       "title": [
         {
@@ -283,7 +283,7 @@
         },
         {
           "value": "$49",
-          "preserved": false
+          "preserved": true
         }
       ],
       "emails": [

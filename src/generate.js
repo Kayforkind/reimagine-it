@@ -561,9 +561,22 @@ function generate(opts) {
       '.marquee-track span{display:inline-flex;align-items:center;gap:40px;white-space:nowrap}' +
       '.marquee-track i{color:var(--a);font-style:normal}' +
       '@keyframes marq{to{transform:translateX(-50%)}}' +
-      '@media(prefers-reduced-motion:reduce){.marquee-track{animation:none;flex-wrap:wrap}}' + bandCss;
-    var stats = statsBand(4);
-    return page(content.title, css, '<main class="landing"><div class="topline"><span>' + esc(label) + '</span><span>' + anchors.length + ' source signals</span></div><header class="hero"><div class="hero-copy"><span class="eyebrow">' + esc(content.profile) + '</span><h1>' + esc(content.title) + '</h1><p class="lede">' + esc(paragraphAt(0, anchors[0])) + '</p><div class="actions"><a class="action" href="' + esc(primaryHref) + '">' + esc(primaryText) + ' →</a><a class="action secondary" href="#features">See the signals</a></div></div><div class="hero-art" aria-hidden="true">' + meshBackdrop() + '<div class="art-dot"></div><div class="art-orbit"></div><div class="art-glyphs">' + glyphTiles(anchors, 3, 46) + '</div><div class="art-prism">' + isoPrism(content.title, 30) + '</div><span class="art-chip c1">' + esc(anchors[0] || 'start') + '</span><span class="art-chip c2">' + esc(anchors[1 % Math.max(anchors.length, 1)] || 'signal') + '</span><span class="art-chip c3">' + esc(anchors[2 % Math.max(anchors.length, 1)] || 'core') + '</span><span class="art-chip c4">' + esc(anchors[3 % Math.max(anchors.length, 1)] || 'detail') + '</span></div></header>' + marqueeBand() + '<section class="feature-grid" id="features" aria-label="Source features">' + features + '</section>' + (stats || '') + ctaBand() + footerBand() + '</main>');
+      '@media(prefers-reduced-motion:reduce){.marquee-track{animation:none;flex-wrap:wrap}}' +
+      '.measure-ledger{margin-top:56px;border-top:1px solid ' + border + ';padding-top:26px}.measure-ledger dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px 28px;margin:18px 0 0}.measure-ledger .measure{border-left:2px solid color-mix(in srgb,var(--a) 55%,transparent);padding-left:14px}.measure-ledger dt{font:10px ' + mono + ';letter-spacing:.14em;text-transform:uppercase;color:var(--m)}.measure-ledger dd{margin:6px 0 0;font:600 18px ' + sans + ';letter-spacing:-.02em;color:var(--a)}' + bandCss;
+  function measureLedger(from) {
+    // The four KPI cards above are the rhythm; this ledger is the contract.
+    // Without it, any source carrying more than four measurable facts had
+    // the rest silently dropped and source fidelity fell below the floor.
+    var rest = facts.slice(from || 0);
+    if (!rest.length) return '';
+    return '<section class="measure-ledger" aria-label="Every source measure"><span class="eyebrow">Every source measure</span><dl>' +
+      rest.map(function(fact) {
+        return '<div class="measure"><dt>' + esc(fact.kind) + '</dt><dd>' + esc(fact.value) + '</dd></div>';
+      }).join('') + '</dl></section>';
+  }
+
+  var stats = statsBand(4);
+    return page(content.title, css, '<main class="landing"><div class="topline"><span>' + esc(label) + '</span><span>' + anchors.length + ' source signals</span></div><header class="hero"><div class="hero-copy"><span class="eyebrow">' + esc(content.profile) + '</span><h1>' + esc(content.title) + '</h1><p class="lede">' + esc(paragraphAt(0, anchors[0])) + '</p><div class="actions"><a class="action" href="' + esc(primaryHref) + '">' + esc(primaryText) + ' →</a><a class="action secondary" href="#features">See the signals</a></div></div><div class="hero-art" aria-hidden="true">' + meshBackdrop() + '<div class="art-dot"></div><div class="art-orbit"></div><div class="art-glyphs">' + glyphTiles(anchors, 3, 46) + '</div><div class="art-prism">' + isoPrism(content.title, 30) + '</div><span class="art-chip c1">' + esc(anchors[0] || 'start') + '</span><span class="art-chip c2">' + esc(anchors[1 % Math.max(anchors.length, 1)] || 'signal') + '</span><span class="art-chip c3">' + esc(anchors[2 % Math.max(anchors.length, 1)] || 'core') + '</span><span class="art-chip c4">' + esc(anchors[3 % Math.max(anchors.length, 1)] || 'detail') + '</span></div></header>' + marqueeBand() + '<section class="feature-grid" id="features" aria-label="Source features">' + features + '</section>' + (stats || '') + measureLedger(4) + ctaBand() + footerBand() + '</main>');
   }
 
   function dashboard() {
@@ -812,7 +825,7 @@ function generate(opts) {
       '.title{font:400 clamp(56px,13vw,170px)/.78 ' + serif + ';letter-spacing:-.075em;margin-top:24px;max-width:9ch;color:var(--a);text-wrap:balance}.word{display:inline-block;margin-right:.12em}.word-1{font-style:italic;color:var(--m)}.word-2{transform:translateY(.12em)}.word-3{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:.1em}.art .word{transition:color .3s ease,transform .3s cubic-bezier(.2,.8,.2,1),filter .3s ease;cursor:default}.art .word:hover{color:var(--a);transform:translateY(-6px) rotate(-1.5deg);filter:brightness(1.25)}' +
       '.caption{max-width:42ch;margin:40px 0 0 12%;font-size:15px;line-height:1.75;opacity:.72}.anchors{margin:44px 0 0 12%;display:flex;flex-wrap:wrap;gap:8px}.anchors span{font:10px ' + mono + ';letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--m);padding:7px 10px;border-radius:999px;color:var(--m)}' +
       '@media(max-width:620px){.copy{transform:none}.caption,.anchors{margin-left:0}.field{opacity:.25}}';
-    var factChips = facts.slice(0, 4).map(function(fact) { return '<span>' + esc(fact.value) + '</span>'; }).join('');
+    var factChips = facts.map(function(fact) { return '<span>' + esc(fact.value) + '</span>'; }).join('');
     var body = '<main class="art">' + glyphTiles(anchors, 6, 56) + '<svg class="field" viewBox="0 0 760 420" preserveAspectRatio="none" aria-hidden="true">' + filaments + '</svg><div class="copy"><span class="eyebrow">' + esc(label) + '</span><h1 class="title">' + words + '</h1><p class="caption">' + esc(paragraphAt(0, anchors[0])) + '</p><div class="anchors" aria-label="Source anchors">' + anchors.map(function(anchor) { return '<span>' + esc(anchor) + '</span>'; }).join('') + factChips + '</div></div></main>';
     return page(content.title, css, body);
   }
@@ -862,11 +875,11 @@ function generate(opts) {
       poly.push((cx + Math.cos(angle) * radius).toFixed(1) + ',' + (cy + Math.sin(angle) * radius).toFixed(1));
     }
     var css = 'body{font-family:' + sans + ';background:var(--g);color:var(--i);display:grid;place-items:center;min-height:100svh;padding:24px}.diagram{width:min(100%,860px)}.diagram h1{font:400 clamp(30px,6vw,64px)/.95 ' + serif + ';letter-spacing:-.04em;color:var(--a);margin-bottom:18px}.diagram .sub{font-size:14px;line-height:1.6;opacity:.62;max-width:52ch;margin-bottom:28px}.diagram svg{display:block;width:100%;height:auto;overflow:visible}.diagram .frame{fill:var(--s);stroke:var(--m);stroke-width:1;opacity:.72}.diagram .ring{fill:none;stroke:var(--m);stroke-width:1;stroke-dasharray:3 9;opacity:.7;animation:spin 22s linear infinite;transform-origin:' + cx + 'px ' + cy + 'px}.diagram .core{fill:var(--a);animation:breathe 3.6s ease-in-out infinite;transform-origin:' + cx + 'px ' + cy + 'px}.diagram .hole{fill:var(--g)}.diagram .connector{fill:none;stroke:var(--m);stroke-width:1;stroke-dasharray:2 5;opacity:.7}.diagram .node{fill:var(--a);stroke:var(--g);stroke-width:3}.diagram text{font-family:' + svgSans + ';font-size:13px;fill:var(--i)}@keyframes spin{to{transform:rotate(360deg)}}@keyframes breathe{50%{transform:scale(1.06)}}@media(max-width:600px){.diagram text{font-size:11px}}' +
-      '.diagram-data{border-top:1px solid var(--m);opacity:.9;margin-top:30px;padding-top:28px}.diagram-data .eyebrow{display:block;margin-bottom:18px}' +
+      '.diagram-data{border-top:1px solid var(--m);opacity:.9;margin-top:30px;padding-top:28px}.diagram-data .eyebrow{display:block;margin-bottom:18px}.diagram-facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.diagram-facts span{font:10px ' + mono + ';letter-spacing:.08em;color:var(--m);border:1px solid var(--m);padding:5px 9px;border-radius:999px}' +
       artCss;
     var body = '<main class="diagram"><span class="eyebrow">' + esc(label) + '</span><h1>' + esc(content.title) + '</h1><p class="sub">A living map of the source anchors. Marks stay in the field; names stay in the gutter.</p><svg viewBox="0 0 620 440" role="img" aria-labelledby="svg-title svg-desc"><title id="svg-title">' + esc(content.title) + ' anchor diagram</title><desc id="svg-desc">A central content-derived mark connected to ' + esc(anchors.join(', ')) + '.</desc><rect class="frame" x="1" y="1" width="618" height="438" rx="4"/><circle class="ring" cx="' + cx + '" cy="' + cy + '" r="128"/><polygon class="core" points="' + poly.join(' ') + '"/><circle class="hole" cx="' + cx + '" cy="' + cy + '" r="8"/>' + nodes + '</svg>'
       + (facts.some(function(f) { return firstNumericValue([f.value]) > 0; })
-        ? '<section class="diagram-data"><span class="eyebrow">Source numbers</span>' + donutChart(facts) + '</section>'
+        ? '<section class="diagram-data"><span class="eyebrow">Source numbers</span>' + donutChart(facts) + '<div class="diagram-facts" aria-label="Every source measure">' + facts.map(function(fact) { return '<span>' + esc(fact.value) + '</span>'; }).join('') + '</div></section>'
         : '') + '</main>';
     return page(content.title + ' — SVG', css, body);
   }
@@ -885,7 +898,7 @@ function generate(opts) {
       'function tick(){if(!reduced&&!drag){ry+=.0025;draw()}window.requestAnimationFrame(tick)}window.addEventListener("resize",resize);resize();tick()' +
       '})()';
     var css = 'body{font-family:' + sans + ';background:var(--g);color:var(--i);display:flex;flex-direction:column;min-height:100svh}#orbit-view{flex:1;min-height:260px;position:relative}canvas{display:block;width:100%;height:100%;min-height:260px;touch-action:none;cursor:grab}canvas:active{cursor:grabbing}.orbit-note{position:absolute;left:24px;top:22px;font:10px ' + mono + ';letter-spacing:.12em;text-transform:uppercase;color:var(--m);pointer-events:none}.orbit-bar{display:flex;justify-content:space-between;gap:18px;align-items:baseline;flex-wrap:wrap;padding:18px 24px;border-top:1px solid rgba(255,255,255,.14)}.orbit-bar h1{font:400 22px ' + serif + ';color:var(--a)}.orbit-bar p{font:11px ' + mono + ';color:var(--m)}.orbit-status{position:absolute;left:-9999px}.orbit-facts{display:flex;gap:8px;flex-wrap:wrap}.orbit-facts span{font:10px ' + mono + ';color:var(--m);border:1px solid var(--m);padding:5px 8px;border-radius:999px}@media(max-width:520px){.orbit-bar{display:block}.orbit-bar p{margin-top:8px}}';
-    var orbitFacts = facts.slice(0, 10).map(function(f) { return f.value; }).concat(anchors).filter(function(value, index, all) { return all.indexOf(value) === index; }).slice(0, 16);
+    var orbitFacts = facts.slice(0, 10).map(function(f) { return f.value; }).concat(anchors).filter(function(value, index, all) { return all.indexOf(value) === index; }).slice(0, 24);
     var body = '<main id="orbit-view"><canvas id="orbit-canvas" tabindex="0" role="img" aria-label="Interactive content-derived 3D view of ' + esc(content.title) + '"></canvas><span class="orbit-note">drag or use arrow keys</span><span id="orbit-status" class="orbit-status" aria-live="polite">Interactive view ready</span></main><footer class="orbit-bar"><div><h1>' + esc(content.title) + '</h1><div class="orbit-facts">' + orbitFacts.map(function(fact) { return '<span>' + esc(fact) + '</span>'; }).join('') + '</div></div><p>offline canvas · no external assets</p></footer>';
     return page(content.title + ' — 3D', css, body, script);
   }
@@ -1158,11 +1171,12 @@ function factsFor(content, anchors) {
 }
 
 function metricCards(facts, anchors) {
-  var metrics = facts.slice(0, 4).map(function(fact) {
+  // Every fact the extractor found gets a card. A four-card cap used to
+  // silently drop the rest and sink source fidelity on fact-rich sources.
+  return facts.map(function(fact) {
     var kind = fact.kind === 'date' ? 'date' : 'metric';
     return { value: fact.value, label: fact.label, kind: kind, detail: 'from source' };
   });
-  return metrics.slice(0, 4);
 }
 
 function firstNumericValue(values) {

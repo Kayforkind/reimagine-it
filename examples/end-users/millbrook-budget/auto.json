@@ -1,0 +1,363 @@
+{
+  "mode": "auto",
+  "token": "infographic",
+  "seed": -1088311973,
+  "score": 278,
+  "rationale": "The source is data-heavy (17 measurable facts) and reads best on shared scales.  Evidence: 5 anchors, 17 measurable facts.",
+  "candidates": [
+    {
+      "token": "infographic",
+      "seed": -1088311973,
+      "fit": 71,
+      "quality": 136,
+      "total": 278,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "simulation",
+      "seed": 42996725,
+      "fit": 66,
+      "quality": 136,
+      "total": 268,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "dashboard",
+      "seed": -457086807,
+      "fit": 44,
+      "quality": 136,
+      "total": 224,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "anchors": [
+    "Millbrook",
+    "City Budget Report",
+    "July",
+    "Posters",
+    "Road"
+  ],
+  "facts": {
+    "headings": 5,
+    "paragraphs": 3,
+    "items": 11,
+    "dates": 7,
+    "numbers": 10,
+    "links": 1
+  },
+  "source": "D:\\FreeBuff\\GoalDigger\\reimagine-it\\examples\\end-users\\millbrook-budget\\source.html",
+  "artifact": "D:\\FreeBuff\\GoalDigger\\reimagine-it\\examples\\end-users\\millbrook-budget\\auto.html",
+  "fidelity": {
+    "preserved": 30,
+    "detected": 30,
+    "percentage": 100,
+    "checks": {
+      "title": [
+        {
+          "value": "Millbrook — 2026 City Budget Report",
+          "preserved": true
+        }
+      ],
+      "headings": [
+        {
+          "value": "Millbrook — 2026 City Budget Report",
+          "preserved": true
+        },
+        {
+          "value": "Where the money goes",
+          "preserved": true
+        },
+        {
+          "value": "Compare: 2025 versus 2026",
+          "preserved": true
+        },
+        {
+          "value": "Timeline of the budget cycle",
+          "preserved": true
+        },
+        {
+          "value": "How the plan was surveyed",
+          "preserved": true
+        }
+      ],
+      "dates": [
+        {
+          "value": "2026",
+          "preserved": true
+        },
+        {
+          "value": "July 1, 2026",
+          "preserved": true
+        },
+        {
+          "value": "2025",
+          "preserved": true
+        },
+        {
+          "value": "March 3, 2026",
+          "preserved": true
+        },
+        {
+          "value": "April 21, 2026",
+          "preserved": true
+        },
+        {
+          "value": "June 30, 2026",
+          "preserved": true
+        },
+        {
+          "value": "2027",
+          "preserved": true
+        }
+      ],
+      "numbers": [
+        {
+          "value": "$4,800,000",
+          "preserved": true
+        },
+        {
+          "value": "$2,300,000",
+          "preserved": true
+        },
+        {
+          "value": "$3,100,000",
+          "preserved": true
+        },
+        {
+          "value": "$640,000",
+          "preserved": true
+        },
+        {
+          "value": "$890,000",
+          "preserved": true
+        },
+        {
+          "value": "$1,150,000",
+          "preserved": true
+        },
+        {
+          "value": "$11,200,000",
+          "preserved": true
+        },
+        {
+          "value": "$12,700,000",
+          "preserved": true
+        },
+        {
+          "value": "$918",
+          "preserved": true
+        },
+        {
+          "value": "$1,024",
+          "preserved": true
+        }
+      ],
+      "emails": [
+        {
+          "value": "finance@millbrook.example",
+          "preserved": true
+        }
+      ],
+      "anchors": [
+        {
+          "value": "Millbrook",
+          "preserved": true
+        },
+        {
+          "value": "City Budget Report",
+          "preserved": true
+        },
+        {
+          "value": "July",
+          "preserved": true
+        },
+        {
+          "value": "Posters",
+          "preserved": true
+        },
+        {
+          "value": "Road",
+          "preserved": true
+        }
+      ],
+      "links": [
+        {
+          "value": "mailto:finance@millbrook.example",
+          "label": "finance@millbrook.example",
+          "preserved": true
+        }
+      ]
+    }
+  }
+}

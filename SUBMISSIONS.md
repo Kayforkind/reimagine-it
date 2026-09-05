@@ -39,7 +39,7 @@ npx skills add Kayforkind/reimagine-it
 
 I wanted to submit reimagine-it for inclusion in your "Top Design Skills" roundup. It's the only agent skill that does content-derived design — palette, motifs, and motion are extracted from the source file's own nouns and dates, rather than enforcing a fixed set of taste rules.
 
-While Anthropic's frontend-design (277k installs) and Impeccable enforce design quality constraints, reimagine-it reads the actual content and builds a unique design language from it. Five diverse sources (Texas notebook, ice cream parlor, SaaS startup, personal essay, restaurant menu) prove the method travels across genres.
+While Anthropic's frontend-design (277k installs) and Impeccable enforce design quality constraints, reimagine-it reads the actual content and builds a unique design language from it. Nine committed journeys (crypto game, festival, skate brand, juice bar, streetwear, living building, observability, bakery, city budget) prove the method travels across genres.
 
 - GitHub: https://github.com/Kayforkind/reimagine-it
 - Live gallery + playground (no agent required): https://kayforkind.github.io/reimagine-it/
@@ -47,7 +47,7 @@ While Anthropic's frontend-design (277k installs) and Impeccable enforce design 
 
 **Differentiators vs existing skills:**
 - Content-Derived Design (unique — no other skill derives design from source content)
-- 5 diverse demo sources (not just one)
+- 9 committed demo journeys with verifiable Auto reports (not just one)
 - Browser playground (no agent required to try it)
 - Works across Claude Code, Cursor, Codex, Copilot, Gemini CLI, Factory Droid, Pi, Windsurf
 - Offline HTML output — single file, no CDN, no Figma
@@ -123,9 +123,9 @@ I noticed reimagine-it isn't in your "19 Best Claude Code Skills" roundup — wa
 
 Every other design skill (frontend-design, Impeccable, etc.) enforces generic quality rules. reimagine-it reads the source file's actual content and derives palette, motifs, and motion from the nouns, dates, and colors already there. A Texas notebook gets navy/red/gold from the Lone Star flag; a restaurant menu gets clay/saffron from the dish names.
 
-- 5 diverse demo sources (Texas, ice cream, SaaS, personal essay, restaurant)
+- 9 committed demo journeys (gaming to civic budget)
 - Browser playground (no agent install required)
-- 13 design variants from one source
+- 15 design variants from one source, with Auto picking the strongest
 - Works across Claude Code, Cursor, Codex, Copilot, Gemini CLI
 
 GitHub: https://github.com/Kayforkind/reimagine-it

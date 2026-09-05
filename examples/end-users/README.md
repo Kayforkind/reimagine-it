@@ -1,10 +1,10 @@
 # See the transformation, not the template
 
-These examples show seven genuinely different jobs: running a crypto battle royale, throwing a music festival, selling skateboards, pouring juice, dropping streetwear, building a living tower, and running an observability platform. Auto picked **seven distinct tokens** — `gradient`, `cinematic`, `artistic`, `landing`, `photography`, `3js`, `dashboard` — so a juice bar, a skate deck, and a streetwear drop cannot collapse onto one poster. Each starts as plain HTML and becomes a standalone page whose layout, palette, and rhythm follow the source. The palettes are loud on purpose: each source carries its own hex colors (signal yellow, magenta, flame orange, mango coral, electric blue, amber, signal cyan), and the engine uses them directly.
+These examples show nine genuinely different jobs: running a crypto battle royale, throwing a music festival, selling skateboards, pouring juice, dropping streetwear, building a living tower, running an observability platform, baking the morning loaves, and publishing a city budget. The seven launch journeys each own a distinct token — `gradient`, `cinematic`, `artistic`, `landing`, `photography`, `3js`, `dashboard` — so a juice bar, a skate deck, and a streetwear drop cannot collapse onto one poster. The two newest prove the v2.6.0 guarantees from the other side: the bakery's collection page lands a **photography** folio (a real job the launch set did not cover) instead of a data poster, and the budget's comparison/timeline language lands an **infographic** whose first fold is the source's own timeline. Each starts as plain HTML and becomes a standalone page whose layout, palette, and rhythm follow the source. The palettes are loud on purpose: each source carries its own hex colors (signal yellow, magenta, flame orange, mango coral, electric blue, amber, signal cyan, crust brown and butter gold, civic navy and brass), and the engine uses them directly.
 
 ![Seven redesign journeys: gaming arena, festival poster, skate deck, juice menu, streetwear drop, building suite, and observability dashboard](gallery.webp)
 
-## Auto results — seven tokens, seven silhouettes
+## Auto results — nine sources, distinct silhouettes
 
 These are the Auto desktops GitHub Pages ships. Same engine, seed-locked in each `auto.json`.
 
@@ -16,6 +16,8 @@ These are the Auto desktops GitHub Pages ships. Same engine, seed-locked in each
   <img src="../../docs/examples/end-users/flick/auto-desktop.png" width="240" alt="Flick Fits Auto → photography">
   <img src="../../docs/examples/end-users/meridian/auto-desktop.png" width="240" alt="Meridian Auto → 3js">
   <img src="../../docs/examples/end-users/horizon/auto-desktop.png" width="240" alt="Horizon Auto → dashboard">
+  <img src="../../docs/examples/end-users/hearth-grain/auto-desktop.png" width="240" alt="Hearth & Grain Auto → photography">
+  <img src="../../docs/examples/end-users/millbrook-budget/auto-desktop.png" width="240" alt="Millbrook Auto → infographic">
 </p>
 
 ## A fast way to judge the result
@@ -35,6 +37,8 @@ Open the source first, then open **Auto**, then open the two generated options. 
 | [Flick Fits](flick/) | streetwear → `photography` | 250 | `showcase`, `landing` | the drop becomes a photography folio of garment studies |
 | [Meridian Tower](meridian/) | living building → `3js` | 260 | `editorial`, `svg` | one command ships three furnished designs: an orbitable 3D object, a magazine feature, and a living diagram |
 | [Horizon](horizon/) | observability → `dashboard` | 330 | `gradient`, `landing` | SLOs and latency numbers become an ops dashboard |
+| [Hearth & Grain](hearth-grain/) | bakery → `photography` | 226 | `landing`, `editorial` | sixteen loaves become a photography folio of the morning bake, not a data poster |
+| [Millbrook](millbrook-budget/) | city budget → `infographic` | 278 | `simulation`, `editorial` | comparison, timeline, and survey language becomes an infographic whose first fold is the budget timeline |
 
 **One command, three furnished designs** — on a building page, `npx reimagine-it --auto -i meridian.html` produces the Auto-selected 3D object **plus** a magazine feature (`editorial`) and a living SVG diagram (`svg`) from the same source. Static renders of the orbit, the feature, and the diagram live in `meridian/3js-desktop.webp`, `meridian/editorial-desktop.webp`, and `meridian/svg-desktop.webp`.
 
@@ -79,7 +83,9 @@ Each `before-after.webp` is a single static composite — the source on the left
 - [Flick Fits](flick/before-after.webp) — streetwear → electric-blue photography folio + two alternatives, desktop and phone
 - [Meridian Tower](meridian/before-after.webp) — building → amber 3D object + editorial feature and svg diagram
 - [Horizon](horizon/before-after.webp) — observability → navy ops dashboard + two alternatives
-- [All seven](gallery.webp) — the complete grid
+- [Hearth & Grain](hearth-grain/before-after.webp) — bakery → crust-brown photography folio + two alternatives
+- [Millbrook](millbrook-budget/before-after.webp) — city budget → navy-and-brass infographic timeline + two alternatives
+- [All nine](gallery.webp) — the complete grid
 
 The images are generated by `build.py`; they are proof of a reproducible transformation, not the final deliverable. For the usable result, open the linked `auto.html` file.
 

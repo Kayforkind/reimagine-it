@@ -23,7 +23,7 @@ ASSETS = (
 
 # Per-case assets: every end-user example contributes its static before/after
 # WebP, source HTML, and desktop/phone screenshots of the auto output.
-CASES = ("venator", "crimson-circuit", "velocita", "maracuya", "flick", "meridian", "horizon")
+CASES = ("venator", "crimson-circuit", "velocita", "maracuya", "flick", "meridian", "horizon", "hearth-grain", "millbrook-budget")
 CASE_FILES = ("before-after.webp", "source.html", "auto-desktop.png", "auto-phone.png")
 # Meridian's suite also ships static renders of the 3js orbit and svg diagram.
 CASE_EXTRA = {

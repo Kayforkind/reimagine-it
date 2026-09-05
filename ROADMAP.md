@@ -341,7 +341,7 @@ This is the ultimate viral growth loop: someone sees a boring page, clicks "Reim
 1. **Name the methodology**: "Content-Derived Design" — add it to the README tagline and SKILL.md
 2. **Get listed**: Submit to composio.dev top design skills, awesome-agent-skills, and skills.sh
 3. **Metrics badge**: Add a "277k installs → be the first 100" badge or similar social proof
-4. **Keep case studies current**: public proof is the seven journeys in `examples/end-users/`
+4. **Keep case studies current**: public proof is the nine journeys in `examples/end-users/`
 5. **Add `/reimagine-it audit` command**: The single highest-value sub-command — checks any page against the craft floor
 
 ---

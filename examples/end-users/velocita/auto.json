@@ -216,12 +216,12 @@
     "numbers": 5,
     "links": 1
   },
-  "source": "D:\\Projects\\awe-me\\examples\\end-users\\velocita\\source.html",
-  "artifact": "D:\\Projects\\awe-me\\examples\\end-users\\velocita\\auto.html",
+  "source": "D:\\FreeBuff\\GoalDigger\\reimagine-it\\examples\\end-users\\velocita\\source.html",
+  "artifact": "D:\\FreeBuff\\GoalDigger\\reimagine-it\\examples\\end-users\\velocita\\auto.html",
   "fidelity": {
-    "preserved": 17,
+    "preserved": 20,
     "detected": 20,
-    "percentage": 85,
+    "percentage": 100,
     "checks": {
       "title": [
         {
@@ -254,11 +254,11 @@
       "dates": [
         {
           "value": "March 14, 2026",
-          "preserved": false
+          "preserved": true
         },
         {
           "value": "May 1, 2026",
-          "preserved": false
+          "preserved": true
         }
       ],
       "numbers": [
@@ -280,7 +280,7 @@
         },
         {
           "value": "14 riders",
-          "preserved": false
+          "preserved": true
         }
       ],
       "emails": [

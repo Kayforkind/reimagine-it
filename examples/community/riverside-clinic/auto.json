@@ -1,0 +1,355 @@
+{
+  "mode": "auto",
+  "token": "infographic",
+  "seed": -1088311973,
+  "score": 352,
+  "rationale": "The source is data-heavy (14 measurable facts) and reads best on shared scales.  Evidence: 5 anchors, 14 measurable facts.",
+  "candidates": [
+    {
+      "token": "infographic",
+      "seed": -1088311973,
+      "fit": 108,
+      "quality": 136,
+      "total": 352,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "simulation",
+      "seed": 42996725,
+      "fit": 42,
+      "quality": 136,
+      "total": 220,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "editorial",
+      "seed": -522440532,
+      "fit": 36,
+      "quality": 136,
+      "total": 208,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "anchors": [
+    "Riverside Community Clinic",
+    "Walk",
+    "Bulletin",
+    "Bulletin Walk",
+    "Delmore Avenue"
+  ],
+  "facts": {
+    "headings": 6,
+    "paragraphs": 4,
+    "items": 8,
+    "dates": 7,
+    "numbers": 7,
+    "links": 1
+  },
+  "source": "examples/community/riverside-clinic/source.html",
+  "artifact": "D:\\FreeBuff\\GoalDigger\\reimagine-it\\examples\\community\\riverside-clinic\\auto.html",
+  "fidelity": {
+    "preserved": 28,
+    "detected": 28,
+    "percentage": 100,
+    "checks": {
+      "title": [
+        {
+          "value": "Riverside Community Clinic — Walk-in Bulletin",
+          "preserved": true
+        }
+      ],
+      "headings": [
+        {
+          "value": "Riverside Community Clinic — Walk-in Bulletin",
+          "preserved": true
+        },
+        {
+          "value": "This week's hours",
+          "preserved": true
+        },
+        {
+          "value": "Flu clinic dates",
+          "preserved": true
+        },
+        {
+          "value": "Compare last season",
+          "preserved": true
+        },
+        {
+          "value": "Services and fees",
+          "preserved": true
+        },
+        {
+          "value": "Find us",
+          "preserved": true
+        }
+      ],
+      "dates": [
+        {
+          "value": "October 12, 2026",
+          "preserved": true
+        },
+        {
+          "value": "September 22, 2026",
+          "preserved": true
+        },
+        {
+          "value": "October 6, 2026",
+          "preserved": true
+        },
+        {
+          "value": "October 20, 2026",
+          "preserved": true
+        },
+        {
+          "value": "November 3, 2026",
+          "preserved": true
+        },
+        {
+          "value": "2025",
+          "preserved": true
+        },
+        {
+          "value": "2026",
+          "preserved": true
+        }
+      ],
+      "numbers": [
+        {
+          "value": "380 people",
+          "preserved": true
+        },
+        {
+          "value": "2,850",
+          "preserved": true
+        },
+        {
+          "value": "4,000",
+          "preserved": true
+        },
+        {
+          "value": "45 dollars",
+          "preserved": true
+        },
+        {
+          "value": "12 dollars",
+          "preserved": true
+        },
+        {
+          "value": "6 dollars",
+          "preserved": true
+        },
+        {
+          "value": "1,140",
+          "preserved": true
+        }
+      ],
+      "emails": [
+        {
+          "value": "frontdesk@riversideclinic.example",
+          "preserved": true
+        }
+      ],
+      "anchors": [
+        {
+          "value": "Riverside Community Clinic",
+          "preserved": true
+        },
+        {
+          "value": "Walk",
+          "preserved": true
+        },
+        {
+          "value": "Bulletin",
+          "preserved": true
+        },
+        {
+          "value": "Bulletin Walk",
+          "preserved": true
+        },
+        {
+          "value": "Delmore Avenue",
+          "preserved": true
+        }
+      ],
+      "links": [
+        {
+          "value": "mailto:frontdesk@riversideclinic.example",
+          "label": "frontdesk@riversideclinic.example",
+          "preserved": true
+        }
+      ]
+    }
+  }
+}

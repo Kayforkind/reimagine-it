@@ -107,7 +107,7 @@ If you use Content-Derived Design in your work:
   author = {Kayforkind},
   year = {2026},
   howpublished = {\url{https://github.com/Kayforkind/reimagine-it}},
-  note = {reimagine-it v2.5.0. See examples/end-users/ for verified outputs.}
+  note = {reimagine-it v2.6.0. See examples/end-users/ for verified outputs.}
 }
 ```
 
