@@ -98,6 +98,23 @@ node bin/reimagine-it.js -i gold/webpage/before.html -t 3js -o /tmp/test.html
 node bin/reimagine-it.js --list                                     # list all tokens
 ```
 
+## Review & merge policy
+
+`main` is protected. Every pull request — including maintainers' and
+Dependabot's — must:
+
+1. Pass the **CI Gate** (`battery`): the full suite (gold audit, engine + MCP +
+   fuzz units, e2e CLI, bundle freshness, tarball/stills/reproduction guards)
+   plus the 17-token benchmark at 100/100. `npm install` runs with
+   `--ignore-scripts` in CI; never add scripts that assume otherwise.
+2. Pass **review-gold** (`review`).
+3. Carry an approving **owner review** on protected paths (see `CODEOWNERS`:
+   engine core, CI, skills, submissions). Stale reviews are dismissed on new
+   commits — re-approval after a rebase is expected.
+
+Security issues: see [SECURITY.md](SECURITY.md) — please use GitHub Private
+Vulnerability Reporting rather than a public issue.
+
 ## Questions
 
 Open an issue with the tag `question`. For bigger design proposals (a whole new form family, e.g. `/reimagine-it video`), open an issue first so we can align before you ship.
