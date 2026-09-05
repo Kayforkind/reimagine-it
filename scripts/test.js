@@ -37,7 +37,7 @@ function hasPython() {
 }
 
 const PYTHON = hasPython();
-const TOTAL = PYTHON ? 7 : 5;
+const TOTAL = PYTHON ? 8 : 6;
 
 // 1. Gold audit sweep — Node-native.
 const audit = run('Gold audit sweep', process.execPath, ['scripts/audit-all.js']);
@@ -71,6 +71,12 @@ if (run('Browser bundle freshness', process.execPath, ['scripts/build-docs-engin
   process.exit(1);
 }
 
+// 6. Tarball guard — npm pack must match the intentional files list.
+if (run('Tarball guard', process.execPath, ['scripts/check-tarball.js']) !== 0) {
+  console.error('FAIL: the npm tarball drifted from the files list — see scripts/check-tarball.js');
+  process.exit(1);
+}
+
 if (!PYTHON) {
   console.log('\nPython not found — skipping the audit parity test and the gold smoke demo.');
   console.log('The GitHub Action runs the Python mirror, and the parity test guards it there.');
@@ -78,13 +84,13 @@ if (!PYTHON) {
   process.exit(0);
 }
 
-// 6. The Python mirror must agree with src/audit.js file by file.
+// 7. The Python mirror must agree with src/audit.js file by file.
 if (run('Audit parity (js vs python)', process.execPath, ['test/unit/audit-parity.test.js']) !== 0) {
   console.error('FAIL: the Python audit mirror has drifted from src/audit.js');
   process.exit(1);
 }
 
-// 7. Narrative demo kept working.
+// 8. Narrative demo kept working.
 if (run('Gold smoke demo', 'python', ['gold/reimagine.py', '--ship'], { optional: true }) !== 0) {
   console.error('FAIL: smoke demo crashed');
   process.exit(1);

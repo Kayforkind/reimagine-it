@@ -116,6 +116,8 @@ jobs:
     # one npm publisher per release.
     if: github.event_name == 'workflow_dispatch' || (github.event_name == 'release' && !github.event.release.prerelease)
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write  # npm provenance — signed, verifiable build origin
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
@@ -126,6 +128,9 @@ jobs:
           node-version: "22"
           registry-url: "https://registry.npmjs.org"
 
+      - name: Guard the tarball against files-list drift
+        run: node scripts/check-tarball.js
+
       - name: Publish to npm
         if: env.NPM_TOKEN != ''
         run: |
@@ -133,7 +138,7 @@ jobs:
           if npm view "reimagine-it@${VERSION}" version >/dev/null 2>&1; then
             echo "reimagine-it@${VERSION} already published — skipping."
           else
-            npm publish --access public
+            npm publish --access public --provenance
           fi
         env:
           NODE_AUTH_TOKEN: ${{ env.NPM_TOKEN }}
