@@ -257,124 +257,39 @@ def write_before_after(path: Path, cards: list[tuple[Image.Image, float]]) -> No
 
 # ---------------------------------------------------------------- main build
 
+# Engine config lives in examples.json — the single source of truth shared
+# with scripts/check-repro.js (which cannot import this module: CI runners
+# have no Pillow, and importing pulls in the gallery builders).
+# Everything below that is presentation-only (gallery card data) stays here.
+_ENGINE_CONFIG = json.loads((HERE / "examples.json").read_text(encoding="utf-8"))
+
+_CARD_META: dict[str, dict[str, Any]] = {
+    "venator": {"author": "Venator · crypto game", "views": "336k", "stats": [("heart", "1284"), ("view", "336k")], "mutual": "Gaming", "avatar": (255, 212, 0)},
+    "crimson-circuit": {"author": "Crimson Circuit · festival", "views": "88k", "stats": [("heart", "512"), ("view", "88k")], "mutual": "Music", "avatar": (255, 45, 120)},
+    "velocita": {"author": "Velocita · skateboards", "views": "41k", "stats": [("heart", "233"), ("view", "41k")], "mutual": "Skate", "avatar": (255, 107, 0)},
+    "maracuya": {"author": "Maracuyá · juice bar", "views": "19k", "stats": [("heart", "97"), ("view", "19k")], "mutual": "Food", "avatar": (255, 90, 60)},
+    "flick": {"author": "Flick Fits · streetwear", "views": "112k", "stats": [("heart", "641"), ("view", "112k")], "mutual": "Fashion", "avatar": (45, 107, 255)},
+    "meridian": {"author": "Meridian Tower · architecture", "views": "62k", "stats": [("heart", "309"), ("view", "62k")], "mutual": "Real estate", "avatar": (255, 179, 0)},
+    "horizon": {"author": "Horizon · observability", "views": "74k", "stats": [("heart", "421"), ("view", "74k")], "mutual": "Dev tools", "avatar": (56, 189, 248)},
+    "hearth-grain": {"author": "Hearth & Grain · bakery", "views": "12k", "stats": [("heart", "84"), ("view", "12k")], "mutual": "Food", "avatar": (232, 169, 60)},
+    "millbrook-budget": {"author": "Millbrook · city budget", "views": "8k", "stats": [("heart", "57"), ("view", "8k")], "mutual": "Civic", "avatar": (31, 58, 95)},
+}
+
+_NAMES: dict[str, str] = {
+    "venator": "Venator — Crypto Battle Royale",
+    "crimson-circuit": "Crimson Circuit — Music Festival",
+    "velocita": "Velocita — Skateboards",
+    "maracuya": "Maracuyá — Tropical Juice Bar",
+    "flick": "Flick Fits — Streetwear Drop",
+    "meridian": "Meridian Tower — A Living Building",
+    "horizon": "Horizon — Observability Platform",
+    "hearth-grain": "Hearth & Grain — Neighborhood Bakery",
+    "millbrook-budget": "Millbrook — 2026 City Budget Report",
+}
+
 EXAMPLES: list[dict[str, Any]] = [
-    {
-        "slug": "venator",
-        "name": "Venator — Crypto Battle Royale",
-        "source": "examples/end-users/venator/source.html",
-        "alternates": ["landing", "artistic"],
-        "seed": "57",
-        "brief": "loud gaming arena, signal yellow and black",
-        "author": "Venator · crypto game",
-        "views": "336k",
-        "stats": [("heart", "1284"), ("view", "336k")],
-        "mutual": "Gaming",
-        "avatar": (255, 212, 0),
-    },
-    {
-        "slug": "crimson-circuit",
-        "name": "Crimson Circuit — Music Festival",
-        "source": "examples/end-users/crimson-circuit/source.html",
-        "alternates": ["gradient", "landing"],
-        "seed": "61",
-        "brief": "loud festival poster, magenta and yellow",
-        "author": "Crimson Circuit · festival",
-        "views": "88k",
-        "stats": [("heart", "512"), ("view", "88k")],
-        "mutual": "Music",
-        "avatar": (255, 45, 120),
-    },
-    {
-        "slug": "velocita",
-        "name": "Velocita — Skateboards",
-        "source": "examples/end-users/velocita/source.html",
-        "alternates": ["gradient", "landing"],
-        "seed": "73",
-        "brief": "bold skate brand, flame orange and volt lime",
-        "author": "Velocita · skateboards",
-        "views": "41k",
-        "stats": [("heart", "233"), ("view", "41k")],
-        "mutual": "Skate",
-        "avatar": (255, 107, 0),
-    },
-    {
-        "slug": "maracuya",
-        "name": "Maracuyá — Tropical Juice Bar",
-        "source": "examples/end-users/maracuya/source.html",
-        "alternates": ["photography", "gradient"],
-        "seed": "89",
-        "brief": "tropical juice bar, mango coral and sun yellow",
-        "author": "Maracuyá · juice bar",
-        "views": "19k",
-        "stats": [("heart", "97"), ("view", "19k")],
-        "mutual": "Food",
-        "avatar": (255, 90, 60),
-    },
-    {
-        "slug": "flick",
-        "name": "Flick Fits — Streetwear Drop",
-        "source": "examples/end-users/flick/source.html",
-        "alternates": ["showcase", "landing"],
-        "seed": "97",
-        "brief": "streetwear drop, electric blue and hot pink",
-        "author": "Flick Fits · streetwear",
-        "views": "112k",
-        "stats": [("heart", "641"), ("view", "112k")],
-        "mutual": "Fashion",
-        "avatar": (45, 107, 255),
-    },
-    {
-        "slug": "meridian",
-        "name": "Meridian Tower — A Living Building",
-        "source": "examples/end-users/meridian/source.html",
-        "alternates": ["editorial", "svg"],
-        "seed": "101",
-        "brief": "bold architecture, amber cladding and steel frames",
-        "author": "Meridian Tower · architecture",
-        "views": "62k",
-        "stats": [("heart", "309"), ("view", "62k")],
-        "mutual": "Real estate",
-        "avatar": (255, 179, 0),
-    },
-    {
-        "slug": "horizon",
-        "name": "Horizon — Observability Platform",
-        "source": "examples/end-users/horizon/source.html",
-        "alternates": ["gradient", "landing"],
-        "seed": "113",
-        "brief": "modern observability platform, deep navy and signal cyan",
-        "author": "Horizon · observability",
-        "views": "74k",
-        "stats": [("heart", "421"), ("view", "74k")],
-        "mutual": "Dev tools",
-        "avatar": (56, 189, 248),
-    },
-    {
-        "slug": "hearth-grain",
-        "name": "Hearth & Grain — Neighborhood Bakery",
-        "source": "examples/end-users/hearth-grain/source.html",
-        "alternates": ["landing", "editorial"],
-        "seed": "1",
-        "brief": "warm neighborhood bakery, crust brown and butter gold",
-        "author": "Hearth & Grain · bakery",
-        "views": "12k",
-        "stats": [("heart", "84"), ("view", "12k")],
-        "mutual": "Food",
-        "avatar": (232, 169, 60),
-    },
-    {
-        "slug": "millbrook-budget",
-        "name": "Millbrook — 2026 City Budget Report",
-        "source": "examples/end-users/millbrook-budget/source.html",
-        "alternates": ["simulation", "editorial"],
-        "seed": "1",
-        "brief": "civic budget report, navy and brass",
-        "author": "Millbrook · city budget",
-        "views": "8k",
-        "stats": [("heart", "57"), ("view", "8k")],
-        "mutual": "Civic",
-        "avatar": (31, 58, 95),
-    },
+    {**engine, **_CARD_META[engine["slug"]], "name": _NAMES[engine["slug"]]}
+    for engine in _ENGINE_CONFIG
 ]
 
 

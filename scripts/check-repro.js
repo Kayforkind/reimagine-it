@@ -25,17 +25,12 @@ const root = path.resolve(__dirname, '..');
 const norm = (s) => s.replace(/\r\n/g, '\n');
 
 function exampleConfig() {
-  // build.py owns seed/brief/alternates for the nine journeys. Import it
-  // rather than duplicating the table here — one source of truth.
-  const probe = path.join(tmp, 'read-examples.py');
-  fs.writeFileSync(probe, [
-    'import json, sys',
-    "sys.path.insert(0, 'examples/end-users')",
-    'from build import EXAMPLES',
-    'print(json.dumps([{"slug": e["slug"], "source": e["source"], "seed": e["seed"], "brief": e.get("brief", "")} for e in EXAMPLES]))',
-  ].join('\n'));
-  const out = execFileSync('python', [probe], { cwd: root, encoding: 'utf8', shell: false });
-  const journeys = JSON.parse(out.trim().split(/\r?\n/).pop());
+  // examples.json owns seed/brief/alternates for the nine journeys. Both
+  // build.py and this guard read it — one source of truth, no interpreter
+  // required (CI runners have no Pillow, so importing build.py fails there).
+  const journeys = JSON.parse(
+    fs.readFileSync(path.join(root, 'examples', 'end-users', 'examples.json'), 'utf8')
+  );
   // build.py import leaves a __pycache__ next to it; keep it out of git.
   // (The .gitignore entry lives in the repo; this only guards the guard.)
 

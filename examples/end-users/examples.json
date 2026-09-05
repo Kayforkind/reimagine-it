@@ -1,0 +1,65 @@
+[
+  {
+    "slug": "venator",
+    "source": "examples/end-users/venator/source.html",
+    "alternates": ["landing", "artistic"],
+    "seed": "57",
+    "brief": "loud gaming arena, signal yellow and black"
+  },
+  {
+    "slug": "crimson-circuit",
+    "source": "examples/end-users/crimson-circuit/source.html",
+    "alternates": ["gradient", "landing"],
+    "seed": "61",
+    "brief": "loud festival poster, magenta and yellow"
+  },
+  {
+    "slug": "velocita",
+    "source": "examples/end-users/velocita/source.html",
+    "alternates": ["gradient", "landing"],
+    "seed": "73",
+    "brief": "bold skate brand, flame orange and volt lime"
+  },
+  {
+    "slug": "maracuya",
+    "source": "examples/end-users/maracuya/source.html",
+    "alternates": ["photography", "gradient"],
+    "seed": "89",
+    "brief": "tropical juice bar, mango coral and sun yellow"
+  },
+  {
+    "slug": "flick",
+    "source": "examples/end-users/flick/source.html",
+    "alternates": ["showcase", "landing"],
+    "seed": "97",
+    "brief": "streetwear drop, electric blue and hot pink"
+  },
+  {
+    "slug": "meridian",
+    "source": "examples/end-users/meridian/source.html",
+    "alternates": ["editorial", "svg"],
+    "seed": "101",
+    "brief": "bold architecture, amber cladding and steel frames"
+  },
+  {
+    "slug": "horizon",
+    "source": "examples/end-users/horizon/source.html",
+    "alternates": ["gradient", "landing"],
+    "seed": "113",
+    "brief": "modern observability platform, deep navy and signal cyan"
+  },
+  {
+    "slug": "hearth-grain",
+    "source": "examples/end-users/hearth-grain/source.html",
+    "alternates": ["landing", "editorial"],
+    "seed": "1",
+    "brief": "warm neighborhood bakery, crust brown and butter gold"
+  },
+  {
+    "slug": "millbrook-budget",
+    "source": "examples/end-users/millbrook-budget/source.html",
+    "alternates": ["simulation", "editorial"],
+    "seed": "1",
+    "brief": "civic budget report, navy and brass"
+  }
+]

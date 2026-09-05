@@ -1,0 +1,75 @@
+name: Content Signals
+
+# When a PR adds or changes HTML, comment what the engine reads from it:
+# the derived palette, anchors, and fact counts. Keeps "content-derived"
+# honest at review time — the signals are computed from the actual diff.
+#
+# One sticky comment per PR (found by its marker), updated on new commits.
+
+on:
+  pull_request:
+    paths:
+      - "**/*.html"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  signals:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - name: Extract content signals from the changed HTML
+        id: signals
+        run: |
+          FILES=$(git diff --name-only --diff-filter=ACM "origin/${{ github.base_ref }}" -- '*.html' | head -5)
+          [ -z "$FILES" ] && { echo "no html files"; exit 0; }
+          {
+            echo "### Content-derived signals 🔍"
+            echo ""
+            echo "<!-- content-signals-marker -->"
+            echo ""
+            for f in $FILES; do
+              [ -f "$f" ] || continue
+              echo "**\`$f\`**"
+              echo ""
+              echo '```'
+              node bin/reimagine-it.js extract -i "$f" -o - | node -e "
+                let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{
+                  const j=JSON.parse(s);
+                  const p=j.palette||{};
+                  console.log('title   : '+(j.title||''));
+                  console.log('profile : '+(j.profile||'')+' · '+(j.density||''));
+                  console.log('palette : '+[p.ground,p.accent,p.muted].join(' · '));
+                  console.log('anchors : '+(j.anchors||[]).slice(0,5).join(' · '));
+                  console.log('facts   : '+(j.dates||[]).length+' dates · '+(j.numbers||[]).length+' numbers · '+(j.emails||[]).length+' emails');
+                });"
+              echo '```'
+              echo ""
+            done
+            echo "_Computed by [reimagine-it](https://github.com/Kayforkind/reimagine-it) — the source is the brief._"
+          } > comment.md
+          echo "wrote comment.md"
+
+      - name: Post or update the PR comment
+        if: steps.signals.outcome == 'success'
+        run: |
+          MARKER="<!-- content-signals-marker -->"
+          COMMENT_ID=$(gh api "repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments" \
+            --jq ".[] | select(.body | startswith(\"$MARKER\")) | .id" | head -1)
+          if [ -n "$COMMENT_ID" ]; then
+            gh api --method PATCH "repos/${{ github.repository }}/issues/comments/$COMMENT_ID" \
+              -F body=@comment.md > /dev/null
+            echo "updated existing comment"
+          else
+            gh pr comment "${{ github.event.pull_request.number }}" --body-file comment.md
+            echo "posted new comment"
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}

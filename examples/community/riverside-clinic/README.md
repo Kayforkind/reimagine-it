@@ -1,5 +1,8 @@
 # Riverside Community Clinic — a ninth source, not one of the journeys
 
+**Author:** @Kayforkind · **Kind:** proof case (issue #10) — a civic service page
+outside all seven journeys.
+
 This bundle is the Issue #10 proof: Auto run on a real-world job that is **not**
 one of the seven launch journeys (gaming, festival, skate, juice, streetwear,
 building, observability) and not one of the v2.6.0 additions (bakery, city
