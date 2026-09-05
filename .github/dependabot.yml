@@ -1,0 +1,21 @@
+version: 2
+updates:
+  # The engine is deliberately dependency-free at runtime; these are the
+  # dev/test surfaces (browser bundler, MCP SDK types, test runner).
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      dev-deps:
+        dependency-type: development
+    labels:
+      - dependencies
+
+  # Supply-chain pinning: bump the SHA-pinned actions when they move.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    labels:
+      - dependencies

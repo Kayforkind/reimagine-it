@@ -1,0 +1,12 @@
+# Review requirements for protected paths.
+# The engine core, CI, and supply-chain surfaces always need the owner.
+
+*                               @Kayforkind
+/.github/                       @Kayforkind
+/action.yml                     @Kayforkind
+/src/                           @Kayforkind
+/mcp/                           @Kayforkind
+/skills/                        @Kayforkind
+/scripts/                       @Kayforkind
+/package.json                   @Kayforkind
+/examples/community/            @Kayforkind
