@@ -177,3 +177,45 @@ Then: `/reimagine-it webpage`, `/reimagine-it infographic`, `/reimagine-it svg`,
 Try it in the browser (no agent required): https://kayforkind.github.io/reimagine-it/
 
 GitHub: https://github.com/Kayforkind/reimagine-it
+## Reusable kit (was SUBMISSION_KIT.md)
+
+**One-line:** Turn an existing HTML page into a beautiful, usable standalone redesign without losing its meaning.
+
+**Short:** reimagine-it is a dependency-free CLI and Agent Skill for content-derived design. Design Auto reads headings, facts, links, dates, numbers, and colors from an existing HTML source, chooses a fitting visual direction from 17, and produces an inspectable standalone artifact with a fidelity report.
+
+**Why different:** It starts from source evidence instead of a generic style prompt. Output is offline HTML, deterministic with a seed, reviewable through the decision and fidelity report — and every committed proof regenerates byte-identically in CI.
+
+**Links:** Repository: https://github.com/Kayforkind/reimagine-it · Playground: https://kayforkind.github.io/reimagine-it/#playground · Benchmark: https://github.com/Kayforkind/reimagine-it/tree/main/benchmark · Releases: https://github.com/Kayforkind/reimagine-it/releases · Action: https://github.com/Kayforkind/reimagine-it/blob/main/action.yml
+
+## Show HN draft (was SHOW-HN.md)
+
+**Title:** Show HN: reimagine-it – redesign existing HTML from its own content (CLI)
+
+**URL:** https://github.com/Kayforkind/reimagine-it
+
+**Text:**
+
+```
+npx reimagine-it --auto -i page.html -o redesign.html
+```
+
+Paste HTML. Get one standalone page — offline, no CDN, no Figma. The engine reads headings, facts, names, dates, numbers, links, emails, and hex colors already in the file. It does not invent a SaaS landing page.
+
+Auto scores the source into a subject lane (game, festival, skate, food, fashion, architecture, ops, …) and will not put two tokens from the same silhouette on the shortlist. Seventeen directions now, including a photoshoot lookbook and a living particle field; a AAA motion pack (kinetic type, magnetic buttons, glow-follow cards, inertia-orbit 3D with fact billboards) ships on every token. Nine committed journeys:
+
+- crypto battle royale → gradient
+- music festival → cinematic
+- skate brand → artistic
+- juice bar → landing
+- streetwear drop → photography
+- living building → 3js (+ editorial + svg)
+- observability → dashboard
+- bakery bake gallery → photography
+- city budget report → infographic (timeline first fold)
+
+Live playground (no install): https://kayforkind.github.io/reimagine-it/#playground
+Results: https://kayforkind.github.io/reimagine-it/#results
+
+Also: `variations`, `lock` / `--ref`, and `audit` (19 deterministic Design Health rules, no LLM). MCP: `npx reimagine-it mcp`.
+
+Post only after `npm view reimagine-it version` matches the release tag — HN punishes a demo that `npx` cannot reproduce.
