@@ -331,7 +331,7 @@ test('extract --full includes prose; stdout mode works with -o -', function () {
   assert.ok(Array.isArray(signals.paragraphs) && signals.paragraphs.length > 0, '--full should include paragraphs');
 });
 
-test('mcp without the SDK exits 1 with guidance (never hangs)', function () {
+test('mcp with a closed stdio exits promptly (never hangs)', function () {
   var run = childProcess.spawnSync(process.execPath, [CLI, 'mcp'], {
     cwd: workDir,
     encoding: 'utf8',
@@ -339,8 +339,13 @@ test('mcp without the SDK exits 1 with guidance (never hangs)', function () {
     timeout: 10000,
     env: Object.assign({}, process.env, { NO_COLOR: '1' }),
   });
-  assert.strictEqual(run.status, 1, 'should exit 1 when the SDK is missing, got ' + run.status);
-  assert.ok(run.stderr.indexOf('MCP SDK') >= 0, 'stderr should point at the SDK');
+  // Two honest outcomes: without the SDK installed the bin exits 1 with
+  // guidance; with it (CI runs npm install) the server starts, reads EOF on
+  // stdio, and shuts down cleanly (exit 0). A hang or crash is the only failure.
+  assert.ok(run.status === 1 || run.status === 0, 'should exit 0 (EOF shutdown) or 1 (SDK missing), got ' + run.status);
+  if (run.status === 1) {
+    assert.ok(run.stderr.indexOf('MCP SDK') >= 0, 'exit 1 must point at the SDK, stderr: ' + run.stderr);
+  }
 });
 
 // ── cleanup ─────────────────────────────────────────────────────────
