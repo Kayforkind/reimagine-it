@@ -1,0 +1,319 @@
+{
+  "mode": "auto",
+  "token": "lookbook",
+  "seed": 76085739,
+  "score": 188,
+  "rationale": "The source reads as a collection or campaign suited to an editorial spread. Evidence: 5 anchors, 7 measurable facts.",
+  "candidates": [
+    {
+      "token": "lookbook",
+      "seed": 76085739,
+      "fit": 26,
+      "quality": 136,
+      "total": 188,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "simulation",
+      "seed": 42996725,
+      "fit": 24,
+      "quality": 136,
+      "total": 184,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "token": "landing",
+      "seed": 995504170,
+      "fit": 18,
+      "quality": 136,
+      "total": 172,
+      "checks": [
+        {
+          "name": "standalone HTML",
+          "passed": true
+        },
+        {
+          "name": "title preserved",
+          "passed": true
+        },
+        {
+          "name": "source anchors retained",
+          "passed": true
+        },
+        {
+          "name": "focus-visible",
+          "passed": true
+        },
+        {
+          "name": "reduced motion",
+          "passed": true
+        },
+        {
+          "name": "selection styling",
+          "passed": true
+        },
+        {
+          "name": "no placeholder copy",
+          "passed": true
+        },
+        {
+          "name": "no external asset fetch",
+          "passed": true
+        },
+        {
+          "name": "type scale present",
+          "passed": true
+        },
+        {
+          "name": "art direction present",
+          "passed": true
+        },
+        {
+          "name": "motion system present",
+          "passed": true
+        },
+        {
+          "name": "palette constrained",
+          "passed": true
+        },
+        {
+          "name": "source fidelity ≥ 60%",
+          "passed": true
+        },
+        {
+          "name": "semantic landmarks",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "anchors": [
+    "Maison Vesper",
+    "Autumn",
+    "Winter",
+    "Campaign Maison Vesper",
+    "Campaign Autumn"
+  ],
+  "facts": {
+    "headings": 4,
+    "paragraphs": 3,
+    "items": 6,
+    "dates": 4,
+    "numbers": 3,
+    "links": 1
+  },
+  "source": "examples/community/maison-vesper/source.html",
+  "artifact": "D:\\FreeBuff\\GoalDigger\\reimagine-it\\examples\\community\\maison-vesper\\auto.html",
+  "fidelity": {
+    "preserved": 19,
+    "detected": 19,
+    "percentage": 100,
+    "checks": {
+      "title": [
+        {
+          "value": "Maison Vesper — Autumn/Winter 2026 Campaign",
+          "preserved": true
+        }
+      ],
+      "headings": [
+        {
+          "value": "Maison Vesper — Autumn/Winter 2026 Campaign",
+          "preserved": true
+        },
+        {
+          "value": "The looks",
+          "preserved": true
+        },
+        {
+          "value": "Campaign facts",
+          "preserved": true
+        },
+        {
+          "value": "Stockists",
+          "preserved": true
+        }
+      ],
+      "dates": [
+        {
+          "value": "2026",
+          "preserved": true
+        },
+        {
+          "value": "September 18, 2026",
+          "preserved": true
+        },
+        {
+          "value": "October 2, 2026",
+          "preserved": true
+        },
+        {
+          "value": "September 25, 2026",
+          "preserved": true
+        }
+      ],
+      "numbers": [
+        {
+          "value": "1,900",
+          "preserved": true
+        },
+        {
+          "value": "1.2M",
+          "preserved": true
+        },
+        {
+          "value": "6 cities",
+          "preserved": true
+        }
+      ],
+      "emails": [
+        {
+          "value": "press@maisonvesper.example",
+          "preserved": true
+        }
+      ],
+      "anchors": [
+        {
+          "value": "Maison Vesper",
+          "preserved": true
+        },
+        {
+          "value": "Autumn",
+          "preserved": true
+        },
+        {
+          "value": "Winter",
+          "preserved": true
+        },
+        {
+          "value": "Campaign Maison Vesper",
+          "preserved": true
+        },
+        {
+          "value": "Campaign Autumn",
+          "preserved": true
+        }
+      ],
+      "links": [
+        {
+          "value": "https://maisonvesper.example",
+          "label": "maisonvesper.example",
+          "preserved": true
+        }
+      ]
+    }
+  }
+}

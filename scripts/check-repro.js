@@ -34,17 +34,24 @@ function exampleConfig() {
   // build.py import leaves a __pycache__ next to it; keep it out of git.
   // (The .gitignore entry lives in the repo; this only guards the guard.)
 
-  // The community proof case (issue #10) keeps its own seed, no brief.
-  const clinicDir = path.join(root, 'examples/community/riverside-clinic');
-  if (fs.existsSync(clinicDir)) {
-    journeys.push({
-      slug: 'riverside-clinic',
-      source: 'examples/community/riverside-clinic/source.html',
-      seed: '1',
-      brief: '',
-      community: true,
-      dir: 'examples/community/riverside-clinic',
-    });
+  // Community proof cases keep their own seed, no brief.
+  const communityDir = path.join(root, 'examples/community');
+  if (fs.existsSync(communityDir)) {
+    for (const entry of fs.readdirSync(communityDir, { withFileTypes: true })) {
+      if (!entry.isDirectory() || entry.name === 'TEMPLATE') continue;
+      const dir = 'examples/community/' + entry.name;
+      const source = path.join(root, dir, 'source.html');
+      const report = path.join(root, dir, 'auto.json');
+      if (!fs.existsSync(source) || !fs.existsSync(report)) continue;
+      journeys.push({
+        slug: entry.name,
+        source: dir + '/source.html',
+        seed: '1',
+        brief: '',
+        community: true,
+        dir,
+      });
+    }
   }
   return journeys.map((j) => ({ ...j, dir: j.dir || path.join('examples/end-users', j.slug) }));
 }

@@ -1,6 +1,6 @@
 {
   "name": "reimagine-it",
-  "description": "Redesigns existing HTML from its own content. 15 visual directions, standalone offline pages. CLI + agent skill.",
+  "description": "Redesigns existing HTML from its own content. 17 visual directions, standalone offline pages. CLI + agent skill.",
   "version": "2.8.0",
   "author": {
     "name": "Kayforkind",
@@ -26,7 +26,7 @@
   "interface": {
     "displayName": "reimagine-it",
     "shortDescription": "Redesign existing HTML from the content already in the file.",
-    "longDescription": "Redesigns existing HTML from its own content. 15 visual directions (webpage, infographic, landing, dashboard, svg, 3js, simulation, and more), standalone offline pages. CLI + agent skill. Not a mood board.",
+    "longDescription": "Redesigns existing HTML from its own content. 17 visual directions (webpage, infographic, landing, dashboard, svg, 3js, simulation, and more), standalone offline pages. CLI + agent skill. Not a mood board.",
     "developerName": "Kayforkind",
     "category": "Productivity",
     "capabilities": [

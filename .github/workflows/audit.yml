@@ -55,6 +55,12 @@ jobs:
           fi
           echo "✅ Case tables match manifest ground truth" >> $GITHUB_STEP_SUMMARY
 
+      - name: Assert one version everywhere (README, site, package, release)
+        run: |
+          echo "## Version-sync check" >> $GITHUB_STEP_SUMMARY
+          python scripts/check-version-sync.py
+          echo "✅ One version across package.json, plugin manifests, extension, README, and docs site" >> $GITHUB_STEP_SUMMARY
+
   audit-gold:
     runs-on: ubuntu-latest
     steps:

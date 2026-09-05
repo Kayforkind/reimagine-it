@@ -2,16 +2,15 @@
   "name": "reimagine-it",
   "owner": {
     "name": "Kayforkind"
-  },
-  "metadata": {
-    "description": "Redesigns existing HTML from its own content. 15 visual directions, standalone offline pages. CLI + agent skill.",
-    "version": "2.8.0"
-  },
-  "plugins": [
-    {
-      "name": "reimagine-it",
-      "source": "./",
-      "description": "Redesigns existing HTML from its own content. 15 visual directions, standalone offline pages. Not a mood board."
-    }
-  ]
+  }, "metadata": {
+  "description": "Redesigns existing HTML from its own content. 17 visual directions, standalone offline pages. CLI + agent skill.",
+  "version": "2.8.0"
+ },
+ "plugins": [
+  {
+   "name": "reimagine-it",
+   "source": "./",
+   "description": "Redesigns existing HTML from its own content. 17 visual directions, standalone offline pages. Not a mood board."
+  }
+ ]
 }

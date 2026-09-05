@@ -3,6 +3,11 @@
 > **The source file is the design brief.** Turn existing HTML into a beautiful, usable page — without losing its meaning.
 
 [![CI](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/audit.yml?branch=main&label=CI&logo=github)](https://github.com/Kayforkind/reimagine-it/actions/workflows/audit.yml)
+[![CI Gate](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/gate.yml?branch=main&label=CI%20Gate)](https://github.com/Kayforkind/reimagine-it/actions/workflows/gate.yml)
+[![main is protected](https://img.shields.io/badge/main-protected%20%2B%20codeowners-2ea043.svg)](SECURITY.md)
+[![supply chain](https://img.shields.io/badge/actions-SHA--pinned%20%2B%20dependabot-2ea043.svg)](SECURITY.md)
+[![secret scanning](https://img.shields.io/badge/secret%20scanning-push%20protection%20on-2ea043.svg)](SECURITY.md)
+[![provenance](https://img.shields.io/badge/npm%20releases-SLSA%20provenance-2ea043.svg)](https://docs.npmjs.com/generating-provenance-statements)
 [![Benchmark](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/benchmark.yml?branch=main&label=benchmark%20100%2F100)](https://github.com/Kayforkind/reimagine-it/actions/workflows/benchmark.yml)
 [![Design Health](https://img.shields.io/github/actions/workflow/status/Kayforkind/design-health-action/audit.yml?branch=main&label=Design%20Health&logo=github)](https://github.com/Kayforkind/design-health-action/actions/workflows/audit.yml)
 [![version 2.8.0](https://img.shields.io/badge/version-2.8.0-b22234.svg)](CHANGELOG.md)
@@ -397,6 +402,19 @@ Current repository checks include:
 - `npm pack` must include `mcp/tools.js` and the engine modules — the published CLI and MCP bin share one package.
 
 The audit is deterministic and heuristic. It is not a claim of full WCAG conformance, visual taste, or universal browser compatibility. Review the generated page before shipping it to a client.
+
+## Audit posture (for clients and security review)
+
+reimagine-it is built to be *proven*, not promised — by CI, on every change:
+
+- **Protected main.** Every PR — including the owner's Dependabot PRs — passes a required **CI Gate** (full suite + the 17-token 100/100 benchmark) plus **review-gold**, with an owner review required on protected paths (`CODEOWNERS`). Stale reviews are dismissed on new commits; force-pushes are rejected.
+- **Proof regenerates or CI fails.** Every committed example artifact must regenerate **byte-identically** from the committed engine (`scripts/check-repro.js`); every screenshot must exist at canonical dimensions and stay in sync with `docs/` (`scripts/check-stills.js`); `npm pack` must match the intentional file list exactly (`scripts/check-tarball.js`).
+- **Honesty is property-tested.** The extractor's "no invented facts" contract runs as fuzz/property tests against hostile and malformed input; the fidelity floor (every source fact rendered) runs as a weekly 250-seed stress harness across every token × source cell.
+- **Supply-chain hardening.** All GitHub Actions are pinned to immutable commit SHAs and bumped by Dependabot; workflows default to `contents: read`; CI installs with `--ignore-scripts`; npm releases publish with **SLSA provenance** (verify: `npm view reimagine-it dist.attestations`); secret scanning and push protection are on.
+- **Offline by construction.** Output is one standalone HTML file with no CDN, no API keys, no telemetry; the audit enforces the no-external-fetch rule on every generated page (19 deterministic rules, no LLM).
+- **Deterministic.** Same input + seed → byte-identical output. Clients can re-derive any published artifact themselves.
+
+Security findings: see [SECURITY.md](SECURITY.md) — private vulnerability reporting is enabled.
 
 ## Contributing
 
