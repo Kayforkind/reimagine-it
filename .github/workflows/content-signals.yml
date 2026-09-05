@@ -20,6 +20,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Full history: the signals step diffs against the base branch,
+          # which a default shallow checkout cannot see.
+          fetch-depth: 0
 
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
@@ -60,6 +64,12 @@ jobs:
       - name: Post or update the PR comment
         if: steps.signals.outcome == 'success'
         run: |
+          # The signals step exits early (without writing comment.md) when
+          # no HTML actually changed — a clean no-op, not a failure.
+          if [ ! -f comment.md ]; then
+            echo "no HTML changed — nothing to comment"
+            exit 0
+          fi
           MARKER="<!-- content-signals-marker -->"
           COMMENT_ID=$(gh api "repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments" \
             --jq ".[] | select(.body | startswith(\"$MARKER\")) | .id" | head -1)

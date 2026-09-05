@@ -1,0 +1,104 @@
+name: Scorecard Weekly Report
+
+# Track the OpenSSF Scorecard aggregate over time so a security
+# regression is visible instead of silent. Read-only by design:
+#  - every run writes a job-summary trend line
+#  - a score DROP opens/updates one tracking issue (found by its marker)
+#  - a score RISE is noted in the summary; the baseline file is bumped
+#    through the normal PR flow by a human (main is protected)
+#
+# The baseline lives in .github/scorecard-baseline.json and is updated
+# via PR whenever the score improves.
+
+on:
+  schedule:
+    # Thursdays 06:11 UTC — after the weekly Scorecard run refreshes.
+    - cron: "11 6 * * 4"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  trend:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Fetch current score and compare with baseline
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          curl -sf "https://api.securityscorecards.dev/projects/github.com/Kayforkind/reimagine-it" -o /tmp/scorecard.json
+          python3 - <<'PY'
+          import json, os
+
+          data = json.load(open("/tmp/scorecard.json"))
+          current = float(data.get("score", 0))
+          checks = sorted(data.get("checks", []), key=lambda c: c.get("score", 0))
+
+          baseline_path = ".github/scorecard-baseline.json"
+          baseline = float(json.load(open(baseline_path))["aggregateScore"])
+
+          rows = "\n".join(
+              f"| {c['name']} | {c['score']} |"
+              for c in checks
+          )
+          summary = (
+              f"### OpenSSF Scorecard — weekly\n\n"
+              f"Aggregate: **{current}** (baseline {baseline})\n\n"
+              f"| Check | Score |\n|---|---|\n{rows}\n"
+          )
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
+              f.write(summary)
+
+          if current < baseline:
+              with open("/tmp/regression", "w") as f:
+                  f.write(f"{current}\n{baseline}\n{rows}")
+          else:
+              with open("/tmp/ok", "w") as f:
+                  f.write(f"{current}\n{baseline}\n{rows}")
+          PY
+
+      - name: Open or update the regression issue
+        if: ${{ hashFiles('/tmp/regression') != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          CURRENT=$(sed -n 1p /tmp/regression)
+          BASELINE=$(sed -n 2p /tmp/regression)
+          BODY=$(cat <<EOF
+          ## Scorecard regression
+
+          Aggregate dropped to **${CURRENT}** (baseline was ${BASELINE}).
+
+          A drop means a new finding or a check regressing — investigate the
+          [latest Scorecard run](https://github.com/Kayforkind/reimagine-it/actions/workflows/scorecard.yml)
+          and the [score viewer](https://securityscorecards.dev/viewer/?uri=github.com/Kayforkind/reimagine-it).
+
+          <!-- scorecard-regression-marker -->
+          EOF
+          )
+          ISSUE=$(gh issue list --state open --search "scorecard regression in:title" --json number --jq '.[0].number // ""')
+          if [ -n "$ISSUE" ]; then
+            gh issue comment "$ISSUE" --body "$BODY"
+          else
+            gh issue create --title "OpenSSF Scorecard regression: ${CURRENT}" --body "$BODY" --label security
+          fi
+
+      - name: Note improvement in the summary
+        if: ${{ hashFiles('/tmp/ok') != '' }}
+        run: |
+          CURRENT=$(sed -n 1p /tmp/ok)
+          BASELINE=$(sed -n 2p /tmp/ok)
+          if python3 -c "import sys; sys.exit(0 if float('${CURRENT}') > float('${BASELINE}') else 1)"; then
+            echo "Score improved ${BASELINE} → ${CURRENT}. Bump .github/scorecard-baseline.json via PR to track it." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Score steady at ${CURRENT} (baseline ${BASELINE})." >> "$GITHUB_STEP_SUMMARY"
+          fi

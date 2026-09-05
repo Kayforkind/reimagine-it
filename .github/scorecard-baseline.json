@@ -1,0 +1,6 @@
+{
+  "aggregateScore": 6.7,
+  "updated": "2026-09-05",
+  "source": "https://api.securityscorecards.dev/projects/github.com/Kayforkind/reimagine-it",
+  "note": "Baseline for the weekly scorecard-report.yml trend check. Bump via PR when the live score improves; a drop below this opens a regression issue automatically."
+}

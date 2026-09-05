@@ -4,7 +4,24 @@ All notable changes to reimagine-it.
 
 ---
 
-## v2.8.0 (current)
+## v2.9.0 (current)
+
+### The auditability release — the repo's guarantees are now shown, not just enforced
+
+- **Docs-site parity.** The live site now carries everything the README proves: the security badge row in the hero, an **MCP/agents section** (8 tools, the MCP stanza, the design decision report), a **measured-quality section** (100/100 × 17 tokens, the regenerate-or-CI-fails guarantee, fuzzed honesty, supply-chain posture, offline/deterministic), and footer links to MCP, audit posture, and SECURITY.md. Hero stats corrected (17 tokens, 9 committed journeys).
+- **Weekly Scorecard trend report** (`scorecard-report.yml`): every Thursday the aggregate is compared against `.github/scorecard-baseline.json`; a drop opens a regression issue automatically, improvements are reported in the run summary. Baseline starts at 6.7.
+- **Scorecard sweep completed.** Token-Permissions, Pinned-Dependencies, Binary-Artifacts, Dangerous-Workflow, Dependency-Update-Tool, License, Packaging, Vulnerabilities all at 10/10. Complete PyPI hash-set pins (Pillow 106, PyYAML 53) replace partial pins after the third-platform-wheel failure; a structural workflow lint (`scripts/check-workflows.py`) now runs **in the required gate** — actionless steps, duplicate keys, loose action tags, and incomplete hash pins cannot merge (negative-tested against the exact outage it prevents).
+- **SAST on every push**: CodeQL + Semgrep upload SARIF to code scanning; the audit linter itself is fuzzed weekly (800 adversarial generations, zero crashes).
+- **Signed releases**: release assets are cosign keyless-signed (Fulcio/Rekor) alongside npm SLSA provenance.
+- **Branch protection at maximum**: `enforce_admins` on — every change, including the owner's, lands through a reviewed PR with the green gate.
+- **CII Best Practices answers** drafted from real enforcement (`docs/CII-BADGE-ANSWERS.md`) — every claim maps to a CI check or repo setting.
+- **Share assets regenerated** from the current engine (og.png + demo.gif now include both community proofs).
+
+### Upgrading
+
+No breaking changes. `npm i reimagine-it@2.9.0` (or `npx`) — outputs are byte-compatible with 2.8.0 given the same seed.
+
+## v2.8.0
 
 ### Two new design directions — the roster is 17
 
