@@ -19,14 +19,15 @@
  *   list_rules         — the Design Health rule registry
  *
  * Usage (Claude Desktop / any MCP host):
- *   npx reimagine-it-mcp
+ *   npx reimagine-it mcp
+ *   (or: node mcp/server.js with the SDK installed)
  *
  * Or add to your MCP client config:
  *   {
  *     "mcpServers": {
  *       "reimagine-it": {
  *         "command": "npx",
- *         "args": ["reimagine-it-mcp"]
+ *         "args": ["reimagine-it", "mcp"]
  *       }
  *     }
  *   }

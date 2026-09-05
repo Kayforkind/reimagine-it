@@ -310,6 +310,39 @@ test('an out-of-range count is rejected or clamped, never crashed', function () 
   }
 });
 
+// ── extract command ─────────────────────────────────────────────
+
+test('extract writes the content signals as JSON', function () {
+  var run = cli(['extract', '-i', 'source.html', '-o', 'signals.json']);
+  assert.strictEqual(run.code, 0, 'should exit 0, got ' + run.code + ': ' + run.stderr);
+  var signals = JSON.parse(fs.readFileSync(path.join(workDir, 'signals.json'), 'utf8'));
+  assert.strictEqual(signals.title, 'Meridian Freight', 'title should match the source');
+  assert.ok(Array.isArray(signals.numbers) && signals.numbers.indexOf('99.4%') >= 0,
+    'should extract the percent-qualified number');
+  assert.ok(signals.emails.indexOf('ops@meridian.example') >= 0, 'should carry the email');
+  assert.ok(signals.palette && signals.palette.accent, 'should derive a palette');
+  assert.ok(!signals.paragraphs, 'bulky prose stays behind --full');
+});
+
+test('extract --full includes prose; stdout mode works with -o -', function () {
+  var run = cli(['extract', '-i', 'source.html', '--full', '-o', '-']);
+  assert.strictEqual(run.code, 0, 'should exit 0');
+  var signals = JSON.parse(run.stdout);
+  assert.ok(Array.isArray(signals.paragraphs) && signals.paragraphs.length > 0, '--full should include paragraphs');
+});
+
+test('mcp without the SDK exits 1 with guidance (never hangs)', function () {
+  var run = childProcess.spawnSync(process.execPath, [CLI, 'mcp'], {
+    cwd: workDir,
+    encoding: 'utf8',
+    input: '',
+    timeout: 10000,
+    env: Object.assign({}, process.env, { NO_COLOR: '1' }),
+  });
+  assert.strictEqual(run.status, 1, 'should exit 1 when the SDK is missing, got ' + run.status);
+  assert.ok(run.stderr.indexOf('MCP SDK') >= 0, 'stderr should point at the SDK');
+});
+
 // ── cleanup ─────────────────────────────────────────────────────────
 
 try {

@@ -247,6 +247,11 @@ h1 .grad { background: linear-gradient(100deg, var(--crimson), var(--hot) 55%, #
 .play-notes { font-family: var(--mono); font-size: 11px; color: var(--dim); letter-spacing: .06em; margin-top: 8px; line-height: 1.7; }
 .play-notes span { color: var(--hot); }
 .play-share-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.play-url-row { display: flex; gap: 8px; margin-top: 8px; }
+.play-url-row input { flex: 1; background: #0a0f1e; color: var(--ink); border: 1px solid rgba(244,239,228,.14); border-radius: 8px; padding: 6px 12px; font-family: var(--mono); font-size: 13px; }
+.view-tabs { display: flex; gap: 6px; margin-bottom: 8px; }
+.view-tab { background: transparent; color: var(--dim); border: 1px solid rgba(244,239,228,.14); border-radius: 999px; padding: 4px 14px; font: 12px var(--mono); cursor: pointer; }
+.view-tab.active { color: var(--ink); background: rgba(244,239,228,.08); border-color: rgba(244,239,228,.3); }
 
 /* ---- FOOTER ---- */
 footer { border-top: 1px solid rgba(244,239,228,.12); padding: 30px 0 48px; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
@@ -591,6 +596,10 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
             <button class="sample-btn" data-sample="restaurant">Restaurant</button>
             <button class="sample-btn" data-sample="game">Game</button>
           </div>
+          <div class="play-url-row">
+            <input type="url" id="playUrl" placeholder="…or fetch a URL — try examples/end-users/maracuya/source.html" spellcheck="false">
+            <button class="sample-btn" id="playFetch">Fetch</button>
+          </div>
           <span class="play-label">Pick a token</span>
           <div class="token-row" id="tokenRow">
             <button class="token-btn active" data-token="webpage">webpage</button>
@@ -621,7 +630,11 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
           <div class="play-notes" id="playNotes" aria-live="polite"></div>
         </div>
         <div class="play-right">
-          <span class="play-label">Result</span>
+          <div class="view-tabs">
+            <button class="view-tab active" id="tabResult">Result</button>
+            <button class="view-tab" id="tabSource">Source</button>
+          </div>
+          <span class="play-label">Preview</span>
           <div class="iframe-wrap">
             <iframe id="playFrame" title="Playground output" sandbox="allow-scripts"></iframe>
           </div>
@@ -882,11 +895,17 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
   var seedInput=document.getElementById('playSeed'),currentSeed=null;
   seedInput.addEventListener('change',function(){var v=seedInput.value.trim();currentSeed=/^-?\d+$/.test(v)?Number(v):null});
   document.getElementById('playSeedClear').addEventListener('click',function(){seedInput.value='';currentSeed=null});
+  var currentView='result',tabResult=document.getElementById('tabResult'),tabSource=document.getElementById('tabSource');
+  function show(html){frame.srcdoc=currentView==='source'?(input.value.trim()||input.getAttribute('placeholder')||''):html||''}
+  tabResult.addEventListener('click',function(){currentView='result';tabResult.classList.add('active');tabSource.classList.remove('active');show(lastOutput)});
+  tabSource.addEventListener('click',function(){currentView='source';tabSource.classList.add('active');tabResult.classList.remove('active');show(lastOutput)});
+  var urlInput=document.getElementById('playUrl'),fetchBtn=document.getElementById('playFetch');
+  fetchBtn.addEventListener('click',function(){var u=urlInput.value.trim();if(!u){notes.textContent='Enter a URL first. Same-origin paths like examples/end-users/maracuya/source.html always work; other sites need CORS headers.';return}notes.textContent='Fetching '+u+' …';fetch(u).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.text()}).then(function(t){input.value=t;sampleBtns.forEach(function(b){b.classList.remove('active')});run();notes.textContent='Fetched '+u+' ('+t.length.toLocaleString()+' chars) and reimagined.'}).catch(function(e){notes.textContent='Could not fetch ('+e.message+'). Many sites block cross-origin reads — paste the HTML instead.'})});
   var designStrip=document.getElementById('designStrip'),designBtns=document.getElementById('designBtns');
   var fontsToggle=document.getElementById('playFonts'),webFonts=!!(fontsToggle&&fontsToggle.checked);
   if(fontsToggle)fontsToggle.addEventListener('change',function(){webFonts=fontsToggle.checked;run()});
-  function renderStrip(auto){designStrip.hidden=false;designBtns.textContent='';auto.candidates.forEach(function(cand,i){var b=document.createElement('button');b.className='design-btn'+(i===0?' active':'');b.textContent=cand.token+' · '+cand.total;b.title='seed '+cand.seed;b.addEventListener('click',function(){designBtns.querySelectorAll('.design-btn').forEach(function(x){x.classList.remove('active')});b.classList.add('active');var html=input.value.trim()||input.getAttribute('placeholder')||'';var c=window.ReimagineExtract.extractContent(html,'playground.html');lastOutput=window.ReimagineGenerate.generate({content:c,token:cand.token,seed:cand.seed,webFonts:webFonts});frame.srcdoc=lastOutput;var fid=window.ReimagineResult.sourceFidelity(c,lastOutput);notes.textContent='Direction: '+cand.token+' · seed '+cand.seed+' · design score '+cand.total+' · fidelity '+fid.percentage+'%'+(webFonts?' · web fonts':'')});designBtns.appendChild(b)});var rec=document.createElement('button');rec.className='design-btn';rec.textContent='↻ Recreate';rec.addEventListener('click',function(){currentSeed=((hashSeed(input.value.trim()||'')+Math.floor(Math.random()*0x7fffffff))|0)>>>0;seedInput.value=String(currentSeed);run()});designBtns.appendChild(rec)}
-  function run(){var html=input.value.trim();if(!html){var ph=input.getAttribute('placeholder');if(ph)html=ph;else{lastOutput='';frame.srcdoc='';notes.textContent='Paste HTML to preview a redesign.';if(designStrip)designStrip.hidden=true;return}}var c=window.ReimagineExtract.extractContent(html,'playground.html');var seed=currentSeed!==null?currentSeed:hashSeed(html);var n=[];n.push('Palette: '+[c.palette.ground,c.palette.accent,c.palette.muted].join(' / '));if(c.dates.length>0)n.push('Dates: '+c.dates.slice(0,4).join(', '));if(c.numbers.length>0)n.push('Numbers: '+c.numbers.slice(0,4).join(', '));if(c.anchors.length>0)n.push('Anchors: '+c.anchors.slice(0,3).join(', '));var tokenLabel=currentToken;if(currentToken==='auto'){var auto=window.ReimagineAuto.autoGenerate(c,{seed:seed,webFonts:webFonts});tokenLabel=auto.token;n.push('Auto chose: '+auto.token+' · voice '+auto.voice);n.push('Design: '+auto.design.quality+'/136');lastOutput=auto.output;renderStrip(auto)}else{lastOutput=window.ReimagineGenerate.generate({content:c,token:currentToken,seed:seed,webFonts:webFonts});if(designStrip)designStrip.hidden=true}var fidelity=window.ReimagineResult.sourceFidelity(c,lastOutput);notes.textContent='Extracted — '+n.join(' · ')+'. Direction: '+tokenLabel+' · Fidelity: '+fidelity.percentage+'% of detected source facts preserved.'+(webFonts?' · web fonts on':'');frame.srcdoc=lastOutput}
+  function renderStrip(auto){designStrip.hidden=false;designBtns.textContent='';auto.candidates.forEach(function(cand,i){var b=document.createElement('button');b.className='design-btn'+(i===0?' active':'');b.textContent=cand.token+' · '+cand.total;b.title='seed '+cand.seed;b.addEventListener('click',function(){designBtns.querySelectorAll('.design-btn').forEach(function(x){x.classList.remove('active')});b.classList.add('active');var html=input.value.trim()||input.getAttribute('placeholder')||'';var c=window.ReimagineExtract.extractContent(html,'playground.html');lastOutput=window.ReimagineGenerate.generate({content:c,token:cand.token,seed:cand.seed,webFonts:webFonts});var fid=window.ReimagineResult.sourceFidelity(c,lastOutput);show(lastOutput);notes.textContent='Direction: '+cand.token+' · seed '+cand.seed+' · design score '+cand.total+' · fidelity '+fid.percentage+'%'+(webFonts?' · web fonts':'')});designBtns.appendChild(b)});var rec=document.createElement('button');rec.className='design-btn';rec.textContent='↻ Recreate';rec.addEventListener('click',function(){currentSeed=((hashSeed(input.value.trim()||'')+Math.floor(Math.random()*0x7fffffff))|0)>>>0;seedInput.value=String(currentSeed);run()});designBtns.appendChild(rec)}
+  function run(){var html=input.value.trim();if(!html){var ph=input.getAttribute('placeholder');if(ph)html=ph;else{lastOutput='';frame.srcdoc='';notes.textContent='Paste HTML to preview a redesign.';if(designStrip)designStrip.hidden=true;return}}var c=window.ReimagineExtract.extractContent(html,'playground.html');var seed=currentSeed!==null?currentSeed:hashSeed(html);var n=[];n.push('Palette: '+[c.palette.ground,c.palette.accent,c.palette.muted].join(' / '));if(c.dates.length>0)n.push('Dates: '+c.dates.slice(0,4).join(', '));if(c.numbers.length>0)n.push('Numbers: '+c.numbers.slice(0,4).join(', '));if(c.anchors.length>0)n.push('Anchors: '+c.anchors.slice(0,3).join(', '));var tokenLabel=currentToken;if(currentToken==='auto'){var auto=window.ReimagineAuto.autoGenerate(c,{seed:seed,webFonts:webFonts});tokenLabel=auto.token;n.push('Auto chose: '+auto.token+' · voice '+auto.voice);n.push('Design: '+auto.design.quality+'/136');lastOutput=auto.output;renderStrip(auto)}else{lastOutput=window.ReimagineGenerate.generate({content:c,token:currentToken,seed:seed,webFonts:webFonts});if(designStrip)designStrip.hidden=true}var fidelity=window.ReimagineResult.sourceFidelity(c,lastOutput);notes.textContent='Extracted — '+n.join(' · ')+'. Direction: '+tokenLabel+' · Fidelity: '+fidelity.percentage+'% of detected source facts preserved.'+(webFonts?' · web fonts on':'');show(lastOutput)}
   function currentSeedValue(){return currentSeed!==null?currentSeed:hashSeed(input.value.trim()||input.getAttribute('placeholder')||'')}
   runBtn.addEventListener('click',run);
   input.addEventListener('input',function(){if(input.value.trim())run()});

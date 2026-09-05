@@ -24,7 +24,7 @@ const { extractLock, readLock, applyLock, formatLock, LOCK_VERSION } = require('
 const { buildVariations, contrastSheet, MAX_VARIATIONS } = require('../src/variations');
 
 const MAX_INPUT_BYTES = 10 * 1024 * 1024;
-const COMMANDS = ['audit', 'lock', 'variations'];
+const COMMANDS = ['audit', 'lock', 'variations', 'extract', 'mcp'];
 const args = parseArgs(process.argv.slice(2));
 
 if (args.error) fail(args.error, 2);
@@ -35,6 +35,15 @@ if (args.version) {
   process.exit(0);
 }
 if (args.rules) showRules();
+
+// The MCP server is a long-running stdio process. spawnSync blocks this
+// process for the server's lifetime — and guarantees nothing after this
+// branch (stdin reads, generation) ever runs in server mode.
+if (args.command === 'mcp') {
+  const serverPath = path.join(__dirname, '..', 'mcp', 'server.js');
+  const handedOff = require('child_process').spawnSync(process.execPath, [serverPath], { stdio: 'inherit' });
+  process.exit(handedOff.status === null ? 1 : handedOff.status);
+}
 
 if (args.command === 'audit') runAudit();
 
@@ -70,6 +79,8 @@ if (args.dry) {
 }
 
 if (args.command === 'variations') runVariations();
+
+if (args.command === 'extract') runExtract();
 
 const seed = args.seed === undefined ? undefined : Number(args.seed);
 let token = requestedToken;
@@ -240,6 +251,62 @@ function runLock() {
     console.log(`  Written:   ${target}`);
     console.log(`\n  Reuse it:  npx reimagine-it -i your-page.html --ref ${path.basename(target)} -o locked.html`);
     console.log('\n  LOCKED: captured ✓\n');
+  }
+  process.exit(0);
+}
+
+function runExtract() {
+  // The honesty surface: exactly what the engine reads, nothing invented.
+  // Bulky prose stays behind --full; facts and structure ship by default.
+  const payload = {
+    source: path.basename(inputPath),
+    title: content.title,
+    profile: content.profile,
+    density: content.density,
+    palette: content.palette,
+    anchors: content.anchors,
+    properNouns: content.properNouns,
+    headings: content.headings,
+    dates: content.dates,
+    numbers: content.numbers,
+    emails: content.emails,
+    links: content.links,
+    sourceHex: content.sourceHex,
+    counts: {
+      paragraphs: content.paragraphs.length,
+      listItems: content.items.length,
+    },
+  };
+  if (args.full) {
+    payload.paragraphs = content.paragraphs;
+    payload.items = content.items;
+  }
+  const serialised = JSON.stringify(payload, null, 2) + '\n';
+
+  if (args.output === '-' || args.stdout) {
+    process.stdout.write(serialised);
+    process.exit(0);
+  }
+
+  const base = path.basename(inputPath).replace(/\.[^.]+$/, '');
+  const target = path.resolve(args.output || `${base}.extract.json`);
+  try {
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    fs.writeFileSync(target, serialised, 'utf8');
+  } catch (error) {
+    fail(`could not write extraction: ${error.message}`, 2);
+  }
+
+  if (!args.quiet && !args.json) {
+    const p = content.palette;
+    console.log(`\n  reimagine-it extract → ${path.basename(inputPath)}`);
+    console.log(`  Title:   ${content.title}`);
+    console.log(`  Profile: ${content.profile} · ${content.density}`);
+    console.log(`  Palette: ${p.ground} · ${p.accent} · ${p.muted}`);
+    console.log(`  Facts:   ${content.dates.length} dates · ${content.numbers.length} numbers · ${content.emails.length} emails · ${content.links.length} links`);
+    console.log(`  Anchors: ${content.anchors.slice(0, 5).join(' · ')}${content.anchors.length > 5 ? ' …' : ''}`);
+    console.log(`  Written: ${target}`);
+    console.log('\n  EXTRACTED: captured ✓\n');
   }
   process.exit(0);
 }
@@ -437,6 +504,7 @@ Usage:
   npx reimagine-it variations -i page.html -n 4 -o review/
   npx reimagine-it lock -i brand.html -o brand.lock.json
   npx reimagine-it audit redesign.html
+  npx reimagine-it extract -i page.html -o signals.json
   cat page.html | npx reimagine-it -t webpage -o - > output.html
 
 Commands:
@@ -444,6 +512,8 @@ Commands:
   variations              Generate several directions plus a contrast sheet
   lock                    Capture a shipped design's surface as reusable data
   audit                   Run Design Health (${RULES.length} rules) on an HTML file
+  extract                 Emit the extracted content signals as JSON (no redesign)
+  mcp                     Run the MCP server (Model Context Protocol, stdio)
 
 Options:
   --input, -i <path>      Source HTML file, or - for stdin
@@ -467,6 +537,7 @@ Options:
   --emit                  Also write design-token.json + quality-report.json next to output
   --audit                 Run Design Health on the generated page (exit 3 on failures)
   --dry, -d               Show extracted signals; do not generate
+  --full                  Include paragraphs and list items in extract output
   --diff                  Generate and print a before/after summary (palette, art, fidelity)
   --json                  Machine-readable output for the chosen command
   --verbose               Per-rule breakdown (audit command)
@@ -486,6 +557,8 @@ Examples:
   npx reimagine-it -i menu.html -t landing -b "quiet evening service"
   npx reimagine-it variations -i before.html -n 4 -o review/ --seed 42
   npx reimagine-it lock -i house-style.html -o house.lock.json
+  npx reimagine-it extract -i article.html -o signals.json
+  cat page.html | npx reimagine-it extract -o - | jq .anchors
   npx reimagine-it -i my-page.html --ref house.lock.json -t landing -o on-brand.html
   npx reimagine-it -i my-page.html --ref https-saved-competitor.html --auto -o study.html
   npx reimagine-it audit redesign.html --verbose
@@ -541,6 +614,7 @@ function parseArgs(raw) {
     }
     switch (arg) {
       case '-d': case '--dry': opts.dry = true; break;
+      case '--full': opts.full = true; break;
       case '--diff': opts.diff = true; break;
       case '--web-fonts': opts.webFonts = true; break;
       case '--emit': opts.emit = true; break;
