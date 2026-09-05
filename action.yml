@@ -60,7 +60,6 @@ runs:
         INPUT_FAIL_ON_WARNINGS: ${{ inputs.fail-on-warnings }}
         INPUT_VERBOSE: ${{ inputs.verbose }}
         INPUT_STRICT: ${{ inputs.strict }}
-        ACTION_REPOSITORY: ${{ github.action_repository }}
       run: |
         set -e
         VERBOSE_FLAG=""

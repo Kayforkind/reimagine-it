@@ -14,6 +14,28 @@ You do not need a domain pack. Open one of the [good first issues](https://githu
 
 Use the **Example source** or **Docs or screenshot** issue forms. Pack PRs (table below) are welcome after that.
 
+## Community submissions (proof cases & community gold)
+
+The `examples/community/` lane is for redesigns of *your* pages — a job the
+nine journeys do not cover. Copy [`examples/community/TEMPLATE/`](examples/community/TEMPLATE/),
+rename the folder to your project's slug, and ship:
+
+- `source.html` — real copy only (no lorem, no invented stats)
+- `README.md` — your handle, the source's license situation, and the kind
+  (proof case or community gold)
+
+The validator does the rest — it runs Auto, enforces the 80% fidelity floor,
+regenerates the artifacts, and rejects placeholder copy:
+
+```bash
+node scripts/validate-submission.js examples/community/<your-slug>
+```
+
+Open the PR with the **community-gold** label (or just mention it in the
+title); a maintainer re-runs the validator and merges. Show it off in the
+[Show and tell](https://github.com/Kayforkind/reimagine-it/discussions/categories/show-and-tell)
+discussion category too.
+
 ## What we accept
 
 | Kind | Goes under | You must ship |
