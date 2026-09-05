@@ -162,15 +162,18 @@ jobs:
             git -c user.name="github-actions[bot]" \
                 -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
                 commit -m "docs: regenerate token boards for ${TAG}"
-            # main is admin-protected: a bot push would be rejected, so the
-            # boards land through a PR that the required checks gate.
+            # main is admin-protected, and a PR created with GITHUB_TOKEN
+            # cannot trigger the pull_request workflows that provide the
+            # required checks — auto-merge can never complete by GitHub's
+            # design. The PR is a drift notice for the owner; the boards
+            # also ship as a release asset below so nothing is lost.
             BRANCH="boards/${TAG}-$(date +%s)"
             git push origin "HEAD:refs/heads/${BRANCH}"
             gh pr create --head "${BRANCH}" --base main \
               --title "docs: regenerate token boards for ${TAG}" \
-              --body "Automated board refresh by the release pipeline (bot pushes to main are blocked by design). Merge to sync the committed stills with the released engine."
-            gh pr merge --auto --merge "${BRANCH}"
-            echo "Token boards PR opened with auto-merge"
+              --body "Automated board refresh by the release pipeline. To land: add a fine-grained RELEASES_TOKEN secret, switch the step to it, and merge — GITHUB_TOKEN PRs cannot run the required workflows." \
+              || echo "::warning::could not open the boards PR (non-fatal)"
+            echo "Token boards drift documented in a PR"
           fi
           echo "::endgroup::"
 
@@ -242,4 +245,6 @@ jobs:
       - name: Attach tarball + signature to the release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release upload "$GITHUB_REF_NAME" "$TARBALL" "${TARBALL}.sig" --clobber
+        run: |
+          (cd dist && zip -q token-boards.zip docs/tokens/*.png docs/tokens-board.png docs/tokens-phone.png)
+          gh release upload "$GITHUB_REF_NAME" "$TARBALL" "${TARBALL}.sig" dist/token-boards.zip --clobber
