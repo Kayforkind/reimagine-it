@@ -413,10 +413,30 @@ reimagine-it is built to be *proven*, not promised — by CI, on every change:
 - **Honesty is property-tested.** The extractor's "no invented facts" contract runs as fuzz/property tests against hostile and malformed input; the fidelity floor (every source fact rendered) runs as a weekly 250-seed stress harness across every token × source cell.
 - **Supply-chain hardening.** All GitHub Actions are pinned to immutable commit SHAs and bumped by Dependabot; workflows default to `contents: read`; CI installs with `--ignore-scripts`; pip installs in CI are pinned to **complete PyPI hash sets**; release artifacts are **signed with cosign keyless** (Fulcio/Rekor) alongside SLSA provenance; secret scanning and push protection are on.
 - **CI itself is guarded.** A structural workflow lint (`scripts/check-workflows.py`) runs in the gate: every step must have `run:`/`uses:`, every action SHA-pinned, every CI pip install hash-pinned — the shape GitHub rejects at parse time can never merge again. CodeQL and Semgrep SAST scan every push; the audit linter itself is fuzzed weekly.
+- **The page only claims what's true.** A site-claims guard (`scripts/check-site-claims.js`) in the gate checks the docs-site hero counts, token marquee, gallery, and stage buttons against the real token roster and examples tree on every PR. Every badge's mechanism is documented in [docs/BADGES.md](docs/BADGES.md); release-verification commands are below; the bot-token design is documented in [docs/RELEASES-TOKEN.md](docs/RELEASES-TOKEN.md).
 - **Offline by construction.** Output is one standalone HTML file with no CDN, no API keys, no telemetry; the audit enforces the no-external-fetch rule on every generated page (19 deterministic rules, no LLM).
 - **Deterministic.** Same input + seed → byte-identical output. Clients can re-derive any published artifact themselves.
 
 Security findings: see [SECURITY.md](.github/SECURITY.md) — private vulnerability reporting is enabled.
+
+### Verifying a release yourself
+
+Every release asset is signed keyless by the GitHub Actions release workflow. To verify the npm tarball signature (works offline of GitHub — needs only `cosign` and the two release files):
+
+```bash
+# from https://github.com/Kayforkind/reimagine-it/releases/latest
+curl -sLO https://github.com/Kayforkind/reimagine-it/releases/latest/download/reimagine-it-2.9.0.tgz
+curl -sLO https://github.com/Kayforkind/reimagine-it/releases/latest/download/reimagine-it-2.9.0.tgz.sig
+
+cosign verify-blob \
+  --bundle reimagine-it-2.9.0.tgz.sig \
+  --certificate-identity-regexp "https://github.com/Kayforkind/reimagine-it/" \
+  --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
+  reimagine-it-2.9.0.tgz
+# → Verified OK  (signed by this repo's release workflow via Fulcio/Rekor)
+```
+
+The npm package carries the same guarantee as an SLSA provenance attestation: `npm view reimagine-it dist.attestations`, and `npm audit signatures` verifies the registry-side signature chain. Same input + seed → byte-identical output means you can also regenerate any published artifact from source and diff it yourself.
 
 ## Contributing
 

@@ -75,5 +75,8 @@ jobs:
       - name: Full suite (audit, units, fuzz, e2e, all guards)
         run: npm test
 
+      - name: Site claims match reality (hero stats, marquee, gallery)
+        run: node scripts/check-site-claims.js
+
       - name: Token benchmark gate (every token 100/100)
         run: node scripts/benchmark-tokens.js
