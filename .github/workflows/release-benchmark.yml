@@ -169,7 +169,7 @@ jobs:
             gh pr create --head "${BRANCH}" --base main \
               --title "docs: regenerate token boards for ${TAG}" \
               --body "Automated board refresh by the release pipeline (bot pushes to main are blocked by design). Merge to sync the committed stills with the released engine."
-            gh pr merge --auto --merge
+            gh pr merge --auto --merge "${BRANCH}"
             echo "Token boards PR opened with auto-merge"
           fi
           echo "::endgroup::"
@@ -242,4 +242,4 @@ jobs:
       - name: Attach tarball + signature to the release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release upload "$GITHUB_REF_NAME" "$TARBALL" "${TARBALL}.sig"
+        run: gh release upload "$GITHUB_REF_NAME" "$TARBALL" "${TARBALL}.sig" --clobber
