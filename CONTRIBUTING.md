@@ -112,7 +112,7 @@ Dependabot's — must:
    engine core, CI, skills, submissions). Stale reviews are dismissed on new
    commits — re-approval after a rebase is expected.
 
-Security issues: see [SECURITY.md](SECURITY.md) — please use GitHub Private
+Security issues: see [SECURITY.md](.github/SECURITY.md) — please use GitHub Private
 Vulnerability Reporting rather than a public issue.
 
 ## Questions

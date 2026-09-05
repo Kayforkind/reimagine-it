@@ -16,16 +16,19 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
+# (slug, label, token, community?) — community proofs load from docs/examples/community/.
 CASES = (
-    ("venator", "Venator", "gradient"),
-    ("crimson-circuit", "Crimson Circuit", "cinematic"),
-    ("velocita", "Velocita", "artistic"),
-    ("maracuya", "Maracuyá", "landing"),
-    ("flick", "Flick Fits", "photography"),
-    ("meridian", "Meridian", "3js"),
-    ("horizon", "Horizon", "dashboard"),
-    ("hearth-grain", "Hearth & Grain", "photography"),
-    ("millbrook-budget", "Millbrook", "infographic"),
+    ("venator", "Venator", "gradient", False),
+    ("crimson-circuit", "Crimson Circuit", "cinematic", False),
+    ("velocita", "Velocita", "artistic", False),
+    ("maracuya", "Maracuyá", "landing", False),
+    ("flick", "Flick Fits", "photography", False),
+    ("meridian", "Meridian", "3js", False),
+    ("horizon", "Horizon", "dashboard", False),
+    ("hearth-grain", "Hearth & Grain", "photography", False),
+    ("millbrook-budget", "Millbrook", "infographic", False),
+    ("riverside-clinic", "Clinic", "infographic", True),
+    ("maison-vesper", "Maison Vesper", "lookbook", True),
 )
 VOID = (10, 15, 30)
 INK = (244, 239, 228)
@@ -47,8 +50,11 @@ def font(size: int, bold: bool = False) -> ImageFont.ImageFont:
     return ImageFont.load_default()
 
 
-def load_desktop(slug: str) -> Image.Image:
-    path = DOCS / "examples" / "end-users" / slug / "auto-desktop.png"
+def load_desktop(slug: str, community: bool = False) -> Image.Image:
+    lane = "community" if community else "end-users"
+    path = DOCS / "examples" / lane / slug / "auto-desktop.png"
+    if not path.is_file():
+        path = ROOT / "examples" / lane / slug / "auto-desktop.png"
     if not path.is_file():
         raise SystemExit(f"missing {path} — run `npm run examples` first")
     return Image.open(path).convert("RGB")
@@ -66,9 +72,8 @@ def build_og() -> Image.Image:
     canvas = Image.new("RGB", (1200, 630), VOID)
     draw = ImageDraw.Draw(canvas)
     count = len(CASES)
-    draw.text((48, 36), "reimagine-it", font=font(22, True), fill=GOLD)
-    number_word = {7: "Seven", 8: "Eight", 9: "Nine", 10: "Ten"}.get(count, str(count))
-    draw.text((48, 72), f"{number_word} sources. No shared silhouette.", font=font(42, True), fill=INK)
+    draw.text((48, 36), "reimagine-it · v2.8 · 17 directions", font=font(22, True), fill=GOLD)
+    draw.text((48, 72), f"{count} sources. No shared silhouette.", font=font(42, True), fill=INK)
     draw.text((48, 128), "Auto picks a distinct silhouette per page — not one infographic recast.", font=font(20), fill=DIM)
 
     gap = 10
@@ -80,8 +85,8 @@ def build_og() -> Image.Image:
     total = count * tile_w + (count - 1) * gap
     x0 = (1200 - total) // 2
     y0 = 186
-    for index, (slug, name, token) in enumerate(CASES):
-        tile = crop_top(load_desktop(slug), tile_w, tile_h)
+    for index, (slug, name, token, community) in enumerate(CASES):
+        tile = crop_top(load_desktop(slug, community), tile_w, tile_h)
         x = x0 + index * (tile_w + gap)
         canvas.paste(tile, (x, y0))
         draw.rectangle((x, y0 + tile_h - 44, x + tile_w, y0 + tile_h), fill=VOID)
@@ -92,10 +97,10 @@ def build_og() -> Image.Image:
 
 def build_demo_frames() -> list[Image.Image]:
     frames = []
-    for slug, name, token in CASES:
+    for slug, name, token, community in CASES:
         frame = Image.new("RGB", (960, 540), VOID)
         draw = ImageDraw.Draw(frame)
-        shot = crop_top(load_desktop(slug), 960, 480)
+        shot = crop_top(load_desktop(slug, community), 960, 480)
         frame.paste(shot, (0, 0))
         draw.rectangle((0, 480, 960, 540), fill=VOID)
         draw.text((24, 492), f"{name}  →  {token}", font=font(22, True), fill=INK)

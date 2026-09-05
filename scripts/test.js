@@ -37,7 +37,7 @@ function hasPython() {
 }
 
 const PYTHON = hasPython();
-const TOTAL = PYTHON ? 10 : 8;
+const TOTAL = PYTHON ? 12 : 9;
 
 // 1. Gold audit sweep — Node-native.
 const audit = run('Gold audit sweep', process.execPath, ['scripts/audit-all.js']);
@@ -110,6 +110,13 @@ if (run('Audit parity (js vs python)', process.execPath, ['test/unit/audit-parit
 // 10. Narrative demo kept working.
 if (run('Gold smoke demo', 'python', ['gold/reimagine.py', '--ship'], { optional: true }) !== 0) {
   console.error('FAIL: smoke demo crashed');
+  process.exit(1);
+}
+
+// 11. The audit itself is fuzzed: hostile pages must never crash, hang, or
+// produce a malformed report from the Python mirror.
+if (run('Audit fuzzer', 'python', ['scripts/fuzz_audit.py', '--generations', '120', '--seed', String(Date.now() % 100000)]) !== 0) {
+  console.error('FAIL: the audit fuzzer found a crash, hang, or malformed report');
   process.exit(1);
 }
 

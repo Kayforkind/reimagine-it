@@ -18,6 +18,10 @@ on:
       - "bin/reimagine-it.js"
       - "scripts/audit-tokens.js"
       - "scripts/render-audit.js"
+      # Version-sync + case-table drift must gate any doc/version bump.
+      - "package.json"
+      - "docs/index.html"
+      - "README.md"
   pull_request:
     paths:
       - "gold/**/*.html"
@@ -31,6 +35,9 @@ on:
       - "bin/reimagine-it.js"
       - "scripts/audit-tokens.js"
       - "scripts/render-audit.js"
+      - "package.json"
+      - "docs/index.html"
+      - "README.md"
   workflow_dispatch:
 
 jobs:
@@ -176,7 +183,9 @@ jobs:
           python-version: "3.12"
 
       - name: Install Pillow for the asset builders
-        run: python -m pip install --quiet pillow
+          python -m pip install --quiet --require-hashes -r /dev/stdin <<'PIPS'
+          pillow==11.3.0 --hash=sha256:4445fa62e15936a028672fd48c4c11a66d641d2c05726c7ec1f8ba6a572036ae --hash=sha256:f1f182ebd2303acf8c380a54f615ec883322593320a9b00438eb842c1f37ae50
+          PIPS
 
       - name: Assert committed proof assets match their regenerators
         run: |

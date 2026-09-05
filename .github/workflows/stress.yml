@@ -44,3 +44,8 @@ jobs:
           name: fidelity-stress-report
           path: stress-report.txt
           retention-days: 90
+
+      # Deeper audit fuzzing than the gate's 120 generations: more seeds,
+      # adversarial CSS/HTML structures, crashes and hangs fail the run.
+      - name: Fuzz the audit engine
+        run: python scripts/fuzz_audit.py --generations 1500 --seed "$(date +%s)"

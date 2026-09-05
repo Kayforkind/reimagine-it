@@ -28,10 +28,11 @@ jobs:
         with:
           python-version: "3.x"
 
-      # --ignore-scripts: a PR can edit package.json, so never let its
-      # lifecycle scripts execute on our runners. Tests do not need them.
-      - name: Install dev dependencies
-        run: npm install --no-audit --no-fund --ignore-scripts
+      # npm ci: exact lockfile versions only — a PR cannot silently change
+      # the dependency tree. --ignore-scripts: a PR can edit package.json,
+      # so lifecycle scripts must never execute on our runners.
+      - name: Install from the lockfile
+        run: npm ci --ignore-scripts --no-audit --no-fund
 
       - name: Full suite (audit, units, fuzz, e2e, all guards)
         run: npm test

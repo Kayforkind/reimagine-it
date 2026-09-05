@@ -1,5 +1,15 @@
 # Code of Conduct
 
+## Enforcement and contact
+
+Report conduct issues to the maintainer via GitHub
+([@Kayforkind](https://github.com/Kayforkind), open a private security/advisory
+contact from the Security tab if confidentiality matters). Reports are
+reviewed within 7 days; repeated or serious violations result in a ban from
+the repository, discussions, and community lanes.
+
+This project follows the spirit of the [Contributor Covenant](https://www.contributor-covenant.org/version/2/1/code_of_conduct/), v2.1.
+
 ## Pledge
 
 We pledge to make participation in this project a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, caste, color, religion, or sexual identity and orientation.

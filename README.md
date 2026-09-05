@@ -4,9 +4,9 @@
 
 [![CI](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/audit.yml?branch=main&label=CI&logo=github)](https://github.com/Kayforkind/reimagine-it/actions/workflows/audit.yml)
 [![CI Gate](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/gate.yml?branch=main&label=CI%20Gate)](https://github.com/Kayforkind/reimagine-it/actions/workflows/gate.yml)
-[![main is protected](https://img.shields.io/badge/main-protected%20%2B%20codeowners-2ea043.svg)](SECURITY.md)
-[![supply chain](https://img.shields.io/badge/actions-SHA--pinned%20%2B%20dependabot-2ea043.svg)](SECURITY.md)
-[![secret scanning](https://img.shields.io/badge/secret%20scanning-push%20protection%20on-2ea043.svg)](SECURITY.md)
+[![main is protected](https://img.shields.io/badge/main-protected%20%2B%20codeowners-2ea043.svg)](.github/SECURITY.md)
+[![supply chain](https://img.shields.io/badge/actions-SHA--pinned%20%2B%20dependabot-2ea043.svg)](.github/SECURITY.md)
+[![secret scanning](https://img.shields.io/badge/secret%20scanning-push%20protection%20on-2ea043.svg)](.github/SECURITY.md)
 [![provenance](https://img.shields.io/badge/npm%20releases-SLSA%20provenance-2ea043.svg)](https://docs.npmjs.com/generating-provenance-statements)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/Kayforkind/reimagine-it/badge)](https://securityscorecards.dev/viewer/?uri=github.com/Kayforkind/reimagine-it)
 [![Benchmark](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/benchmark.yml?branch=main&label=benchmark%20100%2F100)](https://github.com/Kayforkind/reimagine-it/actions/workflows/benchmark.yml)
@@ -415,7 +415,7 @@ reimagine-it is built to be *proven*, not promised — by CI, on every change:
 - **Offline by construction.** Output is one standalone HTML file with no CDN, no API keys, no telemetry; the audit enforces the no-external-fetch rule on every generated page (19 deterministic rules, no LLM).
 - **Deterministic.** Same input + seed → byte-identical output. Clients can re-derive any published artifact themselves.
 
-Security findings: see [SECURITY.md](SECURITY.md) — private vulnerability reporting is enabled.
+Security findings: see [SECURITY.md](.github/SECURITY.md) — private vulnerability reporting is enabled.
 
 ## Contributing
 

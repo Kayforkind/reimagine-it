@@ -16,11 +16,14 @@ on:
         default: "v2.8.0"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   validate-and-publish:
     runs-on: ubuntu-latest
+    # Only the release-notes edit needs write; everything else stays read.
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -32,7 +35,9 @@ jobs:
       - name: Validate action.yml
         run: |
           echo "::group::Validating action.yml"
-          python -m pip install --quiet pyyaml
+          python -m pip install --quiet --require-hashes -r /dev/stdin <<'PIPS'
+          PyYAML==6.0.2 --hash=sha256:80bab7bfc629882493af4aa31a4cfa43a4c57c83813253626916b8c7ada83476
+          PIPS
           python - <<'PYEOF'
           import yaml, sys
 

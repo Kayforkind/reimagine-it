@@ -16,7 +16,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   benchmark:
@@ -88,7 +88,9 @@ jobs:
           REIMAGINE_BROWSER: /usr/bin/google-chrome
         run: |
           echo "::group::Regenerating token boards from current engine"
-          python -m pip install --quiet pillow
+          python -m pip install --quiet --require-hashes -r /dev/stdin <<'PIPS'
+          pillow==11.3.0 --hash=sha256:4445fa62e15936a028672fd48c4c11a66d641d2c05726c7ec1f8ba6a572036ae --hash=sha256:f1f182ebd2303acf8c380a54f615ec883322593320a9b00438eb842c1f37ae50
+          PIPS
           python scripts/build-token-board.py
           echo "::endgroup::"
 
@@ -146,3 +148,35 @@ jobs:
       - name: Report skipped npm publication
         if: env.NPM_TOKEN == ''
         run: echo "::warning::NPM_TOKEN is not configured; npm publication was skipped."
+
+  sign-release:
+    # Sigstore-sign the tarball and attach it to the GitHub release, so
+    # clients can verify provenance both ways: npm attestation + cosign.
+    needs: publish-npm
+    if: github.event_name == 'release' && !github.event.release.prerelease
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # upload the .tgz + .sig to the release
+      id-token: write # keyless cosign signing
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "22"
+
+      - uses: sigstore/cosign-installer@3454372f43399081ed03b604cb2d021dabca52bb # v3.8.2
+
+      - name: Pack the exact published artifact
+        run: |
+          npm run build:docs --if-present
+          npm pack --pack-destination dist
+          echo "TARBALL=$(ls dist/*.tgz)" >> "$GITHUB_ENV"
+
+      - name: Sign the tarball (keyless, bundle written next to it)
+        run: cosign sign-blob --yes --bundle "${TARBALL}.sig" "$TARBALL"
+
+      - name: Attach tarball + signature to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "$GITHUB_REF_NAME" "$TARBALL" "${TARBALL}.sig"
