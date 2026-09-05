@@ -42,19 +42,29 @@ runs:
   steps:
     - name: Validate inputs
       shell: bash
+      env:
+        INPUT_PATH: ${{ inputs.path }}
+        INPUT_FAIL_ON_WARNINGS: ${{ inputs.fail-on-warnings }}
+        INPUT_VERBOSE: ${{ inputs.verbose }}
       run: |
         echo "::group::Design Health — reimagine-it"
-        echo "Path pattern: ${{ inputs.path }}"
-        echo "Fail on warnings: ${{ inputs.fail-on-warnings }}"
-        echo "Verbose: ${{ inputs.verbose }}"
+        echo "Path pattern: $INPUT_PATH"
+        echo "Fail on warnings: $INPUT_FAIL_ON_WARNINGS"
+        echo "Verbose: $INPUT_VERBOSE"
 
     - name: Run audit
       id: audit
       shell: bash
+      env:
+        INPUT_PATH: ${{ inputs.path }}
+        INPUT_FAIL_ON_WARNINGS: ${{ inputs.fail-on-warnings }}
+        INPUT_VERBOSE: ${{ inputs.verbose }}
+        INPUT_STRICT: ${{ inputs.strict }}
+        ACTION_REPOSITORY: ${{ github.action_repository }}
       run: |
         set -e
         VERBOSE_FLAG=""
-        if [ "${{ inputs.verbose }}" = "true" ]; then
+        if [ "$INPUT_VERBOSE" = "true" ]; then
           VERBOSE_FLAG="--verbose"
         fi
 
@@ -63,14 +73,14 @@ runs:
         WARN=0
         FAIL=0
         OVERALL="CLEAN"
-        FAIL_ON_WARN="${{ inputs.fail-on-warnings }}"
-        STRICT="${{ inputs.strict }}"
+        FAIL_ON_WARN="$INPUT_FAIL_ON_WARNINGS"
+        STRICT="$INPUT_STRICT"
 
         # Build summary table header
         SUMMARY="| File | Verdict | Failures | Warnings |\n|------|---------|----------|----------|\n"
         shopt -s nullglob globstar
 
-        for f in ${{ inputs.path }}; do
+        for f in $INPUT_PATH; do
           # Skip dirs, non-existent files, vendored paths
           [ ! -f "$f" ] && continue
           case "$f" in *vendor/*|*node_modules/*|*.min.html) continue ;; esac
