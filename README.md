@@ -8,6 +8,7 @@
 [![supply chain](https://img.shields.io/badge/actions-SHA--pinned%20%2B%20dependabot-2ea043.svg)](SECURITY.md)
 [![secret scanning](https://img.shields.io/badge/secret%20scanning-push%20protection%20on-2ea043.svg)](SECURITY.md)
 [![provenance](https://img.shields.io/badge/npm%20releases-SLSA%20provenance-2ea043.svg)](https://docs.npmjs.com/generating-provenance-statements)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/Kayforkind/reimagine-it/badge)](https://securityscorecards.dev/viewer/?uri=github.com/Kayforkind/reimagine-it)
 [![Benchmark](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/benchmark.yml?branch=main&label=benchmark%20100%2F100)](https://github.com/Kayforkind/reimagine-it/actions/workflows/benchmark.yml)
 [![Design Health](https://img.shields.io/github/actions/workflow/status/Kayforkind/design-health-action/audit.yml?branch=main&label=Design%20Health&logo=github)](https://github.com/Kayforkind/design-health-action/actions/workflows/audit.yml)
 [![version 2.8.0](https://img.shields.io/badge/version-2.8.0-b22234.svg)](CHANGELOG.md)
