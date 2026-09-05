@@ -246,5 +246,5 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          (cd dist && zip -q token-boards.zip docs/tokens/*.png docs/tokens-board.png docs/tokens-phone.png)
+          zip -q dist/token-boards.zip docs/tokens/*.png docs/tokens-board.png docs/tokens-phone.png
           gh release upload "$GITHUB_REF_NAME" "$TARBALL" "${TARBALL}.sig" dist/token-boards.zip --clobber
