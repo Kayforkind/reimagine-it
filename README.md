@@ -5,7 +5,7 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/audit.yml?branch=main&label=CI&logo=github)](https://github.com/Kayforkind/reimagine-it/actions/workflows/audit.yml)
 [![Benchmark](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/benchmark.yml?branch=main&label=benchmark%20100%2F100)](https://github.com/Kayforkind/reimagine-it/actions/workflows/benchmark.yml)
 [![Design Health](https://img.shields.io/github/actions/workflow/status/Kayforkind/design-health-action/audit.yml?branch=main&label=Design%20Health&logo=github)](https://github.com/Kayforkind/design-health-action/actions/workflows/audit.yml)
-[![version 2.6.0](https://img.shields.io/badge/version-2.6.0-b22234.svg)](CHANGELOG.md)
+[![version 2.7.0](https://img.shields.io/badge/version-2.7.0-b22234.svg)](CHANGELOG.md)
 [![npm](https://img.shields.io/npm/v/reimagine-it?color=e8a63f&label=npm)](https://www.npmjs.com/package/reimagine-it)
 [![MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE)
 [![skills.sh](https://skills.sh/b/kayforkind/reimagine-it)](https://skills.sh/kayforkind/reimagine-it)
@@ -38,7 +38,7 @@ npx reimagine-it audit redesign.html
 
 ## See it work
 
-Real sources, real CLI output — nine committed journeys. The seven launch journeys own seven distinct Auto tokens, so a juice bar, a skate deck, and a streetwear drop do not share a silhouette; the two newest prove the v2.6.0 guarantees — a bakery collection becomes a photography folio (not a data poster), and a city budget becomes an infographic whose first fold is the source's own timeline.
+Real sources, real CLI output — nine committed journeys. The seven launch journeys own seven distinct Auto tokens, so a juice bar, a skate deck, and a streetwear drop do not share a silhouette; the two newest prove the v2.7.0 guarantees — a bakery collection becomes a photography folio (not a data poster), and a city budget becomes an infographic whose first fold is the source's own timeline.
 
 | Source | Auto | Score | Fidelity | Alternates |
 |---|---|---|---|---|
@@ -219,7 +219,17 @@ npm install -g reimagine-it
 reimagine-it --auto -i page.html -o redesign.html
 ```
 
-Package: [npmjs.com/package/reimagine-it](https://www.npmjs.com/package/reimagine-it) · current release **2.6.0**.
+Package: [npmjs.com/package/reimagine-it](https://www.npmjs.com/package/reimagine-it) · current release **2.7.0**.
+
+More commands:
+
+```bash
+npx reimagine-it extract -i page.html -o signals.json   # the facts the engine reads, as JSON
+npx reimagine-it variations -i page.html -n 4 -o review/ # several directions + contrast sheet
+npx reimagine-it lock -i brand.html -o house.lock.json   # capture a design's surface
+npx reimagine-it audit redesign.html                     # 19 deterministic craft checks
+npx reimagine-it mcp                                     # MCP server (8 tools, stdio)
+```
 
 ### Agent Skill
 

@@ -1,6 +1,6 @@
 {
   "name": "reimagine-it",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "description": "Content-Derived Design CLI and agent skill. Reads existing HTML and writes a stronger standalone page from the nouns, dates, numbers, and colors already in the file.",
   "license": "MIT",
   "author": "Kayforkind",

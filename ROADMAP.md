@@ -1,6 +1,6 @@
 # reimagine-it Roadmap
 
-> **Shipped: v2.6.0** — nine committed journeys at 100% source fidelity, a full-fact rendering
+> **Shipped: v2.7.0** — nine committed journeys at 100% source fidelity, a full-fact rendering
 > engine (no silent fact caps in any generator), a CI drift guard that re-derives every proof
 > asset, and a 6,750-run fidelity stress harness with zero violations.
 > See [CHANGELOG.md](CHANGELOG.md) for what landed and when.
@@ -88,7 +88,7 @@ the live plan: what is open, ordered by leverage per hour.
 
 ### What they have that reimagine-it didn't (and what happened)
 
-| Gap | Status after v2.6.0 |
+| Gap | Status after v2.7.0 |
 |-----|---------------------|
 | Product website | **Shipped** — docs site with playground, nine case studies, community proof |
 | Deterministic quality checks | **Shipped** — 19-rule Design Health, JS + Python parity-tested |

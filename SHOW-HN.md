@@ -1,4 +1,4 @@
-# Show HN — reimagine-it v2.6.0
+# Show HN — reimagine-it v2.7.0
 
 Paste this on https://news.ycombinator.com/submit (your HN account). Do not edit the title down to a slogan.
 
@@ -32,4 +32,4 @@ Results: https://kayforkind.github.io/reimagine-it/#results
 Also: `variations`, `lock` / `--ref`, and `audit` (19 Design Health rules). MCP: `npx -y --package reimagine-it reimagine-it-mcp`.
 ```
 
-Post after `v2.6.0` is on npm (`npm view reimagine-it version` → 2.6.0). HN punishes a demo that `npx` cannot reproduce.
+Post after `v2.7.0` is on npm (`npm view reimagine-it version` → 2.7.0). HN punishes a demo that `npx` cannot reproduce.

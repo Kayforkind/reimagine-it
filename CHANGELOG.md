@@ -4,7 +4,46 @@ All notable changes to reimagine-it.
 
 ---
 
-## v2.6.0 (current)
+## v2.7.0 (current)
+
+### New commands — the honesty layer becomes a product surface
+
+- **`npx reimagine-it extract`** emits the content signals as JSON: title, profile, density, derived palette, anchors, proper nouns, headings, dates, numbers, emails, links, source hex colors, and counts. `--full` adds prose; stdin → stdout works. Every extracted fact exists in the source — now property-tested.
+- **`npx reimagine-it mcp`** runs the MCP server (`mcp/server.js`, 8 tools) via stdio. No separate package needed; verified with a live protocol handshake.
+
+### Skills — the SkillsBench-aligned split is complete
+
+- Three new focused sub-skills: **generate**, **variations**, and **extract**, joining audit/lock/infographic. Each has `trigger_phrases`, `capabilities`, and `keywords` frontmatter for catalog discoverability.
+
+### Trust — proof assets are now CI-enforced
+
+- **Reproduction guard** (`scripts/check-repro.js`): re-runs Auto for every example from `examples.json` and requires committed `auto.html`/`auto.json` to regenerate byte-identically. Needs no Python.
+- **Stills guard** (`scripts/check-stills.js`): verifies every proof still exists at canonical dimensions (1400×1100 / 480×960) and matches its docs/ copy; `--pixel` mode re-renders with frozen motion for same-environment pixel regression.
+- **Tarball guard** (`scripts/check-tarball.js`): `npm pack` must match the intentional `files:` list exactly.
+- **Extractor fuzz tests**: 10 property tests over `src/extract.js` — no invented facts, purity, crash-freedom on hostile/oversized inputs.
+- **Weekly fidelity stress**: scheduled CI runs the harness at 250 seeds per token × source cell and fails on any violation.
+- **npm provenance**: releases publish with `--provenance` (signed build origin).
+
+### Security & playground
+
+- The playground and token-gallery iframes are **sandboxed** (`allow-scripts` only) — pasted HTML can no longer reach the parent page's DOM or storage.
+- Playground gains **fetch-from-URL** (same-origin examples work out of the box) and **Result/Source view tabs**.
+- `action.yml` hardened against shell injection via env-var interpolation (community PR #13, merged).
+- The 39-second playground walkthrough is now linked from the docs site itself.
+
+### Community & ecosystem
+
+- **Submission pipeline**: `examples/community/TEMPLATE/` plus `scripts/validate-submission.js` (placeholder detection, fidelity floor, artifact reproduction, author credit); `community-gold`, `domain-pack`, and `show-your-gold` labels; CONTRIBUTING documents the lane.
+- **Content Signals bot**: new workflow comments the extracted palette/anchors/facts on PRs that touch HTML.
+- **Dataset builder** (`scripts/build-dataset.js`): emits HuggingFace-ready JSONL `{source_html, signals, token, seed, fidelity, output_html}` tuples from the committed, engine-verified examples (`--gold` includes the hand-authored tree). 21 tuples / 436 KB today.
+- **ROADMAP.md rewritten** for the post-v2.6.0 state: the contradictory pre-2.6.0 sections collapse into a live phased plan.
+
+### Fixed
+
+- The reproduction guard no longer requires Pillow/Python in CI (config moved to `examples/end-users/examples.json`, shared with `build.py`).
+- Stale doc reference in `mcp/server.js` pointed at an npm package that was never published.
+
+## v2.6.0
 
 ### Examples — two new journeys close the good-first-issue set
 

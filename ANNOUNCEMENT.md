@@ -1,54 +1,87 @@
-# v2.6.0 announcement — paste-ready
+# v2.7.0 announcement — paste-ready
 
 Short form for the GitHub release notes; long form for X/Reddit/HN follow-ups.
-Do not post until `npm view reimagine-it version` returns 2.6.0.
+Do not post until `npm view reimagine-it version` returns 2.7.0.
 
 ---
 
-## GitHub release (v2.6.0)
+## GitHub release (v2.7.0)
 
-**reimagine-it v2.6.0 — nine journeys, and the fidelity floor finally holds everywhere**
+**reimagine-it v2.7.0 — the honesty layer becomes a product surface**
 
-Nine committed example journeys now ship with the CLI — and every single one reports **100% source fidelity** in its `auto.json`.
+v2.6.0 made the engine render every source fact. v2.7.0 enforces that promise
+with CI, exposes it as a command, and opens the community lane.
 
-**New journeys (closes the good-first-issue set)**
+**New commands**
 
-- **Hearth & Grain, a neighborhood bakery** — a 16-loaf bake gallery that Auto sends to the `photography` folio at seed 1 (score 226). A collection page becomes visual studies, not a data poster.
-- **Millbrook, a city budget report** — compare/timeline/survey language that Auto sends to the `infographic` at seed 1 (score 278), with the budget's own timeline as the first fold (`data-structure="sequence"`). Never a default bar chart.
+- **`npx reimagine-it extract`** — the content signals as JSON: anchors, dates,
+  numbers, emails, links, palette, source hex colors. `--full` adds prose;
+  pipes cleanly (`cat page.html | npx reimagine-it extract -o - | jq .anchors`).
+  Every extracted fact exists in the source — now property-tested against
+  hostile and malformed input.
+- **`npx reimagine-it mcp`** — the 8-tool MCP server over stdio. No separate
+  package; verified with a live protocol handshake.
 
-**Engine fix — nothing gets silently dropped**
+**Skills — the split is complete**
 
-The `landing`, `dashboard`, `artistic`, `svg`, and `3js` generators capped rendered facts at 4–10, so fact-rich sources lost numbers and dates and the ≥80% fidelity floor failed (worst cell: 67%). Every token now renders every measurable fact; all 135 token × source cells hold the floor. Three previously shipped examples (Maracuyá, Velocita, Horizon) rose from 85–95% to 100%.
+Three focused sub-skills (**generate**, **variations**, **extract**) join
+audit/lock/infographic — the SkillsBench-aligned structure (focused skills
+beat monolithic by ~18.6 points), each with `trigger_phrases` and
+`capabilities` for catalog discovery.
 
-**Proof pipeline**
+**Trust — proof assets are now CI-enforced**
 
-- `gallery.webp` no longer truncates: a hardcoded 2-row height used to drop 36 of 42 cards. The grid now adapts and hard-fails if any card does not fit.
-- The Open Graph card scales to the journey count instead of overflowing.
-- **New: a 39-second silent playground walkthrough** (`docs/playground-walkthrough.mp4`, 1.1 MB): paste HTML → Auto draws three directions → pick one → download. Regenerator included at `scripts/record-playground.cjs`.
-- **New: a ninth-source proof** (`examples/community/riverside-clinic/`) — Auto on a clinic bulletin, a job none of the journeys cover, with its committed 1400×1100 still and collision analysis.
+- **Reproduction guard** — committed artifacts must regenerate byte-identically
+  from the committed engine. The repo cannot ship stale proof anymore.
+- **Stills guard** — every screenshot at canonical dimensions, in sync with
+  its docs/ copy; optional frozen-motion pixel regression.
+- **Extractor fuzz tests** — 10 property tests: no invented facts, purity,
+  crash-freedom on hostile input.
+- **Weekly fidelity stress** — 250 seeds × 15 tokens × 9 sources, scheduled.
+- **Tarball guard + npm provenance** — the shipped surface is explicit and
+  signed.
+- **Sandboxed playground** — pasted HTML runs in an opaque-origin iframe; it
+  can no longer touch the parent page.
 
-**Housekeeping** — version sweep: `2.4.4` survives only as CHANGELOG history; every manifest, badge, and citation reads 2.6.0.
+**Community**
+
+- **Submission lane open**: copy `examples/community/TEMPLATE/`, ship real
+  copy, pass the validator (`scripts/validate-submission.js`), get merged with
+  the `community-gold` label. The Content Signals bot comments the extracted
+  palette on every PR that touches HTML.
+- **Dataset builder**: `scripts/build-dataset.js` emits HuggingFace-ready JSONL
+  `{source_html, signals, token, seed, fidelity, output_html}` tuples —
+  21 engine-verified pairs today, growing with every community proof.
+
+**Also**: the playground fetches URLs (same-origin examples out of the box)
+and switches between Result and Source views; `action.yml` is injection-hardened
+(community PR #13); the docs site links its own 39-second walkthrough.
 
 ```bash
 npx reimagine-it --auto -i page.html -o redesign.html
+npx reimagine-it extract -i page.html -o signals.json
+npx reimagine-it audit redesign.html
 ```
 
 ---
 
 ## Social (X/Bluesky, ~280 chars)
 
-v2.6.0 of reimagine-it ships 9 example journeys — juice bar, skate deck, streetwear, bakery, city budget, and more — each with a 100% source-fidelity report. Fixed: generators silently dropped facts on data-heavy pages. `npx reimagine-it --auto -i page.html`
+v2.7.0 of reimagine-it: `extract` shows you every fact the design engine reads from your HTML (as JSON), `mcp` serves 8 tools over stdio, and CI now proves every committed example regenerates byte-identically. `npx reimagine-it --auto -i page.html`
 
 ---
 
 ## Reddit (r/ClaudeCode et al., body under the existing title)
 
-We just cut v2.6.0. Three things worth your time:
+We just cut v2.7.0. Three things worth your time:
 
-1. **Two new proof journeys.** A bakery bake-gallery Auto redesigns as a photography folio (a collection page — not another poster), and a city budget becomes an infographic whose first fold is the budget's own timeline. Both at seed 1, both with committed `auto.json` reports you can audit.
-2. **An honesty fix.** Some generator layouts only showed the first 4 facts of your source and quietly dropped the rest. The repo's own fidelity floor test caught it — worst case was 67% of source numbers surviving. Every layout now renders every fact; all nine examples report 100%.
-3. **A 39-second silent video** of the whole playground loop: paste HTML, Auto draws three directions, pick one, download the standalone file. No install, no signup: https://kayforkind.github.io/reimagine-it/#playground
+1. **`npx reimagine-it extract`** — before redesigning anything, see exactly what the engine reads from your page: anchors, dates, numbers, emails, palette (derived + hex colors actually in the source). JSON, pipes to `jq`, and property-tested so it never invents a fact. It's the honesty layer of content-derived design, now a standalone command.
+2. **Proof is CI-enforced now.** Every committed example must regenerate byte-identically from the committed engine; every screenshot must exist at canonical dimensions; the fidelity floor runs weekly at 250 seeds across all token × source combinations. If a future change silently drops facts or stale-fies proof, CI fails.
+3. **The community lane is open.** Copy `examples/community/TEMPLATE/`, paste your real page, pass the validator, and your redesign ships with the next release — credited. A new bot also comments the content-derived palette on any PR that touches HTML.
 
-Everything runs offline from a single HTML file. Audit any result yourself: `npx reimagine-it audit redesign.html`.
+Plus: an MCP server (`npx reimagine-it mcp`), three new focused sub-skills completing the SkillsBench-backed split, and a dataset builder that emits `{source, signals, output}` tuples for anyone training design-capable models.
+
+Everything runs offline from a single HTML file. Audit any result: `npx reimagine-it audit redesign.html`.
 
 Repo: https://github.com/Kayforkind/reimagine-it
+Playground: https://kayforkind.github.io/reimagine-it/#playground

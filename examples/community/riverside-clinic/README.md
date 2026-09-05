@@ -5,7 +5,7 @@ outside all seven journeys.
 
 This bundle is the Issue #10 proof: Auto run on a real-world job that is **not**
 one of the seven launch journeys (gaming, festival, skate, juice, streetwear,
-building, observability) and not one of the v2.6.0 additions (bakery, city
+building, observability) and not one of the v2.7.0 additions (bakery, city
 budget). A walk-in clinic bulletin is civic *service* prose — hours, clinic
 dates, fees — the kind of page a real person pastes into the playground.
 

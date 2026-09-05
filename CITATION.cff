@@ -7,7 +7,7 @@ authors:
 repository-code: "https://github.com/Kayforkind/reimagine-it"
 url: "https://kayforkind.github.io/reimagine-it/"
 license: MIT
-version: 2.6.0
+version: 2.7.0
 date-released: "2026-08-30"
 abstract: >-
   Content-Derived Design CLI and agent skill. Reads existing HTML and writes a
@@ -27,4 +27,4 @@ preferred-citation:
     - name: Kayforkind
   year: 2026
   url: "https://github.com/Kayforkind/reimagine-it"
-  notes: "reimagine-it v2.6.0. See examples/end-users/ for verified outputs."
+  notes: "reimagine-it v2.7.0. See examples/end-users/ for verified outputs."
