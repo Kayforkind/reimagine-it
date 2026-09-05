@@ -2,6 +2,19 @@
 
 Canned descriptions ready to copy-paste into each platform.
 
+## Status tracker (updated for v2.7.0)
+
+| Platform | Status | Notes |
+|----------|--------|-------|
+| skills.sh | **Live** | [listed](https://www.skills.sh/kayforkind/reimagine-it) — 3 installs, auto-synced from the repo |
+| awesome-agent-skills (VoltAgent) | **In review** | [PR #988](https://github.com/VoltAgent/awesome-agent-skills/pull/988) — checklist complete, awaiting maintainer |
+| Reddit (r/ChatGPTCoding, r/Frontend, r/TestMyApp) | **Posted** | weekly threads + standalone posts live |
+| dev.to | **Posted** | v2.4.x article live; write a v2.7.0 follow-up (extract + MCP + CI proof) |
+| Shadowgraph | **Live** | auto-generated repo page, nothing to do |
+| composio.dev roundup | **To submit** | pitch below |
+| Firecrawl "Best Claude Code Skills" | **To submit** | pitch below |
+| Cursor Directory | **To submit** | verified 2026-09-05: no listing exists; page rate-limits crawlers, submit manually via the form below |
+
 ---
 
 ## agentskills.io / skills.sh
@@ -18,7 +31,7 @@ reimagine-it is the only agent skill that does Content-Derived Design. Instead o
 
 A Texas notebook gets navy / red / gold because the source names the Lone Star flag. A restaurant menu gets clay / saffron because the dishes mention saffron and open fire. A SaaS observability page gets dark teal and trace-wave paths because the content says "traces" and "water balloon."
 
-Works in Claude Code, Cursor, Codex, Copilot, Gemini CLI, and any Agent Skills host. Ships a single offline HTML file — no Figma, no CDN.
+Works in Claude Code, Cursor, Codex, Copilot, Gemini CLI, and any Agent Skills host — or with no agent at all (`npx reimagine-it`). Ships a single offline HTML file — no Figma, no CDN. v2.7.0 adds `extract` (audit exactly which facts the engine reads, as JSON), an 8-tool MCP server (`npx reimagine-it mcp`), and CI-enforced proof: every committed example must regenerate byte-identically from the committed engine.
 
 **Install:**
 ```
@@ -39,15 +52,19 @@ npx skills add Kayforkind/reimagine-it
 
 I wanted to submit reimagine-it for inclusion in your "Top Design Skills" roundup. It's the only agent skill that does content-derived design — palette, motifs, and motion are extracted from the source file's own nouns and dates, rather than enforcing a fixed set of taste rules.
 
-While Anthropic's frontend-design (277k installs) and Impeccable enforce design quality constraints, reimagine-it reads the actual content and builds a unique design language from it. Nine committed journeys (crypto game, festival, skate brand, juice bar, streetwear, living building, observability, bakery, city budget) prove the method travels across genres.
+While Anthropic's frontend-design (277k installs) and Impeccable enforce design quality constraints, reimagine-it reads the actual content and builds a unique design language from it. Nine committed journeys (crypto game, festival, skate brand, juice bar, streetwear, living building, observability, bakery, city budget) prove the method travels across genres — every one reporting 100% source fidelity, every artifact CI-verified to regenerate byte-identically.
 
 - GitHub: https://github.com/Kayforkind/reimagine-it
 - Live gallery + playground (no agent required): https://kayforkind.github.io/reimagine-it/
 - Install: `npx skills add Kayforkind/reimagine-it`
+- llms.txt for agents: https://kayforkind.github.io/reimagine-it/llms.txt
 
 **Differentiators vs existing skills:**
 - Content-Derived Design (unique — no other skill derives design from source content)
 - 9 committed demo journeys with verifiable Auto reports (not just one)
+- `extract` command: the honesty layer as a standalone tool — see every fact the engine reads
+- MCP server: 8 tools over stdio, any MCP host, no SDK required on the user side
+- CI-enforced proof: reproduction guard, stills guard, weekly 250-seed fidelity stress
 - Browser playground (no agent required to try it)
 - Works across Claude Code, Cursor, Codex, Copilot, Gemini CLI, Factory Droid, Pi, Windsurf
 - Offline HTML output — single file, no CDN, no Figma
@@ -123,7 +140,10 @@ I noticed reimagine-it isn't in your "19 Best Claude Code Skills" roundup — wa
 
 Every other design skill (frontend-design, Impeccable, etc.) enforces generic quality rules. reimagine-it reads the source file's actual content and derives palette, motifs, and motion from the nouns, dates, and colors already there. A Texas notebook gets navy/red/gold from the Lone Star flag; a restaurant menu gets clay/saffron from the dish names.
 
-- 9 committed demo journeys (gaming to civic budget)
+- 9 committed demo journeys (gaming to civic budget), each at 100% source fidelity
+- `extract` command: audit exactly which facts the engine reads — the honesty layer as a tool
+- 8-tool MCP server (`npx reimagine-it mcp`) for any MCP host
+- CI-enforced proof: every committed artifact must regenerate byte-identically from the engine
 - Browser playground (no agent install required)
 - 15 design variants from one source, with Auto picking the strongest
 - Works across Claude Code, Cursor, Codex, Copilot, Gemini CLI

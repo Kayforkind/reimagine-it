@@ -198,6 +198,8 @@ The intended outcome is **fresh when requested, consistent when approved** — n
 
 - **[Live playground](https://kayforkind.github.io/reimagine-it/#playground)** — paste HTML, select a direction, preview the result, and share the input.
 - **[Playground walkthrough (39s, silent)](docs/playground-walkthrough.mp4)** — the full paste → Auto → pick → download loop captured against the live page.
+- **[60-second captioned teaser](docs/teaser.mp4)** — social cut of the same loop with step captions; embeddable, YouTube/X-ready.
+- **[llms.txt for agents](https://kayforkind.github.io/reimagine-it/llms.txt)** — the whole product in one machine-readable page: commands, rules, MCP config, links.
 - **[Nine journeys](examples/end-users/)** — crypto battle royale, music festival, skate brand, juice bar, streetwear drop, living building, observability platform, neighborhood bakery, city budget report. Auto picked nine distinct tokens. Each bundle has source HTML, Auto output, two alternatives, a report, Auto desktop stills, and a before/after WebP.
 - **[Case study index](docs/CASE_STUDIES.md)** — commands, fidelity, and how to read a bundle.
 - **[Horizon](https://kayforkind.github.io/reimagine-it/#horizon)** — SLO/uptime page → navy dashboard.

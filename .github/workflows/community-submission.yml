@@ -1,0 +1,107 @@
+name: Community Submission
+
+# Triage + validation for the examples/community/ lane:
+#  - labels the PR (community-gold / show-your-gold)
+#  - greets the contributor with the exact bar to hit
+#  - runs scripts/validate-submission.js on the changed folders
+#    and posts the verdict as a sticky PR comment
+
+on:
+  pull_request:
+    paths:
+      - "examples/community/**"
+      - "scripts/validate-submission.js"
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - name: Detect changed submission folders
+        id: folders
+        run: |
+          FOLDERS=$(git diff --name-only --diff-filter=ACM "origin/${{ github.base_ref }}" -- 'examples/community/*/' \
+            | xargs -n1 dirname 2>/dev/null | sort -u | grep -v TEMPLATE | tr '\n' ' ')
+          echo "changed=$FOLDERS" >> "$GITHUB_OUTPUT"
+          echo "submission folders: ${FOLDERS:-none}"
+
+      - name: Label the PR
+        if: steps.folders.outputs.changed != ''
+        run: |
+          LABELS="community-gold"
+          if git diff --name-only "origin/${{ github.base_ref }}" | grep -qv "examples/community/"; then
+            LABELS="$LABELS,show-your-gold"
+          fi
+          gh pr edit "${{ github.event.pull_request.number }}" --add-label "$LABELS" || \
+            echo "::warning::could not add labels (do they exist yet?)"
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Run the submission validator
+        id: validate
+        if: steps.folders.outputs.changed != ''
+        run: |
+          set +e
+          OUT=$(node scripts/validate-submission.js ${{ steps.folders.outputs.changed }} 2>&1)
+          CODE=$?
+          {
+            echo "code=$CODE"
+            echo "out<<EOF"
+            echo "$OUT"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Post the verdict as a sticky comment
+        if: steps.folders.outputs.changed != ''
+        run: |
+          MARKER="<!-- community-submission-check -->"
+          VERDICT="fail"
+          [ "${{ steps.validate.outputs.code }}" = "0" ] && VERDICT="pass"
+          {
+            if [ "$VERDICT" = "pass" ]; then
+              echo "## ✅ Submission validated"
+              echo ""
+              echo "The bar is met: real copy, fidelity ≥ 80%, artifacts reproduce, author credited."
+            else
+              echo "## ⚠️ Submission needs work"
+              echo ""
+              echo "The validator found issues — fix these and the PR is ready:"
+            fi
+            echo ""
+            echo "<!-- community-submission-check -->"
+            echo ""
+            echo '```'
+            echo "${{ steps.validate.outputs.out }}"
+            echo '```'
+            echo ""
+            echo "_Full bar: [CONTRIBUTING.md → Community submissions](https://github.com/Kayforkind/reimagine-it/blob/main/CONTRIBUTING.md#community-submissions-proof-cases--community-gold). Engine version: $(node -p "require('./package.json').version")._"
+          } > comment.md
+          COMMENT_ID=$(gh api "repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments" \
+            --jq ".[] | select(.body | startswith(\"$MARKER\")) | .id" | head -1)
+          if [ -n "$COMMENT_ID" ]; then
+            gh api --method PATCH "repos/${{ github.repository }}/issues/comments/$COMMENT_ID" \
+              -F body=@comment.md > /dev/null
+          else
+            gh pr comment "${{ github.event.pull_request.number }}" --body-file comment.md
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Greet first-time contributors
+        run: |
+          gh pr comment "${{ github.event.pull_request.number }}" --body "Welcome, @${{ github.event.pull_request.user.login }} 👋 Thanks for a community submission — a maintainer will review shortly. Meanwhile, show it off in [Show and tell](https://github.com/Kayforkind/reimagine-it/discussions/categories/show-and-tell) if you like." || true
+        env:
+          GH_TOKEN: ${{ github.token }}

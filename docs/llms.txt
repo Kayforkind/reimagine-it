@@ -1,0 +1,54 @@
+# reimagine-it
+
+> Content-Derived Design: an engine that reads an HTML file and redesigns it from its own content — palette, motif, and motion derived from the nouns, dates, numbers, emails, and hex colors already in the source. Source facts are never invented; only the composition changes. Ships one offline HTML file.
+
+The source file is the brief. A bakery cannot come out marine-teal. Fifteen design directions (tokens) exist: webpage, infographic, svg, 3js, simulation, artistic, cinematic, dashboard, photography, landing, editorial, gradient, showcase, motion, glass. **Auto** scores every lane against the content and picks the strongest.
+
+## Install
+
+```bash
+npx skills add Kayforkind/reimagine-it   # agent skill
+npx reimagine-it --auto -i page.html -o redesign.html   # plain CLI, no agent needed
+```
+
+## Commands
+
+| Command | What it does |
+|---------|--------------|
+| `npx reimagine-it --auto -i page.html -o out.html` | Choose, generate, verify, explain |
+| `npx reimagine-it -i page.html -t infographic -o out.html` | One explicit direction |
+| `npx reimagine-it extract -i page.html -o signals.json` | The facts the engine reads, as JSON (no redesign) |
+| `npx reimagine-it variations -i page.html -n 4 -o review/` | Several directions + a contrast sheet |
+| `npx reimagine-it lock -i brand.html -o house.lock.json` | Capture a design surface as reusable data |
+| `npx reimagine-it -i page.html --ref house.lock.json -o out.html` | Redesign inside an existing brand |
+| `npx reimagine-it audit out.html` | 19 deterministic craft checks (exit 0/1/2) |
+| `npx reimagine-it mcp` | MCP server, 8 tools, stdio |
+
+## Rules an agent must follow
+
+1. Run Auto first (`--auto`); read the printed rationale.
+2. Never invent facts — every date, number, email, and link in the output exists in the source. `extract` is the audit surface for this.
+3. Fidelity must be ≥ 80% (the engine prints the percentage of detected source facts preserved; all committed examples hold 100%).
+4. `audit` must report zero failures before the result is called done.
+5. Output is a single offline HTML file — no CDN, no external fonts unless `--web-fonts`.
+
+## For MCP hosts
+
+```json
+{ "mcpServers": { "reimagine-it": { "command": "npx", "args": ["reimagine-it-mcp"] } } }
+```
+
+Tools: `reimagine`, `design_auto`, `design_variations`, `design_lock`, `extract_content`, `list_tokens`, `audit_html`, `list_rules`.
+
+## Key links
+
+- Live playground (runs in the browser, no install): https://kayforkind.github.io/reimagine-it/#playground
+- Nine committed journeys with auditable reports: https://github.com/Kayforkind/reimagine-it/tree/main/examples/end-users
+- Case studies: https://github.com/Kayforkind/reimagine-it/blob/main/docs/CASE_STUDIES.md
+- Method (Content-Derived Design): https://github.com/Kayforkind/reimagine-it/blob/main/docs/MANIFESTO.md
+- Contributing (community proof cases welcome): https://github.com/Kayforkind/reimagine-it/blob/main/CONTRIBUTING.md
+
+## Optional
+
+- Machine-readable skill metadata: [AGENTS.md](https://raw.githubusercontent.com/Kayforkind/reimagine-it/main/AGENTS.md) and `skills/reimagine-it/SKILL.md` frontmatter (`trigger_phrases`, `capabilities`, `keywords`).
+- Dataset of {source, signals, output} tuples for design-model research: `scripts/build-dataset.js` in the repo.
