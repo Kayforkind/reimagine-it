@@ -16,7 +16,8 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write # benchmark job edits release notes; token-board opens PRs
+  contents: write # benchmark edits release notes; token-board pushes branches
+  pull-requests: write # token-board opens + auto-merges its PR
 
 jobs:
   benchmark:
