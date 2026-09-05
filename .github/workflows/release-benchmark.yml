@@ -16,7 +16,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write # benchmark job edits release notes; token-board opens PRs
 
 jobs:
   benchmark:
@@ -28,9 +28,9 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Run 15-token benchmark
+      - name: Run 17-token benchmark
         run: |
-          echo "::group::Benchmarking all 15 directions × 4 sources"
+          echo "::group::Benchmarking all 17 directions × 4 sources"
           node scripts/benchmark-tokens.js 2>&1 | tee /tmp/benchmark.log
           echo "::endgroup::"
 
@@ -150,9 +150,10 @@ jobs:
       - name: Commit token boards only when changed
         env:
           TAG: ${{ github.event.release.tag_name || github.sha }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           echo "::group::Checking for token-board changes"
-          # Guard: skip the commit entirely when the engine output is unchanged.
+          # Guard: skip entirely when the engine output is unchanged.
           if git diff --quiet -- docs/tokens-board.png docs/tokens-phone.png docs/tokens/; then
             echo "No token-board changes — nothing to commit"
           else
@@ -160,8 +161,15 @@ jobs:
             git -c user.name="github-actions[bot]" \
                 -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
                 commit -m "docs: regenerate token boards for ${TAG}"
-            git push origin HEAD:main
-            echo "Token boards committed and pushed"
+            # main is admin-protected: a bot push would be rejected, so the
+            # boards land through a PR that the required checks gate.
+            BRANCH="boards/${TAG}-$(date +%s)"
+            git push origin "HEAD:refs/heads/${BRANCH}"
+            gh pr create --head "${BRANCH}" --base main \
+              --title "docs: regenerate token boards for ${TAG}" \
+              --body "Automated board refresh by the release pipeline (bot pushes to main are blocked by design). Merge to sync the committed stills with the released engine."
+            gh pr merge --auto --merge
+            echo "Token boards PR opened with auto-merge"
           fi
           echo "::endgroup::"
 
@@ -222,6 +230,7 @@ jobs:
 
       - name: Pack the exact published artifact
         run: |
+          mkdir -p dist
           npm run build:docs --if-present
           npm pack --pack-destination dist
           echo "TARBALL=$(ls dist/*.tgz)" >> "$GITHUB_ENV"
