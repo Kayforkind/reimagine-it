@@ -1,0 +1,46 @@
+name: Weekly Fidelity Stress
+
+on:
+  schedule:
+    # Mondays 03:17 UTC — off the hour to be a good CI citizen.
+    - cron: "17 3 * * 1"
+  workflow_dispatch:
+    inputs:
+      seeds:
+        description: "Seeds per token × source cell"
+        default: "250"
+
+permissions:
+  contents: read
+
+jobs:
+  stress:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - name: Run the fidelity stress harness
+        id: stress
+        run: |
+          SEEDS="${{ github.event.inputs.seeds || '250' }}"
+          OUT="stress-report.txt"
+          node scripts/fidelity-stress.js --seeds "$SEEDS" | tee "$OUT"
+          WORST=$(grep -oP 'worst cell: \K.*' "$OUT" || true)
+          echo "worst=$WORST" >> "$GITHUB_OUTPUT"
+          VIOLATIONS=$(grep -oP 'violations <80%: \K\d+' "$OUT" || echo 0)
+          if [ "$VIOLATIONS" != "0" ]; then
+            echo "::error::Fidelity floor violated in $VIOLATIONS cell(s)"
+            exit 1
+          fi
+
+      - name: Upload the report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fidelity-stress-report
+          path: stress-report.txt
+          retention-days: 90

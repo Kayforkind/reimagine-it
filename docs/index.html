@@ -437,12 +437,12 @@ footer a { color: var(--hot); }
         <div class="token-gallery-stage">
           <div class="tg-main">
             <img id="tgDesk" src="tokens/webpage-desktop.png" alt="Token desktop preview">
-            <div class="tg-live-desk"><iframe id="tgDeskFrame" title="Live token output"></iframe></div>
+            <div class="tg-live-desk"><iframe id="tgDeskFrame" title="Live token output" sandbox="allow-scripts"></iframe></div>
             <div class="tg-caption"><code id="tgToken">webpage</code><span id="tgBlurb">Measured reading hierarchy</span></div>
           </div>
           <div class="tg-phone">
             <img id="tgPhone" src="tokens/webpage-phone.png" alt="Token phone preview"><span>mobile</span>
-            <div class="tg-live-phone"><iframe id="tgPhoneFrame" title="Live token output on phone"></iframe></div>
+            <div class="tg-live-phone"><iframe id="tgPhoneFrame" title="Live token output on phone" sandbox="allow-scripts"></iframe></div>
           </div>
         </div>
         <div class="tg-bar">
@@ -623,7 +623,7 @@ droid plugin install reimagine-it@reimagine-it --scope user</pre>
         <div class="play-right">
           <span class="play-label">Result</span>
           <div class="iframe-wrap">
-            <iframe id="playFrame" title="Playground output"></iframe>
+            <iframe id="playFrame" title="Playground output" sandbox="allow-scripts"></iframe>
           </div>
           <div class="design-strip" id="designStrip" hidden>
             <span class="play-label">Auto drew 3 directions — pick one, or recreate</span>
