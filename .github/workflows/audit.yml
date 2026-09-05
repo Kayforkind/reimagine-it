@@ -150,3 +150,56 @@ jobs:
           node scripts/render-audit.js 2>&1 | tee /tmp/render-audit.log
           echo '```' >> $GITHUB_STEP_SUMMARY
           tail -1 /tmp/render-audit.log
+
+  proof-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install Pillow for the asset builders
+        run: python -m pip install --quiet pillow
+
+      - name: Assert committed proof assets match their regenerators
+        run: |
+          echo "## Proof-asset drift check (manifest, case tables, Pages assets)" >> $GITHUB_STEP_SUMMARY
+          # Deterministic, browser-free regenerators: if any of these produce
+          # a diff, the committed proof no longer matches the committed engine.
+          python scripts/sync-case-docs.py
+          python scripts/sync-pages-assets.py
+          node -e "
+            const fs = require('fs');
+            const { extractContent } = require('./src/extract');
+            const { autoGenerate } = require('./src/auto');
+            const manifest = JSON.parse(fs.readFileSync('examples/end-users/manifest.json', 'utf8'));
+            for (const ex of manifest.examples) {
+              const html = fs.readFileSync(ex.source, 'utf8');
+              const content = extractContent(html, ex.source);
+              const result = autoGenerate(content, { seed: ex.seed });
+              if (result.token !== ex.auto_token) {
+                console.error('drift: ' + ex.source + ' auto picked ' + result.token + ' but manifest records ' + ex.auto_token);
+                process.exit(1);
+              }
+              const report = JSON.parse(fs.readFileSync(ex.report, 'utf8'));
+              if (result.score !== report.score) {
+                console.error('drift: ' + ex.report + ' score ' + report.score + ' but engine now produces ' + result.score);
+                process.exit(1);
+              }
+            }
+            console.log('manifest matches engine: ' + manifest.examples.length + ' examples');
+          "
+          if ! git diff --exit-code -- examples/end-users/README.md docs/CASE_STUDIES.md examples docs; then
+            echo "::error::Proof assets drifted from the engine — run 'npm run examples' and commit the result"
+            git diff --stat -- examples docs >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+          echo "✅ Manifest, tables, and Pages assets match ground truth" >> $GITHUB_STEP_SUMMARY
