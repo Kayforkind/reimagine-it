@@ -28,6 +28,12 @@ jobs:
         with:
           python-version: "3.x"
 
+      # Structural lint: catches the workflow shapes GitHub Actions rejects
+      # at parse time (actionless steps, duplicate keys) plus supply-chain
+      # drift (loose action tags, unpinned pip installs).
+      - name: Workflow lint
+        run: python scripts/check-workflows.py
+
       # npm ci: exact lockfile versions only — a PR cannot silently change
       # the dependency tree. --ignore-scripts: a PR can edit package.json,
       # so lifecycle scripts must never execute on our runners.
