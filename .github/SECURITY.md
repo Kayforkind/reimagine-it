@@ -56,3 +56,29 @@ happened, and the `node --version` you used.
 - npm releases publish with **SLSA provenance** — verify with
   `npm view reimagine-it dist.attestations`.
 - Secret scanning + push protection are enabled on this repository.
+
+## Reporting a vulnerability
+
+Please report security issues **privately** — do not open a public issue for
+a vulnerability:
+
+1. **Preferred:** [open a private security advisory](https://github.com/Kayforkind/reimagine-it/security/advisories/new)
+   (GitHub Security Advisory → "Report a vulnerability"). Only you and the
+   maintainer can see it.
+2. **Fallback:** email [5000350+Kayforkind@users.noreply.github.com](mailto:5000350+Kayforkind@users.noreply.github.com) and include the
+   word "security" in the subject.
+
+You will get an acknowledgement within **5 business days** and a status
+update at least every 7 days until resolution. Accepted fixes are released
+as a patch version and disclosed in the advisory; you are welcome to be
+credited.
+
+## What counts as in scope
+
+- Injection or content-integrity failures in `src/extract.js` / `src/generate.js`
+  (invented facts, fact loss, script execution in output)
+- The generated HTML escaping its containment (script execution in the
+  output document, external fetches in default-offline mode)
+- CLI argument handling that reads or writes outside its working directory
+- Anything in the GitHub Actions workflows (workflow injection, privilege
+  escalation, provenance forgery)
