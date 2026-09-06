@@ -4,7 +4,17 @@ All notable changes to reimagine-it.
 
 ---
 
-## v2.12.0 (current)
+## v2.13.0 (current)
+
+### The auditability release — OpenSSF Scorecard 6.2 → 7.0
+
+- **Token-Permissions 0 → 10.** Every workflow now runs read-only except release writes, which go through *recognized* release tooling — `softprops/action-gh-release` for assets and `actions/attest-build-provenance` for SLSA provenance. Raw `gh release edit/upload` grants (what Scorecard penalizes) are gone; the benchmark table now attaches as a job artifact instead of editing release notes, and token boards upload as artifacts.
+- **Signed-Releases 8 → 10 (from this release on).** The release job attests the tarball with `actions/attest-build-provenance`, emitting the `*.intoto.jsonl` provenance bundle Scorecard requires — it ships as a release asset on v2.13.0 and every future tag.
+- **Security-Policy 4 → 10.** Root `SECURITY.md` (the location the detector reads), a private vulnerability-reporting link, a public noreply mailto fallback, and an explicit scope list — the policy previously had zero contact methods (`Warn: no linked content found`).
+- **Branch-Protection: a real ruleset.** PRs required, the `battery` check enforced, up-to-date branches required, admin enforcement on, deletion and force-push blocked — Scorecard can now read enforcement instead of erroring.
+- **Baseline honesty.** `.github/scorecard-baseline.json` tracks the measured 7.0 (not an aspiration), with the remaining gap documented per-check: CII badge registration and the Fuzzing heuristic are owner decisions (#47); Maintained/Code-Review/Contributors need repo age and outside reviewers.
+
+## v2.12.0
 
 ### The last-similarity-floor release
 

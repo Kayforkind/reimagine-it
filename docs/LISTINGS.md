@@ -6,7 +6,7 @@ The directories below take manual submissions from the owner; use this copy
 verbatim. Keep it in sync when tokens or install paths change — the CI
 version-sync guard catches stale `version:` fields in this repo, not here.
 
-Last verified against the engine: **v2.12.0**, 17 tokens, CLI-first.
+Last verified against the engine: **v2.13.0**, 17 tokens, CLI-first.
 
 ---
 

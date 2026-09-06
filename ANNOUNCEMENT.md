@@ -1,4 +1,4 @@
-# reimagine-it v2.12.0 — the last similarity floor falls
+# reimagine-it v2.13.0 — the last similarity floor falls
 
 *Paste-ready dev.to article. Cover image: `docs/og.png`. Tags: `ai`, `webdev`, `css`, `opensource`.*
 
@@ -10,7 +10,7 @@ two of the seventeen directions still shipped pages that were a quarter the
 same. The issue said it plainly: they share section-listing DNA because both
 are reading pages.
 
-v2.12.0 closes it with composition, not color swaps.
+v2.13.0 closes it with composition, not color swaps.
 
 ## Landing grows its own hero form
 
