@@ -221,6 +221,24 @@ jobs:
           files: |
             ${{ env.TARBALL }}
             ${{ env.TARBALL }}.sig
-            ${{ steps.attest.outputs.bundle-path }}
             dist/token-boards.zip
           overwrite_files: true
+
+      # attest-build-provenance writes its bundle to a fixed temp filename
+      # (attestation.json); Scorecard's Signed-Releases check scores 10 only
+      # on release assets named *.intoto.jsonl, so stage a properly named
+      # copy and attach it through the Assets API.
+      - name: Attach provenance bundle as *.intoto.jsonl
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}
+          BUNDLE: ${{ steps.attest.outputs.bundle-path }}
+          TARBALL: ${{ env.TARBALL }}
+        run: |
+          TAGVER="${TAG#v}"
+          NAME="${TARBALL##*/}"              # reimagine-it-<ver>.tgz
+          NAME="${NAME%.tgz}"                # reimagine-it-<ver>
+          STAGE="dist/${NAME}.intoto.jsonl"
+          cp "$BUNDLE" "$STAGE"
+          gh release upload "$TAG" "$STAGE" --clobber
+          echo "Attached $STAGE to $TAG"
