@@ -19,7 +19,9 @@ engine.*
 
 **content-derived-design** — paired `{source_html, output_html}` tuples with
 the content signals the design engine read, for training and evaluating
-content-grounded design models.
+content-grounded design models. **28 verified rows** (17 engine-verified
+sources + 11 gold references), including six real U.S. government /
+public-collection pages.
 
 The thesis (Content-Derived Design): the source file is the brief. Palette,
 motif, and motion derive from the concrete nouns, dates, numbers, emails, and
@@ -63,8 +65,13 @@ facts are preserved (the committed set holds 100%).
 - The outputs are the *reimagine-it* engine's style; do not use this as a
   general "good design" corpus. It is a corpus of **content-grounded** design.
 - `gold: true` rows are hand-authored references whose inputs share one source
-  page (`gold/webpage/before.html`); the engine rows cover nine distinct
-  sources.
+  page (`gold/webpage/before.html`); the engine rows cover seventeen distinct
+  sources — nine authored journeys, two community proofs (clinic bulletin,
+  fashion lookbook), and **six real public-domain pages**: NPS Yellowstone,
+  NASA Artemis II, NOAA/NWS hurricane outlook, Census Bureau income brief,
+  Federal Register FOIA rule, and the Smithsonian's Apollo 11 command module.
+  The public rows are the strongest honesty examples: real government copy,
+  no declared palette, engine-derived design, fidelity 84–100%.
 - HTML is minified-but-verbose; consider preprocessing for token budgets.
 
 ## Provenance and regeneration
@@ -78,9 +85,9 @@ npm install && npm test          # reproduction guard must pass
 node scripts/build-dataset.js -o dataset.jsonl --gold
 ```
 
-Engine version at build: **v2.8.0**. Rows are deterministic given the repo
-state; the reproduction guard in CI keeps `dataset.jsonl` and the examples in
-lockstep.
+Engine version at build: **v2.12.0** (28 rows: 17 engine + 11 gold). Rows are
+deterministic given the repo state; the reproduction guard in CI keeps
+`dataset.jsonl` and the examples in lockstep.
 
 ## Citation
 

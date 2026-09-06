@@ -16,19 +16,24 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
-# (slug, label, token, community?) — community proofs load from docs/examples/community/.
+# (slug, label, token, lane) — lane: 'end-users' | 'community' | 'public-sources'.
+# Community proofs load from docs/examples/community/, public proofs from
+# docs/examples/public-sources/ — the six real government/collection pages.
 CASES = (
-    ("venator", "Venator", "gradient", False),
-    ("crimson-circuit", "Crimson Circuit", "cinematic", False),
-    ("velocita", "Velocita", "artistic", False),
-    ("maracuya", "Maracuyá", "landing", False),
-    ("flick", "Flick Fits", "photography", False),
-    ("meridian", "Meridian", "3js", False),
-    ("horizon", "Horizon", "dashboard", False),
-    ("hearth-grain", "Hearth & Grain", "photography", False),
-    ("millbrook-budget", "Millbrook", "infographic", False),
-    ("riverside-clinic", "Clinic", "infographic", True),
-    ("maison-vesper", "Maison Vesper", "lookbook", True),
+    ("venator", "Venator", "gradient", "end-users"),
+    ("crimson-circuit", "Crimson Circuit", "cinematic", "end-users"),
+    ("velocita", "Velocita", "artistic", "end-users"),
+    ("maracuya", "Maracuyá", "landing", "end-users"),
+    ("flick", "Flick Fits", "photography", "end-users"),
+    ("meridian", "Meridian", "3js", "end-users"),
+    ("horizon", "Horizon", "dashboard", "end-users"),
+    ("hearth-grain", "Hearth & Grain", "photography", "end-users"),
+    ("millbrook-budget", "Millbrook", "infographic", "end-users"),
+    ("riverside-clinic", "Clinic", "infographic", "community"),
+    ("maison-vesper", "Maison Vesper", "lookbook", "community"),
+    ("census-income2023", "Census", "infographic", "public-sources"),
+    ("federalregister-foia", "Fed. Register", "simulation", "public-sources"),
+    ("smithsonian-apollo11", "Apollo 11", "simulation", "public-sources"),
 )
 VOID = (10, 15, 30)
 INK = (244, 239, 228)
@@ -50,8 +55,7 @@ def font(size: int, bold: bool = False) -> ImageFont.ImageFont:
     return ImageFont.load_default()
 
 
-def load_desktop(slug: str, community: bool = False) -> Image.Image:
-    lane = "community" if community else "end-users"
+def load_desktop(slug: str, lane: str = "end-users") -> Image.Image:
     path = DOCS / "examples" / lane / slug / "auto-desktop.png"
     if not path.is_file():
         path = ROOT / "examples" / lane / slug / "auto-desktop.png"
@@ -72,9 +76,9 @@ def build_og() -> Image.Image:
     canvas = Image.new("RGB", (1200, 630), VOID)
     draw = ImageDraw.Draw(canvas)
     count = len(CASES)
-    draw.text((48, 36), "reimagine-it · v2.8 · 17 directions", font=font(22, True), fill=GOLD)
-    draw.text((48, 72), f"{count} sources. No shared silhouette.", font=font(42, True), fill=INK)
-    draw.text((48, 128), "Auto picks a distinct silhouette per page — not one infographic recast.", font=font(20), fill=DIM)
+    draw.text((48, 36), "reimagine-it · v2.12 · 17 directions", font=font(22, True), fill=GOLD)
+    draw.text((48, 72), f"{count} real sources. No shared silhouette.", font=font(42, True), fill=INK)
+    draw.text((48, 128), "Auto picks a distinct silhouette per page — NPS, NASA, Census, Federal Register, Smithsonian included.", font=font(20), fill=DIM)
 
     gap = 10
     margin = 48
@@ -85,8 +89,8 @@ def build_og() -> Image.Image:
     total = count * tile_w + (count - 1) * gap
     x0 = (1200 - total) // 2
     y0 = 186
-    for index, (slug, name, token, community) in enumerate(CASES):
-        tile = crop_top(load_desktop(slug, community), tile_w, tile_h)
+    for index, (slug, name, token, lane) in enumerate(CASES):
+        tile = crop_top(load_desktop(slug, lane), tile_w, tile_h)
         x = x0 + index * (tile_w + gap)
         canvas.paste(tile, (x, y0))
         draw.rectangle((x, y0 + tile_h - 44, x + tile_w, y0 + tile_h), fill=VOID)
@@ -97,10 +101,10 @@ def build_og() -> Image.Image:
 
 def build_demo_frames() -> list[Image.Image]:
     frames = []
-    for slug, name, token, community in CASES:
+    for slug, name, token, lane in CASES:
         frame = Image.new("RGB", (960, 540), VOID)
         draw = ImageDraw.Draw(frame)
-        shot = crop_top(load_desktop(slug, community), 960, 480)
+        shot = crop_top(load_desktop(slug, lane), 960, 480)
         frame.paste(shot, (0, 0))
         draw.rectangle((0, 480, 960, 540), fill=VOID)
         draw.text((24, 492), f"{name}  →  {token}", font=font(22, True), fill=INK)

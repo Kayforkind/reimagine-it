@@ -30,15 +30,15 @@ Open the source first, then open **Auto**, then open the two generated options. 
 
 | Example | Source → Auto | Score | Two more options | Why it is here |
 |---|---|---|---|---|
-| [Venator](venator/) | crypto battle royale → `gradient` | 246 | `landing`, `artistic` | gaming language gets a signal-yellow gradient arena instead of a timeline scrubber |
-| [Crimson Circuit](crimson-circuit/) | music festival → `cinematic` | 258 | `gradient`, `landing` | three nights become a magenta cinematic scroll, not a bar chart |
-| [Velocita](velocita/) | skate brand → `artistic` | 240 | `gradient`, `landing` | decks and riders become an expressive type poster |
-| [Maracuyá](maracuya/) | juice bar → `landing` | 246 | `photography`, `gradient` | the menu becomes a product landing with a real source action |
-| [Flick Fits](flick/) | streetwear → `photography` | 250 | `showcase`, `landing` | the drop becomes a photography folio of garment studies |
-| [Meridian Tower](meridian/) | living building → `3js` | 260 | `editorial`, `svg` | one command ships three furnished designs: an orbitable 3D object, a magazine feature, and a living diagram |
-| [Horizon](horizon/) | observability → `dashboard` | 330 | `gradient`, `landing` | SLOs and latency numbers become an ops dashboard |
-| [Hearth & Grain](hearth-grain/) | bakery → `photography` | 226 | `landing`, `editorial` | sixteen loaves become a photography folio of the morning bake, not a data poster |
-| [Millbrook](millbrook-budget/) | city budget → `infographic` | 278 | `simulation`, `editorial` | comparison, timeline, and survey language becomes an infographic whose first fold is the budget timeline |
+| [Venator](venator/) | crypto battle royale → `gradient` | 246 | `artistic`, `landing` | gaming language gets a signal-yellow gradient arena instead of a timeline scrubber |
+| [Crimson Circuit](crimson-circuit/) | music festival → `cinematic` | 258 | `gradient`, `motion` | three nights become a magenta cinematic scroll, not a bar chart |
+| [Velocita](velocita/) | skate brand → `artistic` | 240 | `gradient`, `editorial` | decks and riders become an expressive type poster |
+| [Maracuyá](maracuya/) | juice bar → `landing` | 246 | `editorial`, `photography` | the menu becomes a product landing with a real source action |
+| [Flick Fits](flick/) | streetwear → `photography` | 250 | `showcase`, `editorial` | the drop becomes a photography folio of garment studies |
+| [Meridian Tower](meridian/) | living building → `3js` | 260 | `editorial`, `cinematic` | one command ships three furnished designs: an orbitable 3D object, a magazine feature, and a living diagram |
+| [Horizon](horizon/) | observability → `dashboard` | 330 | `infographic`, `gradient` | SLOs and latency numbers become an ops dashboard |
+| [Hearth & Grain](hearth-grain/) | bakery → `photography` | 226 | `dashboard`, `gradient` | sixteen loaves become a photography folio of the morning bake, not a data poster |
+| [Millbrook](millbrook-budget/) | city budget → `infographic` | 278 | `simulation`, `dashboard` | comparison, timeline, and survey language becomes an infographic whose first fold is the budget timeline |
 
 **One command, three furnished designs** — on a building page, `npx reimagine-it --auto -i meridian.html` produces the Auto-selected 3D object **plus** a magazine feature (`editorial`) and a living SVG diagram (`svg`) from the same source. Static renders of the orbit, the feature, and the diagram live in `meridian/3js-desktop.webp`, `meridian/editorial-desktop.webp`, and `meridian/svg-desktop.webp`.
 
