@@ -4,15 +4,15 @@ Nine loud end-user examples. Each bundle contains the plain-HTML source, the exa
 
 | Example | Source → Auto | Two more options | Score | Fidelity | Bundle |
 |---|---|---|---|---|---|
-| [Venator](../examples/end-users/venator/) | crypto battle royale → `gradient` | `landing`, `artistic` | 246 | 100% | [case study](../examples/end-users/venator/) |
-| [Crimson Circuit](../examples/end-users/crimson-circuit/) | music festival → `cinematic` | `gradient`, `landing` | 258 | 100% | [case study](../examples/end-users/crimson-circuit/) |
-| [Velocita](../examples/end-users/velocita/) | skate brand → `artistic` | `gradient`, `landing` | 240 | 100% | [case study](../examples/end-users/velocita/) |
-| [Maracuyá](../examples/end-users/maracuya/) | juice bar → `landing` | `photography`, `gradient` | 246 | 100% | [case study](../examples/end-users/maracuya/) |
-| [Flick Fits](../examples/end-users/flick/) | streetwear → `photography` | `showcase`, `landing` | 250 | 100% | [case study](../examples/end-users/flick/) |
-| [Meridian Tower](../examples/end-users/meridian/) | living building → `3js` | `editorial`, `svg` | 260 | 100% | [case study](../examples/end-users/meridian/) |
-| [Horizon](../examples/end-users/horizon/) | observability → `dashboard` | `gradient`, `landing` | 330 | 100% | [case study](../examples/end-users/horizon/) |
-| [Hearth & Grain](../examples/end-users/hearth-grain/) | bakery → `photography` | `landing`, `editorial` | 226 | 100% | [case study](../examples/end-users/hearth-grain/) |
-| [Millbrook](../examples/end-users/millbrook-budget/) | city budget → `infographic` | `simulation`, `editorial` | 278 | 100% | [case study](../examples/end-users/millbrook-budget/) |
+| [Venator](../examples/end-users/venator/) | crypto battle royale → `gradient` | `artistic`, `landing` | 246 | 100% | [case study](../examples/end-users/venator/) |
+| [Crimson Circuit](../examples/end-users/crimson-circuit/) | music festival → `cinematic` | `gradient`, `motion` | 258 | 100% | [case study](../examples/end-users/crimson-circuit/) |
+| [Velocita](../examples/end-users/velocita/) | skate brand → `artistic` | `gradient`, `editorial` | 240 | 100% | [case study](../examples/end-users/velocita/) |
+| [Maracuyá](../examples/end-users/maracuya/) | juice bar → `landing` | `editorial`, `photography` | 246 | 100% | [case study](../examples/end-users/maracuya/) |
+| [Flick Fits](../examples/end-users/flick/) | streetwear → `photography` | `showcase`, `editorial` | 250 | 100% | [case study](../examples/end-users/flick/) |
+| [Meridian Tower](../examples/end-users/meridian/) | living building → `3js` | `editorial`, `cinematic` | 260 | 100% | [case study](../examples/end-users/meridian/) |
+| [Horizon](../examples/end-users/horizon/) | observability → `dashboard` | `infographic`, `gradient` | 330 | 100% | [case study](../examples/end-users/horizon/) |
+| [Hearth & Grain](../examples/end-users/hearth-grain/) | bakery → `photography` | `dashboard`, `gradient` | 226 | 100% | [case study](../examples/end-users/hearth-grain/) |
+| [Millbrook](../examples/end-users/millbrook-budget/) | city budget → `infographic` | `simulation`, `dashboard` | 278 | 100% | [case study](../examples/end-users/millbrook-budget/) |
 
 ## How to read a bundle
 

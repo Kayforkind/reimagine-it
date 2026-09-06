@@ -6,13 +6,13 @@
       "auto": "examples/end-users/venator/auto.html",
       "report": "examples/end-users/venator/auto.json",
       "alternates": [
-        "examples/end-users/venator/option-2-landing.html",
-        "examples/end-users/venator/option-3-artistic.html"
+        "examples/end-users/venator/option-2-artistic.html",
+        "examples/end-users/venator/option-3-landing.html"
       ],
       "auto_token": "gradient",
       "alternate_tokens": [
-        "landing",
-        "artistic"
+        "artistic",
+        "landing"
       ],
       "seed": 57,
       "score": 246,
@@ -221,12 +221,12 @@
       "report": "examples/end-users/crimson-circuit/auto.json",
       "alternates": [
         "examples/end-users/crimson-circuit/option-2-gradient.html",
-        "examples/end-users/crimson-circuit/option-3-landing.html"
+        "examples/end-users/crimson-circuit/option-3-motion.html"
       ],
       "auto_token": "cinematic",
       "alternate_tokens": [
         "gradient",
-        "landing"
+        "motion"
       ],
       "seed": 61,
       "score": 258,
@@ -435,12 +435,12 @@
       "report": "examples/end-users/velocita/auto.json",
       "alternates": [
         "examples/end-users/velocita/option-2-gradient.html",
-        "examples/end-users/velocita/option-3-landing.html"
+        "examples/end-users/velocita/option-3-editorial.html"
       ],
       "auto_token": "artistic",
       "alternate_tokens": [
         "gradient",
-        "landing"
+        "editorial"
       ],
       "seed": 73,
       "score": 240,
@@ -648,13 +648,13 @@
       "auto": "examples/end-users/maracuya/auto.html",
       "report": "examples/end-users/maracuya/auto.json",
       "alternates": [
-        "examples/end-users/maracuya/option-2-photography.html",
-        "examples/end-users/maracuya/option-3-gradient.html"
+        "examples/end-users/maracuya/option-2-editorial.html",
+        "examples/end-users/maracuya/option-3-photography.html"
       ],
       "auto_token": "landing",
       "alternate_tokens": [
-        "photography",
-        "gradient"
+        "editorial",
+        "photography"
       ],
       "seed": 89,
       "score": 246,
@@ -863,12 +863,12 @@
       "report": "examples/end-users/flick/auto.json",
       "alternates": [
         "examples/end-users/flick/option-2-showcase.html",
-        "examples/end-users/flick/option-3-landing.html"
+        "examples/end-users/flick/option-3-editorial.html"
       ],
       "auto_token": "photography",
       "alternate_tokens": [
         "showcase",
-        "landing"
+        "editorial"
       ],
       "seed": 97,
       "score": 250,
@@ -1077,12 +1077,12 @@
       "report": "examples/end-users/meridian/auto.json",
       "alternates": [
         "examples/end-users/meridian/option-2-editorial.html",
-        "examples/end-users/meridian/option-3-svg.html"
+        "examples/end-users/meridian/option-3-cinematic.html"
       ],
       "auto_token": "3js",
       "alternate_tokens": [
         "editorial",
-        "svg"
+        "cinematic"
       ],
       "seed": 101,
       "score": 260,
@@ -1290,13 +1290,13 @@
       "auto": "examples/end-users/horizon/auto.html",
       "report": "examples/end-users/horizon/auto.json",
       "alternates": [
-        "examples/end-users/horizon/option-2-gradient.html",
-        "examples/end-users/horizon/option-3-landing.html"
+        "examples/end-users/horizon/option-2-infographic.html",
+        "examples/end-users/horizon/option-3-gradient.html"
       ],
       "auto_token": "dashboard",
       "alternate_tokens": [
-        "gradient",
-        "landing"
+        "infographic",
+        "gradient"
       ],
       "seed": 113,
       "score": 330,
@@ -1504,13 +1504,13 @@
       "auto": "examples/end-users/hearth-grain/auto.html",
       "report": "examples/end-users/hearth-grain/auto.json",
       "alternates": [
-        "examples/end-users/hearth-grain/option-2-landing.html",
-        "examples/end-users/hearth-grain/option-3-editorial.html"
+        "examples/end-users/hearth-grain/option-2-dashboard.html",
+        "examples/end-users/hearth-grain/option-3-gradient.html"
       ],
       "auto_token": "photography",
       "alternate_tokens": [
-        "landing",
-        "editorial"
+        "dashboard",
+        "gradient"
       ],
       "seed": 1,
       "score": 226,
@@ -1719,12 +1719,12 @@
       "report": "examples/end-users/millbrook-budget/auto.json",
       "alternates": [
         "examples/end-users/millbrook-budget/option-2-simulation.html",
-        "examples/end-users/millbrook-budget/option-3-editorial.html"
+        "examples/end-users/millbrook-budget/option-3-dashboard.html"
       ],
       "auto_token": "infographic",
       "alternate_tokens": [
         "simulation",
-        "editorial"
+        "dashboard"
       ],
       "seed": 1,
       "score": 278,

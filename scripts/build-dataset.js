@@ -8,9 +8,10 @@
  *   { source_html, source_text, signals, auto: {token, seed, rationale,
  *     score, fidelity}, output_html }
  *
- * Sources: examples/end-users/ and examples/community/ (nine journeys
- * + community proofs, each with engine-verified auto.json). Gold tree is
- * opt-in via --gold; its outputs are hand-authored, marked gold: true.
+ * Sources: examples/end-users/, examples/community/, and
+ * examples/public-sources/ (nine journeys + community proofs + real
+ * public-domain government pages, each with engine-verified auto.json).
+ * Gold tree is opt-in via --gold; its outputs are hand-authored, marked gold: true.
  *
  * Output is deterministic: same repo state, same bytes. JSONL is the
  * HuggingFace-native format; publish with
@@ -45,7 +46,7 @@ function listCases(base) {
 const rows = [];
 const problems = [];
 
-for (const dir of listCases('examples/end-users').concat(listCases('examples/community'))) {
+for (const dir of listCases('examples/end-users').concat(listCases('examples/community')).concat(listCases('examples/public-sources'))) {
   const abs = path.join(root, dir);
   const sourcePath = path.join(abs, 'source.html');
   const reportPath = path.join(abs, 'auto.json');

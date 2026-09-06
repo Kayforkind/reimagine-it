@@ -365,23 +365,25 @@ Every direction is benchmarked against the same bar Auto itself applies — stan
 
 | Direction | Fidelity (title kept) | Usability (quality /100) | Content art |
 |---|---|---|---|
-| `landing` | 18/18 | 100/100 | 8.0 |
-| `dashboard` | 18/18 | 100/100 | 6.8 |
-| `photography` | 18/18 | 100/100 | 6.0 |
+| `cinematic` | 18/18 | 100/100 | 16.0 |
+| `artistic` | 18/18 | 100/100 | 11.0 |
+| `glass` | 18/18 | 100/100 | 10.0 |
+| `gradient` | 18/18 | 100/100 | 10.0 |
+| `showcase` | 18/18 | 100/100 | 10.0 |
+| `lookbook` | 18/18 | 100/100 | 10.0 |
+| `simulation` | 18/18 | 100/100 | 9.0 |
+| `dashboard` | 18/18 | 100/100 | 8.8 |
+| `infographic` | 18/18 | 100/100 | 8.0 |
+| `photography` | 18/18 | 100/100 | 8.0 |
+| `3js` | 18/18 | 100/100 | 7.0 |
+| `landing` | 18/18 | 100/100 | 6.0 |
 | `svg` | 18/18 | 100/100 | 6.0 |
-| `artistic` | 18/18 | 100/100 | 6.0 |
-| `motion` | 18/18 | 100/100 | 6.0 |
 | `webpage` | 18/18 | 100/100 | 5.0 |
-| `infographic` | 18/18 | 100/100 | 5.0 |
-| `cinematic` | 18/18 | 100/100 | 5.0 |
-| `simulation` | 18/18 | 100/100 | 5.0 |
-| `glass` | 18/18 | 100/100 | 5.0 |
-| `gradient` | 18/18 | 100/100 | 5.0 |
-| `showcase` | 18/18 | 100/100 | 5.0 |
-| `editorial` | 18/18 | 100/100 | 2.0 |
-| `3js` | 18/18 | 100/100 | 2.0 |
+| `motion` | 18/18 | 100/100 | 5.0 |
+| `editorial` | 18/18 | 100/100 | 4.0 |
+| `particles` | 18/18 | 100/100 | 2.0 |
 
-Content art counts inline glyph tiles, donut charts, bars, and prisms — `3js` and `editorial` score lower there by design (WebGL scene / text-forward layout). Regenerate the full table anytime: `node scripts/benchmark-tokens.js`. The `--gate` flag makes it exit non-zero if any token drops below 100/100, and CI enforces it weekly (and on engine changes).
+Content art counts inline glyph tiles, donut charts, ranked bars, prisms, orbit maps, and proof strips — `3js`, `particles`, and `editorial` score lower there by design (WebGL scene / canvas field / text-forward layout). Regenerate the full table anytime: `node scripts/benchmark-tokens.js`. The `--gate` flag makes it exit non-zero if any token drops below 100/100, and CI enforces it weekly (and on engine changes).
 
 ## Quality and limits
 
@@ -394,9 +396,9 @@ npm run check:docs
 
 Current repository checks include:
 
-- 63 engine unit tests covering extraction, generation, Auto, CLI behavior, color science, and npm pack contents.
-- 20 MCP tool tests (no SDK required) plus 25 end-to-end CLI tests for generate, audit, lock, and variations.
-- JS/Python Design Health parity across the HTML corpus (19 rules; a drift fails CI).
+- 68 engine unit tests covering extraction, generation, Auto, CLI behavior, color science, and npm pack contents.
+- 20 MCP tool tests (no SDK required) plus 28 end-to-end CLI tests for generate, audit, lock, and variations.
+- JS/Python Design Health parity across a 155-file HTML corpus (19 rules; a drift fails CI).
 - 32 curated gold HTML files audited; warnings are advisory and failures block shipping.
 - Intentional failing-fixture coverage to ensure the audit exit code catches real craft-floor failures.
 - Browser bundle freshness checks for the landing page and extension.
