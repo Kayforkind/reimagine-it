@@ -4,12 +4,18 @@ All notable changes to reimagine-it.
 
 ---
 
-## v2.13.0 (current)
+## v2.13.1 (current)
+
+### Release-pipeline repair
+
+- **The v2.13.0 release run exposed two defects in the restructured workflow:** the `token-board` job had lost its `actions/checkout` step (no scripts on the runner), and `actions/attest-build-provenance` could not persist the provenance record without `attestations: write`. Both fixed in #52. This tag's release event is the first to ship the complete artifact set: tarball, cosign signature, token boards, and the SLSA `*.intoto.jsonl` provenance that takes Scorecard's Signed-Releases to 10.
+
+## v2.13.0
 
 ### The auditability release — OpenSSF Scorecard 6.2 → 7.0
 
 - **Token-Permissions 0 → 10.** Every workflow now runs read-only except release writes, which go through *recognized* release tooling — `softprops/action-gh-release` for assets and `actions/attest-build-provenance` for SLSA provenance. Raw `gh release edit/upload` grants (what Scorecard penalizes) are gone; the benchmark table now attaches as a job artifact instead of editing release notes, and token boards upload as artifacts.
-- **Signed-Releases 8 → 10 (from this release on).** The release job attests the tarball with `actions/attest-build-provenance`, emitting the `*.intoto.jsonl` provenance bundle Scorecard requires — it ships as a release asset on v2.13.0 and every future tag.
+- **Signed-Releases 8 → 10 (from the next release on).** The release job attests the tarball with `actions/attest-build-provenance`, emitting the `*.intoto.jsonl` provenance bundle Scorecard requires — shipping from v2.13.1 onward.
 - **Security-Policy 4 → 10.** Root `SECURITY.md` (the location the detector reads), a private vulnerability-reporting link, a public noreply mailto fallback, and an explicit scope list — the policy previously had zero contact methods (`Warn: no linked content found`).
 - **Branch-Protection: a real ruleset.** PRs required, the `battery` check enforced, up-to-date branches required, admin enforcement on, deletion and force-push blocked — Scorecard can now read enforcement instead of erroring.
 - **Baseline honesty.** `.github/scorecard-baseline.json` tracks the measured 7.0 (not an aspiration), with the remaining gap documented per-check: CII badge registration and the Fuzzing heuristic are owner decisions (#47); Maintained/Code-Review/Contributors need repo age and outside reviewers.
