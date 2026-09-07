@@ -25,7 +25,7 @@
 
 <div align="center">
 
-**[Try the live playground](https://kayforkind.github.io/reimagine-it/#playground)** · **[See the results](https://kayforkind.github.io/reimagine-it/#results)** · **[Run it locally](#the-60-second-proof)** · **[Install it](#install)**
+**[Try the live playground](https://kayforkind.github.io/reimagine-it/#playground)** · **[See the results](https://kayforkind.github.io/reimagine-it/#results)** · **[Run it locally](#the-60-second-proof)** · **[Install it](#install)** · **[The lab behind it](https://reimagine.navigatorslab.com)**
 
 </div>
 
