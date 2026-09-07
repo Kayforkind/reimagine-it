@@ -1,73 +1,96 @@
-# reimagine-it v2.13.1 — the last similarity floor falls
+# Your content is the design brief: inside reimagine-it, the design engine that refuses to invent facts
 
-*Paste-ready dev.to article. Cover image: `docs/og.png`. Tags: `ai`, `webdev`, `css`, `opensource`.*
+*Paste-ready dev.to article. Cover image: `docs/og.png`. Tags: `webdev`, `css`, `ai`, `opensource`. Series: Content-Derived Design. Measured against v2.13.1 — 89★, 1,732 npm downloads last week, 23 releases. Re-verify numbers with the checklist at the bottom before publishing.*
 
 ---
 
-v2.11.0 fixed every converging token cluster but one. The benchmark's floor
-was **webpage + landing at 76% class-set difference** — on the same source,
-two of the seventeen directions still shipped pages that were a quarter the
-same. The issue said it plainly: they share section-listing DNA because both
-are reading pages.
+Every "AI redesign" tool does the same trick. It takes your page, throws the content away, and hallucinates a prettier one — new headlines it invented, numbers you never wrote, a palette that has nothing to do with anything. The output demos well and ships terribly, because the design was never about *your* page.
 
-v2.13.1 closes it with composition, not color swaps.
+**reimagine-it** goes the other direction. It reads the HTML you already have — the headings, dates, numbers, names, emails, and hex colors already in the file — and redesigns *around them*. The source file is the design brief. A bakery cannot come out marine-teal, because the bakery's own colors are in the source. A clinic bulletin cannot invent a statistic, because the engine never writes a fact the source doesn't contain.
 
-## Landing grows its own hero form
+It ships as one zero-dependency npm package, runs fully offline, and has been hardened like infrastructure, not a demo: **OpenSSF Scorecard 7.0, SLSA provenance on every release, and a protected main branch** where every change lands through 16 required CI checks. Today: **89★ on GitHub and 1,732 downloads last week**, almost all organic.
 
-Landing stopped borrowing webpage's closing bands and now ships three
-original systems, all derived from your source:
+Here is what that actually means, and what I learned building it.
 
-- **The orbit map.** Your anchors become nodes on concentric rings around
-  the first letter of your title. Radius comes from a content hash, angle
-  from position, and any measurable fact rides the node as an orbit value.
-  It is a navigable picture of your page's own structure — not a decorative
-  disc.
-- **The proof strip.** A marquee of verbatim source facts — every number and
-  its label from your file — replacing the shared stats band.
-- **The credit wall.** The closing section groups the links, emails, and
-  dates the source itself carries. Your contact surface becomes the design.
+## The rule that shapes everything: no invented facts
 
-Measured result: **webpage+landing 76% → 91.7%**. Mean across all 136
-token pairs: **96.8%**. The floor of the matrix is now two genuinely
-different products.
+The core of the engine is the extractor, and the extractor has a contract stricter than any style rule: *output may only recombine what the source contains*. Not paraphrase. Not "similar facts." Recombine.
 
-## Three more real pages, and the hardest kinds yet
+That contract is tested the way you'd test a parser: a generative fuzzer throws structured-mutation pages at it — CSS custom-property indirection that resolves to banned fonts, `clamp()` lengths with absurd bounds, `prefers-reduced-motion` blocks that lie, nested tags hundreds deep. Whatever goes in, extraction must never crash, never loop, and never produce a fact that wasn't in the source. The fuzz suite lives in `test/unit/` and runs on every push.
 
-The public-source proof lane doubled. Joining the NPS bulletin, NASA's
-Artemis II, and the NOAA hurricane outlook:
+Fidelity is then *measured*, not vibes-checked. Every redesign carries a machine-checked report of which source anchors survived into the output — and every committed example regenerates **byte-identically in CI**. If someone edits an output by hand to make it look better, the reproduction guard fails. The proofs cannot rot.
 
-- **Census Bureau income brief (P60-282)** — nine dollar figures that must
-  survive. Auto routes it to `infographic`; fidelity **21/21, 100%**.
-- **Federal Register FOIA rule** — pure procedural voice: dates, citations,
-  no marketing rhythm. Auto picks `simulation`; **17/17, 100%**, audit
-  clean 19/19.
-- **Smithsonian's Apollo 11 command module** — descriptive object copy.
-  `simulation` again; **21/21, 100%**.
+## Seventeen directions, and the war against sameness
 
-None declare a palette. The engine derived color from language alone. All
-three regenerate byte-identically in CI — the reproduction guard now covers
-**17 artifacts**.
+The engine generates 17 design directions from the same source: `webpage`, `landing`, `dashboard`, `infographic`, `cinematic`, `artistic`, `photography`, `svg`, `3js`, `simulation`, `glass`, `editorial`, `motion`, `gradient`, `showcase`, `lookbook`, `particles` — or `--auto` picks the strongest fit from your content's shape. A collection of items with prices reads as a lookbook or a photography folio; a budget with timelines and comparisons reads as an infographic; a civic list of dated events reads as a simulation.
 
-## The agent path, made findable
+The honest problem with "17 styles" is that most tools ship 17 color schemes over one layout. My own benchmark caught me doing a version of exactly that: mean pairwise structural difference between directions was **22.7%** — meaning on the same source, any two tokens were still ~77% the same page. 3js scored 2.0 on content-art depth. The audit passed pages I wasn't proud of, because it checked markup contracts, not whether the page *looked designed*.
 
-The skills.sh-facing skill descriptions listed 12 of the 17 tokens — anyone
-searching "editorial" or "glass" could not find the skill. Both descriptions
-now carry the full roster, and `docs/LISTINGS.md` ships paste-ready copy for
-the directories that take manual submissions. Install stays two doors:
+So the fix went layer by layer, each one measured:
+
+- **Per-token art kits.** The shared CSS blobs every token borrowed were split into kits each token actually earns — isotype tables for infographics, plates for photography, scene-native billboards for 3js, glyph filaments for artistic.
+- **Cluster by cluster.** The most-similar pairs were given composition, not color swaps: photography stopped borrowing dashboard chrome; artistic lost its mini-bars for filaments; landing grew its own hero form (an orbit map of your page's own anchors, a proof strip of verbatim facts, a credit wall of the source's own links).
+- **The benchmark is the referee.** All 17 directions × 4 representative sources are generated by the real CLI and scored against the same quality bar Auto applies — source title and anchors retained, focus-visible, reduced-motion, no placeholder copy, no external fetches.
+
+Current truth, in `benchmark/BENCHMARK.md`: **all 17 tokens at 100/100 usability with full fidelity, 96.8% mean class-set difference between directions** — no two tokens produce the same page, and the most-similar pair (webpage+landing) sits at 91.7% after closing the last convergence cluster. When a token underperforms, the number is printed in the README next to the fix, not filed under "known issues."
+
+## Proof on pages I don't own
+
+In-house examples prove intent. Public sources prove the engine works on pages it was never tuned for — so `examples/public-sources/` redesigns **six real public-domain government pages** with no declared palette for the engine to lean on:
+
+- **NASA's Artemis II overview** → a `3js` orbit scene (100% fidelity)
+- **NOAA's hurricane outlook** → a `landing` (100%)
+- **A National Park Service bulletin** → `editorial` (84%)
+- **The Census Bureau's income brief** → an `infographic` carrying all 21 source facts
+- **A Federal Register FOIA rule** → a `simulation` of its dates
+- **The Smithsonian's Apollo 11 command module** → a `simulation` (21/21 facts)
+
+Every artifact — source, output, report, stills — is committed and byte-identical under CI regeneration. The 84% is printed because it's true; the fidelity floor exists so a weak result is a visible event, not a secret.
+
+## The craft floor: an audit that can fail
+
+A redesign you can't ship isn't a redesign, so the engine's own 19-rule audit gates every output: compositor-only animation (no layout-thrashing properties), a real `prefers-reduced-motion` block, `:focus-visible` and `::selection` styled, no `transition: all`, no placeholder copy, no external asset fetch, contrast and type-scale checks. **Zero failures to pass** — warnings are advisory, failures are not.
+
+The audit is boring on purpose: deterministic, no LLM, no API key, the same rules in a GitHub Action (`design-health-action`) that comments the verdict on your PRs. It runs on this repo's own examples in CI — the engine audits its own output every push. And yes, the landing page at [navigators.com](https://navigators.com) scores 19/19 on it. Eat your own cooking or don't serve it.
+
+## Hardened like it's someone's supply chain, because it is
+
+A design tool runs on your machine against your files, so it gets infrastructure-grade treatment:
+
+- **Zero runtime dependencies.** Nothing to inherit, nothing to get breached. Even the test suite is hand-rolled rather than pulling a property-testing library just to satisfy a Scorecard heuristic.
+- **OpenSSF Scorecard 7.0** — Token-Permissions and Security-Policy at 10, pinned CI actions, SAST, no binaries, no dangerous workflows. The gap to a perfect score is documented per-check in the repo rather than hidden.
+- **SLSA provenance on every release.** Since v2.13.1, each GitHub release carries a `*.intoto.jsonl` attestation next to the cosign signature.
+- **A protected main branch.** Every change — including my own — lands through a PR gate with 16 required checks: the full test battery (126 tests: 68 engine unit, 10 extractor fuzz, 20 MCP, 28 e2e), version-sync, site-claims, reproduction, workflow lint. No push-to-main. The release train itself was once caught and fixed *by that gate* — which is the point of it.
+- **One version everywhere.** A CI guard fails if package.json, the plugin manifests, skill frontmatter, README badge, and the docs site ever disagree.
+
+## Try it in three commands
 
 ```bash
-npx reimagine-it --auto -i page.html -o redesign.html   # the engine
-npx skills add Kayforkind/reimagine-it                  # the agent skill
+# Auto: extract, rank directions, generate, audit, write the best one
+npx reimagine-it --auto -i page.html -o redesign.html
+
+# A specific direction, reproducible forever with a seed
+npx reimagine-it -i page.html -t infographic --seed 1 -o poster.html
+
+# See exactly what the engine read from your source
+npx reimagine-it extract -i page.html
 ```
 
-## Still the same contract
+There's also `variations` for reviewing three directions side by side, `audit` for the 19-rule health check, a [live playground](https://kayforkind.github.io/reimagine-it/) (paste HTML, watch it redesign, download the file), an MCP server so coding agents can call it directly, and a skill for Claude Code / Cursor via `npx skills add Kayforkind/reimagine-it`. Everything is MIT, offline, and standalone — the output is one HTML file with zero external fetches.
 
-Seventeen directions × 4 representative sources at 100/100 usability and
-full fidelity, 19-rule Design Health audit, fuzzed honesty layer, offline
-deterministic single-file output. Every claim in the README and on the docs
-site is CI-guarded against drift.
+## The one-paragraph version
+
+reimagine-it is a design engine that treats your content as the brief: 17 measured directions, an audit that can fail, fidelity you can verify byte-for-byte in CI, and a supply chain hardened like infrastructure. No invented facts, no API keys, no mood boards. If your tool can't show you a fidelity report, it's guessing — and now you have something to compare it against.
 
 ---
 
-Try it: the [live playground](https://kayforkind.github.io/reimagine-it/#playground) ·
-npm: `reimagine-it` · GitHub: [Kayforkind/reimagine-it](https://github.com/Kayforkind/reimagine-it)
+## Before you publish: 60-second honesty checklist
+
+Every number above was verified against live sources on the day this was drafted. If you're publishing later, re-check these — a stale number in a post about honesty is self-defeating:
+
+- [ ] Version: `npm view reimagine-it version` — article written at **v2.13.1**
+- [ ] Stars: `gh api repos/Kayforkind/reimagine-it --jq .stargazers_count` — **89** at writing
+- [ ] Downloads: `curl -s https://api.npmjs.org/downloads/point/last-week/reimagine-it` — **1,732** at writing
+- [ ] Scorecard: `curl -s https://api.securityscorecards.dev/projects/github.com/Kayforkind/reimagine-it` — **7.0** at writing
+- [ ] Test counts: `npm test` — **126** (68 + 10 + 20 + 28)
+- [ ] Benchmark: `node scripts/benchmark-tokens.js` — **96.8%** mean class-set difference
