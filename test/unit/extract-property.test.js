@@ -32,15 +32,20 @@ function test(name, fn) {
 }
 
 // Decode the entities fast-check can emit, so "presence in source" checks
-// compare against what a reader actually sees.
+// compare against what a reader actually sees. Single pass, one decode per
+// entity: sequential replace chains would double-unescape (&amp;#65; → &#65;
+// is correct; re-decoding it would invent a character that was not there).
 function decode(html) {
-  return html
-    .replace(/&#x([0-9a-fA-F]+);/g, function (_, h) { return String.fromCharCode(parseInt(h, 16)); })
-    .replace(/&#(\d+);/g, function (_, d) { return String.fromCharCode(parseInt(d, 10)); })
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"');
+  var named = { amp: '&', lt: '<', gt: '>', quot: '"' };
+  return html.replace(/&(#x[0-9a-fA-F]+|#[0-9]+|amp|lt|gt|quot);/g, function (m, ent) {
+    if (ent.charAt(0) === '#') {
+      var code = ent.charAt(1) === 'x'
+        ? parseInt(ent.slice(2), 16)
+        : parseInt(ent.slice(1), 10);
+      return String.fromCharCode(code);
+    }
+    return named[ent];
+  });
 }
 
 var TAGS = ['div', 'p', 'span', 'section', 'li', 'td', 'a', 'h1', 'h2', 'script', 'style', 'textarea'];
