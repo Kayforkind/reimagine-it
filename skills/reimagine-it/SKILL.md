@@ -17,7 +17,7 @@ description: >-
 license: MIT
 metadata:
   author: Kayforkind
-  version: "2.13.1"
+  version: "2.14.0"
   hosts:
     - claude-code
     - cursor

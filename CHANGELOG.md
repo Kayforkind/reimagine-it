@@ -4,7 +4,7 @@ All notable changes to reimagine-it.
 
 ---
 
-## Unreleased
+## v2.14.0 (current)
 
 ### Scorecard Fuzzing check closed (#47)
 

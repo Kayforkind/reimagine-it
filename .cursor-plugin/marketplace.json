@@ -5,7 +5,7 @@
   },
   "metadata": {
     "description": "Redesigns existing HTML from its own content. 17 visual directions, standalone offline pages. CLI + agent skill.",
-    "version": "2.13.1"
+    "version": "2.14.0"
   },
   "plugins": [
     {

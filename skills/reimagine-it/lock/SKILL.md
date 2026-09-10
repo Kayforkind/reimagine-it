@@ -10,7 +10,7 @@ description: >-
 license: MIT
 metadata:
   author: Kayforkind
-  version: "2.13.1"
+  version: "2.14.0"
   parent: reimagine-it
   hosts:
     - claude-code
