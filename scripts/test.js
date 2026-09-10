@@ -37,7 +37,7 @@ function hasPython() {
 }
 
 const PYTHON = hasPython();
-const TOTAL = PYTHON ? 12 : 9;
+const TOTAL = PYTHON ? 13 : 10;
 
 // 1. Gold audit sweep — Node-native.
 const audit = run('Gold audit sweep', process.execPath, ['scripts/audit-all.js']);
@@ -61,6 +61,12 @@ if (run('Unit tests (MCP tools)', process.execPath, ['test/unit/mcp.test.js']) !
 
 if (run('Unit tests (extractor fuzz)', process.execPath, ['test/unit/extract-fuzz.test.js']) !== 0) {
   console.error('FAIL: extractor fuzz properties failed');
+  process.exit(1);
+}
+
+// 3b. Property tests — fast-check (Scorecard-recognized JS fuzzing).
+if (run('Unit tests (extractor properties / fast-check)', process.execPath, ['test/unit/extract-property.test.js']) !== 0) {
+  console.error('FAIL: extractor fast-check properties failed');
   process.exit(1);
 }
 
