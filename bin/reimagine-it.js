@@ -22,6 +22,7 @@ const { sourceFidelity } = require('../src/result');
 const { auditHtml, formatReport, exitCodeFor, RULES } = require('../src/audit');
 const { extractLock, readLock, applyLock, formatLock, LOCK_VERSION } = require('../src/lock');
 const { buildVariations, contrastSheet, MAX_VARIATIONS } = require('../src/variations');
+const { sameFileAsInput, assertWritable, writeFileAtomic } = require('../src/io');
 
 const MAX_INPUT_BYTES = 10 * 1024 * 1024;
 const COMMANDS = ['audit', 'lock', 'variations', 'extract', 'mcp'];
@@ -57,6 +58,15 @@ const outputToStdout = args.output === '-' || args.stdout;
 const candidateCount = args.candidates === undefined ? (autoMode ? 3 : 1) : args.candidates;
 const source = readSource();
 const inputPath = source.path;
+
+// The source is the brief; a redesign never writes back onto it. Enforced
+// here — not just promised in the skill docs — because `-o` and `-i` resolve
+// independently and an agent loop can hand both the same path. (`-o -` and
+// --diff never touch a file.)
+const guardDefaultName = autoMode ? 'auto.html' : `${requestedToken}.html`;
+if (!args.diff && !outputToStdout && sameFileAsInput(inputPath, path.resolve(args.output || path.join('reimagined', guardDefaultName)))) {
+  fail(`output would overwrite the source. Choose a different --output path: ${args.output || path.join('reimagined', guardDefaultName)}`, 2);
+}
 
 if (args.command === 'lock') runLock();
 
@@ -146,14 +156,15 @@ if (outputToStdout) {
 const defaultOutputName = autoMode ? 'auto.html' : `${token}.html`;
 const outputPath = path.resolve(args.output || path.join('reimagined', defaultOutputName));
 try {
-  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-  fs.writeFileSync(outputPath, output, 'utf8');
+  assertWritable(args.emit ? [outputPath, path.join(path.dirname(outputPath), 'design-token.json'), path.join(path.dirname(outputPath), 'quality-report.json')] : [outputPath], args.noClobber);
+  writeFileAtomic(outputPath, output, args.noClobber);
   if (args.emit) {
     const dir = path.dirname(outputPath);
-    fs.writeFileSync(path.join(dir, 'design-token.json'), JSON.stringify(designMeta, null, 2), 'utf8');
-    fs.writeFileSync(path.join(dir, 'quality-report.json'), JSON.stringify({ quality: designMeta.quality, fidelity: fidelity.percentage, harmony: designMeta.harmony }, null, 2), 'utf8');
+    writeFileAtomic(path.join(dir, 'design-token.json'), JSON.stringify(designMeta, null, 2), args.noClobber);
+    writeFileAtomic(path.join(dir, 'quality-report.json'), JSON.stringify({ quality: designMeta.quality, fidelity: fidelity.percentage, harmony: designMeta.harmony }, null, 2), args.noClobber);
   }
 } catch (error) {
+  if (error.code === 'EEXIST') fail(`--no-clobber: ${error.message}`, 2);
   fail(`could not write output: ${error.message}`, 2);
 }
 
@@ -238,10 +249,12 @@ function runLock() {
   }
 
   const target = path.resolve(args.output || `${name}.lock.json`);
+  if (sameFileAsInput(inputPath, target)) fail(`output would overwrite the source. Choose a different --output path: ${target}`, 2);
   try {
-    fs.mkdirSync(path.dirname(target), { recursive: true });
-    fs.writeFileSync(target, serialised + '\n', 'utf8');
+    assertWritable([target], args.noClobber);
+    writeFileAtomic(target, serialised + '\n', args.noClobber);
   } catch (error) {
+    if (error.code === 'EEXIST') fail(`--no-clobber: ${error.message}`, 2);
     fail(`could not write lock: ${error.message}`, 2);
   }
 
@@ -290,10 +303,12 @@ function runExtract() {
 
   const base = path.basename(inputPath).replace(/\.[^.]+$/, '');
   const target = path.resolve(args.output || `${base}.extract.json`);
+  if (sameFileAsInput(inputPath, target)) fail(`output would overwrite the source. Choose a different --output path: ${target}`, 2);
   try {
-    fs.mkdirSync(path.dirname(target), { recursive: true });
-    fs.writeFileSync(target, serialised, 'utf8');
+    assertWritable([target], args.noClobber);
+    writeFileAtomic(target, serialised, args.noClobber);
   } catch (error) {
+    if (error.code === 'EEXIST') fail(`--no-clobber: ${error.message}`, 2);
     fail(`could not write extraction: ${error.message}`, 2);
   }
 
@@ -323,16 +338,21 @@ function runVariations() {
 
   const dir = path.resolve(args.output && args.output !== '-' ? args.output : path.join('reimagined', 'variations'));
   try {
+    assertWritable([
+      ...result.variations.map((entry) => path.join(dir, entry.file)),
+      path.join(dir, 'index.html'),
+      path.join(dir, 'variations.json'),
+    ], args.noClobber);
     fs.mkdirSync(dir, { recursive: true });
     result.variations.forEach((entry) => {
-      fs.writeFileSync(path.join(dir, entry.file), entry.output, 'utf8');
+      writeFileAtomic(path.join(dir, entry.file), entry.output, args.noClobber);
     });
     const sheet = contrastSheet(result, content, {
       source: path.basename(inputPath),
       command: `npx reimagine-it -i ${path.basename(inputPath)} --variations ${result.count} --seed ${result.seed}`,
     });
-    fs.writeFileSync(path.join(dir, 'index.html'), sheet, 'utf8');
-    fs.writeFileSync(path.join(dir, 'variations.json'), JSON.stringify({
+    writeFileAtomic(path.join(dir, 'index.html'), sheet, args.noClobber);
+    writeFileAtomic(path.join(dir, 'variations.json'), JSON.stringify({
       source: path.basename(inputPath),
       title: content.title,
       seed: result.seed,
@@ -350,8 +370,9 @@ function runVariations() {
         bytes: entry.bytes,
         failedChecks: entry.failed,
       })),
-    }, null, 2) + '\n', 'utf8');
+    }, null, 2) + '\n', args.noClobber);
   } catch (error) {
+    if (error.code === 'EEXIST') fail(`--no-clobber: ${error.message}`, 2);
     fail(`could not write variations: ${error.message}`, 2);
   }
 
@@ -535,6 +556,8 @@ Options:
                           serifClassic, highContrast, expressive, monoForward
   --plan <json>           Model-harness plan override: {"token":"landing","voice":"grotesque"}
   --emit                  Also write design-token.json + quality-report.json next to output
+  --no-clobber            Refuse (exit 2) instead of replacing an existing output file;
+                          the source path is always refused, flag or no flag
   --audit                 Run Design Health on the generated page (exit 3 on failures)
   --dry, -d               Show extracted signals; do not generate
   --full                  Include paragraphs and list items in extract output
@@ -618,6 +641,8 @@ function parseArgs(raw) {
       case '--diff': opts.diff = true; break;
       case '--web-fonts': opts.webFonts = true; break;
       case '--emit': opts.emit = true; break;
+      case '--no-clobber': opts.noClobber = true; break;
+      case '--no-clobber': opts.noClobber = true; break;
       case '--json': opts.json = true; break;
       case '--stdout': opts.stdout = true; break;
       case '--audit': opts.audit = true; break;

@@ -301,6 +301,10 @@ npx reimagine-it -i page.html --auto --diff
 # Reproduce an approved draw
 npx reimagine-it -i page.html -t webpage --seed 42 -o approved.html
 
+# Agent/CI-safe writes: refuse an existing target; the source path is
+# always refused as output
+npx reimagine-it -i page.html --auto --no-clobber -o reimagined/auto.html
+
 # Opt in to Google Fonts for the chosen voice (default output is fully offline)
 npx reimagine-it -i page.html -t landing --web-fonts -o redesign.html
 
@@ -327,6 +331,8 @@ npx reimagine-it audit redesign.html --verbose
 ```
 
 Use `-o -` when another tool should receive only generated HTML; progress stays on stderr.
+
+By default `-o` replaces an existing file — that is what makes the deterministic engine's byte-identical regeneration work. Two guards cover agent and CI loops: an output path that resolves to the source file is always refused (exit 2, no flag can lift it), and `--no-clobber` refuses (exit 2) to replace any existing output file. Writes are atomic (temp file + rename), so a reader never sees a partial artifact.
 
 ## MCP server
 

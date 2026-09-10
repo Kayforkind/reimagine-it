@@ -348,6 +348,62 @@ test('mcp with a closed stdio exits promptly (never hangs)', function () {
   }
 });
 
+
+// ── output collisions: source guard, --no-clobber, atomic writes ───
+
+test('output overwrites an existing file by default (deterministic regeneration)', function () {
+  var run = cli(['-i', 'source.html', '-t', 'webpage', '-s', '5', '-o', 'out/collision.html', '-q']);
+  assert.strictEqual(run.code, 0, 'first write should exit 0, got ' + run.code + ': ' + run.stderr);
+  var before = fs.readFileSync(path.join(workDir, 'out', 'collision.html'), 'utf8');
+  run = cli(['-i', 'source.html', '-t', 'webpage', '-s', '5', '-o', 'out/collision.html', '-q']);
+  assert.strictEqual(run.code, 0, 'overwrite should exit 0, got ' + run.code + ': ' + run.stderr);
+  var after = fs.readFileSync(path.join(workDir, 'out', 'collision.html'), 'utf8');
+  assert.strictEqual(before, after, 'same seed should regenerate byte-identically over the old file');
+});
+
+test('--no-clobber refuses to replace an existing output and leaves it intact', function () {
+  var target = path.join(workDir, 'out', 'keepme.html');
+  var run = cli(['-i', 'source.html', '-t', 'webpage', '-s', '5', '-o', 'out/keepme.html', '-q']);
+  assert.strictEqual(run.code, 0, 'first write should exit 0');
+  var original = fs.readFileSync(target, 'utf8');
+  run = cli(['-i', 'source.html', '-t', 'landing', '-s', '6', '-o', 'out/keepme.html', '--no-clobber']);
+  assert.strictEqual(run.code, 2, 'should exit 2 on collision, got ' + run.code + ': ' + run.stdout);
+  assert.ok(run.stderr.indexOf('--no-clobber') >= 0, 'should name the refused flag: ' + run.stderr);
+  assert.strictEqual(fs.readFileSync(target, 'utf8'), original, 'existing file must be untouched');
+});
+
+test('--no-clobber writes normally when the output does not exist yet', function () {
+  var run = cli(['-i', 'source.html', '-t', 'webpage', '-s', '7', '-o', 'out/fresh.html', '--no-clobber', '-q']);
+  assert.strictEqual(run.code, 0, 'should exit 0, got ' + run.code + ': ' + run.stderr);
+  assert.ok(fs.existsSync(path.join(workDir, 'out', 'fresh.html')), 'should write the fresh artifact');
+});
+
+test('output path equal to the source path is refused, flag or no flag', function () {
+  var sourceBackup = fs.readFileSync(path.join(workDir, 'source.html'), 'utf8');
+  var run = cli(['-i', 'source.html', '-t', 'webpage', '-o', 'source.html']);
+  assert.strictEqual(run.code, 2, 'should exit 2, got ' + run.code + ': ' + run.stdout);
+  assert.ok(run.stderr.indexOf('would overwrite the source') >= 0, 'should name the source guard: ' + run.stderr);
+  run = cli(['-i', 'source.html', '-t', 'webpage', '-o', 'source.html', '--no-clobber']);
+  assert.strictEqual(run.code, 2, 'no-clobber must not weaken the source guard');
+  assert.strictEqual(fs.readFileSync(path.join(workDir, 'source.html'), 'utf8'), sourceBackup, 'source must be untouched');
+  run = cli(['-i', 'source.html', '-t', 'webpage', '-o', './out/../source.html']);
+  assert.strictEqual(run.code, 2, 'path spelling must not dodge the guard');
+});
+
+test('atomic writes leave no temp residue next to the artifact', function () {
+  var run = cli(['-i', 'source.html', '-t', 'infographic', '-s', '3', '-o', 'out/atomic.html', '--audit', '-q']);
+  assert.strictEqual(run.code, 0, 'should exit 0, got ' + run.code + ': ' + run.stderr);
+  var residue = fs.readdirSync(path.join(workDir, 'out')).filter(function (name) { return /\.tmp$/.test(name); });
+  assert.deepStrictEqual(residue, [], 'no .tmp files should survive a completed run');
+});
+
+test('failed --no-clobber run leaves no temp residue either', function () {
+  cli(['-i', 'source.html', '-t', 'webpage', '-s', '5', '-o', 'out/residue.html', '-q']);
+  var run = cli(['-i', 'source.html', '-t', 'webpage', '-s', '5', '-o', 'out/residue.html', '--no-clobber']);
+  assert.strictEqual(run.code, 2, 'should refuse the second write');
+  var residue = fs.readdirSync(path.join(workDir, 'out')).filter(function (name) { return /\.tmp$/.test(name); });
+  assert.deepStrictEqual(residue, [], 'a refused run must not leave temp files');
+});
 // ── cleanup ─────────────────────────────────────────────────────────
 
 try {

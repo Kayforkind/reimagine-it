@@ -10,6 +10,14 @@ All notable changes to reimagine-it.
 
 - **The extractor's honesty properties now also run through fast-check** (`test/unit/extract-property.test.js`). Scorecard's Fuzzing check only recognizes OSS-Fuzz / ClusterFuzzLite / fast-check for JavaScript, so the repo's seeded generational fuzzer was invisible to it. The fast-check suite keeps the existing fuzzer and adds shrinking property tests (never invents emails/numbers/links, pure function, hostile blobs) on top. fast-check is a **devDependency only** — the published tarball stays dependency-free (tarball guard re-verified).
 
+
+### Output-collision safety for agent and CI loops
+
+- **The source guard is now mechanical.** The docs always promised the source stays untouched; the CLI now enforces it — an `--output` path that resolves to the input file (same file, any spelling: relative vs absolute, `..` segments, case on Windows) exits 2 before anything is written. No flag lifts this guard; `-o -` and `--diff` remain unaffected because they never touch a file.
+- **`--no-clobber` for reviewed-artifact workflows.** By default `-o` still replaces an existing file — the deterministic engine's byte-identical regeneration depends on it, and so does CI's reproduction guard. The new flag inverts that for agent/CI loops that must not clobber a reviewed artifact: any existing target (artifact, `--emit` reports, `*-options/` candidates, variations sheet, report JSON) refuses with exit 2 and a `--no-clobber:` message, pre-flighted so the refusal happens before any file is written. Available on the default command, `lock`, `extract`, `variations`, and the `npm run auto` runner.
+- **Atomic writes everywhere.** Every artifact write goes through a shared helper (`src/io.js`): content lands in a sibling temp file and is renamed into place, so a concurrent reader or a crashed run never observes a truncated file, and two parallel agents sharing an `-o` can no longer interleave partial HTML.
+- **E2E coverage:** overwrite-by-default regeneration, `--no-clobber` refusal (existing file byte-identical afterwards), fresh-file success, source-guard refusals including path-spelling dodges, and zero `.tmp` residue on both success and refusal.
+
 ## v2.13.1 (current)
 
 ### Release-pipeline repair

@@ -11,6 +11,7 @@ const path = require('path');
 const { extractContent } = require('../src/extract');
 const { autoGenerate } = require('../src/auto');
 const { sourceFidelity } = require('../src/result');
+const { sameFileAsInput, assertWritable, writeFileAtomic } = require('../src/io');
 
 const MAX_INPUT_BYTES = 10 * 1024 * 1024;
 const args = parseArgs(process.argv.slice(2));
@@ -27,6 +28,8 @@ Options:
   --brief, -b <text>      Creative lens; it does not add source facts
   --candidates <n>        Evaluate 1–3 directions (default: 3); output includes all verified options
   --quiet, -q             Do not print the result summary
+  --no-clobber            Refuse (exit 2) instead of replacing an existing output file;
+                          the source path is always refused, flag or no flag
   --help, -h              Show this help
 `);
   process.exit(0);
@@ -63,18 +66,35 @@ const candidateDir = outputPath ? path.join(path.dirname(outputPath), path.basen
 const fidelity = sourceFidelity(content, result.output);
 
 if (outputPath) {
-  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-  fs.writeFileSync(outputPath, result.output, 'utf8');
-  result.candidates.slice(1).forEach((candidate, index) => {
-    fs.mkdirSync(candidateDir, { recursive: true });
-    fs.writeFileSync(path.join(candidateDir, `${String(index + 2).padStart(2, '0')}-${candidate.token}.html`), generateCandidate(content, candidate, args.brief), 'utf8');
-  });
+  const candidateFiles = result.candidates.slice(1).map((candidate, index) =>
+    path.join(candidateDir, `${String(index + 2).padStart(2, '0')}-${candidate.token}.html`)
+  );
+  try {
+    if (args.input && args.input !== '-' && sameFileAsInput(path.resolve(args.input), outputPath)) {
+      fail(`output would overwrite the source. Choose a different --output path: ${outputPath}`, 2);
+    }
+    assertWritable([outputPath, ...candidateFiles], args.noClobber);
+    fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+    writeFileAtomic(outputPath, result.output, args.noClobber);
+    result.candidates.slice(1).forEach((candidate, index) => {
+      fs.mkdirSync(candidateDir, { recursive: true });
+      writeFileAtomic(candidateFiles[index], generateCandidate(content, candidate, args.brief), args.noClobber);
+    });
+  } catch (error) {
+    if (error.code === 'EEXIST') fail(`--no-clobber: ${error.message}`, 2);
+    throw error;
+  }
 } else {
   process.stdout.write(result.output);
 }
 
-fs.mkdirSync(path.dirname(reportPath), { recursive: true });
-fs.writeFileSync(reportPath, JSON.stringify({
+try {
+  if (args.input && args.input !== '-' && sameFileAsInput(path.resolve(args.input), reportPath)) {
+    fail(`report would overwrite the source. Choose a different --report path: ${reportPath}`, 2);
+  }
+  assertWritable([reportPath], args.noClobber);
+  fs.mkdirSync(path.dirname(reportPath), { recursive: true });
+  writeFileAtomic(reportPath, JSON.stringify({
   mode: result.mode,
   token: result.token,
   seed: result.seed,
@@ -86,7 +106,11 @@ fs.writeFileSync(reportPath, JSON.stringify({
   source: inputLabel,
   artifact: outputPath || 'stdout',
   fidelity,
-}, null, 2) + '\n', 'utf8');
+}, null, 2) + '\n', args.noClobber);
+} catch (error) {
+  if (error.code === 'EEXIST') fail(`--no-clobber: ${error.message}`, 2);
+  throw error;
+}
 
 if (!args.quiet) {
   process.stderr.write(JSON.stringify({
@@ -122,6 +146,7 @@ function parseArgs(raw) {
     }
     if (arg === '--help' || arg === '-h') options.help = true;
     else if (arg === '--quiet' || arg === '-q') options.quiet = true;
+    else if (arg === '--no-clobber') options.noClobber = true;
     else return { error: `unknown option "${arg}". Use --help for usage.` };
   }
 
