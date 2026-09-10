@@ -21,8 +21,9 @@ linked check is the place it would show.
 
 - **"Proof regenerates or CI fails"** — `scripts/check-repro.js`: every committed
   example artifact must regenerate byte-identically from the committed engine.
-- **"Honesty is property-tested"** — extractor fuzz/property tests + the weekly
-  250-seed fidelity-floor stress harness + `scripts/fuzz_audit.py`.
+- **"Honesty is property-tested"** — extractor fuzz/property tests (seeded generational fuzzer
+  + fast-check shrinking properties, the library Scorecard's Fuzzing check recognizes) + the
+  weekly 250-seed fidelity-floor stress harness + `scripts/fuzz_audit.py`.
 - **"Offline by construction"** — audit rule `STR-01` (no CDN/external fetch) on
   every generated page, plus `check-tarball.js` proving the published package
   contains exactly the intended files.

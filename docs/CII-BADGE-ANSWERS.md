@@ -36,7 +36,7 @@ level first; revisit Silver once history accrues.
 
 | Question | Answer |
 |---|---|
-| Test suite? | Yes — `npm test` runs 12 phases: gold audit sweep, engine + MCP unit tests (83 tests), extractor fuzz/property tests, 25 e2e CLI tests, browser-bundle freshness, tarball guard, stills guard, reproduction guard, JS/Python audit parity, smoke demo, audit fuzzer |
+| Test suite? | Yes — `npm test` runs 13 phases: gold audit sweep, engine + MCP unit tests (83 tests), extractor fuzz/property tests (seeded generational fuzzer + fast-check shrinking properties), 25 e2e CLI tests, browser-bundle freshness, tarball guard, stills guard, reproduction guard, JS/Python audit parity, smoke demo, audit fuzzer |
 | Test suite runs in CI? | Yes — required **CI Gate** (`battery`) + `review` on every PR and main push: `https://github.com/Kayforkind/reimagine-it/actions/workflows/gate.yml` |
 | All tests pass? | Yes — gate is green on main; it is a *required* check, so main cannot be pushed without passing |
 | Contribution procedure? | Yes — `CONTRIBUTING.md` (PR flow, CODEOWNERS review requirement, stale-review dismissal) |

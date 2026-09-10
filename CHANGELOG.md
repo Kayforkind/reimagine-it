@@ -4,6 +4,12 @@ All notable changes to reimagine-it.
 
 ---
 
+## Unreleased
+
+### Scorecard Fuzzing check closed (#47)
+
+- **The extractor's honesty properties now also run through fast-check** (`test/unit/extract-property.test.js`). Scorecard's Fuzzing check only recognizes OSS-Fuzz / ClusterFuzzLite / fast-check for JavaScript, so the repo's seeded generational fuzzer was invisible to it. The fast-check suite keeps the existing fuzzer and adds shrinking property tests (never invents emails/numbers/links, pure function, hostile blobs) on top. fast-check is a **devDependency only** — the published tarball stays dependency-free (tarball guard re-verified).
+
 ## v2.13.1 (current)
 
 ### Release-pipeline repair

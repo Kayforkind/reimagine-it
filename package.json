@@ -1,7 +1,7 @@
 {
   "name": "reimagine-it",
   "version": "2.13.1",
-  "description": "Kayforkind Content-Derived Design CLI. HTML in, standalone HTML out from the source\u00e2\u20ac\u2122s own nouns, dates, numbers, and colors. Not the reimagineit.ai interview SaaS.",
+  "description": "Kayforkind Content-Derived Design CLI. HTML in, standalone HTML out from the sourceâ€™s own nouns, dates, numbers, and colors. Not the reimagineit.ai interview SaaS.",
   "license": "MIT",
   "author": "Kayforkind",
   "repository": {
@@ -89,5 +89,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "fast-check": "^4.9.0"
   }
 }
