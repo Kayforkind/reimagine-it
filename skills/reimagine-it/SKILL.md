@@ -17,7 +17,7 @@ description: >-
 license: MIT
 metadata:
   author: Kayforkind
-  version: "2.13.1"
+  version: "2.14.0"
   hosts:
     - claude-code
     - cursor
@@ -97,6 +97,8 @@ npx reimagine-it variations -i page.html -n 3 -o review/
 npx reimagine-it extract -i page.html
 npx reimagine-it audit redesign.html
 ```
+
+The CLI enforces the source guard mechanically: an `--output` path that resolves to the source file exits 2 without writing. Pass `--no-clobber` to also refuse replacing an existing output file — useful when an agent or CI loop must not clobber a reviewed artifact.
 
 3. Open that artifact. Report from it. If `npx reimagine-it` cannot run, ship `REIMAGINED: partial` and name the exact blocker — do not substitute a model-written page.
 

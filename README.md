@@ -11,7 +11,7 @@
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/Kayforkind/reimagine-it/badge)](https://securityscorecards.dev/viewer/?uri=github.com/Kayforkind/reimagine-it)
 [![Benchmark](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/benchmark.yml?branch=main&label=benchmark%20100%2F100)](https://github.com/Kayforkind/reimagine-it/actions/workflows/benchmark.yml)
 [![Design Health](https://img.shields.io/github/actions/workflow/status/Kayforkind/design-health-action/audit.yml?branch=main&label=Design%20Health&logo=github)](https://github.com/Kayforkind/design-health-action/actions/workflows/audit.yml)
-[![version 2.13.1](https://img.shields.io/badge/version-2.13.1-b22234.svg)](CHANGELOG.md)
+[![version 2.14.0](https://img.shields.io/badge/version-2.14.0-b22234.svg)](CHANGELOG.md)
 [![npm](https://img.shields.io/npm/v/reimagine-it?color=e8a63f&label=npm)](https://www.npmjs.com/package/reimagine-it)
 [![MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE)
 [![skills.sh](https://skills.sh/b/kayforkind/reimagine-it)](https://skills.sh/kayforkind/reimagine-it)
@@ -228,7 +228,7 @@ Not Keith Mangold’s [Reimagine It](https://reimagineit.ai) interview SaaS (Pro
 npx reimagine-it --auto -i page.html -o redesign.html
 ```
 
-No install required. Package: [npmjs.com/package/reimagine-it](https://www.npmjs.com/package/reimagine-it) · **2.13.1**.
+No install required. Package: [npmjs.com/package/reimagine-it](https://www.npmjs.com/package/reimagine-it) · **2.14.0**.
 
 ```bash
 npx reimagine-it extract -i page.html -o signals.json
@@ -301,6 +301,10 @@ npx reimagine-it -i page.html --auto --diff
 # Reproduce an approved draw
 npx reimagine-it -i page.html -t webpage --seed 42 -o approved.html
 
+# Agent/CI-safe writes: refuse an existing target; the source path is
+# always refused as output
+npx reimagine-it -i page.html --auto --no-clobber -o reimagined/auto.html
+
 # Opt in to Google Fonts for the chosen voice (default output is fully offline)
 npx reimagine-it -i page.html -t landing --web-fonts -o redesign.html
 
@@ -327,6 +331,8 @@ npx reimagine-it audit redesign.html --verbose
 ```
 
 Use `-o -` when another tool should receive only generated HTML; progress stays on stderr.
+
+By default `-o` replaces an existing file — that is what makes the deterministic engine's byte-identical regeneration work. Two guards cover agent and CI loops: an output path that resolves to the source file is always refused (exit 2, no flag can lift it), and `--no-clobber` refuses (exit 2) to replace any existing output file. Writes are atomic (temp file + rename), so a reader never sees a partial artifact.
 
 ## MCP server
 
@@ -428,14 +434,14 @@ Every release asset is signed keyless by the GitHub Actions release workflow. To
 
 ```bash
 # from https://github.com/Kayforkind/reimagine-it/releases/latest
-curl -sLO https://github.com/Kayforkind/reimagine-it/releases/latest/download/reimagine-it-2.13.1.tgz
-curl -sLO https://github.com/Kayforkind/reimagine-it/releases/latest/download/reimagine-it-2.13.1.tgz.sig
+curl -sLO https://github.com/Kayforkind/reimagine-it/releases/latest/download/reimagine-it-2.14.0.tgz
+curl -sLO https://github.com/Kayforkind/reimagine-it/releases/latest/download/reimagine-it-2.14.0.tgz.sig
 
 cosign verify-blob \
-  --bundle reimagine-it-2.13.1.tgz.sig \
+  --bundle reimagine-it-2.14.0.tgz.sig \
   --certificate-identity-regexp "https://github.com/Kayforkind/reimagine-it/" \
   --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
-  reimagine-it-2.13.1.tgz
+  reimagine-it-2.14.0.tgz
 # → Verified OK  (signed by this repo's release workflow via Fulcio/Rekor)
 ```
 
