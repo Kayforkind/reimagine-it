@@ -14,7 +14,7 @@ on:
       tag:
         description: "Release tag to validate and document"
         required: false
-        default: "v2.12.0"
+        default: "v2.15.0"
 
 permissions:
   contents: read
