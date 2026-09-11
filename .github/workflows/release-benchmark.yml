@@ -150,6 +150,12 @@ jobs:
           node-version: "22"
           registry-url: "https://registry.npmjs.org"
 
+      # The publish step's prepublishOnly hook runs the full battery, which
+      # needs devDependencies (fast-check since #47/#60). Without an install
+      # the battery dies on MODULE_NOT_FOUND and npm publication aborts.
+      - name: Install dependencies for the prepublish battery
+        run: npm ci --no-audit --no-fund
+
       - name: Guard the tarball against files-list drift
         run: node scripts/check-tarball.js
 

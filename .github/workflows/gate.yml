@@ -75,6 +75,9 @@ jobs:
       - name: Full suite (audit, units, fuzz, e2e, all guards)
         run: npm test
 
+      - name: Dispatch defaults match the latest release tag
+        run: node scripts/check-dispatch-tags.js
+
       - name: Site claims match reality (hero stats, marquee, gallery)
         run: node scripts/check-site-claims.js
 
