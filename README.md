@@ -332,7 +332,7 @@ npx reimagine-it audit redesign.html --verbose
 
 Use `-o -` when another tool should receive only generated HTML; progress stays on stderr.
 
-By default `-o` replaces an existing file — that is what makes the deterministic engine's byte-identical regeneration work. Two guards cover agent and CI loops: an output path that resolves to the source file is always refused (exit 2, no flag can lift it), and `--no-clobber` refuses (exit 2) to replace any existing output file. Writes are atomic (temp file + rename), so a reader never sees a partial artifact.
+By default `-o` replaces an existing file — that is what makes the deterministic engine's byte-identical regeneration work. Two guards cover agent and CI loops: an output path that resolves to the source file is always refused (exit 2, no flag can lift it), and `--no-clobber` refuses (exit 2) to replace any existing output file. Writes are atomic (temp file + rename), so a reader never sees a partial artifact. Auto mode additionally serializes concurrent runs on one output path: a second `--auto` invocation fails fast with exit 2 (`another auto run holds this output`) instead of racing the first run to the final write. The lock is advisory — a crashed run's lock goes stale within 30 seconds and is stolen automatically, and `--force` overrides a live lock knowingly.
 
 ## MCP server
 

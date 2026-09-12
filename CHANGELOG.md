@@ -4,6 +4,12 @@ All notable changes to reimagine-it.
 
 ---
 
+## Unreleased
+
+### Auto run lock for parallel auto runs
+
+- **Auto mode serializes concurrent runs on the same output path.** Two agents or CI jobs launching `--auto` against one artifact would each pass the no-clobber checks and still race the final write; now the second fails fast with exit 2 (`another auto run holds this output; wait, or use --force to override`). The advisory lock lives next to the artifact (`<artifact>.auto.lock`), is refreshed by a heartbeat, and self-heals: a crashed run's lock goes stale after 30 seconds and is stolen automatically, corrupt lock files never block, and `--force` overrides a live lock knowingly. Stdout mode (`-o -`) never locks, and non-auto commands are unaffected. Available on both the default command (`--auto`) and the `npm run auto` runner.
+
 ## v2.14.0 (current)
 
 ### Scorecard Fuzzing check closed (#47)

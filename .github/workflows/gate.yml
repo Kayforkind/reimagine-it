@@ -83,3 +83,59 @@ jobs:
 
       - name: Token benchmark gate (every token 100/100)
         run: node scripts/benchmark-tokens.js
+
+  # Windows parity: the engine ships Windows-specific path handling
+  # (case-insensitive source guard, junction-aware file identity), and
+  # EOL drift has bitten local Windows checkouts before. The checkout is
+  # forced to LF so the bundle-freshness guard is exercised on its real
+  # semantics; everything else runs untouched.
+  battery-windows:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+        # Repo blobs are LF. The runner image ships core.autocrlf=true,
+        # which materializes CRLF and false-fails the EOL-exact bundle
+        # guard, so re-materialize the working tree from the index with
+        # autocrlf disabled.
+      - name: Force an LF working tree (bundle guard is EOL-exact)
+        run: |
+          git config core.autocrlf false
+          git checkout-index -f -a
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "24"
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.x"
+
+      - name: Install from the lockfile
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Full suite (audit, units, fuzz, e2e, all guards)
+        run: npm test
+
+  # The published package declares engines: ">=18"; this job keeps that
+  # claim tested instead of aspirational.
+  battery-node18:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "18"
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.x"
+
+      - name: Install from the lockfile
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Full suite (audit, units, fuzz, e2e, all guards)
+        run: npm test

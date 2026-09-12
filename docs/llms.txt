@@ -33,7 +33,7 @@ npx reimagine-it --auto -i page.html -o redesign.html   # plain CLI, no agent ne
 3. Fidelity must be ≥ 80% (the engine prints the percentage of detected source facts preserved; all committed examples hold 100%).
 4. `audit` must report zero failures before the result is called done.
 5. Output is a single offline HTML file — no CDN, no external fonts unless `--web-fonts`.
-6. `--output` may never be the source file (the CLI exits 2); pass `--no-clobber` when an existing output must not be replaced.
+6. `--output` may never be the source file (the CLI exits 2); pass `--no-clobber` when an existing output must not be replaced. Auto runs on one output path are serialized by an advisory lock; `--force` overrides it.
 
 ## For MCP hosts
 
