@@ -577,7 +577,7 @@ footer a { color: var(--hot); }
   "command": "npx",
   "args": ["-y", "--package", "reimagine-it",
            "reimagine-it-mcp"] } } }</pre>
-          <p class="alt">Node native HTTP/streamable transport; no Python required.</p>
+          <p class="alt">Node native HTTP/streamable transport; no Python required. Per-host setup files (Claude Desktop, Cursor, VS Code, Claude Code, Windsurf, Gemini CLI): <a href="https://github.com/Kayforkind/reimagine-it/blob/main/docs/mcp-hosts.md">docs/mcp-hosts.md</a>.</p>
         </div>
         <div class="install-card reveal">
           <span class="agent">8 tools</span>
@@ -644,7 +644,7 @@ fidelity   every source fact present</pre>
 npx reimagine-it variations -i page.html -n 4
 npx reimagine-it lock -i brand.html -o house.lock.json
 npx reimagine-it audit redesign.html</pre>
-          <p class="alt">Brand-lock with <code>--ref house.lock.json</code>. Reverse-lock from any HTML.</p>
+          <p class="alt">Brand-lock with <code>--ref house.lock.json</code>. Reverse-lock from any HTML. Parallel agents on one output are serialized by an advisory run lock; <code>--force</code> overrides knowingly.</p>
         </div>
         <div class="install-card reveal">
           <span class="agent">Claude Code</span>
