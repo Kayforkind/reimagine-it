@@ -11,7 +11,8 @@ const path = require('path');
 const { extractContent } = require('../src/extract');
 const { autoGenerate } = require('../src/auto');
 const { sourceFidelity } = require('../src/result');
-const { sameFileAsInput, assertWritable, writeFileAtomic } = require('../src/io');
+const { sameFileAsInput, assertWritable, writeFileAtomic, acquireRunLock } = require('../src/io');
+var autoRunLock = null;
 
 const MAX_INPUT_BYTES = 10 * 1024 * 1024;
 const args = parseArgs(process.argv.slice(2));
@@ -30,6 +31,8 @@ Options:
   --quiet, -q             Do not print the result summary
   --no-clobber            Refuse (exit 2) instead of replacing an existing output file;
                           the source path is always refused, flag or no flag
+  --force                 Override a live run lock held by another auto run on the
+                          same output path (locks are advisory; they never delete data)
   --help, -h              Show this help
 `);
   process.exit(0);
@@ -61,6 +64,17 @@ const result = autoGenerate(content, {
 
 const artifactIsStdout = args.output === '-';
 const outputPath = artifactIsStdout ? null : path.resolve(args.output || path.join('reimagined', 'auto.html'));
+// Serialize concurrent auto runs on the same artifact path. Advisory
+// lock next to the artifact: crash-stale, heartbeat-refreshed, --force
+// overrides. Stdout mode never locks.
+if (outputPath) {
+  try {
+    autoRunLock = acquireRunLock(outputPath, { force: args.force });
+  } catch (error) {
+    if (error.code === 'EEXIST') fail(`another auto run holds this output; wait, or use --force to override: ${error.path}`, 2);
+    throw error;
+  }
+}
 const reportPath = path.resolve(args.report || (outputPath ? outputPath.replace(/\.html?$/i, '.json') : 'reimagined/auto.json'));
 const candidateDir = outputPath ? path.join(path.dirname(outputPath), path.basename(outputPath, path.extname(outputPath)) + '-options') : null;
 const fidelity = sourceFidelity(content, result.output);
@@ -147,6 +161,7 @@ function parseArgs(raw) {
     if (arg === '--help' || arg === '-h') options.help = true;
     else if (arg === '--quiet' || arg === '-q') options.quiet = true;
     else if (arg === '--no-clobber') options.noClobber = true;
+    else if (arg === '--force') options.force = true;
     else return { error: `unknown option "${arg}". Use --help for usage.` };
   }
 
