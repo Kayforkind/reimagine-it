@@ -82,6 +82,12 @@ if (run('End-to-end CLI', process.execPath, ['test/e2e/cli.e2e.test.js']) !== 0)
   process.exit(1);
 }
 
+// 4b. MCP golden fixtures — the host-facing tool contract is pinned.
+if (run('MCP golden fixtures', process.execPath, ['test/unit/mcp-golden.test.js']) !== 0) {
+  console.error('FAIL: MCP golden fixtures drifted');
+  process.exit(1);
+}
+
 // 5. Browser bundles must match src/.
 if (run('Browser bundle freshness', process.execPath, ['scripts/build-docs-engine.js', '--check']) !== 0) {
   console.error('FAIL: browser bundles are stale — run npm run build:docs');

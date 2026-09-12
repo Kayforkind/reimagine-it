@@ -349,6 +349,8 @@ Expose the same engine to an MCP-compatible host:
 }
 ```
 
+Per-host setup files (Claude Desktop, Cursor, VS Code, Claude Code, Windsurf, Gemini CLI) with troubleshooting: [docs/mcp-hosts.md](docs/mcp-hosts.md).
+
 Tools:
 
 - `reimagine` — generate a selected direction from raw HTML (`ref` brand-locks the surface)
