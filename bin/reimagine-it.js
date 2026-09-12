@@ -22,7 +22,10 @@ const { sourceFidelity } = require('../src/result');
 const { auditHtml, formatReport, exitCodeFor, RULES } = require('../src/audit');
 const { extractLock, readLock, applyLock, formatLock, LOCK_VERSION } = require('../src/lock');
 const { buildVariations, contrastSheet, MAX_VARIATIONS } = require('../src/variations');
-const { sameFileAsInput, assertWritable, writeFileAtomic } = require('../src/io');
+const { sameFileAsInput, assertWritable, writeFileAtomic, acquireRunLock } = require('../src/io');
+// Hoisted with `var` so fail() can reference it on any early exit path
+// (a `let` binding would still be in its temporal dead zone there).
+var autoRunLock = null;
 
 const MAX_INPUT_BYTES = 10 * 1024 * 1024;
 const COMMANDS = ['audit', 'lock', 'variations', 'extract', 'mcp'];
@@ -155,6 +158,18 @@ if (outputToStdout) {
 
 const defaultOutputName = autoMode ? 'auto.html' : `${token}.html`;
 const outputPath = path.resolve(args.output || path.join('reimagined', defaultOutputName));
+// Parallel auto runs targeting one artifact would each pass the source
+// guard and still interleave final writes. Serialize them: an advisory
+// lock lives next to the artifact (crash-stale, heartbeat-refreshed,
+// --force overrides). Skipped for stdout output and non-auto commands.
+if (autoMode && !outputToStdout) {
+  try {
+    autoRunLock = acquireRunLock(outputPath, { force: args.force });
+  } catch (error) {
+    if (error.code === 'EEXIST') fail(`another auto run holds this output; wait, or use --force to override: ${error.path}`, 2);
+    throw error;
+  }
+}
 try {
   assertWritable(args.emit ? [outputPath, path.join(path.dirname(outputPath), 'design-token.json'), path.join(path.dirname(outputPath), 'quality-report.json')] : [outputPath], args.noClobber);
   writeFileAtomic(outputPath, output, args.noClobber);
@@ -558,6 +573,8 @@ Options:
   --emit                  Also write design-token.json + quality-report.json next to output
   --no-clobber            Refuse (exit 2) instead of replacing an existing output file;
                           the source path is always refused, flag or no flag
+  --force                 Override a live run lock held by another auto run on the
+                          same output path (locks are advisory; they never delete data)
   --audit                 Run Design Health on the generated page (exit 3 on failures)
   --dry, -d               Show extracted signals; do not generate
   --full                  Include paragraphs and list items in extract output
@@ -603,6 +620,7 @@ function showList() {
 }
 
 function fail(message, code) {
+  if (autoRunLock) { try { autoRunLock.release(); } catch (_) { /* best effort */ } }
   console.error(`Error: ${message}`);
   process.exit(code || 1);
 }
@@ -642,6 +660,7 @@ function parseArgs(raw) {
       case '--web-fonts': opts.webFonts = true; break;
       case '--emit': opts.emit = true; break;
       case '--no-clobber': opts.noClobber = true; break;
+  case '--force': opts.force = true; break;
       case '--no-clobber': opts.noClobber = true; break;
       case '--json': opts.json = true; break;
       case '--stdout': opts.stdout = true; break;

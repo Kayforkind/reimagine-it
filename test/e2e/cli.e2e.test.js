@@ -402,6 +402,71 @@ test('failed --no-clobber run leaves no temp residue either', function () {
   var run = cli(['-i', 'source.html', '-t', 'webpage', '-s', '5', '-o', 'out/residue.html', '--no-clobber']);
   assert.strictEqual(run.code, 2, 'should refuse the second write');
   var residue = fs.readdirSync(path.join(workDir, 'out')).filter(function (name) { return /\.tmp$/.test(name); });
+// ── auto run lock ───────────────────────────────────────────────────
+
+var AUTO = path.join(REPO, 'scripts', 'auto.js');
+var IO = path.join(REPO, 'src', 'io.js');
+
+function auto(args, options) {
+  options = options || {};
+  var result = childProcess.spawnSync(process.execPath, [AUTO].concat(args), {
+    cwd: options.cwd || workDir,
+    encoding: 'utf8',
+    input: options.input,
+    maxBuffer: 64 * 1024 * 1024,
+    env: Object.assign({}, process.env, { NO_COLOR: '1' }),
+  });
+  return { code: result.status, stdout: result.stdout || '', stderr: result.stderr || '' };
+}
+
+/** Synchronous sleep that works on every platform this suite runs on. */
+function sleepMs(ms) {
+  childProcess.spawnSync(process.execPath, ['-e', 'setTimeout(function(){}, ' + ms + ')']);
+}
+
+test('auto run lock: released after a normal run, so the next run succeeds', function () {
+  var first = auto(['-i', 'source.html', '-o', 'lockdir/locked.html', '-s', '7']);
+  assert.strictEqual(first.code, 0, 'first run should succeed');
+  assert.ok(!fs.existsSync(path.join(workDir, 'lockdir', 'locked.html.auto.lock')), 'lock file must be removed after the holder exits');
+  var second = auto(['-i', 'source.html', '-o', 'lockdir/locked.html', '-s', '7']);
+  assert.strictEqual(second.code, 0, 'sequential runs must never see a stale lock');
+});
+
+test('auto run lock: a live holder blocks; --force overrides it', function () {
+  var art = path.join(workDir, 'lockdir', 'live.html');
+  var holderCode = 'var io=require(' + JSON.stringify(IO) + ');io.acquireRunLock(' + JSON.stringify(art) + ');setTimeout(function(){}, 9000);';
+  var holder = childProcess.spawn(process.execPath, ['-e', holderCode], { cwd: workDir, stdio: 'ignore' });
+  sleepMs(800);
+  var blocked = auto(['-i', 'source.html', '-o', 'lockdir/live.html', '-s', '7']);
+  assert.strictEqual(blocked.code, 2, 'second concurrent run must be refused with exit 2');
+  assert.ok(/another auto run holds this output/.test(blocked.stderr), 'refusal names the live lock: ' + blocked.stderr);
+  var forced = auto(['-i', 'source.html', '-o', 'lockdir/live.html', '-s', '7', '--force']);
+  assert.strictEqual(forced.code, 0, '--force must override the live holder');
+  assert.ok(fs.existsSync(art), 'artifact written by the forced run');
+  holder.kill();
+  sleepMs(400);
+});
+
+test('auto run lock: crashed run\'s lock goes stale and is stealable without --force', function () {
+  fs.mkdirSync(path.join(workDir, 'lockdir'), { recursive: true });
+  var stale = { pid: 999999999, at: Date.now() - 120000, heartbeat: Date.now() - 120000 };
+  fs.writeFileSync(path.join(workDir, 'lockdir', 'stale.html.auto.lock'), JSON.stringify(stale));
+  var steal = auto(['-i', 'source.html', '-o', 'lockdir/stale.html', '-s', '7']);
+  assert.strictEqual(steal.code, 0, 'a crashed holder\'s lock must not block new runs');
+  assert.ok(!fs.existsSync(path.join(workDir, 'lockdir', 'stale.html.auto.lock')), 'stale lock cleaned up by the stealer');
+});
+
+test('auto run lock: --force cuts through a corrupt lock file', function () {
+  fs.writeFileSync(path.join(workDir, 'lockdir', 'corrupt.html.auto.lock'), 'not-json{');
+  var over = auto(['-i', 'source.html', '-o', 'lockdir/corrupt.html', '-s', '7', '--force']);
+  assert.strictEqual(over.code, 0, '--force must cut through a corrupt lock');
+});
+
+test('auto run lock: corrupt lock without --force is still stealable', function () {
+  fs.writeFileSync(path.join(workDir, 'lockdir', 'corrupt2.html.auto.lock'), 'not-json{');
+  var over = auto(['-i', 'source.html', '-o', 'lockdir/corrupt2.html', '-s', '7']);
+  assert.strictEqual(over.code, 0, 'unparseable lock must not block a fresh run forever');
+});
   assert.deepStrictEqual(residue, [], 'a refused run must not leave temp files');
 });
 // ── cleanup ─────────────────────────────────────────────────────────
