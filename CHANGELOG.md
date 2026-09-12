@@ -10,6 +10,12 @@ All notable changes to reimagine-it.
 
 - **Auto mode serializes concurrent runs on the same output path.** Two agents or CI jobs launching `--auto` against one artifact would each pass the no-clobber checks and still race the final write; now the second fails fast with exit 2 (`another auto run holds this output; wait, or use --force to override`). The advisory lock lives next to the artifact (`<artifact>.auto.lock`), is refreshed by a heartbeat, and self-heals: a crashed run's lock goes stale after 30 seconds and is stolen automatically, corrupt lock files never block, and `--force` overrides a live lock knowingly. Stdout mode (`-o -`) never locks, and non-auto commands are unaffected. Available on both the default command (`--auto`) and the `npm run auto` runner.
 
+
+### MCP host pack: per-host setup docs + golden fixture guard
+
+- **Host documentation**: `docs/mcp-hosts.md` gives copy-paste server definitions for Claude Desktop, Cursor, VS Code, Claude Code, Windsurf, and Gemini CLI, plus a tool table with required arguments and troubleshooting. Linked from the README and `docs/llms.txt`.
+- **Golden fixture guard**: `test/unit/mcp-golden.test.js` pins the host-facing contract — every advertised tool's canonical response and descriptor shape is committed as `test/unit/fixtures/mcp-golden.json`; a tool rename, dropped response field, or changed argument shape now fails CI instead of silently breaking host integrations. Regenerate deliberately with `REIMAGINE_UPDATE_GOLDEN=1`.
+
 ## v2.14.0 (current)
 
 ### Scorecard Fuzzing check closed (#47)

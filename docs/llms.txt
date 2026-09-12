@@ -41,7 +41,7 @@ npx reimagine-it --auto -i page.html -o redesign.html   # plain CLI, no agent ne
 { "mcpServers": { "reimagine-it": { "command": "npx", "args": ["reimagine-it-mcp"] } } }
 ```
 
-Tools: `reimagine`, `design_auto`, `design_variations`, `design_lock`, `extract_content`, `list_tokens`, `audit_html`, `list_rules`.
+Tools: `reimagine`, `design_auto`, `design_variations`, `design_lock`, `extract_content`, `list_tokens`, `audit_html`, `list_rules`. Per-host setup: https://github.com/Kayforkind/reimagine-it/blob/main/docs/mcp-hosts.md
 
 ## Key links
 
