@@ -70,6 +70,12 @@ if (run('Unit tests (extractor properties / fast-check)', process.execPath, ['te
   process.exit(1);
 }
 
+// 3c. Unit tests — browser extension surface (manifest + popup sandbox).
+if (run('Unit tests (extension surface)', process.execPath, ['test/unit/extension.test.js']) !== 0) {
+  console.error('FAIL: extension surface tests failed');
+  process.exit(1);
+}
+
 // 4. End-to-end CLI contract: files, stdout, and documented exit codes.
 if (run('End-to-end CLI', process.execPath, ['test/e2e/cli.e2e.test.js']) !== 0) {
   console.error('FAIL: end-to-end CLI tests failed');
