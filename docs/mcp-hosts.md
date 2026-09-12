@@ -110,6 +110,6 @@ claude mcp add reimagine-it -- npx -y --package reimagine-it reimagine-it-mcp
   `npx -y --package reimagine-it reimagine-it-mcp --help` by hand — the CLI
   shares the package and will print a clear error.
 - **First call is slow**: `npx` is resolving and caching the package; pin a
-  version (`reimagine-it@2.14.0`) for deterministic startup in CI-like hosts.
+  version (`reimagine-it@2.15.0`) for deterministic startup in CI-like hosts.
 - **Tool list is empty after an update**: restart the host; stdio servers are
   spawned once per session.

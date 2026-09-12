@@ -11,7 +11,7 @@
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/Kayforkind/reimagine-it/badge)](https://securityscorecards.dev/viewer/?uri=github.com/Kayforkind/reimagine-it)
 [![Benchmark](https://img.shields.io/github/actions/workflow/status/Kayforkind/reimagine-it/benchmark.yml?branch=main&label=benchmark%20100%2F100)](https://github.com/Kayforkind/reimagine-it/actions/workflows/benchmark.yml)
 [![Design Health](https://img.shields.io/github/actions/workflow/status/Kayforkind/design-health-action/audit.yml?branch=main&label=Design%20Health&logo=github)](https://github.com/Kayforkind/design-health-action/actions/workflows/audit.yml)
-[![version 2.14.0](https://img.shields.io/badge/version-2.14.0-b22234.svg)](CHANGELOG.md)
+[![version 2.15.0](https://img.shields.io/badge/version-2.15.0-b22234.svg)](CHANGELOG.md)
 [![npm](https://img.shields.io/npm/v/reimagine-it?color=e8a63f&label=npm)](https://www.npmjs.com/package/reimagine-it)
 [![MIT](https://img.shields.io/badge/license-MIT-1a2138.svg)](LICENSE)
 [![skills.sh](https://skills.sh/b/kayforkind/reimagine-it)](https://skills.sh/kayforkind/reimagine-it)
@@ -228,7 +228,7 @@ Not Keith Mangold’s [Reimagine It](https://reimagineit.ai) interview SaaS (Pro
 npx reimagine-it --auto -i page.html -o redesign.html
 ```
 
-No install required. Package: [npmjs.com/package/reimagine-it](https://www.npmjs.com/package/reimagine-it) · **2.14.0**.
+No install required. Package: [npmjs.com/package/reimagine-it](https://www.npmjs.com/package/reimagine-it) · **2.15.0**.
 
 ```bash
 npx reimagine-it extract -i page.html -o signals.json
@@ -436,14 +436,14 @@ Every release asset is signed keyless by the GitHub Actions release workflow. To
 
 ```bash
 # from https://github.com/Kayforkind/reimagine-it/releases/latest
-curl -sLO https://github.com/Kayforkind/reimagine-it/releases/latest/download/reimagine-it-2.14.0.tgz
-curl -sLO https://github.com/Kayforkind/reimagine-it/releases/latest/download/reimagine-it-2.14.0.tgz.sig
+curl -sLO https://github.com/Kayforkind/reimagine-it/releases/latest/download/reimagine-it-2.15.0.tgz
+curl -sLO https://github.com/Kayforkind/reimagine-it/releases/latest/download/reimagine-it-2.15.0.tgz.sig
 
 cosign verify-blob \
-  --bundle reimagine-it-2.14.0.tgz.sig \
+  --bundle reimagine-it-2.15.0.tgz.sig \
   --certificate-identity-regexp "https://github.com/Kayforkind/reimagine-it/" \
   --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
-  reimagine-it-2.14.0.tgz
+  reimagine-it-2.15.0.tgz
 # → Verified OK  (signed by this repo's release workflow via Fulcio/Rekor)
 ```
 
