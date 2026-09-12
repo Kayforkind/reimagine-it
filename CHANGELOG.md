@@ -4,7 +4,7 @@ All notable changes to reimagine-it.
 
 ---
 
-## Unreleased
+## v2.15.0 (current)
 
 ### Auto run lock for parallel auto runs
 
