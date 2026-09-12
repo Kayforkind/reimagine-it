@@ -30,6 +30,8 @@ the live plan: what is open, ordered by leverage per hour.
 | 1.3 | Visual regression — PNG-diff the nine committed desktop stills in CI; extends the drift guard to the pixel level. Calibrated with a perceptual tolerance (engine is deterministic across platforms; PNG encoders are not) | 1 d | **Shipped** (calibrated; pixel-exact mode behind a flag) |
 | 1.4 | Weekly fidelity stress run — scheduled CI job at 250 seeds, artifacting the worst cells | 1 h | **Shipped** |
 | 1.5 | Playground hardening — audit the sandboxing of pasted user HTML in the iframe preview | 2 h | **Shipped** (sandboxed iframe: `allow-same-origin` removed, `allow-scripts` only) |
+| 1.6 | Output-collision safety — source guard, `--no-clobber`, atomic artifact writes (temp file + rename) across the CLI and the auto runner | 4 h | **Shipped** (v2.14.0) |
+| 1.7 | Dispatch-tag drift guard — CI fails when a workflow's `workflow_dispatch` tag default lags the latest release | 1 h | **Shipped** (v2.14.0) |
 
 ## Phase 2 — Product surface (weeks 3–6)
 
