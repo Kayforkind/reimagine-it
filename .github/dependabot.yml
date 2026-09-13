@@ -17,5 +17,16 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    # codeql-action is grouped alone: its init/analyze/upload-sarif steps
+    # must share one version — a lone-bump PR fails Analyze on version skew.
+    groups:
+      codeql-actions:
+        patterns:
+          - "github/codeql-action/*"
+      github-actions:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "github/codeql-action/*"
     labels:
       - dependencies
