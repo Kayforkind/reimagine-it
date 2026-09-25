@@ -404,8 +404,8 @@ npm run check:docs
 
 Current repository checks include:
 
-- 68 engine unit tests covering extraction, generation, Auto, CLI behavior, color science, and npm pack contents.
-- 20 MCP tool tests (no SDK required) plus 28 end-to-end CLI tests for generate, audit, lock, and variations.
+- 99 engine unit tests covering extraction, generation, Auto, CLI behavior, color science, and npm pack contents.
+- 20 MCP tool tests (no SDK required) plus 39 end-to-end CLI tests for generate, audit, lock, and variations — 158 test blocks total.
 - JS/Python Design Health parity across a 155-file HTML corpus (19 rules; a drift fails CI).
 - 32 curated gold HTML files audited; warnings are advisory and failures block shipping.
 - Intentional failing-fixture coverage to ensure the audit exit code catches real craft-floor failures.
