@@ -60,7 +60,7 @@ A design tool runs on your machine against your files, so it gets infrastructure
 - **Zero runtime dependencies.** Nothing to inherit, nothing to get breached. Even the test suite is hand-rolled rather than pulling a property-testing library just to satisfy a Scorecard heuristic.
 - **OpenSSF Scorecard 7.0** — Token-Permissions and Security-Policy at 10, pinned CI actions, SAST, no binaries, no dangerous workflows. The gap to a perfect score is documented per-check in the repo rather than hidden.
 - **SLSA provenance on every release.** Since v2.13.1, each GitHub release carries a `*.intoto.jsonl` attestation next to the cosign signature.
-- **A protected main branch.** Every change — including my own — lands through a PR gate with 16 required checks: the full test battery (126 tests: 68 engine unit, 10 extractor fuzz, 20 MCP, 28 e2e), version-sync, site-claims, reproduction, workflow lint. No push-to-main. The release train itself was once caught and fixed *by that gate* — which is the point of it.
+- **A protected main branch.** Every change — including my own — lands through a PR gate with 16 required checks: the full test battery (158 test blocks: 99 engine unit, 10 extractor fuzz, 20 MCP, 39 e2e), version-sync, site-claims, reproduction, workflow lint. No push-to-main. The release train itself was once caught and fixed *by that gate* — which is the point of it.
 - **One version everywhere.** A CI guard fails if package.json, the plugin manifests, skill frontmatter, README badge, and the docs site ever disagree.
 
 ## Try it in three commands
