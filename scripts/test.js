@@ -18,7 +18,7 @@ let index = 0;
 function run(label, command, args, options) {
   options = options || {};
   index += 1;
-  console.log(`\n── ${index}/${TOTAL}  ${label} ${'─'.repeat(Math.max(0, 44 - label.length))}`);
+  console.log(`\nâ”€â”€ ${index}/${TOTAL}  ${label} ${'â”€'.repeat(Math.max(0, 44 - label.length))}`);
   const result = spawnSync(command, args, { stdio: 'inherit', shell: false });
   if (result.error) {
     if (options.optional) {
@@ -37,9 +37,9 @@ function hasPython() {
 }
 
 const PYTHON = hasPython();
-const TOTAL = PYTHON ? 13 : 10;
+const TOTAL = PYTHON ? 15 : 12;
 
-// 1. Gold audit sweep — Node-native.
+// 1. Gold audit sweep â€” Node-native.
 const audit = run('Gold audit sweep', process.execPath, ['scripts/audit-all.js']);
 console.log(`audit exit: ${audit} (0=clean, 1=warnings OK, 2+=failures)`);
 if (audit >= 2) {
@@ -47,13 +47,13 @@ if (audit >= 2) {
   process.exit(1);
 }
 
-// 2. Unit tests — engine modules.
+// 2. Unit tests â€” engine modules.
 if (run('Unit tests (engine)', process.execPath, ['test/unit/cli.test.js']) !== 0) {
   console.error('FAIL: engine unit tests failed');
   process.exit(1);
 }
 
-// 3. Unit tests — MCP tool surface. Runs without the optional MCP SDK.
+// 3. Unit tests â€” MCP tool surface. Runs without the optional MCP SDK.
 if (run('Unit tests (MCP tools)', process.execPath, ['test/unit/mcp.test.js']) !== 0) {
   console.error('FAIL: MCP tool tests failed');
   process.exit(1);
@@ -64,13 +64,13 @@ if (run('Unit tests (extractor fuzz)', process.execPath, ['test/unit/extract-fuz
   process.exit(1);
 }
 
-// 3b. Property tests — fast-check (Scorecard-recognized JS fuzzing).
+// 3b. Property tests â€” fast-check (Scorecard-recognized JS fuzzing).
 if (run('Unit tests (extractor properties / fast-check)', process.execPath, ['test/unit/extract-property.test.js']) !== 0) {
   console.error('FAIL: extractor fast-check properties failed');
   process.exit(1);
 }
 
-// 3c. Unit tests — browser extension surface (manifest + popup sandbox).
+// 3c. Unit tests â€” browser extension surface (manifest + popup sandbox).
 if (run('Unit tests (extension surface)', process.execPath, ['test/unit/extension.test.js']) !== 0) {
   console.error('FAIL: extension surface tests failed');
   process.exit(1);
@@ -82,7 +82,7 @@ if (run('End-to-end CLI', process.execPath, ['test/e2e/cli.e2e.test.js']) !== 0)
   process.exit(1);
 }
 
-// 4b. MCP golden fixtures — the host-facing tool contract is pinned.
+// 4b. MCP golden fixtures â€” the host-facing tool contract is pinned.
 if (run('MCP golden fixtures', process.execPath, ['test/unit/mcp-golden.test.js']) !== 0) {
   console.error('FAIL: MCP golden fixtures drifted');
   process.exit(1);
@@ -90,13 +90,13 @@ if (run('MCP golden fixtures', process.execPath, ['test/unit/mcp-golden.test.js'
 
 // 5. Browser bundles must match src/.
 if (run('Browser bundle freshness', process.execPath, ['scripts/build-docs-engine.js', '--check']) !== 0) {
-  console.error('FAIL: browser bundles are stale — run npm run build:docs');
+  console.error('FAIL: browser bundles are stale â€” run npm run build:docs');
   process.exit(1);
 }
 
-// 6. Tarball guard — npm pack must match the intentional files list.
+// 6. Tarball guard â€” npm pack must match the intentional files list.
 if (run('Tarball guard', process.execPath, ['scripts/check-tarball.js']) !== 0) {
-  console.error('FAIL: the npm tarball drifted from the files list — see scripts/check-tarball.js');
+  console.error('FAIL: the npm tarball drifted from the files list â€” see scripts/check-tarball.js');
   process.exit(1);
 }
 
@@ -108,12 +108,12 @@ if (run('Stills guard', process.execPath, ['scripts/check-stills.js']) !== 0) {
 
 // 8. Reproduction guard: committed engine artifacts regenerate identically.
 if (run('Reproduction guard', process.execPath, ['scripts/check-repro.js']) !== 0) {
-  console.error('FAIL: committed artifacts are stale — run npm run examples and commit');
+  console.error('FAIL: committed artifacts are stale â€” run npm run examples and commit');
   process.exit(1);
 }
 
 if (!PYTHON) {
-  console.log('\nPython not found — skipping the audit parity test and the gold smoke demo.');
+  console.log('\nPython not found â€” skipping the audit parity test and the gold smoke demo.');
   console.log('The GitHub Action runs the Python mirror, and the parity test guards it there.');
   console.log('\nALL TESTS PASSED');
   process.exit(0);
