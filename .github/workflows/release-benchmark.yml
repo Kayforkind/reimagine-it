@@ -196,7 +196,7 @@ jobs:
         with:
           node-version: "22"
 
-      - uses: sigstore/cosign-installer@756fe2d284c7292c4e9b62c8a28f1e5629c59532 # v4.1.3
+      - uses: sigstore/cosign-installer@881c63bd87e38389154debd8331404ce7ca8a3ab # v4.1.4
 
       - name: Pack the exact published artifact
         run: |
@@ -221,7 +221,7 @@ jobs:
           subject-path: ${{ env.TARBALL }}
 
       - name: Attach artifacts + provenance to the release
-        uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
+        uses: softprops/action-gh-release@8a0cd651e5b2365bd640854a3fa5dfc70e4875f3 # v3.0.4
         with:
           tag_name: ${{ github.event.release.tag_name }}
           files: |
